@@ -1,581 +1,781 @@
 'use client'
 
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import Link from 'next/link'
-import { Search, Clock, Users, Star, Shield, Award, CheckCircle, MessageCircle, Play, Eye, MapPin, Timer, TrendingUp, Zap } from 'lucide-react'
+import {
+  Award,
+  CheckCircle,
+  Gauge,
+  Layers,
+  MapPin,
+  MessageCircle,
+  Play,
+  Radar,
+  Search,
+  Shield,
+  Sparkles,
+  Star,
+  Timer,
+  TrendingUp,
+  Users,
+  Zap,
+  Eye,
+} from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
 
+const palette = {
+  accentSoft: 'rgba(36, 224, 132, 0.12)',
+  highlightSoft: 'rgba(247, 183, 51, 0.12)',
+}
+
+type LiveAuction = {
+  id: number
+  title: string
+  type: string
+  currentBid: number
+  timeLeft: string
+  participants: number
+  image: string
+}
+
+type Product = {
+  id: number
+  title: string
+  category: string
+  price: number
+  location: string
+  rating: number
+  image: string
+  seller: string
+}
+
+type Seller = {
+  id: number
+  name: string
+  location: string
+  rating: number
+  sales: number
+  image: string
+  verified: boolean
+}
+
 export default function HomePage() {
   const [searchQuery, setSearchQuery] = useState('')
 
-  const liveAuctions = [
+  const liveAuctions: LiveAuction[] = useMemo(
+    () => [
+      {
+        id: 1,
+        title: 'Leilão Fazenda Santa Rita',
+        type: 'Gado de Corte',
+        currentBid: 15000,
+        timeLeft: '02:45:30',
+        participants: 47,
+        image: 'https://images.unsplash.com/photo-1560114928-40f1f1eb26a0?w=900&h=700&fit=crop',
+      },
+      {
+        id: 2,
+        title: 'Leilão Elite Genética',
+        type: 'Cavalos',
+        currentBid: 85000,
+        timeLeft: '01:12:15',
+        participants: 23,
+        image: 'https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=900&h=700&fit=crop',
+      },
+      {
+        id: 3,
+        title: 'Leilão Sêmen Premium',
+        type: 'Sêmen Bovino',
+        currentBid: 2500,
+        timeLeft: '05:30:45',
+        participants: 31,
+        image: 'https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=900&h=700&fit=crop',
+      },
+    ],
+    []
+  )
+
+  const featuredProducts: Product[] = useMemo(
+    () => [
+      {
+        id: 1,
+        title: 'Touro Nelore PO',
+        category: 'Gado de Corte',
+        price: 45000,
+        location: 'Goiás, GO',
+        rating: 4.8,
+        image: 'https://images.unsplash.com/photo-1560114928-40f1f1eb26a0?w=900&h=700&fit=crop',
+        seller: 'Fazenda Boa Vista',
+      },
+      {
+        id: 2,
+        title: 'Égua Mangalarga',
+        category: 'Cavalos',
+        price: 25000,
+        location: 'Minas Gerais, MG',
+        rating: 4.9,
+        image: 'https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=900&h=700&fit=crop',
+        seller: 'Haras São João',
+      },
+      {
+        id: 3,
+        title: 'Vaca Holandesa',
+        category: 'Gado de Leite',
+        price: 8500,
+        location: 'São Paulo, SP',
+        rating: 4.7,
+        image: 'https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=900&h=700&fit=crop',
+        seller: 'Fazenda Três Rios',
+      },
+      {
+        id: 4,
+        title: 'Sêmen Angus Premium',
+        category: 'Sêmen',
+        price: 150,
+        location: 'Rio Grande do Sul, RS',
+        rating: 5,
+        image: 'https://images.unsplash.com/photo-1560114928-40f1f1eb26a0?w=900&h=700&fit=crop',
+        seller: 'Genética Elite',
+      },
+    ],
+    []
+  )
+
+  const topSellers: Seller[] = useMemo(
+    () => [
+      {
+        id: 1,
+        name: 'Fazenda Boa Vista',
+        location: 'Goiás, GO',
+        rating: 4.9,
+        sales: 156,
+        image: 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=200&h=200&fit=crop',
+        verified: true,
+      },
+      {
+        id: 2,
+        name: 'Haras São João',
+        location: 'Minas Gerais, MG',
+        rating: 4.8,
+        sales: 89,
+        image: 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=200&h=200&fit=crop',
+        verified: true,
+      },
+      {
+        id: 3,
+        name: 'Fazenda Três Rios',
+        location: 'São Paulo, SP',
+        rating: 4.7,
+        sales: 234,
+        image: 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=200&h=200&fit=crop',
+        verified: true,
+      },
+    ],
+    []
+  )
+
+  const platformPillars = [
     {
-      id: 1,
-      title: "Leilão Fazenda Santa Rita",
-      type: "Gado de Corte",
-      currentBid: 15000,
-      timeLeft: "02:45:30",
-      participants: 47,
-      image: "https://images.unsplash.com/photo-1560114928-40f1f1eb26a0?w=400&h=300&fit=crop"
+      title: 'Liquidez Global',
+      description:
+        'Integração com as maiores redes de fazendas, centrais de sêmen e leilões presenciais do país.',
+      icon: Gauge,
+      accent: palette.accentSoft,
     },
     {
-      id: 2,
-      title: "Leilão Elite Genética",
-      type: "Cavalos",
-      currentBid: 85000,
-      timeLeft: "01:12:15",
-      participants: 23,
-      image: "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=400&h=300&fit=crop"
+      title: 'Inteligência de Mercado',
+      description:
+        'Dados em tempo real sobre genética, performance e histórico de preços para negociações assertivas.',
+      icon: Radar,
+      accent: palette.highlightSoft,
     },
     {
-      id: 3,
-      title: "Leilão Sêmen Premium",
-      type: "Sêmen Bovino",
-      currentBid: 2500,
-      timeLeft: "05:30:45",
-      participants: 31,
-      image: "https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=400&h=300&fit=crop"
-    }
+      title: 'Operações Assistidas',
+      description:
+        'Equipe especializada acompanha todo o ciclo da transação, do cadastro à entrega.',
+      icon: MessageCircle,
+      accent: 'rgba(59,130,246,0.12)',
+    },
+    {
+      title: 'Infraestrutura Escalável',
+      description:
+        'Arquitetura cloud-native com disponibilidade 24/7, monitoramento contínuo e SLA corporativo.',
+      icon: Layers,
+      accent: 'rgba(124,58,237,0.12)',
+    },
   ]
 
-  const featuredProducts = [
+  const trustSignals = [
     {
-      id: 1,
-      title: "Touro Nelore PO",
-      category: "Gado de Corte",
-      price: 45000,
-      location: "Goiás, GO",
-      rating: 4.8,
-      image: "https://images.unsplash.com/photo-1560114928-40f1f1eb26a0?w=400&h=300&fit=crop",
-      seller: "Fazenda Boa Vista"
+      title: 'Compliance e Auditoria',
+      description:
+        'Processos alinhados às normas do MAPA com auditoria contínua de sanidade animal e rastreabilidade.',
+      icon: Shield,
     },
     {
-      id: 2,
-      title: "Égua Mangalarga",
-      category: "Cavalos",
-      price: 25000,
-      location: "Minas Gerais, MG",
-      rating: 4.9,
-      image: "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=400&h=300&fit=crop",
-      seller: "Haras São João"
+      title: 'Escrow Inteligente',
+      description:
+        'Pagamento protegido em múltiplas etapas com liberação condicionada a vistorias técnicas.',
+      icon: CheckCircle,
     },
     {
-      id: 3,
-      title: "Vaca Holandesa",
-      category: "Gado de Leite",
-      price: 8500,
-      location: "São Paulo, SP",
-      rating: 4.7,
-      image: "https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=400&h=300&fit=crop",
-      seller: "Fazenda Três Rios"
+      title: 'Certificação Premium',
+      description:
+        'Parceiros certificados e curadoria técnica garantem genética e procedência superiores.',
+      icon: Award,
     },
-    {
-      id: 4,
-      title: "Sêmen Angus Premium",
-      category: "Sêmen",
-      price: 150,
-      location: "Rio Grande do Sul, RS",
-      rating: 5.0,
-      image: "https://images.unsplash.com/photo-1560114928-40f1f1eb26a0?w=400&h=300&fit=crop",
-      seller: "Genética Elite"
-    }
   ]
 
-  const topSellers = [
-    {
-      id: 1,
-      name: "Fazenda Boa Vista",
-      location: "Goiás, GO",
-      rating: 4.9,
-      sales: 156,
-      image: "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=100&h=100&fit=crop",
-      verified: true
-    },
-    {
-      id: 2,
-      name: "Haras São João",
-      location: "Minas Gerais, MG",
-      rating: 4.8,
-      sales: 89,
-      image: "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=100&h=100&fit=crop",
-      verified: true
-    },
-    {
-      id: 3,
-      name: "Fazenda Três Rios",
-      location: "São Paulo, SP",
-      rating: 4.7,
-      sales: 234,
-      image: "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=100&h=100&fit=crop",
-      verified: true
-    }
+  const metrics = [
+    { label: 'Volume negociado', value: 'R$ 2,8 bi', trend: '+32% YoY' },
+    { label: 'Fazendas conectadas', value: '2.5k+', trend: '+180 novas' },
+    { label: 'Leilões mensais', value: '120+', trend: 'live & on-demand' },
+    { label: 'Índice de satisfação', value: '98%', trend: 'NPS 72' },
   ]
 
   return (
-    <div className="min-h-screen bg-[#F7F6F2]">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
-              <Link href="/" className="text-2xl font-bold text-[#1E4D2B]">
-                AgroMarket
-              </Link>
+    <div className="relative min-h-screen overflow-hidden bg-[#010706] text-white">
+      <div className="pointer-events-none absolute inset-0 -z-10">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#010908] via-[#041511] to-[#03120E]" />
+        <div className="absolute inset-x-0 top-0 h-[420px] bg-[radial-gradient(circle_at_top,_rgba(36,224,132,0.2),_transparent_60%)]" />
+        <div className="absolute inset-x-0 bottom-0 h-[380px] bg-[radial-gradient(circle_at_bottom,_rgba(247,183,51,0.18),_transparent_62%)]" />
+        <div className="absolute left-1/2 top-1/3 h-72 w-72 -translate-x-1/2 rounded-full bg-[#24E084]/20 blur-3xl" />
+      </div>
+
+      <header className="sticky top-0 z-40 border-b border-white/5 bg-[#051410]/80 backdrop-blur-xl">
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+          <Link href="/" className="flex items-center gap-2">
+            <span className="relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-[#24E084] via-[#1BA667] to-[#0E4735] text-lg font-semibold text-[#051410] shadow-[0_0_25px_rgba(36,224,132,0.35)]">
+              AM
+            </span>
+            <div>
+              <p className="text-sm font-medium uppercase tracking-[0.2em] text-[#73F7B8]">AgroMarket</p>
+              <p className="text-xs text-[#A7C0B6]">Market intelligence para o agro</p>
             </div>
-            <nav className="hidden md:flex space-x-8">
-              <Link href="/" className="text-[#2B2E2B] hover:text-[#C89F45] transition-colors duration-300">Início</Link>
-              <Link href="/catalogo" className="text-[#2B2E2B] hover:text-[#C89F45] transition-colors duration-300">Catálogo</Link>
-              <Link href="/leiloes" className="text-[#2B2E2B] hover:text-[#C89F45] transition-colors duration-300">Leilões</Link>
-              <Link href="/vender" className="text-[#2B2E2B] hover:text-[#C89F45] transition-colors duration-300">Vender</Link>
-              <Link href="/sobre" className="text-[#2B2E2B] hover:text-[#C89F45] transition-colors duration-300">Sobre</Link>
-            </nav>
-            <div className="flex items-center space-x-4">
-              <Link href="/login">
-                <Button variant="outline" className="border-[#1E4D2B] text-[#1E4D2B] hover:bg-[#1E4D2B] hover:text-white transition-all duration-300">
-                  Entrar
-                </Button>
-              </Link>
-              <Link href="/cadastro">
-                <Button className="bg-[#1E4D2B] hover:bg-[#163B20] text-white transition-all duration-300 transform hover:scale-105">
-                  Cadastrar
-                </Button>
-              </Link>
-            </div>
+          </Link>
+          <nav className="hidden items-center gap-8 text-sm font-medium text-[#C9E6DD] md:flex">
+            <Link href="/" className="transition-colors hover:text-white">
+              Início
+            </Link>
+            <Link href="/catalogo" className="transition-colors hover:text-white">
+              Catálogo
+            </Link>
+            <Link href="/leiloes" className="transition-colors hover:text-white">
+              Leilões
+            </Link>
+            <Link href="/vender" className="transition-colors hover:text-white">
+              Vender
+            </Link>
+            <Link href="/sobre" className="transition-colors hover:text-white">
+              Sobre
+            </Link>
+          </nav>
+          <div className="flex items-center gap-3">
+            <Link href="/login">
+              <Button
+                variant="outline"
+                className="border-white/10 bg-white/5 text-[#C9E6DD] transition-colors hover:border-white/30 hover:bg-white/10 hover:text-white"
+              >
+                Entrar
+              </Button>
+            </Link>
+            <Link href="/cadastro">
+              <Button className="group relative overflow-hidden border border-[#24E084]/50 bg-[#24E084] px-5 text-[#04100B] shadow-[0_0_25px_rgba(36,224,132,0.3)] transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-[0_15px_35px_-15px_rgba(36,224,132,0.75)]">
+                <span className="absolute inset-0 translate-y-[120%] bg-gradient-to-r from-transparent via-white/40 to-transparent opacity-0 transition-all duration-700 group-hover:translate-y-[-10%] group-hover:opacity-100" />
+                <span className="relative font-semibold">Cadastre sua fazenda</span>
+              </Button>
+            </Link>
           </div>
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-[#1E4D2B] to-[#2F6C3F] text-white py-20">
-        <div className="absolute inset-0 bg-black/20"></div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white drop-shadow-lg">
-            O Maior Marketplace do Agronegócio
-          </h1>
-          <p className="text-xl md:text-2xl mb-8 text-[#E0E0E0] max-w-3xl mx-auto">
-            Conectamos produtores rurais em todo o Brasil. Compre, venda e participe de leilões com segurança e transparência.
-          </p>
-          
-          {/* Search Bar */}
-          <div className="max-w-2xl mx-auto mb-8">
-            <div className="flex rounded-lg overflow-hidden shadow-2xl">
-              <Input
-                type="text"
-                placeholder="Buscar gado, cavalos, sêmen..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="flex-1 border-0 text-lg py-4 px-6 focus:ring-0 text-[#2B2E2B]"
-              />
-              <Link href={`/catalogo?search=${searchQuery}`}>
-                <Button className="bg-[#C89F45] hover:bg-[#B8913D] text-white px-8 py-4 rounded-none transition-all duration-300">
-                  <Search className="w-5 h-5" />
+      <main className="relative z-10">
+        <section className="px-4 pb-24 pt-20 sm:px-6 lg:px-8">
+          <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[1.1fr_0.9fr]">
+            <div className="space-y-10">
+              <Badge className="w-fit border border-[#24E084]/40 bg-[#24E084]/15 text-[#73F7B8]">
+                Plataforma líder em inteligência agropecuária
+              </Badge>
+              <div className="space-y-6">
+                <h1 className="text-4xl font-semibold leading-tight text-white md:text-6xl">
+                  Um ecossistema completo para leilões, genética e negócios do campo
+                </h1>
+                <p className="max-w-xl text-lg text-[#C0D7D0]">
+                  Centralize compras, vendas e operações de leilões em uma infraestrutura digital com curadoria técnica,
+                  dados em tempo real e segurança transacional nível enterprise.
+                </p>
+              </div>
+              <div className="flex flex-col gap-4 sm:flex-row">
+                <div className="flex flex-1 items-center overflow-hidden rounded-2xl border border-white/5 bg-white/5 backdrop-blur">
+                  <Input
+                    type="text"
+                    placeholder="Buscar gado elite, sêmen, genética..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="flex-1 border-0 bg-transparent text-base text-white placeholder:text-[#4A5F57] focus-visible:ring-0"
+                  />
+                  <Link href={`/catalogo?search=${encodeURIComponent(searchQuery)}`}>
+                    <Button className="h-full rounded-none bg-[#24E084] px-6 text-[#05140F] transition-colors hover:bg-[#1AC773]">
+                      <Search className="h-5 w-5" />
+                    </Button>
+                  </Link>
+                </div>
+                <Link href="/leiloes" className="flex items-center justify-center">
+                  <Button className="h-full min-h-12 w-full gap-2 border border-white/5 bg-white/10 text-white transition-colors hover:border-[#24E084]/60 hover:bg-[#24E084]/20">
+                    <Zap className="h-4 w-4" />
+                    Ver leilões ao vivo
+                  </Button>
+                </Link>
+              </div>
+              <div className="grid gap-4 sm:grid-cols-2">
+                {metrics.map((metric) => (
+                  <div
+                    key={metric.label}
+                    className="group relative overflow-hidden rounded-2xl border border-white/5 bg-white/[0.06] p-6 backdrop-blur-xl transition-transform duration-200 hover:-translate-y-1 hover:border-[#24E084]/40"
+                  >
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(36,224,132,0.12),_transparent_65%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                    <p className="text-sm uppercase tracking-[0.2em] text-[#6D8C80]">{metric.label}</p>
+                    <p className="mt-2 text-3xl font-semibold text-white">{metric.value}</p>
+                    <p className="mt-3 text-sm text-[#73F7B8]">{metric.trend}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="relative">
+              <div className="absolute inset-0 -z-10 rounded-[32px] border border-white/5 bg-gradient-to-br from-white/10 via-transparent to-white/5 blur-[2px]" />
+              <div className="relative overflow-hidden rounded-[32px] border border-white/10 bg-[#0A1915]/80 p-8 backdrop-blur-xl">
+                <div className="flex items-center justify-between">
+                  <span className="flex items-center gap-2 text-sm font-medium text-[#73F7B8]">
+                    <Sparkles className="h-4 w-4" />
+                    Operações inteligentes
+                  </span>
+                  <Badge className="border border-[#F7B733]/40 bg-[#F7B733]/10 text-[#F7E0B4]">Live analytics</Badge>
+                </div>
+                <div className="mt-6 space-y-6">
+                  {liveAuctions.map((auction) => (
+                    <div
+                      key={auction.id}
+                      className="rounded-3xl border border-white/5 bg-white/[0.04] p-4 shadow-[0_20px_40px_-35px_rgba(0,0,0,0.45)] transition-all duration-200 hover:border-[#24E084]/40 hover:bg-white/[0.07]"
+                    >
+                      <div className="flex items-center gap-4">
+                        <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-2xl">
+                          <img src={auction.image} alt={auction.title} className="h-full w-full object-cover" />
+                          <span className="absolute inset-0 rounded-2xl border border-white/10" />
+                        </div>
+                        <div className="flex-1 space-y-1">
+                          <div className="flex items-center justify-between">
+                            <p className="text-sm font-medium text-white">{auction.title}</p>
+                            <Badge className="border border-[#24E084]/40 bg-[#24E084]/15 text-[#73F7B8]">{auction.type}</Badge>
+                          </div>
+                          <div className="flex flex-wrap items-center gap-4 text-xs text-[#A7C0B6]">
+                            <span className="flex items-center gap-1">
+                              <TrendingUp className="h-3.5 w-3.5" /> R$ {auction.currentBid.toLocaleString()}
+                            </span>
+                            <span className="flex items-center gap-1 text-[#F7B733]">
+                              <Timer className="h-3.5 w-3.5" /> {auction.timeLeft}
+                            </span>
+                            <span className="flex items-center gap-1">
+                              <Users className="h-3.5 w-3.5" /> {auction.participants}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <Link href="/leiloes" className="mt-8 block">
+                  <Button className="w-full border border-[#24E084]/30 bg-[#24E084]/20 text-[#73F7B8] transition-all hover:bg-[#24E084]/30">
+                    Abrir centro de leilões
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="px-4 py-20 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-6xl space-y-12">
+            <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#4D7969]">Leilões ao vivo</p>
+                <h2 className="mt-3 text-3xl font-semibold text-white md:text-4xl">
+                  Transmissão simultânea com auditoria digital
+                </h2>
+              </div>
+              <Link href="/leiloes">
+                <Button className="border border-white/10 bg-white/10 text-white transition-colors hover:border-[#24E084]/40 hover:bg-[#24E084]/20">
+                  Acessar agenda completa
                 </Button>
               </Link>
             </div>
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {liveAuctions.map((auction) => (
+                <Card
+                  key={auction.id}
+                  className="group relative overflow-hidden border border-white/5 bg-white/5 transition-all duration-300 hover:-translate-y-2 hover:border-[#24E084]/50 hover:bg-white/10"
+                >
+                  <div className="relative h-52 overflow-hidden">
+                    <img src={auction.image} alt={auction.title} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/50" />
+                    <Badge className="absolute left-4 top-4 border border-[#F25555]/50 bg-[#F25555]/80 text-white">
+                      <Play className="mr-1 h-3.5 w-3.5" /> AO VIVO
+                    </Badge>
+                  </div>
+                  <CardContent className="space-y-6 p-6">
+                    <div className="space-y-2">
+                      <h3 className="text-xl font-semibold text-white">{auction.title}</h3>
+                      <p className="text-sm text-[#7D9D92]">Certificado e auditado em blockchain de rastreabilidade animal.</p>
+                    </div>
+                    <div className="grid grid-cols-3 gap-4 text-sm text-white/80">
+                      <div>
+                        <p className="text-xs uppercase tracking-[0.2em] text-[#4D7969]">Lance atual</p>
+                        <p className="mt-1 font-semibold">R$ {auction.currentBid.toLocaleString()}</p>
+                      </div>
+                      <div>
+                        <p className="text-xs uppercase tracking-[0.2em] text-[#4D7969]">Tempo</p>
+                        <p className="mt-1 font-semibold text-[#F7B733]">{auction.timeLeft}</p>
+                      </div>
+                      <div>
+                        <p className="text-xs uppercase tracking-[0.2em] text-[#4D7969]">Participantes</p>
+                        <p className="mt-1 font-semibold">{auction.participants}</p>
+                      </div>
+                    </div>
+                    <Link href={`/leilao/${auction.id}`}>
+                      <Button className="w-full border border-[#24E084]/30 bg-[#24E084]/15 text-[#73F7B8] transition-colors hover:bg-[#24E084]/30">
+                        Abrir sala de lances
+                      </Button>
+                    </Link>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </div>
+        </section>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/leiloes">
-              <Button className="bg-[#C89F45] hover:bg-[#B8913D] text-white px-8 py-4 text-lg font-semibold transition-all duration-300 transform hover:scale-105">
-                <Zap className="w-5 h-5 mr-2" />
-                Participar de Leilão
+        <section className="px-4 py-20 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-6xl space-y-10">
+            <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#4D7969]">Curadoria genética</p>
+                <h2 className="mt-3 text-3xl font-semibold text-white md:text-4xl">
+                  Destaques com avaliação zootécnica especializada
+                </h2>
+              </div>
+              <Link href="/catalogo">
+                <Button className="border border-[#24E084]/40 bg-[#24E084]/15 text-[#73F7B8] transition-colors hover:bg-[#24E084]/25">
+                  Ver catálogo completo
+                </Button>
+              </Link>
+            </div>
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+              {featuredProducts.map((product) => (
+                <Card
+                  key={product.id}
+                  className="group relative overflow-hidden border border-white/5 bg-[#0C1C18]/80 transition-all duration-300 hover:-translate-y-2 hover:border-[#24E084]/40"
+                >
+                  <div className="relative h-48 overflow-hidden">
+                    <img src={product.image} alt={product.title} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/60" />
+                    <Badge className="absolute left-4 top-4 border border-[#F7B733]/30 bg-[#F7B733]/20 text-[#F7E0B4]">
+                      {product.category}
+                    </Badge>
+                  </div>
+                  <CardContent className="space-y-4 p-6">
+                    <div>
+                      <h3 className="text-lg font-semibold text-white">{product.title}</h3>
+                      <div className="mt-2 flex items-center gap-2 text-sm text-[#7D9D92]">
+                        <MapPin className="h-4 w-4" />
+                        {product.location}
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 text-sm">
+                      <div className="flex items-center gap-1 text-[#F7B733]">
+                        {[...Array(5)].map((_, index) => (
+                          <Star
+                            key={index}
+                            className={`h-4 w-4 ${index < Math.round(product.rating) ? 'fill-current text-[#F7B733]' : 'text-[#2A3F39]'}`}
+                          />
+                        ))}
+                      </div>
+                      <span className="text-[#7D9D92]">{product.rating.toFixed(1)} / 5.0</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-xs uppercase tracking-[0.2em] text-[#4D7969]">Oferta</p>
+                        <p className="text-2xl font-semibold text-white">R$ {product.price.toLocaleString()}</p>
+                      </div>
+                      <p className="text-xs text-[#7D9D92]">{product.seller}</p>
+                    </div>
+                    <Link href={`/produto/${product.id}`}>
+                      <Button className="w-full gap-2 border border-white/10 bg-white/10 text-white transition-all hover:border-[#24E084]/40 hover:bg-[#24E084]/20">
+                        <Eye className="h-4 w-4" />
+                        Ver ficha técnica
+                      </Button>
+                    </Link>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="px-4 py-20 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-6xl space-y-12">
+            <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#4D7969]">Trusted sellers</p>
+                <h2 className="mt-3 text-3xl font-semibold text-white md:text-4xl">
+                  Fazendas e haras com performance comprovada
+                </h2>
+              </div>
+              <Link href="/vendedores">
+                <Button className="border border-white/10 bg-white/10 text-white transition-colors hover:border-[#24E084]/40 hover:bg-[#24E084]/20">
+                  Ver todos os parceiros
+                </Button>
+              </Link>
+            </div>
+            <div className="grid gap-8 md:grid-cols-3">
+              {topSellers.map((seller) => (
+                <Card
+                  key={seller.id}
+                  className="group relative overflow-hidden border border-white/5 bg-[#0C1C18]/80 transition-all duration-300 hover:-translate-y-2 hover:border-[#24E084]/40"
+                >
+                  <CardContent className="space-y-6 p-8">
+                    <div className="relative mx-auto h-24 w-24 overflow-hidden rounded-3xl border border-white/10">
+                      <img src={seller.image} alt={seller.name} className="h-full w-full object-cover" />
+                      {seller.verified && (
+                        <Badge className="absolute -top-3 -right-2 border border-[#24E084]/40 bg-[#24E084]/80 text-white">
+                          Elite
+                        </Badge>
+                      )}
+                    </div>
+                    <div className="space-y-2 text-center">
+                      <h3 className="text-xl font-semibold text-white">{seller.name}</h3>
+                      <div className="flex items-center justify-center gap-2 text-sm text-[#7D9D92]">
+                        <MapPin className="h-4 w-4" />
+                        {seller.location}
+                      </div>
+                    </div>
+                    <div className="flex flex-col items-center gap-3 text-sm text-[#7D9D92]">
+                      <div className="flex items-center gap-1 text-[#F7B733]">
+                        {[...Array(5)].map((_, index) => (
+                          <Star
+                            key={index}
+                            className={`h-4 w-4 ${index < Math.round(seller.rating) ? 'fill-current text-[#F7B733]' : 'text-[#2A3F39]'}`}
+                          />
+                        ))}
+                      </div>
+                      <span>{seller.rating.toFixed(1)} na plataforma</span>
+                      <span>{seller.sales} negociações concluídas</span>
+                    </div>
+                    <Link href={`/vendedor/${seller.id}`}>
+                      <Button className="w-full border border-white/10 bg-white/10 text-white transition-all hover:border-[#24E084]/40 hover:bg-[#24E084]/20">
+                        Abrir portfólio
+                      </Button>
+                    </Link>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="px-4 py-20 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-6xl space-y-12">
+            <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#4D7969]">Por que AgroMarket</p>
+                <h2 className="mt-3 text-3xl font-semibold text-white md:text-4xl">
+                  Tecnologia, dados e pessoas a favor do agronegócio
+                </h2>
+              </div>
+            </div>
+            <div className="grid gap-6 md:grid-cols-2">
+              {platformPillars.map((pillar) => (
+                <div
+                  key={pillar.title}
+                  className="group relative overflow-hidden rounded-3xl border border-white/5 bg-[#0B1E1A]/80 p-8 transition-all duration-300 hover:-translate-y-2 hover:border-[#24E084]/40"
+                >
+                  <div
+                    className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                    style={{ background: `radial-gradient(circle at top, ${pillar.accent}, transparent 70%)` }}
+                  />
+                  <div className="relative flex items-center gap-4">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-[#73F7B8]">
+                      <pillar.icon className="h-6 w-6" />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-semibold text-white">{pillar.title}</h3>
+                      <p className="mt-3 text-sm text-[#8BAC9F]">{pillar.description}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="relative px-4 py-24 sm:px-6 lg:px-8">
+          <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[#0E241E] via-[#071712] to-[#030C09]" />
+          <div className="absolute inset-x-0 top-0 -z-10 h-48 bg-[radial-gradient(circle_at_top,_rgba(36,224,132,0.25),_transparent_65%)]" />
+          <div className="mx-auto max-w-6xl">
+            <div className="grid gap-8 md:grid-cols-3">
+              {trustSignals.map((signal) => (
+                <div
+                  key={signal.title}
+                  className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-xl transition-all duration-300 hover:-translate-y-2 hover:border-[#24E084]/40"
+                >
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(36,224,132,0.12),_transparent_70%)] opacity-0 transition-opacity duration-300 hover:opacity-100" />
+                  <div className="relative flex flex-col gap-4">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#24E084]/15 text-[#73F7B8]">
+                      <signal.icon className="h-6 w-6" />
+                    </div>
+                    <h3 className="text-xl font-semibold text-white">{signal.title}</h3>
+                    <p className="text-sm text-[#9EBBB1]">{signal.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="px-4 py-24 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-5xl overflow-hidden rounded-[32px] border border-[#24E084]/30 bg-gradient-to-br from-[#122720] via-[#0B1B16] to-[#07120E] p-10 text-center shadow-[0_40px_120px_-60px_rgba(36,224,132,0.55)]">
+            <Badge className="border border-[#24E084]/40 bg-[#24E084]/15 text-[#73F7B8]">Expanda seus negócios</Badge>
+            <h2 className="mt-6 text-4xl font-semibold text-white md:text-5xl">
+              Conecte sua operação agro a compradores e investidores do Brasil inteiro
+            </h2>
+            <p className="mt-6 text-lg text-[#C0D7D0]">
+              Tenha suporte especializado, auditoria técnica e dados estratégicos para alavancar seus leilões, vendas diretas e
+              marketplace.
+            </p>
+            <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+              <Link href="/cadastro" className="w-full sm:w-auto">
+                <Button className="w-full gap-2 border border-[#24E084]/60 bg-[#24E084] px-8 text-[#04100B] transition-transform duration-200 hover:-translate-y-0.5 hover:bg-[#1AC773]">
+                  <TrendingUp className="h-5 w-5" />
+                  Quero vender no AgroMarket
+                </Button>
+              </Link>
+              <Button
+                className="w-full border border-white/10 bg-white/10 px-8 text-white transition-colors hover:border-[#24E084]/40 hover:bg-[#24E084]/20 sm:w-auto"
+                onClick={() => alert('Chat com especialista em breve!')}
+              >
+                <MessageCircle className="h-5 w-5" />
+                Falar com um especialista
               </Button>
-            </Link>
-            <Link href="/cadastro">
-              <Button className="bg-[#1E4D2B] hover:bg-[#163B20] text-white px-8 py-4 text-lg font-semibold border-2 border-white/20 transition-all duration-300 transform hover:scale-105">
-                Cadastrar Gratuitamente
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Metrics Section */}
-      <section className="py-16 bg-[#F7F6F2]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold text-[#1E4D2B] mb-2">50k+</div>
-              <div className="text-[#6E7D5B] font-medium">Animais Vendidos</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold text-[#1E4D2B] mb-2">2.5k+</div>
-              <div className="text-[#6E7D5B] font-medium">Fazendas Cadastradas</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold text-[#1E4D2B] mb-2">R$ 2.8B</div>
-              <div className="text-[#6E7D5B] font-medium">Volume Negociado</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold text-[#1E4D2B] mb-2">98%</div>
-              <div className="text-[#6E7D5B] font-medium">Satisfação</div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </main>
 
-      {/* Live Auctions */}
-      <section className="py-16 bg-[#FFFDF7]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#2B2E2B] mb-4">
-              🔥 Leilões ao Vivo
-            </h2>
-            <p className="text-xl text-[#6E7D5B] max-w-2xl mx-auto">
-              Participe agora dos leilões em andamento e garante os melhores animais
+      <footer className="border-t border-white/5 bg-[#040C09]/90 py-16 text-[#8BAC9F]">
+        <div className="mx-auto grid max-w-6xl gap-12 px-4 sm:px-6 lg:px-8 md:grid-cols-4">
+          <div className="space-y-4">
+            <div className="flex items-center gap-3 text-white">
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#24E084] via-[#1BA667] to-[#0E4735] text-lg font-semibold text-[#051410]">
+                AM
+              </span>
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#73F7B8]">AgroMarket</p>
+                <p className="text-xs text-[#8BAC9F]">Plataforma oficial do agronegócio brasileiro</p>
+              </div>
+            </div>
+            <p>
+              A maior infraestrutura digital para leilões, marketplace de animais, sêmen e soluções financeiras do agro.
             </p>
+            <div className="flex gap-3">
+              {['in', 'ig', 'yt'].map((item) => (
+                <span
+                  key={item}
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-sm uppercase tracking-[0.2em] text-white/70"
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
           </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {liveAuctions.map((auction) => (
-              <Card key={auction.id} className="overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-0">
-                <div className="relative">
-                  <img src={auction.image} alt={auction.title} className="w-full h-48 object-cover" />
-                  <Badge className="absolute top-4 left-4 bg-[#B8413D] text-white font-semibold">
-                    <Play className="w-3 h-3 mr-1" />
-                    AO VIVO
-                  </Badge>
-                </div>
-                <CardContent className="p-6">
-                  <h3 className="font-bold text-lg text-[#2B2E2B] mb-2">{auction.title}</h3>
-                  <Badge className="bg-[#C89F45] text-white mb-4">{auction.type}</Badge>
-                  
-                  <div className="space-y-3 mb-6">
-                    <div className="flex justify-between items-center">
-                      <span className="text-[#6E7D5B]">Lance atual:</span>
-                      <span className="font-bold text-[#1E4D2B] text-lg">
-                        R$ {auction.currentBid.toLocaleString()}
-                      </span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-[#6E7D5B]">Tempo restante:</span>
-                      <span className="font-bold text-[#B8413D] flex items-center">
-                        <Timer className="w-4 h-4 mr-1" />
-                        {auction.timeLeft}
-                      </span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-[#6E7D5B]">Participantes:</span>
-                      <span className="font-bold text-[#2B2E2B] flex items-center">
-                        <Users className="w-4 h-4 mr-1" />
-                        {auction.participants}
-                      </span>
-                    </div>
-                  </div>
-
-                  <Link href={`/leilao/${auction.id}`}>
-                    <Button className="w-full bg-[#1E4D2B] hover:bg-[#163B20] text-white transition-all duration-300 transform hover:scale-105">
-                      Entrar no Leilão
-                    </Button>
-                  </Link>
-                </CardContent>
-              </Card>
-            ))}
+          <div className="space-y-4">
+            <h4 className="text-sm font-semibold uppercase tracking-[0.3em] text-white">Categorias</h4>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <Link href="/catalogo?categoria=gado-corte" className="transition-colors hover:text-white">
+                  Gado de Corte
+                </Link>
+              </li>
+              <li>
+                <Link href="/catalogo?categoria=gado-leite" className="transition-colors hover:text-white">
+                  Gado de Leite
+                </Link>
+              </li>
+              <li>
+                <Link href="/catalogo?categoria=cavalos" className="transition-colors hover:text-white">
+                  Cavalos
+                </Link>
+              </li>
+              <li>
+                <Link href="/catalogo?categoria=semen" className="transition-colors hover:text-white">
+                  Sêmen
+                </Link>
+              </li>
+            </ul>
+          </div>
+          <div className="space-y-4">
+            <h4 className="text-sm font-semibold uppercase tracking-[0.3em] text-white">Empresa</h4>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <Link href="/sobre" className="transition-colors hover:text-white">
+                  Sobre nós
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog" className="transition-colors hover:text-white">
+                  Blog
+                </Link>
+              </li>
+              <li>
+                <Link href="/contato" className="transition-colors hover:text-white">
+                  Contato
+                </Link>
+              </li>
+              <li>
+                <Link href="/carreiras" className="transition-colors hover:text-white">
+                  Carreiras
+                </Link>
+              </li>
+            </ul>
+          </div>
+          <div className="space-y-4">
+            <h4 className="text-sm font-semibold uppercase tracking-[0.3em] text-white">Suporte</h4>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <Link href="/ajuda" className="transition-colors hover:text-white">
+                  Central de ajuda
+                </Link>
+              </li>
+              <li>
+                <Link href="/termos" className="transition-colors hover:text-white">
+                  Termos de uso
+                </Link>
+              </li>
+              <li>
+                <Link href="/privacidade" className="transition-colors hover:text-white">
+                  Política de privacidade
+                </Link>
+              </li>
+              <li>
+                <Link href="/seguranca" className="transition-colors hover:text-white">
+                  Segurança
+                </Link>
+              </li>
+            </ul>
           </div>
         </div>
-      </section>
-
-      {/* Featured Products */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#2B2E2B] mb-4">
-              Destaques da Semana
-            </h2>
-            <p className="text-xl text-[#6E7D5B] max-w-2xl mx-auto">
-              Os melhores animais selecionados pela nossa equipe de especialistas
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {featuredProducts.map((product) => (
-              <Card key={product.id} className="overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-0">
-                <div className="relative">
-                  <img src={product.image} alt={product.title} className="w-full h-48 object-cover" />
-                  <Badge className="absolute top-4 left-4 bg-[#C89F45] text-white font-semibold">
-                    {product.category}
-                  </Badge>
-                </div>
-                <CardContent className="p-6">
-                  <h3 className="font-bold text-lg text-[#2B2E2B] mb-2">{product.title}</h3>
-                  <div className="flex items-center mb-2">
-                    <MapPin className="w-4 h-4 text-[#6E7D5B] mr-1" />
-                    <span className="text-[#6E7D5B] text-sm">{product.location}</span>
-                  </div>
-                  <div className="flex items-center mb-4">
-                    <div className="flex items-center">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className={`w-4 h-4 ${i < Math.floor(product.rating) ? 'text-[#F1C40F] fill-current' : 'text-gray-300'}`} />
-                      ))}
-                      <span className="ml-2 text-sm text-[#6E7D5B]">({product.rating})</span>
-                    </div>
-                  </div>
-                  <div className="flex justify-between items-center mb-4">
-                    <span className="text-2xl font-bold text-[#1E4D2B]">
-                      R$ {product.price.toLocaleString()}
-                    </span>
-                  </div>
-                  <div className="text-sm text-[#6E7D5B] mb-4">
-                    Vendido por: {product.seller}
-                  </div>
-                  <Link href={`/produto/${product.id}`}>
-                    <Button className="w-full bg-[#1E4D2B] hover:bg-[#163B20] text-white transition-all duration-300 transform hover:scale-105">
-                      <Eye className="w-4 h-4 mr-2" />
-                      Ver Detalhes
-                    </Button>
-                  </Link>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-
-          <div className="text-center mt-12">
-            <Link href="/catalogo">
-              <Button className="bg-[#C89F45] hover:bg-[#B8913D] text-white px-8 py-3 text-lg transition-all duration-300 transform hover:scale-105">
-                Ver Todo o Catálogo
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Top Sellers */}
-      <section className="py-16 bg-[#FFFDF7]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#2B2E2B] mb-4">
-              Vendedores Recomendados
-            </h2>
-            <p className="text-xl text-[#6E7D5B] max-w-2xl mx-auto">
-              Fazendas e criadores com as melhores avaliações da plataforma
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {topSellers.map((seller) => (
-              <Card key={seller.id} className="text-center shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-0">
-                <CardContent className="p-8">
-                  <div className="relative mb-6">
-                    <img src={seller.image} alt={seller.name} className="w-20 h-20 rounded-full mx-auto object-cover" />
-                    {seller.verified && (
-                      <Badge className="absolute -top-2 -right-2 bg-[#C89F45] text-white font-bold px-2 py-1 text-xs">
-                        TOP
-                      </Badge>
-                    )}
-                  </div>
-                  <h3 className="font-bold text-lg text-[#2B2E2B] mb-2">{seller.name}</h3>
-                  <div className="flex items-center justify-center mb-2">
-                    <MapPin className="w-4 h-4 text-[#6E7D5B] mr-1" />
-                    <span className="text-[#6E7D5B] text-sm">{seller.location}</span>
-                  </div>
-                  <div className="flex items-center justify-center mb-4">
-                    <div className="flex items-center">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className={`w-4 h-4 ${i < Math.floor(seller.rating) ? 'text-[#F1C40F] fill-current' : 'text-gray-300'}`} />
-                      ))}
-                      <span className="ml-2 text-sm text-[#6E7D5B]">({seller.rating})</span>
-                    </div>
-                  </div>
-                  <div className="text-sm text-[#6E7D5B] mb-6">
-                    {seller.sales} vendas realizadas
-                  </div>
-                  <Link href={`/vendedor/${seller.id}`}>
-                    <Button className="w-full bg-[#1E4D2B] hover:bg-[#163B20] text-white transition-all duration-300 transform hover:scale-105">
-                      Ver Perfil
-                    </Button>
-                  </Link>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* How It Works */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#8A5A32] mb-4">
-              Como Funciona
-            </h2>
-            <p className="text-xl text-[#6E7D5B] max-w-2xl mx-auto">
-              Processo simples e seguro para comprar e vender no agronegócio
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-[#1E4D2B] rounded-full flex items-center justify-center mx-auto mb-6">
-                <CheckCircle className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-bold text-[#8A5A32] mb-4">1. Cadastrar</h3>
-              <p className="text-[#6E7D5B]">
-                Crie sua conta gratuita e complete a verificação KYC rural com seus documentos
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-[#C89F45] rounded-full flex items-center justify-center mx-auto mb-6">
-                <Search className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-bold text-[#8A5A32] mb-4">2. Explorar</h3>
-              <p className="text-[#6E7D5B]">
-                Navegue pelo catálogo, use filtros avançados e encontre os melhores animais
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-[#1E4D2B] rounded-full flex items-center justify-center mx-auto mb-6">
-                <MessageCircle className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-bold text-[#8A5A32] mb-4">3. Negociar</h3>
-              <p className="text-[#6E7D5B]">
-                Converse com vendedores, participe de leilões ou faça ofertas diretas
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-[#C89F45] rounded-full flex items-center justify-center mx-auto mb-6">
-                <Award className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-bold text-[#8A5A32] mb-4">4. Finalizar</h3>
-              <p className="text-[#6E7D5B]">
-                Complete a compra com pagamento seguro e receba toda documentação
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Security & Trust */}
-      <section className="py-16 bg-[#1E4D2B]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Segurança e Confiança
-            </h2>
-            <p className="text-xl text-[#E0E0E0] max-w-2xl mx-auto">
-              Tecnologia e processos que garantem transações seguras no agronegócio
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Shield className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-4">KYC Rural</h3>
-              <p className="text-[#E0E0E0]">
-                Verificação completa de documentos rurais, CPF/CNPJ e localização das fazendas
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                <CheckCircle className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-4">Pagamento Seguro</h3>
-              <p className="text-[#E0E0E0]">
-                Transações protegidas com garantia de entrega e sistema de escrow
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Award className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-4">Certificação</h3>
-              <p className="text-[#E0E0E0]">
-                Todos os animais com documentação completa e certificados de origem
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-b from-[#F6E3B4] to-[#8A5A32]">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#5E3C1B] mb-6">
-            Pronto para Começar?
-          </h2>
-          <p className="text-xl text-[#5E3C1B]/80 mb-8 max-w-2xl mx-auto">
-            Junte-se a milhares de produtores que já confiam no AgroMarket para suas negociações
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/cadastro">
-              <Button className="bg-[#1E4D2B] hover:bg-[#C89F45] text-white px-8 py-4 text-lg font-semibold transition-all duration-300 transform hover:scale-105">
-                <TrendingUp className="w-5 h-5 mr-2" />
-                Começar a Vender
-              </Button>
-            </Link>
-            <Button 
-              className="bg-transparent border-2 border-[#C89F45] text-[#5E3C1B] hover:bg-[#C89F45] hover:text-white px-8 py-4 text-lg font-semibold transition-all duration-300 transform hover:scale-105"
-              onClick={() => {
-                // Implementar chat interno
-                alert('Chat com especialista em breve!')
-              }}
-            >
-              <MessageCircle className="w-5 h-5 mr-2" />
-              Falar com Especialista
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-[#4A3218] text-[#F7F6F2] py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div>
-              <h3 className="text-2xl font-bold text-[#C89F45] mb-4">AgroMarket</h3>
-              <p className="text-[#F7F6F2]/80 mb-4">
-                A maior plataforma de negócios do agronegócio brasileiro.
-              </p>
-              <div className="flex space-x-4">
-                <div className="w-8 h-8 bg-[#C89F45] rounded-full flex items-center justify-center">
-                  <span className="text-white text-sm">f</span>
-                </div>
-                <div className="w-8 h-8 bg-[#C89F45] rounded-full flex items-center justify-center">
-                  <span className="text-white text-sm">i</span>
-                </div>
-                <div className="w-8 h-8 bg-[#C89F45] rounded-full flex items-center justify-center">
-                  <span className="text-white text-sm">t</span>
-                </div>
-              </div>
-            </div>
-            <div>
-              <h4 className="font-bold mb-4 text-[#C89F45]">Categorias</h4>
-              <ul className="space-y-2">
-                <li><Link href="/catalogo?categoria=gado-corte" className="hover:text-[#C89F45] transition-colors duration-300">Gado de Corte</Link></li>
-                <li><Link href="/catalogo?categoria=gado-leite" className="hover:text-[#C89F45] transition-colors duration-300">Gado de Leite</Link></li>
-                <li><Link href="/catalogo?categoria=cavalos" className="hover:text-[#C89F45] transition-colors duration-300">Cavalos</Link></li>
-                <li><Link href="/catalogo?categoria=semen" className="hover:text-[#C89F45] transition-colors duration-300">Sêmen</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-bold mb-4 text-[#C89F45]">Empresa</h4>
-              <ul className="space-y-2">
-                <li><Link href="/sobre" className="hover:text-[#C89F45] transition-colors duration-300">Sobre Nós</Link></li>
-                <li><Link href="/blog" className="hover:text-[#C89F45] transition-colors duration-300">Blog</Link></li>
-                <li><Link href="/contato" className="hover:text-[#C89F45] transition-colors duration-300">Contato</Link></li>
-                <li><Link href="/carreiras" className="hover:text-[#C89F45] transition-colors duration-300">Carreiras</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-bold mb-4 text-[#C89F45]">Suporte</h4>
-              <ul className="space-y-2">
-                <li><Link href="/ajuda" className="hover:text-[#C89F45] transition-colors duration-300">Central de Ajuda</Link></li>
-                <li><Link href="/termos" className="hover:text-[#C89F45] transition-colors duration-300">Termos de Uso</Link></li>
-                <li><Link href="/privacidade" className="hover:text-[#C89F45] transition-colors duration-300">Política de Privacidade</Link></li>
-                <li><Link href="/seguranca" className="hover:text-[#C89F45] transition-colors duration-300">Segurança</Link></li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-[#C89F45]/20 mt-8 pt-8 text-center">
-            <p className="text-[#F7F6F2]/60">
-              © 2024 AgroMarket. Todos os direitos reservados.
-            </p>
-          </div>
+        <div className="mt-12 border-t border-white/5 pt-8 text-center text-xs text-[#4D7969]">
+          © {new Date().getFullYear()} AgroMarket. Todos os direitos reservados.
         </div>
       </footer>
     </div>
