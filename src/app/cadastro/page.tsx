@@ -2,11 +2,10 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { User, Mail, Phone, Lock, Upload, FileText, MapPin, Building, Eye, EyeOff, CheckCircle } from 'lucide-react'
+import { User, Mail, Phone, Lock, MapPin, Building, Eye, EyeOff, CheckCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
 
 export default function CadastroPage() {
   const [currentStep, setCurrentStep] = useState(1)
@@ -30,14 +29,6 @@ export default function CadastroPage() {
     state: '',
     zipCode: '',
     
-    // Documentos
-    documents: {
-      rg: null as File | null,
-      cpfCnpj: null as File | null,
-      addressProof: null as File | null,
-      car: null as File | null
-    },
-    
     // Termos
     acceptTerms: false,
     acceptPrivacy: false,
@@ -46,13 +37,12 @@ export default function CadastroPage() {
 
   const steps = [
     { number: 1, title: 'Dados Pessoais', description: 'Informações básicas' },
-    { number: 2, title: 'Dados da Fazenda', description: 'Localização e documentos' },
-    { number: 3, title: 'Verificação', description: 'Upload de documentos' },
-    { number: 4, title: 'Finalização', description: 'Termos e confirmação' }
+    { number: 2, title: 'Dados da Fazenda', description: 'Localização e propriedade' },
+    { number: 3, title: 'Finalização', description: 'Termos e confirmação' }
   ]
 
   const handleNext = () => {
-    if (currentStep < 4) {
+    if (currentStep < 3) {
       setCurrentStep(currentStep + 1)
     }
   }
@@ -67,16 +57,8 @@ export default function CadastroPage() {
     e.preventDefault()
     // Implementar lógica de cadastro
     console.log('Cadastro:', formData)
-  }
-
-  const handleFileUpload = (field: keyof typeof formData.documents, file: File | null) => {
-    setFormData({
-      ...formData,
-      documents: {
-        ...formData.documents,
-        [field]: file
-      }
-    })
+    // Redirecionar para login ou painel
+    window.location.href = '/login'
   }
 
   return (
@@ -203,7 +185,7 @@ export default function CadastroPage() {
                         {accountType === 'pf' ? 'CPF' : 'CNPJ'}
                       </label>
                       <div className="relative">
-                        <FileText className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#6E7D5B] w-5 h-5" />
+                        <Building className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#6E7D5B] w-5 h-5" />
                         <Input
                           id="document"
                           type="text"
@@ -397,135 +379,8 @@ export default function CadastroPage() {
                 </div>
               )}
 
-              {/* Step 3: Upload de Documentos */}
+              {/* Step 3: Termos e Finalização */}
               {currentStep === 3 && (
-                <div className="space-y-6">
-                  <div className="text-center mb-6">
-                    <div className="w-16 h-16 bg-[#1E4D2B]/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <Upload className="w-8 h-8 text-[#1E4D2B]" />
-                    </div>
-                    <h3 className="text-lg font-semibold text-[#2B2E2B] mb-2">
-                      Verificação KYC Rural
-                    </h3>
-                    <p className="text-[#6E7D5B]">
-                      Faça upload dos documentos para verificação da sua conta
-                    </p>
-                  </div>
-
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div className="border-2 border-dashed border-[#C89F45] rounded-lg p-6 text-center hover:border-[#1E4D2B] transition-colors duration-300">
-                      <FileText className="w-12 h-12 text-[#C89F45] mx-auto mb-4" />
-                      <h4 className="font-semibold text-[#2B2E2B] mb-2">
-                        {accountType === 'pf' ? 'RG ou CNH' : 'Contrato Social'}
-                      </h4>
-                      <p className="text-sm text-[#6E7D5B] mb-4">
-                        Documento de identificação
-                      </p>
-                      <input
-                        type="file"
-                        accept=".pdf,.jpg,.jpeg,.png"
-                        onChange={(e) => handleFileUpload('rg', e.target.files?.[0] || null)}
-                        className="hidden"
-                        id="rg-upload"
-                      />
-                      <label htmlFor="rg-upload">
-                        <Button type="button" variant="outline" className="border-[#C89F45] text-[#C89F45] hover:bg-[#C89F45] hover:text-white">
-                          Escolher Arquivo
-                        </Button>
-                      </label>
-                      {formData.documents.rg && (
-                        <Badge className="mt-2 bg-[#3D9970] text-white">
-                          ✓ Arquivo enviado
-                        </Badge>
-                      )}
-                    </div>
-
-                    <div className="border-2 border-dashed border-[#C89F45] rounded-lg p-6 text-center hover:border-[#1E4D2B] transition-colors duration-300">
-                      <FileText className="w-12 h-12 text-[#C89F45] mx-auto mb-4" />
-                      <h4 className="font-semibold text-[#2B2E2B] mb-2">
-                        {accountType === 'pf' ? 'CPF' : 'CNPJ'}
-                      </h4>
-                      <p className="text-sm text-[#6E7D5B] mb-4">
-                        Comprovante de inscrição
-                      </p>
-                      <input
-                        type="file"
-                        accept=".pdf,.jpg,.jpeg,.png"
-                        onChange={(e) => handleFileUpload('cpfCnpj', e.target.files?.[0] || null)}
-                        className="hidden"
-                        id="cpf-upload"
-                      />
-                      <label htmlFor="cpf-upload">
-                        <Button type="button" variant="outline" className="border-[#C89F45] text-[#C89F45] hover:bg-[#C89F45] hover:text-white">
-                          Escolher Arquivo
-                        </Button>
-                      </label>
-                      {formData.documents.cpfCnpj && (
-                        <Badge className="mt-2 bg-[#3D9970] text-white">
-                          ✓ Arquivo enviado
-                        </Badge>
-                      )}
-                    </div>
-
-                    <div className="border-2 border-dashed border-[#C89F45] rounded-lg p-6 text-center hover:border-[#1E4D2B] transition-colors duration-300">
-                      <FileText className="w-12 h-12 text-[#C89F45] mx-auto mb-4" />
-                      <h4 className="font-semibold text-[#2B2E2B] mb-2">
-                        Comprovante de Endereço
-                      </h4>
-                      <p className="text-sm text-[#6E7D5B] mb-4">
-                        Conta de luz, água ou telefone
-                      </p>
-                      <input
-                        type="file"
-                        accept=".pdf,.jpg,.jpeg,.png"
-                        onChange={(e) => handleFileUpload('addressProof', e.target.files?.[0] || null)}
-                        className="hidden"
-                        id="address-upload"
-                      />
-                      <label htmlFor="address-upload">
-                        <Button type="button" variant="outline" className="border-[#C89F45] text-[#C89F45] hover:bg-[#C89F45] hover:text-white">
-                          Escolher Arquivo
-                        </Button>
-                      </label>
-                      {formData.documents.addressProof && (
-                        <Badge className="mt-2 bg-[#3D9970] text-white">
-                          ✓ Arquivo enviado
-                        </Badge>
-                      )}
-                    </div>
-
-                    <div className="border-2 border-dashed border-[#C89F45] rounded-lg p-6 text-center hover:border-[#1E4D2B] transition-colors duration-300">
-                      <FileText className="w-12 h-12 text-[#C89F45] mx-auto mb-4" />
-                      <h4 className="font-semibold text-[#2B2E2B] mb-2">
-                        CAR (Opcional)
-                      </h4>
-                      <p className="text-sm text-[#6E7D5B] mb-4">
-                        Cadastro Ambiental Rural
-                      </p>
-                      <input
-                        type="file"
-                        accept=".pdf,.jpg,.jpeg,.png"
-                        onChange={(e) => handleFileUpload('car', e.target.files?.[0] || null)}
-                        className="hidden"
-                        id="car-upload"
-                      />
-                      <label htmlFor="car-upload">
-                        <Button type="button" variant="outline" className="border-[#C89F45] text-[#C89F45] hover:bg-[#C89F45] hover:text-white">
-                          Escolher Arquivo
-                        </Button>
-                      </label>
-                      {formData.documents.car && (
-                        <Badge className="mt-2 bg-[#3D9970] text-white">
-                          ✓ Arquivo enviado
-                        </Badge>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* Step 4: Termos e Finalização */}
-              {currentStep === 4 && (
                 <div className="space-y-6">
                   <div className="text-center mb-6">
                     <div className="w-16 h-16 bg-[#1E4D2B]/10 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -589,15 +444,17 @@ export default function CadastroPage() {
                     </div>
                   </div>
 
-                  <div className="bg-[#1E4D2B]/5 border border-[#1E4D2B]/20 rounded-lg p-4">
-                    <h4 className="font-semibold text-[#1E4D2B] mb-2">
-                      ✓ Próximos passos após o cadastro:
+                  <div className="bg-[#C89F45]/10 border border-[#C89F45]/20 rounded-lg p-4">
+                    <h4 className="font-semibold text-[#8A5A32] mb-2">
+                      ⚠️ Verificação de Conta Necessária
                     </h4>
+                    <p className="text-sm text-[#6E7D5B] mb-3">
+                      Após o cadastro, você precisará verificar sua conta no painel do usuário para acessar todas as funcionalidades da plataforma.
+                    </p>
                     <ul className="text-sm text-[#6E7D5B] space-y-1">
-                      <li>• Verificação dos documentos (até 24h)</li>
-                      <li>• Ativação da conta por e-mail</li>
-                      <li>• Acesso completo à plataforma</li>
-                      <li>• Suporte especializado disponível</li>
+                      <li>• Upload de documentos (RG/CNH, CPF/CNPJ, Comprovante de endereço)</li>
+                      <li>• Verificação em até 24 horas</li>
+                      <li>• Acesso completo após aprovação</li>
                     </ul>
                   </div>
                 </div>
@@ -615,7 +472,7 @@ export default function CadastroPage() {
                   Anterior
                 </Button>
 
-                {currentStep < 4 ? (
+                {currentStep < 3 ? (
                   <Button
                     type="button"
                     onClick={handleNext}
