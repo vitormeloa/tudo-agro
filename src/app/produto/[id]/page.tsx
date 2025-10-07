@@ -1,0 +1,426 @@
+"use client"
+
+import { useState } from 'react'
+import Link from 'next/link'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import { 
+  ArrowLeft,
+  MapPin, 
+  Star, 
+  Heart,
+  Share2,
+  MessageCircle,
+  Phone,
+  Mail,
+  FileText,
+  Award,
+  Shield,
+  Calendar,
+  Weight,
+  Ruler,
+  ChevronLeft,
+  ChevronRight,
+  Play
+} from 'lucide-react'
+
+export default function ProdutoPage({ params }: { params: { id: string } }) {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const [isFavorite, setIsFavorite] = useState(false)
+
+  // Dados mockados do produto
+  const product = {
+    id: params.id,
+    title: "Vaca Holandesa Lactante Premium",
+    category: "Gado de Leite",
+    race: "Holandesa",
+    sex: "Fêmea",
+    age: "4 anos",
+    weight: "650kg",
+    height: "1.45m",
+    price: 8500,
+    location: "Minas Gerais",
+    city: "Uberlândia",
+    description: "Vaca holandesa de excelente genética, com alta produção leiteira (35L/dia). Animal saudável, com histórico sanitário completo e vacinação em dia. Ideal para propriedades que buscam alta produtividade no rebanho leiteiro.",
+    images: [
+      "https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=800&h=600&fit=crop"
+    ],
+    seller: {
+      id: 1,
+      name: "Fazenda Vista Alegre",
+      location: "Uberlândia, MG",
+      rating: 4.9,
+      totalSales: 156,
+      memberSince: "2020",
+      verified: true,
+      image: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=100&h=100&fit=crop"
+    },
+    specifications: {
+      production: "35L/dia",
+      lactation: "3ª lactação",
+      breeding: "Inseminação artificial",
+      feed: "Pasto + ração balanceada",
+      health: "Vacinação completa"
+    },
+    documents: [
+      "Registro genealógico",
+      "Exames sanitários",
+      "Certificado de vacinação",
+      "Teste de brucelose e tuberculose",
+      "Certificado de origem"
+    ],
+    type: "venda", // ou "leilao"
+    featured: true
+  }
+
+  const nextImage = () => {
+    setCurrentImageIndex((prev) => 
+      prev === product.images.length - 1 ? 0 : prev + 1
+    )
+  }
+
+  const prevImage = () => {
+    setCurrentImageIndex((prev) => 
+      prev === 0 ? product.images.length - 1 : prev - 1
+    )
+  }
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-[#F5F5DC] to-white">
+      {/* Header */}
+      <header className="bg-white shadow-sm border-b sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex items-center space-x-4">
+              <Link href="/catalogo" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
+                <ArrowLeft className="w-5 h-5 text-[#8B4513]" />
+                <span className="text-[#8B4513] font-medium">Voltar ao Catálogo</span>
+              </Link>
+            </div>
+
+            <Link href="/" className="flex items-center space-x-2">
+              <div className="w-10 h-10 bg-gradient-to-r from-[#1C6B3E] to-[#228B22] rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-lg">A</span>
+              </div>
+              <span className="text-xl font-bold text-[#8B4513]">AgroMarket</span>
+            </Link>
+
+            <div className="flex items-center space-x-4">
+              <Link href="/login">
+                <Button variant="ghost" className="text-[#8B4513] hover:text-[#1C6B3E] hover:bg-[#F5F5DC]">
+                  Entrar
+                </Button>
+              </Link>
+              <Link href="/cadastro">
+                <Button className="bg-[#1C6B3E] hover:bg-[#228B22]">
+                  Cadastrar
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="grid lg:grid-cols-2 gap-12">
+          {/* Image Gallery */}
+          <div className="space-y-4">
+            <div className="relative">
+              <img 
+                src={product.images[currentImageIndex]} 
+                alt={product.title}
+                className="w-full h-96 object-cover rounded-2xl"
+              />
+              
+              {/* Navigation Arrows */}
+              <button 
+                onClick={prevImage}
+                className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-black/70 transition-colors"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button 
+                onClick={nextImage}
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-black/70 transition-colors"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+
+              {/* Badges */}
+              <div className="absolute top-4 left-4 flex gap-2">
+                <Badge className="bg-[#1C6B3E]">
+                  {product.category}
+                </Badge>
+                {product.featured && (
+                  <Badge className="bg-[#D4AF37] text-black">
+                    DESTAQUE
+                  </Badge>
+                )}
+              </div>
+
+              {/* Actions */}
+              <div className="absolute top-4 right-4 flex gap-2">
+                <Button 
+                  size="sm" 
+                  variant="ghost" 
+                  onClick={() => setIsFavorite(!isFavorite)}
+                  className={`bg-white/90 hover:bg-white transition-colors ${
+                    isFavorite ? 'text-red-500' : 'text-[#8B4513] hover:text-red-500'
+                  }`}
+                >
+                  <Heart className={`w-4 h-4 ${isFavorite ? 'fill-current' : ''}`} />
+                </Button>
+                <Button 
+                  size="sm" 
+                  variant="ghost" 
+                  className="bg-white/90 hover:bg-white text-[#8B4513] hover:text-[#1C6B3E] transition-colors"
+                >
+                  <Share2 className="w-4 h-4" />
+                </Button>
+              </div>
+
+              {/* Image Counter */}
+              <div className="absolute bottom-4 right-4 bg-black/70 text-white px-3 py-1 rounded-full text-sm">
+                {currentImageIndex + 1} / {product.images.length}
+              </div>
+            </div>
+
+            {/* Thumbnail Gallery */}
+            <div className="flex gap-2 overflow-x-auto">
+              {product.images.map((image, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentImageIndex(index)}
+                  className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-colors ${
+                    index === currentImageIndex 
+                      ? 'border-[#1C6B3E]' 
+                      : 'border-transparent hover:border-[#D4AF37]'
+                  }`}
+                >
+                  <img 
+                    src={image} 
+                    alt={`${product.title} ${index + 1}`}
+                    className="w-full h-full object-cover"
+                  />
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Product Info */}
+          <div className="space-y-6">
+            <div>
+              <h1 className="text-3xl font-bold text-[#8B4513] mb-4">
+                {product.title}
+              </h1>
+              
+              <div className="flex items-center text-[#8B4513]/70 mb-4">
+                <MapPin className="w-5 h-5 mr-2" />
+                <span>{product.city}, {product.location}</span>
+              </div>
+
+              <div className="text-4xl font-bold text-[#1C6B3E] mb-6">
+                R$ {product.price.toLocaleString()}
+              </div>
+            </div>
+
+            {/* Specifications */}
+            <Card className="border-[#D4AF37]/20">
+              <CardContent className="p-6">
+                <h3 className="text-xl font-bold text-[#8B4513] mb-4">Especificações</h3>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="flex items-center">
+                    <Award className="w-5 h-5 text-[#1C6B3E] mr-2" />
+                    <div>
+                      <div className="text-sm text-[#8B4513]/70">Raça</div>
+                      <div className="font-medium text-[#8B4513]">{product.race}</div>
+                    </div>
+                  </div>
+                  <div className="flex items-center">
+                    <Calendar className="w-5 h-5 text-[#1C6B3E] mr-2" />
+                    <div>
+                      <div className="text-sm text-[#8B4513]/70">Idade</div>
+                      <div className="font-medium text-[#8B4513]">{product.age}</div>
+                    </div>
+                  </div>
+                  <div className="flex items-center">
+                    <Weight className="w-5 h-5 text-[#1C6B3E] mr-2" />
+                    <div>
+                      <div className="text-sm text-[#8B4513]/70">Peso</div>
+                      <div className="font-medium text-[#8B4513]">{product.weight}</div>
+                    </div>
+                  </div>
+                  <div className="flex items-center">
+                    <Ruler className="w-5 h-5 text-[#1C6B3E] mr-2" />
+                    <div>
+                      <div className="text-sm text-[#8B4513]/70">Altura</div>
+                      <div className="font-medium text-[#8B4513]">{product.height}</div>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Production Details */}
+            <Card className="border-[#D4AF37]/20">
+              <CardContent className="p-6">
+                <h3 className="text-xl font-bold text-[#8B4513] mb-4">Detalhes de Produção</h3>
+                <div className="space-y-3">
+                  {Object.entries(product.specifications).map(([key, value]) => (
+                    <div key={key} className="flex justify-between">
+                      <span className="text-[#8B4513]/70 capitalize">
+                        {key.replace(/([A-Z])/g, ' $1').toLowerCase()}:
+                      </span>
+                      <span className="font-medium text-[#8B4513]">{value}</span>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Action Buttons */}
+            <div className="space-y-4">
+              {product.type === 'venda' ? (
+                <Button className="w-full bg-[#1C6B3E] hover:bg-[#228B22] text-white py-4 text-lg transition-all hover:scale-105">
+                  Comprar Agora
+                </Button>
+              ) : (
+                <Link href={`/leilao/${product.id}`}>
+                  <Button className="w-full bg-[#D4AF37] hover:bg-[#B8860B] text-black py-4 text-lg transition-all hover:scale-105">
+                    <Play className="w-5 h-5 mr-2" />
+                    Participar do Leilão
+                  </Button>
+                </Link>
+              )}
+              
+              <Button 
+                variant="outline" 
+                className="w-full border-[#1C6B3E] text-[#1C6B3E] hover:bg-[#1C6B3E] hover:text-white py-4 text-lg transition-all hover:scale-105"
+              >
+                <MessageCircle className="w-5 h-5 mr-2" />
+                Tirar Dúvida com Vendedor
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        {/* Description */}
+        <div className="mt-12">
+          <Card className="border-[#D4AF37]/20">
+            <CardContent className="p-8">
+              <h2 className="text-2xl font-bold text-[#8B4513] mb-4">Descrição</h2>
+              <p className="text-[#8B4513]/80 leading-relaxed text-lg">
+                {product.description}
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Documents */}
+        <div className="mt-8">
+          <Card className="border-[#D4AF37]/20">
+            <CardContent className="p-8">
+              <h2 className="text-2xl font-bold text-[#8B4513] mb-4">
+                <FileText className="w-6 h-6 inline mr-2" />
+                Documentos Disponíveis
+              </h2>
+              <div className="grid md:grid-cols-2 gap-4">
+                {product.documents.map((doc, index) => (
+                  <div key={index} className="flex items-center p-3 bg-[#F5F5DC] rounded-lg">
+                    <Shield className="w-5 h-5 text-[#1C6B3E] mr-3" />
+                    <span className="text-[#8B4513]">{doc}</span>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Seller Info */}
+        <div className="mt-8">
+          <Card className="border-[#D4AF37]/20">
+            <CardContent className="p-8">
+              <h2 className="text-2xl font-bold text-[#8B4513] mb-6">Vendedor</h2>
+              <div className="flex items-start space-x-6">
+                <div className="relative">
+                  <img 
+                    src={product.seller.image} 
+                    alt={product.seller.name}
+                    className="w-20 h-20 rounded-full object-cover"
+                  />
+                  {product.seller.verified && (
+                    <div className="absolute -top-2 -right-2 bg-[#1C6B3E] text-white p-1 rounded-full">
+                      <Shield className="w-4 h-4" />
+                    </div>
+                  )}
+                </div>
+                
+                <div className="flex-1">
+                  <div className="flex items-center mb-2">
+                    <h3 className="text-xl font-bold text-[#8B4513] mr-3">
+                      {product.seller.name}
+                    </h3>
+                    {product.seller.verified && (
+                      <Badge className="bg-[#1C6B3E]">VERIFICADO</Badge>
+                    )}
+                  </div>
+                  
+                  <div className="flex items-center text-[#8B4513]/70 mb-2">
+                    <MapPin className="w-4 h-4 mr-1" />
+                    <span>{product.seller.location}</span>
+                  </div>
+                  
+                  <div className="flex items-center mb-4">
+                    <Star className="w-4 h-4 text-[#D4AF37] fill-current mr-1" />
+                    <span className="font-medium text-[#8B4513] mr-2">{product.seller.rating}</span>
+                    <span className="text-[#8B4513]/70">
+                      ({product.seller.totalSales} vendas • Membro desde {product.seller.memberSince})
+                    </span>
+                  </div>
+                  
+                  <div className="flex gap-3">
+                    <Link href={`/vendedor/${product.seller.id}`}>
+                      <Button variant="outline" className="border-[#1C6B3E] text-[#1C6B3E] hover:bg-[#1C6B3E] hover:text-white">
+                        Ver Perfil Completo
+                      </Button>
+                    </Link>
+                    <Button className="bg-[#25D366] hover:bg-[#20BA5A] text-white">
+                      <Phone className="w-4 h-4 mr-2" />
+                      WhatsApp
+                    </Button>
+                    <Button variant="outline" className="border-[#8B4513] text-[#8B4513] hover:bg-[#8B4513] hover:text-white">
+                      <Mail className="w-4 h-4 mr-2" />
+                      E-mail
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Location Map Placeholder */}
+        <div className="mt-8">
+          <Card className="border-[#D4AF37]/20">
+            <CardContent className="p-8">
+              <h2 className="text-2xl font-bold text-[#8B4513] mb-4">
+                <MapPin className="w-6 h-6 inline mr-2" />
+                Localização
+              </h2>
+              <div className="bg-[#F5F5DC] rounded-lg h-64 flex items-center justify-center">
+                <div className="text-center text-[#8B4513]/70">
+                  <MapPin className="w-12 h-12 mx-auto mb-2" />
+                  <p>Mapa da localização da fazenda</p>
+                  <p className="text-sm">{product.city}, {product.location}</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </div>
+  )
+}
