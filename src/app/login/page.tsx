@@ -18,6 +18,8 @@ export default function LoginPage() {
     e.preventDefault()
     // Implementar lógica de login
     console.log('Login:', formData)
+    // Redirecionar para o painel após login bem-sucedido
+    window.location.href = '/painel'
   }
 
   return (
