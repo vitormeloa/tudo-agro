@@ -16,10 +16,20 @@ export default function LoginPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // Implementar lógica de login
-    console.log('Login:', formData)
-    // Redirecionar para o painel após login bem-sucedido
-    window.location.href = '/painel'
+    
+    // Simular validação de login
+    if (formData.email && formData.password) {
+      // Salvar email no localStorage para simular sessão
+      localStorage.setItem('userEmail', formData.email)
+      
+      // Simular login bem-sucedido
+      console.log('Login realizado:', formData)
+      
+      // Redirecionar para o painel
+      window.location.href = '/painel'
+    } else {
+      alert('Por favor, preencha todos os campos.')
+    }
   }
 
   return (
@@ -37,6 +47,20 @@ export default function LoginPage() {
             Entre na sua conta para continuar
           </p>
         </div>
+
+        {/* Test Account Info */}
+        <Card className="shadow-lg border-2 border-[#C89F45] bg-gradient-to-r from-[#C89F45]/5 to-[#B8913D]/5">
+          <CardContent className="p-4">
+            <h3 className="font-semibold text-[#8A5A32] mb-2">🧪 Conta de Teste - Vendedor</h3>
+            <div className="text-sm text-[#6E7D5B] space-y-1">
+              <p><strong>E-mail:</strong> vendedor@gmail.com</p>
+              <p><strong>Senha:</strong> 123456</p>
+              <p className="text-xs text-[#C89F45] mt-2">
+                ✅ Esta conta tem acesso completo (Comprador + Vendedor)
+              </p>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Login Form */}
         <Card className="shadow-2xl border-0 bg-white">
