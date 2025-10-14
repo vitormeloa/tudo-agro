@@ -8,7 +8,7 @@ import { Badge } from '@/components/ui/badge'
 import { Textarea } from '@/components/ui/textarea'
 import { 
   Search, Store, CheckCircle, XCircle, Clock, FileText,
-  User, Mail, Phone, MapPin, Calendar, TrendingUp, AlertTriangle, Eye
+  User, Mail, Phone, MapPin, Calendar, TrendingUp, AlertTriangle
 } from 'lucide-react'
 import {
   Select,
@@ -22,14 +22,14 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogTrigger,
 } from '@/components/ui/dialog'
 
 export default function SellersSection() {
   const [searchTerm, setSearchTerm] = useState('')
   const [statusFilter, setStatusFilter] = useState('all')
   const [selectedSeller, setSelectedSeller] = useState<any>(null)
-  const [showModal, setShowModal] = useState(false)
-  const [modalType, setModalType] = useState<'view' | 'approve' | 'reject' | 'documents'>('view')
+  const [actionType, setActionType] = useState<'approve' | 'reject' | null>(null)
   const [justification, setJustification] = useState('')
 
   const sellers = [
@@ -46,10 +46,7 @@ export default function SellersSection() {
       activeAds: 0,
       completedSales: 0,
       rating: 0,
-      specialization: 'Gado de Corte',
-      address: 'Rua das Flores, 123 - Centro',
-      cpf: '123.456.789-00',
-      bankAccount: 'Banco do Brasil - Ag: 1234 - CC: 56789-0'
+      specialization: 'Gado de Corte'
     },
     {
       id: 2,
@@ -65,10 +62,7 @@ export default function SellersSection() {
       activeAds: 15,
       completedSales: 23,
       rating: 4.8,
-      specialization: 'Gado Leiteiro',
-      address: 'Fazenda Boa Vista, Km 15 - Zona Rural',
-      cnpj: '12.345.678/0001-90',
-      bankAccount: 'Itaú - Ag: 5678 - CC: 12345-6'
+      specialization: 'Gado Leiteiro'
     },
     {
       id: 3,
@@ -85,10 +79,7 @@ export default function SellersSection() {
       activeAds: 0,
       completedSales: 0,
       rating: 0,
-      specialization: 'Cavalos',
-      address: 'Rua Minas Gerais, 789 - Centro',
-      cpf: '456.789.123-00',
-      bankAccount: 'Caixa Econômica - Ag: 9876 - CC: 54321-9'
+      specialization: 'Cavalos'
     },
     {
       id: 4,
@@ -103,10 +94,7 @@ export default function SellersSection() {
       activeAds: 0,
       completedSales: 0,
       rating: 0,
-      specialization: 'Sêmen Bovino',
-      address: 'Av. Copacabana, 456 - Copacabana',
-      cpf: '987.654.321-00',
-      bankAccount: 'Bradesco - Ag: 2468 - CC: 13579-2'
+      specialization: 'Sêmen Bovino'
     },
     {
       id: 5,
@@ -122,10 +110,7 @@ export default function SellersSection() {
       activeAds: 28,
       completedSales: 45,
       rating: 4.9,
-      specialization: 'Gado de Corte',
-      address: 'Setor Agropecuário, Lote 10 - Zona Rural',
-      cnpj: '98.765.432/0001-10',
-      bankAccount: 'Santander - Ag: 1357 - CC: 24680-1'
+      specialization: 'Gado de Corte'
     }
   ]
 
@@ -153,198 +138,18 @@ export default function SellersSection() {
     return matchesSearch && matchesStatus
   })
 
-  const handleAction = (seller: any, action: 'view' | 'approve' | 'reject' | 'documents') => {
+  const handleAction = (seller: any, action: 'approve' | 'reject') => {
     setSelectedSeller(seller)
-    setModalType(action)
-    setShowModal(true)
+    setActionType(action)
     setJustification('')
   }
 
   const confirmAction = () => {
-    if (!selectedSeller) return
-
-    switch (modalType) {
-      case 'approve':
-        console.log(`Aprovando vendedor ${selectedSeller.id} com observação: ${justification}`)
-        break
-      case 'reject':
-        if (!justification.trim()) return
-        console.log(`Recusando vendedor ${selectedSeller.id} com motivo: ${justification}`)
-        break
-    }
-    
-    setShowModal(false)
+    // Aqui seria feita a ação real
+    console.log(`${actionType} seller ${selectedSeller.id} with justification: ${justification}`)
     setSelectedSeller(null)
-  }
-
-  const renderModalContent = () => {
-    if (!selectedSeller) return null
-
-    switch (modalType) {
-      case 'view':
-        return (
-          <div className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <h4 className="font-semibold text-[#2B2E2B] mb-3">Informações Pessoais</h4>
-                <div className="space-y-2 text-sm">
-                  <p><strong>Nome:</strong> {selectedSeller.name}</p>
-                  <p><strong>Email:</strong> {selectedSeller.email}</p>
-                  <p><strong>Telefone:</strong> {selectedSeller.phone}</p>
-                  <p><strong>Endereço:</strong> {selectedSeller.address}</p>
-                  <p><strong>Cidade/Estado:</strong> {selectedSeller.city}, {selectedSeller.state}</p>
-                  <p><strong>Especialização:</strong> {selectedSeller.specialization}</p>
-                  {selectedSeller.cpf && <p><strong>CPF:</strong> {selectedSeller.cpf}</p>}
-                  {selectedSeller.cnpj && <p><strong>CNPJ:</strong> {selectedSeller.cnpj}</p>}
-                  <p><strong>Conta Bancária:</strong> {selectedSeller.bankAccount}</p>
-                </div>
-              </div>
-              <div>
-                <h4 className="font-semibold text-[#2B2E2B] mb-3">Status da Solicitação</h4>
-                <div className="space-y-2 text-sm">
-                  <p><strong>Status:</strong> {getStatusBadge(selectedSeller.status)}</p>
-                  <p><strong>Data da Solicitação:</strong> {new Date(selectedSeller.requestDate).toLocaleDateString('pt-BR')}</p>
-                  {selectedSeller.approvalDate && (
-                    <p className="text-green-600"><strong>Aprovado em:</strong> {new Date(selectedSeller.approvalDate).toLocaleDateString('pt-BR')}</p>
-                  )}
-                  {selectedSeller.rejectionDate && (
-                    <p className="text-red-600"><strong>Recusado em:</strong> {new Date(selectedSeller.rejectionDate).toLocaleDateString('pt-BR')}</p>
-                  )}
-                  {selectedSeller.rejectionReason && (
-                    <p className="text-red-600"><strong>Motivo:</strong> {selectedSeller.rejectionReason}</p>
-                  )}
-                </div>
-              </div>
-            </div>
-            <div>
-              <h4 className="font-semibold text-[#2B2E2B] mb-3">Documentos Enviados</h4>
-              <div className="flex flex-wrap gap-2">
-                {selectedSeller.documentsSubmitted.map((doc: string, index: number) => (
-                  <Badge key={index} variant="outline" className="text-xs">
-                    <FileText className="w-3 h-3 mr-1" />
-                    {doc}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-            <div>
-              <h4 className="font-semibold text-[#2B2E2B] mb-3">Estatísticas de Vendas</h4>
-              <div className="grid grid-cols-3 gap-4">
-                <div className="text-center p-3 bg-[#F7F6F2] rounded-lg">
-                  <p className="text-2xl font-bold text-[#1E4D2B]">{selectedSeller.activeAds}</p>
-                  <p className="text-xs text-[#6E7D5B]">Anúncios Ativos</p>
-                </div>
-                <div className="text-center p-3 bg-[#F7F6F2] rounded-lg">
-                  <p className="text-2xl font-bold text-[#1E4D2B]">{selectedSeller.completedSales}</p>
-                  <p className="text-xs text-[#6E7D5B]">Vendas Finalizadas</p>
-                </div>
-                <div className="text-center p-3 bg-[#F7F6F2] rounded-lg">
-                  <p className="text-2xl font-bold text-[#1E4D2B]">
-                    {selectedSeller.rating > 0 ? selectedSeller.rating.toFixed(1) : '-'}
-                  </p>
-                  <p className="text-xs text-[#6E7D5B]">Avaliação</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        )
-
-      case 'approve':
-        return (
-          <div className="space-y-4">
-            <p className="text-[#6E7D5B]">Tem certeza que deseja aprovar este vendedor?</p>
-            <div className="p-4 bg-[#F7F6F2] rounded-lg">
-              <h4 className="font-semibold text-[#2B2E2B]">{selectedSeller.name}</h4>
-              <p className="text-sm text-[#6E7D5B]">{selectedSeller.email}</p>
-              <p className="text-sm text-[#6E7D5B]">Especialização: {selectedSeller.specialization}</p>
-            </div>
-            <div>
-              <label className="text-sm font-medium text-[#2B2E2B] block mb-2">
-                Observações (opcional):
-              </label>
-              <Textarea
-                value={justification}
-                onChange={(e) => setJustification(e.target.value)}
-                placeholder="Adicione observações sobre a aprovação..."
-                className="min-h-20"
-              />
-            </div>
-            <div className="flex justify-end gap-2">
-              <Button variant="outline" onClick={() => setShowModal(false)}>Cancelar</Button>
-              <Button onClick={confirmAction} className="bg-green-600 hover:bg-green-700">
-                <CheckCircle className="w-4 h-4 mr-2" />
-                Aprovar Vendedor
-              </Button>
-            </div>
-          </div>
-        )
-
-      case 'reject':
-        return (
-          <div className="space-y-4">
-            <p className="text-[#6E7D5B]">Por que você está recusando este vendedor?</p>
-            <div className="p-4 bg-[#F7F6F2] rounded-lg">
-              <h4 className="font-semibold text-[#2B2E2B]">{selectedSeller.name}</h4>
-              <p className="text-sm text-[#6E7D5B]">{selectedSeller.email}</p>
-              <p className="text-sm text-[#6E7D5B]">Especialização: {selectedSeller.specialization}</p>
-            </div>
-            <div>
-              <label className="text-sm font-medium text-[#2B2E2B] block mb-2">
-                Motivo da recusa:
-              </label>
-              <Textarea
-                value={justification}
-                onChange={(e) => setJustification(e.target.value)}
-                placeholder="Explique o motivo da recusa..."
-                className="min-h-20"
-                required
-              />
-            </div>
-            <div className="flex justify-end gap-2">
-              <Button variant="outline" onClick={() => setShowModal(false)}>Cancelar</Button>
-              <Button 
-                onClick={confirmAction}
-                className="bg-red-600 hover:bg-red-700"
-                disabled={!justification.trim()}
-              >
-                <XCircle className="w-4 h-4 mr-2" />
-                Recusar Vendedor
-              </Button>
-            </div>
-          </div>
-        )
-
-      case 'documents':
-        return (
-          <div className="space-y-4">
-            <p className="text-[#6E7D5B]">Documentos enviados pelo vendedor:</p>
-            <div className="p-4 bg-[#F7F6F2] rounded-lg">
-              <h4 className="font-semibold text-[#2B2E2B]">{selectedSeller.name}</h4>
-              <p className="text-sm text-[#6E7D5B]">{selectedSeller.email}</p>
-            </div>
-            <div className="space-y-3">
-              {selectedSeller.documentsSubmitted.map((doc: string, index: number) => (
-                <div key={index} className="flex items-center justify-between p-3 border rounded-lg">
-                  <div className="flex items-center gap-2">
-                    <FileText className="w-5 h-5 text-[#6E7D5B]" />
-                    <span className="font-medium">{doc}</span>
-                  </div>
-                  <Button variant="outline" size="sm">
-                    <Eye className="w-4 h-4 mr-2" />
-                    Visualizar
-                  </Button>
-                </div>
-              ))}
-            </div>
-            <div className="flex justify-end">
-              <Button variant="outline" onClick={() => setShowModal(false)}>Fechar</Button>
-            </div>
-          </div>
-        )
-
-      default:
-        return null
-    }
+    setActionType(null)
+    setJustification('')
   }
 
   return (
@@ -495,10 +300,6 @@ export default function SellersSection() {
                 
                 {/* Ações */}
                 <div className="flex flex-col gap-2 ml-4">
-                  <Button variant="outline" size="sm" onClick={() => handleAction(seller, 'view')}>
-                    <Eye className="w-4 h-4 mr-2" />
-                    Ver Detalhes
-                  </Button>
                   {seller.status === 'pendente' && (
                     <>
                       <Button 
@@ -520,7 +321,7 @@ export default function SellersSection() {
                       </Button>
                     </>
                   )}
-                  <Button variant="outline" size="sm" onClick={() => handleAction(seller, 'documents')}>
+                  <Button variant="outline" size="sm">
                     <FileText className="w-4 h-4 mr-2" />
                     Ver Documentos
                   </Button>
@@ -531,19 +332,54 @@ export default function SellersSection() {
         ))}
       </div>
 
-      {/* Modal */}
-      <Dialog open={showModal} onOpenChange={setShowModal}>
-        <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+      {/* Dialog de Confirmação */}
+      <Dialog open={!!selectedSeller} onOpenChange={() => setSelectedSeller(null)}>
+        <DialogContent>
           <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
-              <Store className="w-5 h-5 text-[#1E4D2B]" />
-              {modalType === 'view' && 'Detalhes do Vendedor'}
-              {modalType === 'approve' && 'Aprovar Vendedor'}
-              {modalType === 'reject' && 'Recusar Vendedor'}
-              {modalType === 'documents' && 'Documentos do Vendedor'}
+            <DialogTitle>
+              {actionType === 'approve' ? 'Aprovar Vendedor' : 'Recusar Vendedor'}
             </DialogTitle>
           </DialogHeader>
-          {renderModalContent()}
+          <div className="space-y-4">
+            <p className="text-sm text-[#6E7D5B]">
+              {actionType === 'approve' 
+                ? `Tem certeza que deseja aprovar ${selectedSeller?.name} como vendedor?`
+                : `Tem certeza que deseja recusar a solicitação de ${selectedSeller?.name}?`
+              }
+            </p>
+            
+            <div>
+              <label className="text-sm font-medium text-[#2B2E2B] block mb-2">
+                {actionType === 'approve' ? 'Observações (opcional):' : 'Motivo da recusa:'}
+              </label>
+              <Textarea
+                value={justification}
+                onChange={(e) => setJustification(e.target.value)}
+                placeholder={actionType === 'approve' 
+                  ? 'Adicione observações sobre a aprovação...'
+                  : 'Explique o motivo da recusa...'
+                }
+                className="min-h-20"
+                required={actionType === 'reject'}
+              />
+            </div>
+            
+            <div className="flex justify-end gap-2">
+              <Button variant="outline" onClick={() => setSelectedSeller(null)}>
+                Cancelar
+              </Button>
+              <Button 
+                onClick={confirmAction}
+                className={actionType === 'approve' 
+                  ? 'bg-green-600 hover:bg-green-700' 
+                  : 'bg-red-600 hover:bg-red-700'
+                }
+                disabled={actionType === 'reject' && !justification.trim()}
+              >
+                {actionType === 'approve' ? 'Aprovar' : 'Recusar'}
+              </Button>
+            </div>
+          </div>
         </DialogContent>
       </Dialog>
     </div>
