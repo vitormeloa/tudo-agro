@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { 
@@ -7,8 +8,17 @@ import {
   TrendingUp, Clock, CheckCircle, XCircle, Eye, Download
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
 
 export default function OverviewSection() {
+  const [selectedAlert, setSelectedAlert] = useState<any>(null)
+  const [showModal, setShowModal] = useState(false)
+
   const kpis = [
     {
       title: 'Usuários Cadastrados',
@@ -50,28 +60,52 @@ export default function OverviewSection() {
       title: 'Documentos KYC Pendentes',
       count: 12,
       description: 'Verificações de identidade aguardando aprovação',
-      action: 'Revisar Agora'
+      action: 'Revisar Agora',
+      actionType: 'kyc_review',
+      items: [
+        { id: 1, name: 'João Silva Santos', date: '2024-01-18', docs: ['RG', 'CPF', 'Comprovante'] },
+        { id: 2, name: 'Maria Oliveira', date: '2024-01-19', docs: ['RG', 'CPF', 'Comprovante', 'Certificado'] },
+        { id: 3, name: 'Carlos Mendes', date: '2024-01-17', docs: ['CNPJ', 'Contrato Social'] }
+      ]
     },
     {
       type: 'warning',
       title: 'Anúncios Aguardando Moderação',
       count: 7,
       description: 'Novos anúncios precisam ser aprovados',
-      action: 'Moderar'
+      action: 'Moderar',
+      actionType: 'ads_moderation',
+      items: [
+        { id: 1, title: 'Touro Nelore PO - Excelente Genética', seller: 'Fazenda Boa Vista', date: '2024-01-20' },
+        { id: 2, title: 'Égua Mangalarga Marchador', seller: 'João Silva', date: '2024-01-19' },
+        { id: 3, title: 'Vaca Holandesa - Alta Produção', seller: 'Maria Santos', date: '2024-01-18' }
+      ]
     },
     {
       type: 'info',
       title: 'Denúncias Recebidas',
       count: 8,
       description: 'Relatórios de usuários sobre conteúdo inadequado',
-      action: 'Investigar'
+      action: 'Investigar',
+      actionType: 'reports_investigation',
+      items: [
+        { id: 1, type: 'Anúncio Suspeito', reporter: 'Usuário Anônimo', target: 'Sêmen Bovino - Preço Baixo', date: '2024-01-20' },
+        { id: 2, type: 'Comportamento Inadequado', reporter: 'João Silva', target: 'Vendedor XYZ', date: '2024-01-19' },
+        { id: 3, type: 'Produto Falso', reporter: 'Maria Santos', target: 'Cavalo Puro Sangue', date: '2024-01-18' }
+      ]
     },
     {
       type: 'success',
       title: 'Vendedores Aprovados Hoje',
       count: 5,
       description: 'Novos vendedores verificados e ativos',
-      action: 'Ver Lista'
+      action: 'Ver Lista',
+      actionType: 'approved_sellers',
+      items: [
+        { id: 1, name: 'Fazenda Santa Clara', approved: '2024-01-20', specialization: 'Gado de Corte' },
+        { id: 2, name: 'Haras Boa Esperança', approved: '2024-01-20', specialization: 'Cavalos' },
+        { id: 3, name: 'Agropecuária Moderna', approved: '2024-01-20', specialization: 'Gado Leiteiro' }
+      ]
     }
   ]
 
@@ -146,6 +180,174 @@ export default function OverviewSection() {
     }
   }
 
+  const handleAlertAction = (alert: any) => {
+    setSelectedAlert(alert)
+    setShowModal(true)
+  }
+
+  const handleExportCategories = () => {
+    // Simular exportação
+    const csvContent = "data:text/csv;charset=utf-8," + 
+      "Categoria,Vendas,Percentual\n" +
+      topCategories.map(cat => `${cat.name},${cat.sales},${cat.percentage}%`).join("\n")
+    
+    const encodedUri = encodeURI(csvContent)
+    const link = document.createElement("a")
+    link.setAttribute("href", encodedUri)
+    link.setAttribute("download", "top_categorias.csv")
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  }
+
+  const renderModalContent = () => {
+    if (!selectedAlert) return null
+
+    switch (selectedAlert.actionType) {
+      case 'kyc_review':
+        return (
+          <div className="space-y-4">
+            <p className="text-[#6E7D5B]">Documentos KYC pendentes de verificação:</p>
+            <div className="space-y-3">
+              {selectedAlert.items.map((item: any) => (
+                <div key={item.id} className="p-4 border rounded-lg bg-[#F7F6F2]">
+                  <div className="flex items-center justify-between mb-2">
+                    <h4 className="font-semibold text-[#2B2E2B]">{item.name}</h4>
+                    <span className="text-sm text-[#6E7D5B]">{new Date(item.date).toLocaleDateString('pt-BR')}</span>
+                  </div>
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    {item.docs.map((doc: string, index: number) => (
+                      <Badge key={index} variant="outline" className="text-xs">{doc}</Badge>
+                    ))}
+                  </div>
+                  <div className="flex gap-2">
+                    <Button size="sm" className="bg-green-600 hover:bg-green-700">
+                      <CheckCircle className="w-4 h-4 mr-2" />
+                      Aprovar
+                    </Button>
+                    <Button variant="outline" size="sm" className="text-red-600">
+                      <XCircle className="w-4 h-4 mr-2" />
+                      Recusar
+                    </Button>
+                    <Button variant="outline" size="sm">
+                      <Eye className="w-4 h-4 mr-2" />
+                      Ver Documentos
+                    </Button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )
+
+      case 'ads_moderation':
+        return (
+          <div className="space-y-4">
+            <p className="text-[#6E7D5B]">Anúncios aguardando moderação:</p>
+            <div className="space-y-3">
+              {selectedAlert.items.map((item: any) => (
+                <div key={item.id} className="p-4 border rounded-lg bg-[#F7F6F2]">
+                  <div className="flex items-start justify-between mb-2">
+                    <div>
+                      <h4 className="font-semibold text-[#2B2E2B]">{item.title}</h4>
+                      <p className="text-sm text-[#6E7D5B]">Por: {item.seller}</p>
+                      <p className="text-xs text-[#6E7D5B]">{new Date(item.date).toLocaleDateString('pt-BR')}</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-2">
+                    <Button size="sm" className="bg-green-600 hover:bg-green-700">
+                      <CheckCircle className="w-4 h-4 mr-2" />
+                      Aprovar
+                    </Button>
+                    <Button variant="outline" size="sm" className="text-red-600">
+                      <XCircle className="w-4 h-4 mr-2" />
+                      Recusar
+                    </Button>
+                    <Button variant="outline" size="sm">
+                      <Eye className="w-4 h-4 mr-2" />
+                      Ver Anúncio
+                    </Button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )
+
+      case 'reports_investigation':
+        return (
+          <div className="space-y-4">
+            <p className="text-[#6E7D5B]">Denúncias recebidas para investigação:</p>
+            <div className="space-y-3">
+              {selectedAlert.items.map((item: any) => (
+                <div key={item.id} className="p-4 border rounded-lg bg-[#F7F6F2]">
+                  <div className="flex items-start justify-between mb-2">
+                    <div>
+                      <h4 className="font-semibold text-[#2B2E2B]">{item.type}</h4>
+                      <p className="text-sm text-[#6E7D5B]">Alvo: {item.target}</p>
+                      <p className="text-sm text-[#6E7D5B]">Denunciante: {item.reporter}</p>
+                      <p className="text-xs text-[#6E7D5B]">{new Date(item.date).toLocaleDateString('pt-BR')}</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-2">
+                    <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
+                      <Eye className="w-4 h-4 mr-2" />
+                      Investigar
+                    </Button>
+                    <Button variant="outline" size="sm" className="text-green-600">
+                      <CheckCircle className="w-4 h-4 mr-2" />
+                      Arquivar
+                    </Button>
+                    <Button variant="outline" size="sm" className="text-red-600">
+                      <AlertTriangle className="w-4 h-4 mr-2" />
+                      Tomar Ação
+                    </Button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )
+
+      case 'approved_sellers':
+        return (
+          <div className="space-y-4">
+            <p className="text-[#6E7D5B]">Vendedores aprovados hoje:</p>
+            <div className="space-y-3">
+              {selectedAlert.items.map((item: any) => (
+                <div key={item.id} className="p-4 border rounded-lg bg-[#F7F6F2]">
+                  <div className="flex items-center justify-between mb-2">
+                    <div>
+                      <h4 className="font-semibold text-[#2B2E2B]">{item.name}</h4>
+                      <p className="text-sm text-[#6E7D5B]">Especialização: {item.specialization}</p>
+                      <p className="text-xs text-[#6E7D5B]">Aprovado em: {new Date(item.approved).toLocaleDateString('pt-BR')}</p>
+                    </div>
+                    <Badge className="bg-green-100 text-green-800">
+                      <CheckCircle className="w-3 h-3 mr-1" />
+                      Aprovado
+                    </Badge>
+                  </div>
+                  <div className="flex gap-2">
+                    <Button variant="outline" size="sm">
+                      <Eye className="w-4 h-4 mr-2" />
+                      Ver Perfil
+                    </Button>
+                    <Button variant="outline" size="sm">
+                      <FileText className="w-4 h-4 mr-2" />
+                      Ver Documentos
+                    </Button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )
+
+      default:
+        return <p>Conteúdo não disponível</p>
+    }
+  }
+
   return (
     <div className="space-y-6">
       {/* KPIs Principais */}
@@ -203,7 +405,12 @@ export default function OverviewSection() {
                       </Badge>
                     </div>
                     <p className="text-sm text-[#6E7D5B] mb-3">{alert.description}</p>
-                    <Button size="sm" variant="outline" className="text-xs">
+                    <Button 
+                      size="sm" 
+                      variant="outline" 
+                      className="text-xs"
+                      onClick={() => handleAlertAction(alert)}
+                    >
                       {alert.action}
                     </Button>
                   </div>
@@ -245,7 +452,7 @@ export default function OverviewSection() {
               <TrendingUp className="w-5 h-5 text-[#1E4D2B]" />
               Top Categorias Mais Vendidas
             </div>
-            <Button variant="outline" size="sm">
+            <Button variant="outline" size="sm" onClick={handleExportCategories}>
               <Download className="w-4 h-4 mr-2" />
               Exportar
             </Button>
@@ -278,6 +485,19 @@ export default function OverviewSection() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Modal para Alertas */}
+      <Dialog open={showModal} onOpenChange={setShowModal}>
+        <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <AlertTriangle className="w-5 h-5 text-[#B8413D]" />
+              {selectedAlert?.title}
+            </DialogTitle>
+          </DialogHeader>
+          {renderModalContent()}
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }

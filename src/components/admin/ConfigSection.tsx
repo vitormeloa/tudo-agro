@@ -1,13 +1,24 @@
 'use client'
 
+import { useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
-import { Settings, Percent, DollarSign, FileText, Link, Save } from 'lucide-react'
+import { Settings, Percent, DollarSign, FileText, Link, Save, Edit, CheckCircle } from 'lucide-react'
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
 
 export default function ConfigSection() {
+  const [showModal, setShowModal] = useState(false)
+  const [modalType, setModalType] = useState<'edit-page' | 'edit-integration'>('edit-page')
+  const [selectedItem, setSelectedItem] = useState<any>(null)
+
   const configSections = [
     {
       title: 'Comissões por Categoria',
@@ -32,27 +43,124 @@ export default function ConfigSection() {
   ]
 
   const contentPages = [
-    { name: 'Sobre Nós', status: 'Atualizado', lastEdit: '2024-01-15' },
-    { name: 'Termos de Uso', status: 'Pendente', lastEdit: '2024-01-10' },
-    { name: 'Política de Privacidade', status: 'Atualizado', lastEdit: '2024-01-12' },
-    { name: 'Central de Ajuda', status: 'Atualizado', lastEdit: '2024-01-18' }
+    { name: 'Sobre Nós', status: 'Atualizado', lastEdit: '2024-01-15', content: 'Conteúdo da página Sobre Nós...' },
+    { name: 'Termos de Uso', status: 'Pendente', lastEdit: '2024-01-10', content: 'Conteúdo dos Termos de Uso...' },
+    { name: 'Política de Privacidade', status: 'Atualizado', lastEdit: '2024-01-12', content: 'Conteúdo da Política de Privacidade...' },
+    { name: 'Central de Ajuda', status: 'Atualizado', lastEdit: '2024-01-18', content: 'Conteúdo da Central de Ajuda...' }
   ]
 
   const integrations = [
-    { name: 'Gateway de Pagamento', status: 'Conectado', type: 'PIX/TED' },
-    { name: 'Email Marketing', status: 'Conectado', type: 'SMTP' },
-    { name: 'Zapier', status: 'Desconectado', type: 'Automação' },
-    { name: 'Analytics', status: 'Conectado', type: 'Google Analytics' }
+    { name: 'Gateway de Pagamento', status: 'Conectado', type: 'PIX/TED', config: 'API Key configurada' },
+    { name: 'Email Marketing', status: 'Conectado', type: 'SMTP', config: 'SMTP configurado' },
+    { name: 'Zapier', status: 'Desconectado', type: 'Automação', config: 'Não configurado' },
+    { name: 'Analytics', status: 'Conectado', type: 'Google Analytics', config: 'Tracking ID configurado' }
   ]
+
+  const handleSaveCommission = (index: number, sectionIndex: number, newValue: string) => {
+    console.log(`Salvando comissão: Seção ${sectionIndex}, Item ${index}, Valor: ${newValue}`)
+  }
+
+  const handleEditPage = (page: any) => {
+    setSelectedItem(page)
+    setModalType('edit-page')
+    setShowModal(true)
+  }
+
+  const handleEditIntegration = (integration: any) => {
+    setSelectedItem(integration)
+    setModalType('edit-integration')
+    setShowModal(true)
+  }
+
+  const handleConfirmAction = () => {
+    if (!selectedItem) return
+
+    switch (modalType) {
+      case 'edit-page':
+        console.log(`Salvando página: ${selectedItem.name}`)
+        break
+      case 'edit-integration':
+        console.log(`Configurando integração: ${selectedItem.name}`)
+        break
+    }
+    
+    setShowModal(false)
+    setSelectedItem(null)
+  }
+
+  const renderModalContent = () => {
+    if (!selectedItem) return null
+
+    switch (modalType) {
+      case 'edit-page':
+        return (
+          <div className="space-y-4">
+            <div className="p-4 bg-[#F7F6F2] rounded-lg">
+              <h4 className="font-semibold text-[#2B2E2B]">Editando: {selectedItem.name}</h4>
+              <p className="text-sm text-[#6E7D5B]">Última edição: {new Date(selectedItem.lastEdit).toLocaleDateString('pt-BR')}</p>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-[#2B2E2B] mb-2">Conteúdo da Página:</label>
+              <Textarea
+                defaultValue={selectedItem.content}
+                placeholder="Digite o conteúdo da página..."
+                className="min-h-40"
+              />
+            </div>
+            <div className="flex justify-end gap-2">
+              <Button variant="outline" onClick={() => setShowModal(false)}>Cancelar</Button>
+              <Button onClick={handleConfirmAction} className="bg-blue-600 hover:bg-blue-700">
+                <Save className="w-4 h-4 mr-2" />
+                Salvar Página
+              </Button>
+            </div>
+          </div>
+        )
+
+      case 'edit-integration':
+        return (
+          <div className="space-y-4">
+            <div className="p-4 bg-[#F7F6F2] rounded-lg">
+              <h4 className="font-semibold text-[#2B2E2B]">Configurando: {selectedItem.name}</h4>
+              <p className="text-sm text-[#6E7D5B]">Tipo: {selectedItem.type}</p>
+              <p className="text-sm text-[#6E7D5B]">Status: {selectedItem.status}</p>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-[#2B2E2B] mb-2">Configuração:</label>
+              <Input
+                defaultValue={selectedItem.config}
+                placeholder="Digite a configuração..."
+              />
+            </div>
+            <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
+              <p className="text-sm text-blue-800">
+                <CheckCircle className="w-4 h-4 inline mr-1" />
+                As configurações serão aplicadas imediatamente após salvar.
+              </p>
+            </div>
+            <div className="flex justify-end gap-2">
+              <Button variant="outline" onClick={() => setShowModal(false)}>Cancelar</Button>
+              <Button onClick={handleConfirmAction} className="bg-green-600 hover:bg-green-700">
+                <Settings className="w-4 h-4 mr-2" />
+                {selectedItem.status === 'Conectado' ? 'Atualizar' : 'Conectar'}
+              </Button>
+            </div>
+          </div>
+        )
+
+      default:
+        return null
+    }
+  }
 
   return (
     <div className="space-y-6">
       {/* Comissões e Cashback */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {configSections.map((section, index) => {
+        {configSections.map((section, sectionIndex) => {
           const Icon = section.icon
           return (
-            <Card key={index}>
+            <Card key={sectionIndex}>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Icon className="w-5 h-5 text-[#1E4D2B]" />
@@ -69,7 +177,11 @@ export default function ConfigSection() {
                           defaultValue={item.value} 
                           className="w-20 h-8 text-center text-sm"
                         />
-                        <Button size="sm" variant="outline">
+                        <Button 
+                          size="sm" 
+                          variant="outline"
+                          onClick={() => handleSaveCommission(itemIndex, sectionIndex, item.value)}
+                        >
                           <Save className="w-3 h-3" />
                         </Button>
                       </div>
@@ -108,7 +220,8 @@ export default function ConfigSection() {
                   }`}>
                     {page.status}
                   </span>
-                  <Button variant="outline" size="sm">
+                  <Button variant="outline" size="sm" onClick={() => handleEditPage(page)}>
+                    <Edit className="w-4 h-4 mr-2" />
                     Editar
                   </Button>
                 </div>
@@ -171,7 +284,8 @@ export default function ConfigSection() {
                   }`}>
                     {integration.status}
                   </span>
-                  <Button variant="outline" size="sm">
+                  <Button variant="outline" size="sm" onClick={() => handleEditIntegration(integration)}>
+                    <Settings className="w-4 h-4 mr-2" />
                     {integration.status === 'Conectado' ? 'Configurar' : 'Conectar'}
                   </Button>
                 </div>
@@ -180,6 +294,20 @@ export default function ConfigSection() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Modal */}
+      <Dialog open={showModal} onOpenChange={setShowModal}>
+        <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Settings className="w-5 h-5 text-[#1E4D2B]" />
+              {modalType === 'edit-page' && 'Editar Página'}
+              {modalType === 'edit-integration' && 'Configurar Integração'}
+            </DialogTitle>
+          </DialogHeader>
+          {renderModalContent()}
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }
