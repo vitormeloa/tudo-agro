@@ -5,6 +5,8 @@ import { Shield, Award, Users, TrendingUp, Heart, Target, Eye, CheckCircle, Star
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import Header from '@/components/layout/Header'
+import Footer from '@/components/layout/Footer'
 
 export default function SobrePage() {
   const stats = [
@@ -83,63 +85,43 @@ export default function SobrePage() {
   ]
 
   return (
-    <div className="min-h-screen bg-[#F7F6F2]">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
-              <Link href="/" className="text-2xl font-bold text-[#1E4D2B]">
-                AgroMarket
-              </Link>
-            </div>
-            <nav className="hidden md:flex space-x-8">
-              <Link href="/" className="text-[#2B2E2B] hover:text-[#C89F45] transition-colors duration-300">Início</Link>
-              <Link href="/catalogo" className="text-[#2B2E2B] hover:text-[#C89F45] transition-colors duration-300">Catálogo</Link>
-              <Link href="/leiloes" className="text-[#2B2E2B] hover:text-[#C89F45] transition-colors duration-300">Leilões</Link>
-              <Link href="/vender" className="text-[#2B2E2B] hover:text-[#C89F45] transition-colors duration-300">Vender</Link>
-              <Link href="/sobre" className="text-[#C89F45] font-semibold">Sobre</Link>
-            </nav>
-            <div className="flex items-center space-x-4">
-              <Link href="/login">
-                <Button variant="outline" className="border-[#1E4D2B] text-[#1E4D2B] hover:bg-[#1E4D2B] hover:text-white">
-                  Entrar
-                </Button>
-              </Link>
-              <Link href="/cadastro">
-                <Button className="bg-[#1E4D2B] hover:bg-[#163B20] text-white">
-                  Cadastrar
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </header>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
+      <Header />
 
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-[#1E4D2B] to-[#2F6C3F] text-white py-20">
+      <section className="relative pt-20 pb-32 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-600 via-green-600 to-emerald-700"></div>
         <div className="absolute inset-0 bg-black/20"></div>
+        <div className="absolute inset-0 opacity-40">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.15)_1px,transparent_0)] bg-[length:20px_20px]"></div>
+        </div>
+        
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <Badge className="mb-6 bg-white/20 text-white border-white/30 px-4 py-2 text-sm font-medium">
+            <Award className="w-4 h-4 mr-2" />
+            Líder do Agronegócio
+          </Badge>
+          
           <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white drop-shadow-lg">
             Sobre o AgroMarket
           </h1>
-          <p className="text-xl md:text-2xl mb-8 text-[#E0E0E0] max-w-3xl mx-auto">
+          <p className="text-xl md:text-2xl mb-8 text-white/90 max-w-3xl mx-auto leading-relaxed">
             Conectando o agronegócio brasileiro através da tecnologia, segurança e transparência
           </p>
         </div>
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-white">
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="w-16 h-16 bg-[#1E4D2B]/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <stat.icon className="w-8 h-8 text-[#1E4D2B]" />
+              <div key={index} className="text-center animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
+                <div className="w-16 h-16 bg-emerald-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                  <stat.icon className="w-8 h-8 text-emerald-600" />
                 </div>
-                <div className="text-4xl md:text-5xl font-bold text-[#1E4D2B] mb-2">{stat.number}</div>
-                <div className="text-[#6E7D5B] font-medium">{stat.label}</div>
+                <div className="text-4xl md:text-5xl font-bold text-gray-900 mb-2">{stat.number}</div>
+                <div className="text-gray-600 font-medium">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -147,31 +129,31 @@ export default function SobrePage() {
       </section>
 
       {/* Mission Section */}
-      <section className="py-16 bg-[#FFFDF7]">
+      <section className="py-20 bg-gradient-to-br from-emerald-50 to-green-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-[#2B2E2B] mb-6">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
                 Nossa Missão
               </h2>
-              <p className="text-xl text-[#6E7D5B] mb-6 leading-relaxed">
+              <p className="text-xl text-gray-600 mb-6 leading-relaxed">
                 Democratizar o acesso ao mercado agropecuário brasileiro, conectando produtores rurais de todo o país através de uma plataforma segura, transparente e tecnológica.
               </p>
-              <p className="text-lg text-[#6E7D5B] mb-8 leading-relaxed">
+              <p className="text-lg text-gray-600 mb-8 leading-relaxed">
                 Acreditamos que a tecnologia pode transformar o agronegócio, tornando as negociações mais eficientes, seguras e acessíveis para produtores de todos os portes.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <div className="flex items-center">
-                  <Target className="w-6 h-6 text-[#C89F45] mr-3" />
-                  <span className="text-[#2B2E2B] font-semibold">Missão</span>
+                  <Target className="w-6 h-6 text-emerald-600 mr-3" />
+                  <span className="text-gray-900 font-semibold">Missão</span>
                 </div>
                 <div className="flex items-center">
-                  <Eye className="w-6 h-6 text-[#C89F45] mr-3" />
-                  <span className="text-[#2B2E2B] font-semibold">Visão</span>
+                  <Eye className="w-6 h-6 text-emerald-600 mr-3" />
+                  <span className="text-gray-900 font-semibold">Visão</span>
                 </div>
                 <div className="flex items-center">
-                  <Heart className="w-6 h-6 text-[#C89F45] mr-3" />
-                  <span className="text-[#2B2E2B] font-semibold">Valores</span>
+                  <Heart className="w-6 h-6 text-emerald-600 mr-3" />
+                  <span className="text-gray-900 font-semibold">Valores</span>
                 </div>
               </div>
             </div>
@@ -181,7 +163,7 @@ export default function SobrePage() {
                 alt="Fazenda brasileira" 
                 className="rounded-2xl shadow-2xl"
               />
-              <div className="absolute -bottom-6 -left-6 bg-[#C89F45] text-white p-6 rounded-xl shadow-xl">
+              <div className="absolute -bottom-6 -left-6 bg-emerald-600 text-white p-6 rounded-xl shadow-xl">
                 <div className="text-2xl font-bold">2019</div>
                 <div className="text-sm">Fundação</div>
               </div>
@@ -191,26 +173,26 @@ export default function SobrePage() {
       </section>
 
       {/* Values Section */}
-      <section className="py-16 bg-white">
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#2B2E2B] mb-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               Nossos Valores
             </h2>
-            <p className="text-xl text-[#6E7D5B] max-w-2xl mx-auto">
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               Princípios que guiam todas as nossas decisões e ações
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {values.map((value, index) => (
-              <Card key={index} className="text-center shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-0">
+              <Card key={index} className="text-center shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-0 animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
                 <CardContent className="p-8">
-                  <div className="w-16 h-16 bg-[#1E4D2B]/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <value.icon className="w-8 h-8 text-[#1E4D2B]" />
+                  <div className="w-16 h-16 bg-emerald-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                    <value.icon className="w-8 h-8 text-emerald-600" />
                   </div>
-                  <h3 className="text-xl font-bold text-[#2B2E2B] mb-4">{value.title}</h3>
-                  <p className="text-[#6E7D5B] leading-relaxed">{value.description}</p>
+                  <h3 className="text-xl font-bold text-gray-900 mb-4">{value.title}</h3>
+                  <p className="text-gray-600 leading-relaxed">{value.description}</p>
                 </CardContent>
               </Card>
             ))}
@@ -219,29 +201,29 @@ export default function SobrePage() {
       </section>
 
       {/* Team Section */}
-      <section className="py-16 bg-[#FFFDF7]">
+      <section className="py-20 bg-gradient-to-br from-emerald-50 to-green-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#2B2E2B] mb-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               Nossa Equipe
             </h2>
-            <p className="text-xl text-[#6E7D5B] max-w-2xl mx-auto">
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               Profissionais experientes dedicados ao sucesso do agronegócio brasileiro
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
             {team.map((member, index) => (
-              <Card key={index} className="text-center shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-0">
+              <Card key={index} className="text-center shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-0 bg-white animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
                 <CardContent className="p-8">
                   <img 
                     src={member.image} 
                     alt={member.name}
                     className="w-24 h-24 rounded-full mx-auto mb-6 object-cover"
                   />
-                  <h3 className="text-xl font-bold text-[#2B2E2B] mb-2">{member.name}</h3>
-                  <Badge className="bg-[#C89F45] text-white mb-4">{member.role}</Badge>
-                  <p className="text-[#6E7D5B]">{member.description}</p>
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">{member.name}</h3>
+                  <Badge className="bg-emerald-600 text-white mb-4">{member.role}</Badge>
+                  <p className="text-gray-600">{member.description}</p>
                 </CardContent>
               </Card>
             ))}
@@ -250,27 +232,27 @@ export default function SobrePage() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-16 bg-white">
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#2B2E2B] mb-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               O que nossos clientes dizem
             </h2>
-            <p className="text-xl text-[#6E7D5B] max-w-2xl mx-auto">
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               Depoimentos reais de produtores que confiam no AgroMarket
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
-              <Card key={index} className="shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-0">
+              <Card key={index} className="shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-0 animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
                 <CardContent className="p-8">
                   <div className="flex items-center mb-4">
                     {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="w-5 h-5 text-[#F1C40F] fill-current" />
+                      <Star key={i} className="w-5 h-5 text-amber-400 fill-current" />
                     ))}
                   </div>
-                  <p className="text-[#6E7D5B] mb-6 italic leading-relaxed">
+                  <p className="text-gray-600 mb-6 italic leading-relaxed">
                     "{testimonial.content}"
                   </p>
                   <div className="flex items-center">
@@ -280,8 +262,8 @@ export default function SobrePage() {
                       className="w-12 h-12 rounded-full mr-4 object-cover"
                     />
                     <div>
-                      <div className="font-semibold text-[#2B2E2B]">{testimonial.name}</div>
-                      <div className="text-sm text-[#6E7D5B] flex items-center">
+                      <div className="font-semibold text-gray-900">{testimonial.name}</div>
+                      <div className="text-sm text-gray-600 flex items-center">
                         <MapPin className="w-3 h-3 mr-1" />
                         {testimonial.role}
                       </div>
@@ -295,65 +277,65 @@ export default function SobrePage() {
       </section>
 
       {/* History Section */}
-      <section className="py-16 bg-[#FFFDF7]">
+      <section className="py-20 bg-gradient-to-br from-emerald-50 to-green-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#2B2E2B] mb-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               Nossa História
             </h2>
-            <p className="text-xl text-[#6E7D5B] max-w-2xl mx-auto">
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               A jornada que nos trouxe até aqui
             </p>
           </div>
 
           <div className="space-y-8">
-            <div className="flex items-center">
-              <div className="w-4 h-4 bg-[#C89F45] rounded-full mr-6"></div>
+            <div className="flex items-center animate-fade-in-up">
+              <div className="w-4 h-4 bg-emerald-600 rounded-full mr-6"></div>
               <div className="flex-1 bg-white rounded-lg p-6 shadow-lg">
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-xl font-bold text-[#2B2E2B]">2019 - Fundação</h3>
-                  <Badge className="bg-[#1E4D2B] text-white">Início</Badge>
+                  <h3 className="text-xl font-bold text-gray-900">2019 - Fundação</h3>
+                  <Badge className="bg-emerald-600 text-white">Início</Badge>
                 </div>
-                <p className="text-[#6E7D5B]">
+                <p className="text-gray-600">
                   Nascimento da ideia de conectar produtores rurais através da tecnologia. Primeiros estudos de mercado e desenvolvimento do conceito.
                 </p>
               </div>
             </div>
 
-            <div className="flex items-center">
-              <div className="w-4 h-4 bg-[#C89F45] rounded-full mr-6"></div>
+            <div className="flex items-center animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+              <div className="w-4 h-4 bg-emerald-600 rounded-full mr-6"></div>
               <div className="flex-1 bg-white rounded-lg p-6 shadow-lg">
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-xl font-bold text-[#2B2E2B]">2020 - Lançamento</h3>
-                  <Badge className="bg-[#C89F45] text-white">Marco</Badge>
+                  <h3 className="text-xl font-bold text-gray-900">2020 - Lançamento</h3>
+                  <Badge className="bg-amber-600 text-white">Marco</Badge>
                 </div>
-                <p className="text-[#6E7D5B]">
+                <p className="text-gray-600">
                   Lançamento oficial da plataforma com as primeiras fazendas cadastradas. Início das operações em Goiás e Minas Gerais.
                 </p>
               </div>
             </div>
 
-            <div className="flex items-center">
-              <div className="w-4 h-4 bg-[#C89F45] rounded-full mr-6"></div>
+            <div className="flex items-center animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+              <div className="w-4 h-4 bg-emerald-600 rounded-full mr-6"></div>
               <div className="flex-1 bg-white rounded-lg p-6 shadow-lg">
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-xl font-bold text-[#2B2E2B]">2021 - Expansão</h3>
-                  <Badge className="bg-[#3D9970] text-white">Crescimento</Badge>
+                  <h3 className="text-xl font-bold text-gray-900">2021 - Expansão</h3>
+                  <Badge className="bg-green-600 text-white">Crescimento</Badge>
                 </div>
-                <p className="text-[#6E7D5B]">
+                <p className="text-gray-600">
                   Expansão para todo o território nacional. Implementação do sistema de leilões online e parcerias com grandes fazendas.
                 </p>
               </div>
             </div>
 
-            <div className="flex items-center">
-              <div className="w-4 h-4 bg-[#C89F45] rounded-full mr-6"></div>
+            <div className="flex items-center animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+              <div className="w-4 h-4 bg-emerald-600 rounded-full mr-6"></div>
               <div className="flex-1 bg-white rounded-lg p-6 shadow-lg">
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-xl font-bold text-[#2B2E2B]">2024 - Liderança</h3>
-                  <Badge className="bg-[#C89F45] text-white">Presente</Badge>
+                  <h3 className="text-xl font-bold text-gray-900">2024 - Liderança</h3>
+                  <Badge className="bg-emerald-600 text-white">Presente</Badge>
                 </div>
-                <p className="text-[#6E7D5B]">
+                <p className="text-gray-600">
                   Consolidação como a maior plataforma de negócios agropecuários do Brasil, com mais de 50 mil animais vendidos e R$ 2,8 bilhões em volume negociado.
                 </p>
               </div>
@@ -363,23 +345,23 @@ export default function SobrePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-b from-[#F6E3B4] to-[#8A5A32]">
+      <section className="py-20 bg-gradient-to-br from-emerald-600 to-green-700">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#5E3C1B] mb-6">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
             Faça parte da nossa história
           </h2>
-          <p className="text-xl text-[#5E3C1B]/80 mb-8 max-w-2xl mx-auto">
+          <p className="text-xl text-emerald-100 mb-8 max-w-2xl mx-auto">
             Junte-se a milhares de produtores que já transformaram seus negócios com o AgroMarket
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/cadastro">
-              <Button className="bg-[#1E4D2B] hover:bg-[#163B20] text-white px-8 py-4 text-lg font-semibold transition-all duration-300 transform hover:scale-105">
+              <Button className="bg-white text-emerald-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
                 <Users className="w-5 h-5 mr-2" />
                 Criar Conta Gratuita
               </Button>
             </Link>
             <Link href="/catalogo">
-              <Button className="bg-transparent border-2 border-[#1E4D2B] text-[#5E3C1B] hover:bg-[#1E4D2B] hover:text-white px-8 py-4 text-lg font-semibold transition-all duration-300 transform hover:scale-105">
+              <Button className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-emerald-600 px-8 py-4 text-lg font-semibold transition-all duration-300 transform hover:scale-105">
                 <Eye className="w-5 h-5 mr-2" />
                 Explorar Catálogo
               </Button>
@@ -388,58 +370,7 @@ export default function SobrePage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-[#4A3218] text-[#F7F6F2] py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div>
-              <h3 className="text-2xl font-bold text-[#C89F45] mb-4">AgroMarket</h3>
-              <p className="text-[#F7F6F2]/80 mb-4">
-                A maior plataforma de negócios do agronegócio brasileiro.
-              </p>
-              <div className="flex space-x-4">
-                <div className="w-8 h-8 bg-[#C89F45] rounded-full flex items-center justify-center">
-                  <span className="text-white text-sm">f</span>
-                </div>
-                <div className="w-8 h-8 bg-[#C89F45] rounded-full flex items-center justify-center">
-                  <span className="text-white text-sm">i</span>
-                </div>
-                <div className="w-8 h-8 bg-[#C89F45] rounded-full flex items-center justify-center">
-                  <span className="text-white text-sm">t</span>
-                </div>
-              </div>
-            </div>
-            <div>
-              <h4 className="font-bold mb-4 text-[#C89F45]">Categorias</h4>
-              <ul className="space-y-2">
-                <li><Link href="/catalogo?categoria=gado-corte" className="hover:text-[#C89F45] transition-colors duration-300">Gado de Corte</Link></li>
-                <li><Link href="/catalogo?categoria=gado-leite" className="hover:text-[#C89F45] transition-colors duration-300">Gado de Leite</Link></li>
-                <li><Link href="/catalogo?categoria=cavalos" className="hover:text-[#C89F45] transition-colors duration-300">Cavalos</Link></li>
-                <li><Link href="/catalogo?categoria=semen" className="hover:text-[#C89F45] transition-colors duration-300">Sêmen</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-bold mb-4 text-[#C89F45]">Empresa</h4>
-              <ul className="space-y-2">
-                <li><Link href="/sobre" className="hover:text-[#C89F45] transition-colors duration-300">Sobre Nós</Link></li>
-                <li><Link href="/contato" className="hover:text-[#C89F45] transition-colors duration-300">Contato</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-bold mb-4 text-[#C89F45]">Suporte</h4>
-              <ul className="space-y-2">
-                <li><Link href="/ajuda" className="hover:text-[#C89F45] transition-colors duration-300">Central de Ajuda</Link></li>
-                <li><Link href="/termos" className="hover:text-[#C89F45] transition-colors duration-300">Termos de Uso</Link></li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-[#C89F45]/20 mt-8 pt-8 text-center">
-            <p className="text-[#F7F6F2]/60">
-              © 2024 AgroMarket. Todos os direitos reservados.
-            </p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }

@@ -1,159 +1,393 @@
 'use client'
 
 import { useState } from 'react'
-import { Eye, EyeOff, Shield, Lock } from 'lucide-react'
+import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Label } from '@/components/ui/label'
-import AdminDashboard from '@/components/AdminDashboard'
+import { Badge } from '@/components/ui/badge'
+import { Card, CardContent } from '@/components/ui/card'
+import Header from '@/components/layout/Header'
+import Footer from '@/components/layout/Footer'
+import ProductCard from '@/components/ui/cards/ProductCard'
+import { 
+  Search, 
+  Filter, 
+  Star, 
+  TrendingUp, 
+  Shield, 
+  Users, 
+  Award,
+  ArrowRight,
+  Play,
+  Clock,
+  MapPin,
+  Heart,
+  Eye,
+  MessageCircle,
+  ChevronRight,
+  CheckCircle,
+  Zap
+} from 'lucide-react'
 
 export default function HomePage() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [showPassword, setShowPassword] = useState(false)
-  const [error, setError] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsLoading(true)
-    setError('')
-
-    // Simular delay de autenticação
-    await new Promise(resolve => setTimeout(resolve, 1000))
-
-    if (email === 'admin@gmail.com' && password === '123456') {
-      setIsAuthenticated(true)
-    } else {
-      setError('Email ou senha incorretos. Use admin@gmail.com / 123456')
+  const featuredProducts = [
+    {
+      id: 1,
+      title: "Touro Nelore PO Certificado",
+      category: "Gado de Corte",
+      price: 45000,
+      location: "Goiás, GO",
+      rating: 4.8,
+      reviews: 24,
+      image: "https://images.unsplash.com/photo-1560114928-40f1f1eb26a0?w=400&h=300&fit=crop",
+      seller: "Fazenda Boa Vista",
+      verified: true,
+      featured: true,
+      age: "3 anos",
+      weight: "850kg",
+      breed: "Nelore"
+    },
+    {
+      id: 2,
+      title: "Égua Mangalarga Marchador",
+      category: "Cavalos",
+      price: 25000,
+      location: "Minas Gerais, MG",
+      rating: 4.9,
+      reviews: 18,
+      image: "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=400&h=300&fit=crop",
+      seller: "Haras São João",
+      verified: true,
+      featured: false,
+      age: "5 anos",
+      weight: "450kg",
+      breed: "Mangalarga"
+    },
+    {
+      id: 3,
+      title: "Vaca Holandesa Produtiva",
+      category: "Gado de Leite",
+      price: 8500,
+      location: "São Paulo, SP",
+      rating: 4.7,
+      reviews: 31,
+      image: "https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=400&h=300&fit=crop",
+      seller: "Fazenda Três Rios",
+      verified: true,
+      featured: true,
+      age: "4 anos",
+      weight: "650kg",
+      breed: "Holandesa"
     }
-    
-    setIsLoading(false)
-  }
+  ]
 
-  if (isAuthenticated) {
-    return <AdminDashboard />
-  }
+  const liveAuctions = [
+    {
+      id: 1,
+      title: "Leilão Fazenda Santa Rita - Elite Nelore",
+      type: "Gado de Corte",
+      currentBid: 15000,
+      participants: 47,
+      timeLeft: "2h 45m",
+      image: "https://images.unsplash.com/photo-1560114928-40f1f1eb26a0?w=400&h=300&fit=crop",
+      location: "Goiás, GO"
+    },
+    {
+      id: 2,
+      title: "Leilão Elite Genética - Cavalos Premium",
+      type: "Cavalos",
+      currentBid: 85000,
+      participants: 23,
+      timeLeft: "1h 12m",
+      image: "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=400&h=300&fit=crop",
+      location: "Minas Gerais, MG"
+    }
+  ]
+
+  const stats = [
+    { icon: Users, value: "50k+", label: "Usuários Ativos" },
+    { icon: Award, value: "R$ 2.8B", label: "Volume Negociado" },
+    { icon: Heart, value: "98%", label: "Satisfação" },
+    { icon: Shield, value: "100%", label: "Segurança" }
+  ]
+
+  const features = [
+    {
+      icon: Shield,
+      title: "Segurança Total",
+      description: "Transações protegidas com verificação KYC rural completa e sistema de escrow."
+    },
+    {
+      icon: TrendingUp,
+      title: "Melhores Preços",
+      description: "Conecte-se diretamente com produtores e encontre os melhores negócios."
+    },
+    {
+      icon: Users,
+      title: "Comunidade Ativa",
+      description: "Junte-se a milhares de produtores e compradores de todo o Brasil."
+    },
+    {
+      icon: Zap,
+      title: "Leilões Online",
+      description: "Participe de leilões em tempo real com tecnologia de ponta."
+    }
+  ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#1E4D2B] to-[#2F6C3F] flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
-        {/* Logo e Título */}
-        <div className="text-center mb-8">
-          <div className="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4 backdrop-blur-sm">
-            <Shield className="w-10 h-10 text-white" />
-          </div>
-          <h1 className="text-3xl font-bold text-white mb-2">AgroMarket Admin</h1>
-          <p className="text-white/80">Painel Administrativo</p>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
+      <Header variant="transparent" />
+      
+      {/* Hero Section */}
+      <section className="relative pt-20 pb-32 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-white to-green-50"></div>
+        <div className="absolute inset-0 opacity-40">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(5,150,105,0.15)_1px,transparent_0)] bg-[length:20px_20px]"></div>
         </div>
-
-        {/* Card de Login */}
-        <Card className="shadow-2xl border-0 bg-white/95 backdrop-blur-sm">
-          <CardHeader className="text-center pb-4">
-            <CardTitle className="text-2xl text-[#1E4D2B] flex items-center justify-center gap-2">
-              <Lock className="w-6 h-6" />
-              Acesso Restrito
-            </CardTitle>
-            <p className="text-[#6E7D5B] text-sm">
-              Apenas administradores autorizados
-            </p>
-          </CardHeader>
-          
-          <CardContent>
-            <form onSubmit={handleLogin} className="space-y-6">
-              {/* Email */}
-              <div className="space-y-2">
-                <Label htmlFor="email" className="text-[#2B2E2B] font-medium">
-                  Email do Administrador
-                </Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="admin@gmail.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="h-12 border-2 border-gray-200 focus:border-[#1E4D2B] transition-colors"
-                  required
-                />
-              </div>
-
-              {/* Senha */}
-              <div className="space-y-2">
-                <Label htmlFor="password" className="text-[#2B2E2B] font-medium">
-                  Senha
-                </Label>
-                <div className="relative">
-                  <Input
-                    id="password"
-                    type={showPassword ? 'text' : 'password'}
-                    placeholder="Digite sua senha"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="h-12 border-2 border-gray-200 focus:border-[#1E4D2B] transition-colors pr-12"
-                    required
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#6E7D5B] hover:text-[#1E4D2B] transition-colors"
-                  >
-                    {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                  </button>
-                </div>
-              </div>
-
-              {/* Erro */}
-              {error && (
-                <div className="bg-red-50 border border-red-200 rounded-lg p-3">
-                  <p className="text-red-600 text-sm text-center">{error}</p>
-                </div>
-              )}
-
-              {/* Botão de Login */}
-              <Button
-                type="submit"
-                disabled={isLoading}
-                className="w-full h-12 bg-[#1E4D2B] hover:bg-[#163B20] text-white font-semibold text-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
-              >
-                {isLoading ? (
-                  <div className="flex items-center gap-2">
-                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                    Verificando...
-                  </div>
-                ) : (
-                  'Acessar Painel'
-                )}
-              </Button>
-            </form>
-
-            {/* Credenciais de Teste */}
-            <div className="mt-6 p-4 bg-[#F7F6F2] rounded-lg border border-[#C89F45]/20">
-              <p className="text-xs text-[#6E7D5B] text-center mb-2 font-medium">
-                Credenciais de Teste:
+        
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <div className="animate-fade-in-up">
+              <Badge className="mb-6 bg-emerald-100 text-emerald-800 border-emerald-200 px-4 py-2 text-sm font-medium">
+                <Zap className="w-4 h-4 mr-2" />
+                Plataforma #1 do Agronegócio
+              </Badge>
+              
+              <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-6 leading-tight">
+                Conecte-se ao{' '}
+                <span className="gradient-text">futuro</span>
+                <br />
+                do agronegócio
+              </h1>
+              
+              <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
+                A maior plataforma de negócios agropecuários do Brasil. 
+                Compre, venda e participe de leilões com segurança total.
               </p>
-              <div className="text-xs text-[#2B2E2B] space-y-1">
-                <div className="flex justify-between">
-                  <span className="font-medium">Email:</span>
-                  <span className="font-mono bg-white px-2 py-1 rounded">admin@gmail.com</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="font-medium">Senha:</span>
-                  <span className="font-mono bg-white px-2 py-1 rounded">123456</span>
-                </div>
+            </div>
+
+            {/* Search Bar */}
+            <div className="animate-fade-in-up max-w-2xl mx-auto mb-12">
+              <div className="relative">
+                <Search className="absolute left-6 top-1/2 transform -translate-y-1/2 text-gray-400 w-6 h-6" />
+                <input
+                  type="text"
+                  placeholder="Buscar animais, raças, localização..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pl-16 pr-32 py-6 text-lg border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all duration-300 shadow-lg"
+                />
+                <Button className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+                  Buscar
+                </Button>
               </div>
             </div>
-          </CardContent>
-        </Card>
 
-        {/* Footer */}
-        <div className="text-center mt-8">
-          <p className="text-white/60 text-sm">
-            © 2024 AgroMarket - Sistema Administrativo
-          </p>
+            {/* CTA Buttons */}
+            <div className="animate-fade-in-up flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/catalogo">
+                <Button size="lg" className="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                  Explorar Catálogo
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </Button>
+              </Link>
+              <Link href="/leiloes">
+                <Button size="lg" variant="outline" className="border-2 border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 transform hover:scale-105">
+                  <Play className="w-5 h-5 mr-2" />
+                  Ver Leilões
+                </Button>
+              </Link>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {stats.map((stat, index) => (
+              <div key={index} className="text-center animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
+                <div className="w-16 h-16 bg-emerald-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                  <stat.icon className="w-8 h-8 text-emerald-600" />
+                </div>
+                <div className="text-4xl md:text-5xl font-bold text-gray-900 mb-2">{stat.value}</div>
+                <div className="text-gray-600 font-medium">{stat.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Products */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              Destaques da Semana
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Os melhores animais selecionados especialmente para você
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {featuredProducts.map((product, index) => (
+              <div key={product.id} className="animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
+                <ProductCard product={product} variant="detailed" />
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-12">
+            <Link href="/catalogo">
+              <Button size="lg" variant="outline" className="border-2 border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300">
+                Ver Todos os Animais
+                <ChevronRight className="w-5 h-5 ml-2" />
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Live Auctions */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <div className="flex items-center justify-center mb-4">
+              <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse mr-3"></div>
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
+                Leilões ao Vivo
+              </h2>
+            </div>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Participe dos leilões mais emocionantes do agronegócio
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {liveAuctions.map((auction, index) => (
+              <Card key={auction.id} className="overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-0 animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
+                <div className="relative">
+                  <img src={auction.image} alt={auction.title} className="w-full h-48 object-cover" />
+                  <div className="absolute top-4 left-4 flex gap-2">
+                    <Badge className="bg-red-500 text-white font-semibold animate-pulse">
+                      <Play className="w-3 h-3 mr-1" />
+                      AO VIVO
+                    </Badge>
+                    <Badge className="bg-emerald-600 text-white">{auction.type}</Badge>
+                  </div>
+                  <div className="absolute top-4 right-4 bg-black/70 text-white px-3 py-1 rounded-lg text-sm font-bold">
+                    <Clock className="w-4 h-4 inline mr-1" />
+                    {auction.timeLeft}
+                  </div>
+                </div>
+                <CardContent className="p-6">
+                  <h3 className="font-bold text-xl text-gray-900 mb-3">{auction.title}</h3>
+                  
+                  <div className="space-y-3 mb-6">
+                    <div className="flex justify-between items-center">
+                      <span className="text-gray-600">Lance atual:</span>
+                      <span className="font-bold text-emerald-600 text-xl">
+                        R$ {auction.currentBid.toLocaleString()}
+                      </span>
+                    </div>
+                    
+                    <div className="flex justify-between items-center">
+                      <span className="text-gray-600">Participantes:</span>
+                      <span className="font-bold text-gray-900 flex items-center">
+                        <Users className="w-4 h-4 mr-1 text-emerald-600" />
+                        {auction.participants} online
+                      </span>
+                    </div>
+
+                    <div className="flex justify-between items-center">
+                      <span className="text-gray-600">Local:</span>
+                      <span className="font-semibold text-gray-900 flex items-center">
+                        <MapPin className="w-4 h-4 mr-1 text-gray-500" />
+                        {auction.location}
+                      </span>
+                    </div>
+                  </div>
+
+                  <Link href={`/leilao/${auction.id}`}>
+                    <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 text-lg transition-all duration-300 transform hover:scale-105">
+                      <Zap className="w-5 h-5 mr-2" />
+                      Entrar no Leilão
+                    </Button>
+                  </Link>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          <div className="text-center mt-12">
+            <Link href="/leiloes">
+              <Button size="lg" variant="outline" className="border-2 border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300">
+                Ver Todos os Leilões
+                <ChevronRight className="w-5 h-5 ml-2" />
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-20 bg-gradient-to-br from-emerald-50 to-green-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              Por que escolher o AgroMarket?
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              A plataforma mais completa e segura para o agronegócio brasileiro
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {features.map((feature, index) => (
+              <Card key={index} className="text-center shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-0 bg-white animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
+                <CardContent className="p-8">
+                  <div className="w-16 h-16 bg-emerald-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                    <feature.icon className="w-8 h-8 text-emerald-600" />
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-4">{feature.title}</h3>
+                  <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 bg-gradient-to-br from-emerald-600 to-green-700">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            Pronto para começar?
+          </h2>
+          <p className="text-xl text-emerald-100 mb-8 max-w-2xl mx-auto">
+            Junte-se a milhares de produtores que já transformaram seus negócios com o AgroMarket
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/cadastro">
+              <Button size="lg" className="bg-white text-emerald-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                <Users className="w-5 h-5 mr-2" />
+                Criar Conta Gratuita
+              </Button>
+            </Link>
+            <Link href="/catalogo">
+              <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-emerald-600 px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 transform hover:scale-105">
+                <Eye className="w-5 h-5 mr-2" />
+                Explorar Agora
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
     </div>
   )
 }

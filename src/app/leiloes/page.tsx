@@ -2,11 +2,25 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { Clock, Users, Play, Calendar, MapPin, Trophy, Zap, Timer, TrendingUp } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import Header from '@/components/layout/Header'
+import Footer from '@/components/layout/Footer'
+import { 
+  Clock, 
+  Users, 
+  Play, 
+  Calendar, 
+  MapPin, 
+  Trophy, 
+  Zap, 
+  Timer, 
+  TrendingUp,
+  Gavel,
+  Star
+} from 'lucide-react'
 
 export default function LeiloesPage() {
   const [currentTime, setCurrentTime] = useState(new Date())
@@ -129,127 +143,106 @@ export default function LeiloesPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F7F6F2]">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-100">
+    <div className="min-h-screen bg-gray-50">
+      <Header />
+      
+      {/* Hero Section */}
+      <section className="bg-gradient-to-br from-red-600 to-red-700 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
-              <Link href="/" className="text-2xl font-bold text-[#1E4D2B]">
-                AgroMarket
-              </Link>
+          <div className="text-center">
+            <div className="flex items-center justify-center mb-4">
+              <div className="w-3 h-3 bg-white rounded-full animate-pulse mr-3"></div>
+              <h1 className="text-4xl md:text-5xl font-bold">
+                Leilões Online
+              </h1>
             </div>
-            <nav className="hidden md:flex space-x-8">
-              <Link href="/" className="text-[#2B2E2B] hover:text-[#C89F45] transition-colors duration-300">Início</Link>
-              <Link href="/catalogo" className="text-[#2B2E2B] hover:text-[#C89F45] transition-colors duration-300">Catálogo</Link>
-              <Link href="/leiloes" className="text-[#C89F45] font-semibold">Leilões</Link>
-              <Link href="/vender" className="text-[#2B2E2B] hover:text-[#C89F45] transition-colors duration-300">Vender</Link>
-              <Link href="/sobre" className="text-[#2B2E2B] hover:text-[#C89F45] transition-colors duration-300">Sobre</Link>
-            </nav>
-            <div className="flex items-center space-x-4">
-              <Link href="/login">
-                <Button variant="outline" className="border-[#1E4D2B] text-[#1E4D2B] hover:bg-[#1E4D2B] hover:text-white">
-                  Entrar
-                </Button>
-              </Link>
-              <Link href="/cadastro">
-                <Button className="bg-[#1E4D2B] hover:bg-[#163B20] text-white">
-                  Cadastrar
-                </Button>
-              </Link>
-            </div>
+            <p className="text-xl text-red-100 max-w-2xl mx-auto">
+              Participe dos melhores leilões do agronegócio em tempo real
+            </p>
           </div>
         </div>
-      </header>
+      </section>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Page Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-3xl md:text-4xl font-bold text-[#2B2E2B] mb-4">
-            🔥 Leilões Online
-          </h1>
-          <p className="text-xl text-[#6E7D5B] max-w-2xl mx-auto">
-            Participe dos melhores leilões do agronegócio em tempo real
-          </p>
-        </div>
-
         {/* Filters */}
-        <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <Select>
-              <SelectTrigger>
-                <SelectValue placeholder="Categoria" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="gado-corte">Gado de Corte</SelectItem>
-                <SelectItem value="gado-leite">Gado de Leite</SelectItem>
-                <SelectItem value="cavalos">Cavalos</SelectItem>
-                <SelectItem value="semen">Sêmen</SelectItem>
-              </SelectContent>
-            </Select>
+        <Card className="shadow-lg border-0 mb-8">
+          <CardContent className="p-6">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <Select>
+                <SelectTrigger className="h-10">
+                  <SelectValue placeholder="Categoria" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="gado-corte">Gado de Corte</SelectItem>
+                  <SelectItem value="gado-leite">Gado de Leite</SelectItem>
+                  <SelectItem value="cavalos">Cavalos</SelectItem>
+                  <SelectItem value="semen">Sêmen</SelectItem>
+                </SelectContent>
+              </Select>
 
-            <Select>
-              <SelectTrigger>
-                <SelectValue placeholder="Status" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="live">Ao Vivo</SelectItem>
-                <SelectItem value="scheduled">Agendados</SelectItem>
-                <SelectItem value="finished">Finalizados</SelectItem>
-              </SelectContent>
-            </Select>
+              <Select>
+                <SelectTrigger className="h-10">
+                  <SelectValue placeholder="Status" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="live">Ao Vivo</SelectItem>
+                  <SelectItem value="scheduled">Agendados</SelectItem>
+                  <SelectItem value="finished">Finalizados</SelectItem>
+                </SelectContent>
+              </Select>
 
-            <Select>
-              <SelectTrigger>
-                <SelectValue placeholder="Localização" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="go">Goiás</SelectItem>
-                <SelectItem value="mg">Minas Gerais</SelectItem>
-                <SelectItem value="sp">São Paulo</SelectItem>
-                <SelectItem value="rs">Rio Grande do Sul</SelectItem>
-              </SelectContent>
-            </Select>
+              <Select>
+                <SelectTrigger className="h-10">
+                  <SelectValue placeholder="Localização" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="go">Goiás</SelectItem>
+                  <SelectItem value="mg">Minas Gerais</SelectItem>
+                  <SelectItem value="sp">São Paulo</SelectItem>
+                  <SelectItem value="rs">Rio Grande do Sul</SelectItem>
+                </SelectContent>
+              </Select>
 
-            <Select>
-              <SelectTrigger>
-                <SelectValue placeholder="Ordenar por" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="tempo">Tempo Restante</SelectItem>
-                <SelectItem value="participantes">Mais Participantes</SelectItem>
-                <SelectItem value="valor">Maior Valor</SelectItem>
-                <SelectItem value="recente">Mais Recentes</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
+              <Select>
+                <SelectTrigger className="h-10">
+                  <SelectValue placeholder="Ordenar por" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="tempo">Tempo Restante</SelectItem>
+                  <SelectItem value="participantes">Mais Participantes</SelectItem>
+                  <SelectItem value="valor">Maior Valor</SelectItem>
+                  <SelectItem value="recente">Mais Recentes</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Live Auctions */}
         <section className="mb-12">
           <div className="flex items-center mb-6">
             <div className="flex items-center">
-              <div className="w-3 h-3 bg-[#B8413D] rounded-full animate-pulse mr-3"></div>
-              <h2 className="text-2xl md:text-3xl font-bold text-[#2B2E2B]">
+              <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse mr-3"></div>
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
                 Leilões ao Vivo
               </h2>
             </div>
-            <Badge className="ml-4 bg-[#B8413D] text-white font-semibold">
+            <Badge className="ml-4 bg-red-500 text-white font-semibold">
               {liveAuctions.length} ATIVOS
             </Badge>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {liveAuctions.map((auction) => (
-              <Card key={auction.id} className="overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-0 bg-gradient-to-br from-white to-[#FFFDF7]">
+            {liveAuctions.map((auction, index) => (
+              <Card key={auction.id} className="overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-0 bg-gradient-to-br from-white to-gray-50 animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
                 <div className="relative">
                   <img src={auction.image} alt={auction.title} className="w-full h-48 object-cover" />
                   <div className="absolute top-4 left-4 flex gap-2">
-                    <Badge className="bg-[#B8413D] text-white font-semibold animate-pulse">
+                    <Badge className="bg-red-500 text-white font-semibold animate-pulse">
                       <Play className="w-3 h-3 mr-1" />
                       AO VIVO
                     </Badge>
-                    <Badge className="bg-[#C89F45] text-white">{auction.type}</Badge>
+                    <Badge className="bg-emerald-600 text-white">{auction.type}</Badge>
                   </div>
                   <div className="absolute top-4 right-4">
                     <div className="bg-black/70 text-white px-2 py-1 rounded text-sm font-bold">
@@ -258,52 +251,52 @@ export default function LeiloesPage() {
                   </div>
                 </div>
                 <CardContent className="p-6">
-                  <h3 className="font-bold text-lg text-[#2B2E2B] mb-3 line-clamp-2">{auction.title}</h3>
+                  <h3 className="font-bold text-lg text-gray-900 mb-3 line-clamp-2">{auction.title}</h3>
                   
                   <div className="space-y-3 mb-6">
                     <div className="flex justify-between items-center">
-                      <span className="text-[#6E7D5B]">Lance atual:</span>
+                      <span className="text-gray-600">Lance atual:</span>
                       <div className="text-right">
-                        <div className="font-bold text-[#1E4D2B] text-xl">
+                        <div className="font-bold text-emerald-600 text-xl">
                           R$ {auction.currentBid.toLocaleString()}
                         </div>
-                        <div className="text-xs text-[#6E7D5B]">
+                        <div className="text-xs text-gray-500">
                           (inicial: R$ {auction.startingBid.toLocaleString()})
                         </div>
                       </div>
                     </div>
                     
                     <div className="flex justify-between items-center">
-                      <span className="text-[#6E7D5B]">Tempo restante:</span>
-                      <div className="font-bold text-[#B8413D] flex items-center text-lg">
+                      <span className="text-gray-600">Tempo restante:</span>
+                      <div className="font-bold text-red-500 flex items-center text-lg">
                         <Timer className="w-4 h-4 mr-1" />
                         {formatTimeLeft(auction.endTime)}
                       </div>
                     </div>
                     
                     <div className="flex justify-between items-center">
-                      <span className="text-[#6E7D5B]">Participantes:</span>
-                      <span className="font-bold text-[#2B2E2B] flex items-center">
-                        <Users className="w-4 h-4 mr-1 text-[#C89F45]" />
+                      <span className="text-gray-600">Participantes:</span>
+                      <span className="font-bold text-gray-900 flex items-center">
+                        <Users className="w-4 h-4 mr-1 text-emerald-600" />
                         {auction.participants} online
                       </span>
                     </div>
 
                     <div className="flex justify-between items-center">
-                      <span className="text-[#6E7D5B]">Local:</span>
-                      <span className="font-semibold text-[#2B2E2B] flex items-center">
-                        <MapPin className="w-4 h-4 mr-1 text-[#6E7D5B]" />
+                      <span className="text-gray-600">Local:</span>
+                      <span className="font-semibold text-gray-900 flex items-center">
+                        <MapPin className="w-4 h-4 mr-1 text-gray-500" />
                         {auction.location}
                       </span>
                     </div>
                   </div>
 
-                  <div className="text-sm text-[#6E7D5B] mb-4">
-                    Leiloeiro: <span className="font-semibold text-[#2B2E2B]">{auction.auctioneer}</span>
+                  <div className="text-sm text-gray-600 mb-4">
+                    Leiloeiro: <span className="font-semibold text-gray-900">{auction.auctioneer}</span>
                   </div>
 
                   <Link href={`/leilao/${auction.id}`}>
-                    <Button className="w-full bg-[#1E4D2B] hover:bg-[#163B20] text-white text-lg py-3 transition-all duration-300 transform hover:scale-105">
+                    <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white text-lg py-3 transition-all duration-300 transform hover:scale-105">
                       <Zap className="w-5 h-5 mr-2" />
                       Entrar no Leilão
                     </Button>
@@ -317,70 +310,70 @@ export default function LeiloesPage() {
         {/* Upcoming Auctions */}
         <section>
           <div className="flex items-center mb-6">
-            <Calendar className="w-6 h-6 text-[#C89F45] mr-3" />
-            <h2 className="text-2xl md:text-3xl font-bold text-[#2B2E2B]">
+            <Calendar className="w-6 h-6 text-emerald-600 mr-3" />
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
               Próximos Leilões
             </h2>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {upcomingAuctions.map((auction) => (
-              <Card key={auction.id} className="overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-0">
+            {upcomingAuctions.map((auction, index) => (
+              <Card key={auction.id} className="overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-0 animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
                 <div className="relative">
                   <img src={auction.image} alt={auction.title} className="w-full h-48 object-cover" />
                   <div className="absolute top-4 left-4 flex gap-2">
-                    <Badge className="bg-[#8A5A32] text-white font-semibold">
+                    <Badge className="bg-amber-500 text-white font-semibold">
                       <Calendar className="w-3 h-3 mr-1" />
                       AGENDADO
                     </Badge>
-                    <Badge className="bg-[#C89F45] text-white">{auction.type}</Badge>
+                    <Badge className="bg-emerald-600 text-white">{auction.type}</Badge>
                   </div>
                 </div>
                 <CardContent className="p-6">
-                  <h3 className="font-bold text-lg text-[#2B2E2B] mb-3 line-clamp-2">{auction.title}</h3>
+                  <h3 className="font-bold text-lg text-gray-900 mb-3 line-clamp-2">{auction.title}</h3>
                   
                   <div className="space-y-3 mb-6">
                     <div className="flex justify-between items-center">
-                      <span className="text-[#6E7D5B]">Início:</span>
-                      <span className="font-bold text-[#1E4D2B]">
+                      <span className="text-gray-600">Início:</span>
+                      <span className="font-bold text-emerald-600">
                         {formatDateTime(auction.startTime)}
                       </span>
                     </div>
                     
                     <div className="flex justify-between items-center">
-                      <span className="text-[#6E7D5B]">Valor estimado:</span>
-                      <span className="font-bold text-[#1E4D2B] text-lg">
+                      <span className="text-gray-600">Valor estimado:</span>
+                      <span className="font-bold text-emerald-600 text-lg">
                         R$ {auction.estimatedValue.toLocaleString()}
                       </span>
                     </div>
                     
                     <div className="flex justify-between items-center">
-                      <span className="text-[#6E7D5B]">Total de lotes:</span>
-                      <span className="font-bold text-[#2B2E2B] flex items-center">
-                        <Trophy className="w-4 h-4 mr-1 text-[#C89F45]" />
+                      <span className="text-gray-600">Total de lotes:</span>
+                      <span className="font-bold text-gray-900 flex items-center">
+                        <Trophy className="w-4 h-4 mr-1 text-emerald-600" />
                         {auction.totalLots} lotes
                       </span>
                     </div>
 
                     <div className="flex justify-between items-center">
-                      <span className="text-[#6E7D5B]">Local:</span>
-                      <span className="font-semibold text-[#2B2E2B] flex items-center">
-                        <MapPin className="w-4 h-4 mr-1 text-[#6E7D5B]" />
+                      <span className="text-gray-600">Local:</span>
+                      <span className="font-semibold text-gray-900 flex items-center">
+                        <MapPin className="w-4 h-4 mr-1 text-gray-500" />
                         {auction.location}
                       </span>
                     </div>
                   </div>
 
-                  <div className="text-sm text-[#6E7D5B] mb-4">
-                    Leiloeiro: <span className="font-semibold text-[#2B2E2B]">{auction.auctioneer}</span>
+                  <div className="text-sm text-gray-600 mb-4">
+                    Leiloeiro: <span className="font-semibold text-gray-900">{auction.auctioneer}</span>
                   </div>
 
                   <div className="flex gap-2">
-                    <Button className="flex-1 bg-[#C89F45] hover:bg-[#B8913D] text-white transition-all duration-300 transform hover:scale-105">
+                    <Button className="flex-1 bg-amber-500 hover:bg-amber-600 text-white transition-all duration-300 transform hover:scale-105">
                       <TrendingUp className="w-4 h-4 mr-2" />
                       Agendar Lembrete
                     </Button>
-                    <Button variant="outline" className="border-[#1E4D2B] text-[#1E4D2B] hover:bg-[#1E4D2B] hover:text-white">
+                    <Button variant="outline" className="border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white">
                       Ver Detalhes
                     </Button>
                   </div>
@@ -391,62 +384,23 @@ export default function LeiloesPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="mt-16 bg-gradient-to-br from-[#1E4D2B] to-[#2F6C3F] rounded-2xl p-8 text-center text-white">
+        <section className="mt-16 bg-gradient-to-br from-emerald-600 to-green-700 rounded-2xl p-8 text-center text-white">
           <h2 className="text-2xl md:text-3xl font-bold mb-4">
             Quer organizar seu próprio leilão?
           </h2>
-          <p className="text-xl text-[#E0E0E0] mb-6 max-w-2xl mx-auto">
+          <p className="text-xl text-emerald-100 mb-6 max-w-2xl mx-auto">
             Nossa plataforma oferece todas as ferramentas para você realizar leilões profissionais
           </p>
           <Link href="/vender">
-            <Button className="bg-[#C89F45] hover:bg-[#B8913D] text-white px-8 py-3 text-lg transition-all duration-300 transform hover:scale-105">
+            <Button className="bg-amber-500 hover:bg-amber-600 text-white px-8 py-3 text-lg transition-all duration-300 transform hover:scale-105">
+              <Gavel className="w-5 h-5 mr-2" />
               Criar Meu Leilão
             </Button>
           </Link>
         </section>
       </div>
 
-      {/* Footer */}
-      <footer className="bg-[#4A3218] text-[#F7F6F2] py-12 mt-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div>
-              <h3 className="text-2xl font-bold text-[#C89F45] mb-4">AgroMarket</h3>
-              <p className="text-[#F7F6F2]/80 mb-4">
-                A maior plataforma de negócios do agronegócio brasileiro.
-              </p>
-            </div>
-            <div>
-              <h4 className="font-bold mb-4 text-[#C89F45]">Categorias</h4>
-              <ul className="space-y-2">
-                <li><Link href="/catalogo?categoria=gado-corte" className="hover:text-[#C89F45] transition-colors duration-300">Gado de Corte</Link></li>
-                <li><Link href="/catalogo?categoria=gado-leite" className="hover:text-[#C89F45] transition-colors duration-300">Gado de Leite</Link></li>
-                <li><Link href="/catalogo?categoria=cavalos" className="hover:text-[#C89F45] transition-colors duration-300">Cavalos</Link></li>
-                <li><Link href="/catalogo?categoria=semen" className="hover:text-[#C89F45] transition-colors duration-300">Sêmen</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-bold mb-4 text-[#C89F45]">Empresa</h4>
-              <ul className="space-y-2">
-                <li><Link href="/sobre" className="hover:text-[#C89F45] transition-colors duration-300">Sobre Nós</Link></li>
-                <li><Link href="/contato" className="hover:text-[#C89F45] transition-colors duration-300">Contato</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-bold mb-4 text-[#C89F45]">Suporte</h4>
-              <ul className="space-y-2">
-                <li><Link href="/ajuda" className="hover:text-[#C89F45] transition-colors duration-300">Central de Ajuda</Link></li>
-                <li><Link href="/termos" className="hover:text-[#C89F45] transition-colors duration-300">Termos de Uso</Link></li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-[#C89F45]/20 mt-8 pt-8 text-center">
-            <p className="text-[#F7F6F2]/60">
-              © 2024 AgroMarket. Todos os direitos reservados.
-            </p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }

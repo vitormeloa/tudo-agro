@@ -8,6 +8,8 @@ import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import Header from '@/components/layout/Header'
+import Footer from '@/components/layout/Footer'
 
 export default function VenderPage() {
   const [currentStep, setCurrentStep] = useState(1)
@@ -113,59 +115,48 @@ export default function VenderPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F7F6F2]">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
-              <Link href="/" className="text-2xl font-bold text-[#1E4D2B]">
-                AgroMarket
-              </Link>
-            </div>
-            <nav className="hidden md:flex space-x-8">
-              <Link href="/" className="text-[#2B2E2B] hover:text-[#C89F45] transition-colors duration-300">Início</Link>
-              <Link href="/catalogo" className="text-[#2B2E2B] hover:text-[#C89F45] transition-colors duration-300">Catálogo</Link>
-              <Link href="/leiloes" className="text-[#2B2E2B] hover:text-[#C89F45] transition-colors duration-300">Leilões</Link>
-              <Link href="/vender" className="text-[#C89F45] font-semibold">Vender</Link>
-              <Link href="/sobre" className="text-[#2B2E2B] hover:text-[#C89F45] transition-colors duration-300">Sobre</Link>
-            </nav>
-            <div className="flex items-center space-x-4">
-              <Link href="/login">
-                <Button variant="outline" className="border-[#1E4D2B] text-[#1E4D2B] hover:bg-[#1E4D2B] hover:text-white">
-                  Entrar
-                </Button>
-              </Link>
-              <Link href="/cadastro">
-                <Button className="bg-[#1E4D2B] hover:bg-[#163B20] text-white">
-                  Cadastrar
-                </Button>
-              </Link>
-            </div>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
+      <Header />
+
+      {/* Hero Section */}
+      <section className="relative pt-20 pb-16 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-white to-green-50"></div>
+        <div className="absolute inset-0 opacity-40">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(5,150,105,0.15)_1px,transparent_0)] bg-[length:20px_20px]"></div>
+        </div>
+        
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <Badge className="mb-6 bg-emerald-100 text-emerald-800 border-emerald-200 px-4 py-2 text-sm font-medium">
+              <DollarSign className="w-4 h-4 mr-2" />
+              Venda Rápida e Segura
+            </Badge>
+            
+            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+              Venda seu{' '}
+              <span className="bg-gradient-to-r from-emerald-600 to-green-600 bg-clip-text text-transparent">animal</span>
+              <br />
+              com facilidade
+            </h1>
+            
+            <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
+              Cadastre seu animal e alcance compradores de todo o Brasil com segurança total
+            </p>
           </div>
         </div>
-      </header>
+      </section>
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Page Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-[#2B2E2B] mb-4">
-            Vender Animal
-          </h1>
-          <p className="text-xl text-[#6E7D5B]">
-            Cadastre seu animal e alcance compradores de todo o Brasil
-          </p>
-        </div>
 
         {/* Progress Steps */}
-        <div className="mb-8">
+        <div className="mb-12">
           <div className="flex items-center justify-between">
             {steps.map((step, index) => (
               <div key={step.number} className="flex items-center">
-                <div className={`flex items-center justify-center w-10 h-10 rounded-full border-2 transition-all duration-300 ${
+                <div className={`flex items-center justify-center w-12 h-12 rounded-full border-2 transition-all duration-300 ${
                   currentStep >= step.number 
-                    ? 'bg-[#1E4D2B] border-[#1E4D2B] text-white' 
-                    : 'border-[#6E7D5B] text-[#6E7D5B]'
+                    ? 'bg-emerald-600 border-emerald-600 text-white shadow-lg' 
+                    : 'border-gray-300 text-gray-500'
                 }`}>
                   {currentStep > step.number ? (
                     <CheckCircle className="w-6 h-6" />
@@ -175,15 +166,15 @@ export default function VenderPage() {
                 </div>
                 <div className="ml-3 hidden sm:block">
                   <div className={`text-sm font-medium ${
-                    currentStep >= step.number ? 'text-[#1E4D2B]' : 'text-[#6E7D5B]'
+                    currentStep >= step.number ? 'text-emerald-600' : 'text-gray-500'
                   }`}>
                     {step.title}
                   </div>
-                  <div className="text-xs text-[#6E7D5B]">{step.description}</div>
+                  <div className="text-xs text-gray-500">{step.description}</div>
                 </div>
                 {index < steps.length - 1 && (
                   <div className={`hidden sm:block w-16 h-0.5 ml-4 ${
-                    currentStep > step.number ? 'bg-[#1E4D2B]' : 'bg-gray-300'
+                    currentStep > step.number ? 'bg-emerald-600' : 'bg-gray-300'
                   }`} />
                 )}
               </div>
@@ -192,12 +183,12 @@ export default function VenderPage() {
         </div>
 
         {/* Form Card */}
-        <Card className="shadow-2xl border-0 bg-white">
+        <Card className="shadow-2xl border-0 bg-white rounded-2xl">
           <CardHeader className="pb-6">
-            <CardTitle className="text-2xl text-center text-[#2B2E2B]">
+            <CardTitle className="text-2xl text-center text-gray-900">
               {steps[currentStep - 1].title}
             </CardTitle>
-            <p className="text-center text-[#6E7D5B]">
+            <p className="text-center text-gray-600">
               {steps[currentStep - 1].description}
             </p>
           </CardHeader>
@@ -207,10 +198,10 @@ export default function VenderPage() {
               {currentStep === 1 && (
                 <div className="space-y-6">
                   <div className="text-center mb-6">
-                    <h3 className="text-lg font-semibold text-[#2B2E2B] mb-2">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2">
                       Como você quer vender?
                     </h3>
-                    <p className="text-[#6E7D5B]">
+                    <p className="text-gray-600">
                       Escolha a modalidade que melhor se adapta ao seu negócio
                     </p>
                   </div>
@@ -219,32 +210,32 @@ export default function VenderPage() {
                     <button
                       type="button"
                       onClick={() => setSaleType('direct')}
-                      className={`p-6 border-2 rounded-xl transition-all duration-300 text-left ${
+                      className={`p-6 border-2 rounded-xl transition-all duration-300 text-left hover:shadow-lg ${
                         saleType === 'direct' 
-                          ? 'border-[#1E4D2B] bg-[#1E4D2B]/5' 
-                          : 'border-gray-200 hover:border-[#C89F45]'
+                          ? 'border-emerald-600 bg-emerald-50 shadow-lg' 
+                          : 'border-gray-200 hover:border-emerald-400'
                       }`}
                     >
                       <div className="flex items-center mb-4">
-                        <DollarSign className="w-8 h-8 text-[#1E4D2B] mr-3" />
+                        <DollarSign className="w-8 h-8 text-emerald-600 mr-3" />
                         <div>
-                          <h4 className="font-bold text-[#2B2E2B]">Venda Direta</h4>
-                          <Badge className="bg-[#3D9970] text-white text-xs">RECOMENDADO</Badge>
+                          <h4 className="font-bold text-gray-900">Venda Direta</h4>
+                          <Badge className="bg-emerald-600 text-white text-xs">RECOMENDADO</Badge>
                         </div>
                       </div>
-                      <p className="text-[#6E7D5B] mb-4">
+                      <p className="text-gray-600 mb-4">
                         Defina um preço fixo e negocie diretamente com os compradores interessados.
                       </p>
                       <div className="space-y-2 text-sm">
-                        <div className="flex items-center text-[#3D9970]">
+                        <div className="flex items-center text-emerald-600">
                           <CheckCircle className="w-4 h-4 mr-2" />
                           Venda mais rápida
                         </div>
-                        <div className="flex items-center text-[#3D9970]">
+                        <div className="flex items-center text-emerald-600">
                           <CheckCircle className="w-4 h-4 mr-2" />
                           Controle total do preço
                         </div>
-                        <div className="flex items-center text-[#3D9970]">
+                        <div className="flex items-center text-emerald-600">
                           <CheckCircle className="w-4 h-4 mr-2" />
                           Negociação direta
                         </div>
@@ -254,32 +245,32 @@ export default function VenderPage() {
                     <button
                       type="button"
                       onClick={() => setSaleType('auction')}
-                      className={`p-6 border-2 rounded-xl transition-all duration-300 text-left ${
+                      className={`p-6 border-2 rounded-xl transition-all duration-300 text-left hover:shadow-lg ${
                         saleType === 'auction' 
-                          ? 'border-[#1E4D2B] bg-[#1E4D2B]/5' 
-                          : 'border-gray-200 hover:border-[#C89F45]'
+                          ? 'border-emerald-600 bg-emerald-50 shadow-lg' 
+                          : 'border-gray-200 hover:border-emerald-400'
                       }`}
                     >
                       <div className="flex items-center mb-4">
-                        <Calendar className="w-8 h-8 text-[#C89F45] mr-3" />
+                        <Calendar className="w-8 h-8 text-amber-600 mr-3" />
                         <div>
-                          <h4 className="font-bold text-[#2B2E2B]">Leilão Online</h4>
-                          <Badge className="bg-[#C89F45] text-white text-xs">MAIOR VALOR</Badge>
+                          <h4 className="font-bold text-gray-900">Leilão Online</h4>
+                          <Badge className="bg-amber-600 text-white text-xs">MAIOR VALOR</Badge>
                         </div>
                       </div>
-                      <p className="text-[#6E7D5B] mb-4">
+                      <p className="text-gray-600 mb-4">
                         Agende um leilão e deixe os compradores disputarem pelo melhor preço.
                       </p>
                       <div className="space-y-2 text-sm">
-                        <div className="flex items-center text-[#C89F45]">
+                        <div className="flex items-center text-amber-600">
                           <CheckCircle className="w-4 h-4 mr-2" />
                           Potencial de maior valor
                         </div>
-                        <div className="flex items-center text-[#C89F45]">
+                        <div className="flex items-center text-amber-600">
                           <CheckCircle className="w-4 h-4 mr-2" />
                           Competição entre compradores
                         </div>
-                        <div className="flex items-center text-[#C89F45]">
+                        <div className="flex items-center text-amber-600">
                           <CheckCircle className="w-4 h-4 mr-2" />
                           Transparência total
                         </div>
@@ -287,14 +278,14 @@ export default function VenderPage() {
                     </button>
                   </div>
 
-                  <div className="bg-[#1E4D2B]/5 border border-[#1E4D2B]/20 rounded-lg p-4">
+                  <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-4">
                     <div className="flex items-start">
-                      <AlertCircle className="w-5 h-5 text-[#1E4D2B] mr-3 mt-0.5" />
+                      <AlertCircle className="w-5 h-5 text-emerald-600 mr-3 mt-0.5" />
                       <div>
-                        <h4 className="font-semibold text-[#1E4D2B] mb-1">
+                        <h4 className="font-semibold text-emerald-800 mb-1">
                           Dica importante
                         </h4>
-                        <p className="text-sm text-[#6E7D5B]">
+                        <p className="text-sm text-emerald-700">
                           {saleType === 'direct' 
                             ? 'Na venda direta, você pode aceitar propostas e negociar o preço final com os interessados.'
                             : 'No leilão, defina um lance mínimo realista para atrair mais participantes e garantir um bom resultado.'
@@ -311,7 +302,7 @@ export default function VenderPage() {
                 <div className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
-                      <label htmlFor="title" className="block text-sm font-medium text-[#2B2E2B] mb-2">
+                      <label htmlFor="title" className="block text-sm font-medium text-gray-900 mb-2">
                         Título do Anúncio *
                       </label>
                       <Input
@@ -320,17 +311,17 @@ export default function VenderPage() {
                         placeholder="Ex: Touro Nelore PO Certificado"
                         value={formData.title}
                         onChange={(e) => setFormData({...formData, title: e.target.value})}
-                        className="h-12"
+                        className="h-12 border-gray-300 focus:border-emerald-500 focus:ring-emerald-500"
                         required
                       />
                     </div>
 
                     <div>
-                      <label htmlFor="category" className="block text-sm font-medium text-[#2B2E2B] mb-2">
+                      <label htmlFor="category" className="block text-sm font-medium text-gray-900 mb-2">
                         Categoria *
                       </label>
                       <Select value={formData.category} onValueChange={(value) => setFormData({...formData, category: value})}>
-                        <SelectTrigger className="h-12">
+                        <SelectTrigger className="h-12 border-gray-300 focus:border-emerald-500 focus:ring-emerald-500">
                           <SelectValue placeholder="Selecione a categoria" />
                         </SelectTrigger>
                         <SelectContent>
@@ -344,11 +335,11 @@ export default function VenderPage() {
 
                   <div className="grid md:grid-cols-3 gap-4">
                     <div>
-                      <label htmlFor="breed" className="block text-sm font-medium text-[#2B2E2B] mb-2">
+                      <label htmlFor="breed" className="block text-sm font-medium text-gray-900 mb-2">
                         Raça *
                       </label>
                       <Select value={formData.breed} onValueChange={(value) => setFormData({...formData, breed: value})}>
-                        <SelectTrigger className="h-12">
+                        <SelectTrigger className="h-12 border-gray-300 focus:border-emerald-500 focus:ring-emerald-500">
                           <SelectValue placeholder="Selecione a raça" />
                         </SelectTrigger>
                         <SelectContent>
@@ -360,11 +351,11 @@ export default function VenderPage() {
                     </div>
 
                     <div>
-                      <label htmlFor="gender" className="block text-sm font-medium text-[#2B2E2B] mb-2">
+                      <label htmlFor="gender" className="block text-sm font-medium text-gray-900 mb-2">
                         Sexo *
                       </label>
                       <Select value={formData.gender} onValueChange={(value) => setFormData({...formData, gender: value})}>
-                        <SelectTrigger className="h-12">
+                        <SelectTrigger className="h-12 border-gray-300 focus:border-emerald-500 focus:ring-emerald-500">
                           <SelectValue placeholder="Selecione o sexo" />
                         </SelectTrigger>
                         <SelectContent>
@@ -375,7 +366,7 @@ export default function VenderPage() {
                     </div>
 
                     <div>
-                      <label htmlFor="age" className="block text-sm font-medium text-[#2B2E2B] mb-2">
+                      <label htmlFor="age" className="block text-sm font-medium text-gray-900 mb-2">
                         Idade *
                       </label>
                       <Input
@@ -384,7 +375,7 @@ export default function VenderPage() {
                         placeholder="Ex: 3 anos"
                         value={formData.age}
                         onChange={(e) => setFormData({...formData, age: e.target.value})}
-                        className="h-12"
+                        className="h-12 border-gray-300 focus:border-emerald-500 focus:ring-emerald-500"
                         required
                       />
                     </div>
@@ -853,47 +844,7 @@ export default function VenderPage() {
         </div>
       </div>
 
-      {/* Footer */}
-      <footer className="bg-[#4A3218] text-[#F7F6F2] py-12 mt-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div>
-              <h3 className="text-2xl font-bold text-[#C89F45] mb-4">AgroMarket</h3>
-              <p className="text-[#F7F6F2]/80 mb-4">
-                A maior plataforma de negócios do agronegócio brasileiro.
-              </p>
-            </div>
-            <div>
-              <h4 className="font-bold mb-4 text-[#C89F45]">Categorias</h4>
-              <ul className="space-y-2">
-                <li><Link href="/catalogo?categoria=gado-corte" className="hover:text-[#C89F45] transition-colors duration-300">Gado de Corte</Link></li>
-                <li><Link href="/catalogo?categoria=gado-leite" className="hover:text-[#C89F45] transition-colors duration-300">Gado de Leite</Link></li>
-                <li><Link href="/catalogo?categoria=cavalos" className="hover:text-[#C89F45] transition-colors duration-300">Cavalos</Link></li>
-                <li><Link href="/catalogo?categoria=semen" className="hover:text-[#C89F45] transition-colors duration-300">Sêmen</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-bold mb-4 text-[#C89F45]">Empresa</h4>
-              <ul className="space-y-2">
-                <li><Link href="/sobre" className="hover:text-[#C89F45] transition-colors duration-300">Sobre Nós</Link></li>
-                <li><Link href="/contato" className="hover:text-[#C89F45] transition-colors duration-300">Contato</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-bold mb-4 text-[#C89F45]">Suporte</h4>
-              <ul className="space-y-2">
-                <li><Link href="/ajuda" className="hover:text-[#C89F45] transition-colors duration-300">Central de Ajuda</Link></li>
-                <li><Link href="/termos" className="hover:text-[#C89F45] transition-colors duration-300">Termos de Uso</Link></li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-[#C89F45]/20 mt-8 pt-8 text-center">
-            <p className="text-[#F7F6F2]/60">
-              © 2024 AgroMarket. Todos os direitos reservados.
-            </p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }
