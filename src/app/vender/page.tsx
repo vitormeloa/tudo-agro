@@ -127,10 +127,6 @@ export default function VenderPage() {
         
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <Badge className="mb-6 bg-emerald-100 text-emerald-800 border-emerald-200 px-4 py-2 text-sm font-medium">
-              <DollarSign className="w-4 h-4 mr-2" />
-              Venda Rápida e Segura
-            </Badge>
             
             <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
               Venda seu{' '}

@@ -75,7 +75,7 @@ export default function AdminDashboard({}: AdminDashboardProps) {
           <div className="flex items-center justify-between">
             {sidebarOpen && (
               <div>
-                <h1 className="text-2xl font-bold text-[#1E4D2B]">AgroMarket</h1>
+                <h1 className="text-2xl font-bold text-[#1E4D2B]">TudoAgro</h1>
                 <p className="text-sm text-[#6E7D5B]">Painel Administrativo</p>
               </div>
             )}

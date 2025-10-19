@@ -139,7 +139,7 @@ export default function Footer({
                 </div>
               </div>
               <div>
-                <span className="text-xl font-bold">AgroMarket</span>
+                <span className="text-xl font-bold">TudoAgro</span>
                 <div className="text-xs text-gray-400 -mt-1">Marketplace Agro</div>
               </div>
             </div>
@@ -156,7 +156,7 @@ export default function Footer({
               </div>
               <div className="flex items-center">
                 <Mail className="w-4 h-4 mr-2" />
-                <span>contato@agromarket.com.br</span>
+                <span>contato@tudoagro.com.br</span>
               </div>
               <div className="flex items-center">
                 <MapPin className="w-4 h-4 mr-2" />
@@ -238,7 +238,7 @@ export default function Footer({
         <div className="border-t border-gray-700/50 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="text-sm text-gray-400 mb-4 md:mb-0">
-              © {currentYear} AgroMarket. Todos os direitos reservados.
+              © {currentYear} TudoAgro. Todos os direitos reservados.
             </div>
 
             {/* Social Media */}

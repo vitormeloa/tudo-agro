@@ -149,10 +149,6 @@ export default function HomePage() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="animate-fade-in-up">
-              <Badge className="mb-6 bg-emerald-100 text-emerald-800 border-emerald-200 px-4 py-2 text-sm font-medium">
-                <Zap className="w-4 h-4 mr-2" />
-                Plataforma #1 do Agronegócio
-              </Badge>
               
               <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-6 leading-tight">
                 Conecte-se ao{' '}
@@ -338,7 +334,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Por que escolher o AgroMarket?
+              Por que escolher o TudoAgro?
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               A plataforma mais completa e segura para o agronegócio brasileiro
@@ -368,7 +364,7 @@ export default function HomePage() {
             Pronto para começar?
           </h2>
           <p className="text-xl text-emerald-100 mb-8 max-w-2xl mx-auto">
-            Junte-se a milhares de produtores que já transformaram seus negócios com o AgroMarket
+            Junte-se a milhares de produtores que já transformaram seus negócios com o TudoAgro
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/cadastro">

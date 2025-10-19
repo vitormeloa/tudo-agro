@@ -67,7 +67,7 @@ export default function Header({
               </div>
               <div className="hidden sm:block">
                 <span className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
-                  AgroMarket
+                  TudoAgro
                 </span>
                 <div className="text-xs text-gray-500 -mt-1">Marketplace Agro</div>
               </div>

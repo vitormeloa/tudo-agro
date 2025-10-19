@@ -235,7 +235,7 @@ export default function LoginPage() {
               <span className="text-white font-semibold">Conta de Teste</span>
             </div>
             <p className="text-emerald-100 text-sm mb-2">
-              E-mail: <span className="font-mono">teste@agromarket.com</span>
+              E-mail: <span className="font-mono">teste@tudoagro.com</span>
             </p>
             <p className="text-emerald-100 text-sm">
               Senha: <span className="font-mono">123456</span>

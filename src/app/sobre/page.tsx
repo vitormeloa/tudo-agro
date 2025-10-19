@@ -64,7 +64,7 @@ export default function SobrePage() {
     {
       name: "Roberto Fazenda",
       role: "Fazenda Boa Vista - GO",
-      content: "O AgroMarket revolucionou a forma como vendemos nossos animais. Conseguimos alcançar compradores de todo o Brasil e aumentamos nossa receita em 40%.",
+      content: "O TudoAgro revolucionou a forma como vendemos nossos animais. Conseguimos alcançar compradores de todo o Brasil e aumentamos nossa receita em 40%.",
       rating: 5,
       image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face"
     },
@@ -78,7 +78,7 @@ export default function SobrePage() {
     {
       name: "Pedro Almeida",
       role: "Fazenda Pantanal - MT",
-      content: "Encontrei os melhores reprodutores para meu rebanho através do AgroMarket. A qualidade dos animais e o suporte da equipe são excepcionais.",
+      content: "Encontrei os melhores reprodutores para meu rebanho através do TudoAgro. A qualidade dos animais e o suporte da equipe são excepcionais.",
       rating: 5,
       image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face"
     }
@@ -103,7 +103,7 @@ export default function SobrePage() {
           </Badge>
           
           <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white drop-shadow-lg">
-            Sobre o AgroMarket
+            Sobre o TudoAgro
           </h1>
           <p className="text-xl md:text-2xl mb-8 text-white/90 max-w-3xl mx-auto leading-relaxed">
             Conectando o agronegócio brasileiro através da tecnologia, segurança e transparência
@@ -239,7 +239,7 @@ export default function SobrePage() {
               O que nossos clientes dizem
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Depoimentos reais de produtores que confiam no AgroMarket
+              Depoimentos reais de produtores que confiam no TudoAgro
             </p>
           </div>
 
@@ -351,7 +351,7 @@ export default function SobrePage() {
             Faça parte da nossa história
           </h2>
           <p className="text-xl text-emerald-100 mb-8 max-w-2xl mx-auto">
-            Junte-se a milhares de produtores que já transformaram seus negócios com o AgroMarket
+            Junte-se a milhares de produtores que já transformaram seus negócios com o TudoAgro
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/cadastro">

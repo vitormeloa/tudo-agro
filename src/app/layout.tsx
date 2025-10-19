@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AgroMarket - Marketplace Agropecuário",
+  title: "TudoAgro - Marketplace Agropecuário",
   description: "O maior marketplace agropecuário do Brasil. Compre e venda gado, cavalos e genética com segurança. Participe de leilões online em tempo real.",
 };
 
