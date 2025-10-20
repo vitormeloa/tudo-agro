@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent } from '@/components/ui/card'
@@ -9,6 +10,7 @@ import { Label } from '@/components/ui/label'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+import { useAuth } from '@/hooks/useAuth'
 import { 
   User, 
   Mail, 
@@ -31,6 +33,9 @@ export default function CadastroPage() {
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState('')
+  const router = useRouter()
+  const { signUp } = useAuth()
   const [formData, setFormData] = useState({
     accountType: '',
     email: '',
@@ -73,10 +78,50 @@ export default function CadastroPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
-    // Simular cadastro
-    setTimeout(() => {
+    setError('')
+
+    // Validar senhas
+    if (formData.password !== formData.confirmPassword) {
+      setError('As senhas não coincidem')
       setIsLoading(false)
-    }, 2000)
+      return
+    }
+
+    // Validar termos
+    if (!formData.acceptTerms) {
+      setError('Você deve aceitar os termos de uso')
+      setIsLoading(false)
+      return
+    }
+
+    try {
+      // Determinar roles baseado no tipo de conta
+      const roles = []
+      if (formData.accountType === 'vendedor' || formData.accountType === 'ambos') {
+        roles.push('vendedor')
+      }
+      if (formData.accountType === 'comprador' || formData.accountType === 'ambos') {
+        roles.push('comprador')
+      }
+
+      const { error } = await signUp(formData.email, formData.password, {
+        name: formData.fullName,
+        phone: formData.phone,
+        cpf: formData.cpf,
+        cnpj: formData.cnpj,
+        roles
+      })
+
+      if (error) {
+        setError(error)
+      } else {
+        router.push('/login?message=Conta criada com sucesso! Verifique seu email para confirmar.')
+      }
+    } catch (err) {
+      setError('Erro interno do servidor')
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   const features = [
@@ -542,6 +587,11 @@ export default function CadastroPage() {
           <Card className="shadow-2xl border-0">
             <CardContent className="p-8">
               <form onSubmit={handleSubmit}>
+                {error && (
+                  <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm mb-6">
+                    {error}
+                  </div>
+                )}
                 {renderStepContent()}
 
                 <div className="flex justify-between mt-8">

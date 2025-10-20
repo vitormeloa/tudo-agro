@@ -1,0 +1,284 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Modelo de Usuário
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  password  String?
+  image     String?
+  phone     String?
+  cpf       String?  @unique
+  cnpj      String?  @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relacionamentos
+  accounts     Account[]
+  sessions     Session[]
+  roles        UserRole[]
+  products     Product[]
+  auctions     Auction[]
+  bids         Bid[]
+  transactions Transaction[]
+  messages     Message[]
+  reviews      Review[]
+  addresses    Address[]
+  documents    Document[]
+
+  @@map("users")
+}
+
+// Modelo de Contas (NextAuth)
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+// Modelo de Sessões (NextAuth)
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+// Modelo de Verificação (NextAuth)
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+// Modelo de Roles
+model Role {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  description String?
+  permissions String[] // Array de permissões
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relacionamentos
+  users UserRole[]
+
+  @@map("roles")
+}
+
+// Tabela de junção para User-Role (Many-to-Many)
+model UserRole {
+  id     String @id @default(cuid())
+  userId String
+  roleId String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role Role @relation(fields: [roleId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, roleId])
+  @@map("user_roles")
+}
+
+// Modelo de Produtos/Animais
+model Product {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  category    String
+  breed       String?
+  gender      String?
+  age         String?
+  weight      Float?
+  price       Float?
+  negotiable  Boolean  @default(false)
+  status      String   @default("active") // active, sold, inactive
+  featured    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relacionamentos
+  userId     String
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  images     ProductImage[]
+  documents  Document[]
+  auctions   Auction[]
+  reviews    Review[]
+  addresses  Address[]
+
+  @@map("products")
+}
+
+// Modelo de Imagens dos Produtos
+model ProductImage {
+  id        String   @id @default(cuid())
+  url       String
+  alt       String?
+  order     Int      @default(0)
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@map("product_images")
+}
+
+// Modelo de Leilões
+model Auction {
+  id          String    @id @default(cuid())
+  title       String
+  description String?
+  startDate   DateTime
+  endDate     DateTime
+  startingBid Float
+  currentBid  Float?
+  status      String    @default("scheduled") // scheduled, active, ended, cancelled
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  // Relacionamentos
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  bids      Bid[]
+
+  @@map("auctions")
+}
+
+// Modelo de Lances
+model Bid {
+  id        String   @id @default(cuid())
+  amount    Float
+  createdAt DateTime @default(now())
+
+  // Relacionamentos
+  auctionId String
+  auction   Auction @relation(fields: [auctionId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("bids")
+}
+
+// Modelo de Transações
+model Transaction {
+  id          String   @id @default(cuid())
+  amount      Float
+  status      String   @default("pending") // pending, completed, cancelled, refunded
+  paymentMethod String?
+  paymentId   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relacionamentos
+  buyerId String
+  buyer   User   @relation(fields: [buyerId], references: [id], onDelete: Cascade)
+  sellerId String
+  seller   User   @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+  productId String?
+  product   Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+  auctionId String?
+  auction   Auction? @relation(fields: [auctionId], references: [id], onDelete: SetNull)
+
+  @@map("transactions")
+}
+
+// Modelo de Mensagens
+model Message {
+  id        String   @id @default(cuid())
+  content   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  // Relacionamentos
+  senderId   String
+  sender     User     @relation(fields: [senderId], references: [id], onDelete: Cascade)
+  receiverId String
+  receiver   User     @relation(fields: [receiverId], references: [id], onDelete: Cascade)
+
+  @@map("messages")
+}
+
+// Modelo de Avaliações
+model Review {
+  id        String   @id @default(cuid())
+  rating    Int      // 1-5
+  comment   String?
+  createdAt DateTime @default(now())
+
+  // Relacionamentos
+  reviewerId String
+  reviewer   User    @relation(fields: [reviewerId], references: [id], onDelete: Cascade)
+  revieweeId String
+  reviewee   User    @relation(fields: [revieweeId], references: [id], onDelete: Cascade)
+  productId  String?
+  product    Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+
+  @@map("reviews")
+}
+
+// Modelo de Endereços
+model Address {
+  id        String   @id @default(cuid())
+  street    String
+  city      String
+  state     String
+  zipCode   String
+  country   String   @default("Brasil")
+  isDefault Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relacionamentos
+  userId   String
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  productId String?
+  product   Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+
+  @@map("addresses")
+}
+
+// Modelo de Documentos
+model Document {
+  id        String   @id @default(cuid())
+  name      String
+  url       String
+  type      String   // certificate, health, registration, etc.
+  createdAt DateTime @default(now())
+
+  // Relacionamentos
+  userId   String
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  productId String?
+  product   Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+
+  @@map("documents")
+}

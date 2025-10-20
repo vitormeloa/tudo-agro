@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { 
@@ -12,9 +12,12 @@ import {
   User, 
   ShoppingCart,
   Bell,
-  ChevronDown
+  ChevronDown,
+  LogOut,
+  Settings
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { useAuth } from '@/hooks/useAuth'
 
 interface HeaderProps {
   variant?: 'default' | 'transparent' | 'minimal'
@@ -22,6 +25,7 @@ interface HeaderProps {
   showNotifications?: boolean
   showCart?: boolean
   className?: string
+  enableScrollOpacity?: boolean
 }
 
 export default function Header({ 
@@ -29,10 +33,41 @@ export default function Header({
   showSearch = true,
   showNotifications = true,
   showCart = true,
-  className 
+  className,
+  enableScrollOpacity = true
 }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
+  const [scrollY, setScrollY] = useState(0)
+  const { user, loading, signOut } = useAuth()
+
+  // Efeito de scroll para opacidade
+  useEffect(() => {
+    if (!enableScrollOpacity) return
+
+    const handleScroll = () => {
+      setScrollY(window.scrollY)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [enableScrollOpacity])
+
+  // Fechar menu do usuário quando clicar fora
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (isUserMenuOpen) {
+        const target = event.target as Element
+        if (!target.closest('[data-user-menu]')) {
+          setIsUserMenuOpen(false)
+        }
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [isUserMenuOpen])
 
   const navigation = [
     { name: 'Início', href: '/', current: false },
@@ -44,14 +79,36 @@ export default function Header({
 
   const baseClasses = "sticky top-0 z-50 transition-all duration-300"
   
+  // Calcular opacidade baseada no scroll
+  const getOpacity = () => {
+    if (!enableScrollOpacity || variant === 'transparent') return 1
+    const maxScroll = 100
+    const opacity = Math.min(scrollY / maxScroll, 1)
+    return Math.max(0.85, 0.95 - (opacity * 0.1)) // Mínimo de 85% de opacidade
+  }
+
   const variantClasses = {
-    default: "bg-white/95 backdrop-blur-md border-b border-gray-200/50 shadow-sm",
+    default: `backdrop-blur-md border-b border-gray-200/50 shadow-sm`,
     transparent: "bg-transparent",
     minimal: "bg-white border-b border-gray-100"
   }
 
+  const getBackgroundStyle = () => {
+    if (variant === 'transparent') return 'transparent'
+    if (variant === 'minimal') return 'white'
+    
+    const opacity = getOpacity()
+    return `rgba(255, 255, 255, ${opacity})`
+  }
+
   return (
-    <header className={cn(baseClasses, variantClasses[variant], className)}>
+    <header 
+      className={cn(baseClasses, variantClasses[variant], className)}
+      style={{ 
+        backgroundColor: getBackgroundStyle(),
+        backdropFilter: variant === 'transparent' ? 'none' : 'blur(12px)'
+      }}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 lg:h-20">
           {/* Logo */}
@@ -98,85 +155,119 @@ export default function Header({
 
           {/* Right side actions */}
           <div className="flex items-center space-x-2 lg:space-x-4">
-            {/* Search */}
-            {showSearch && (
-              <div className="hidden md:block">
+            {/* Mostrar ícones apenas quando logado */}
+            {user && !loading && (
+              <>
+                {/* Search */}
+                {showSearch && (
+                  <div className="hidden md:block">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setIsSearchOpen(!isSearchOpen)}
+                      className="text-gray-600 hover:text-emerald-600 hover:bg-emerald-50"
+                    >
+                      <Search className="w-5 h-5" />
+                    </Button>
+                  </div>
+                )}
+
+                {/* Notifications */}
+                {showNotifications && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="relative text-gray-600 hover:text-emerald-600 hover:bg-emerald-50"
+                  >
+                    <Bell className="w-5 h-5" />
+                    <Badge className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-red-500 text-white text-xs flex items-center justify-center">
+                      3
+                    </Badge>
+                  </Button>
+                )}
+
+                {/* Favorites */}
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={() => setIsSearchOpen(!isSearchOpen)}
-                  className="text-gray-600 hover:text-emerald-600 hover:bg-emerald-50"
+                  className="text-gray-600 hover:text-red-500 hover:bg-red-50"
                 >
-                  <Search className="w-5 h-5" />
+                  <Heart className="w-5 h-5" />
                 </Button>
+
+                {/* Cart */}
+                {showCart && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="relative text-gray-600 hover:text-emerald-600 hover:bg-emerald-50"
+                  >
+                    <ShoppingCart className="w-5 h-5" />
+                    <Badge className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-emerald-500 text-white text-xs flex items-center justify-center">
+                      2
+                    </Badge>
+                  </Button>
+                )}
+
+                {/* User Menu */}
+                <div className="hidden md:flex items-center space-x-2 relative" data-user-menu>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                    className="text-gray-600 hover:text-emerald-600 hover:bg-emerald-50"
+                  >
+                    <div className="w-8 h-8 bg-emerald-600 rounded-full flex items-center justify-center">
+                      <User className="w-4 h-4 text-white" />
+                    </div>
+                    <ChevronDown className="w-4 h-4 ml-1" />
+                  </Button>
+
+                  {/* User Dropdown Menu */}
+                  {isUserMenuOpen && (
+                    <div className="absolute top-full right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                      <div className="px-4 py-2 border-b border-gray-100">
+                        <p className="text-sm font-medium text-gray-900">{user.name || 'Usuário'}</p>
+                        <p className="text-xs text-gray-500">{user.email}</p>
+                      </div>
+                      <Link href="/painel" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                        <Settings className="w-4 h-4 inline mr-2" />
+                        Painel
+                      </Link>
+                      <button
+                        onClick={() => {
+                          signOut()
+                          setIsUserMenuOpen(false)
+                        }}
+                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                      >
+                        <LogOut className="w-4 h-4 inline mr-2" />
+                        Sair
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </>
+            )}
+
+            {/* Auth Buttons - mostrar apenas quando não logado */}
+            {!user && !loading && (
+              <div className="hidden md:flex items-center space-x-2">
+                <Link href="/login">
+                  <Button variant="ghost" size="sm" className="text-gray-700 hover:text-emerald-600">
+                    Entrar
+                  </Button>
+                </Link>
+                <Link href="/cadastro">
+                  <Button 
+                    size="sm" 
+                    className="bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white shadow-lg hover:shadow-xl transition-all duration-300"
+                  >
+                    Cadastrar
+                  </Button>
+                </Link>
               </div>
             )}
-
-            {/* Notifications */}
-            {showNotifications && (
-              <Button
-                variant="ghost"
-                size="sm"
-                className="relative text-gray-600 hover:text-emerald-600 hover:bg-emerald-50"
-              >
-                <Bell className="w-5 h-5" />
-                <Badge className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-red-500 text-white text-xs flex items-center justify-center">
-                  3
-                </Badge>
-              </Button>
-            )}
-
-            {/* Favorites */}
-            <Button
-              variant="ghost"
-              size="sm"
-              className="text-gray-600 hover:text-red-500 hover:bg-red-50"
-            >
-              <Heart className="w-5 h-5" />
-            </Button>
-
-            {/* Cart */}
-            {showCart && (
-              <Button
-                variant="ghost"
-                size="sm"
-                className="relative text-gray-600 hover:text-emerald-600 hover:bg-emerald-50"
-              >
-                <ShoppingCart className="w-5 h-5" />
-                <Badge className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-emerald-500 text-white text-xs flex items-center justify-center">
-                  2
-                </Badge>
-              </Button>
-            )}
-
-            {/* User Menu */}
-            <div className="hidden md:flex items-center space-x-2">
-              <Button
-                variant="ghost"
-                size="sm"
-                className="text-gray-600 hover:text-emerald-600 hover:bg-emerald-50"
-              >
-                <User className="w-5 h-5" />
-                <ChevronDown className="w-4 h-4 ml-1" />
-              </Button>
-            </div>
-
-            {/* Auth Buttons */}
-            <div className="hidden md:flex items-center space-x-2">
-              <Link href="/login">
-                <Button variant="ghost" size="sm" className="text-gray-700 hover:text-emerald-600">
-                  Entrar
-                </Button>
-              </Link>
-              <Link href="/cadastro">
-                <Button 
-                  size="sm" 
-                  className="bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white shadow-lg hover:shadow-xl transition-all duration-300"
-                >
-                  Cadastrar
-                </Button>
-              </Link>
-            </div>
 
             {/* Mobile menu button */}
             <Button
@@ -226,19 +317,46 @@ export default function Header({
               
               {/* Mobile Auth */}
               <div className="pt-4 border-t border-gray-200">
-                <div className="space-y-2">
-                  <Link href="/login" className="block">
-                    <Button variant="outline" className="w-full justify-start">
-                      <User className="w-4 h-4 mr-2" />
-                      Entrar
-                    </Button>
-                  </Link>
-                  <Link href="/cadastro" className="block">
-                    <Button className="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700">
-                      Cadastrar
-                    </Button>
-                  </Link>
-                </div>
+                {user ? (
+                  <div className="space-y-2">
+                    <div className="px-3 py-2">
+                      <p className="text-sm font-medium text-gray-900">{user.name || 'Usuário'}</p>
+                      <p className="text-xs text-gray-500">{user.email}</p>
+                    </div>
+                    <Link href="/painel" className="block">
+                      <Button variant="outline" className="w-full justify-start">
+                        <Settings className="w-4 h-4 mr-2" />
+                        Painel
+                      </Button>
+                    </Link>
+                    <button
+                      onClick={() => {
+                        signOut()
+                        setIsMenuOpen(false)
+                      }}
+                      className="w-full"
+                    >
+                      <Button variant="outline" className="w-full justify-start">
+                        <LogOut className="w-4 h-4 mr-2" />
+                        Sair
+                      </Button>
+                    </button>
+                  </div>
+                ) : (
+                  <div className="space-y-2">
+                    <Link href="/login" className="block">
+                      <Button variant="outline" className="w-full justify-start">
+                        <User className="w-4 h-4 mr-2" />
+                        Entrar
+                      </Button>
+                    </Link>
+                    <Link href="/cadastro" className="block">
+                      <Button className="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700">
+                        Cadastrar
+                      </Button>
+                    </Link>
+                  </div>
+                )}
               </div>
             </div>
           </div>

@@ -2,12 +2,14 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Separator } from '@/components/ui/separator'
+import { useAuth } from '@/hooks/useAuth'
 import { 
   Mail, 
   Lock, 
@@ -24,14 +26,32 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false)
   const [rememberMe, setRememberMe] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState('')
+  const router = useRouter()
+  const { signIn } = useAuth()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
-    // Simular login
-    setTimeout(() => {
+    setError('')
+
+    const formData = new FormData(e.currentTarget as HTMLFormElement)
+    const email = formData.get('email') as string
+    const password = formData.get('password') as string
+
+    try {
+      const { error } = await signIn(email, password)
+      
+      if (error) {
+        setError(error)
+      } else {
+        router.push('/painel')
+      }
+    } catch (err) {
+      setError('Erro interno do servidor')
+    } finally {
       setIsLoading(false)
-    }, 2000)
+    }
   }
 
   const features = [
@@ -87,6 +107,7 @@ export default function LoginPage() {
                     <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                     <Input
                       id="email"
+                      name="email"
                       type="email"
                       placeholder="seu@email.com ou (11) 99999-9999"
                       className="pl-10 h-12 text-lg border-2 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500/20"
@@ -103,6 +124,7 @@ export default function LoginPage() {
                     <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                     <Input
                       id="password"
+                      name="password"
                       type={showPassword ? "text" : "password"}
                       placeholder="Sua senha"
                       className="pl-10 pr-10 h-12 text-lg border-2 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500/20"
@@ -136,6 +158,12 @@ export default function LoginPage() {
                     Esqueceu a senha?
                   </Link>
                 </div>
+
+                {error && (
+                  <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
+                    {error}
+                  </div>
+                )}
 
                 <Button 
                   type="submit" 

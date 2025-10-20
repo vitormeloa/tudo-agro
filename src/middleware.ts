@@ -1,0 +1,108 @@
+import { createServerClient } from '@supabase/ssr'
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
+
+export async function middleware(req: NextRequest) {
+  const res = NextResponse.next()
+  
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        get(name: string) {
+          return req.cookies.get(name)?.value
+        },
+        set(name: string, value: string, options: any) {
+          res.cookies.set({
+            name,
+            value,
+            ...options,
+          })
+        },
+        remove(name: string, options: any) {
+          res.cookies.set({
+            name,
+            value: '',
+            ...options,
+          })
+        },
+      },
+    }
+  )
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession()
+
+  // Rotas que requerem autenticação
+  const protectedRoutes = [
+    '/painel',
+    '/vender',
+    '/perfil',
+    '/minhas-vendas',
+    '/minhas-compras',
+    '/favoritos',
+    '/mensagens'
+  ]
+
+  // Rotas que requerem role de admin
+  const adminRoutes = [
+    '/admin'
+  ]
+
+  // Verificar se a rota atual requer autenticação
+  const isProtectedRoute = protectedRoutes.some(route => 
+    req.nextUrl.pathname.startsWith(route)
+  )
+
+  // Verificar se a rota atual requer admin
+  const isAdminRoute = adminRoutes.some(route => 
+    req.nextUrl.pathname.startsWith(route)
+  )
+
+  // Se não há sessão e a rota é protegida, redirecionar para login
+  if (!session && isProtectedRoute) {
+    const redirectUrl = new URL('/login', req.url)
+    redirectUrl.searchParams.set('redirectTo', req.nextUrl.pathname)
+    return NextResponse.redirect(redirectUrl)
+  }
+
+  // Se há sessão e está tentando acessar login/cadastro, redirecionar para painel
+  if (session && (req.nextUrl.pathname === '/login' || req.nextUrl.pathname === '/cadastro')) {
+    return NextResponse.redirect(new URL('/painel', req.url))
+  }
+
+  // Se é rota de admin, verificar se usuário tem role de admin
+  if (session && isAdminRoute) {
+    const { data: userRoles } = await supabase
+      .from('user_roles')
+      .select(`
+        roles (
+          name
+        )
+      `)
+      .eq('user_id', session.user.id)
+
+    const hasAdminRole = userRoles?.some((ur: any) => ur.roles?.name === 'admin')
+
+    if (!hasAdminRole) {
+      return NextResponse.redirect(new URL('/painel', req.url))
+    }
+  }
+
+  return res
+}
+
+export const config = {
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - api (API routes)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     */
+    '/((?!api|_next/static|_next/image|favicon.ico).*)',
+  ],
+}
