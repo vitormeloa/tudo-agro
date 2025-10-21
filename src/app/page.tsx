@@ -159,21 +159,22 @@ export default function HomePage() {
         </div>
         
         {/* Overlay para melhorar legibilidade do texto */}
-        <div className="absolute inset-0 bg-black/30"></div>
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/20 via-transparent to-green-900/20"></div>
+        <div className="absolute inset-0 bg-black/60"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/40 via-black/30 to-green-900/40"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
         
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="animate-fade-in-up">
               
-              <h1 className="text-5xl md:text-7xl font-bold text-gray-900 mb-6 leading-tight">
+              <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight text-shadow-2xl">
                 Conecte-se ao{' '}
-                <span className="gradient-text">futuro</span>
+                <span className="gradient-text text-shadow-xl">futuro</span>
                 <br />
                 do agronegócio
               </h1>
               
-              <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
+              <p className="text-xl md:text-2xl text-white/95 mb-8 max-w-3xl mx-auto leading-relaxed text-shadow-lg font-medium">
                 A maior plataforma de negócios agropecuários do Brasil. 
                 Compre, venda e participe de leilões com segurança total.
               </p>
@@ -182,15 +183,15 @@ export default function HomePage() {
             {/* Search Bar */}
             <div className="animate-fade-in-up max-w-2xl mx-auto mb-12">
               <div className="relative">
-                <Search className="absolute left-6 top-1/2 transform -translate-y-1/2 text-gray-400 w-6 h-6" />
+                <Search className="absolute left-6 top-1/2 transform -translate-y-1/2 text-gray-500 w-6 h-6" />
                 <input
                   type="text"
                   placeholder="Buscar animais, raças, localização..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-16 pr-32 py-6 text-lg border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all duration-300 shadow-lg"
+                  className="w-full pl-16 pr-32 py-6 text-lg border-2 border-white/30 rounded-2xl focus:ring-4 focus:ring-emerald-500/30 focus:border-emerald-400 transition-all duration-300 shadow-xl bg-white/95 backdrop-blur-sm text-gray-900 placeholder-gray-600"
                 />
-                <Button className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+                <Button className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300">
                   Buscar
                 </Button>
               </div>
@@ -199,13 +200,13 @@ export default function HomePage() {
             {/* CTA Buttons */}
             <div className="animate-fade-in-up flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/catalogo">
-                <Button size="lg" className="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                <Button size="lg" className="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 backdrop-blur-sm">
                   Explorar Catálogo
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
               </Link>
               <Link href="/leiloes">
-                <Button size="lg" variant="outline" className="border-2 border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 transform hover:scale-105">
+                <Button size="lg" variant="outline" className="border-2 border-white/80 text-white hover:bg-white hover:text-emerald-600 px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 backdrop-blur-sm bg-white/10">
                   <Play className="w-5 h-5 mr-2" />
                   Ver Leilões
                 </Button>

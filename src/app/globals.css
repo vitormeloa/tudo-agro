@@ -212,6 +212,18 @@
   .glass-dark {
     @apply bg-gray-900/80 backdrop-blur-md border border-gray-700/20;
   }
+  
+  .text-shadow-lg {
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .text-shadow-xl {
+    text-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+  }
+  
+  .text-shadow-2xl {
+    text-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+  }
 }
 
 /* Custom animations */
