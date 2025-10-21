@@ -1,0 +1,66 @@
+const { createClient } = require('@supabase/supabase-js')
+require('dotenv').config({ path: '.env.local' })
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+
+if (!supabaseUrl || !supabaseServiceKey) {
+  console.error('❌ Variáveis de ambiente do Supabase não encontradas!')
+  process.exit(1)
+}
+
+const supabase = createClient(supabaseUrl, supabaseServiceKey)
+
+async function setupDatabase() {
+  console.log('🚀 Iniciando configuração do banco de dados...')
+  
+  try {
+    // Ler o arquivo SQL
+    const fs = require('fs')
+    const sqlContent = fs.readFileSync('supabase-schema.sql', 'utf8')
+    
+    // Dividir o SQL em comandos individuais
+    const commands = sqlContent
+      .split(';')
+      .map(cmd => cmd.trim())
+      .filter(cmd => cmd.length > 0 && !cmd.startsWith('--'))
+    
+    console.log(`📝 Executando ${commands.length} comandos SQL...`)
+    
+    for (let i = 0; i < commands.length; i++) {
+      const command = commands[i]
+      if (command.trim()) {
+        try {
+          const { error } = await supabase.rpc('exec_sql', { sql: command })
+          if (error) {
+            console.log(`⚠️  Comando ${i + 1} executado com aviso:`, error.message)
+          } else {
+            console.log(`✅ Comando ${i + 1} executado com sucesso`)
+          }
+        } catch (err) {
+          console.log(`⚠️  Comando ${i + 1} falhou:`, err.message)
+        }
+      }
+    }
+    
+    console.log('🎉 Configuração do banco de dados concluída!')
+    
+    // Verificar se as tabelas foram criadas
+    const { data: tables, error: tablesError } = await supabase
+      .from('information_schema.tables')
+      .select('table_name')
+      .eq('table_schema', 'public')
+    
+    if (tablesError) {
+      console.log('❌ Erro ao verificar tabelas:', tablesError.message)
+    } else {
+      console.log('📊 Tabelas criadas:', tables.map(t => t.table_name).join(', '))
+    }
+    
+  } catch (error) {
+    console.error('❌ Erro durante a configuração:', error.message)
+    process.exit(1)
+  }
+}
+
+setupDatabase()
