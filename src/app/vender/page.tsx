@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { Upload, Camera, FileText, MapPin, DollarSign, Calendar, CheckCircle, AlertCircle, Plus, X } from 'lucide-react'
+import { Upload, Camera, FileText, MapPin, DollarSign, Calendar, CheckCircle, AlertCircle, Plus, X, User, Lock, Eye, EyeOff } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -10,12 +10,25 @@ import { Badge } from '@/components/ui/badge'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
+import { useAuth } from '@/hooks/useAuth'
 
 export default function VenderPage() {
+  const { user, signIn, signUp } = useAuth()
   const [currentStep, setCurrentStep] = useState(1)
   const [saleType, setSaleType] = useState<'direct' | 'auction'>('direct')
   const [images, setImages] = useState<File[]>([])
   const [documents, setDocuments] = useState<File[]>([])
+  const [showLoginModal, setShowLoginModal] = useState(false)
+  const [isLoginMode, setIsLoginMode] = useState(true)
+  const [showPassword, setShowPassword] = useState(false)
+  const [authData, setAuthData] = useState({
+    email: '',
+    password: '',
+    name: '',
+    phone: ''
+  })
+  const [authError, setAuthError] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
   
   const [formData, setFormData] = useState({
     // Dados básicos
@@ -106,12 +119,88 @@ export default function VenderPage() {
     setDocuments(documents.filter((_, i) => i !== index))
   }
 
+  const handleAuth = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setAuthError('')
+
+    try {
+      if (isLoginMode) {
+        const { error } = await signIn(authData.email, authData.password)
+        if (error) {
+          setAuthError(error)
+        } else {
+          setShowLoginModal(false)
+          // Continuar com o envio do anúncio
+          await submitAnnouncement()
+        }
+      } else {
+        const { error } = await signUp(authData.email, authData.password, {
+          name: authData.name,
+          phone: authData.phone
+        })
+        if (error) {
+          setAuthError(error)
+        } else {
+          setAuthError('Conta criada! Verifique seu email para confirmar.')
+          setIsLoginMode(true)
+        }
+      }
+    } catch (error) {
+      setAuthError('Erro interno do servidor')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  const submitAnnouncement = async () => {
+    try {
+      // Implementar lógica de envio do anúncio
+      console.log('Dados do anúncio:', formData)
+      console.log('Imagens:', images)
+      console.log('Documentos:', documents)
+      
+      // Aqui você implementaria a lógica de envio para o backend
+      alert('Anúncio publicado com sucesso!')
+    } catch (error) {
+      console.error('Erro ao publicar anúncio:', error)
+      alert('Erro ao publicar anúncio. Tente novamente.')
+    }
+  }
+
+  const isFormValid = () => {
+    const requiredFields = [
+      'title', 'category', 'breed', 'gender', 'age', 'description',
+      'state', 'city', 'contactName', 'contactPhone'
+    ]
+    
+    if (saleType === 'direct') {
+      requiredFields.push('price')
+    } else {
+      requiredFields.push('startingBid', 'auctionDate')
+    }
+    
+    return requiredFields.every(field => {
+      const value = formData[field as keyof typeof formData]
+      return value && value.toString().trim() !== ''
+    })
+  }
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // Implementar lógica de envio
-    console.log('Dados do anúncio:', formData)
-    console.log('Imagens:', images)
-    console.log('Documentos:', documents)
+    
+    if (!isFormValid()) {
+      alert('Por favor, preencha todos os campos obrigatórios antes de continuar.')
+      return
+    }
+    
+    if (user) {
+      // Usuário já logado, enviar diretamente
+      submitAnnouncement()
+    } else {
+      // Usuário não logado, mostrar modal de login
+      setShowLoginModal(true)
+    }
   }
 
   return (
@@ -138,6 +227,15 @@ export default function VenderPage() {
             <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
               Cadastre seu animal e alcance compradores de todo o Brasil com segurança total
             </p>
+            
+            <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-4 max-w-2xl mx-auto">
+              <div className="flex items-center justify-center">
+                <CheckCircle className="w-5 h-5 text-emerald-600 mr-2" />
+                <p className="text-emerald-800 font-medium">
+                  Preencha todos os dados primeiro. O login será solicitado apenas no final para publicar o anúncio.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -733,14 +831,23 @@ export default function VenderPage() {
               {currentStep === 5 && (
                 <div className="space-y-6">
                   <div className="text-center mb-6">
-                    <div className="w-16 h-16 bg-[#1E4D2B]/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <CheckCircle className="w-8 h-8 text-[#1E4D2B]" />
+                    <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 ${
+                      isFormValid() ? 'bg-emerald-100' : 'bg-amber-100'
+                    }`}>
+                      {isFormValid() ? (
+                        <CheckCircle className="w-8 h-8 text-emerald-600" />
+                      ) : (
+                        <AlertCircle className="w-8 h-8 text-amber-600" />
+                      )}
                     </div>
                     <h3 className="text-lg font-semibold text-[#2B2E2B] mb-2">
-                      Revisar Anúncio
+                      {isFormValid() ? 'Anúncio Pronto!' : 'Complete os Dados'}
                     </h3>
                     <p className="text-[#6E7D5B]">
-                      Confira todos os dados antes de publicar
+                      {isFormValid() 
+                        ? 'Confira todos os dados antes de publicar'
+                        : 'Preencha todos os campos obrigatórios para continuar'
+                      }
                     </p>
                   </div>
 
@@ -787,6 +894,9 @@ export default function VenderPage() {
                       ✓ Próximos passos:
                     </h4>
                     <ul className="text-sm text-[#6E7D5B] space-y-1">
+                      {!user && (
+                        <li className="text-emerald-600 font-medium">• Fazer login ou criar conta (próximo passo)</li>
+                      )}
                       <li>• Análise e aprovação do anúncio (até 24h)</li>
                       <li>• Publicação no catálogo</li>
                       <li>• Notificação por e-mail e WhatsApp</li>
@@ -819,9 +929,14 @@ export default function VenderPage() {
                 ) : (
                   <Button
                     type="submit"
-                    className="bg-[#C89F45] hover:bg-[#B8913D] text-white px-8 transition-all duration-300 transform hover:scale-105"
+                    className={`px-8 transition-all duration-300 transform hover:scale-105 ${
+                      isFormValid() 
+                        ? 'bg-[#C89F45] hover:bg-[#B8913D] text-white' 
+                        : 'bg-gray-400 text-gray-600 cursor-not-allowed'
+                    }`}
+                    disabled={!isFormValid()}
                   >
-                    Publicar Anúncio
+                    {user ? 'Publicar Anúncio' : 'Continuar para Login'}
                   </Button>
                 )}
               </div>
@@ -839,6 +954,138 @@ export default function VenderPage() {
           </Button>
         </div>
       </div>
+
+      {/* Modal de Login/Cadastro */}
+      {showLoginModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <Card className="w-full max-w-md bg-white rounded-2xl shadow-2xl">
+            <CardHeader className="text-center pb-4">
+              <CardTitle className="text-2xl text-gray-900">
+                {isLoginMode ? 'Fazer Login' : 'Criar Conta'}
+              </CardTitle>
+              <p className="text-gray-600">
+                {isLoginMode 
+                  ? 'Entre com sua conta para publicar o anúncio'
+                  : 'Crie uma conta gratuita para publicar seu anúncio'
+                }
+              </p>
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={handleAuth} className="space-y-4">
+                {!isLoginMode && (
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-900 mb-2">
+                      Nome Completo *
+                    </label>
+                    <div className="relative">
+                      <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                      <Input
+                        id="name"
+                        type="text"
+                        placeholder="Seu nome completo"
+                        value={authData.name}
+                        onChange={(e) => setAuthData({...authData, name: e.target.value})}
+                        className="pl-10 h-12 border-gray-300 focus:border-emerald-500 focus:ring-emerald-500"
+                        required={!isLoginMode}
+                      />
+                    </div>
+                  </div>
+                )}
+
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-900 mb-2">
+                    Email *
+                  </label>
+                  <div className="relative">
+                    <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder="seu@email.com"
+                      value={authData.email}
+                      onChange={(e) => setAuthData({...authData, email: e.target.value})}
+                      className="pl-10 h-12 border-gray-300 focus:border-emerald-500 focus:ring-emerald-500"
+                      required
+                    />
+                  </div>
+                </div>
+
+                {!isLoginMode && (
+                  <div>
+                    <label htmlFor="phone" className="block text-sm font-medium text-gray-900 mb-2">
+                      WhatsApp *
+                    </label>
+                    <Input
+                      id="phone"
+                      type="tel"
+                      placeholder="(11) 99999-9999"
+                      value={authData.phone}
+                      onChange={(e) => setAuthData({...authData, phone: e.target.value})}
+                      className="h-12 border-gray-300 focus:border-emerald-500 focus:ring-emerald-500"
+                      required={!isLoginMode}
+                    />
+                  </div>
+                )}
+
+                <div>
+                  <label htmlFor="password" className="block text-sm font-medium text-gray-900 mb-2">
+                    Senha *
+                  </label>
+                  <div className="relative">
+                    <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                    <Input
+                      id="password"
+                      type={showPassword ? "text" : "password"}
+                      placeholder="Sua senha"
+                      value={authData.password}
+                      onChange={(e) => setAuthData({...authData, password: e.target.value})}
+                      className="pl-10 pr-10 h-12 border-gray-300 focus:border-emerald-500 focus:ring-emerald-500"
+                      required
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                    >
+                      {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                    </button>
+                  </div>
+                </div>
+
+                {authError && (
+                  <div className="bg-red-50 border border-red-200 rounded-lg p-3">
+                    <p className="text-sm text-red-600">{authError}</p>
+                  </div>
+                )}
+
+                <Button
+                  type="submit"
+                  className="w-full bg-emerald-600 hover:bg-emerald-700 text-white h-12 text-lg font-semibold"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? 'Processando...' : (isLoginMode ? 'Entrar' : 'Criar Conta')}
+                </Button>
+
+                <div className="text-center">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsLoginMode(!isLoginMode)
+                      setAuthError('')
+                    }}
+                    className="text-emerald-600 hover:text-emerald-700 font-medium"
+                  >
+                    {isLoginMode 
+                      ? 'Não tem conta? Criar conta gratuita' 
+                      : 'Já tem conta? Fazer login'
+                    }
+                  </button>
+                </div>
+              </form>
+            </CardContent>
+          </Card>
+        </div>
+      )}
 
       <Footer />
     </div>

@@ -38,7 +38,6 @@ export async function middleware(req: NextRequest) {
   // Rotas que requerem autenticação
   const protectedRoutes = [
     '/painel',
-    '/vender',
     '/perfil',
     '/minhas-vendas',
     '/minhas-compras',

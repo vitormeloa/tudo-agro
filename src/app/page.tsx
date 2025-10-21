@@ -141,10 +141,26 @@ export default function HomePage() {
       
       {/* Hero Section */}
       <section className="relative pt-20 pb-32 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-white to-green-50"></div>
-        <div className="absolute inset-0 opacity-40">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(5,150,105,0.15)_1px,transparent_0)] bg-[length:20px_20px]"></div>
+        {/* Video Background */}
+        <div className="absolute inset-0 w-full h-full">
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="w-full h-full object-cover"
+            poster="/videos/agro-hero-poster.jpg"
+          >
+            <source src="/videos/agro-hero-video.mp4" type="video/mp4" />
+            <source src="/videos/agro-hero-video.webm" type="video/webm" />
+            {/* Fallback para navegadores que não suportam vídeo */}
+            <div className="w-full h-full bg-gradient-to-br from-emerald-50 via-white to-green-50"></div>
+          </video>
         </div>
+        
+        {/* Overlay para melhorar legibilidade do texto */}
+        <div className="absolute inset-0 bg-black/30"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/20 via-transparent to-green-900/20"></div>
         
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">

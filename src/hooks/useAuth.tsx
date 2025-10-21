@@ -58,6 +58,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const loadUser = async (userId: string) => {
     try {
+      // Primeiro, verificar se o usuário existe na tabela users
       const { data: userData, error } = await supabase
         .from('users')
         .select(`
@@ -73,8 +74,76 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         .eq('id', userId)
         .single()
 
-      if (error || !userData) {
+      if (error) {
+        // Se a tabela não existe ou usuário não encontrado, criar perfil básico
+        if (error.code === 'PGRST116' || error.message.includes('relation "users" does not exist')) {
+          console.warn('Tabela users não encontrada. Execute o script SQL no Supabase primeiro.')
+          return
+        }
+        
+        // Se usuário não existe, criar perfil básico
+        if (error.code === 'PGRST116') {
+          console.log('Usuário não encontrado na tabela users. Criando perfil básico...')
+          
+          // Obter dados do usuário autenticado
+          const { data: { user: authUser } } = await supabase.auth.getUser()
+          if (!authUser) return
+          
+          // Criar perfil básico
+          const { error: insertError } = await supabase
+            .from('users')
+            .insert({
+              id: userId,
+              email: authUser.email || '',
+              name: authUser.user_metadata?.name || null,
+              phone: authUser.user_metadata?.phone || null,
+              cpf: authUser.user_metadata?.cpf || null,
+              cnpj: authUser.user_metadata?.cnpj || null,
+              avatar_url: authUser.user_metadata?.avatar_url || null
+            })
+          
+          if (insertError) {
+            console.error('Erro ao criar perfil do usuário:', insertError)
+            return
+          }
+          
+          // Atribuir role padrão de comprador
+          const { data: roles } = await supabase
+            .from('roles')
+            .select('id')
+            .eq('name', 'comprador')
+            .single()
+          
+          if (roles) {
+            await supabase
+              .from('user_roles')
+              .insert({
+                user_id: userId,
+                role_id: roles.id
+              })
+          }
+          
+          // Definir usuário com dados básicos
+          setUser({
+            id: userId,
+            email: authUser.email || '',
+            name: authUser.user_metadata?.name || null,
+            phone: authUser.user_metadata?.phone || null,
+            cpf: authUser.user_metadata?.cpf || null,
+            cnpj: authUser.user_metadata?.cnpj || null,
+            avatar_url: authUser.user_metadata?.avatar_url || null,
+            roles: ['comprador'],
+            permissions: []
+          })
+          return
+        }
+        
         console.error('Error loading user:', error)
+        return
+      }
+
+      if (!userData) {
+        console.warn('Dados do usuário não encontrados')
         return
       }
 

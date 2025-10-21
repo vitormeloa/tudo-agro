@@ -89,33 +89,33 @@ export default function ProdutoPage({ params }: { params: { id: string } }) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#F5F5DC] to-white">
+    <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b sticky top-0 z-50">
+      <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-4">
               <Link href="/catalogo" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
-                <ArrowLeft className="w-5 h-5 text-[#8B4513]" />
-                <span className="text-[#8B4513] font-medium">Voltar ao Catálogo</span>
+                <ArrowLeft className="w-5 h-5 text-gray-600" />
+                <span className="text-gray-600 font-medium">Voltar ao Catálogo</span>
               </Link>
             </div>
 
             <Link href="/" className="flex items-center space-x-2">
-              <div className="w-10 h-10 bg-gradient-to-r from-[#1C6B3E] to-[#228B22] rounded-lg flex items-center justify-center">
+              <div className="w-10 h-10 bg-gradient-to-r from-green-600 to-green-700 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-lg">A</span>
               </div>
-              <span className="text-xl font-bold text-[#8B4513]">TudoAgro</span>
+              <span className="text-xl font-bold text-gray-900">TudoAgro</span>
             </Link>
 
             <div className="flex items-center space-x-4">
               <Link href="/login">
-                <Button variant="ghost" className="text-[#8B4513] hover:text-[#1C6B3E] hover:bg-[#F5F5DC]">
+                <Button variant="ghost" className="text-gray-600 hover:text-green-600 hover:bg-gray-50">
                   Entrar
                 </Button>
               </Link>
               <Link href="/cadastro">
-                <Button className="bg-[#1C6B3E] hover:bg-[#228B22]">
+                <Button className="bg-green-600 hover:bg-green-700 text-white">
                   Cadastrar
                 </Button>
               </Link>
@@ -213,51 +213,51 @@ export default function ProdutoPage({ params }: { params: { id: string } }) {
           {/* Product Info */}
           <div className="space-y-6">
             <div>
-              <h1 className="text-3xl font-bold text-[#8B4513] mb-4">
+              <h1 className="text-3xl font-bold text-gray-900 mb-4">
                 {product.title}
               </h1>
               
-              <div className="flex items-center text-[#8B4513]/70 mb-4">
+              <div className="flex items-center text-gray-600 mb-4">
                 <MapPin className="w-5 h-5 mr-2" />
                 <span>{product.city}, {product.location}</span>
               </div>
 
-              <div className="text-4xl font-bold text-[#1C6B3E] mb-6">
+              <div className="text-4xl font-bold text-green-600 mb-6">
                 R$ {product.price.toLocaleString()}
               </div>
             </div>
 
             {/* Specifications */}
-            <Card className="border-[#D4AF37]/20">
+            <Card className="bg-white border-gray-200 shadow-lg">
               <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-[#8B4513] mb-4">Especificações</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">Especificações</h3>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="flex items-center">
-                    <Award className="w-5 h-5 text-[#1C6B3E] mr-2" />
+                    <Award className="w-5 h-5 text-green-600 mr-2" />
                     <div>
-                      <div className="text-sm text-[#8B4513]/70">Raça</div>
-                      <div className="font-medium text-[#8B4513]">{product.race}</div>
+                      <div className="text-sm text-gray-500">Raça</div>
+                      <div className="font-medium text-gray-900">{product.race}</div>
                     </div>
                   </div>
                   <div className="flex items-center">
-                    <Calendar className="w-5 h-5 text-[#1C6B3E] mr-2" />
+                    <Calendar className="w-5 h-5 text-green-600 mr-2" />
                     <div>
-                      <div className="text-sm text-[#8B4513]/70">Idade</div>
-                      <div className="font-medium text-[#8B4513]">{product.age}</div>
+                      <div className="text-sm text-gray-500">Idade</div>
+                      <div className="font-medium text-gray-900">{product.age}</div>
                     </div>
                   </div>
                   <div className="flex items-center">
-                    <Weight className="w-5 h-5 text-[#1C6B3E] mr-2" />
+                    <Weight className="w-5 h-5 text-green-600 mr-2" />
                     <div>
-                      <div className="text-sm text-[#8B4513]/70">Peso</div>
-                      <div className="font-medium text-[#8B4513]">{product.weight}</div>
+                      <div className="text-sm text-gray-500">Peso</div>
+                      <div className="font-medium text-gray-900">{product.weight}</div>
                     </div>
                   </div>
                   <div className="flex items-center">
-                    <Ruler className="w-5 h-5 text-[#1C6B3E] mr-2" />
+                    <Ruler className="w-5 h-5 text-green-600 mr-2" />
                     <div>
-                      <div className="text-sm text-[#8B4513]/70">Altura</div>
-                      <div className="font-medium text-[#8B4513]">{product.height}</div>
+                      <div className="text-sm text-gray-500">Altura</div>
+                      <div className="font-medium text-gray-900">{product.height}</div>
                     </div>
                   </div>
                 </div>
@@ -265,16 +265,16 @@ export default function ProdutoPage({ params }: { params: { id: string } }) {
             </Card>
 
             {/* Production Details */}
-            <Card className="border-[#D4AF37]/20">
+            <Card className="bg-white border-gray-200 shadow-lg">
               <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-[#8B4513] mb-4">Detalhes de Produção</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">Detalhes de Produção</h3>
                 <div className="space-y-3">
                   {Object.entries(product.specifications).map(([key, value]) => (
                     <div key={key} className="flex justify-between">
-                      <span className="text-[#8B4513]/70 capitalize">
+                      <span className="text-gray-500 capitalize">
                         {key.replace(/([A-Z])/g, ' $1').toLowerCase()}:
                       </span>
-                      <span className="font-medium text-[#8B4513]">{value}</span>
+                      <span className="font-medium text-gray-900">{value}</span>
                     </div>
                   ))}
                 </div>
@@ -284,12 +284,12 @@ export default function ProdutoPage({ params }: { params: { id: string } }) {
             {/* Action Buttons */}
             <div className="space-y-4">
               {product.type === 'venda' ? (
-                <Button className="w-full bg-[#1C6B3E] hover:bg-[#228B22] text-white py-4 text-lg transition-all hover:scale-105">
+                <Button className="w-full bg-green-600 hover:bg-green-700 text-white py-4 text-lg transition-all hover:scale-105">
                   Comprar Agora
                 </Button>
               ) : (
                 <Link href={`/leilao/${product.id}`}>
-                  <Button className="w-full bg-[#D4AF37] hover:bg-[#B8860B] text-black py-4 text-lg transition-all hover:scale-105">
+                  <Button className="w-full bg-yellow-500 hover:bg-yellow-600 text-black py-4 text-lg transition-all hover:scale-105">
                     <Play className="w-5 h-5 mr-2" />
                     Participar do Leilão
                   </Button>
@@ -298,7 +298,7 @@ export default function ProdutoPage({ params }: { params: { id: string } }) {
               
               <Button 
                 variant="outline" 
-                className="w-full border-[#1C6B3E] text-[#1C6B3E] hover:bg-[#1C6B3E] hover:text-white py-4 text-lg transition-all hover:scale-105"
+                className="w-full border-green-600 text-green-600 hover:bg-green-600 hover:text-white py-4 text-lg transition-all hover:scale-105"
               >
                 <MessageCircle className="w-5 h-5 mr-2" />
                 Tirar Dúvida com Vendedor
@@ -309,10 +309,10 @@ export default function ProdutoPage({ params }: { params: { id: string } }) {
 
         {/* Description */}
         <div className="mt-12">
-          <Card className="border-[#D4AF37]/20">
+          <Card className="bg-white border-gray-200 shadow-lg">
             <CardContent className="p-8">
-              <h2 className="text-2xl font-bold text-[#8B4513] mb-4">Descrição</h2>
-              <p className="text-[#8B4513]/80 leading-relaxed text-lg">
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">Descrição</h2>
+              <p className="text-gray-600 leading-relaxed text-lg">
                 {product.description}
               </p>
             </CardContent>
@@ -321,17 +321,17 @@ export default function ProdutoPage({ params }: { params: { id: string } }) {
 
         {/* Documents */}
         <div className="mt-8">
-          <Card className="border-[#D4AF37]/20">
+          <Card className="bg-white border-gray-200 shadow-lg">
             <CardContent className="p-8">
-              <h2 className="text-2xl font-bold text-[#8B4513] mb-4">
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">
                 <FileText className="w-6 h-6 inline mr-2" />
                 Documentos Disponíveis
               </h2>
               <div className="grid md:grid-cols-2 gap-4">
                 {product.documents.map((doc, index) => (
-                  <div key={index} className="flex items-center p-3 bg-[#F5F5DC] rounded-lg">
-                    <Shield className="w-5 h-5 text-[#1C6B3E] mr-3" />
-                    <span className="text-[#8B4513]">{doc}</span>
+                  <div key={index} className="flex items-center p-3 bg-gray-50 rounded-lg border border-gray-200">
+                    <Shield className="w-5 h-5 text-green-600 mr-3" />
+                    <span className="text-gray-900">{doc}</span>
                   </div>
                 ))}
               </div>
@@ -341,9 +341,9 @@ export default function ProdutoPage({ params }: { params: { id: string } }) {
 
         {/* Seller Info */}
         <div className="mt-8">
-          <Card className="border-[#D4AF37]/20">
+          <Card className="bg-white border-gray-200 shadow-lg">
             <CardContent className="p-8">
-              <h2 className="text-2xl font-bold text-[#8B4513] mb-6">Vendedor</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">Vendedor</h2>
               <div className="flex items-start space-x-6">
                 <div className="relative">
                   <img 
@@ -352,7 +352,7 @@ export default function ProdutoPage({ params }: { params: { id: string } }) {
                     className="w-20 h-20 rounded-full object-cover"
                   />
                   {product.seller.verified && (
-                    <div className="absolute -top-2 -right-2 bg-[#1C6B3E] text-white p-1 rounded-full">
+                    <div className="absolute -top-2 -right-2 bg-green-600 text-white p-1 rounded-full">
                       <Shield className="w-4 h-4" />
                     </div>
                   )}
@@ -360,38 +360,38 @@ export default function ProdutoPage({ params }: { params: { id: string } }) {
                 
                 <div className="flex-1">
                   <div className="flex items-center mb-2">
-                    <h3 className="text-xl font-bold text-[#8B4513] mr-3">
+                    <h3 className="text-xl font-bold text-gray-900 mr-3">
                       {product.seller.name}
                     </h3>
                     {product.seller.verified && (
-                      <Badge className="bg-[#1C6B3E]">VERIFICADO</Badge>
+                      <Badge className="bg-green-600 text-white">VERIFICADO</Badge>
                     )}
                   </div>
                   
-                  <div className="flex items-center text-[#8B4513]/70 mb-2">
+                  <div className="flex items-center text-gray-600 mb-2">
                     <MapPin className="w-4 h-4 mr-1" />
                     <span>{product.seller.location}</span>
                   </div>
                   
                   <div className="flex items-center mb-4">
-                    <Star className="w-4 h-4 text-[#D4AF37] fill-current mr-1" />
-                    <span className="font-medium text-[#8B4513] mr-2">{product.seller.rating}</span>
-                    <span className="text-[#8B4513]/70">
+                    <Star className="w-4 h-4 text-yellow-500 fill-current mr-1" />
+                    <span className="font-medium text-gray-900 mr-2">{product.seller.rating}</span>
+                    <span className="text-gray-500">
                       ({product.seller.totalSales} vendas • Membro desde {product.seller.memberSince})
                     </span>
                   </div>
                   
                   <div className="flex gap-3">
                     <Link href={`/vendedor/${product.seller.id}`}>
-                      <Button variant="outline" className="border-[#1C6B3E] text-[#1C6B3E] hover:bg-[#1C6B3E] hover:text-white">
+                      <Button variant="outline" className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white">
                         Ver Perfil Completo
                       </Button>
                     </Link>
-                    <Button className="bg-[#25D366] hover:bg-[#20BA5A] text-white">
+                    <Button className="bg-green-500 hover:bg-green-600 text-white">
                       <Phone className="w-4 h-4 mr-2" />
                       WhatsApp
                     </Button>
-                    <Button variant="outline" className="border-[#8B4513] text-[#8B4513] hover:bg-[#8B4513] hover:text-white">
+                    <Button variant="outline" className="border-gray-600 text-gray-600 hover:bg-gray-600 hover:text-white">
                       <Mail className="w-4 h-4 mr-2" />
                       E-mail
                     </Button>
@@ -404,14 +404,14 @@ export default function ProdutoPage({ params }: { params: { id: string } }) {
 
         {/* Location Map Placeholder */}
         <div className="mt-8">
-          <Card className="border-[#D4AF37]/20">
+          <Card className="bg-white border-gray-200 shadow-lg">
             <CardContent className="p-8">
-              <h2 className="text-2xl font-bold text-[#8B4513] mb-4">
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">
                 <MapPin className="w-6 h-6 inline mr-2" />
                 Localização
               </h2>
-              <div className="bg-[#F5F5DC] rounded-lg h-64 flex items-center justify-center">
-                <div className="text-center text-[#8B4513]/70">
+              <div className="bg-gray-50 rounded-lg h-64 flex items-center justify-center border border-gray-200">
+                <div className="text-center text-gray-600">
                   <MapPin className="w-12 h-12 mx-auto mb-2" />
                   <p>Mapa da localização da fazenda</p>
                   <p className="text-sm">{product.city}, {product.location}</p>

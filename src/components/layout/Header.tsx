@@ -79,35 +79,47 @@ export default function Header({
 
   const baseClasses = "sticky top-0 z-50 transition-all duration-300"
   
-  // Calcular opacidade baseada no scroll
-  const getOpacity = () => {
-    if (!enableScrollOpacity || variant === 'transparent') return 1
+  // Calcular opacidade e background baseado no scroll
+  const getScrollStyles = () => {
+    if (!enableScrollOpacity) {
+      return {
+        backgroundColor: variant === 'transparent' ? 'transparent' : 'white',
+        backdropFilter: variant === 'transparent' ? 'none' : 'blur(12px)'
+      }
+    }
+
     const maxScroll = 100
-    const opacity = Math.min(scrollY / maxScroll, 1)
-    return Math.max(0.85, 0.95 - (opacity * 0.1)) // Mínimo de 85% de opacidade
+    const scrollProgress = Math.min(scrollY / maxScroll, 1)
+    
+    if (variant === 'transparent') {
+      // Para variant transparent, mudar de transparente para opaco com fundo branco
+      const opacity = scrollProgress
+      return {
+        backgroundColor: `rgba(255, 255, 255, ${opacity})`,
+        backdropFilter: scrollProgress > 0.1 ? 'blur(12px)' : 'none'
+      }
+    }
+    
+    // Para outros variants, manter comportamento original
+    const opacity = Math.max(0.85, 0.95 - (scrollProgress * 0.1))
+    return {
+      backgroundColor: `rgba(255, 255, 255, ${opacity})`,
+      backdropFilter: 'blur(12px)'
+    }
   }
 
   const variantClasses = {
     default: `backdrop-blur-md border-b border-gray-200/50 shadow-sm`,
-    transparent: "bg-transparent",
+    transparent: scrollY > 10 ? "backdrop-blur-md border-b border-gray-200/50 shadow-sm" : "bg-transparent",
     minimal: "bg-white border-b border-gray-100"
   }
 
-  const getBackgroundStyle = () => {
-    if (variant === 'transparent') return 'transparent'
-    if (variant === 'minimal') return 'white'
-    
-    const opacity = getOpacity()
-    return `rgba(255, 255, 255, ${opacity})`
-  }
+  const scrollStyles = getScrollStyles()
 
   return (
     <header 
       className={cn(baseClasses, variantClasses[variant], className)}
-      style={{ 
-        backgroundColor: getBackgroundStyle(),
-        backdropFilter: variant === 'transparent' ? 'none' : 'blur(12px)'
-      }}
+      style={scrollStyles}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 lg:h-20">
