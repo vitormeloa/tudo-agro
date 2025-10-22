@@ -119,6 +119,13 @@ export default function LeilaoPage({ params }: { params: { id: string } }) {
             </div>
 
             <div className="flex items-center space-x-4">
+              <Link href="/" className="flex items-center space-x-2">
+                <img 
+                  src="/fotos/tudo-agro-logo.png" 
+                  className="h-8 w-auto" 
+                  alt="TudoAgro Logo"
+                />
+              </Link>
               <Badge className="bg-red-500 animate-pulse text-white">
                 AO VIVO
               </Badge>

@@ -116,7 +116,8 @@ export async function signUp(email: string, password: string, userData: {
     email,
     password,
     options: {
-      data: userData
+      data: userData,
+      emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://tudo-agro.vercel.app'}/login?message=Email confirmado com sucesso!`
     }
   })
   return { data, error }

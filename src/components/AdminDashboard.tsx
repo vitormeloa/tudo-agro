@@ -158,13 +158,20 @@ export default function AdminDashboard({}: AdminDashboardProps) {
         {/* Header Principal */}
         <header className="bg-white shadow-sm border-b border-gray-200 px-6 py-4">
           <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-2xl font-bold text-[#2B2E2B]">
-                {menuItems.find(item => item.id === activeSection)?.label}
-              </h2>
-              <p className="text-[#6E7D5B] text-sm">
-                Gerencie e monitore as operações da plataforma
-              </p>
+            <div className="flex items-center space-x-4">
+              <img 
+                src="/fotos/tudo-agro-logo.png" 
+                className="h-8 w-auto" 
+                alt="TudoAgro Logo"
+              />
+              <div>
+                <h2 className="text-2xl font-bold text-[#2B2E2B]">
+                  {menuItems.find(item => item.id === activeSection)?.label}
+                </h2>
+                <p className="text-[#6E7D5B] text-sm">
+                  Gerencie e monitore as operações da plataforma
+                </p>
+              </div>
             </div>
             
             <div className="flex items-center gap-4">

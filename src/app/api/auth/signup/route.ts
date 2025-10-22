@@ -27,7 +27,8 @@ export async function POST(request: NextRequest) {
           phone: validatedData.phone,
           cpf: validatedData.cpf,
           cnpj: validatedData.cnpj
-        }
+        },
+        emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://tudo-agro.vercel.app'}/login?message=Email confirmado com sucesso!`
       }
     })
 

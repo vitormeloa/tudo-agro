@@ -126,20 +126,11 @@ export default function Header({
           {/* Logo */}
           <div className="flex items-center">
             <Link href="/" className="flex items-center space-x-3 group">
-              <div className="relative">
-                <div className="w-10 h-10 bg-gradient-to-br from-emerald-600 to-green-700 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105">
-                  <span className="text-white font-bold text-lg">A</span>
-                </div>
-                <div className="absolute -top-1 -right-1 w-4 h-4 bg-amber-500 rounded-full flex items-center justify-center">
-                  <span className="text-white text-xs font-bold">M</span>
-                </div>
-              </div>
-              <div className="hidden sm:block">
-                <span className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
-                  TudoAgro
-                </span>
-                <div className="text-xs text-gray-500 -mt-1">Marketplace Agro</div>
-              </div>
+              <img 
+                src="/fotos/tudo-agro-logo.png" 
+                className="h-8 w-auto lg:h-10"
+                alt="TudoAgro Logo"
+              />
             </Link>
           </div>
 

@@ -102,10 +102,11 @@ export default function ProdutoPage({ params }: { params: { id: string } }) {
             </div>
 
             <Link href="/" className="flex items-center space-x-2">
-              <div className="w-10 h-10 bg-gradient-to-r from-green-600 to-green-700 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">A</span>
-              </div>
-              <span className="text-xl font-bold text-gray-900">TudoAgro</span>
+              <img 
+                src="/fotos/tudo-agro-logo.png" 
+                className="h-8 w-auto" 
+                alt="TudoAgro Logo"
+              />
             </Link>
 
             <div className="flex items-center space-x-4">

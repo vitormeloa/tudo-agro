@@ -133,8 +133,12 @@ export default function PainelPage() {
       <div className="bg-white shadow-sm border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
-            <Link href="/" className="text-2xl font-bold text-[#1E4D2B]">
-              TudoAgro
+            <Link href="/" className="flex items-center space-x-2">
+              <img 
+                src="/fotos/tudo-agro-logo.png" 
+                className="h-8 w-auto" 
+                alt="TudoAgro Logo"
+              />
             </Link>
             <div className="flex items-center space-x-4">
               <Bell className="w-6 h-6 text-[#6E7D5B] hover:text-[#1E4D2B] cursor-pointer" />

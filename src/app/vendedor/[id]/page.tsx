@@ -130,10 +130,11 @@ export default function VendedorPage({ params }: { params: { id: string } }) {
             </div>
 
             <Link href="/" className="flex items-center space-x-2">
-              <div className="w-10 h-10 bg-gradient-to-r from-[#1C6B3E] to-[#228B22] rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">A</span>
-              </div>
-              <span className="text-xl font-bold text-[#8B4513]">TudoAgro</span>
+              <img 
+                src="/fotos/tudo-agro-logo.png" 
+                className="h-8 w-auto" 
+                alt="TudoAgro Logo"
+              />
             </Link>
 
             <div className="flex items-center space-x-4">
