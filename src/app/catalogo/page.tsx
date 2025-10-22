@@ -138,16 +138,20 @@ export default function CatalogoPage() {
       <Header />
       
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-emerald-600 to-green-700 text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+        <section className="relative pt-20 pb-32 overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-emerald-600 via-green-600 to-emerald-700"></div>
+            <div className="absolute inset-0 bg-black/20"></div>
+            <div className="absolute inset-0 opacity-40">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.15)_1px,transparent_0)] bg-[length:20px_20px]"></div>
+            </div>
+
+            <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white drop-shadow-lg">
               Catálogo de Animais
             </h1>
-            <p className="text-xl text-emerald-100 max-w-2xl mx-auto">
+                <p className="text-xl md:text-2xl mb-8 text-white/90 max-w-3xl mx-auto leading-relaxed">
               Encontre os melhores animais para sua fazenda
             </p>
-          </div>
         </div>
       </section>
 

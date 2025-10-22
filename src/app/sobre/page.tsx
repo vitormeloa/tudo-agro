@@ -97,10 +97,6 @@ export default function SobrePage() {
         </div>
         
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <Badge className="mb-6 bg-white/20 text-white border-white/30 px-4 py-2 text-sm font-medium">
-            <Award className="w-4 h-4 mr-2" />
-            Líder do Agronegócio
-          </Badge>
           
           <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white drop-shadow-lg">
             Sobre o TudoAgro

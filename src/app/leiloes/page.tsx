@@ -147,20 +147,21 @@ export default function LeiloesPage() {
       <Header />
       
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-red-600 to-red-700 text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <div className="flex items-center justify-center mb-4">
-              <div className="w-3 h-3 bg-white rounded-full animate-pulse mr-3"></div>
-              <h1 className="text-4xl md:text-5xl font-bold">
-                Leilões Online
-              </h1>
+        <section className="relative pt-20 pb-32 overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-emerald-600 via-green-600 to-emerald-700"></div>
+            <div className="absolute inset-0 bg-black/20"></div>
+            <div className="absolute inset-0 opacity-40">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.15)_1px,transparent_0)] bg-[length:20px_20px]"></div>
             </div>
-            <p className="text-xl text-red-100 max-w-2xl mx-auto">
-              Participe dos melhores leilões do agronegócio em tempo real
-            </p>
-          </div>
-        </div>
+
+            <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white drop-shadow-lg">
+                    Leilões Online
+                </h1>
+                <p className="text-xl md:text-2xl mb-8 text-white/90 max-w-3xl mx-auto leading-relaxed">
+                    Participe dos melhores leilões do agronegócio em tempo real
+                </p>
+            </div>
       </section>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
