@@ -130,18 +130,11 @@ export default function Footer({
           {/* Brand Section */}
           <div className="lg:col-span-1">
             <div className="flex items-center space-x-3 mb-4">
-              <div className="relative">
-                <div className="w-10 h-10 bg-gradient-to-br from-emerald-600 to-green-700 rounded-xl flex items-center justify-center shadow-lg">
-                  <span className="text-white font-bold text-lg">A</span>
-                </div>
-                <div className="absolute -top-1 -right-1 w-4 h-4 bg-amber-500 rounded-full flex items-center justify-center">
-                  <span className="text-white text-xs font-bold">M</span>
-                </div>
-              </div>
-              <div>
-                <span className="text-xl font-bold">TudoAgro</span>
-                <div className="text-xs text-gray-400 -mt-1">Marketplace Agro</div>
-              </div>
+              <img 
+                src="/fotos/tudo-agro-logo.png" 
+                className="h-30 w-auto"
+                alt="TudoAgro Logo"
+              />
             </div>
             <p className="text-gray-300 mb-6 text-sm leading-relaxed">
               A maior plataforma de negócios do agronegócio brasileiro. 

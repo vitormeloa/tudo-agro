@@ -128,7 +128,7 @@ export default function Header({
             <Link href="/" className="flex items-center space-x-3 group">
               <img 
                 src="/fotos/tudo-agro-logo.png" 
-                className="h-8 w-auto lg:h-10"
+                className="24 w-auto lg:h-28"
                 alt="TudoAgro Logo"
               />
             </Link>

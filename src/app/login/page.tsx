@@ -79,14 +79,11 @@ export default function LoginPage() {
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
             <div className="flex items-center justify-center mb-6">
-              <div className="relative">
-                <div className="w-16 h-16 bg-gradient-to-br from-emerald-600 to-green-700 rounded-2xl flex items-center justify-center shadow-lg">
-                  <span className="text-white font-bold text-2xl">A</span>
-                </div>
-                <div className="absolute -top-1 -right-1 w-6 h-6 bg-amber-500 rounded-full flex items-center justify-center">
-                  <span className="text-white text-xs font-bold">M</span>
-                </div>
-              </div>
+              <img 
+                src="/fotos/tudo-agro-logo.png" 
+                className="h-42 w-auto"
+                alt="TudoAgro Logo"
+              />
             </div>
             <h1 className="text-3xl font-bold text-gray-900 mb-2">
               Bem-vindo de volta

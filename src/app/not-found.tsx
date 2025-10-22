@@ -11,7 +11,7 @@ export default function NotFound() {
           <Link href="/" className="flex items-center justify-center space-x-3 group">
             <img 
               src="/fotos/tudo-agro-logo.png" 
-              className="h-12 w-auto" 
+              className="h-16 w-auto" 
               alt="TudoAgro Logo"
             />
             <span className="text-3xl font-bold text-[#2B2E2B] group-hover:text-[#6E7D5B] transition-colors">

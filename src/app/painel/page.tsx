@@ -136,7 +136,7 @@ export default function PainelPage() {
             <Link href="/" className="flex items-center space-x-2">
               <img 
                 src="/fotos/tudo-agro-logo.png" 
-                className="h-8 w-auto" 
+                className="h-12 w-auto" 
                 alt="TudoAgro Logo"
               />
             </Link>
