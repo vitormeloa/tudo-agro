@@ -1,16 +1,19 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import Link from 'next/link'
 import { 
   BarChart3, Users, Store, FileText, Gavel, CreditCard, 
   FileCheck, Gift, Crown, GraduationCap, MessageSquare, 
   Settings, Menu, X, LogOut, Home, AlertTriangle,
-  TrendingUp, Clock, CheckCircle, XCircle
+  TrendingUp, Clock, CheckCircle, XCircle, ChevronDown,
+  UserCircle, Edit, Key, Shield
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { useAuth } from '@/hooks/useAuth'
+import { useToast } from '@/hooks/use-toast'
 
 // Importar componentes das seções
 import OverviewSection from './admin/OverviewSection'
@@ -29,9 +32,26 @@ import ConfigSection from './admin/ConfigSection'
 interface AdminDashboardProps {}
 
 export default function AdminDashboard({}: AdminDashboardProps) {
-  const { user, isAdmin, isSeller, isBuyer } = useAuth()
+  const { user, isAdmin, isSeller, isBuyer, signOut } = useAuth()
+  const { toast } = useToast()
   const [activeSection, setActiveSection] = useState('overview')
   const [sidebarOpen, setSidebarOpen] = useState(true)
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
+
+  // Fechar menu do usuário quando clicar fora
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (isUserMenuOpen) {
+        const target = event.target as Element
+        if (!target.closest('[data-user-menu]')) {
+          setIsUserMenuOpen(false)
+        }
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [isUserMenuOpen])
 
   // Definir itens do menu baseado no role do usuário
   const getMenuItems = () => {
@@ -166,7 +186,21 @@ export default function AdminDashboard({}: AdminDashboardProps) {
           <Button
             variant="ghost"
             className="w-full justify-start text-[#6E7D5B] hover:text-[#B8413D] hover:bg-red-50"
-            onClick={() => window.location.reload()}
+            onClick={async () => {
+              try {
+                await signOut()
+                toast({
+                  title: "Logout realizado",
+                  description: "Você foi desconectado com sucesso.",
+                })
+              } catch (error) {
+                toast({
+                  title: "Erro no logout",
+                  description: "Ocorreu um erro ao fazer logout. Tente novamente.",
+                  variant: "destructive",
+                })
+              }
+            }}
           >
             <LogOut className="w-5 h-5 mr-3" />
             {sidebarOpen && 'Sair do Sistema'}
@@ -199,26 +233,99 @@ export default function AdminDashboard({}: AdminDashboardProps) {
             
             <div className="flex items-center gap-4">
               {/* Status do Sistema */}
-              <div className="flex items-center gap-2 px-3 py-2 bg-green-50 rounded-lg">
-                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                <span className="text-sm font-medium text-green-700">Sistema Online</span>
-              </div>
+              {/*<div className="flex items-center gap-2 px-3 py-2 bg-green-50 rounded-lg">*/}
+              {/*  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>*/}
+              {/*  <span className="text-sm font-medium text-green-700">Sistema Online</span>*/}
+              {/*</div>*/}
               
-              {/* User Info */}
-              <div className="flex items-center gap-3 px-4 py-2 bg-[#F7F6F2] rounded-lg">
-                <div className="w-8 h-8 bg-[#1E4D2B] rounded-full flex items-center justify-center">
-                  <span className="text-white text-sm font-bold">
-                    {user?.name?.charAt(0).toUpperCase() || 'U'}
-                  </span>
-                </div>
-                <div className="text-sm">
-                  <p className="font-medium text-[#2B2E2B]">
-                    {isAdmin() ? 'Administrador' : 
-                     isSeller() ? 'Vendedor' : 
-                     'Usuário'}
-                  </p>
-                  <p className="text-[#6E7D5B]">{user?.email}</p>
-                </div>
+              {/* User Menu */}
+              <div className="relative" data-user-menu>
+                <button
+                  onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                  className="flex items-center gap-3 px-4 py-2 bg-[#F7F6F2] rounded-lg hover:bg-gray-100 transition-colors"
+                >
+                  <div className="w-8 h-8 bg-[#1E4D2B] rounded-full flex items-center justify-center">
+                    <span className="text-white text-sm font-bold">
+                      {user?.name?.charAt(0).toUpperCase() || 'U'}
+                    </span>
+                  </div>
+                  <div className="text-sm text-left">
+                    <p className="font-medium text-[#2B2E2B]">
+                      {isAdmin() ? 'Administrador' : 
+                       isSeller() ? 'Vendedor' : 
+                       'Usuário'}
+                    </p>
+                    <p className="text-[#6E7D5B]">{user?.email}</p>
+                  </div>
+                  <ChevronDown className={`w-4 h-4 text-[#6E7D5B] transition-transform ${isUserMenuOpen ? 'rotate-180' : ''}`} />
+                </button>
+
+                {/* User Dropdown Menu */}
+                {isUserMenuOpen && (
+                  <div className="absolute top-full right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                    <div className="px-4 py-3 border-b border-gray-100">
+                      <p className="text-sm font-medium text-gray-900">{user?.name || 'Usuário'}</p>
+                      <p className="text-xs text-gray-500">{user?.email}</p>
+                    </div>
+                    
+                    {/* Opções do usuário */}
+                    <div className="py-1">
+                      <Link 
+                        href="/perfil"
+                        className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                        onClick={() => setIsUserMenuOpen(false)}
+                      >
+                        <UserCircle className="w-4 h-4 mr-3" />
+                        Meu Perfil
+                      </Link>
+                      
+                      <Link 
+                        href="/perfil/senha"
+                        className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                        onClick={() => setIsUserMenuOpen(false)}
+                      >
+                        <Key className="w-4 h-4 mr-3" />
+                        Trocar Senha
+                      </Link>
+                      
+                      <Link 
+                        href="/perfil/configuracoes"
+                        className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                        onClick={() => setIsUserMenuOpen(false)}
+                      >
+                        <Settings className="w-4 h-4 mr-3" />
+                        Configurações
+                      </Link>
+                    </div>
+                    
+                    {/* Separador */}
+                    <div className="border-t border-gray-100 my-1"></div>
+                    
+                    {/* Logout */}
+                    <button
+                      onClick={async () => {
+                        try {
+                          await signOut()
+                          toast({
+                            title: "Logout realizado",
+                            description: "Você foi desconectado com sucesso.",
+                          })
+                        } catch (error) {
+                          toast({
+                            title: "Erro no logout",
+                            description: "Ocorreu um erro ao fazer logout. Tente novamente.",
+                            variant: "destructive",
+                          })
+                        }
+                        setIsUserMenuOpen(false)
+                      }}
+                      className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50"
+                    >
+                      <LogOut className="w-4 h-4 mr-3" />
+                      Sair
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           </div>

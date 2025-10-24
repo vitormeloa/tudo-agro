@@ -15,7 +15,10 @@ import {
   ChevronDown,
   LogOut,
   Settings,
-  Shield
+  Shield,
+  Key,
+  Edit,
+  UserCircle
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useAuth } from '@/hooks/useAuth'
@@ -231,19 +234,58 @@ export default function Header({
 
                   {/* User Dropdown Menu */}
                   {isUserMenuOpen && (
-                    <div className="absolute top-full right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
-                      <div className="px-4 py-2 border-b border-gray-100">
+                    <div className="absolute top-full right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                      <div className="px-4 py-3 border-b border-gray-100">
                         <p className="text-sm font-medium text-gray-900">{user.name || 'Usuário'}</p>
                         <p className="text-xs text-gray-500">{user.email}</p>
                       </div>
-                      <Link href="/painel" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
-                        <Settings className="w-4 h-4 inline mr-2" />
-                        Painel
-                      </Link>
-                      <Link href="/admin" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
-                        <Shield className="w-4 h-4 inline mr-2" />
-                        Dashboard
-                      </Link>
+                      
+                      {/* Opções do usuário */}
+                      <div className="py-1">
+                        <Link 
+                          href="/perfil" 
+                          className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                          onClick={() => setIsUserMenuOpen(false)}
+                        >
+                          <UserCircle className="w-4 h-4 mr-3" />
+                          Meu Perfil
+                        </Link>
+                        
+                        <Link 
+                          href="/perfil/senha" 
+                          className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                          onClick={() => setIsUserMenuOpen(false)}
+                        >
+                          <Key className="w-4 h-4 mr-3" />
+                          Trocar Senha
+                        </Link>
+                        
+                        <Link 
+                          href="/perfil/configuracoes" 
+                          className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                          onClick={() => setIsUserMenuOpen(false)}
+                        >
+                          <Settings className="w-4 h-4 mr-3" />
+                          Configurações
+                        </Link>
+                      </div>
+                      
+                      {/* Separador */}
+                      <div className="border-t border-gray-100 my-1"></div>
+                      
+                      {/* Painel administrativo */}
+                      {isAdmin && (
+                        <Link 
+                          href="/admin" 
+                          className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                          onClick={() => setIsUserMenuOpen(false)}
+                        >
+                          <Shield className="w-4 h-4 mr-3" />
+                          Painel Admin
+                        </Link>
+                      )}
+                      
+                      {/* Logout */}
                       <button
                         onClick={async () => {
                           try {
@@ -261,9 +303,9 @@ export default function Header({
                           }
                           setIsUserMenuOpen(false)
                         }}
-                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                        className="flex items-center w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50"
                       >
-                        <LogOut className="w-4 h-4 inline mr-2" />
+                        <LogOut className="w-4 h-4 mr-3" />
                         Sair
                       </button>
                     </div>
@@ -345,12 +387,40 @@ export default function Header({
                       <p className="text-sm font-medium text-gray-900">{user.name || 'Usuário'}</p>
                       <p className="text-xs text-gray-500">{user.email}</p>
                     </div>
-                    <Link href="/painel" className="block">
-                      <Button variant="outline" className="w-full justify-start">
-                        <Settings className="w-4 h-4 mr-2" />
-                        Painel
-                      </Button>
-                    </Link>
+                    
+                    {/* Opções do usuário mobile */}
+                    <div className="space-y-1">
+                      <Link href="/perfil" className="block" onClick={() => setIsMenuOpen(false)}>
+                        <Button variant="outline" className="w-full justify-start">
+                          <UserCircle className="w-4 h-4 mr-2" />
+                          Meu Perfil
+                        </Button>
+                      </Link>
+                      
+                      <Link href="/perfil/senha" className="block" onClick={() => setIsMenuOpen(false)}>
+                        <Button variant="outline" className="w-full justify-start">
+                          <Key className="w-4 h-4 mr-2" />
+                          Trocar Senha
+                        </Button>
+                      </Link>
+                      
+                      <Link href="/perfil/configuracoes" className="block" onClick={() => setIsMenuOpen(false)}>
+                        <Button variant="outline" className="w-full justify-start">
+                          <Settings className="w-4 h-4 mr-2" />
+                          Configurações
+                        </Button>
+                      </Link>
+                      
+                      {isAdmin && (
+                        <Link href="/admin" className="block" onClick={() => setIsMenuOpen(false)}>
+                          <Button variant="outline" className="w-full justify-start">
+                            <Shield className="w-4 h-4 mr-2" />
+                            Painel Admin
+                          </Button>
+                        </Link>
+                      )}
+                    </div>
+                    
                     <button
                       onClick={async () => {
                         try {
@@ -370,7 +440,7 @@ export default function Header({
                       }}
                       className="w-full"
                     >
-                      <Button variant="outline" className="w-full justify-start">
+                      <Button variant="outline" className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50">
                         <LogOut className="w-4 h-4 mr-2" />
                         Sair
                       </Button>

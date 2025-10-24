@@ -6,9 +6,15 @@ import type { NextRequest } from 'next/server'
 export async function middleware(req: NextRequest) {
   const res = NextResponse.next()
   
+  // Verificar se as variáveis de ambiente estão configuradas
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    console.error('Middleware - Missing Supabase environment variables')
+    return res
+  }
+  
   const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
     {
       cookies: {
         get(name: string) {
@@ -32,75 +38,53 @@ export async function middleware(req: NextRequest) {
     }
   )
 
-  const {
-    data: { session },
-  } = await supabase.auth.getSession()
+  try {
+    const {
+      data: { session },
+      error
+    } = await supabase.auth.getSession()
 
-  // Rotas que requerem autenticação
-  const protectedRoutes = [
-    '/painel',
-    '/perfil',
-    '/minhas-vendas',
-    '/minhas-compras',
-    '/favoritos',
-    '/mensagens'
-  ]
+    console.log('Middleware - Session check:', {
+      path: req.nextUrl.pathname,
+      hasSession: !!session,
+      userId: session?.user?.id,
+      error: error?.message
+    })
 
-  // Rotas que requerem role de admin (removido /admin daqui)
-  const adminRoutes = [
-    // '/admin' - removido para permitir acesso a todos os usuários logados
-  ]
+    // Rotas que requerem autenticação
+    const protectedRoutes = [
+      '/painel',
+      '/perfil',
+      '/minhas-vendas',
+      '/minhas-compras',
+      '/favoritos',
+      '/mensagens'
+    ]
 
-  // Verificar se a rota atual requer autenticação
-  const isProtectedRoute = protectedRoutes.some(route => 
-    req.nextUrl.pathname.startsWith(route)
-  )
-
-  // Verificar se a rota atual requer admin
-  const isAdminRoute = adminRoutes.some(route => 
-    req.nextUrl.pathname.startsWith(route)
-  )
-
-  // Se não há sessão e a rota é protegida, redirecionar para login
-  if (!session && isProtectedRoute) {
-    const redirectUrl = new URL('/login', req.url)
-    redirectUrl.searchParams.set('redirectTo', req.nextUrl.pathname)
-    return NextResponse.redirect(redirectUrl)
-  }
-
-  // Se há sessão e está tentando acessar login/cadastro, redirecionar para homepage
-  if (session && (req.nextUrl.pathname === '/login' || req.nextUrl.pathname === '/cadastro')) {
-    return NextResponse.redirect(new URL('/', req.url))
-  }
-
-  // Se é rota de admin, verificar se usuário tem role de admin
-  if (session && isAdminRoute) {
-    // Usar cliente admin para verificar roles
-    const supabaseAdmin = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.SUPABASE_SERVICE_ROLE_KEY!,
-      {
-        auth: {
-          autoRefreshToken: false,
-          persistSession: false
-        }
-      }
+    // Verificar se a rota atual requer autenticação
+    const isProtectedRoute = protectedRoutes.some(route => 
+      req.nextUrl.pathname.startsWith(route)
     )
 
-    const { data: userRoles } = await supabaseAdmin
-      .from('user_roles')
-      .select(`
-        roles (
-          name
-        )
-      `)
-      .eq('user_id', session.user.id)
-
-    const hasAdminRole = userRoles?.some((ur: any) => ur.roles?.name === 'admin')
-
-    if (!hasAdminRole) {
-      return NextResponse.redirect(new URL('/painel', req.url))
+    // Se não há sessão e a rota é protegida, redirecionar para login
+    if (!session && isProtectedRoute) {
+      console.log('Middleware - Redirecting to login:', {
+        path: req.nextUrl.pathname,
+        isProtectedRoute,
+        hasSession: !!session
+      })
+      const redirectUrl = new URL('/login', req.url)
+      redirectUrl.searchParams.set('redirectTo', req.nextUrl.pathname)
+      return NextResponse.redirect(redirectUrl)
     }
+
+    // Se há sessão e está tentando acessar login/cadastro, redirecionar para homepage
+    if (session && (req.nextUrl.pathname === '/login' || req.nextUrl.pathname === '/cadastro')) {
+      return NextResponse.redirect(new URL('/', req.url))
+    }
+
+  } catch (error) {
+    console.error('Middleware - Error checking session:', error)
   }
 
   return res
@@ -115,6 +99,7 @@ export const config = {
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
      */
-    '/((?!api|_next/static|_next/image|favicon.ico).*)',
+    // Temporariamente desabilitado para corrigir redirecionamento
+    // '/((?!api|_next/static|_next/image|favicon.ico).*)',
   ],
 }

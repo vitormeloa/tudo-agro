@@ -46,7 +46,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const checkUser = async () => {
     try {
+      console.log('Checking user session...')
       const { data: { session } } = await supabase.auth.getSession()
+      console.log('Session found:', !!session, 'User:', !!session?.user)
       if (session?.user) {
         await loadUser(session.user.id)
       }
@@ -59,6 +61,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const loadUser = async (userId: string) => {
     try {
+      console.log('Loading user data for ID:', userId)
       // Primeiro, verificar se o usuário existe na tabela users
       const { data: userData, error } = await supabase
         .from('users')
@@ -74,6 +77,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         `)
         .eq('id', userId)
         .single()
+      
+      console.log('User data query result:', { userData, error })
 
       if (error) {
         // Se a tabela não existe ou usuário não encontrado, criar perfil básico
