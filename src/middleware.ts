@@ -1,4 +1,5 @@
 import { createServerClient } from '@supabase/ssr'
+import { createClient } from '@supabase/supabase-js'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
@@ -45,9 +46,9 @@ export async function middleware(req: NextRequest) {
     '/mensagens'
   ]
 
-  // Rotas que requerem role de admin
+  // Rotas que requerem role de admin (removido /admin daqui)
   const adminRoutes = [
-    '/admin'
+    // '/admin' - removido para permitir acesso a todos os usuários logados
   ]
 
   // Verificar se a rota atual requer autenticação
@@ -74,7 +75,19 @@ export async function middleware(req: NextRequest) {
 
   // Se é rota de admin, verificar se usuário tem role de admin
   if (session && isAdminRoute) {
-    const { data: userRoles } = await supabase
+    // Usar cliente admin para verificar roles
+    const supabaseAdmin = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY!,
+      {
+        auth: {
+          autoRefreshToken: false,
+          persistSession: false
+        }
+      }
+    )
+
+    const { data: userRoles } = await supabaseAdmin
       .from('user_roles')
       .select(`
         roles (

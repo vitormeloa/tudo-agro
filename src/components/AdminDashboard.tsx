@@ -10,6 +10,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { useAuth } from '@/hooks/useAuth'
 
 // Importar componentes das seções
 import OverviewSection from './admin/OverviewSection'
@@ -28,23 +29,39 @@ import ConfigSection from './admin/ConfigSection'
 interface AdminDashboardProps {}
 
 export default function AdminDashboard({}: AdminDashboardProps) {
+  const { user, isAdmin, isSeller, isBuyer } = useAuth()
   const [activeSection, setActiveSection] = useState('overview')
   const [sidebarOpen, setSidebarOpen] = useState(true)
 
-  const menuItems = [
-    { id: 'overview', label: 'Visão Geral', icon: BarChart3, alerts: 0 },
-    { id: 'users', label: 'Usuários', icon: Users, alerts: 0 },
-    { id: 'sellers', label: 'Vendedores', icon: Store, alerts: 3 },
-    { id: 'ads', label: 'Anúncios', icon: FileText, alerts: 7 },
-    { id: 'auctions', label: 'Leilões', icon: Gavel, alerts: 0 },
-    { id: 'transactions', label: 'Transações', icon: CreditCard, alerts: 2 },
-    { id: 'documents', label: 'Documentos (KYC)', icon: FileCheck, alerts: 12 },
-    { id: 'cashback', label: 'Cashback', icon: Gift, alerts: 5 },
-    { id: 'vip', label: 'Plano VIP e Clube', icon: Crown, alerts: 0 },
-    { id: 'academy', label: 'Academy / IA Agro', icon: GraduationCap, alerts: 0 },
-    { id: 'messages', label: 'Mensagens e Suporte', icon: MessageSquare, alerts: 8 },
-    { id: 'config', label: 'Configurações', icon: Settings, alerts: 0 }
-  ]
+  // Definir itens do menu baseado no role do usuário
+  const getMenuItems = () => {
+    const allMenuItems = [
+      { id: 'overview', label: 'Visão Geral', icon: BarChart3, alerts: 0, roles: ['admin', 'vendedor', 'comprador'] },
+      { id: 'users', label: 'Usuários', icon: Users, alerts: 0, roles: ['admin'] },
+      { id: 'sellers', label: 'Vendedores', icon: Store, alerts: 3, roles: ['admin'] },
+      { id: 'ads', label: 'Anúncios', icon: FileText, alerts: 7, roles: ['admin', 'vendedor'] },
+      { id: 'auctions', label: 'Leilões', icon: Gavel, alerts: 0, roles: ['admin', 'vendedor', 'comprador'] },
+      { id: 'transactions', label: 'Transações', icon: CreditCard, alerts: 2, roles: ['admin', 'vendedor', 'comprador'] },
+      { id: 'documents', label: 'Documentos (KYC)', icon: FileCheck, alerts: 12, roles: ['admin'] },
+      { id: 'cashback', label: 'Cashback', icon: Gift, alerts: 5, roles: ['admin', 'vendedor', 'comprador'] },
+      { id: 'vip', label: 'Plano VIP e Clube', icon: Crown, alerts: 0, roles: ['admin', 'vendedor', 'comprador'] },
+      { id: 'academy', label: 'Academy / IA Agro', icon: GraduationCap, alerts: 0, roles: ['admin', 'vendedor', 'comprador'] },
+      { id: 'messages', label: 'Mensagens e Suporte', icon: MessageSquare, alerts: 8, roles: ['admin', 'vendedor', 'comprador'] },
+      { id: 'config', label: 'Configurações', icon: Settings, alerts: 0, roles: ['admin'] }
+    ]
+
+    if (!user) return []
+
+    // Filtrar itens baseado no role do usuário
+    return allMenuItems.filter(item => {
+      if (isAdmin()) return true // Admin vê tudo
+      if (isSeller() && item.roles.includes('vendedor')) return true
+      if (isBuyer() && item.roles.includes('comprador')) return true
+      return false
+    })
+  }
+
+  const menuItems = getMenuItems()
 
   const renderSection = () => {
     switch (activeSection) {
@@ -76,7 +93,11 @@ export default function AdminDashboard({}: AdminDashboardProps) {
             {sidebarOpen && (
               <div>
                 <h1 className="text-2xl font-bold text-[#1E4D2B]">TudoAgro</h1>
-                <p className="text-sm text-[#6E7D5B]">Painel Administrativo</p>
+                <p className="text-sm text-[#6E7D5B]">
+                  {isAdmin() ? 'Painel Administrativo' : 
+                   isSeller() ? 'Painel do Vendedor' : 
+                   'Painel do Usuário'}
+                </p>
               </div>
             )}
             <Button
@@ -169,7 +190,9 @@ export default function AdminDashboard({}: AdminDashboardProps) {
                   {menuItems.find(item => item.id === activeSection)?.label}
                 </h2>
                 <p className="text-[#6E7D5B] text-sm">
-                  Gerencie e monitore as operações da plataforma
+                  {isAdmin() ? 'Gerencie e monitore as operações da plataforma' :
+                   isSeller() ? 'Gerencie seus produtos, leilões e vendas' :
+                   'Acompanhe suas compras, leilões e atividades'}
                 </p>
               </div>
             </div>
@@ -181,14 +204,20 @@ export default function AdminDashboard({}: AdminDashboardProps) {
                 <span className="text-sm font-medium text-green-700">Sistema Online</span>
               </div>
               
-              {/* Admin Info */}
+              {/* User Info */}
               <div className="flex items-center gap-3 px-4 py-2 bg-[#F7F6F2] rounded-lg">
                 <div className="w-8 h-8 bg-[#1E4D2B] rounded-full flex items-center justify-center">
-                  <span className="text-white text-sm font-bold">A</span>
+                  <span className="text-white text-sm font-bold">
+                    {user?.name?.charAt(0).toUpperCase() || 'U'}
+                  </span>
                 </div>
                 <div className="text-sm">
-                  <p className="font-medium text-[#2B2E2B]">Admin</p>
-                  <p className="text-[#6E7D5B]">admin@gmail.com</p>
+                  <p className="font-medium text-[#2B2E2B]">
+                    {isAdmin() ? 'Administrador' : 
+                     isSeller() ? 'Vendedor' : 
+                     'Usuário'}
+                  </p>
+                  <p className="text-[#6E7D5B]">{user?.email}</p>
                 </div>
               </div>
             </div>

@@ -14,7 +14,8 @@ import {
   Bell,
   ChevronDown,
   LogOut,
-  Settings
+  Settings,
+  Shield
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useAuth } from '@/hooks/useAuth'
@@ -41,7 +42,7 @@ export default function Header({
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
   const [scrollY, setScrollY] = useState(0)
-  const { user, loading, signOut } = useAuth()
+  const { user, loading, signOut, isAdmin } = useAuth()
   const { toast } = useToast()
 
   // Efeito de scroll para opacidade
@@ -238,6 +239,10 @@ export default function Header({
                       <Link href="/painel" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
                         <Settings className="w-4 h-4 inline mr-2" />
                         Painel
+                      </Link>
+                      <Link href="/admin" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                        <Shield className="w-4 h-4 inline mr-2" />
+                        Dashboard
                       </Link>
                       <button
                         onClick={async () => {
