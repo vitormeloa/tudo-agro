@@ -1,11 +1,15 @@
 'use client'
 
+import { useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Gavel, Clock, Users, DollarSign, AlertTriangle, Eye } from 'lucide-react'
+import AuctionDetailsModal from './modals/AuctionDetailsModal'
 
 export default function AuctionsSection() {
+  const [selectedAuction, setSelectedAuction] = useState<any>(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const auctions = [
     {
       id: 1247,
@@ -51,6 +55,11 @@ export default function AuctionsSection() {
     return <Badge className={config[status as keyof typeof config]}>{status.charAt(0).toUpperCase() + status.slice(1)}</Badge>
   }
 
+  const handleViewDetails = (auction: any) => {
+    setSelectedAuction(auction)
+    setIsModalOpen(true)
+  }
+
   return (
     <div className="space-y-6">
       <Card>
@@ -80,7 +89,7 @@ export default function AuctionsSection() {
                       <h4 className="font-medium text-[#2B2E2B] mb-2">{auction.title}</h4>
                       <p className="text-sm text-[#6E7D5B] mb-4">Vendedor: {auction.seller}</p>
                       
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                         <div className="text-center">
                           <p className="text-2xl font-bold text-[#1E4D2B]">{auction.bids}</p>
                           <p className="text-xs text-[#6E7D5B]">Lances</p>
@@ -100,8 +109,12 @@ export default function AuctionsSection() {
                       </div>
                     </div>
                     
-                    <div className="flex flex-col gap-2 ml-4">
-                      <Button variant="outline" size="sm">
+                    <div className="flex flex-col sm:flex-row lg:flex-col gap-2 ml-0 sm:ml-4 mt-4 sm:mt-0">
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        onClick={() => handleViewDetails(auction)}
+                      >
                         <Eye className="w-4 h-4 mr-2" />
                         Ver Leilão
                       </Button>
@@ -119,6 +132,18 @@ export default function AuctionsSection() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Modal de Detalhes do Leilão */}
+      {selectedAuction && (
+        <AuctionDetailsModal
+          auction={selectedAuction}
+          isOpen={isModalOpen}
+          onClose={() => {
+            setIsModalOpen(false)
+            setSelectedAuction(null)
+          }}
+        />
+      )}
     </div>
   )
 }

@@ -14,6 +14,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { useAuth } from '@/hooks/useAuth'
 import { useToast } from '@/hooks/use-toast'
+import { useIsMobile } from '@/hooks/use-mobile'
 
 // Importar componentes das seções
 import OverviewSection from './admin/OverviewSection'
@@ -34,8 +35,9 @@ interface AdminDashboardProps {}
 export default function AdminDashboard({}: AdminDashboardProps) {
   const { user, isAdmin, isSeller, isBuyer, signOut } = useAuth()
   const { toast } = useToast()
+  const isMobile = useIsMobile()
   const [activeSection, setActiveSection] = useState('overview')
-  const [sidebarOpen, setSidebarOpen] = useState(true)
+  const [sidebarOpen, setSidebarOpen] = useState(!isMobile)
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
 
   // Fechar menu do usuário quando clicar fora
@@ -52,6 +54,23 @@ export default function AdminDashboard({}: AdminDashboardProps) {
     document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [isUserMenuOpen])
+
+  // Ajustar sidebar baseado no tamanho da tela
+  useEffect(() => {
+    if (isMobile) {
+      setSidebarOpen(false)
+    } else {
+      setSidebarOpen(true)
+    }
+  }, [isMobile])
+
+  // Fechar sidebar quando trocar de seção no mobile
+  const handleSectionChange = (sectionId: string) => {
+    setActiveSection(sectionId)
+    if (isMobile) {
+      setSidebarOpen(false)
+    }
+  }
 
   // Definir itens do menu baseado no role do usuário
   const getMenuItems = () => {
@@ -104,11 +123,23 @@ export default function AdminDashboard({}: AdminDashboardProps) {
   const totalAlerts = menuItems.reduce((sum, item) => sum + item.alerts, 0)
 
   return (
-    <div className="min-h-screen bg-[#F7F6F2] flex">
+    <div className="h-screen bg-[#F7F6F2] flex overflow-hidden">
+      {/* Mobile Overlay */}
+      {sidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+      
       {/* Sidebar */}
-      <div className={`${sidebarOpen ? 'w-80' : 'w-20'} transition-all duration-300 bg-white shadow-xl border-r border-gray-200 flex flex-col`}>
+      <div className={`${
+        sidebarOpen ? 'w-80' : 'w-20'
+      } transition-all duration-300 bg-white shadow-xl border-r border-gray-200 flex flex-col fixed lg:relative z-50 h-screen min-h-screen ${
+        sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+      } ${!sidebarOpen ? 'lg:shadow-2xl' : ''} overflow-hidden`}>
         {/* Header da Sidebar */}
-        <div className="p-6 border-b border-gray-200">
+        <div className="p-6 border-b border-gray-200 flex-shrink-0 overflow-hidden">
           <div className="flex items-center justify-between">
             {sidebarOpen && (
               <div>
@@ -124,15 +155,34 @@ export default function AdminDashboard({}: AdminDashboardProps) {
               variant="ghost"
               size="sm"
               onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="text-[#6E7D5B] hover:text-[#1E4D2B] hover:bg-[#F7F6F2]"
+              className="text-[#6E7D5B] hover:text-[#1E4D2B] hover:bg-[#F7F6F2] group relative overflow-hidden"
+              title={sidebarOpen ? "Fechar Menu" : "Abrir Menu"}
             >
-              {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {sidebarOpen ? (
+                <X className="w-5 h-5 group-hover:scale-110 transition-transform" />
+              ) : (
+                <Menu className="w-5 h-5 group-hover:scale-110 transition-transform" />
+              )}
+              
+              {/* Tooltip para sidebar fechada */}
+              {!sidebarOpen && (
+                <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50 max-w-32">
+                  Abrir Menu
+                  <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1 w-2 h-2 bg-gray-900 rotate-45"></div>
+                </div>
+              )}
             </Button>
           </div>
         </div>
 
         {/* Menu Items */}
-        <div className="flex-1 overflow-y-auto py-4">
+        <div className="flex-1 overflow-y-auto py-4 min-h-0 relative overflow-x-hidden">
+          {/* Indicador de scroll superior */}
+          <div className="absolute top-0 left-0 right-0 h-4 bg-gradient-to-b from-white to-transparent z-10 pointer-events-none"></div>
+          
+          {/* Indicador de scroll inferior */}
+          <div className="absolute bottom-0 left-0 right-0 h-4 bg-gradient-to-t from-white to-transparent z-10 pointer-events-none"></div>
+          
           <nav className="space-y-1 px-3">
             {menuItems.map((item) => {
               const Icon = item.icon
@@ -141,12 +191,13 @@ export default function AdminDashboard({}: AdminDashboardProps) {
               return (
                 <button
                   key={item.id}
-                  onClick={() => setActiveSection(item.id)}
-                  className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg text-left transition-all duration-200 group ${
+                  onClick={() => handleSectionChange(item.id)}
+                  className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg text-left transition-all duration-200 group relative overflow-hidden ${
                     isActive 
                       ? 'bg-[#1E4D2B] text-white shadow-lg' 
                       : 'text-[#6E7D5B] hover:bg-[#F7F6F2] hover:text-[#1E4D2B]'
                   }`}
+                  title={!sidebarOpen ? item.label : undefined}
                 >
                   <Icon className={`w-5 h-5 ${isActive ? 'text-white' : 'text-[#6E7D5B] group-hover:text-[#1E4D2B]'}`} />
                   {sidebarOpen && (
@@ -164,6 +215,17 @@ export default function AdminDashboard({}: AdminDashboardProps) {
                   {!sidebarOpen && item.alerts > 0 && (
                     <div className="absolute right-2 w-2 h-2 bg-[#B8413D] rounded-full"></div>
                   )}
+                  
+                  {/* Tooltip para sidebar fechada */}
+                  {!sidebarOpen && (
+                    <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50 max-w-48">
+                      {item.label}
+                      {item.alerts > 0 && (
+                        <span className="ml-1 text-red-300">({item.alerts})</span>
+                      )}
+                      <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1 w-2 h-2 bg-gray-900 rotate-45"></div>
+                    </div>
+                  )}
                 </button>
               )
             })}
@@ -171,8 +233,8 @@ export default function AdminDashboard({}: AdminDashboardProps) {
         </div>
 
         {/* Footer da Sidebar */}
-        <div className="p-4 border-t border-gray-200">
-          {sidebarOpen && (
+        <div className="p-4 border-t border-gray-200 flex-shrink-0 overflow-hidden">
+          {sidebarOpen ? (
             <div className="mb-4 p-3 bg-[#F7F6F2] rounded-lg">
               <div className="flex items-center gap-2 mb-2">
                 <AlertTriangle className="w-4 h-4 text-[#B8413D]" />
@@ -181,11 +243,30 @@ export default function AdminDashboard({}: AdminDashboardProps) {
               <p className="text-2xl font-bold text-[#B8413D]">{totalAlerts}</p>
               <p className="text-xs text-[#6E7D5B]">Requerem atenção</p>
             </div>
+          ) : (
+            totalAlerts > 0 && (
+              <div className="mb-4 p-2 bg-red-50 rounded-lg group relative">
+                <div className="flex items-center justify-center">
+                  <AlertTriangle className="w-5 h-5 text-[#B8413D]" />
+                  <div className="absolute -top-1 -right-1 w-5 h-5 bg-[#B8413D] text-white text-xs rounded-full flex items-center justify-center font-bold">
+                    {totalAlerts}
+                  </div>
+                </div>
+                
+                {/* Tooltip para sidebar fechada */}
+                <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50 max-w-40">
+                  {totalAlerts} alerta{totalAlerts > 1 ? 's' : ''} pendente{totalAlerts > 1 ? 's' : ''}
+                  <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1 w-2 h-2 bg-gray-900 rotate-45"></div>
+                </div>
+              </div>
+            )
           )}
           
           <Button
             variant="ghost"
-            className="w-full justify-start text-[#6E7D5B] hover:text-[#B8413D] hover:bg-red-50"
+            className={`w-full justify-start text-[#6E7D5B] hover:text-[#B8413D] hover:bg-red-50 group relative overflow-hidden ${
+              !sidebarOpen ? 'hover:bg-red-100' : ''
+            }`}
             onClick={async () => {
               try {
                 await signOut()
@@ -201,29 +282,54 @@ export default function AdminDashboard({}: AdminDashboardProps) {
                 })
               }
             }}
+            title={sidebarOpen ? "Sair do Sistema" : "Sair"}
           >
-            <LogOut className="w-5 h-5 mr-3" />
+            <LogOut className={`w-5 h-5 ${sidebarOpen ? 'mr-3' : ''} group-hover:scale-110 transition-transform`} />
             {sidebarOpen && 'Sair do Sistema'}
+            
+            {/* Indicador visual para sidebar fechada */}
+            {!sidebarOpen && (
+              <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
+            )}
+            
+            {/* Tooltip para sidebar fechada */}
+            {!sidebarOpen && (
+              <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50 max-w-32">
+                Sair do Sistema
+                <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1 w-2 h-2 bg-gray-900 rotate-45"></div>
+              </div>
+            )}
           </Button>
         </div>
       </div>
 
       {/* Conteúdo Principal */}
-      <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="flex-1 flex flex-col overflow-hidden lg:ml-0 ml-0 h-screen">
         {/* Header Principal */}
-        <header className="bg-white shadow-sm border-b border-gray-200 px-6 py-4">
+        <header className="bg-white shadow-sm border-b border-gray-200 px-4 sm:px-6 py-4 flex-shrink-0">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2 sm:space-x-4">
+              {/* Mobile Menu Button */}
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setSidebarOpen(!sidebarOpen)}
+                className="lg:hidden text-[#6E7D5B] hover:text-[#1E4D2B] hover:bg-[#F7F6F2] group"
+                title="Abrir Menu"
+              >
+                <Menu className="w-5 h-5 group-hover:scale-110 transition-transform" />
+              </Button>
+              
               <img 
                 src="/fotos/tudo-agro-logo.png" 
                 className="h-6 w-auto sm:h-8 md:h-10 lg:h-12" 
                 alt="TudoAgro Logo"
               />
-              <div>
-                <h2 className="text-2xl font-bold text-[#2B2E2B]">
+              <div className="hidden sm:block">
+                <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-[#2B2E2B]">
                   {menuItems.find(item => item.id === activeSection)?.label}
                 </h2>
-                <p className="text-[#6E7D5B] text-sm">
+                <p className="text-[#6E7D5B] text-xs sm:text-sm hidden md:block">
                   {isAdmin() ? 'Gerencie e monitore as operações da plataforma' :
                    isSeller() ? 'Gerencie seus produtos, leilões e vendas' :
                    'Acompanhe suas compras, leilões e atividades'}
@@ -231,7 +337,7 @@ export default function AdminDashboard({}: AdminDashboardProps) {
               </div>
             </div>
             
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 sm:gap-4">
               {/* Status do Sistema */}
               {/*<div className="flex items-center gap-2 px-3 py-2 bg-green-50 rounded-lg">*/}
               {/*  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>*/}
@@ -242,27 +348,27 @@ export default function AdminDashboard({}: AdminDashboardProps) {
               <div className="relative" data-user-menu>
                 <button
                   onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                  className="flex items-center gap-3 px-4 py-2 bg-[#F7F6F2] rounded-lg hover:bg-gray-100 transition-colors"
+                  className="flex items-center gap-2 sm:gap-3 px-2 sm:px-4 py-2 bg-[#F7F6F2] rounded-lg hover:bg-gray-100 transition-colors"
                 >
                   <div className="w-8 h-8 bg-[#1E4D2B] rounded-full flex items-center justify-center">
                     <span className="text-white text-sm font-bold">
                       {user?.name?.charAt(0).toUpperCase() || 'U'}
                     </span>
                   </div>
-                  <div className="text-sm text-left">
+                  <div className="text-sm text-left hidden sm:block">
                     <p className="font-medium text-[#2B2E2B]">
                       {isAdmin() ? 'Administrador' : 
                        isSeller() ? 'Vendedor' : 
                        'Usuário'}
                     </p>
-                    <p className="text-[#6E7D5B]">{user?.email}</p>
+                    <p className="text-[#6E7D5B] text-xs truncate max-w-32">{user?.email}</p>
                   </div>
                   <ChevronDown className={`w-4 h-4 text-[#6E7D5B] transition-transform ${isUserMenuOpen ? 'rotate-180' : ''}`} />
                 </button>
 
                 {/* User Dropdown Menu */}
                 {isUserMenuOpen && (
-                  <div className="absolute top-full right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                  <div className="absolute top-full right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50 max-h-96 overflow-y-auto">
                     <div className="px-4 py-3 border-b border-gray-100">
                       <p className="text-sm font-medium text-gray-900">{user?.name || 'Usuário'}</p>
                       <p className="text-xs text-gray-500">{user?.email}</p>
@@ -332,7 +438,7 @@ export default function AdminDashboard({}: AdminDashboardProps) {
         </header>
 
         {/* Conteúdo da Seção */}
-        <main className="flex-1 overflow-y-auto p-6">
+        <main className="flex-1 overflow-y-auto p-4 sm:p-6 min-h-0">
           {renderSection()}
         </main>
       </div>

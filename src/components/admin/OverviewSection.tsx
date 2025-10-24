@@ -12,6 +12,11 @@ import {
   Target, Activity, Zap, Shield, HeartHandshake
 } from 'lucide-react'
 import { useState } from 'react'
+import SalesChart from './charts/SalesChart'
+import CategoryChart from './charts/CategoryChart'
+import UserGrowthChart from './charts/UserGrowthChart'
+import RevenueChart from './charts/RevenueChart'
+import MetricsDashboard, { AlertCard } from './dashboard/MetricsDashboard'
 
 export default function OverviewSection() {
   const [selectedSector, setSelectedSector] = useState('all')
@@ -384,12 +389,12 @@ export default function OverviewSection() {
   return (
     <div className="space-y-6">
       {/* Filtros e Controles */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-4 rounded-lg border">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-          <div className="flex items-center gap-2">
+      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 bg-white p-4 rounded-lg border">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 w-full lg:w-auto">
+          <div className="flex items-center gap-2 w-full sm:w-auto">
             <Filter className="w-4 h-4 text-[#6E7D5B]" />
             <Select value={selectedSector} onValueChange={setSelectedSector}>
-              <SelectTrigger className="w-[280px]">
+              <SelectTrigger className="w-full sm:w-[280px]">
                 <SelectValue placeholder="Filtrar por setor" />
               </SelectTrigger>
               <SelectContent>
@@ -404,11 +409,11 @@ export default function OverviewSection() {
           </div>
         </div>
         
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 w-full lg:w-auto">
+          <div className="flex items-center gap-2 w-full sm:w-auto">
             <Calendar className="w-4 h-4 text-[#6E7D5B]" />
             <Select value={selectedPeriod} onValueChange={setSelectedPeriod}>
-              <SelectTrigger className="w-[180px]">
+              <SelectTrigger className="w-full sm:w-[180px]">
                 <SelectValue placeholder="Período" />
               </SelectTrigger>
               <SelectContent>
@@ -420,7 +425,7 @@ export default function OverviewSection() {
             </Select>
           </div>
           
-          <Button variant="outline" size="sm">
+          <Button variant="outline" size="sm" className="w-full sm:w-auto">
             <Download className="w-4 h-4 mr-2" />
             Exportar Relatório
           </Button>
@@ -439,114 +444,69 @@ export default function OverviewSection() {
       </div>
 
       {/* KPIs por Setor */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-        {getFilteredKpis().map((kpi, index) => {
-          const Icon = kpi.icon
-          return (
-            <Card key={index} className="hover:shadow-lg transition-shadow">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <div className={`w-12 h-12 rounded-full flex items-center justify-center ${getColorClasses(kpi.color)}`}>
-                    <Icon className="w-6 h-6" />
-                  </div>
-                  <div className="flex items-center">
-                    <TrendingUp className={`w-4 h-4 mr-1 ${
-                      kpi.trend === 'up' ? 'text-green-500' : 'text-red-500'
-                    }`} />
-                    <span className={`text-sm font-medium ${
-                      kpi.trend === 'up' ? 'text-green-600' : 'text-red-600'
-                    }`}>
-                      {kpi.change}
-                    </span>
-                  </div>
-                </div>
-                <div>
-                  <p className="text-sm font-medium text-[#6E7D5B] mb-1">{kpi.title}</p>
-                  <p className="text-2xl font-bold text-[#2B2E2B]">{kpi.value}</p>
-                </div>
-              </CardContent>
-            </Card>
-          )
-        })}
-      </div>
+      <MetricsDashboard 
+        metrics={getFilteredKpis().map(kpi => ({
+          title: kpi.title,
+          value: kpi.value,
+          change: kpi.change,
+          trend: kpi.trend as 'up' | 'down' | 'neutral',
+          icon: kpi.icon,
+          color: kpi.color as 'blue' | 'green' | 'orange' | 'purple' | 'red'
+        }))}
+        title={getSectorTitle(selectedSector)}
+      />
 
       {/* Recursos Complementares */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Mapa de Calor por Estado */}
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+        {/* Gráfico de Vendas */}
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <MapPin className="w-5 h-5 text-[#1E4D2B]" />
-              Mapa de Calor - Volume por Estado
+              <BarChart3 className="w-5 h-5 text-[#1E4D2B]" />
+              Evolução de Vendas por Canal
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="bg-[#F7F6F2] p-6 rounded-lg text-center">
-              <MapPin className="w-16 h-16 text-[#6E7D5B] mx-auto mb-4" />
-              <p className="text-[#6E7D5B]">Mapa interativo em desenvolvimento</p>
-              <p className="text-sm text-[#6E7D5B] mt-2">
-                Visualização do volume de vendas por região
-              </p>
-            </div>
+            <SalesChart />
           </CardContent>
         </Card>
 
-        {/* Gráfico Top 5 Categorias */}
+        {/* Gráfico de Categorias */}
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <PieChart className="w-5 h-5 text-[#1E4D2B]" />
-              Top 5 Categorias - Gráfico
+              Distribuição por Categorias
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="bg-[#F7F6F2] p-6 rounded-lg text-center">
-              <BarChart3 className="w-16 h-16 text-[#6E7D5B] mx-auto mb-4" />
-              <p className="text-[#6E7D5B]">Gráfico interativo em desenvolvimento</p>
-              <p className="text-sm text-[#6E7D5B] mt-2">
-                Visualização das categorias mais vendidas
-              </p>
-            </div>
+            <CategoryChart />
           </CardContent>
         </Card>
       </div>
 
       {/* Alertas e Atividade Recente */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
         {/* Alertas */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <AlertTriangle className="w-5 h-5 text-[#B8413D]" />
-              Alertas e Pendências
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
+        <div className="space-y-4">
+          <h3 className="text-lg font-semibold text-[#2B2E2B] flex items-center gap-2">
+            <AlertTriangle className="w-5 h-5 text-[#B8413D]" />
+            Alertas e Pendências
+          </h3>
+          <div className="grid grid-cols-1 gap-4">
             {alerts.map((alert, index) => (
-              <div key={index} className={`p-4 rounded-lg border-2 ${getAlertColor(alert.type)}`}>
-                <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-1">
-                      <h4 className="font-semibold text-[#2B2E2B]">{alert.title}</h4>
-                      <Badge variant="secondary" className="text-xs">
-                        {alert.count}
-                      </Badge>
-                    </div>
-                    <p className="text-sm text-[#6E7D5B] mb-3">{alert.description}</p>
-                    <Button 
-                      size="sm" 
-                      variant="outline" 
-                      className="text-xs"
-                      onClick={() => handleActionClick(alert.action)}
-                    >
-                      {alert.action}
-                    </Button>
-                  </div>
-                </div>
-              </div>
+              <AlertCard
+                key={index}
+                type={alert.type as 'success' | 'warning' | 'error' | 'info'}
+                title={alert.title}
+                message={alert.description}
+                count={alert.count}
+                action={alert.action}
+                onAction={() => handleActionClick(alert.action)}
+              />
             ))}
-          </CardContent>
-        </Card>
+          </div>
+        </div>
 
         {/* Atividade Recente */}
         <Card>
@@ -568,6 +528,35 @@ export default function OverviewSection() {
                 </div>
               ))}
             </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Gráficos Adicionais */}
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+        {/* Crescimento de Usuários */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Users className="w-5 h-5 text-[#1E4D2B]" />
+              Crescimento de Usuários
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <UserGrowthChart />
+          </CardContent>
+        </Card>
+
+        {/* Receita e Comissões */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <DollarSign className="w-5 h-5 text-[#1E4D2B]" />
+              Receita e Comissões
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <RevenueChart />
           </CardContent>
         </Card>
       </div>

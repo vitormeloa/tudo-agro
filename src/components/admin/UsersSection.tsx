@@ -1,10 +1,12 @@
 'use client'
 
 import { useState } from 'react'
+import UserDetailsModal from './modals/UserDetailsModal'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
+import { ResponsiveButton } from '@/components/ui/responsive-button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
+import { ResponsiveCard, ResponsiveGrid } from '@/components/ui/responsive-card'
 import { 
   Search, Filter, Download, Eye, Edit, Ban, CheckCircle,
   User, Mail, Phone, MapPin, Calendar, Activity
@@ -21,6 +23,8 @@ export default function UsersSection() {
   const [searchTerm, setSearchTerm] = useState('')
   const [statusFilter, setStatusFilter] = useState('all')
   const [typeFilter, setTypeFilter] = useState('all')
+  const [selectedUser, setSelectedUser] = useState<any>(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const users = [
     {
@@ -146,6 +150,11 @@ export default function UsersSection() {
     return matchesSearch && matchesStatus && matchesType
   })
 
+  const handleViewDetails = (user: any) => {
+    setSelectedUser(user)
+    setIsModalOpen(true)
+  }
+
   return (
     <div className="space-y-6">
       {/* Header com Filtros */}
@@ -157,15 +166,18 @@ export default function UsersSection() {
               Gerenciamento de Usuários
             </div>
             <div className="flex items-center gap-2">
-              <Button variant="outline" size="sm">
-                <Download className="w-4 h-4 mr-2" />
-                Exportar CSV
-              </Button>
+              <ResponsiveButton 
+                variant="outline" 
+                size="sm"
+                icon={<Download className="w-4 h-4" />}
+                text="Exportar CSV"
+                fullWidthOnMobile={false}
+              />
             </div>
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="flex flex-col md:flex-row gap-4">
+          <div className="flex flex-col lg:flex-row gap-4">
             {/* Busca */}
             <div className="flex-1">
               <div className="relative">
@@ -180,9 +192,9 @@ export default function UsersSection() {
             </div>
             
             {/* Filtros */}
-            <div className="flex gap-2">
+            <div className="flex flex-col sm:flex-row gap-2">
               <Select value={statusFilter} onValueChange={setStatusFilter}>
-                <SelectTrigger className="w-40">
+                <SelectTrigger className="w-full sm:w-40">
                   <SelectValue placeholder="Status" />
                 </SelectTrigger>
                 <SelectContent>
@@ -195,7 +207,7 @@ export default function UsersSection() {
               </Select>
 
               <Select value={typeFilter} onValueChange={setTypeFilter}>
-                <SelectTrigger className="w-32">
+                <SelectTrigger className="w-full sm:w-32">
                   <SelectValue placeholder="Tipo" />
                 </SelectTrigger>
                 <SelectContent>
@@ -216,26 +228,28 @@ export default function UsersSection() {
             <CardContent className="p-6">
               <div className="flex items-start justify-between">
                 <div className="flex-1">
-                  <div className="flex items-start gap-4">
+                  <div className="flex flex-col sm:flex-row items-start gap-4">
                     {/* Avatar */}
-                    <div className="w-12 h-12 bg-[#1E4D2B] rounded-full flex items-center justify-center text-white font-bold">
+                    <div className="w-12 h-12 bg-[#1E4D2B] rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">
                       {user.name.charAt(0)}
                     </div>
                     
                     {/* Informações Principais */}
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2">
+                    <div className="flex-1 w-full">
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-2">
                         <h3 className="text-lg font-semibold text-[#2B2E2B]">{user.name}</h3>
-                        {user.isVerified && (
-                          <CheckCircle className="w-5 h-5 text-green-500" title="Verificado" />
-                        )}
-                        {getStatusBadge(user.status)}
-                        <Badge variant="outline" className="text-xs">
-                          {user.type}
-                        </Badge>
+                        <div className="flex items-center gap-2 flex-wrap">
+                          {user.isVerified && (
+                            <CheckCircle className="w-5 h-5 text-green-500" title="Verificado" />
+                          )}
+                          {getStatusBadge(user.status)}
+                          <Badge variant="outline" className="text-xs">
+                            {user.type}
+                          </Badge>
+                        </div>
                       </div>
                       
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-sm text-[#6E7D5B]">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-sm text-[#6E7D5B]">
                         <div className="flex items-center gap-2">
                           <Mail className="w-4 h-4" />
                           {user.email}
@@ -265,7 +279,7 @@ export default function UsersSection() {
                   </div>
                   
                   {/* Estatísticas */}
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4 pt-4 border-t border-gray-100">
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-4 pt-4 border-t border-gray-100">
                     <div className="text-center">
                       <p className="text-2xl font-bold text-[#1E4D2B]">{user.adsCount}</p>
                       <p className="text-xs text-[#6E7D5B]">Anúncios</p>
@@ -286,25 +300,40 @@ export default function UsersSection() {
                 </div>
                 
                 {/* Ações */}
-                <div className="flex flex-col gap-2 ml-4">
-                  <Button variant="outline" size="sm">
-                    <Eye className="w-4 h-4 mr-2" />
-                    Ver Detalhes
-                  </Button>
-                  <Button variant="outline" size="sm">
-                    <Edit className="w-4 h-4 mr-2" />
-                    Editar
-                  </Button>
+                <div className="flex flex-col sm:flex-row lg:flex-col gap-2 ml-0 sm:ml-4 mt-4 sm:mt-0">
+                  <ResponsiveButton 
+                    variant="outline" 
+                    size="sm"
+                    icon={<Eye className="w-4 h-4" />}
+                    text="Ver Detalhes"
+                    onClick={() => handleViewDetails(user)}
+                    fullWidthOnMobile={true}
+                  />
+                  <ResponsiveButton 
+                    variant="outline" 
+                    size="sm"
+                    icon={<Edit className="w-4 h-4" />}
+                    text="Editar"
+                    fullWidthOnMobile={true}
+                  />
                   {user.status === 'ativo' ? (
-                    <Button variant="outline" size="sm" className="text-red-600 hover:text-red-700">
-                      <Ban className="w-4 h-4 mr-2" />
-                      Bloquear
-                    </Button>
+                    <ResponsiveButton 
+                      variant="outline" 
+                      size="sm" 
+                      icon={<Ban className="w-4 h-4" />}
+                      text="Bloquear"
+                      className="text-red-600 hover:text-red-700"
+                      fullWidthOnMobile={true}
+                    />
                   ) : (
-                    <Button variant="outline" size="sm" className="text-green-600 hover:text-green-700">
-                      <CheckCircle className="w-4 h-4 mr-2" />
-                      Ativar
-                    </Button>
+                    <ResponsiveButton 
+                      variant="outline" 
+                      size="sm" 
+                      icon={<CheckCircle className="w-4 h-4" />}
+                      text="Ativar"
+                      className="text-green-600 hover:text-green-700"
+                      fullWidthOnMobile={true}
+                    />
                   )}
                 </div>
               </div>
@@ -325,6 +354,18 @@ export default function UsersSection() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Modal de Detalhes do Usuário */}
+      {selectedUser && (
+        <UserDetailsModal
+          user={selectedUser}
+          isOpen={isModalOpen}
+          onClose={() => {
+            setIsModalOpen(false)
+            setSelectedUser(null)
+          }}
+        />
+      )}
     </div>
   )
 }
