@@ -60,8 +60,8 @@ export async function GET(request: NextRequest) {
           }
         }
 
-        // Redirecionar para o painel com mensagem de sucesso
-        return NextResponse.redirect(`${requestUrl.origin}/login?message=Email confirmado com sucesso! Faça login para continuar.`)
+        // Redirecionar para a homepage com mensagem de sucesso
+        return NextResponse.redirect(`${requestUrl.origin}/?message=Conta ativada com sucesso! Bem-vindo ao TudoAgro.`)
       }
     } catch (error) {
       console.error('Error in auth callback:', error)

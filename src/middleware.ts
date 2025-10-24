@@ -67,9 +67,9 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(redirectUrl)
   }
 
-  // Se há sessão e está tentando acessar login/cadastro, redirecionar para painel
+  // Se há sessão e está tentando acessar login/cadastro, redirecionar para homepage
   if (session && (req.nextUrl.pathname === '/login' || req.nextUrl.pathname === '/cadastro')) {
-    return NextResponse.redirect(new URL('/painel', req.url))
+    return NextResponse.redirect(new URL('/', req.url))
   }
 
   // Se é rota de admin, verificar se usuário tem role de admin

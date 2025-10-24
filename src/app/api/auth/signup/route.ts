@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     const validatedData = signupSchema.parse(body)
 
-    // Criar usuário no Supabase Auth
+    // Criar usuário no Supabase Auth (sem verificação de email)
     const { data: authData, error: authError } = await supabase.auth.signUp({
       email: validatedData.email,
       password: validatedData.password,
@@ -27,8 +27,8 @@ export async function POST(request: NextRequest) {
           phone: validatedData.phone,
           cpf: validatedData.cpf,
           cnpj: validatedData.cnpj
-        },
-        emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://tudoagro.com'}/auth/callback`
+        }
+        // Removido emailRedirectTo para não exigir verificação de email
       }
     })
 

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -8,6 +8,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import ProductCard from '@/components/ui/cards/ProductCard'
+import { useToast } from '@/hooks/use-toast'
 import { 
   Search, 
   Filter, 
@@ -30,6 +31,21 @@ import {
 
 export default function HomePage() {
   const [searchQuery, setSearchQuery] = useState('')
+  const { toast } = useToast()
+
+  // Verificar se há mensagem de sucesso na URL
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search)
+    const message = urlParams.get('message')
+    if (message) {
+      toast({
+        title: "Sucesso!",
+        description: message,
+      })
+      // Limpar a URL
+      window.history.replaceState({}, document.title, window.location.pathname)
+    }
+  }, [toast])
 
   const featuredProducts = [
     {

@@ -18,6 +18,7 @@ import {
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useAuth } from '@/hooks/useAuth'
+import { useToast } from '@/hooks/use-toast'
 
 interface HeaderProps {
   variant?: 'default' | 'transparent' | 'minimal'
@@ -41,6 +42,7 @@ export default function Header({
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
   const [scrollY, setScrollY] = useState(0)
   const { user, loading, signOut } = useAuth()
+  const { toast } = useToast()
 
   // Efeito de scroll para opacidade
   useEffect(() => {
@@ -128,7 +130,7 @@ export default function Header({
             <Link href="/" className="flex items-center space-x-3 group">
               <img 
                 src="/fotos/tudo-agro-logo.png" 
-                className="24 w-auto lg:h-28"
+                className="h-8 w-auto sm:h-10 md:h-12 lg:h-16 xl:h-20"
                 alt="TudoAgro Logo"
               />
             </Link>
@@ -238,8 +240,20 @@ export default function Header({
                         Painel
                       </Link>
                       <button
-                        onClick={() => {
-                          signOut()
+                        onClick={async () => {
+                          try {
+                            await signOut()
+                            toast({
+                              title: "Logout realizado",
+                              description: "Você foi desconectado com sucesso.",
+                            })
+                          } catch (error) {
+                            toast({
+                              title: "Erro no logout",
+                              description: "Ocorreu um erro ao fazer logout. Tente novamente.",
+                              variant: "destructive",
+                            })
+                          }
                           setIsUserMenuOpen(false)
                         }}
                         className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
@@ -333,8 +347,20 @@ export default function Header({
                       </Button>
                     </Link>
                     <button
-                      onClick={() => {
-                        signOut()
+                      onClick={async () => {
+                        try {
+                          await signOut()
+                          toast({
+                            title: "Logout realizado",
+                            description: "Você foi desconectado com sucesso.",
+                          })
+                        } catch (error) {
+                          toast({
+                            title: "Erro no logout",
+                            description: "Ocorreu um erro ao fazer logout. Tente novamente.",
+                            variant: "destructive",
+                          })
+                        }
                         setIsMenuOpen(false)
                       }}
                       className="w-full"

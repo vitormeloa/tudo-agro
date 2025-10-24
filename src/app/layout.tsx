@@ -6,6 +6,7 @@ import "./globals.css";
 // Import all available fonts for AI usage
 import "../lib/fonts";
 import { AuthProvider } from "@/hooks/useAuth";
+import { Toaster } from "@/components/ui/toaster";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,6 +38,7 @@ export default function RootLayout({
       >
         <AuthProvider>
           {children}
+          <Toaster />
         </AuthProvider>
       </body>
     </html>

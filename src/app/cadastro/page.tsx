@@ -11,6 +11,7 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { useAuth } from '@/hooks/useAuth'
+import { useToast } from '@/hooks/use-toast'
 import {
     User,
     Mail,
@@ -33,9 +34,9 @@ export default function CadastroPage() {
     const [showPassword, setShowPassword] = useState(false)
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
-    const [error, setError] = useState('')
     const router = useRouter()
     const { signUp } = useAuth()
+    const { toast } = useToast()
     const [formData, setFormData] = useState({
         accountType: '',
         email: '',
@@ -78,18 +79,25 @@ export default function CadastroPage() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         setIsLoading(true)
-        setError('')
 
         // Validar senhas
         if (formData.password !== formData.confirmPassword) {
-            setError('As senhas não coincidem')
+            toast({
+                title: "Erro na validação",
+                description: "As senhas não coincidem. Verifique e tente novamente.",
+                variant: "destructive",
+            })
             setIsLoading(false)
             return
         }
 
         // Validar termos
         if (!formData.acceptTerms) {
-            setError('Você deve aceitar os termos de uso')
+            toast({
+                title: "Termos não aceitos",
+                description: "Você deve aceitar os termos de uso para continuar.",
+                variant: "destructive",
+            })
             setIsLoading(false)
             return
         }
@@ -97,11 +105,10 @@ export default function CadastroPage() {
         try {
             // Determinar roles baseado no tipo de conta
             const roles = []
-            if (formData.accountType === 'vendedor' || formData.accountType === 'ambos') {
-                roles.push('vendedor')
-            }
-            if (formData.accountType === 'comprador' || formData.accountType === 'ambos') {
+            if (formData.accountType === 'pf') {
                 roles.push('comprador')
+            } else if (formData.accountType === 'pj') {
+                roles.push('vendedor')
             }
 
             const { error } = await signUp(formData.email, formData.password, {
@@ -113,15 +120,25 @@ export default function CadastroPage() {
             })
 
             if (error) {
-                setError(error)
+                toast({
+                    title: "Erro no cadastro",
+                    description: error,
+                    variant: "destructive",
+                })
             } else {
-                // Mostrar mensagem de sucesso na tela
-                setError('')
-                // Redirecionar para login com mensagem
-                router.push('/login?message=Conta criada com sucesso! Verifique seu email para confirmar.')
+                toast({
+                    title: "Conta criada com sucesso!",
+                    description: "Sua conta foi criada e você já pode fazer login.",
+                })
+                // Redirecionar para login
+                router.push('/login?message=Conta criada com sucesso! Faça login para continuar.')
             }
         } catch (err) {
-            setError('Erro interno do servidor')
+            toast({
+                title: "Erro interno",
+                description: "Ocorreu um erro inesperado. Tente novamente.",
+                variant: "destructive",
+            })
         } finally {
             setIsLoading(false)
         }
@@ -150,11 +167,11 @@ export default function CadastroPage() {
             case 1:
                 return (
                     <div className="space-y-6">
-                        <div className="text-center mb-8">
-                            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                        <div className="text-center mb-6 sm:mb-8">
+                            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
                                 Escolha o tipo de conta
                             </h2>
-                            <p className="text-gray-600">
+                            <p className="text-sm sm:text-base text-gray-600">
                                 Selecione o perfil que melhor se adequa ao seu negócio
                             </p>
                         </div>
@@ -168,19 +185,19 @@ export default function CadastroPage() {
                                 <RadioGroupItem value="pf" id="pf" className="sr-only" />
                                 <Label
                                     htmlFor="pf"
-                                    className={`flex items-center p-6 border-2 rounded-xl cursor-pointer transition-all duration-200 ${
+                                    className={`flex items-center p-4 sm:p-6 border-2 rounded-xl cursor-pointer transition-all duration-200 ${
                                         formData.accountType === 'pf'
                                             ? 'border-emerald-500 bg-emerald-50'
                                             : 'border-gray-200 hover:border-gray-300'
                                     }`}
                                 >
-                                    <div className="flex items-center space-x-4">
-                                        <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center">
-                                            <User className="w-6 h-6 text-emerald-600" />
+                                    <div className="flex items-center space-x-3 sm:space-x-4">
+                                        <div className="w-10 h-10 sm:w-12 sm:h-12 bg-emerald-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                                            <User className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600" />
                                         </div>
-                                        <div>
-                                            <h3 className="text-lg font-semibold text-gray-900">Pessoa Física</h3>
-                                            <p className="text-gray-600">Para produtores individuais e pequenos criadores</p>
+                                        <div className="min-w-0">
+                                            <h3 className="text-base sm:text-lg font-semibold text-gray-900">Pessoa Física</h3>
+                                            <p className="text-sm sm:text-base text-gray-600">Para produtores individuais e pequenos criadores</p>
                                         </div>
                                     </div>
                                 </Label>
@@ -190,19 +207,19 @@ export default function CadastroPage() {
                                 <RadioGroupItem value="pj" id="pj" className="sr-only" />
                                 <Label
                                     htmlFor="pj"
-                                    className={`flex items-center p-6 border-2 rounded-xl cursor-pointer transition-all duration-200 ${
+                                    className={`flex items-center p-4 sm:p-6 border-2 rounded-xl cursor-pointer transition-all duration-200 ${
                                         formData.accountType === 'pj'
                                             ? 'border-emerald-500 bg-emerald-50'
                                             : 'border-gray-200 hover:border-gray-300'
                                     }`}
                                 >
-                                    <div className="flex items-center space-x-4">
-                                        <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center">
-                                            <Building className="w-6 h-6 text-emerald-600" />
+                                    <div className="flex items-center space-x-3 sm:space-x-4">
+                                        <div className="w-10 h-10 sm:w-12 sm:h-12 bg-emerald-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                                            <Building className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600" />
                                         </div>
-                                        <div>
-                                            <h3 className="text-lg font-semibold text-gray-900">Pessoa Jurídica</h3>
-                                            <p className="text-gray-600">Para empresas, cooperativas e grandes produtores</p>
+                                        <div className="min-w-0">
+                                            <h3 className="text-base sm:text-lg font-semibold text-gray-900">Pessoa Jurídica</h3>
+                                            <p className="text-sm sm:text-base text-gray-600">Para empresas, cooperativas e grandes produtores</p>
                                         </div>
                                     </div>
                                 </Label>
@@ -214,16 +231,16 @@ export default function CadastroPage() {
             case 2:
                 return (
                     <div className="space-y-6">
-                        <div className="text-center mb-8">
-                            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                        <div className="text-center mb-6 sm:mb-8">
+                            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
                                 Dados pessoais
                             </h2>
-                            <p className="text-gray-600">
+                            <p className="text-sm sm:text-base text-gray-600">
                                 Informe seus dados para criar sua conta
                             </p>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                             <div className="space-y-2">
                                 <Label htmlFor="fullName" className="text-sm font-medium text-gray-700">
                                     Nome completo
@@ -311,7 +328,7 @@ export default function CadastroPage() {
                             )}
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                             <div className="space-y-2">
                                 <Label htmlFor="password" className="text-sm font-medium text-gray-700">
                                     Senha
@@ -368,11 +385,11 @@ export default function CadastroPage() {
             case 3:
                 return (
                     <div className="space-y-6">
-                        <div className="text-center mb-8">
-                            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                        <div className="text-center mb-6 sm:mb-8">
+                            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
                                 Dados da propriedade
                             </h2>
-                            <p className="text-gray-600">
+                            <p className="text-sm sm:text-base text-gray-600">
                                 Informe os dados da sua fazenda ou propriedade
                             </p>
                         </div>
@@ -396,7 +413,7 @@ export default function CadastroPage() {
                                 </div>
                             </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                                 <div className="space-y-2">
                                     <Label htmlFor="state" className="text-sm font-medium text-gray-700">
                                         Estado
@@ -457,19 +474,19 @@ export default function CadastroPage() {
             case 4:
                 return (
                     <div className="space-y-6">
-                        <div className="text-center mb-8">
-                            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                        <div className="text-center mb-6 sm:mb-8">
+                            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
                                 Confirmação
                             </h2>
-                            <p className="text-gray-600">
+                            <p className="text-sm sm:text-base text-gray-600">
                                 Revise seus dados antes de finalizar o cadastro
                             </p>
                         </div>
 
-                        <div className="bg-gray-50 rounded-xl p-6 space-y-4">
-                            <h3 className="text-lg font-semibold text-gray-900 mb-4">Resumo do cadastro</h3>
+                        <div className="bg-gray-50 rounded-xl p-4 sm:p-6 space-y-4">
+                            <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-4">Resumo do cadastro</h3>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 text-xs sm:text-sm">
                                 <div>
                                     <span className="text-gray-600">Tipo de conta:</span>
                                     <span className="ml-2 font-medium text-gray-900">
@@ -536,37 +553,37 @@ export default function CadastroPage() {
     return (
         <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-green-50">
             {/* Centralized Registration Form */}
-            <div className="flex items-center justify-center min-h-screen p-4">
+            <div className="flex items-center justify-center min-h-screen p-2 sm:p-4">
                 <div className="w-full max-w-4xl">
                     {/* Header */}
                     <div className="text-center mb-8">
                         <div className="flex items-center justify-center mb-6">
                             <img 
                                 src="/fotos/tudo-agro-logo.png" 
-                                className="h-32 w-auto"
+                                className="h-16 w-auto sm:h-20 md:h-24 lg:h-28 xl:h-32"
                                 alt="TudoAgro Logo"
                             />
                         </div>
-                        <h1 className="text-4xl font-bold text-gray-900 mb-2">
+                        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-2">
                             Criar conta
                         </h1>
-                        <p className="text-lg text-gray-600">
+                        <p className="text-base sm:text-lg text-gray-600">
                             Junte-se à maior plataforma do agronegócio
                         </p>
                     </div>
 
                     {/* Features Section - Above the form */}
-                    <div className="mb-8">
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div className="mb-6 sm:mb-8">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
                             {features.map((feature, index) => (
-                                <div key={index} className="text-center p-6 bg-white/50 rounded-xl border border-emerald-100">
-                                    <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-                                        <feature.icon className="w-6 h-6 text-emerald-600" />
+                                <div key={index} className="text-center p-4 sm:p-6 bg-white/50 rounded-xl border border-emerald-100">
+                                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-emerald-100 rounded-xl flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                                        <feature.icon className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600" />
                                     </div>
-                                    <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                                    <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2">
                                         {feature.title}
                                     </h3>
-                                    <p className="text-gray-600 text-sm">
+                                    <p className="text-gray-600 text-xs sm:text-sm">
                                         {feature.description}
                                     </p>
                                 </div>
@@ -576,13 +593,13 @@ export default function CadastroPage() {
 
                     {/* Main Registration Card */}
                     <Card className="shadow-2xl border-0 bg-white/80 backdrop-blur-sm">
-                        <CardContent className="p-8">
+                        <CardContent className="p-4 sm:p-6 lg:p-8">
                             {/* Progress Steps */}
-                            <div className="mb-8">
-                                <div className="flex items-center justify-center">
+                            <div className="mb-6 sm:mb-8">
+                                <div className="flex items-center justify-center overflow-x-auto pb-2">
                                     {steps.map((step, index) => (
-                                        <div key={step.number} className="flex items-center">
-                                            <div className={`w-12 h-12 rounded-full flex items-center justify-center text-sm font-semibold ${
+                                        <div key={step.number} className="flex items-center flex-shrink-0">
+                                            <div className={`w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 rounded-full flex items-center justify-center text-xs sm:text-sm font-semibold ${
                                                 currentStep >= step.number
                                                     ? 'bg-emerald-600 text-white'
                                                     : 'bg-gray-200 text-gray-600'
@@ -590,38 +607,33 @@ export default function CadastroPage() {
                                                 {step.number}
                                             </div>
                                             {index < steps.length - 1 && (
-                                                <div className={`w-20 h-1 mx-3 ${
+                                                <div className={`w-8 sm:w-12 lg:w-20 h-1 mx-2 sm:mx-3 ${
                                                     currentStep > step.number ? 'bg-emerald-600' : 'bg-gray-200'
                                                 }`} />
                                             )}
                                         </div>
                                     ))}
                                 </div>
-                                <div className="mt-6 text-center">
-                                    <h3 className="text-xl font-semibold text-gray-900">
+                                <div className="mt-4 sm:mt-6 text-center">
+                                    <h3 className="text-lg sm:text-xl font-semibold text-gray-900">
                                         {steps[currentStep - 1].title}
                                     </h3>
-                                    <p className="text-gray-600">
+                                    <p className="text-sm sm:text-base text-gray-600">
                                         {steps[currentStep - 1].description}
                                     </p>
                                 </div>
                             </div>
 
                             <form onSubmit={handleSubmit}>
-                                {error && (
-                                    <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm mb-6">
-                                        {error}
-                                    </div>
-                                )}
                                 {renderStepContent()}
 
-                                <div className="flex justify-between mt-8">
+                                <div className="flex flex-col sm:flex-row justify-between gap-3 sm:gap-4 mt-6 sm:mt-8">
                                     <Button
                                         type="button"
                                         variant="outline"
                                         onClick={handlePrevious}
                                         disabled={currentStep === 1}
-                                        className="px-8 py-3"
+                                        className="w-full sm:w-auto px-6 sm:px-8 py-3 text-sm sm:text-base"
                                     >
                                         <ArrowLeft className="w-4 h-4 mr-2" />
                                         Anterior
@@ -631,7 +643,7 @@ export default function CadastroPage() {
                                         <Button
                                             type="button"
                                             onClick={handleNext}
-                                            className="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-3"
+                                            className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white px-6 sm:px-8 py-3 text-sm sm:text-base"
                                         >
                                             Próximo
                                             <ArrowRight className="w-4 h-4 ml-2" />
@@ -639,7 +651,7 @@ export default function CadastroPage() {
                                     ) : (
                                         <Button
                                             type="submit"
-                                            className="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-3"
+                                            className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white px-6 sm:px-8 py-3 text-sm sm:text-base"
                                             disabled={isLoading || !formData.acceptTerms}
                                         >
                                             {isLoading ? (
@@ -658,8 +670,8 @@ export default function CadastroPage() {
                                 </div>
                             </form>
 
-                            <div className="mt-6 text-center">
-                                <p className="text-gray-600">
+                            <div className="mt-4 sm:mt-6 text-center">
+                                <p className="text-sm sm:text-base text-gray-600">
                                     Já tem uma conta?{' '}
                                     <Link
                                         href="/login"

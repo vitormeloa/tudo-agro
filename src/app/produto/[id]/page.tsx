@@ -104,7 +104,7 @@ export default function ProdutoPage({ params }: { params: { id: string } }) {
             <Link href="/" className="flex items-center space-x-2">
               <img 
                 src="/fotos/tudo-agro-logo.png" 
-                className="h-8 w-auto" 
+                className="h-6 w-auto sm:h-8 md:h-10 lg:h-12" 
                 alt="TudoAgro Logo"
               />
             </Link>

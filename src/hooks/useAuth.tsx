@@ -4,6 +4,7 @@ import { createContext, useContext, useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabase'
 import { AuthUser } from '@/lib/auth'
 import { User } from '@supabase/supabase-js'
+import { useToast } from '@/hooks/use-toast'
 
 interface AuthContextType {
   user: AuthUser | null
@@ -191,7 +192,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         password,
         options: {
           data: userData,
-          emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://tudoagro.com'}/auth/callback`
+          // Removido emailRedirectTo para não exigir verificação de email
         }
       })
 

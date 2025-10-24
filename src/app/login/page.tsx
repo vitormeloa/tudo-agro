@@ -10,6 +10,7 @@ import { Label } from '@/components/ui/label'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Separator } from '@/components/ui/separator'
 import { useAuth } from '@/hooks/useAuth'
+import { useToast } from '@/hooks/use-toast'
 import { 
   Mail, 
   Lock, 
@@ -26,10 +27,10 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false)
   const [rememberMe, setRememberMe] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState('')
   const [successMessage, setSuccessMessage] = useState('')
   const router = useRouter()
   const { signIn } = useAuth()
+  const { toast } = useToast()
 
   // Verificar se há mensagem de sucesso na URL
   useEffect(() => {
@@ -45,7 +46,6 @@ export default function LoginPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
-    setError('')
 
     const formData = new FormData(e.currentTarget as HTMLFormElement)
     const email = formData.get('email') as string
@@ -55,12 +55,24 @@ export default function LoginPage() {
       const { error } = await signIn(email, password)
       
       if (error) {
-        setError(error)
+        toast({
+          title: "Erro no login",
+          description: "Email ou senha incorretos. Verifique suas credenciais.",
+          variant: "destructive",
+        })
       } else {
-        router.push('/painel')
+        toast({
+          title: "Login realizado com sucesso!",
+          description: "Bem-vindo de volta ao TudoAgro.",
+        })
+        router.push('/')
       }
     } catch (err) {
-      setError('Erro interno do servidor')
+      toast({
+        title: "Erro interno",
+        description: "Ocorreu um erro inesperado. Tente novamente.",
+        variant: "destructive",
+      })
     } finally {
       setIsLoading(false)
     }
@@ -93,7 +105,7 @@ export default function LoginPage() {
             <div className="flex items-center justify-center mb-6">
               <img 
                 src="/fotos/tudo-agro-logo.png" 
-                className="h-42 w-auto"
+                className="h-16 w-auto sm:h-20 md:h-24 lg:h-28 xl:h-32"
                 alt="TudoAgro Logo"
               />
             </div>
@@ -171,12 +183,6 @@ export default function LoginPage() {
                 {successMessage && (
                   <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg text-sm">
                     {successMessage}
-                  </div>
-                )}
-
-                {error && (
-                  <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
-                    {error}
                   </div>
                 )}
 
