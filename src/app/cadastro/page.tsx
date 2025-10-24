@@ -115,6 +115,9 @@ export default function CadastroPage() {
             if (error) {
                 setError(error)
             } else {
+                // Mostrar mensagem de sucesso na tela
+                setError('')
+                // Redirecionar para login com mensagem
                 router.push('/login?message=Conta criada com sucesso! Verifique seu email para confirmar.')
             }
         } catch (err) {
