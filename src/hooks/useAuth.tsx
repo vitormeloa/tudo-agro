@@ -2,8 +2,18 @@
 
 import { createContext, useContext, useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabase'
-import { AuthUser } from '@/lib/auth'
-import { User } from '@supabase/supabase-js'
+// Definir interface AuthUser localmente
+interface AuthUser {
+  id: string
+  email: string
+  name: string | null
+  phone: string | null
+  cpf: string | null
+  cnpj: string | null
+  avatar_url: string | null
+  roles: string[]
+  permissions: string[]
+}
 import { useToast } from '@/hooks/use-toast'
 
 interface AuthContextType {
@@ -12,6 +22,8 @@ interface AuthContextType {
   signIn: (email: string, password: string) => Promise<{ error?: string }>
   signUp: (email: string, password: string, userData: any) => Promise<{ error?: string }>
   signOut: () => Promise<void>
+  changePassword: (currentPassword: string, newPassword: string) => Promise<{ error?: string }>
+  resetPassword: (email: string) => Promise<{ error?: string }>
   hasPermission: (permission: string) => boolean
   hasRole: (role: string) => boolean
   isAdmin: () => boolean
@@ -24,6 +36,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined)
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<AuthUser | null>(null)
   const [loading, setLoading] = useState(true)
+  const { toast } = useToast()
 
   useEffect(() => {
     // Verificar sessão inicial
@@ -36,6 +49,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           await loadUser(session.user.id)
         } else if (event === 'SIGNED_OUT') {
           setUser(null)
+        } else if (event === 'TOKEN_REFRESHED' && session) {
+          await loadUser(session.user.id)
         }
         setLoading(false)
       }
@@ -46,14 +61,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const checkUser = async () => {
     try {
-      console.log('Checking user session...')
-      const { data: { session } } = await supabase.auth.getSession()
-      console.log('Session found:', !!session, 'User:', !!session?.user)
+      const { data: { session }, error } = await supabase.auth.getSession()
+      
+      if (error) {
+        setUser(null)
+        return
+      }
+      
       if (session?.user) {
         await loadUser(session.user.id)
+      } else {
+        setUser(null)
       }
     } catch (error) {
-      console.error('Error checking user:', error)
+      setUser(null)
     } finally {
       setLoading(false)
     }
@@ -61,8 +82,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const loadUser = async (userId: string) => {
     try {
-      console.log('Loading user data for ID:', userId)
-      // Primeiro, verificar se o usuário existe na tabela users
+      // Obter dados do usuário autenticado
+      const { data: { user: authUser }, error: authError } = await supabase.auth.getUser()
+      if (authError || !authUser) {
+        setUser(null)
+        return
+      }
+
+      // Buscar dados do usuário na tabela users
       const { data: userData, error } = await supabase
         .from('users')
         .select(`
@@ -77,79 +104,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         `)
         .eq('id', userId)
         .single()
-      
-      console.log('User data query result:', { userData, error })
 
       if (error) {
-        // Se a tabela não existe ou usuário não encontrado, criar perfil básico
-        if (error.code === 'PGRST116' || error.message.includes('relation "users" does not exist')) {
-          console.warn('Tabela users não encontrada. Execute o script SQL no Supabase primeiro.')
-          return
-        }
-        
-        // Se usuário não existe, criar perfil básico
+        // Se usuário não existe na tabela, criar perfil básico
         if (error.code === 'PGRST116') {
-          console.log('Usuário não encontrado na tabela users. Criando perfil básico...')
-          
-          // Obter dados do usuário autenticado
-          const { data: { user: authUser } } = await supabase.auth.getUser()
-          if (!authUser) return
-          
-          // Criar perfil básico
-          const { error: insertError } = await supabase
-            .from('users')
-            .insert({
-              id: userId,
-              email: authUser.email || '',
-              name: authUser.user_metadata?.name || null,
-              phone: authUser.user_metadata?.phone || null,
-              cpf: authUser.user_metadata?.cpf || null,
-              cnpj: authUser.user_metadata?.cnpj || null,
-              avatar_url: authUser.user_metadata?.avatar_url || null
-            })
-          
-          if (insertError) {
-            console.error('Erro ao criar perfil do usuário:', insertError)
-            return
-          }
-          
-          // Atribuir role padrão de comprador
-          const { data: roles } = await supabase
-            .from('roles')
-            .select('id')
-            .eq('name', 'comprador')
-            .single()
-          
-          if (roles) {
-            await supabase
-              .from('user_roles')
-              .insert({
-                user_id: userId,
-                role_id: roles.id
-              })
-          }
-          
-          // Definir usuário com dados básicos
-          setUser({
-            id: userId,
-            email: authUser.email || '',
-            name: authUser.user_metadata?.name || null,
-            phone: authUser.user_metadata?.phone || null,
-            cpf: authUser.user_metadata?.cpf || null,
-            cnpj: authUser.user_metadata?.cnpj || null,
-            avatar_url: authUser.user_metadata?.avatar_url || null,
-            roles: ['comprador'],
-            permissions: []
-          })
+          await createUserProfile(userId, authUser)
           return
         }
         
-        console.error('Error loading user:', error)
+        // Em caso de outros erros, usar dados básicos do auth
+        setUser(createBasicUser(authUser))
         return
       }
 
       if (!userData) {
-        console.warn('Dados do usuário não encontrados')
+        setUser(createBasicUser(authUser))
         return
       }
 
@@ -169,24 +138,106 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         permissions
       })
     } catch (error) {
-      console.error('Error loading user data:', error)
+      // Em caso de erro, tentar usar dados básicos do auth
+      try {
+        const { data: { user: authUser } } = await supabase.auth.getUser()
+        if (authUser) {
+          setUser(createBasicUser(authUser))
+        }
+      } catch {
+        setUser(null)
+      }
+    }
+  }
+
+  const createBasicUser = (authUser: any): AuthUser => ({
+    id: authUser.id,
+    email: authUser.email || '',
+    name: authUser.user_metadata?.name || null,
+    phone: authUser.user_metadata?.phone || null,
+    cpf: authUser.user_metadata?.cpf || null,
+    cnpj: authUser.user_metadata?.cnpj || null,
+    avatar_url: authUser.user_metadata?.avatar_url || null,
+    roles: ['comprador'],
+    permissions: []
+  })
+
+  const createUserProfile = async (userId: string, authUser: any) => {
+    try {
+      // Criar perfil básico
+      const { error: insertError } = await supabase
+        .from('users')
+        .insert({
+          id: userId,
+          email: authUser.email || '',
+          name: authUser.user_metadata?.name || null,
+          phone: authUser.user_metadata?.phone || null,
+          cpf: authUser.user_metadata?.cpf || null,
+          cnpj: authUser.user_metadata?.cnpj || null,
+          avatar_url: authUser.user_metadata?.avatar_url || null
+        })
+      
+      if (insertError) {
+        setUser(createBasicUser(authUser))
+        return
+      }
+      
+      // Atribuir role padrão de comprador
+      const { data: roles } = await supabase
+        .from('roles')
+        .select('id')
+        .eq('name', 'comprador')
+        .single()
+      
+      if (roles) {
+        await supabase
+          .from('user_roles')
+          .insert({
+            user_id: userId,
+            role_id: roles.id
+          })
+      }
+      
+      setUser(createBasicUser(authUser))
+    } catch {
+      setUser(createBasicUser(authUser))
     }
   }
 
   const signIn = async (email: string, password: string) => {
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password
       })
 
       if (error) {
-        return { error: error.message }
+        const errorMessage = getAuthErrorMessage(error.message)
+        toast({
+          title: "Erro no login",
+          description: errorMessage,
+          variant: "destructive",
+        })
+        return { error: errorMessage }
+      }
+
+      if (data.user) {
+        await loadUser(data.user.id)
+        toast({
+          title: "Login realizado com sucesso!",
+          description: "Bem-vindo de volta ao TudoAgro.",
+        })
       }
 
       return {}
     } catch (error) {
-      return { error: 'Erro interno do servidor' }
+      const errorMessage = "Erro interno do servidor. Tente novamente."
+      toast({
+        title: "Erro interno",
+        description: errorMessage,
+        variant: "destructive",
+      })
+      return { error: errorMessage }
     }
   }
 
@@ -197,26 +248,131 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         password,
         options: {
           data: userData,
-          // Removido emailRedirectTo para não exigir verificação de email
         }
       })
 
       if (error) {
-        return { error: error.message }
+        const errorMessage = getAuthErrorMessage(error.message)
+        toast({
+          title: "Erro no cadastro",
+          description: errorMessage,
+          variant: "destructive",
+        })
+        return { error: errorMessage }
       }
 
+      toast({
+        title: "Conta criada com sucesso!",
+        description: "Sua conta foi criada e você já pode fazer login.",
+      })
       return {}
     } catch (error) {
-      return { error: 'Erro interno do servidor' }
+      const errorMessage = "Erro interno do servidor. Tente novamente."
+      toast({
+        title: "Erro interno",
+        description: errorMessage,
+        variant: "destructive",
+      })
+      return { error: errorMessage }
     }
   }
 
   const signOut = async () => {
     try {
       await supabase.auth.signOut()
+      setUser(null)
+      toast({
+        title: "Logout realizado",
+        description: "Você foi desconectado com sucesso.",
+      })
     } catch (error) {
-      console.error('Error signing out:', error)
+      toast({
+        title: "Erro no logout",
+        description: "Ocorreu um erro ao fazer logout. Tente novamente.",
+        variant: "destructive",
+      })
     }
+  }
+
+  const changePassword = async (currentPassword: string, newPassword: string) => {
+    try {
+      const { error } = await supabase.auth.updateUser({
+        password: newPassword
+      })
+
+      if (error) {
+        const errorMessage = getAuthErrorMessage(error.message)
+        toast({
+          title: "Erro ao alterar senha",
+          description: errorMessage,
+          variant: "destructive",
+        })
+        return { error: errorMessage }
+      }
+
+      toast({
+        title: "Senha alterada com sucesso!",
+        description: "Sua senha foi atualizada com segurança.",
+      })
+      return {}
+    } catch (error) {
+      const errorMessage = "Erro interno do servidor. Tente novamente."
+      toast({
+        title: "Erro interno",
+        description: errorMessage,
+        variant: "destructive",
+      })
+      return { error: errorMessage }
+    }
+  }
+
+  const resetPassword = async (email: string) => {
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/reset-password`,
+      })
+
+      if (error) {
+        const errorMessage = getAuthErrorMessage(error.message)
+        toast({
+          title: "Erro ao enviar email",
+          description: errorMessage,
+          variant: "destructive",
+        })
+        return { error: errorMessage }
+      }
+
+      toast({
+        title: "Email enviado!",
+        description: "Verifique sua caixa de entrada para redefinir sua senha.",
+      })
+      return {}
+    } catch (error) {
+      const errorMessage = "Erro interno do servidor. Tente novamente."
+      toast({
+        title: "Erro interno",
+        description: errorMessage,
+        variant: "destructive",
+      })
+      return { error: errorMessage }
+    }
+  }
+
+  const getAuthErrorMessage = (error: string): string => {
+    const errorMessages: { [key: string]: string } = {
+      'Invalid login credentials': 'Email ou senha incorretos. Verifique suas credenciais.',
+      'Email not confirmed': 'Email não confirmado. Verifique sua caixa de entrada.',
+      'User already registered': 'Este email já está cadastrado. Tente fazer login.',
+      'Password should be at least 6 characters': 'A senha deve ter pelo menos 6 caracteres.',
+      'Invalid email': 'Email inválido. Verifique o formato do email.',
+      'Signup is disabled': 'Cadastro temporariamente desabilitado. Tente novamente mais tarde.',
+      'Email rate limit exceeded': 'Muitas tentativas. Aguarde alguns minutos antes de tentar novamente.',
+      'Invalid password': 'Senha inválida. Verifique sua senha atual.',
+      'Unable to validate email address: invalid format': 'Formato de email inválido.',
+      'User not found': 'Usuário não encontrado. Verifique o email informado.',
+    }
+    
+    return errorMessages[error] || 'Ocorreu um erro inesperado. Tente novamente.'
   }
 
   const hasPermission = (permission: string) => {
@@ -239,6 +395,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     signIn,
     signUp,
     signOut,
+    changePassword,
+    resetPassword,
     hasPermission,
     hasRole,
     isAdmin,

@@ -54,25 +54,11 @@ export default function LoginPage() {
     try {
       const { error } = await signIn(email, password)
       
-      if (error) {
-        toast({
-          title: "Erro no login",
-          description: "Email ou senha incorretos. Verifique suas credenciais.",
-          variant: "destructive",
-        })
-      } else {
-        toast({
-          title: "Login realizado com sucesso!",
-          description: "Bem-vindo de volta ao TudoAgro.",
-        })
+      if (!error) {
         router.push('/')
       }
     } catch (err) {
-      toast({
-        title: "Erro interno",
-        description: "Ocorreu um erro inesperado. Tente novamente.",
-        variant: "destructive",
-      })
+      // Erro já tratado no hook
     } finally {
       setIsLoading(false)
     }

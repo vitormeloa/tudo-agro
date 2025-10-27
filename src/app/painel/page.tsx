@@ -1,6 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import { useAuth } from '@/hooks/useAuth'
 import Link from 'next/link'
 import { 
   User, 
@@ -54,6 +56,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 
 export default function PainelPage() {
+  const { user, loading } = useAuth()
+  const router = useRouter()
   const [activeTab, setActiveTab] = useState('overview')
   const [showVerificationAlert, setShowVerificationAlert] = useState(true)
   const [isVerified, setIsVerified] = useState(false)
@@ -68,19 +72,41 @@ export default function PainelPage() {
     car: null as File | null
   })
 
+  // Verificar autenticação
+  useEffect(() => {
+    if (!loading && !user) {
+      router.push('/login')
+    }
+  }, [user, loading, router])
+
   // Simular verificação de perfil baseado no email
   useEffect(() => {
-    // Simular obtenção do email do usuário logado
-    const email = localStorage.getItem('userEmail') || 'usuario@gmail.com'
-    setUserEmail(email)
-    
-    // Verificar se é o usuário especial com acesso de vendedor
-    if (email === 'vendedor@gmail.com') {
-      setUserProfile('seller')
-    } else {
-      setUserProfile('buyer')
+    if (user) {
+      setUserEmail(user.email)
+      
+      // Verificar se é o usuário especial com acesso de vendedor
+      if (user.email === 'vendedor@gmail.com') {
+        setUserProfile('seller')
+      } else {
+        setUserProfile('buyer')
+      }
     }
-  }, [])
+  }, [user])
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#F7F6F2] flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1E4D2B] mx-auto mb-4"></div>
+          <p className="text-[#6E7D5B]">Carregando...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (!user) {
+    return null
+  }
 
   const handleFileUpload = (field: keyof typeof documents, file: File | null) => {
     setDocuments({
@@ -147,7 +173,7 @@ export default function PainelPage() {
                   <User className="w-5 h-5 text-white" />
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-[#2B2E2B] font-medium">João Silva</span>
+                  <span className="text-[#2B2E2B] font-medium">{user.name || 'Usuário'}</span>
                   {userProfile === 'seller' && (
                     <Badge className="bg-[#C89F45] text-white text-xs">
                       Vendedor
@@ -980,13 +1006,13 @@ export default function PainelPage() {
                         <label className="block text-sm font-medium text-[#2B2E2B] mb-2">
                           Nome Completo
                         </label>
-                        <Input defaultValue="João Silva" />
+                        <Input defaultValue="{user.name || 'Usuário'}" />
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-[#2B2E2B] mb-2">
                           E-mail
                         </label>
-                        <Input defaultValue={userEmail} />
+                        <Input defaultValue={user.email} />
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-[#2B2E2B] mb-2">

@@ -44,13 +44,6 @@ export async function middleware(req: NextRequest) {
       error
     } = await supabase.auth.getSession()
 
-    console.log('Middleware - Session check:', {
-      path: req.nextUrl.pathname,
-      hasSession: !!session,
-      userId: session?.user?.id,
-      error: error?.message
-    })
-
     // Rotas que requerem autenticação
     const protectedRoutes = [
       '/painel',
@@ -58,7 +51,8 @@ export async function middleware(req: NextRequest) {
       '/minhas-vendas',
       '/minhas-compras',
       '/favoritos',
-      '/mensagens'
+      '/mensagens',
+      '/admin'
     ]
 
     // Verificar se a rota atual requer autenticação
@@ -68,11 +62,6 @@ export async function middleware(req: NextRequest) {
 
     // Se não há sessão e a rota é protegida, redirecionar para login
     if (!session && isProtectedRoute) {
-      console.log('Middleware - Redirecting to login:', {
-        path: req.nextUrl.pathname,
-        isProtectedRoute,
-        hasSession: !!session
-      })
       const redirectUrl = new URL('/login', req.url)
       redirectUrl.searchParams.set('redirectTo', req.nextUrl.pathname)
       return NextResponse.redirect(redirectUrl)
@@ -84,7 +73,7 @@ export async function middleware(req: NextRequest) {
     }
 
   } catch (error) {
-    console.error('Middleware - Error checking session:', error)
+    // Em caso de erro, permitir acesso (fail-open)
   }
 
   return res
@@ -99,7 +88,6 @@ export const config = {
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
      */
-    // Temporariamente desabilitado para corrigir redirecionamento
     // '/((?!api|_next/static|_next/image|favicon.ico).*)',
   ],
 }

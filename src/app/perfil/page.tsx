@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { useRequireAuth } from '@/hooks/useRequireAuth'
+import { useAuth } from '@/hooks/useAuth'
 import { useToast } from '@/hooks/use-toast'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -27,7 +27,7 @@ import {
 import Link from 'next/link'
 
 export default function ProfilePage() {
-  const { user, loading, isAuthenticated } = useRequireAuth()
+  const { user, loading } = useAuth()
   const { toast } = useToast()
   const router = useRouter()
   
@@ -107,7 +107,7 @@ export default function ProfilePage() {
     )
   }
 
-  if (!isAuthenticated) {
+  if (!user) {
     return (
       <div className="min-h-screen bg-[#F7F6F2] flex items-center justify-center">
         <div className="text-center">

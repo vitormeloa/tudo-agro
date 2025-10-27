@@ -148,7 +148,7 @@ export default function LeiloesPage() {
       
       {/* Hero Section */}
         <section className="relative pt-20 pb-32 overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-emerald-600 via-green-600 to-emerald-700"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-teal-600 via-emerald-600 to-green-700"></div>
             <div className="absolute inset-0 bg-black/20"></div>
             <div className="absolute inset-0 opacity-40">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.15)_1px,transparent_0)] bg-[length:20px_20px]"></div>
@@ -385,7 +385,7 @@ export default function LeiloesPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="mt-16 bg-gradient-to-br from-emerald-600 to-green-700 rounded-2xl p-8 text-center text-white">
+        <section className="mt-16 bg-gradient-to-br from-teal-600 to-green-700 rounded-2xl p-8 text-center text-white">
           <h2 className="text-2xl md:text-3xl font-bold mb-4">
             Quer organizar seu próprio leilão?
           </h2>

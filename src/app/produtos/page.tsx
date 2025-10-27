@@ -18,10 +18,14 @@ import {
   SlidersHorizontal,
   ChevronDown,
   Star,
-  MapPin
+  MapPin,
+  Package,
+  Truck,
+  Shield,
+  Award
 } from 'lucide-react'
 
-export default function CatalogoPage() {
+export default function ProdutosPage() {
   const [searchQuery, setSearchQuery] = useState('')
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
   const [favorites, setFavorites] = useState<number[]>([])
@@ -30,107 +34,109 @@ export default function CatalogoPage() {
   const products = [
     {
       id: 1,
-      title: "Touro Nelore PO Certificado",
-      category: "Gado de Corte",
-      price: 45000,
-      location: "Goiás, GO",
+      title: "Ração para Gado de Corte Premium",
+      category: "Rações",
+      price: 45.90,
+      location: "São Paulo, SP",
       rating: 4.8,
-      reviews: 24,
-      image: "https://images.unsplash.com/photo-1560114928-40f1f1eb26a0?w=400&h=300&fit=crop",
-      seller: "Fazenda Boa Vista",
+      reviews: 124,
+      image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400&h=300&fit=crop",
+      seller: "AgroNutri",
       verified: true,
       featured: true,
-      age: "3 anos",
-      weight: "850kg",
-      breed: "Nelore"
+      weight: "50kg",
+      brand: "NutriMax",
+      stock: "Em estoque"
     },
     {
       id: 2,
-      title: "Égua Mangalarga Marchador",
-      category: "Cavalos",
-      price: 25000,
+      title: "Sementes de Milho Híbrido",
+      category: "Sementes",
+      price: 89.50,
       location: "Minas Gerais, MG",
       rating: 4.9,
-      reviews: 18,
-      image: "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=400&h=300&fit=crop",
-      seller: "Haras São João",
+      reviews: 89,
+      image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=400&h=300&fit=crop",
+      seller: "Sementes Elite",
       verified: true,
       featured: false,
-      age: "5 anos",
-      weight: "450kg",
-      breed: "Mangalarga"
+      weight: "60.000 sementes",
+      brand: "Pioneer",
+      stock: "Em estoque"
     },
     {
       id: 3,
-      title: "Vaca Holandesa Produtiva",
-      category: "Gado de Leite",
-      price: 8500,
-      location: "São Paulo, SP",
+      title: "Fertilizante NPK 20-10-10",
+      category: "Fertilizantes",
+      price: 125.00,
+      location: "Goiás, GO",
       rating: 4.7,
-      reviews: 31,
-      image: "https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=400&h=300&fit=crop",
-      seller: "Fazenda Três Rios",
+      reviews: 156,
+      image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400&h=300&fit=crop",
+      seller: "FertilAgro",
       verified: true,
       featured: true,
-      age: "4 anos",
-      weight: "650kg",
-      breed: "Holandesa"
+      weight: "50kg",
+      brand: "Yara",
+      stock: "Em estoque"
     },
     {
       id: 4,
-      title: "Sêmen Angus Premium",
-      category: "Sêmen",
-      price: 150,
-      location: "Rio Grande do Sul, RS",
-      rating: 5.0,
-      reviews: 12,
-      image: "https://images.unsplash.com/photo-1560114928-40f1f1eb26a0?w=400&h=300&fit=crop",
-      seller: "Genética Elite",
+      title: "Defensivo Agrícola - Herbicida",
+      category: "Defensivos",
+      price: 78.90,
+      location: "Mato Grosso, MT",
+      rating: 4.6,
+      reviews: 67,
+      image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400&h=300&fit=crop",
+      seller: "AgroDefense",
       verified: true,
       featured: false,
-      age: "N/A",
-      weight: "N/A",
-      breed: "Angus"
+      weight: "1L",
+      brand: "Syngenta",
+      stock: "Em estoque"
     },
     {
       id: 5,
-      title: "Novilha Brahman",
-      category: "Gado de Corte",
-      price: 12000,
-      location: "Mato Grosso, MT",
-      rating: 4.6,
-      reviews: 15,
-      image: "https://images.unsplash.com/photo-1560114928-40f1f1eb26a0?w=400&h=300&fit=crop",
-      seller: "Fazenda Pantanal",
+      title: "Ração para Cavalos Esportivos",
+      category: "Rações",
+      price: 67.50,
+      location: "Rio Grande do Sul, RS",
+      rating: 4.8,
+      reviews: 43,
+      image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400&h=300&fit=crop",
+      seller: "EquiNutri",
       verified: true,
-      featured: false,
-      age: "2 anos",
-      weight: "420kg",
-      breed: "Brahman"
+      featured: true,
+      weight: "25kg",
+      brand: "Purina",
+      stock: "Em estoque"
     },
     {
       id: 6,
-      title: "Garanhão Quarto de Milha",
-      category: "Cavalos",
-      price: 35000,
-      location: "Bahia, BA",
-      rating: 4.8,
-      reviews: 9,
-      image: "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=400&h=300&fit=crop",
-      seller: "Haras Nordeste",
+      title: "Sementes de Soja Transgênica",
+      category: "Sementes",
+      price: 145.00,
+      location: "Paraná, PR",
+      rating: 4.9,
+      reviews: 98,
+      image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=400&h=300&fit=crop",
+      seller: "Sementes Premium",
       verified: true,
-      featured: true,
-      age: "6 anos",
-      weight: "520kg",
-      breed: "Quarto de Milha"
+      featured: false,
+      weight: "140.000 sementes",
+      brand: "Monsanto",
+      stock: "Em estoque"
     }
   ]
 
   const categories = [
-    { name: 'Gado de Corte', count: 156, color: 'bg-emerald-100 text-emerald-800' },
-    { name: 'Gado de Leite', count: 89, color: 'bg-blue-100 text-blue-800' },
-    { name: 'Cavalos', count: 67, color: 'bg-amber-100 text-amber-800' },
-    { name: 'Sêmen', count: 234, color: 'bg-purple-100 text-purple-800' }
+    { name: 'Rações', count: 234, color: 'bg-emerald-100 text-emerald-800' },
+    { name: 'Sementes', count: 189, color: 'bg-blue-100 text-blue-800' },
+    { name: 'Fertilizantes', count: 156, color: 'bg-amber-100 text-amber-800' },
+    { name: 'Defensivos', count: 98, color: 'bg-red-100 text-red-800' },
+    { name: 'Equipamentos', count: 67, color: 'bg-purple-100 text-purple-800' },
+    { name: 'Outros', count: 45, color: 'bg-gray-100 text-gray-800' }
   ]
 
   return (
@@ -139,7 +145,7 @@ export default function CatalogoPage() {
       
       {/* Hero Section */}
         <section className="relative pt-20 pb-32 overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-lime-600 via-green-600 to-emerald-700"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-green-600 via-emerald-600 to-teal-700"></div>
             <div className="absolute inset-0 bg-black/20"></div>
             <div className="absolute inset-0 opacity-40">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.15)_1px,transparent_0)] bg-[length:20px_20px]"></div>
@@ -147,11 +153,11 @@ export default function CatalogoPage() {
 
             <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                 <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white drop-shadow-lg">
-              Catálogo de Animais
-            </h1>
+                  Produtos Agropecuários
+                </h1>
                 <p className="text-xl md:text-2xl mb-8 text-white/90 max-w-3xl mx-auto leading-relaxed">
-              Encontre os melhores animais para sua fazenda
-            </p>
+                  Encontre rações, sementes, fertilizantes e tudo que sua fazenda precisa
+                </p>
         </div>
       </section>
 
@@ -165,15 +171,15 @@ export default function CatalogoPage() {
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                   <Input
                     type="text"
-                    placeholder="Buscar por raça, tipo, localização..."
+                    placeholder="Buscar por produto, marca, categoria..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-10 h-12 text-lg border-2 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500/20"
+                    className="pl-10 h-12 text-lg border-2 border-gray-200 focus:border-green-500 focus:ring-green-500/20"
                   />
                 </div>
               </div>
               <Button 
-                className="bg-emerald-600 hover:bg-emerald-700 text-white px-8 h-12"
+                className="bg-green-600 hover:bg-green-700 text-white px-8 h-12"
                 onClick={() => setShowFilters(!showFilters)}
               >
                 <SlidersHorizontal className="w-5 h-5 mr-2" />
@@ -190,23 +196,24 @@ export default function CatalogoPage() {
                       <SelectValue placeholder="Categoria" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="gado-corte">Gado de Corte</SelectItem>
-                      <SelectItem value="gado-leite">Gado de Leite</SelectItem>
-                      <SelectItem value="cavalos">Cavalos</SelectItem>
-                      <SelectItem value="semen">Sêmen</SelectItem>
+                      <SelectItem value="racoes">Rações</SelectItem>
+                      <SelectItem value="sementes">Sementes</SelectItem>
+                      <SelectItem value="fertilizantes">Fertilizantes</SelectItem>
+                      <SelectItem value="defensivos">Defensivos</SelectItem>
+                      <SelectItem value="equipamentos">Equipamentos</SelectItem>
                     </SelectContent>
                   </Select>
 
                   <Select>
                     <SelectTrigger className="h-10">
-                      <SelectValue placeholder="Raça" />
+                      <SelectValue placeholder="Marca" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="nelore">Nelore</SelectItem>
-                      <SelectItem value="angus">Angus</SelectItem>
-                      <SelectItem value="brahman">Brahman</SelectItem>
-                      <SelectItem value="holandesa">Holandesa</SelectItem>
-                      <SelectItem value="mangalarga">Mangalarga</SelectItem>
+                      <SelectItem value="nutrimax">NutriMax</SelectItem>
+                      <SelectItem value="pioneer">Pioneer</SelectItem>
+                      <SelectItem value="yara">Yara</SelectItem>
+                      <SelectItem value="syngenta">Syngenta</SelectItem>
+                      <SelectItem value="purina">Purina</SelectItem>
                     </SelectContent>
                   </Select>
 
@@ -215,10 +222,10 @@ export default function CatalogoPage() {
                       <SelectValue placeholder="Preço" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="0-5000">Até R$ 5.000</SelectItem>
-                      <SelectItem value="5000-15000">R$ 5.000 - R$ 15.000</SelectItem>
-                      <SelectItem value="15000-30000">R$ 15.000 - R$ 30.000</SelectItem>
-                      <SelectItem value="30000+">Acima de R$ 30.000</SelectItem>
+                      <SelectItem value="0-50">Até R$ 50</SelectItem>
+                      <SelectItem value="50-100">R$ 50 - R$ 100</SelectItem>
+                      <SelectItem value="100-200">R$ 100 - R$ 200</SelectItem>
+                      <SelectItem value="200+">Acima de R$ 200</SelectItem>
                     </SelectContent>
                   </Select>
 
@@ -227,9 +234,9 @@ export default function CatalogoPage() {
                       <SelectValue placeholder="Localização" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="go">Goiás</SelectItem>
-                      <SelectItem value="mg">Minas Gerais</SelectItem>
                       <SelectItem value="sp">São Paulo</SelectItem>
+                      <SelectItem value="mg">Minas Gerais</SelectItem>
+                      <SelectItem value="go">Goiás</SelectItem>
                       <SelectItem value="mt">Mato Grosso</SelectItem>
                       <SelectItem value="rs">Rio Grande do Sul</SelectItem>
                     </SelectContent>
@@ -237,17 +244,16 @@ export default function CatalogoPage() {
 
                   <Select>
                     <SelectTrigger className="h-10">
-                      <SelectValue placeholder="Idade" />
+                      <SelectValue placeholder="Disponibilidade" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="0-2">0-2 anos</SelectItem>
-                      <SelectItem value="2-4">2-4 anos</SelectItem>
-                      <SelectItem value="4-6">4-6 anos</SelectItem>
-                      <SelectItem value="6+">6+ anos</SelectItem>
+                      <SelectItem value="estoque">Em Estoque</SelectItem>
+                      <SelectItem value="encomenda">Sob Encomenda</SelectItem>
+                      <SelectItem value="esgotado">Esgotado</SelectItem>
                     </SelectContent>
                   </Select>
 
-                  <Button variant="outline" className="h-10 border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white">
+                  <Button variant="outline" className="h-10 border-green-600 text-green-600 hover:bg-green-600 hover:text-white">
                     <Filter className="w-4 h-4 mr-2" />
                     Aplicar
                   </Button>
@@ -260,7 +266,7 @@ export default function CatalogoPage() {
         {/* Categories */}
         <div className="mb-8">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Categorias Populares</h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {categories.map((category, index) => (
               <Card key={category.name} className="hover:shadow-lg transition-all duration-300 transform hover:scale-105 cursor-pointer animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
                 <CardContent className="p-4 text-center">
@@ -268,10 +274,37 @@ export default function CatalogoPage() {
                     {category.name}
                   </div>
                   <div className="text-2xl font-bold text-gray-900">{category.count}</div>
-                  <div className="text-sm text-gray-500">animais</div>
+                  <div className="text-sm text-gray-500">produtos</div>
                 </CardContent>
               </Card>
             ))}
+          </div>
+        </div>
+
+        {/* Features */}
+        <div className="mb-8">
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="flex items-center p-4 bg-white rounded-lg shadow-sm border">
+              <Truck className="w-8 h-8 text-blue-600 mr-4" />
+              <div>
+                <h4 className="font-semibold text-gray-900">Frete Grátis</h4>
+                <p className="text-sm text-gray-600">Acima de R$ 200</p>
+              </div>
+            </div>
+            <div className="flex items-center p-4 bg-white rounded-lg shadow-sm border">
+              <Shield className="w-8 h-8 text-green-600 mr-4" />
+              <div>
+                <h4 className="font-semibold text-gray-900">Garantia</h4>
+                <p className="text-sm text-gray-600">Produtos originais</p>
+              </div>
+            </div>
+            <div className="flex items-center p-4 bg-white rounded-lg shadow-sm border">
+              <Award className="w-8 h-8 text-amber-600 mr-4" />
+              <div>
+                <h4 className="font-semibold text-gray-900">Qualidade</h4>
+                <p className="text-sm text-gray-600">Marcas reconhecidas</p>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -332,10 +365,10 @@ export default function CatalogoPage() {
             <Button variant="outline" disabled className="border-gray-300 text-gray-400">
               Anterior
             </Button>
-            <Button className="bg-emerald-600 text-white">1</Button>
-            <Button variant="outline" className="border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white">2</Button>
-            <Button variant="outline" className="border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white">3</Button>
-            <Button variant="outline" className="border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white">
+            <Button className="bg-green-600 text-white">1</Button>
+            <Button variant="outline" className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white">2</Button>
+            <Button variant="outline" className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white">3</Button>
+            <Button variant="outline" className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white">
               Próximo
             </Button>
           </div>

@@ -119,26 +119,12 @@ export default function CadastroPage() {
                 roles
             })
 
-            if (error) {
-                toast({
-                    title: "Erro no cadastro",
-                    description: error,
-                    variant: "destructive",
-                })
-            } else {
-                toast({
-                    title: "Conta criada com sucesso!",
-                    description: "Sua conta foi criada e você já pode fazer login.",
-                })
+            if (!error) {
                 // Redirecionar para login
                 router.push('/login?message=Conta criada com sucesso! Faça login para continuar.')
             }
         } catch (err) {
-            toast({
-                title: "Erro interno",
-                description: "Ocorreu um erro inesperado. Tente novamente.",
-                variant: "destructive",
-            })
+            // Erro já tratado no hook
         } finally {
             setIsLoading(false)
         }
@@ -568,7 +554,7 @@ export default function CadastroPage() {
                             Criar conta
                         </h1>
                         <p className="text-base sm:text-lg text-gray-600">
-                            Junte-se à maior plataforma do agronegócio
+                            Junte-se à maior plataforma de agropecuária
                         </p>
                     </div>
 

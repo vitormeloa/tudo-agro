@@ -77,9 +77,10 @@ export default function Header({
 
   const navigation = [
     { name: 'Início', href: '/', current: false },
-    { name: 'Catálogo', href: '/catalogo', current: false },
+    { name: 'Animais', href: '/catalogo', current: false },
     { name: 'Leilões', href: '/leiloes', current: false },
-    { name: 'Vender', href: '/vender', current: false },
+    { name: 'Produtos', href: '/produtos', current: false },
+    // { name: 'Vender', href: '/vender', current: false }, // Temporariamente oculto
     { name: 'Sobre', href: '/sobre', current: false },
   ]
 
@@ -134,7 +135,7 @@ export default function Header({
             <Link href="/" className="flex items-center space-x-3 group">
               <img 
                 src="/fotos/tudo-agro-logo.png" 
-                className="h-8 w-auto sm:h-10 md:h-12 lg:h-16 xl:h-20"
+                className="h-22 w-auto sm:h-18 md:h-22 lg:h-24 xl:h-26 2xl:h-30"
                 alt="TudoAgro Logo"
               />
             </Link>
@@ -167,56 +168,56 @@ export default function Header({
             {/* Mostrar ícones apenas quando logado */}
             {user && !loading && (
               <>
-                {/* Search */}
-                {showSearch && (
-                  <div className="hidden md:block">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => setIsSearchOpen(!isSearchOpen)}
-                      className="text-gray-600 hover:text-emerald-600 hover:bg-emerald-50"
-                    >
-                      <Search className="w-5 h-5" />
-                    </Button>
-                  </div>
-                )}
+                {/*/!* Search *!/*/}
+                {/*{showSearch && (*/}
+                {/*  <div className="hidden md:block">*/}
+                {/*    <Button*/}
+                {/*      variant="ghost"*/}
+                {/*      size="sm"*/}
+                {/*      onClick={() => setIsSearchOpen(!isSearchOpen)}*/}
+                {/*      className="text-gray-600 hover:text-emerald-600 hover:bg-emerald-50"*/}
+                {/*    >*/}
+                {/*      <Search className="w-5 h-5" />*/}
+                {/*    </Button>*/}
+                {/*  </div>*/}
+                {/*)}*/}
 
-                {/* Notifications */}
-                {showNotifications && (
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="relative text-gray-600 hover:text-emerald-600 hover:bg-emerald-50"
-                  >
-                    <Bell className="w-5 h-5" />
-                    <Badge className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-red-500 text-white text-xs flex items-center justify-center">
-                      3
-                    </Badge>
-                  </Button>
-                )}
+                {/*/!* Notifications *!/*/}
+                {/*{showNotifications && (*/}
+                {/*  <Button*/}
+                {/*    variant="ghost"*/}
+                {/*    size="sm"*/}
+                {/*    className="relative text-gray-600 hover:text-emerald-600 hover:bg-emerald-50"*/}
+                {/*  >*/}
+                {/*    <Bell className="w-5 h-5" />*/}
+                {/*    <Badge className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-red-500 text-white text-xs flex items-center justify-center">*/}
+                {/*      3*/}
+                {/*    </Badge>*/}
+                {/*  </Button>*/}
+                {/*)}*/}
 
-                {/* Favorites */}
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="text-gray-600 hover:text-red-500 hover:bg-red-50"
-                >
-                  <Heart className="w-5 h-5" />
-                </Button>
+                {/*/!* Favorites *!/*/}
+                {/*<Button*/}
+                {/*  variant="ghost"*/}
+                {/*  size="sm"*/}
+                {/*  className="text-gray-600 hover:text-red-500 hover:bg-red-50"*/}
+                {/*>*/}
+                {/*  <Heart className="w-5 h-5" />*/}
+                {/*</Button>*/}
 
-                {/* Cart */}
-                {showCart && (
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="relative text-gray-600 hover:text-emerald-600 hover:bg-emerald-50"
-                  >
-                    <ShoppingCart className="w-5 h-5" />
-                    <Badge className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-emerald-500 text-white text-xs flex items-center justify-center">
-                      2
-                    </Badge>
-                  </Button>
-                )}
+                {/*/!* Cart *!/*/}
+                {/*{showCart && (*/}
+                {/*  <Button*/}
+                {/*    variant="ghost"*/}
+                {/*    size="sm"*/}
+                {/*    className="relative text-gray-600 hover:text-emerald-600 hover:bg-emerald-50"*/}
+                {/*  >*/}
+                {/*    <ShoppingCart className="w-5 h-5" />*/}
+                {/*    <Badge className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-emerald-500 text-white text-xs flex items-center justify-center">*/}
+                {/*      2*/}
+                {/*    </Badge>*/}
+                {/*  </Button>*/}
+                {/*)}*/}
 
                 {/* User Menu */}
                 <div className="hidden md:flex items-center space-x-2 relative" data-user-menu>

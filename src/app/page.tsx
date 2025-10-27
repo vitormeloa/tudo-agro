@@ -31,6 +31,7 @@ import {
 
 export default function HomePage() {
   const [searchQuery, setSearchQuery] = useState('')
+  const [isMobile, setIsMobile] = useState(false)
   const { toast } = useToast()
 
   // Verificar se há mensagem de sucesso na URL
@@ -46,6 +47,18 @@ export default function HomePage() {
       window.history.replaceState({}, document.title, window.location.pathname)
     }
   }, [toast])
+
+  // Detectar se é mobile
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth < 640) // sm breakpoint
+    }
+    
+    checkIsMobile()
+    window.addEventListener('resize', checkIsMobile)
+    
+    return () => window.removeEventListener('resize', checkIsMobile)
+  }, [])
 
   const featuredProducts = [
     {
@@ -183,31 +196,31 @@ export default function HomePage() {
           <div className="text-center">
             <div className="animate-fade-in-up">
               
-              <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight text-shadow-2xl">
-                Conecte-se ao{' '}
-                <span className="gradient-text text-shadow-xl">futuro</span>
+              <h1 className="text-4xl md:text-7xl font-bold text-white mb-6 leading-tight text-shadow-2xl">
+                  O marketplace
+                  {' '}
+                <span className="gradient-text text-shadow-xl">agro</span>
                 <br />
-                do agronegócio
+                mais completo do Brasil
               </h1>
               
-              <p className="text-xl md:text-2xl text-white/95 mb-8 max-w-3xl mx-auto leading-relaxed text-shadow-lg font-medium">
-                A maior plataforma de negócios agropecuários do Brasil. 
-                Compre, venda e participe de leilões com segurança total.
+              <p className="text-lg md:text-2xl text-white/95 mb-8 max-w-3xl mx-auto leading-relaxed text-shadow-lg font-medium">
+                  Compra e venda de gado, cavalos, sêmen e produtos do agronegócio com um clique.
               </p>
             </div>
 
             {/* Search Bar */}
             <div className="animate-fade-in-up max-w-2xl mx-auto mb-12">
               <div className="relative">
-                <Search className="absolute left-6 top-1/2 transform -translate-y-1/2 text-gray-500 w-6 h-6" />
+                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 w-5 h-5 sm:left-6 sm:w-6 sm:h-6" />
                 <input
                   type="text"
-                  placeholder="Buscar animais, raças, localização..."
+                  placeholder={isMobile ? "Buscar..." : "Buscar animais, raças, localização..."}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-16 pr-32 py-6 text-lg border-2 border-white/30 rounded-2xl focus:ring-4 focus:ring-emerald-500/30 focus:border-emerald-400 transition-all duration-300 shadow-xl bg-white/95 backdrop-blur-sm text-gray-900 placeholder-gray-600"
+                  className="w-full pl-12 pr-24 py-4 text-base sm:pl-16 sm:pr-32 sm:py-6 sm:text-lg border-2 border-white/30 rounded-2xl focus:ring-4 focus:ring-emerald-500/30 focus:border-emerald-400 transition-all duration-300 shadow-xl bg-white/95 backdrop-blur-sm text-gray-900 placeholder-gray-600"
                 />
-                <Button className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300">
+                <Button className="absolute right-1 top-1/2 transform -translate-y-1/2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-3 text-sm font-semibold rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 sm:right-2 sm:px-8 sm:py-4 sm:text-lg">
                   Buscar
                 </Button>
               </div>
@@ -291,7 +304,7 @@ export default function HomePage() {
               </h2>
             </div>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Participe dos leilões mais emocionantes do agronegócio
+              Participe dos leilões mais emocionantes da agropecuária
             </p>
           </div>
 
@@ -370,7 +383,7 @@ export default function HomePage() {
               Por que escolher o TudoAgro?
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              A plataforma mais completa e segura para o agronegócio brasileiro
+              A plataforma mais completa e segura para a agropecuária brasileira
             </p>
           </div>
 

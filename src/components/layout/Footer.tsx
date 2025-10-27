@@ -63,13 +63,6 @@ export default function Footer({
     ]
   }
 
-  const stats = [
-    { icon: Users, value: '50k+', label: 'Usuários Ativos' },
-    { icon: Award, value: 'R$ 2.8B', label: 'Volume Negociado' },
-    { icon: Heart, value: '98%', label: 'Satisfação' },
-    { icon: Shield, value: '100%', label: 'Segurança' },
-  ]
-
   const baseClasses = "w-full"
   
   const variantClasses = {
@@ -105,25 +98,6 @@ export default function Footer({
         </div>
       )}
 
-      {/* Stats Section */}
-      {variant === 'default' && (
-        <div className="border-b border-gray-700/50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              {stats.map((stat, index) => (
-                <div key={index} className="text-center">
-                  <div className="w-12 h-12 bg-emerald-600/20 rounded-lg flex items-center justify-center mx-auto mb-3">
-                    <stat.icon className="w-6 h-6 text-emerald-400" />
-                  </div>
-                  <div className="text-2xl font-bold text-white mb-1">{stat.value}</div>
-                  <div className="text-sm text-gray-400">{stat.label}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
-
       {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
@@ -132,7 +106,7 @@ export default function Footer({
             <div className="flex items-center space-x-3 mb-4">
               <img 
                 src="/fotos/tudo-agro-logo.png" 
-                className="h-8 w-auto sm:h-10 md:h-12 lg:h-16"
+                className="h-12 w-auto sm:h-16 md:h-20 lg:h-24"
                 alt="TudoAgro Logo"
               />
             </div>

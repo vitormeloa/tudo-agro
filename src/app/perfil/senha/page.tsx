@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { useRequireAuth } from '@/hooks/useRequireAuth'
+import { useAuth } from '@/hooks/useAuth'
 import { useToast } from '@/hooks/use-toast'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -18,7 +18,7 @@ import {
 import Link from 'next/link'
 
 export default function ChangePasswordPage() {
-  const { user, loading, isAuthenticated } = useRequireAuth()
+  const { user, loading, changePassword } = useAuth()
   const { toast } = useToast()
   const router = useRouter()
   
@@ -58,16 +58,11 @@ export default function ChangePasswordPage() {
     setIsSubmitting(true)
 
     try {
-      // Aqui você implementaria a lógica para trocar a senha
-      // Por exemplo, uma chamada para API
-      await new Promise(resolve => setTimeout(resolve, 1000)) // Simulação
+      const { error } = await changePassword(formData.currentPassword, formData.newPassword)
       
-      toast({
-        title: "Senha alterada",
-        description: "Sua senha foi alterada com sucesso.",
-      })
-      
-      router.push('/perfil')
+      if (!error) {
+        router.push('/perfil')
+      }
     } catch (error) {
       toast({
         title: "Erro ao alterar senha",
@@ -104,7 +99,7 @@ export default function ChangePasswordPage() {
     )
   }
 
-  if (!isAuthenticated) {
+  if (!user) {
     return (
       <div className="min-h-screen bg-[#F7F6F2] flex items-center justify-center">
         <div className="text-center">
