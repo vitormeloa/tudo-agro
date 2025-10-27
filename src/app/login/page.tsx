@@ -17,6 +17,7 @@ import {
   Eye, 
   EyeOff, 
   ArrowRight,
+  ArrowLeft,
   Shield,
   Users,
   Award,
@@ -105,6 +106,20 @@ export default function LoginPage() {
 
           <Card className="shadow-2xl border-0">
             <CardContent className="p-8">
+              {/* Botão de Voltar */}
+              <div className="mb-6">
+                <Link href="/">
+                  <Button 
+                    type="button" 
+                    variant="ghost" 
+                    className="text-gray-600 hover:text-emerald-600 hover:bg-emerald-50 p-2"
+                  >
+                    <ArrowLeft className="w-5 h-5 mr-2" />
+                    Voltar ao início
+                  </Button>
+                </Link>
+              </div>
+
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="space-y-2">
                   <Label htmlFor="email" className="text-sm font-medium text-gray-700">

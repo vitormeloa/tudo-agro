@@ -50,7 +50,7 @@ export default function SobrePage() {
       name: "Maria Santos",
       role: "CTO",
       description: "Especialista em tecnologia para o campo",
-      image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=300&h=300&fit=crop&crop=face"
+      image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=300&h=300&fit=crop&crop=face"
     },
     {
       name: "Carlos Oliveira",
@@ -73,14 +73,14 @@ export default function SobrePage() {
       role: "Haras Três Corações - MG",
       content: "A plataforma é muito segura e fácil de usar. Já participei de vários leilões e sempre tive uma experiência excelente. Recomendo para todos.",
       rating: 5,
-      image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face"
+      image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face"
     },
     {
       name: "Pedro Almeida",
       role: "Fazenda Pantanal - MT",
       content: "Encontrei os melhores reprodutores para meu rebanho através do TudoAgro. A qualidade dos animais e o suporte da equipe são excepcionais.",
       rating: 5,
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face"
+      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face"
     }
   ]
 

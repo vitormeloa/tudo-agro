@@ -580,6 +580,20 @@ export default function CadastroPage() {
                     {/* Main Registration Card */}
                     <Card className="shadow-2xl border-0 bg-white/80 backdrop-blur-sm">
                         <CardContent className="p-4 sm:p-6 lg:p-8">
+                            {/* Botão de Voltar */}
+                            <div className="mb-6">
+                                <Link href="/">
+                                    <Button 
+                                        type="button" 
+                                        variant="ghost" 
+                                        className="text-gray-600 hover:text-emerald-600 hover:bg-emerald-50 p-2"
+                                    >
+                                        <ArrowLeft className="w-5 h-5 mr-2" />
+                                        Voltar ao início
+                                    </Button>
+                                </Link>
+                            </div>
+
                             {/* Progress Steps */}
                             <div className="mb-6 sm:mb-8">
                                 <div className="flex items-center justify-center overflow-x-auto pb-2">
