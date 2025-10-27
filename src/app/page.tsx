@@ -168,7 +168,7 @@ export default function HomePage() {
             poster="/videos/agro-hero-poster.jpg"
           >
             <source src="/videos/agro-hero-video.mp4" type="video/mp4" />
-            <source src="/videos/agro-hero-video.webm" type="video/webm" />
+            {/*<source src="/videos/agro-hero-video.webm" type="video/webm" />*/}
             {/* Fallback para navegadores que não suportam vídeo */}
             <div className="w-full h-full bg-gradient-to-br from-emerald-50 via-white to-green-50"></div>
           </video>
