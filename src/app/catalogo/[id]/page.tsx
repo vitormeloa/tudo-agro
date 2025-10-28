@@ -9,7 +9,7 @@ import {
   ArrowLeft,
   MapPin, 
   Star, 
-  Heart,
+  Heart, 
   Share2,
   MessageCircle,
   Phone,
@@ -22,48 +22,49 @@ import {
   Ruler,
   ChevronLeft,
   ChevronRight,
-  Play
+  Play,
+  ShoppingCart
 } from 'lucide-react'
 
-export default function ProdutoPage({ params }: { params: { id: string } }) {
+export default function AnimalPage({ params }: { params: { id: string } }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [isFavorite, setIsFavorite] = useState(false)
 
-  // Dados mockados do produto
-  const product = {
+  // Dados mockados do animal
+  const animal = {
     id: params.id,
-    title: "Vaca Holandesa Lactante Premium",
-    category: "Gado de Leite",
-    race: "Holandesa",
-    sex: "Fêmea",
-    age: "4 anos",
-    weight: "650kg",
-    height: "1.45m",
-    price: 8500,
-    location: "Minas Gerais",
-    city: "Uberlândia",
-    description: "Vaca holandesa de excelente genética, com alta produção leiteira (35L/dia). Animal saudável, com histórico sanitário completo e vacinação em dia. Ideal para propriedades que buscam alta produtividade no rebanho leiteiro.",
+    title: "Touro Nelore PO Certificado",
+    category: "Gado de Corte",
+    breed: "Nelore",
+    sex: "Macho",
+    age: "3 anos",
+    weight: "850kg",
+    height: "1.50m",
+    price: 45000,
+    location: "Goiás",
+    city: "Goiânia",
+    description: "Touro Nelore PO (Puro de Origem) certificado, com excelente genética e conformação. Animal jovem, saudável, com histórico sanitário completo e vacinação em dia. Ideal para reprodução e melhoramento genético do rebanho.",
     images: [
-      "https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=800&h=600&fit=crop",
+      "https://images.unsplash.com/photo-1560114928-40f1f1eb26a0?w=800&h=600&fit=crop",
       "https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=800&h=600&fit=crop",
       "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=800&h=600&fit=crop"
     ],
     seller: {
       id: 1,
-      name: "Fazenda Vista Alegre",
-      location: "Uberlândia, MG",
-      rating: 4.9,
-      totalSales: 156,
+      name: "Fazenda Boa Vista",
+      location: "Goiânia, GO",
+      rating: 4.8,
+      totalSales: 24,
       memberSince: "2020",
       verified: true,
       image: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=100&h=100&fit=crop"
     },
     specifications: {
-      production: "35L/dia",
-      lactation: "3ª lactação",
+      production: "PO Certificado",
       breeding: "Inseminação artificial",
-      feed: "Pasto + ração balanceada",
-      health: "Vacinação completa"
+      feed: "Pasto + suplementação",
+      health: "Vacinação completa",
+      genetics: "Linha materna elite"
     },
     documents: [
       "Registro genealógico",
@@ -78,13 +79,13 @@ export default function ProdutoPage({ params }: { params: { id: string } }) {
 
   const nextImage = () => {
     setCurrentImageIndex((prev) => 
-      prev === product.images.length - 1 ? 0 : prev + 1
+      prev === animal.images.length - 1 ? 0 : prev + 1
     )
   }
 
   const prevImage = () => {
     setCurrentImageIndex((prev) => 
-      prev === 0 ? product.images.length - 1 : prev - 1
+      prev === 0 ? animal.images.length - 1 : prev - 1
     )
   }
 
@@ -131,8 +132,8 @@ export default function ProdutoPage({ params }: { params: { id: string } }) {
           <div className="space-y-4">
             <div className="relative">
               <img 
-                src={product.images[currentImageIndex]} 
-                alt={product.title}
+                src={animal.images[currentImageIndex]} 
+                alt={animal.title}
                 className="w-full h-96 object-cover rounded-2xl"
               />
               
@@ -153,9 +154,9 @@ export default function ProdutoPage({ params }: { params: { id: string } }) {
               {/* Badges */}
               <div className="absolute top-4 left-4 flex gap-2">
                 <Badge className="bg-[#1C6B3E]">
-                  {product.category}
+                  {animal.category}
                 </Badge>
-                {product.featured && (
+                {animal.featured && (
                   <Badge className="bg-[#D4AF37] text-black">
                     DESTAQUE
                   </Badge>
@@ -185,13 +186,13 @@ export default function ProdutoPage({ params }: { params: { id: string } }) {
 
               {/* Image Counter */}
               <div className="absolute bottom-4 right-4 bg-black/70 text-white px-3 py-1 rounded-full text-sm">
-                {currentImageIndex + 1} / {product.images.length}
+                {currentImageIndex + 1} / {animal.images.length}
               </div>
             </div>
 
             {/* Thumbnail Gallery */}
             <div className="flex gap-2 overflow-x-auto">
-              {product.images.map((image, index) => (
+              {animal.images.map((image, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentImageIndex(index)}
@@ -203,7 +204,7 @@ export default function ProdutoPage({ params }: { params: { id: string } }) {
                 >
                   <img 
                     src={image} 
-                    alt={`${product.title} ${index + 1}`}
+                    alt={`${animal.title} ${index + 1}`}
                     className="w-full h-full object-cover"
                   />
                 </button>
@@ -211,20 +212,20 @@ export default function ProdutoPage({ params }: { params: { id: string } }) {
             </div>
           </div>
 
-          {/* Product Info */}
+          {/* Animal Info */}
           <div className="space-y-6">
             <div>
               <h1 className="text-3xl font-bold text-gray-900 mb-4">
-                {product.title}
+                {animal.title}
               </h1>
               
               <div className="flex items-center text-gray-600 mb-4">
                 <MapPin className="w-5 h-5 mr-2" />
-                <span>{product.city}, {product.location}</span>
+                <span>{animal.city}, {animal.location}</span>
               </div>
 
               <div className="text-4xl font-bold text-green-600 mb-6">
-                R$ {product.price.toLocaleString()}
+                R$ {animal.price.toLocaleString()}
               </div>
             </div>
 
@@ -237,28 +238,28 @@ export default function ProdutoPage({ params }: { params: { id: string } }) {
                     <Award className="w-5 h-5 text-green-600 mr-2" />
                     <div>
                       <div className="text-sm text-gray-500">Raça</div>
-                      <div className="font-medium text-gray-900">{product.race}</div>
+                      <div className="font-medium text-gray-900">{animal.breed}</div>
                     </div>
                   </div>
                   <div className="flex items-center">
                     <Calendar className="w-5 h-5 text-green-600 mr-2" />
                     <div>
                       <div className="text-sm text-gray-500">Idade</div>
-                      <div className="font-medium text-gray-900">{product.age}</div>
+                      <div className="font-medium text-gray-900">{animal.age}</div>
                     </div>
                   </div>
                   <div className="flex items-center">
                     <Weight className="w-5 h-5 text-green-600 mr-2" />
                     <div>
                       <div className="text-sm text-gray-500">Peso</div>
-                      <div className="font-medium text-gray-900">{product.weight}</div>
+                      <div className="font-medium text-gray-900">{animal.weight}</div>
                     </div>
                   </div>
                   <div className="flex items-center">
                     <Ruler className="w-5 h-5 text-green-600 mr-2" />
                     <div>
                       <div className="text-sm text-gray-500">Altura</div>
-                      <div className="font-medium text-gray-900">{product.height}</div>
+                      <div className="font-medium text-gray-900">{animal.height}</div>
                     </div>
                   </div>
                 </div>
@@ -270,7 +271,7 @@ export default function ProdutoPage({ params }: { params: { id: string } }) {
               <CardContent className="p-6">
                 <h3 className="text-xl font-bold text-gray-900 mb-4">Detalhes de Produção</h3>
                 <div className="space-y-3">
-                  {Object.entries(product.specifications).map(([key, value]) => (
+                  {Object.entries(animal.specifications).map(([key, value]) => (
                     <div key={key} className="flex justify-between">
                       <span className="text-gray-500 capitalize">
                         {key.replace(/([A-Z])/g, ' $1').toLowerCase()}:
@@ -284,12 +285,12 @@ export default function ProdutoPage({ params }: { params: { id: string } }) {
 
             {/* Action Buttons */}
             <div className="space-y-4">
-              {product.type === 'venda' ? (
+              {animal.type === 'venda' ? (
                 <Button className="w-full bg-green-600 hover:bg-green-700 text-white py-4 text-lg transition-all hover:scale-105">
                   Comprar Agora
                 </Button>
               ) : (
-                <Link href={`/leilao/${product.id}`}>
+                <Link href={`/leilao/${animal.id}`}>
                   <Button className="w-full bg-yellow-500 hover:bg-yellow-600 text-black py-4 text-lg transition-all hover:scale-105">
                     <Play className="w-5 h-5 mr-2" />
                     Participar do Leilão
@@ -314,7 +315,7 @@ export default function ProdutoPage({ params }: { params: { id: string } }) {
             <CardContent className="p-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">Descrição</h2>
               <p className="text-gray-600 leading-relaxed text-lg">
-                {product.description}
+                {animal.description}
               </p>
             </CardContent>
           </Card>
@@ -329,7 +330,7 @@ export default function ProdutoPage({ params }: { params: { id: string } }) {
                 Documentos Disponíveis
               </h2>
               <div className="grid md:grid-cols-2 gap-4">
-                {product.documents.map((doc, index) => (
+                {animal.documents.map((doc, index) => (
                   <div key={index} className="flex items-center p-3 bg-gray-50 rounded-lg border border-gray-200">
                     <Shield className="w-5 h-5 text-green-600 mr-3" />
                     <span className="text-gray-900">{doc}</span>
@@ -348,11 +349,11 @@ export default function ProdutoPage({ params }: { params: { id: string } }) {
               <div className="flex items-start space-x-6">
                 <div className="relative">
                   <img 
-                    src={product.seller.image} 
-                    alt={product.seller.name}
+                    src={animal.seller.image} 
+                    alt={animal.seller.name}
                     className="w-20 h-20 rounded-full object-cover"
                   />
-                  {product.seller.verified && (
+                  {animal.seller.verified && (
                     <div className="absolute -top-2 -right-2 bg-green-600 text-white p-1 rounded-full">
                       <Shield className="w-4 h-4" />
                     </div>
@@ -362,28 +363,28 @@ export default function ProdutoPage({ params }: { params: { id: string } }) {
                 <div className="flex-1">
                   <div className="flex items-center mb-2">
                     <h3 className="text-xl font-bold text-gray-900 mr-3">
-                      {product.seller.name}
+                      {animal.seller.name}
                     </h3>
-                    {product.seller.verified && (
+                    {animal.seller.verified && (
                       <Badge className="bg-green-600 text-white">VERIFICADO</Badge>
                     )}
                   </div>
                   
                   <div className="flex items-center text-gray-600 mb-2">
                     <MapPin className="w-4 h-4 mr-1" />
-                    <span>{product.seller.location}</span>
+                    <span>{animal.seller.location}</span>
                   </div>
                   
                   <div className="flex items-center mb-4">
                     <Star className="w-4 h-4 text-yellow-500 fill-current mr-1" />
-                    <span className="font-medium text-gray-900 mr-2">{product.seller.rating}</span>
+                    <span className="font-medium text-gray-900 mr-2">{animal.seller.rating}</span>
                     <span className="text-gray-500">
-                      ({product.seller.totalSales} vendas • Membro desde {product.seller.memberSince})
+                      ({animal.seller.totalSales} vendas • Membro desde {animal.seller.memberSince})
                     </span>
                   </div>
                   
                   <div className="flex gap-3">
-                    <Link href={`/vendedor/${product.seller.id}`}>
+                    <Link href={`/vendedor/${animal.seller.id}`}>
                       <Button variant="outline" className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white">
                         Ver Perfil Completo
                       </Button>
@@ -415,7 +416,7 @@ export default function ProdutoPage({ params }: { params: { id: string } }) {
                 <div className="text-center text-gray-600">
                   <MapPin className="w-12 h-12 mx-auto mb-2" />
                   <p>Mapa da localização da fazenda</p>
-                  <p className="text-sm">{product.city}, {product.location}</p>
+                  <p className="text-sm">{animal.city}, {animal.location}</p>
                 </div>
               </div>
             </CardContent>

@@ -341,7 +341,7 @@ export default function VendedorPage({ params }: { params: { id: string } }) {
                       R$ {lot.price.toLocaleString()}
                     </div>
 
-                    <Link href={`/produto/${lot.id}`}>
+                    <Link href={`/produtos/${lot.id}`}>
                       <Button className="w-full bg-[#1C6B3E] hover:bg-[#228B22] transition-all hover:scale-105">
                         Ver Detalhes
                       </Button>

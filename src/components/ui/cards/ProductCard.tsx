@@ -31,6 +31,7 @@ interface ProductCardProps {
     age?: string
     weight?: string
     breed?: string
+    type?: 'animal' | 'product'
   }
   variant?: 'default' | 'compact' | 'detailed'
   showActions?: boolean
@@ -175,7 +176,7 @@ export default function ProductCard({
         {/* Actions */}
         {showActions && (
           <div className="flex gap-2">
-            <Link href={`/produto/${product.id}`} className="flex-1">
+            <Link href={product.type === 'animal' ? `/catalogo/${product.id}` : `/produtos/${product.id}`} className="flex-1">
               <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white">
                 <Eye className="w-4 h-4 mr-2" />
                 Ver Detalhes

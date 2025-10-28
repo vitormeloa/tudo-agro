@@ -80,7 +80,8 @@ export default function HomePage() {
       featured: true,
       age: "3 anos",
       weight: "850kg",
-      breed: "Nelore"
+      breed: "Nelore",
+      type: "animal"
     },
     {
       id: 2,
@@ -96,7 +97,8 @@ export default function HomePage() {
       featured: false,
       age: "5 anos",
       weight: "450kg",
-      breed: "Mangalarga"
+      breed: "Mangalarga",
+      type: "animal"
     },
     {
       id: 3,
@@ -112,7 +114,8 @@ export default function HomePage() {
       featured: true,
       age: "4 anos",
       weight: "650kg",
-      breed: "Holandesa"
+      breed: "Holandesa",
+      type: "animal"
     }
   ]
 
@@ -154,7 +157,8 @@ export default function HomePage() {
       featured: true,
       weight: "50kg",
       brand: "NutriMax",
-      stock: "Em estoque"
+      stock: "Em estoque",
+      type: "product"
     },
     {
       id: 2,
@@ -170,7 +174,8 @@ export default function HomePage() {
       featured: false,
       weight: "60.000 sementes",
       brand: "Pioneer",
-      stock: "Em estoque"
+      stock: "Em estoque",
+      type: "product"
     },
     {
       id: 3,
@@ -186,7 +191,8 @@ export default function HomePage() {
       featured: true,
       weight: "50kg",
       brand: "Yara",
-      stock: "Em estoque"
+      stock: "Em estoque",
+      type: "product"
     }
   ]
 
