@@ -287,7 +287,7 @@ export default function HomePage() {
                 <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 w-5 h-5 sm:left-6 sm:w-6 sm:h-6" />
                 <input
                   type="text"
-                  placeholder={isMobile ? "Buscar..." : "Buscar animais, raças, localização..."}
+                  placeholder={isMobile ? "Buscar..." : "Buscar animais, raças, produtos, e muito mais…"}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full pl-12 pr-24 py-4 text-base sm:pl-16 sm:pr-32 sm:py-6 sm:text-lg border-2 border-white/30 rounded-2xl focus:ring-4 focus:ring-emerald-500/30 focus:border-emerald-400 transition-all duration-300 shadow-xl bg-white/95 backdrop-blur-sm text-gray-900 placeholder-gray-600"
