@@ -241,7 +241,7 @@ export default function HomePage() {
       <Header variant="transparent" />
       
       {/* Hero Section */}
-      <section className="relative pt-20 pb-32 overflow-hidden">
+        <section className="relative min-h-screen overflow-hidden pt-36 sm:pt-12 md:pt-46 lg:pt-20 xl:pt-20 2xl:pt-28">
         {/* Video Background */}
         <div className="absolute inset-0 w-full h-full">
           <video

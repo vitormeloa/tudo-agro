@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { 
   BarChart3, Users, Store, FileText, Gavel, CreditCard, 
   FileCheck, Gift, Crown, GraduationCap, MessageSquare, 
@@ -33,12 +34,26 @@ import ConfigSection from './admin/ConfigSection'
 interface AdminDashboardProps {}
 
 export default function AdminDashboard({}: AdminDashboardProps) {
-  const { user, isAdmin, isSeller, isBuyer, signOut } = useAuth()
+  const authContext = useAuth()
+  const { user, isAdmin, isSeller, isBuyer, signOut } = authContext || {}
   const { toast } = useToast()
   const isMobile = useIsMobile()
+  const router = useRouter()
   const [activeSection, setActiveSection] = useState('overview')
   const [sidebarOpen, setSidebarOpen] = useState(!isMobile)
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
+
+  // Verificar se o contexto de autenticação está disponível
+  if (!authContext) {
+    return (
+      <div className="min-h-screen bg-[#F7F6F2] flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1E4D2B] mx-auto mb-4"></div>
+          <p className="text-[#6E7D5B]">Carregando...</p>
+        </div>
+      </div>
+    )
+  }
 
   // Fechar menu do usuário quando clicar fora
   useEffect(() => {
@@ -269,12 +284,23 @@ export default function AdminDashboard({}: AdminDashboardProps) {
             }`}
             onClick={async () => {
               try {
-                await signOut()
-                toast({
-                  title: "Logout realizado",
-                  description: "Você foi desconectado com sucesso.",
-                })
+                if (signOut) {
+                  await signOut()
+                  toast({
+                    title: "Logout realizado",
+                    description: "Você foi desconectado com sucesso.",
+                  })
+                  // O ProtectedRoute redirecionará automaticamente para login
+                } else {
+                  console.error('signOut function not available')
+                  toast({
+                    title: "Erro no logout",
+                    description: "Função de logout não disponível. Recarregue a página.",
+                    variant: "destructive",
+                  })
+                }
               } catch (error) {
+                console.error('Logout error:', error)
                 toast({
                   title: "Erro no logout",
                   description: "Ocorreu um erro ao fazer logout. Tente novamente.",
@@ -411,12 +437,23 @@ export default function AdminDashboard({}: AdminDashboardProps) {
                     <button
                       onClick={async () => {
                         try {
-                          await signOut()
-                          toast({
-                            title: "Logout realizado",
-                            description: "Você foi desconectado com sucesso.",
-                          })
+                          if (signOut) {
+                            await signOut()
+                            toast({
+                              title: "Logout realizado",
+                              description: "Você foi desconectado com sucesso.",
+                            })
+                            // O ProtectedRoute redirecionará automaticamente para login
+                          } else {
+                            console.error('signOut function not available')
+                            toast({
+                              title: "Erro no logout",
+                              description: "Função de logout não disponível. Recarregue a página.",
+                              variant: "destructive",
+                            })
+                          }
                         } catch (error) {
+                          console.error('Logout error:', error)
                           toast({
                             title: "Erro no logout",
                             description: "Ocorreu um erro ao fazer logout. Tente novamente.",
