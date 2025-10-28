@@ -277,7 +277,7 @@ export default function Header({
                       {/* Painel administrativo */}
                       {isAdmin && (
                         <Link 
-                          href="/admin" 
+                          href="/dashboard/visao-geral" 
                           className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
                           onClick={() => setIsUserMenuOpen(false)}
                         >
@@ -413,7 +413,7 @@ export default function Header({
                       </Link>
                       
                       {isAdmin && (
-                        <Link href="/admin" className="block" onClick={() => setIsMenuOpen(false)}>
+                        <Link href="/dashboard/visao-geral" className="block" onClick={() => setIsMenuOpen(false)}>
                           <Button variant="outline" className="w-full justify-start">
                             <Shield className="w-4 h-4 mr-2" />
                             Painel Admin
@@ -422,7 +422,9 @@ export default function Header({
                       )}
                     </div>
                     
-                    <button
+                    <Button 
+                      variant="outline" 
+                      className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50"
                       onClick={async () => {
                         try {
                           await signOut()
@@ -439,13 +441,10 @@ export default function Header({
                         }
                         setIsMenuOpen(false)
                       }}
-                      className="w-full"
                     >
-                      <Button variant="outline" className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50">
-                        <LogOut className="w-4 h-4 mr-2" />
-                        Sair
-                      </Button>
-                    </button>
+                      <LogOut className="w-4 h-4 mr-2" />
+                      Sair
+                    </Button>
                   </div>
                 ) : (
                   <div className="space-y-2">

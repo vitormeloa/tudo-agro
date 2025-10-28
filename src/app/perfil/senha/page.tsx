@@ -15,7 +15,6 @@ import {
   Eye,
   EyeOff
 } from 'lucide-react'
-import Link from 'next/link'
 
 export default function ChangePasswordPage() {
   const { user, loading, changePassword } = useAuth()
@@ -117,12 +116,14 @@ export default function ChangePasswordPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <Link href="/perfil">
-                <Button variant="ghost" size="sm">
-                  <ArrowLeft className="w-4 h-4 mr-2" />
-                  Voltar
-                </Button>
-              </Link>
+              <Button 
+                variant="ghost" 
+                size="sm"
+                onClick={() => router.back()}
+              >
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Voltar
+              </Button>
               <div>
                 <h1 className="text-3xl font-bold text-[#1E4D2B]">Trocar Senha</h1>
                 <p className="text-[#6E7D5B]">Altere sua senha de acesso</p>
@@ -211,11 +212,13 @@ export default function ChangePasswordPage() {
               </div>
               
               <div className="flex justify-end space-x-4">
-                <Link href="/perfil">
-                  <Button type="button" variant="outline">
-                    Cancelar
-                  </Button>
-                </Link>
+                <Button 
+                  type="button" 
+                  variant="outline"
+                  onClick={() => router.back()}
+                >
+                  Cancelar
+                </Button>
                 <Button type="submit" disabled={isSubmitting}>
                   {isSubmitting ? (
                     <>

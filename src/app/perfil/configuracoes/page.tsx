@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/hooks/useAuth'
+import ProtectedRoute from '@/components/ProtectedRoute'
 import { useToast } from '@/hooks/use-toast'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -18,7 +19,6 @@ import {
   Globe,
   Mail
 } from 'lucide-react'
-import Link from 'next/link'
 
 export default function SettingsPage() {
   const { user, loading } = useAuth()
@@ -69,41 +69,24 @@ export default function SettingsPage() {
     }))
   }
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-[#F7F6F2] flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1E4D2B] mx-auto mb-4"></div>
-          <p className="text-[#6E7D5B]">Carregando...</p>
-        </div>
-      </div>
-    )
-  }
-
-  if (!user) {
-    return (
-      <div className="min-h-screen bg-[#F7F6F2] flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1E4D2B] mx-auto mb-4"></div>
-          <p className="text-[#6E7D5B]">Redirecionando para login...</p>
-        </div>
-      </div>
-    )
-  }
+  // Remover lógica de autenticação - ProtectedRoute vai cuidar disso
 
   return (
-    <div className="min-h-screen bg-[#F7F6F2]">
+    <ProtectedRoute>
+      <div className="min-h-screen bg-[#F7F6F2]">
       {/* Header */}
       <div className="bg-white shadow-sm border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <Link href="/perfil">
-                <Button variant="ghost" size="sm">
-                  <ArrowLeft className="w-4 h-4 mr-2" />
-                  Voltar
-                </Button>
-              </Link>
+              <Button 
+                variant="ghost" 
+                size="sm"
+                onClick={() => router.back()}
+              >
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Voltar
+              </Button>
               <div>
                 <h1 className="text-3xl font-bold text-[#1E4D2B]">Configurações</h1>
                 <p className="text-[#6E7D5B]">Personalize sua experiência na plataforma</p>
@@ -243,11 +226,13 @@ export default function SettingsPage() {
 
           {/* Ações */}
           <div className="flex justify-end space-x-4">
-            <Link href="/perfil">
-              <Button type="button" variant="outline">
-                Cancelar
-              </Button>
-            </Link>
+            <Button 
+              type="button" 
+              variant="outline"
+              onClick={() => router.back()}
+            >
+              Cancelar
+            </Button>
             <Button type="submit" disabled={isSubmitting}>
               {isSubmitting ? (
                 <>
@@ -265,5 +250,6 @@ export default function SettingsPage() {
         </form>
       </div>
     </div>
+    </ProtectedRoute>
   )
 }

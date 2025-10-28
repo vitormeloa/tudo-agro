@@ -66,61 +66,64 @@ export default function TransactionsSection() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center justify-between">
+        <CardHeader className="p-3 sm:p-6">
+          <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
             <div className="flex items-center gap-2">
-              <CreditCard className="w-5 h-5 text-[#1E4D2B]" />
-              Controle de Transações
+              <CreditCard className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E4D2B]" />
+              <span className="text-base sm:text-lg font-semibold">Controle de Transações</span>
             </div>
-            <Button variant="outline" size="sm">
-              <Download className="w-4 h-4 mr-2" />
-              Exportar CSV
+            <Button variant="outline" size="sm" className="text-xs sm:text-sm">
+              <Download className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+              <span className="hidden sm:inline">Exportar CSV</span>
+              <span className="sm:hidden">Exportar</span>
             </Button>
           </CardTitle>
         </CardHeader>
-        <CardContent>
-          <div className="grid gap-4">
+        <CardContent className="p-3 sm:p-6">
+          <div className="grid gap-3 sm:gap-4">
             {transactions.map((transaction) => (
               <Card key={transaction.id} className="hover:shadow-lg transition-shadow">
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2">
-                        <h3 className="font-semibold text-[#2B2E2B]">{transaction.id}</h3>
+                <CardContent className="p-3 sm:p-6">
+                  <div className="flex flex-col lg:flex-row items-start justify-between gap-4">
+                    <div className="flex-1 w-full">
+                      <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-2">
+                        <h3 className="font-semibold text-[#2B2E2B] text-sm sm:text-base">{transaction.id}</h3>
                         {getStatusBadge(transaction.status)}
-                        <Badge variant="outline">{transaction.type}</Badge>
+                        <Badge variant="outline" className="text-xs">{transaction.type}</Badge>
                       </div>
-                      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm text-[#6E7D5B]">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 text-xs sm:text-sm text-[#6E7D5B]">
                         <div>
                           <p className="font-medium">Usuário:</p>
-                          <p>{transaction.user}</p>
+                          <p className="break-words">{transaction.user}</p>
                         </div>
                         <div>
                           <p className="font-medium">Valor:</p>
-                          <p className="text-lg font-bold text-[#1E4D2B]">{transaction.amount}</p>
+                          <p className="text-sm sm:text-lg font-bold text-[#1E4D2B] break-words">{transaction.amount}</p>
                         </div>
                         <div>
                           <p className="font-medium">Método:</p>
-                          <p>{transaction.method}</p>
+                          <p className="break-words">{transaction.method}</p>
                         </div>
                         <div>
                           <p className="font-medium">Data:</p>
-                          <p>{new Date(transaction.date).toLocaleDateString('pt-BR')}</p>
+                          <p className="break-words">{new Date(transaction.date).toLocaleDateString('pt-BR')}</p>
                         </div>
                       </div>
-                      <p className="text-sm text-[#6E7D5B] mt-2">{transaction.description}</p>
+                      <p className="text-xs sm:text-sm text-[#6E7D5B] mt-2 break-words">{transaction.description}</p>
                     </div>
-                    <div className="flex flex-col gap-2 ml-4">
-                      <Button variant="outline" size="sm">
-                        <Eye className="w-4 h-4 mr-2" />
-                        Ver Detalhes
+                    <div className="flex flex-col sm:flex-row lg:flex-col gap-2 w-full lg:w-auto">
+                      <Button variant="outline" size="sm" className="text-xs sm:text-sm">
+                        <Eye className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                        <span className="hidden sm:inline">Ver Detalhes</span>
+                        <span className="sm:hidden">Ver</span>
                       </Button>
                       {transaction.status === 'pendente' && (
-                        <Button size="sm" className="bg-green-600 hover:bg-green-700">
-                          <CheckCircle className="w-4 h-4 mr-2" />
-                          Aprovar
+                        <Button size="sm" className="bg-green-600 hover:bg-green-700 text-xs sm:text-sm">
+                          <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                          <span className="hidden sm:inline">Aprovar</span>
+                          <span className="sm:hidden">Aprovar</span>
                         </Button>
                       )}
                     </div>

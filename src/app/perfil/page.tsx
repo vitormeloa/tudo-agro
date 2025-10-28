@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/hooks/useAuth'
+import ProtectedRoute from '@/components/ProtectedRoute'
 import { useToast } from '@/hooks/use-toast'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -42,13 +43,13 @@ export default function ProfilePage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   // Atualizar formData quando user estiver disponível
-  if (user && formData.name === '' && user.name) {
+  if (user && formData.name === '' && user?.name) {
     setFormData({
-      name: user.name || '',
-      email: user.email || '',
-      phone: user.phone || '',
-      address: user.address || '',
-      bio: user.bio || ''
+      name: user?.name || '',
+      email: user?.email || '',
+      phone: user?.phone || '',
+      address: user?.address || '',
+      bio: user?.bio || ''
     })
   }
 
@@ -96,30 +97,11 @@ export default function ProfilePage() {
     setIsEditing(false)
   }
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-[#F7F6F2] flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1E4D2B] mx-auto mb-4"></div>
-          <p className="text-[#6E7D5B]">Carregando...</p>
-        </div>
-      </div>
-    )
-  }
-
-  if (!user) {
-    return (
-      <div className="min-h-screen bg-[#F7F6F2] flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1E4D2B] mx-auto mb-4"></div>
-          <p className="text-[#6E7D5B]">Redirecionando para login...</p>
-        </div>
-      </div>
-    )
-  }
+  // Remover lógica de autenticação - ProtectedRoute vai cuidar disso
 
   return (
-    <div className="min-h-screen bg-[#F7F6F2]">
+    <ProtectedRoute>
+      <div className="min-h-screen bg-[#F7F6F2]">
       {/* Header */}
       <div className="bg-white shadow-sm border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -240,33 +222,33 @@ export default function ProfilePage() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
                         <label className="text-sm font-medium text-gray-700">Nome Completo</label>
-                        <p className="mt-1 text-lg text-gray-900">{user.name || 'Não informado'}</p>
+                        <p className="mt-1 text-lg text-gray-900">{user?.name || 'Não informado'}</p>
                       </div>
                       
                       <div>
                         <label className="text-sm font-medium text-gray-700">Email</label>
-                        <p className="mt-1 text-lg text-gray-900">{user.email}</p>
+                        <p className="mt-1 text-lg text-gray-900">{user?.email || 'Não informado'}</p>
                       </div>
                       
                       <div>
                         <label className="text-sm font-medium text-gray-700">Telefone</label>
-                        <p className="mt-1 text-lg text-gray-900">{user.phone || 'Não informado'}</p>
+                        <p className="mt-1 text-lg text-gray-900">{user?.phone || 'Não informado'}</p>
                       </div>
                       
                       <div>
                         <label className="text-sm font-medium text-gray-700">Data de Cadastro</label>
                         <p className="mt-1 text-lg text-gray-900">
-                          {user.createdAt ? new Date(user.createdAt).toLocaleDateString('pt-BR') : 'Não informado'}
+                          {user?.createdAt ? new Date(user.createdAt).toLocaleDateString('pt-BR') : 'Não informado'}
                         </p>
                       </div>
                     </div>
                     
                     <div>
                       <label className="text-sm font-medium text-gray-700">Endereço</label>
-                      <p className="mt-1 text-lg text-gray-900">{user.address || 'Não informado'}</p>
+                      <p className="mt-1 text-lg text-gray-900">{user?.address || 'Não informado'}</p>
                     </div>
                     
-                    {user.bio && (
+                    {user?.bio && (
                       <div>
                         <label className="text-sm font-medium text-gray-700">Biografia</label>
                         <p className="mt-1 text-lg text-gray-900">{user.bio}</p>
@@ -320,15 +302,15 @@ export default function ProfilePage() {
               <CardContent className="space-y-3">
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-gray-600">Verificação de Email</span>
-                  <Badge variant={user.emailVerified ? "default" : "destructive"}>
-                    {user.emailVerified ? "Verificado" : "Pendente"}
+                  <Badge variant={user?.emailVerified ? "default" : "destructive"}>
+                    {user?.emailVerified ? "Verificado" : "Pendente"}
                   </Badge>
                 </div>
                 
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-gray-600">Tipo de Conta</span>
                   <Badge variant="secondary">
-                    {user.role || 'Usuário'}
+                    {user?.roles?.[0] || 'Usuário'}
                   </Badge>
                 </div>
               </CardContent>
@@ -337,5 +319,6 @@ export default function ProfilePage() {
         </div>
       </div>
     </div>
+    </ProtectedRoute>
   )
 }

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/hooks/useAuth'
+import ProtectedRoute from '@/components/ProtectedRoute'
 import Link from 'next/link'
 import { 
   User, 
@@ -72,20 +73,13 @@ export default function PainelPage() {
     car: null as File | null
   })
 
-  // Verificar autenticação
-  useEffect(() => {
-    if (!loading && !user) {
-      router.push('/login')
-    }
-  }, [user, loading, router])
-
   // Simular verificação de perfil baseado no email
   useEffect(() => {
     if (user) {
-      setUserEmail(user.email)
+      setUserEmail(user?.email || '')
       
       // Verificar se é o usuário especial com acesso de vendedor
-      if (user.email === 'vendedor@gmail.com') {
+      if (user?.email === 'vendedor@gmail.com') {
         setUserProfile('seller')
       } else {
         setUserProfile('buyer')
@@ -93,20 +87,7 @@ export default function PainelPage() {
     }
   }, [user])
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-[#F7F6F2] flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1E4D2B] mx-auto mb-4"></div>
-          <p className="text-[#6E7D5B]">Carregando...</p>
-        </div>
-      </div>
-    )
-  }
-
-  if (!user) {
-    return null
-  }
+  // Remover lógica de autenticação - ProtectedRoute vai cuidar disso
 
   const handleFileUpload = (field: keyof typeof documents, file: File | null) => {
     setDocuments({
@@ -154,7 +135,8 @@ export default function PainelPage() {
   const tabs = userProfile === 'seller' ? [...buyerTabs, ...sellerTabs] : buyerTabs
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#F7F6F2] to-[#FFFDF7]">
+    <ProtectedRoute>
+      <div className="min-h-screen bg-gradient-to-br from-[#F7F6F2] to-[#FFFDF7]">
       {/* Header */}
       <div className="bg-white shadow-sm border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -173,7 +155,7 @@ export default function PainelPage() {
                   <User className="w-5 h-5 text-white" />
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-[#2B2E2B] font-medium">{user.name || 'Usuário'}</span>
+                  <span className="text-[#2B2E2B] font-medium">{user?.name || 'Usuário'}</span>
                   {userProfile === 'seller' && (
                     <Badge className="bg-[#C89F45] text-white text-xs">
                       Vendedor
@@ -1006,13 +988,13 @@ export default function PainelPage() {
                         <label className="block text-sm font-medium text-[#2B2E2B] mb-2">
                           Nome Completo
                         </label>
-                        <Input defaultValue="{user.name || 'Usuário'}" />
+                        <Input defaultValue={user?.name || 'Usuário'} />
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-[#2B2E2B] mb-2">
                           E-mail
                         </label>
-                        <Input defaultValue={user.email} />
+                        <Input defaultValue={user?.email || ''} />
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-[#2B2E2B] mb-2">
@@ -1746,5 +1728,6 @@ export default function PainelPage() {
         </div>
       )}
     </div>
+    </ProtectedRoute>
   )
 }

@@ -387,12 +387,12 @@ export default function OverviewSection() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Filtros e Controles */}
-      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 bg-white p-4 rounded-lg border">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 w-full lg:w-auto">
+      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-3 sm:gap-4 bg-white p-3 sm:p-4 rounded-lg border">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 w-full lg:w-auto">
           <div className="flex items-center gap-2 w-full sm:w-auto">
-            <Filter className="w-4 h-4 text-[#6E7D5B]" />
+            <Filter className="w-4 h-4 text-[#6E7D5B] flex-shrink-0" />
             <Select value={selectedSector} onValueChange={setSelectedSector}>
               <SelectTrigger className="w-full sm:w-[280px]">
                 <SelectValue placeholder="Filtrar por setor" />
@@ -411,7 +411,7 @@ export default function OverviewSection() {
         
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 w-full lg:w-auto">
           <div className="flex items-center gap-2 w-full sm:w-auto">
-            <Calendar className="w-4 h-4 text-[#6E7D5B]" />
+            <Calendar className="w-4 h-4 text-[#6E7D5B] flex-shrink-0" />
             <Select value={selectedPeriod} onValueChange={setSelectedPeriod}>
               <SelectTrigger className="w-full sm:w-[180px]">
                 <SelectValue placeholder="Período" />
@@ -433,9 +433,9 @@ export default function OverviewSection() {
       </div>
 
       {/* Título do Setor Selecionado */}
-      <div className="bg-gradient-to-r from-[#1E4D2B] to-[#2B5A31] text-white p-4 rounded-lg">
-        <h2 className="text-xl font-bold">{getSectorTitle(selectedSector)}</h2>
-        <p className="text-sm opacity-90 mt-1">
+      <div className="bg-gradient-to-r from-[#1E4D2B] to-[#2B5A31] text-white p-3 sm:p-4 rounded-lg">
+        <h2 className="text-lg sm:text-xl font-bold">{getSectorTitle(selectedSector)}</h2>
+        <p className="text-xs sm:text-sm opacity-90 mt-1">
           {selectedSector === 'all' 
             ? 'Visão completa de todos os indicadores do marketplace'
             : 'Indicadores específicos do setor selecionado'
@@ -457,12 +457,12 @@ export default function OverviewSection() {
       />
 
       {/* Recursos Complementares */}
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
         {/* Gráfico de Vendas */}
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <BarChart3 className="w-5 h-5 text-[#1E4D2B]" />
+            <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
+              <BarChart3 className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E4D2B]" />
               Evolução de Vendas por Canal
             </CardTitle>
           </CardHeader>
@@ -474,8 +474,8 @@ export default function OverviewSection() {
         {/* Gráfico de Categorias */}
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <PieChart className="w-5 h-5 text-[#1E4D2B]" />
+            <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
+              <PieChart className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E4D2B]" />
               Distribuição por Categorias
             </CardTitle>
           </CardHeader>
@@ -486,14 +486,14 @@ export default function OverviewSection() {
       </div>
 
       {/* Alertas e Atividade Recente */}
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
         {/* Alertas */}
-        <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-[#2B2E2B] flex items-center gap-2">
-            <AlertTriangle className="w-5 h-5 text-[#B8413D]" />
+        <div className="space-y-3 sm:space-y-4">
+          <h3 className="text-base sm:text-lg font-semibold text-[#2B2E2B] flex items-center gap-2">
+            <AlertTriangle className="w-4 h-4 sm:w-5 sm:h-5 text-[#B8413D]" />
             Alertas e Pendências
           </h3>
-          <div className="grid grid-cols-1 gap-4">
+          <div className="grid grid-cols-1 gap-3 sm:gap-4">
             {alerts.map((alert, index) => (
               <AlertCard
                 key={index}
@@ -511,18 +511,18 @@ export default function OverviewSection() {
         {/* Atividade Recente */}
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Clock className="w-5 h-5 text-[#1E4D2B]" />
+            <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
+              <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E4D2B]" />
               Atividade Recente
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               {recentActivity.map((activity, index) => (
-                <div key={index} className="flex items-start gap-3 p-3 rounded-lg hover:bg-[#F7F6F2] transition-colors">
+                <div key={index} className="flex items-start gap-2 sm:gap-3 p-2 sm:p-3 rounded-lg hover:bg-[#F7F6F2] transition-colors">
                   {getStatusIcon(activity.status)}
-                  <div className="flex-1">
-                    <p className="text-sm font-medium text-[#2B2E2B]">{activity.message}</p>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs sm:text-sm font-medium text-[#2B2E2B] break-words">{activity.message}</p>
                     <p className="text-xs text-[#6E7D5B] mt-1">{activity.time}</p>
                   </div>
                 </div>

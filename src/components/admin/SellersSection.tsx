@@ -153,24 +153,24 @@ export default function SellersSection() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Header com Filtros */}
       <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center justify-between">
+        <CardHeader className="p-3 sm:p-6">
+          <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
             <div className="flex items-center gap-2">
-              <Store className="w-5 h-5 text-[#1E4D2B]" />
-              Gerenciamento de Vendedores
+              <Store className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E4D2B]" />
+              <span className="text-base sm:text-lg font-semibold">Gerenciamento de Vendedores</span>
             </div>
-            <div className="flex items-center gap-4 text-sm text-[#6E7D5B]">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 text-xs sm:text-sm text-[#6E7D5B]">
               <span>Pendentes: {sellers.filter(s => s.status === 'pendente').length}</span>
               <span>Aprovados: {sellers.filter(s => s.status === 'aprovado').length}</span>
               <span>Recusados: {sellers.filter(s => s.status === 'recusado').length}</span>
             </div>
           </CardTitle>
         </CardHeader>
-        <CardContent>
-          <div className="flex flex-col md:flex-row gap-4">
+        <CardContent className="p-3 sm:p-6">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
             {/* Busca */}
             <div className="flex-1">
               <div className="relative">
@@ -179,14 +179,14 @@ export default function SellersSection() {
                   placeholder="Buscar por nome ou email..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10"
+                  className="pl-10 text-sm"
                 />
               </div>
             </div>
             
             {/* Filtro de Status */}
             <Select value={statusFilter} onValueChange={setStatusFilter}>
-              <SelectTrigger className="w-40">
+              <SelectTrigger className="w-full sm:w-40">
                 <SelectValue placeholder="Status" />
               </SelectTrigger>
               <SelectContent>
@@ -201,47 +201,49 @@ export default function SellersSection() {
       </Card>
 
       {/* Lista de Vendedores */}
-      <div className="grid gap-4">
+      <div className="grid gap-3 sm:gap-4">
         {filteredSellers.map((seller) => (
           <Card key={seller.id} className="hover:shadow-lg transition-shadow">
-            <CardContent className="p-6">
-              <div className="flex items-start justify-between">
-                <div className="flex-1">
-                  <div className="flex items-start gap-4">
+            <CardContent className="p-3 sm:p-6">
+              <div className="flex flex-col lg:flex-row items-start justify-between gap-4">
+                <div className="flex-1 w-full">
+                  <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-4">
                     {/* Avatar */}
-                    <div className="w-12 h-12 bg-[#1E4D2B] rounded-full flex items-center justify-center text-white font-bold">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#1E4D2B] rounded-full flex items-center justify-center text-white font-bold text-sm sm:text-base flex-shrink-0">
                       {seller.name.charAt(0)}
                     </div>
                     
                     {/* Informações Principais */}
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2">
-                        <h3 className="text-lg font-semibold text-[#2B2E2B]">{seller.name}</h3>
-                        {getStatusBadge(seller.status)}
-                        <Badge variant="outline" className="text-xs">
-                          {seller.specialization}
-                        </Badge>
+                    <div className="flex-1 w-full min-w-0">
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-2">
+                        <h3 className="text-base sm:text-lg font-semibold text-[#2B2E2B] break-words">{seller.name}</h3>
+                        <div className="flex flex-wrap items-center gap-2">
+                          {getStatusBadge(seller.status)}
+                          <Badge variant="outline" className="text-xs">
+                            {seller.specialization}
+                          </Badge>
+                        </div>
                       </div>
                       
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm text-[#6E7D5B] mb-4">
-                        <div className="flex items-center gap-2">
-                          <Mail className="w-4 h-4" />
-                          {seller.email}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 text-xs sm:text-sm text-[#6E7D5B] mb-3 sm:mb-4">
+                        <div className="flex items-center gap-2 min-w-0">
+                          <Mail className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+                          <span className="truncate">{seller.email}</span>
                         </div>
-                        <div className="flex items-center gap-2">
-                          <Phone className="w-4 h-4" />
-                          {seller.phone}
+                        <div className="flex items-center gap-2 min-w-0">
+                          <Phone className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+                          <span className="truncate">{seller.phone}</span>
                         </div>
-                        <div className="flex items-center gap-2">
-                          <MapPin className="w-4 h-4" />
-                          {seller.city}, {seller.state}
+                        <div className="flex items-center gap-2 min-w-0 sm:col-span-2 lg:col-span-1">
+                          <MapPin className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+                          <span className="truncate">{seller.city}, {seller.state}</span>
                         </div>
                       </div>
 
                       {/* Documentos */}
-                      <div className="mb-4">
-                        <p className="text-sm font-medium text-[#2B2E2B] mb-2">Documentos Enviados:</p>
-                        <div className="flex flex-wrap gap-2">
+                      <div className="mb-3 sm:mb-4">
+                        <p className="text-xs sm:text-sm font-medium text-[#2B2E2B] mb-2">Documentos Enviados:</p>
+                        <div className="flex flex-wrap gap-1 sm:gap-2">
                           {seller.documentsSubmitted.map((doc, index) => (
                             <Badge key={index} variant="outline" className="text-xs">
                               <FileText className="w-3 h-3 mr-1" />
@@ -252,27 +254,27 @@ export default function SellersSection() {
                       </div>
 
                       {/* Datas Importantes */}
-                      <div className="text-sm text-[#6E7D5B] space-y-1">
+                      <div className="text-xs sm:text-sm text-[#6E7D5B] space-y-1">
                         <div className="flex items-center gap-2">
-                          <Calendar className="w-4 h-4" />
-                          Solicitação: {new Date(seller.requestDate).toLocaleDateString('pt-BR')}
+                          <Calendar className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+                          <span className="truncate">Solicitação: {new Date(seller.requestDate).toLocaleDateString('pt-BR')}</span>
                         </div>
                         {seller.approvalDate && (
                           <div className="flex items-center gap-2 text-green-600">
-                            <CheckCircle className="w-4 h-4" />
-                            Aprovado em: {new Date(seller.approvalDate).toLocaleDateString('pt-BR')}
+                            <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+                            <span className="truncate">Aprovado em: {new Date(seller.approvalDate).toLocaleDateString('pt-BR')}</span>
                           </div>
                         )}
                         {seller.rejectionDate && (
                           <div className="flex items-center gap-2 text-red-600">
-                            <XCircle className="w-4 h-4" />
-                            Recusado em: {new Date(seller.rejectionDate).toLocaleDateString('pt-BR')}
+                            <XCircle className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+                            <span className="truncate">Recusado em: {new Date(seller.rejectionDate).toLocaleDateString('pt-BR')}</span>
                           </div>
                         )}
                         {seller.rejectionReason && (
                           <div className="flex items-center gap-2 text-red-600">
-                            <AlertTriangle className="w-4 h-4" />
-                            Motivo: {seller.rejectionReason}
+                            <AlertTriangle className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+                            <span className="truncate">Motivo: {seller.rejectionReason}</span>
                           </div>
                         )}
                       </div>
@@ -280,17 +282,17 @@ export default function SellersSection() {
                   </div>
                   
                   {/* Estatísticas */}
-                  <div className="grid grid-cols-3 gap-4 mt-4 pt-4 border-t border-gray-100">
+                  <div className="grid grid-cols-3 gap-2 sm:gap-4 mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-gray-100">
                     <div className="text-center">
-                      <p className="text-2xl font-bold text-[#1E4D2B]">{seller.activeAds}</p>
+                      <p className="text-lg sm:text-2xl font-bold text-[#1E4D2B]">{seller.activeAds}</p>
                       <p className="text-xs text-[#6E7D5B]">Anúncios Ativos</p>
                     </div>
                     <div className="text-center">
-                      <p className="text-2xl font-bold text-[#1E4D2B]">{seller.completedSales}</p>
+                      <p className="text-lg sm:text-2xl font-bold text-[#1E4D2B]">{seller.completedSales}</p>
                       <p className="text-xs text-[#6E7D5B]">Vendas Finalizadas</p>
                     </div>
                     <div className="text-center">
-                      <p className="text-2xl font-bold text-[#1E4D2B]">
+                      <p className="text-lg sm:text-2xl font-bold text-[#1E4D2B]">
                         {seller.rating > 0 ? seller.rating.toFixed(1) : '-'}
                       </p>
                       <p className="text-xs text-[#6E7D5B]">Avaliação</p>
@@ -299,31 +301,34 @@ export default function SellersSection() {
                 </div>
                 
                 {/* Ações */}
-                <div className="flex flex-col gap-2 ml-4">
+                <div className="flex flex-col sm:flex-row lg:flex-col gap-2 w-full lg:w-auto lg:ml-4">
                   {seller.status === 'pendente' && (
                     <>
                       <Button 
                         size="sm" 
-                        className="bg-green-600 hover:bg-green-700 text-white"
+                        className="bg-green-600 hover:bg-green-700 text-white text-xs sm:text-sm"
                         onClick={() => handleAction(seller, 'approve')}
                       >
-                        <CheckCircle className="w-4 h-4 mr-2" />
-                        Aprovar
+                        <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                        <span className="hidden sm:inline">Aprovar</span>
+                        <span className="sm:hidden">Aprovar</span>
                       </Button>
                       <Button 
                         variant="outline" 
                         size="sm" 
-                        className="text-red-600 hover:text-red-700 border-red-200 hover:border-red-300"
+                        className="text-red-600 hover:text-red-700 border-red-200 hover:border-red-300 text-xs sm:text-sm"
                         onClick={() => handleAction(seller, 'reject')}
                       >
-                        <XCircle className="w-4 h-4 mr-2" />
-                        Recusar
+                        <XCircle className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                        <span className="hidden sm:inline">Recusar</span>
+                        <span className="sm:hidden">Recusar</span>
                       </Button>
                     </>
                   )}
-                  <Button variant="outline" size="sm">
-                    <FileText className="w-4 h-4 mr-2" />
-                    Ver Documentos
+                  <Button variant="outline" size="sm" className="text-xs sm:text-sm">
+                    <FileText className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                    <span className="hidden sm:inline">Ver Documentos</span>
+                    <span className="sm:hidden">Documentos</span>
                   </Button>
                 </div>
               </div>
