@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, use } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -25,7 +25,7 @@ import {
   CheckCircle
 } from 'lucide-react'
 
-export default function LeilaoPage({ params }: { params: { id: string } }) {
+export default function LeilaoPage({ params }: { params: Promise<{ id: string }> }) {
   const [currentBid, setCurrentBid] = useState(45000)
   const [myBid, setMyBid] = useState('')
   const [autoBidLimit, setAutoBidLimit] = useState('')
@@ -34,10 +34,12 @@ export default function LeilaoPage({ params }: { params: { id: string } }) {
   const [isLive, setIsLive] = useState(true)
   const [isMuted, setIsMuted] = useState(false)
   const [isFullscreen, setIsFullscreen] = useState(false)
+  
+  const resolvedParams = use(params)
 
   // Dados mockados do leilão
   const auction = {
-    id: params.id,
+    id: resolvedParams.id,
     title: "Leilão Fazenda São João - Nelore Elite",
     currentLot: {
       number: 15,

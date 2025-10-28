@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from 'react'
+import { useState, use } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -21,12 +21,14 @@ import {
   CheckCircle
 } from 'lucide-react'
 
-export default function VendedorPage({ params }: { params: { id: string } }) {
+export default function VendedorPage({ params }: { params: Promise<{ id: string }> }) {
   const [activeTab, setActiveTab] = useState('lotes')
+  
+  const resolvedParams = use(params)
 
   // Dados mockados do vendedor
   const seller = {
-    id: params.id,
+    id: resolvedParams.id,
     name: "Fazenda São Bento",
     description: "Fazenda familiar especializada em gado Nelore e Angus, com mais de 30 anos de tradição na pecuária de qualidade.",
     location: "Goiás",

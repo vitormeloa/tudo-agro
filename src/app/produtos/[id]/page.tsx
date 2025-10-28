@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from 'react'
+import { useState, use } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -26,13 +26,15 @@ import {
   ShoppingCart
 } from 'lucide-react'
 
-export default function ProdutoPage({ params }: { params: { id: string } }) {
+export default function ProdutoPage({ params }: { params: Promise<{ id: string }> }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [isFavorite, setIsFavorite] = useState(false)
+  
+  const resolvedParams = use(params)
 
   // Dados mockados do produto
   const product = {
-    id: params.id,
+    id: resolvedParams.id,
     title: "Ração para Gado de Corte Premium",
     category: "Rações",
     brand: "NutriMax",

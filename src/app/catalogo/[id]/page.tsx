@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from 'react'
+import { useState, use } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -26,13 +26,15 @@ import {
   ShoppingCart
 } from 'lucide-react'
 
-export default function AnimalPage({ params }: { params: { id: string } }) {
+export default function AnimalPage({ params }: { params: Promise<{ id: string }> }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [isFavorite, setIsFavorite] = useState(false)
+  
+  const resolvedParams = use(params)
 
   // Dados mockados do animal
   const animal = {
-    id: params.id,
+    id: resolvedParams.id,
     title: "Touro Nelore PO Certificado",
     category: "Gado de Corte",
     breed: "Nelore",
