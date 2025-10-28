@@ -103,13 +103,8 @@ export default function CadastroPage() {
         }
 
         try {
-            // Determinar roles baseado no tipo de conta
-            const roles = []
-            if (formData.accountType === 'pf') {
-                roles.push('comprador')
-            } else if (formData.accountType === 'pj') {
-                roles.push('vendedor')
-            }
+            // Todos os usuários cadastrados via /cadastro recebem role comprador por padrão
+            const roles = ['comprador']
 
             const { error } = await signUp(formData.email, formData.password, {
                 name: formData.fullName,

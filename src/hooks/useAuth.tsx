@@ -243,16 +243,27 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const signUp = async (email: string, password: string, userData: any) => {
     try {
-      const { error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          data: userData,
-        }
+      // Usar a API de signup que já gerencia roles corretamente
+      const response = await fetch('/api/auth/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          password,
+          name: userData.name,
+          phone: userData.phone,
+          cpf: userData.cpf,
+          cnpj: userData.cnpj,
+          roles: userData.roles || ['comprador']
+        }),
       })
 
-      if (error) {
-        const errorMessage = getAuthErrorMessage(error.message)
+      const data = await response.json()
+
+      if (!response.ok) {
+        const errorMessage = data.error || "Erro ao criar conta"
         toast({
           title: "Erro no cadastro",
           description: errorMessage,
