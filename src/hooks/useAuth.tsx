@@ -46,6 +46,44 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const { toast } = useToast()
   const router = useRouter()
 
+  // Cache local para persistir estado de autenticação
+  const CACHE_KEY = 'tudo-agro-auth-cache'
+  const CACHE_EXPIRY = 5 * 60 * 1000 // 5 minutos
+
+  // Função para salvar no cache
+  const saveToCache = useCallback((userData: AuthUser | null) => {
+    try {
+      const cacheData = {
+        user: userData,
+        timestamp: Date.now()
+      }
+      localStorage.setItem(CACHE_KEY, JSON.stringify(cacheData))
+    } catch (error) {
+      console.warn('Failed to save auth cache:', error)
+    }
+  }, [])
+
+  // Função para carregar do cache
+  const loadFromCache = useCallback((): AuthUser | null => {
+    try {
+      const cached = localStorage.getItem(CACHE_KEY)
+      if (!cached) return null
+
+      const cacheData = JSON.parse(cached)
+      const isExpired = Date.now() - cacheData.timestamp > CACHE_EXPIRY
+      
+      if (isExpired) {
+        localStorage.removeItem(CACHE_KEY)
+        return null
+      }
+
+      return cacheData.user
+    } catch (error) {
+      console.warn('Failed to load auth cache:', error)
+      return null
+    }
+  }, [])
+
   // Função para criar usuário básico
   const createBasicUser = useCallback((authUser: any): AuthUser => {
     return {
@@ -99,19 +137,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         }
         
         // Em caso de outros erros, usar dados básicos do auth
-        setUser(createBasicUser(authUser))
+        const basicUser = createBasicUser(authUser)
+        setUser(basicUser)
+        saveToCache(basicUser)
         return
       }
 
       if (!userData) {
-        setUser(createBasicUser(authUser))
+        const basicUser = createBasicUser(authUser)
+        setUser(basicUser)
+        saveToCache(basicUser)
         return
       }
 
       // Extrair roles e permissões
       const roles = userData.user_roles?.map((ur: any) => ur.roles?.name).filter(Boolean) || []
       const permissions = userData.user_roles?.flatMap((ur: any) => ur.roles?.permissions || []) || []
-
 
       const userWithData: AuthUser = {
         id: userData.id,
@@ -126,6 +167,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
 
       setUser(userWithData)
+      saveToCache(userWithData)
       console.log('User loaded successfully:', { id: userWithData.id, email: userWithData.email, roles })
     } catch (error) {
       console.error('Error loading user:', error)
@@ -133,15 +175,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       try {
         const { data: { user: authUser } } = await supabase.auth.getUser()
         if (authUser) {
-          setUser(createBasicUser(authUser))
+          const basicUser = createBasicUser(authUser)
+          setUser(basicUser)
+          saveToCache(basicUser)
         } else {
           setUser(null)
+          saveToCache(null)
         }
       } catch {
         setUser(null)
+        saveToCache(null)
       }
     }
-  }, [createBasicUser])
+  }, [createBasicUser, saveToCache])
 
   // Função para criar perfil de usuário
   const createUserProfile = useCallback(async (userId: string, authUser: any) => {
@@ -176,12 +222,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           })
       }
       
-      setUser(createBasicUser(authUser))
+      const basicUser = createBasicUser(authUser)
+      setUser(basicUser)
+      saveToCache(basicUser)
     } catch (error) {
       console.error('Error creating user profile:', error)
-      setUser(createBasicUser(authUser))
+      const basicUser = createBasicUser(authUser)
+      setUser(basicUser)
+      saveToCache(basicUser)
     }
-  }, [createBasicUser])
+  }, [createBasicUser, saveToCache])
 
   // Função para verificar usuário inicial
   const checkUser = useCallback(async () => {
@@ -189,11 +239,37 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setLoading(true)
       console.log('Checking user session...')
       
+      // Primeiro, tentar carregar do cache para uma resposta mais rápida
+      const cachedUser = loadFromCache()
+      if (cachedUser) {
+        console.log('User found in cache, using cached data')
+        setUser(cachedUser)
+        setLoading(false)
+        setIsInitialized(true)
+        
+        // Verificar se a sessão ainda é válida em background
+        setTimeout(async () => {
+          try {
+            const { data: { session } } = await supabase.auth.getSession()
+            if (!session?.user) {
+              console.log('Session expired, clearing cache')
+              setUser(null)
+              saveToCache(null)
+            }
+          } catch (error) {
+            console.warn('Background session check failed:', error)
+          }
+        }, 1000)
+        
+        return
+      }
+      
       const { data: { session }, error } = await supabase.auth.getSession()
       
       if (error) {
         console.error('Session error:', error)
         setUser(null)
+        saveToCache(null)
         return
       }
       
@@ -203,16 +279,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       } else {
         console.log('No user session found')
         setUser(null)
+        saveToCache(null)
       }
     } catch (error) {
       console.error('Check user error:', error)
       setUser(null)
+      saveToCache(null)
     } finally {
       console.log('Check user completed, setting loading to false')
       setLoading(false)
       setIsInitialized(true)
     }
-  }, [loadUser])
+  }, [loadUser, loadFromCache, saveToCache])
 
   // Função para refresh do usuário
   const refreshUser = useCallback(async () => {
@@ -238,6 +316,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           setLoading(false)
         } else if (event === 'SIGNED_OUT') {
           setUser(null)
+          saveToCache(null)
           setLoading(false)
         } else if (event === 'TOKEN_REFRESHED' && session) {
           setLoading(true)
@@ -248,7 +327,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     )
 
     return () => subscription.unsubscribe()
-  }, [isInitialized, checkUser, loadUser])
+  }, [isInitialized, checkUser, loadUser, saveToCache])
 
   // Função de login
   const signIn = useCallback(async (email: string, password: string) => {
@@ -359,6 +438,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
 
       setUser(null)
+      saveToCache(null)
       console.log('Logout successful')
       
       // Redirecionar para home após logout
@@ -368,12 +448,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       console.error('Logout error:', error)
       // Mesmo com erro, limpar estado local
       setUser(null)
+      saveToCache(null)
       router.push('/')
       throw error
     } finally {
       setLoading(false)
     }
-  }, [router])
+  }, [router, saveToCache])
 
   // Função para trocar senha
   const changePassword = useCallback(async (currentPassword: string, newPassword: string) => {

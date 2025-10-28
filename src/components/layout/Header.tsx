@@ -3,26 +3,15 @@
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
 import { 
   Menu, 
   X, 
-  Search, 
-  Heart, 
-  User, 
-  ShoppingCart,
-  Bell,
-  ChevronDown,
-  LogOut,
-  Settings,
-  Shield,
-  Key,
-  Edit,
-  UserCircle
+  Search
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useAuth } from '@/hooks/useAuth'
-import { useToast } from '@/hooks/use-toast'
+import AuthButton from './AuthButton'
+import MobileAuthButton from './MobileAuthButton'
 
 interface HeaderProps {
   variant?: 'default' | 'transparent' | 'minimal'
@@ -43,10 +32,8 @@ export default function Header({
 }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
-  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
   const [scrollY, setScrollY] = useState(0)
-  const { user, loading, signOut, isAdmin } = useAuth()
-  const { toast } = useToast()
+  const { user, loading } = useAuth()
 
   // Efeito de scroll para opacidade
   useEffect(() => {
@@ -59,21 +46,6 @@ export default function Header({
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [enableScrollOpacity])
-
-  // Fechar menu do usuário quando clicar fora
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (isUserMenuOpen) {
-        const target = event.target as Element
-        if (!target.closest('[data-user-menu]')) {
-          setIsUserMenuOpen(false)
-        }
-      }
-    }
-
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [isUserMenuOpen])
 
   const navigation = [
     { name: 'Início', href: '/', current: false },
@@ -165,174 +137,8 @@ export default function Header({
 
           {/* Right side actions */}
           <div className="flex items-center space-x-2 lg:space-x-4">
-            {/* Mostrar ícones apenas quando logado */}
-            {user && !loading && (
-              <>
-                {/*/!* Search *!/*/}
-                {/*{showSearch && (*/}
-                {/*  <div className="hidden md:block">*/}
-                {/*    <Button*/}
-                {/*      variant="ghost"*/}
-                {/*      size="sm"*/}
-                {/*      onClick={() => setIsSearchOpen(!isSearchOpen)}*/}
-                {/*      className="text-gray-600 hover:text-emerald-600 hover:bg-emerald-50"*/}
-                {/*    >*/}
-                {/*      <Search className="w-5 h-5" />*/}
-                {/*    </Button>*/}
-                {/*  </div>*/}
-                {/*)}*/}
-
-                {/*/!* Notifications *!/*/}
-                {/*{showNotifications && (*/}
-                {/*  <Button*/}
-                {/*    variant="ghost"*/}
-                {/*    size="sm"*/}
-                {/*    className="relative text-gray-600 hover:text-emerald-600 hover:bg-emerald-50"*/}
-                {/*  >*/}
-                {/*    <Bell className="w-5 h-5" />*/}
-                {/*    <Badge className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-red-500 text-white text-xs flex items-center justify-center">*/}
-                {/*      3*/}
-                {/*    </Badge>*/}
-                {/*  </Button>*/}
-                {/*)}*/}
-
-                {/*/!* Favorites *!/*/}
-                {/*<Button*/}
-                {/*  variant="ghost"*/}
-                {/*  size="sm"*/}
-                {/*  className="text-gray-600 hover:text-red-500 hover:bg-red-50"*/}
-                {/*>*/}
-                {/*  <Heart className="w-5 h-5" />*/}
-                {/*</Button>*/}
-
-                {/*/!* Cart *!/*/}
-                {/*{showCart && (*/}
-                {/*  <Button*/}
-                {/*    variant="ghost"*/}
-                {/*    size="sm"*/}
-                {/*    className="relative text-gray-600 hover:text-emerald-600 hover:bg-emerald-50"*/}
-                {/*  >*/}
-                {/*    <ShoppingCart className="w-5 h-5" />*/}
-                {/*    <Badge className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-emerald-500 text-white text-xs flex items-center justify-center">*/}
-                {/*      2*/}
-                {/*    </Badge>*/}
-                {/*  </Button>*/}
-                {/*)}*/}
-
-                {/* User Menu */}
-                <div className="hidden md:flex items-center space-x-2 relative" data-user-menu>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                    className="text-gray-600 hover:text-emerald-600 hover:bg-emerald-50"
-                  >
-                    <div className="w-8 h-8 bg-emerald-600 rounded-full flex items-center justify-center">
-                      <User className="w-4 h-4 text-white" />
-                    </div>
-                    <ChevronDown className="w-4 h-4 ml-1" />
-                  </Button>
-
-                  {/* User Dropdown Menu */}
-                  {isUserMenuOpen && (
-                    <div className="absolute top-full right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
-                      <div className="px-4 py-3 border-b border-gray-100">
-                        <p className="text-sm font-medium text-gray-900">{user.name || 'Usuário'}</p>
-                        <p className="text-xs text-gray-500">{user.email}</p>
-                      </div>
-                      
-                      {/* Opções do usuário */}
-                      <div className="py-1">
-                        <Link 
-                          href="/perfil" 
-                          className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
-                          onClick={() => setIsUserMenuOpen(false)}
-                        >
-                          <UserCircle className="w-4 h-4 mr-3" />
-                          Meu Perfil
-                        </Link>
-                        
-                        <Link 
-                          href="/perfil/senha" 
-                          className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
-                          onClick={() => setIsUserMenuOpen(false)}
-                        >
-                          <Key className="w-4 h-4 mr-3" />
-                          Trocar Senha
-                        </Link>
-                        
-                        <Link 
-                          href="/perfil/configuracoes" 
-                          className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
-                          onClick={() => setIsUserMenuOpen(false)}
-                        >
-                          <Settings className="w-4 h-4 mr-3" />
-                          Configurações
-                        </Link>
-                      </div>
-                      
-                      {/* Separador */}
-                      <div className="border-t border-gray-100 my-1"></div>
-                      
-                      {/* Painel administrativo */}
-                      {isAdmin && (
-                        <Link 
-                          href="/dashboard/visao-geral" 
-                          className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
-                          onClick={() => setIsUserMenuOpen(false)}
-                        >
-                          <Shield className="w-4 h-4 mr-3" />
-                          Painel
-                        </Link>
-                      )}
-                      
-                      {/* Logout */}
-                      <button
-                        onClick={async () => {
-                          try {
-                            await signOut()
-                            toast({
-                              title: "Logout realizado",
-                              description: "Você foi desconectado com sucesso.",
-                            })
-                          } catch (error) {
-                            toast({
-                              title: "Erro no logout",
-                              description: "Ocorreu um erro ao fazer logout. Tente novamente.",
-                              variant: "destructive",
-                            })
-                          }
-                          setIsUserMenuOpen(false)
-                        }}
-                        className="flex items-center w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50"
-                      >
-                        <LogOut className="w-4 h-4 mr-3" />
-                        Sair
-                      </button>
-                    </div>
-                  )}
-                </div>
-              </>
-            )}
-
-            {/* Auth Buttons - mostrar apenas quando não logado */}
-            {!user && !loading && (
-              <div className="hidden md:flex items-center space-x-2">
-                <Link href="/login">
-                  <Button variant="ghost" size="sm" className="text-gray-700 hover:text-emerald-600">
-                    Entrar
-                  </Button>
-                </Link>
-                <Link href="/cadastro">
-                  <Button 
-                    size="sm" 
-                    className="bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white shadow-lg hover:shadow-xl transition-all duration-300"
-                  >
-                    Cadastrar
-                  </Button>
-                </Link>
-              </div>
-            )}
+            {/* Auth Button Component */}
+            <AuthButton />
 
             {/* Mobile menu button */}
             <Button
@@ -381,87 +187,7 @@ export default function Header({
               ))}
               
               {/* Mobile Auth */}
-              <div className="pt-4 border-t border-gray-200">
-                {user ? (
-                  <div className="space-y-2">
-                    <div className="px-3 py-2">
-                      <p className="text-sm font-medium text-gray-900">{user.name || 'Usuário'}</p>
-                      <p className="text-xs text-gray-500">{user.email}</p>
-                    </div>
-                    
-                    {/* Opções do usuário mobile */}
-                    <div className="space-y-1">
-                      <Link href="/perfil" className="block" onClick={() => setIsMenuOpen(false)}>
-                        <Button variant="outline" className="w-full justify-start">
-                          <UserCircle className="w-4 h-4 mr-2" />
-                          Meu Perfil
-                        </Button>
-                      </Link>
-                      
-                      <Link href="/perfil/senha" className="block" onClick={() => setIsMenuOpen(false)}>
-                        <Button variant="outline" className="w-full justify-start">
-                          <Key className="w-4 h-4 mr-2" />
-                          Trocar Senha
-                        </Button>
-                      </Link>
-                      
-                      <Link href="/perfil/configuracoes" className="block" onClick={() => setIsMenuOpen(false)}>
-                        <Button variant="outline" className="w-full justify-start">
-                          <Settings className="w-4 h-4 mr-2" />
-                          Configurações
-                        </Button>
-                      </Link>
-                      
-                      {isAdmin && (
-                        <Link href="/dashboard/visao-geral" className="block" onClick={() => setIsMenuOpen(false)}>
-                          <Button variant="outline" className="w-full justify-start">
-                            <Shield className="w-4 h-4 mr-2" />
-                            Painel
-                          </Button>
-                        </Link>
-                      )}
-                    </div>
-                    
-                    <Button 
-                      variant="outline" 
-                      className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50"
-                      onClick={async () => {
-                        try {
-                          await signOut()
-                          toast({
-                            title: "Logout realizado",
-                            description: "Você foi desconectado com sucesso.",
-                          })
-                        } catch (error) {
-                          toast({
-                            title: "Erro no logout",
-                            description: "Ocorreu um erro ao fazer logout. Tente novamente.",
-                            variant: "destructive",
-                          })
-                        }
-                        setIsMenuOpen(false)
-                      }}
-                    >
-                      <LogOut className="w-4 h-4 mr-2" />
-                      Sair
-                    </Button>
-                  </div>
-                ) : (
-                  <div className="space-y-2">
-                    <Link href="/login" className="block">
-                      <Button variant="outline" className="w-full justify-start">
-                        <User className="w-4 h-4 mr-2" />
-                        Entrar
-                      </Button>
-                    </Link>
-                    <Link href="/cadastro" className="block">
-                      <Button className="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700">
-                        Cadastrar
-                      </Button>
-                    </Link>
-                  </div>
-                )}
-              </div>
+              <MobileAuthButton onMenuClose={() => setIsMenuOpen(false)} />
             </div>
           </div>
         )}
