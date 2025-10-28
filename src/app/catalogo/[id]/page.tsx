@@ -107,7 +107,7 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
             <Link href="/" className="flex items-center space-x-2">
               <img 
                 src="/fotos/tudo-agro-logo.png" 
-                className="h-6 w-auto sm:h-8 md:h-10 lg:h-12" 
+                className="h-14 w-auto sm:h-18 md:h-22 lg:h-26"
                 alt="TudoAgro Logo"
               />
             </Link>
