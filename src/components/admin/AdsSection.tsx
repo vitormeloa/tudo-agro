@@ -5,10 +5,10 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { 
-  Search, Filter, Plus, Eye, Edit, Trash2, Star, Pause, Play, 
-  CheckCircle, XCircle, Clock, AlertTriangle, DollarSign, Calendar,
-  User, Tag, BarChart3, TrendingUp, Download
+import {
+    Search, Filter, Plus, Eye, Edit, Trash2, Star, Pause, Play,
+    CheckCircle, XCircle, Clock, AlertTriangle, DollarSign, Calendar,
+    User, Tag, BarChart3, TrendingUp, Download, Store
 } from 'lucide-react'
 import { useState } from 'react'
 import { useAdminPermissions } from '@/hooks/useAdminPermissions'
@@ -154,14 +154,10 @@ export default function AdsSection() {
         <CardHeader>
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
-              <CardTitle className="text-xl sm:text-2xl font-bold text-[#1E4D2B]">
-                Gestão de Anúncios
-              </CardTitle>
-              <p className="text-sm text-[#6E7D5B] mt-1">
-                {isAdmin ? 'Gerencie todos os anúncios da plataforma' : 
-                 isSeller ? 'Gerencie seus anúncios e solicite destaque' : 
-                 'Visualize anúncios disponíveis'}
-              </p>
+                <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
+                    <Store className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E4D2B]" />
+                    <span className="text-base sm:text-lg font-semibold">Gerenciamento de Anúncios</span>
+                </CardTitle>
             </div>
             
             {canManageAds && (

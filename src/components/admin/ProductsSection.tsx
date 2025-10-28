@@ -241,14 +241,10 @@ export default function ProductsSection() {
         <CardHeader>
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
-              <CardTitle className="text-xl sm:text-2xl font-bold text-[#1E4D2B]">
-                Catálogo de Produtos
-              </CardTitle>
-              <p className="text-sm text-[#6E7D5B] mt-1">
-                {isAdmin ? 'Gerencie todos os produtos da plataforma' : 
-                 isSeller ? 'Gerencie seus produtos e estoque' : 
-                 'Explore e compre produtos de qualidade'}
-              </p>
+                <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
+                    <Package className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E4D2B]" />
+                    <span className="text-base sm:text-lg font-semibold">Gerenciamento de Produtos</span>
+                </CardTitle>
             </div>
             
             {canManageProducts && (

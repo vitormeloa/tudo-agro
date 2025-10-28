@@ -68,18 +68,21 @@ export default function TransactionsSection() {
   return (
     <div className="space-y-4 sm:space-y-6">
       <Card>
-        <CardHeader className="p-3 sm:p-6">
-          <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-            <div className="flex items-center gap-2">
-              <CreditCard className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E4D2B]" />
-              <span className="text-base sm:text-lg font-semibold">Controle de Transações</span>
+        <CardHeader>
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div>
+                <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
+                    <CreditCard className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E4D2B]" />
+                    <span className="text-base sm:text-lg font-semibold">Gerenciamento de Transações</span>
+                </CardTitle>
             </div>
+            
             <Button variant="outline" size="sm" className="text-xs sm:text-sm">
               <Download className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
               <span className="hidden sm:inline">Exportar CSV</span>
               <span className="sm:hidden">Exportar</span>
             </Button>
-          </CardTitle>
+          </div>
         </CardHeader>
         <CardContent className="p-3 sm:p-6">
           <div className="grid gap-3 sm:gap-4">

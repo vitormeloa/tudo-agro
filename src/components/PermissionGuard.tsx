@@ -1,9 +1,10 @@
 'use client'
 
-import { ReactNode } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { usePermissions } from '@/hooks/usePermissions'
 import { useAdminPermissions } from '@/hooks/useAdminPermissions'
+import { use403Redirect } from '@/hooks/use403Redirect'
 import { Permission } from '@/lib/permissions'
 import { AlertTriangle, Shield } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -41,7 +42,8 @@ export default function PermissionGuard({
   } = usePermissions()
   
   const { isAdmin } = useAdminPermissions()
-  const router = useRouter()
+  const { redirectTo403 } = use403Redirect({ fallbackUrl: redirectTo || '/dashboard' })
+  const [hasCheckedPermissions, setHasCheckedPermissions] = useState(false)
 
   // Admin sempre tem acesso
   if (isAdmin) {
@@ -66,55 +68,32 @@ export default function PermissionGuard({
     hasAccess = hasAnyRole(roles)
   }
 
+  // Verificar permissões após o carregamento
+  useEffect(() => {
+    if (!hasCheckedPermissions) {
+      if (!hasAccess) {
+        // Mostrar fallback personalizado se especificado
+        if (fallback) {
+          setHasCheckedPermissions(true)
+          return
+        }
+
+        // Redirecionar para página 403
+        redirectTo403('Você não tem permissão para acessar esta área.')
+        return
+      }
+
+      setHasCheckedPermissions(true)
+    }
+  }, [hasAccess, fallback, redirectTo403, hasCheckedPermissions])
+
   // Se não tem acesso
   if (!hasAccess) {
-    // Redirecionar se especificado
-    if (redirectTo) {
-      router.push(redirectTo)
-      return null
-    }
-
-    // Mostrar fallback personalizado
+    // Mostrar fallback personalizado se especificado
     if (fallback) {
       return <>{fallback}</>
     }
 
-    // Mostrar fallback padrão se habilitado
-    if (showFallback) {
-      return (
-        <Card className="max-w-md mx-auto mt-8">
-          <CardHeader className="text-center">
-            <div className="mx-auto mb-4 p-3 bg-red-100 rounded-full w-fit">
-              <Shield className="h-8 w-8 text-red-600" />
-            </div>
-            <CardTitle className="text-xl text-red-600">
-              Acesso Negado
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="text-center space-y-4">
-            <p className="text-gray-600">
-              Você não tem permissão para acessar esta área.
-            </p>
-            <div className="flex gap-2 justify-center">
-              <Button
-                variant="outline"
-                onClick={() => router.back()}
-              >
-                Voltar
-              </Button>
-              <Button
-                onClick={() => router.push('/')}
-                className="bg-[#1E4D2B] hover:bg-[#2D5A3D]"
-              >
-                Ir para Início
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      )
-    }
-
-    // Não renderizar nada se não deve mostrar fallback
     return null
   }
 

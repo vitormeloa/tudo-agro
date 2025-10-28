@@ -7,7 +7,7 @@ export interface UserPermissions {
 
 // Função para verificar se o usuário tem uma permissão específica
 export const hasPermission = (userPermissions: UserPermissions | null, permission: Permission): boolean => {
-  if (!userPermissions) return false
+  if (!userPermissions || !userPermissions.roles || !userPermissions.permissions) return false
   
   // Se o usuário tem role admin, tem todas as permissões
   if (userPermissions.roles.includes('admin')) return true
@@ -17,7 +17,7 @@ export const hasPermission = (userPermissions: UserPermissions | null, permissio
 
 // Função para verificar se o usuário tem qualquer uma das permissões fornecidas
 export const hasAnyPermission = (userPermissions: UserPermissions | null, permissions: Permission[]): boolean => {
-  if (!userPermissions) return false
+  if (!userPermissions || !userPermissions.roles || !userPermissions.permissions) return false
   
   // Se o usuário tem role admin, tem todas as permissões
   if (userPermissions.roles.includes('admin')) return true
@@ -27,7 +27,7 @@ export const hasAnyPermission = (userPermissions: UserPermissions | null, permis
 
 // Função para verificar se o usuário tem todas as permissões fornecidas
 export const hasAllPermissions = (userPermissions: UserPermissions | null, permissions: Permission[]): boolean => {
-  if (!userPermissions) return false
+  if (!userPermissions || !userPermissions.roles || !userPermissions.permissions) return false
   
   // Se o usuário tem role admin, tem todas as permissões
   if (userPermissions.roles.includes('admin')) return true
@@ -43,19 +43,19 @@ export const canAccess = (userPermissions: UserPermissions | null, resource: Per
 
 // Função para verificar se o usuário tem role específica
 export const hasRole = (userPermissions: UserPermissions | null, role: string): boolean => {
-  if (!userPermissions) return false
+  if (!userPermissions || !userPermissions.roles) return false
   return userPermissions.roles.includes(role)
 }
 
 // Função para verificar se o usuário tem qualquer uma das roles fornecidas
 export const hasAnyRole = (userPermissions: UserPermissions | null, roles: string[]): boolean => {
-  if (!userPermissions) return false
+  if (!userPermissions || !userPermissions.roles) return false
   return roles.some(role => userPermissions.roles.includes(role))
 }
 
 // Função para obter permissões do usuário para um recurso específico
 export const getResourcePermissions = (userPermissions: UserPermissions | null, resource: PermissionResource): Permission[] => {
-  if (!userPermissions) return []
+  if (!userPermissions || !userPermissions.permissions) return []
   
   return userPermissions.permissions.filter(permission => 
     permission.startsWith(`${resource}:`)

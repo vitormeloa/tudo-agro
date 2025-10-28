@@ -626,12 +626,16 @@ export default function OverviewSection() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
         {availableCharts.slice(0, 2).map((chart) => (
           <Card key={chart.id}>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-                <chart.icon className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E4D2B]" />
-                {chart.title}
-              </CardTitle>
-            </CardHeader>
+                    <CardHeader>
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div>
+                <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
+                    <BarChart3 className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E4D2B]" />
+                    <span className="text-base sm:text-lg font-semibold">Gráficos de Performance</span>
+                </CardTitle>
+            </div>
+          </div>
+        </CardHeader>
             <CardContent>
               {chart.component}
             </CardContent>
@@ -664,12 +668,16 @@ export default function OverviewSection() {
 
         {/* Atividade Recente */}
         <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-              <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E4D2B]" />
-              Atividade Recente
-            </CardTitle>
-          </CardHeader>
+                  <CardHeader>
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div>
+                <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
+                    <Activity className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E4D2B]" />
+                    <span className="text-base sm:text-lg font-semibold">Atividade Recente</span>
+                </CardTitle>
+            </div>
+          </div>
+        </CardHeader>
           <CardContent>
             <div className="space-y-3 sm:space-y-4">
               {recentActivity.map((activity, index) => (
@@ -691,12 +699,16 @@ export default function OverviewSection() {
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
           {availableCharts.slice(2).map((chart) => (
             <Card key={chart.id}>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <chart.icon className="w-5 h-5 text-[#1E4D2B]" />
-                  {chart.title}
+                      <CardHeader>
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div>
+                <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
+                    <BarChart3 className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E4D2B]" />
+                    <span className="text-base sm:text-lg font-semibold">Gráficos de Performance</span>
                 </CardTitle>
-              </CardHeader>
+            </div>
+          </div>
+        </CardHeader>
               <CardContent>
                 {chart.component}
               </CardContent>
@@ -708,24 +720,16 @@ export default function OverviewSection() {
       {/* Top Categorias Mais Vendidas - Apenas para Admin e Vendedor */}
       {(isAdmin || isSeller) && (
         <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <TrendingUp className="w-5 h-5 text-[#1E4D2B]" />
-                Top Categorias Mais Vendidas
-              </div>
-              {isAdmin && (
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  onClick={() => handleActionClick('Exportar')}
-                >
-                  <Download className="w-4 h-4 mr-2" />
-                  Exportar
-                </Button>
-              )}
-            </CardTitle>
-          </CardHeader>
+                  <CardHeader>
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div>
+                <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
+                    <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E4D2B]" />
+                    <span className="text-base sm:text-lg font-semibold">Top Categorias</span>
+                </CardTitle>
+            </div>
+          </div>
+        </CardHeader>
           <CardContent>
             <div className="space-y-4">
               {topCategories.map((category, index) => (

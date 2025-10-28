@@ -112,6 +112,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const roles = userData.user_roles?.map((ur: any) => ur.roles?.name).filter(Boolean) || []
       const permissions = userData.user_roles?.flatMap((ur: any) => ur.roles?.permissions || []) || []
 
+
       const userWithData: AuthUser = {
         id: userData.id,
         email: userData.email,
@@ -120,8 +121,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         cpf: userData.cpf,
         cnpj: userData.cnpj,
         avatar_url: userData.avatar_url,
-        roles,
-        permissions
+        roles: roles || [],
+        permissions: permissions || []
       }
 
       setUser(userWithData)
@@ -442,13 +443,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   // Funções de permissão
   const hasPermission = useCallback((permission: Permission): boolean => {
-    if (!user) return false
-    return checkPermission({ permissions: user.permissions }, permission)
+    if (!user || !user.permissions || !user.roles) return false
+    return checkPermission({ permissions: user.permissions, roles: user.roles }, permission)
   }, [user])
 
   const hasRole = useCallback((role: string): boolean => {
-    if (!user) return false
-    return checkRole({ roles: user.roles }, role)
+    if (!user || !user.roles) return false
+    return checkRole({ roles: user.roles, permissions: user.permissions || [] }, role)
   }, [user])
 
   const isAdmin = useCallback((): boolean => {
@@ -466,8 +467,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const getUserPermissions = useCallback((): UserPermissions | null => {
     if (!user) return null
     return {
-      permissions: user.permissions,
-      roles: user.roles
+      permissions: user.permissions || [],
+      roles: user.roles || []
     }
   }, [user])
 

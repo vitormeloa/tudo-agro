@@ -160,11 +160,14 @@ export default function UsersSection() {
       {/* Header com Filtros */}
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <User className="w-5 h-5 text-[#1E4D2B]" />
-              Gerenciamento de Usuários
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div>
+                <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
+                    <User className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E4D2B]" />
+                    <span className="text-base sm:text-lg font-semibold">Gerenciamento de Usuários</span>
+                </CardTitle>
             </div>
+            
             <div className="flex items-center gap-2">
               <ResponsiveButton 
                 variant="outline" 
@@ -174,7 +177,7 @@ export default function UsersSection() {
                 fullWidthOnMobile={false}
               />
             </div>
-          </CardTitle>
+          </div>
         </CardHeader>
         <CardContent>
           <div className="flex flex-col lg:flex-row gap-4">

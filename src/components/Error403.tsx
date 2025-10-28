@@ -16,7 +16,7 @@ interface Error403Props {
 
 export default function Error403({
   title = "Acesso Negado",
-  message = "Você não tem permissão para acessar esta página. Esta área é restrita e requer autenticação.",
+  message = "Você não tem permissão para acessar esta área.",
   showCountdown = false,
   countdownSeconds = 5,
   redirectTo = '/login',
@@ -110,7 +110,7 @@ export default function Error403({
 
           {showBackButton && (
             <Link
-              href="/"
+              href={redirectTo || "/"}
               className="w-full text-[#6E7D5B] hover:text-[#1E4D2B] transition-colors duration-200 inline-block"
             >
               ← Voltar

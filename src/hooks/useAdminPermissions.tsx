@@ -9,7 +9,7 @@ export function useAdminPermissions() {
 
   // Verificar se pode acessar uma seção específica do admin
   const canAccessSection = (section: string): boolean => {
-    if (!user) return false
+    if (!user || !user.roles) return false
     
     // Admin sempre pode acessar tudo
     if (user.roles.includes('admin')) return true
@@ -68,7 +68,7 @@ export function useAdminPermissions() {
 
   // Verificar se pode executar uma ação específica
   const canExecuteAction = (action: string, resource?: string): boolean => {
-    if (!user) return false
+    if (!user || !user.roles) return false
     
     // Admin sempre pode executar tudo
     if (user.roles.includes('admin')) return true
@@ -165,7 +165,7 @@ export function useAdminPermissions() {
 
   // Verificar se pode ver um botão/ação específica
   const canShowButton = (buttonType: string, context?: any): boolean => {
-    if (!user) return false
+    if (!user || !user.roles) return false
     
     // Admin sempre pode ver todos os botões
     if (user.roles.includes('admin')) return true
@@ -217,7 +217,7 @@ export function useAdminPermissions() {
 
   // Verificar se pode acessar um campo específico
   const canAccessField = (field: string, resource?: string): boolean => {
-    if (!user) return false
+    if (!user || !user.roles) return false
     
     // Admin sempre pode acessar todos os campos
     if (user.roles.includes('admin')) return true
@@ -229,7 +229,7 @@ export function useAdminPermissions() {
     ]
     
     if (adminOnlyFields.includes(field)) {
-      return user.roles.includes('admin')
+      return user.roles?.includes('admin') || false
     }
     
     return true
@@ -240,9 +240,9 @@ export function useAdminPermissions() {
     canExecuteAction,
     canShowButton,
     canAccessField,
-    isAdmin: user?.roles.includes('admin') || false,
-    isSeller: user?.roles.includes('vendedor') || false,
-    isBuyer: user?.roles.includes('comprador') || false
+    isAdmin: user?.roles?.includes('admin') || false,
+    isSeller: user?.roles?.includes('vendedor') || false,
+    isBuyer: user?.roles?.includes('comprador') || false
   }
 }
 

@@ -156,18 +156,21 @@ export default function SellersSection() {
     <div className="space-y-4 sm:space-y-6">
       {/* Header com Filtros */}
       <Card>
-        <CardHeader className="p-3 sm:p-6">
-          <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-            <div className="flex items-center gap-2">
-              <Store className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E4D2B]" />
-              <span className="text-base sm:text-lg font-semibold">Gerenciamento de Vendedores</span>
+        <CardHeader>
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div>
+                <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
+                    <Store className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E4D2B]" />
+                    <span className="text-base sm:text-lg font-semibold">Gerenciamento de Vendedores</span>
+                </CardTitle>
             </div>
+            
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 text-xs sm:text-sm text-[#6E7D5B]">
               <span>Pendentes: {sellers.filter(s => s.status === 'pendente').length}</span>
               <span>Aprovados: {sellers.filter(s => s.status === 'aprovado').length}</span>
               <span>Recusados: {sellers.filter(s => s.status === 'recusado').length}</span>
             </div>
-          </CardTitle>
+          </div>
         </CardHeader>
         <CardContent className="p-3 sm:p-6">
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">

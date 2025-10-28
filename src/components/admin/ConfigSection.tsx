@@ -53,12 +53,16 @@ export default function ConfigSection() {
           const Icon = section.icon
           return (
             <Card key={index}>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Icon className="w-5 h-5 text-[#1E4D2B]" />
-                  {section.title}
+                      <CardHeader>
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div>
+                <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
+                    <Settings className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E4D2B]" />
+                    <span className="text-base sm:text-lg font-semibold">Gerenciamento de Configurações</span>
                 </CardTitle>
-              </CardHeader>
+            </div>
+          </div>
+        </CardHeader>
               <CardContent>
                 <div className="space-y-4">
                   {section.items.map((item, itemIndex) => (
@@ -84,11 +88,15 @@ export default function ConfigSection() {
 
       {/* Páginas de Conteúdo */}
       <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <FileText className="w-5 h-5 text-[#1E4D2B]" />
-            Conteúdo das Páginas Institucionais
-          </CardTitle>
+                <CardHeader>
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div>
+                <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
+                    <Settings className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E4D2B]" />
+                    <span className="text-base sm:text-lg font-semibold">Gerenciamento de Configurações</span>
+                </CardTitle>
+            </div>
+          </div>
         </CardHeader>
         <CardContent>
           <div className="grid gap-4">
@@ -120,11 +128,15 @@ export default function ConfigSection() {
 
       {/* Política de Publicação */}
       <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Settings className="w-5 h-5 text-[#1E4D2B]" />
-            Política de Publicação de Anúncios
-          </CardTitle>
+                <CardHeader>
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div>
+                <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
+                    <Settings className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E4D2B]" />
+                    <span className="text-base sm:text-lg font-semibold">Gerenciamento de Configurações</span>
+                </CardTitle>
+            </div>
+          </div>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
@@ -149,11 +161,15 @@ export default function ConfigSection() {
 
       {/* Integrações Externas */}
       <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Link className="w-5 h-5 text-[#1E4D2B]" />
-            Integrações Externas
-          </CardTitle>
+                <CardHeader>
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div>
+                <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
+                    <Settings className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E4D2B]" />
+                    <span className="text-base sm:text-lg font-semibold">Gerenciamento de Configurações</span>
+                </CardTitle>
+            </div>
+          </div>
         </CardHeader>
         <CardContent>
           <div className="grid gap-4">
