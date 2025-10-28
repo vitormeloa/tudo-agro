@@ -43,7 +43,7 @@ export default function LeiloesPage() {
       participants: 47,
       totalLots: 25,
       currentLot: 8,
-      image: "https://images.unsplash.com/photo-1560114928-40f1f1eb26a0?w=400&h=300&fit=crop",
+      image: "/fotos/leiloes/leilao-faz-sta-rita.jpeg",
       location: "Goiás, GO",
       auctioneer: "Leiloeiro João Silva",
       status: "live"
@@ -58,7 +58,7 @@ export default function LeiloesPage() {
       participants: 23,
       totalLots: 12,
       currentLot: 4,
-      image: "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=400&h=300&fit=crop",
+      image: "/fotos/leiloes/leilao-cavalo.webp",
       location: "Minas Gerais, MG",
       auctioneer: "Leiloeiro Maria Santos",
       status: "live"
@@ -73,7 +73,7 @@ export default function LeiloesPage() {
       participants: 31,
       totalLots: 50,
       currentLot: 15,
-      image: "https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=400&h=300&fit=crop",
+      image: "/fotos/leiloes/leilao-faz-sta-rita.jpg",
       location: "São Paulo, SP",
       auctioneer: "Leiloeiro Carlos Oliveira",
       status: "live"
@@ -88,7 +88,7 @@ export default function LeiloesPage() {
       startTime: new Date(Date.now() + 24 * 60 * 60 * 1000),
       estimatedValue: 500000,
       totalLots: 35,
-      image: "https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=400&h=300&fit=crop",
+      image: "/fotos/leiloes/leilao-fazenda.jpg",
       location: "Rio Grande do Sul, RS",
       auctioneer: "Leiloeiro Ana Costa",
       status: "scheduled"
@@ -100,7 +100,7 @@ export default function LeiloesPage() {
       startTime: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
       estimatedValue: 1200000,
       totalLots: 18,
-      image: "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=400&h=300&fit=crop",
+      image: "/fotos/leiloes/apogeu.jpg",
       location: "Minas Gerais, MG",
       auctioneer: "Leiloeiro Roberto Lima",
       status: "scheduled"
@@ -112,7 +112,7 @@ export default function LeiloesPage() {
       startTime: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
       estimatedValue: 150000,
       totalLots: 80,
-      image: "https://images.unsplash.com/photo-1560114928-40f1f1eb26a0?w=400&h=300&fit=crop",
+      image: "/fotos/leiloes/leilao-faz.jpg",
       location: "Goiás, GO",
       auctioneer: "Leiloeiro Pedro Alves",
       status: "scheduled"

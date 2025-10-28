@@ -74,7 +74,7 @@ export default function HomePage() {
       location: "Goiás, GO",
       rating: 4.8,
       reviews: 24,
-      image: "https://images.unsplash.com/photo-1560114928-40f1f1eb26a0?w=400&h=300&fit=crop",
+      image: "/fotos/animais/touro-nelore.jpeg",
       seller: "Fazenda Boa Vista",
       verified: true,
       featured: true,
@@ -91,7 +91,7 @@ export default function HomePage() {
       location: "Minas Gerais, MG",
       rating: 4.9,
       reviews: 18,
-      image: "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=400&h=300&fit=crop",
+      image: "/fotos/animais/egua-mangalarga.jpeg", // Exemplo: você pode criar esta imagem
       seller: "Haras São João",
       verified: true,
       featured: false,
@@ -108,7 +108,7 @@ export default function HomePage() {
       location: "São Paulo, SP",
       rating: 4.7,
       reviews: 31,
-      image: "https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=400&h=300&fit=crop",
+      image: "/fotos/animais/vaca-holandesa.jpeg", // Exemplo: você pode criar esta imagem
       seller: "Fazenda Três Rios",
       verified: true,
       featured: true,
@@ -127,7 +127,7 @@ export default function HomePage() {
       currentBid: 15000,
       participants: 47,
       timeLeft: "2h 45m",
-      image: "https://images.unsplash.com/photo-1560114928-40f1f1eb26a0?w=400&h=300&fit=crop",
+      image: "/fotos/leiloes/leilao-fazenda.jpg",
       location: "Goiás, GO"
     },
     {
@@ -137,7 +137,7 @@ export default function HomePage() {
       currentBid: 85000,
       participants: 23,
       timeLeft: "1h 12m",
-      image: "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=400&h=300&fit=crop",
+      image: "/fotos/leiloes/leilao-cavalo.webp",
       location: "Minas Gerais, MG"
     }
   ]
@@ -151,7 +151,7 @@ export default function HomePage() {
       location: "São Paulo, SP",
       rating: 4.8,
       reviews: 124,
-      image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400&h=300&fit=crop",
+      image: "/fotos/produtos/racao-1.jpg",
       seller: "AgroNutri",
       verified: true,
       featured: true,
@@ -168,7 +168,7 @@ export default function HomePage() {
       location: "Minas Gerais, MG",
       rating: 4.9,
       reviews: 89,
-      image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=400&h=300&fit=crop",
+      image: "/fotos/produtos/milho.webp",
       seller: "Sementes Elite",
       verified: true,
       featured: false,
@@ -185,7 +185,7 @@ export default function HomePage() {
       location: "Goiás, GO",
       rating: 4.7,
       reviews: 156,
-      image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400&h=300&fit=crop",
+      image: "/fotos/produtos/fertilizante.webp",
       seller: "FertilAgro",
       verified: true,
       featured: true,

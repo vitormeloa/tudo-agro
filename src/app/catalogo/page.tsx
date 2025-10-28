@@ -36,13 +36,14 @@ export default function CatalogoPage() {
       location: "Goiás, GO",
       rating: 4.8,
       reviews: 24,
-      image: "https://images.unsplash.com/photo-1560114928-40f1f1eb26a0?w=400&h=300&fit=crop",
+      image: "/fotos/animais/touro-nelore.jpeg",
       seller: "Fazenda Boa Vista",
       verified: true,
       featured: true,
       age: "3 anos",
       weight: "850kg",
-      breed: "Nelore"
+      breed: "Nelore",
+      type: "animal"
     },
     {
       id: 2,
@@ -52,13 +53,14 @@ export default function CatalogoPage() {
       location: "Minas Gerais, MG",
       rating: 4.9,
       reviews: 18,
-      image: "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=400&h=300&fit=crop",
+      image: "/fotos/animais/egua-mangalarga.jpeg",
       seller: "Haras São João",
       verified: true,
       featured: false,
       age: "5 anos",
       weight: "450kg",
-      breed: "Mangalarga"
+      breed: "Mangalarga",
+      type: "animal"
     },
     {
       id: 3,
@@ -68,13 +70,14 @@ export default function CatalogoPage() {
       location: "São Paulo, SP",
       rating: 4.7,
       reviews: 31,
-      image: "https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=400&h=300&fit=crop",
+      image: "/fotos/animais/vaca-holandesa.jpeg",
       seller: "Fazenda Três Rios",
       verified: true,
       featured: true,
       age: "4 anos",
       weight: "650kg",
-      breed: "Holandesa"
+      breed: "Holandesa",
+      type: "animal"
     },
     {
       id: 4,
@@ -84,13 +87,14 @@ export default function CatalogoPage() {
       location: "Rio Grande do Sul, RS",
       rating: 5.0,
       reviews: 12,
-      image: "https://images.unsplash.com/photo-1560114928-40f1f1eb26a0?w=400&h=300&fit=crop",
+      image: "/fotos/animais/angus-premium.jpg",
       seller: "Genética Elite",
       verified: true,
       featured: false,
       age: "N/A",
       weight: "N/A",
-      breed: "Angus"
+      breed: "Angus",
+      type: "animal"
     },
     {
       id: 5,
@@ -100,13 +104,14 @@ export default function CatalogoPage() {
       location: "Mato Grosso, MT",
       rating: 4.6,
       reviews: 15,
-      image: "https://images.unsplash.com/photo-1560114928-40f1f1eb26a0?w=400&h=300&fit=crop",
+      image: "/fotos/animais/novilha-brahman.jpg",
       seller: "Fazenda Pantanal",
       verified: true,
       featured: false,
       age: "2 anos",
       weight: "420kg",
-      breed: "Brahman"
+      breed: "Brahman",
+      type: "animal"
     },
     {
       id: 6,
@@ -116,13 +121,14 @@ export default function CatalogoPage() {
       location: "Bahia, BA",
       rating: 4.8,
       reviews: 9,
-      image: "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=400&h=300&fit=crop",
+      image: "/fotos/animais/garanhao-quarto-de-milha.jpg",
       seller: "Haras Nordeste",
       verified: true,
       featured: true,
       age: "6 anos",
       weight: "520kg",
-      breed: "Quarto de Milha"
+      breed: "Quarto de Milha",
+      type: "animal"
     }
   ]
 

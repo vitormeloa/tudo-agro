@@ -45,8 +45,8 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
     city: "São Paulo",
     description: "Ração premium para gado de corte com formulação balanceada de proteínas, vitaminas e minerais. Desenvolvida para maximizar o ganho de peso e conversão alimentar. Ideal para animais em engorda e terminação.",
     images: [
-      "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=800&h=600&fit=crop",
-      "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&h=600&fit=crop",
+      "/fotos/produtos/racao-1.jpg",
+      "/fotos/produtos/racao-cavalo.jpg",
       "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=800&h=600&fit=crop"
     ],
     seller: {

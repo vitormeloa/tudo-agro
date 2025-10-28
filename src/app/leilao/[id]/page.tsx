@@ -48,7 +48,7 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
       age: "5 anos",
       weight: "850kg",
       images: [
-        "https://images.unsplash.com/photo-1560114928-40f1f1eb26a0?w=800&h=600&fit=crop"
+        "/fotos/leiloes/leilao-faz.jpg"
       ]
     },
     participants: 23,
