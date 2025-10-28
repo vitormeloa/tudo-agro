@@ -15,6 +15,7 @@ import { useAuth } from '@/hooks/useAuth'
 import { useToast } from '@/hooks/use-toast'
 import { useIsMobile } from '@/hooks/use-mobile'
 import { useAdminPermissions } from '@/hooks/useAdminPermissions'
+import LoadingSpinner from '@/components/LoadingSpinner'
 
 interface AdminLayoutProps {
   children: React.ReactNode
@@ -33,14 +34,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
 
   // Verificar se o contexto de autenticação está disponível
   if (!authContext) {
-    return (
-      <div className="min-h-screen bg-[#F7F6F2] flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1E4D2B] mx-auto mb-4"></div>
-          <p className="text-[#6E7D5B]">Carregando...</p>
-        </div>
-      </div>
-    )
+    return <LoadingSpinner text="Carregando..." fullScreen />
   }
 
   // Fechar menu do usuário quando clicar fora

@@ -94,7 +94,10 @@ export default function PermissionsSection() {
       const data = await response.json()
       
       if (response.ok) {
+        console.log('Users loaded:', data.users)
         setUsers(data.users || [])
+      } else {
+        console.error('Error loading users:', data.error)
       }
     } catch (error) {
       console.error('Error loading users:', error)
@@ -446,7 +449,15 @@ export default function PermissionsSection() {
                     </div>
                     <div className="text-center">
                       <p className="text-lg sm:text-2xl font-bold text-[#1E4D2B]">
-                        {users.filter(user => user.roles.includes(role.name)).length}
+                        {(() => {
+                          const userCount = users.filter(user => {
+                            const hasRole = user.roles.includes(role.name)
+                            console.log(`User ${user.name} (${user.email}) has roles:`, user.roles, 'Looking for:', role.name, 'Has role:', hasRole)
+                            return hasRole
+                          }).length
+                          console.log(`Role ${role.name} has ${userCount} users`)
+                          return userCount
+                        })()}
                       </p>
                       <p className="text-xs text-[#6E7D5B]">Usuários</p>
                     </div>
