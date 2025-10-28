@@ -282,7 +282,7 @@ export default function Header({
                           onClick={() => setIsUserMenuOpen(false)}
                         >
                           <Shield className="w-4 h-4 mr-3" />
-                          Painel Admin
+                          Painel
                         </Link>
                       )}
                       
@@ -416,7 +416,7 @@ export default function Header({
                         <Link href="/dashboard/visao-geral" className="block" onClick={() => setIsMenuOpen(false)}>
                           <Button variant="outline" className="w-full justify-start">
                             <Shield className="w-4 h-4 mr-2" />
-                            Painel Admin
+                            Painel
                           </Button>
                         </Link>
                       )}

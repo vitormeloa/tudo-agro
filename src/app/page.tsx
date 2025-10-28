@@ -143,24 +143,34 @@ export default function HomePage() {
 
   const features = [
     {
-      icon: Shield,
-      title: "Segurança Total",
-      description: "Transações protegidas com verificação KYC rural completa e sistema de escrow."
+      icon: "🧠",
+      title: "Use como quiser: comprador, vendedor ou ambos",
+      description: "Cadastre-se e escolha seu perfil: compre com segurança, anuncie seus produtos ou faça os dois com o mesmo login."
     },
     {
-      icon: TrendingUp,
-      title: "Melhores Preços",
-      description: "Conecte-se diretamente com produtores e encontre os melhores negócios."
+      icon: "🛍️",
+      title: "Marketplace completo de produtos agropecuários",
+      description: "Tudo o que o produtor precisa — de suplementos e ração a ferramentas, vestuário rural e muito mais. Produtos agropecuários de A a Z, em um único lugar."
     },
     {
-      icon: Users,
-      title: "Comunidade Ativa",
-      description: "Junte-se a milhares de produtores e compradores de todo o Brasil."
+      icon: "🔒",
+      title: "Segurança com KYC Rural + Escrow",
+      description: "Todas as transações são verificadas com KYC e protegidas por sistema de garantia (escrow). Confiança para quem compra e para quem vende."
     },
     {
-      icon: Zap,
-      title: "Leilões Online",
-      description: "Participe de leilões em tempo real com tecnologia de ponta."
+      icon: "🧑‍🌾",
+      title: "Rede ativa com milhares de fazendas e empresas",
+      description: "Acesse uma comunidade real de produtores e compradores de todo o Brasil, com histórico, avaliações e contatos verificados."
+    },
+    {
+      icon: "🧭",
+      title: "Leilões digitais em tempo real",
+      description: "Participe de leilões de elite com lances online, estrutura profissional e gestão de lotes integrada."
+    },
+    {
+      icon: "📊",
+      title: "Painel completo de controle e gestão",
+      description: "Tenha uma visão clara dos seus anúncios, favoritos, negociações e histórico — tudo em um painel simples e funcional."
     }
   ]
 
@@ -380,19 +390,19 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Por que escolher o TudoAgro?
+              🌱 O TudoAgro é mais que uma plataforma de compra e venda — é o ecossistema digital do agronegócio brasileiro
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              A plataforma mais completa e segura para a agropecuária brasileira
+            <p className="text-xl text-gray-600 max-w-4xl mx-auto">
+              Conectamos produtores, compradores e empresas do setor agro para anunciar, vender e comprar gado, cavalos, genética, insumos, equipamentos e muito mais — tudo com segurança, tecnologia e liberdade total de uso.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature, index) => (
               <Card key={index} className="text-center shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-0 bg-white animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
                 <CardContent className="p-8">
-                  <div className="w-16 h-16 bg-emerald-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                    <feature.icon className="w-8 h-8 text-emerald-600" />
+                  <div className="text-6xl mb-6">
+                    <span>{feature.icon}</span>
                   </div>
                   <h3 className="text-xl font-bold text-gray-900 mb-4">{feature.title}</h3>
                   <p className="text-gray-600 leading-relaxed">{feature.description}</p>
