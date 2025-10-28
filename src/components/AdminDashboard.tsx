@@ -14,6 +14,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { useAuth } from '@/hooks/useAuth'
+import { useAdminPermissions } from '@/hooks/useAdminPermissions'
 import { useToast } from '@/hooks/use-toast'
 import { useIsMobile } from '@/hooks/use-mobile'
 
@@ -30,12 +31,14 @@ import VipSection from './admin/VipSection'
 import AcademySection from './admin/AcademySection'
 import MessagesSection from './admin/MessagesSection'
 import ConfigSection from './admin/ConfigSection'
+import PermissionsSection from './admin/PermissionsSection'
 
 interface AdminDashboardProps {}
 
 export default function AdminDashboard({}: AdminDashboardProps) {
   const authContext = useAuth()
-  const { user, isAdmin, isSeller, isBuyer, signOut } = authContext || {}
+  const { user, signOut } = authContext || {}
+  const { isAdmin, isSeller, isBuyer } = useAdminPermissions()
   const { toast } = useToast()
   const isMobile = useIsMobile()
   const router = useRouter()
@@ -101,6 +104,7 @@ export default function AdminDashboard({}: AdminDashboardProps) {
       { id: 'vip', label: 'Plano VIP e Clube', icon: Crown, alerts: 0, roles: ['admin', 'vendedor', 'comprador'] },
       { id: 'academy', label: 'Academy / IA Agro', icon: GraduationCap, alerts: 0, roles: ['admin', 'vendedor', 'comprador'] },
       { id: 'messages', label: 'Mensagens e Suporte', icon: MessageSquare, alerts: 8, roles: ['admin', 'vendedor', 'comprador'] },
+      { id: 'permissions', label: 'Permissões e Roles', icon: Shield, alerts: 0, roles: ['admin'] },
       { id: 'config', label: 'Configurações', icon: Settings, alerts: 0, roles: ['admin'] }
     ]
 
@@ -108,9 +112,9 @@ export default function AdminDashboard({}: AdminDashboardProps) {
 
     // Filtrar itens baseado no role do usuário
     return allMenuItems.filter(item => {
-      if (isAdmin()) return true // Admin vê tudo
-      if (isSeller() && item.roles.includes('vendedor')) return true
-      if (isBuyer() && item.roles.includes('comprador')) return true
+      if (isAdmin) return true // Admin vê tudo
+      if (isSeller && item.roles.includes('vendedor')) return true
+      if (isBuyer && item.roles.includes('comprador')) return true
       return false
     })
   }
@@ -130,6 +134,7 @@ export default function AdminDashboard({}: AdminDashboardProps) {
       case 'vip': return <VipSection />
       case 'academy': return <AcademySection />
       case 'messages': return <MessagesSection />
+      case 'permissions': return <PermissionsSection />
       case 'config': return <ConfigSection />
       default: return <OverviewSection />
     }
@@ -160,8 +165,8 @@ export default function AdminDashboard({}: AdminDashboardProps) {
               <div>
                 <h1 className="text-2xl font-bold text-[#1E4D2B]">TudoAgro</h1>
                 <p className="text-sm text-[#6E7D5B]">
-                  {isAdmin() ? 'Painel Administrativo' : 
-                   isSeller() ? 'Painel do Vendedor' : 
+                  {isAdmin ? 'Painel Administrativo' : 
+                   isSeller ? 'Painel do Vendedor' : 
                    'Painel do Usuário'}
                 </p>
               </div>
@@ -356,8 +361,8 @@ export default function AdminDashboard({}: AdminDashboardProps) {
                   {menuItems.find(item => item.id === activeSection)?.label}
                 </h2>
                 <p className="text-[#6E7D5B] text-xs sm:text-sm hidden md:block">
-                  {isAdmin() ? 'Gerencie e monitore as operações da plataforma' :
-                   isSeller() ? 'Gerencie seus produtos, leilões e vendas' :
+                  {isAdmin ? 'Gerencie e monitore as operações da plataforma' :
+                   isSeller ? 'Gerencie seus produtos, leilões e vendas' :
                    'Acompanhe suas compras, leilões e atividades'}
                 </p>
               </div>
@@ -383,8 +388,8 @@ export default function AdminDashboard({}: AdminDashboardProps) {
                   </div>
                   <div className="text-sm text-left hidden sm:block">
                     <p className="font-medium text-[#2B2E2B]">
-                      {isAdmin() ? 'Administrador' : 
-                       isSeller() ? 'Vendedor' : 
+                      {isAdmin ? 'Administrador' : 
+                       isSeller ? 'Vendedor' : 
                        'Usuário'}
                     </p>
                     <p className="text-[#6E7D5B] text-xs truncate max-w-32">{user?.email}</p>

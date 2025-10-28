@@ -2,6 +2,10 @@
 
 import { createContext, useContext, useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabase'
+import { Permission, UserPermissions } from '@/lib/permission-utils'
+import { hasPermission as checkPermission, hasRole as checkRole } from '@/lib/permission-utils'
+import { useToast } from '@/hooks/use-toast'
+
 // Definir interface AuthUser localmente
 interface AuthUser {
   id: string
@@ -12,9 +16,8 @@ interface AuthUser {
   cnpj: string | null
   avatar_url: string | null
   roles: string[]
-  permissions: string[]
+  permissions: Permission[]
 }
-import { useToast } from '@/hooks/use-toast'
 
 interface AuthContextType {
   user: AuthUser | null
@@ -24,11 +27,12 @@ interface AuthContextType {
   signOut: () => Promise<void>
   changePassword: (currentPassword: string, newPassword: string) => Promise<{ error?: string }>
   resetPassword: (email: string) => Promise<{ error?: string }>
-  hasPermission: (permission: string) => boolean
+  hasPermission: (permission: Permission) => boolean
   hasRole: (role: string) => boolean
   isAdmin: () => boolean
   isSeller: () => boolean
   isBuyer: () => boolean
+  getUserPermissions: () => UserPermissions | null
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -386,9 +390,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return errorMessages[error] || 'Ocorreu um erro inesperado. Tente novamente.'
   }
 
-  const hasPermission = (permission: string) => {
+  const hasPermission = (permission: Permission) => {
     if (!user) return false
-    return user.permissions.includes(permission)
+    return checkPermission({ roles: user.roles, permissions: user.permissions }, permission)
   }
 
   const hasRole = (role: string) => {
@@ -399,6 +403,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const isAdmin = () => hasRole('admin')
   const isSeller = () => hasRole('vendedor')
   const isBuyer = () => hasRole('comprador')
+
+  const getUserPermissions = (): UserPermissions | null => {
+    if (!user) return null
+    return {
+      roles: user.roles,
+      permissions: user.permissions
+    }
+  }
 
   const value = {
     user,
@@ -412,7 +424,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     hasRole,
     isAdmin,
     isSeller,
-    isBuyer
+    isBuyer,
+    getUserPermissions
   }
 
   return (

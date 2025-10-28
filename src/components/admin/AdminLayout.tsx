@@ -7,13 +7,14 @@ import {
   BarChart3, Users, Store, FileText, Gavel, CreditCard, 
   FileCheck, Gift, Crown, GraduationCap, MessageSquare, 
   Settings, Menu, X, LogOut, Home, AlertTriangle,
-  ChevronDown, UserCircle, Key, Shield
+  ChevronDown, UserCircle, Key, Shield, Heart, Package
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { useAuth } from '@/hooks/useAuth'
 import { useToast } from '@/hooks/use-toast'
 import { useIsMobile } from '@/hooks/use-mobile'
+import { useAdminPermissions } from '@/hooks/useAdminPermissions'
 
 interface AdminLayoutProps {
   children: React.ReactNode
@@ -21,9 +22,10 @@ interface AdminLayoutProps {
 
 export default function AdminLayout({ children }: AdminLayoutProps) {
   const authContext = useAuth()
-  const { user, isAdmin, isSeller, isBuyer, signOut } = authContext || {}
+  const { user, signOut } = authContext || {}
   const { toast } = useToast()
   const isMobile = useIsMobile()
+  const { canAccessSection, isAdmin, isSeller, isBuyer } = useAdminPermissions()
   const pathname = usePathname()
   const router = useRouter()
   const [sidebarOpen, setSidebarOpen] = useState(!isMobile)
@@ -79,6 +81,8 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
       { id: 'usuarios', label: 'Usuários', icon: Users, alerts: 0, roles: ['admin'], href: '/dashboard/usuarios' },
       { id: 'vendedores', label: 'Vendedores', icon: Store, alerts: 3, roles: ['admin'], href: '/dashboard/vendedores' },
       { id: 'anuncios', label: 'Anúncios', icon: FileText, alerts: 7, roles: ['admin', 'vendedor'], href: '/dashboard/anuncios' },
+      { id: 'animais', label: 'Animais', icon: Heart, alerts: 0, roles: ['admin', 'vendedor', 'comprador'], href: '/dashboard/animais' },
+      { id: 'produtos', label: 'Produtos', icon: Package, alerts: 0, roles: ['admin', 'vendedor', 'comprador'], href: '/dashboard/produtos' },
       { id: 'leiloes', label: 'Leilões', icon: Gavel, alerts: 0, roles: ['admin', 'vendedor', 'comprador'], href: '/dashboard/leiloes' },
       { id: 'transacoes', label: 'Transações', icon: CreditCard, alerts: 2, roles: ['admin', 'vendedor', 'comprador'], href: '/dashboard/transacoes' },
       { id: 'documentos', label: 'Documentos (KYC)', icon: FileCheck, alerts: 12, roles: ['admin'], href: '/dashboard/documentos' },
@@ -86,17 +90,15 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
       { id: 'vip', label: 'Plano VIP e Clube', icon: Crown, alerts: 0, roles: ['admin', 'vendedor', 'comprador'], href: '/dashboard/vip' },
       { id: 'academy', label: 'Academy / IA Agro', icon: GraduationCap, alerts: 0, roles: ['admin', 'vendedor', 'comprador'], href: '/dashboard/academy' },
       { id: 'mensagens', label: 'Mensagens e Suporte', icon: MessageSquare, alerts: 8, roles: ['admin', 'vendedor', 'comprador'], href: '/dashboard/mensagens' },
+      { id: 'funcoes', label: 'Funções', icon: Shield, alerts: 0, roles: ['admin'], href: '/dashboard/funcoes' },
       { id: 'configuracoes', label: 'Configurações', icon: Settings, alerts: 0, roles: ['admin'], href: '/dashboard/configuracoes' }
     ]
 
     if (!user) return []
 
-    // Filtrar itens baseado no role do usuário
+    // Filtrar itens baseado nas permissões do usuário
     return allMenuItems.filter(item => {
-      if (isAdmin()) return true // Admin vê tudo
-      if (isSeller() && item.roles.includes('vendedor')) return true
-      if (isBuyer() && item.roles.includes('comprador')) return true
-      return false
+      return canAccessSection(item.id)
     })
   }
 
@@ -130,8 +132,8 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
               <div>
                 <h1 className="text-xl sm:text-2xl font-bold text-[#1E4D2B]">TudoAgro</h1>
                 <p className="text-xs sm:text-sm text-[#6E7D5B]">
-                  {isAdmin() ? 'Painel Administrativo' : 
-                   isSeller() ? 'Painel do Vendedor' : 
+                  {isAdmin ? 'Painel Administrativo' : 
+                   isSeller ? 'Painel do Vendedor' : 
                    'Painel do Usuário'}
                 </p>
               </div>
@@ -327,8 +329,8 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                   {activeItem?.label || 'Dashboard'}
                 </h2>
                 <p className="text-[#6E7D5B] text-xs sm:text-sm hidden md:block">
-                  {isAdmin() ? 'Gerencie e monitore as operações da plataforma' :
-                   isSeller() ? 'Gerencie seus produtos, leilões e vendas' :
+                  {isAdmin ? 'Gerencie e monitore as operações da plataforma' :
+                   isSeller ? 'Gerencie seus produtos, leilões e vendas' :
                    'Acompanhe suas compras, leilões e atividades'}
                 </p>
               </div>
@@ -348,8 +350,8 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                   </div>
                   <div className="text-sm text-left hidden sm:block">
                     <p className="font-medium text-[#2B2E2B] text-xs sm:text-sm">
-                      {isAdmin() ? 'Administrador' : 
-                       isSeller() ? 'Vendedor' : 
+                      {isAdmin ? 'Administrador' : 
+                       isSeller ? 'Vendedor' : 
                        'Usuário'}
                     </p>
                     <p className="text-[#6E7D5B] text-xs truncate max-w-32">{user?.email}</p>

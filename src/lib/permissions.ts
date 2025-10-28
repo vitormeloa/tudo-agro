@@ -1,0 +1,237 @@
+export const PERMISSIONS = {
+  // Dashboard e Visão Geral
+  dashboard: ["read"],
+  
+  // Gestão de Usuários
+  user: ["read", "write", "delete", "approve", "suspend"],
+  
+  // Gestão de Vendedores
+  seller: ["read", "write", "delete", "approve", "reject"],
+  
+  // Gestão de Anúncios
+  ad: ["read", "write", "delete", "moderate", "feature", "approve", "reject", "pause", "request"],
+  
+  // Gestão de Produtos
+  product: ["read", "write", "delete", "manage"],
+  
+  // Gestão de Animais
+  animal: ["read", "write", "delete", "manage", "offer", "purchase"],
+  
+  // Gestão de Leilões
+  auction: ["read", "write", "delete", "moderate", "manage"],
+  
+  // Gestão de Transações
+  transaction: ["read", "write", "delete", "refund", "dispute"],
+  
+  // Gestão de Documentos KYC
+  document: ["read", "write", "delete", "verify", "reject"],
+  
+  // Gestão de Cashback
+  cashback: ["read", "write", "delete", "approve", "reject"],
+  
+  // Gestão de Planos VIP
+  vip: ["read", "write", "delete", "manage"],
+  
+  // Academy e IA
+  academy: ["read", "write", "delete", "moderate"],
+  
+  // Mensagens e Suporte
+  message: ["read", "write", "delete", "moderate"],
+  support: ["read", "write", "delete", "assign", "resolve"],
+  
+  // Gestão de Funções e Permissões
+  role: ["read", "write", "delete"],
+  permission: ["read", "write", "delete"],
+  
+  // Configurações do Sistema
+  config: ["read", "write"],
+  setting: ["read", "write"],
+  
+  // Relatórios e Analytics
+  report: ["read", "export"],
+  analytics: ["read", "export"],
+  
+  // Notificações
+  notification: ["read", "write", "delete", "send"],
+  
+  // Auditoria e Logs
+  audit: ["read", "export"],
+  log: ["read", "export"]
+} as const
+
+export type PermissionResource = keyof typeof PERMISSIONS
+export type PermissionAction = typeof PERMISSIONS[PermissionResource][number]
+export type Permission = `${PermissionResource}:${PermissionAction}`
+
+// Função para gerar todas as permissões possíveis
+export const generateAllPermissions = (): Permission[] => {
+  const permissions: Permission[] = []
+  
+  Object.entries(PERMISSIONS).forEach(([resource, actions]) => {
+    actions.forEach(action => {
+      permissions.push(`${resource}:${action}` as Permission)
+    })
+  })
+  
+  return permissions
+}
+
+// Função para verificar se uma permissão é válida
+export const isValidPermission = (permission: string): permission is Permission => {
+  const [resource, action] = permission.split(':')
+  return resource in PERMISSIONS && PERMISSIONS[resource as PermissionResource].includes(action as PermissionAction)
+}
+
+// Função para obter permissões de um recurso específico
+export const getResourcePermissions = (resource: PermissionResource): Permission[] => {
+  return PERMISSIONS[resource].map(action => `${resource}:${action}` as Permission)
+}
+
+// Função para agrupar permissões por módulo
+export const groupPermissionsByModule = (permissions: Permission[]) => {
+  const grouped: Record<string, Permission[]> = {}
+  
+  permissions.forEach(permission => {
+    const [resource] = permission.split(':')
+    if (!grouped[resource]) {
+      grouped[resource] = []
+    }
+    grouped[resource].push(permission)
+  })
+  
+  return grouped
+}
+
+// Mapeamento de recursos para nomes amigáveis
+export const RESOURCE_LABELS: Record<PermissionResource, string> = {
+  dashboard: "Dashboard",
+  user: "Usuários",
+  seller: "Vendedores",
+  ad: "Anúncios",
+  product: "Produtos",
+  animal: "Animais",
+  auction: "Leilões",
+  transaction: "Transações",
+  document: "Documentos KYC",
+  cashback: "Cashback",
+  vip: "Planos VIP",
+  academy: "Academy/IA",
+  message: "Mensagens",
+  support: "Suporte",
+  role: "Funções",
+  permission: "Permissões",
+  config: "Configurações",
+  setting: "Configurações",
+  report: "Relatórios",
+  analytics: "Analytics",
+  notification: "Notificações",
+  audit: "Auditoria",
+  log: "Logs"
+}
+
+// Mapeamento de ações para nomes amigáveis
+export const ACTION_LABELS: Record<PermissionAction, string> = {
+  read: "Visualizar",
+  write: "Criar/Editar",
+  delete: "Excluir",
+  approve: "Aprovar",
+  reject: "Rejeitar",
+  suspend: "Suspender",
+  moderate: "Moderar",
+  feature: "Destacar",
+  manage: "Gerenciar",
+  refund: "Reembolsar",
+  dispute: "Disputar",
+  verify: "Verificar",
+  assign: "Atribuir",
+  resolve: "Resolver",
+  export: "Exportar",
+  send: "Enviar",
+  pause: "Pausar",
+  request: "Solicitar",
+  offer: "Fazer Oferta",
+  purchase: "Comprar"
+}
+
+// Mapeamento de permissões para funcionalidades do admin
+export const ADMIN_FEATURES = {
+  'dashboard:read': ['visao-geral'],
+  'user:read': ['usuarios'],
+  'user:write': ['usuarios'],
+  'user:delete': ['usuarios'],
+  'user:approve': ['usuarios'],
+  'user:suspend': ['usuarios'],
+  'seller:read': ['vendedores'],
+  'seller:write': ['vendedores'],
+  'seller:delete': ['vendedores'],
+  'seller:approve': ['vendedores'],
+  'seller:reject': ['vendedores'],
+  'ad:read': ['anuncios'],
+  'ad:write': ['anuncios'],
+  'ad:delete': ['anuncios'],
+  'ad:moderate': ['anuncios'],
+  'ad:feature': ['anuncios'],
+  'ad:approve': ['anuncios'],
+  'ad:reject': ['anuncios'],
+  'ad:pause': ['anuncios'],
+  'ad:request': ['anuncios'],
+  'product:read': ['produtos'],
+  'product:write': ['produtos'],
+  'product:delete': ['produtos'],
+  'product:manage': ['produtos'],
+  'animal:read': ['animais'],
+  'animal:write': ['animais'],
+  'animal:delete': ['animais'],
+  'animal:manage': ['animais'],
+  'animal:offer': ['animais'],
+  'animal:purchase': ['animais'],
+  'auction:read': ['leiloes'],
+  'auction:write': ['leiloes'],
+  'auction:delete': ['leiloes'],
+  'auction:moderate': ['leiloes'],
+  'auction:manage': ['leiloes'],
+  'transaction:read': ['transacoes'],
+  'transaction:write': ['transacoes'],
+  'transaction:delete': ['transacoes'],
+  'transaction:refund': ['transacoes'],
+  'transaction:dispute': ['transacoes'],
+  'document:read': ['documentos'],
+  'document:write': ['documentos'],
+  'document:delete': ['documentos'],
+  'document:verify': ['documentos'],
+  'document:reject': ['documentos'],
+  'cashback:read': ['cashback'],
+  'cashback:write': ['cashback'],
+  'cashback:delete': ['cashback'],
+  'cashback:approve': ['cashback'],
+  'cashback:reject': ['cashback'],
+  'vip:read': ['vip'],
+  'vip:write': ['vip'],
+  'vip:delete': ['vip'],
+  'vip:manage': ['vip'],
+  'academy:read': ['academy'],
+  'academy:write': ['academy'],
+  'academy:delete': ['academy'],
+  'academy:moderate': ['academy'],
+  'message:read': ['mensagens'],
+  'message:write': ['mensagens'],
+  'message:delete': ['mensagens'],
+  'message:moderate': ['mensagens'],
+  'support:read': ['mensagens'],
+  'support:write': ['mensagens'],
+  'support:delete': ['mensagens'],
+  'support:assign': ['mensagens'],
+  'support:resolve': ['mensagens'],
+  'role:read': ['funcoes'],
+  'role:write': ['funcoes'],
+  'role:delete': ['funcoes'],
+  'permission:read': ['funcoes'],
+  'permission:write': ['funcoes'],
+  'permission:delete': ['funcoes'],
+  'config:read': ['configuracoes'],
+  'config:write': ['configuracoes'],
+  'setting:read': ['configuracoes'],
+  'setting:write': ['configuracoes']
+} as const
+
+export default PERMISSIONS

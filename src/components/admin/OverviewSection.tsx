@@ -12,6 +12,7 @@ import {
   Target, Activity, Zap, Shield, HeartHandshake
 } from 'lucide-react'
 import { useState } from 'react'
+import { useAdminPermissions } from '@/hooks/useAdminPermissions'
 import SalesChart from './charts/SalesChart'
 import CategoryChart from './charts/CategoryChart'
 import UserGrowthChart from './charts/UserGrowthChart'
@@ -19,6 +20,7 @@ import RevenueChart from './charts/RevenueChart'
 import MetricsDashboard, { AlertCard } from './dashboard/MetricsDashboard'
 
 export default function OverviewSection() {
+  const { isAdmin, isSeller, isBuyer } = useAdminPermissions()
   const [selectedSector, setSelectedSector] = useState('all')
   const [selectedPeriod, setSelectedPeriod] = useState('current-month')
 
@@ -258,12 +260,88 @@ export default function OverviewSection() {
     }
   ]
 
-  const allKpis = [...strategicKpis, ...channelKpis, ...productKpis, ...supportKpis, ...premiumKpis]
+  // Filtrar KPIs baseado nas permissões do usuário
+  const getFilteredKpisByRole = () => {
+    let allowedKpis = []
+    
+    if (isAdmin) {
+      // Admin vê todos os KPIs
+      allowedKpis = [...strategicKpis, ...channelKpis, ...productKpis, ...supportKpis, ...premiumKpis]
+    } else if (isSeller) {
+      // Vendedor vê KPIs relacionados a vendas, leilões e produtos
+      allowedKpis = [
+        // KPIs estratégicos básicos
+        strategicKpis[1], // Volume Total Transacionado
+        strategicKpis[2], // Cashback Distribuído
+        // KPIs de canais (leilões e vendas)
+        ...channelKpis,
+        // KPIs de produtos
+        ...productKpis,
+        // KPIs de suporte básicos
+        supportKpis[0], // Tempo Médio de Resposta
+        supportKpis[1], // Taxa de Satisfação
+        // KPIs VIP básicos
+        premiumKpis[0], // Assinantes VIP Ativos
+        premiumKpis[2], // Conversão p/ VIP
+      ]
+    } else if (isBuyer) {
+      // Comprador vê KPIs básicos e relacionados a compras
+      allowedKpis = [
+        // KPIs estratégicos básicos
+        strategicKpis[1], // Volume Total Transacionado
+        strategicKpis[2], // Cashback Distribuído
+        // KPIs de canais (leilões)
+        channelKpis[0], // Leilões Abertos
+        channelKpis[1], // Vendas por Leilão
+        // KPIs de produtos básicos
+        productKpis[0], // Produtos Ativos
+        productKpis[1], // Categorias Disponíveis
+        // KPIs de suporte básicos
+        supportKpis[0], // Tempo Médio de Resposta
+        supportKpis[1], // Taxa de Satisfação
+        // KPIs VIP básicos
+        premiumKpis[0], // Assinantes VIP Ativos
+        premiumKpis[2], // Conversão p/ VIP
+      ]
+    }
+    
+    return allowedKpis
+  }
+
+  const allKpis = getFilteredKpisByRole()
 
   const getFilteredKpis = () => {
     if (selectedSector === 'all') return allKpis
     return allKpis.filter(kpi => kpi.sector === selectedSector)
   }
+
+  // Filtrar setores disponíveis baseado nas permissões
+  const getAvailableSectors = () => {
+    const allSectors = [
+      { id: 'all', label: 'Todos os Indicadores' },
+      { id: 'strategic', label: 'Setor 1: Indicadores Macro e Estratégicos' },
+      { id: 'channels', label: 'Setor 2: Indicadores por Canal de Venda' },
+      { id: 'product', label: 'Setor 3: Indicadores de Base, Produto e Engajamento' },
+      { id: 'support', label: 'Setor 4: Indicadores de Fluxo e Suporte' },
+      { id: 'premium', label: 'Setor 5: Indicadores Premium e Upgrades' }
+    ]
+
+    if (isAdmin) {
+      return allSectors
+    } else if (isSeller) {
+      return allSectors.filter(sector => 
+        ['all', 'channels', 'product', 'support', 'premium'].includes(sector.id)
+      )
+    } else if (isBuyer) {
+      return allSectors.filter(sector => 
+        ['all', 'channels', 'product', 'support', 'premium'].includes(sector.id)
+      )
+    }
+    
+    return [{ id: 'all', label: 'Todos os Indicadores' }]
+  }
+
+  const availableSectors = getAvailableSectors()
 
   const getSectorTitle = (sector: string) => {
     const titles = {
@@ -277,36 +355,125 @@ export default function OverviewSection() {
     return titles[sector as keyof typeof titles] || titles.all
   }
 
-  const alerts = [
-    {
-      type: 'urgent',
-      title: 'Documentos KYC Pendentes',
-      count: 12,
-      description: 'Verificações de identidade aguardando aprovação',
-      action: 'Revisar Agora'
-    },
-    {
-      type: 'warning',
-      title: 'Anúncios Aguardando Moderação',
-      count: 7,
-      description: 'Novos anúncios precisam ser aprovados',
-      action: 'Moderar'
-    },
-    {
-      type: 'info',
-      title: 'Denúncias Recebidas',
-      count: 8,
-      description: 'Relatórios de usuários sobre conteúdo inadequado',
-      action: 'Investigar'
-    },
-    {
-      type: 'success',
-      title: 'Vendedores Aprovados Hoje',
-      count: 5,
-      description: 'Novos vendedores verificados e ativos',
-      action: 'Ver Lista'
+  // Filtrar alertas baseado nas permissões do usuário
+  const getFilteredAlerts = () => {
+    const allAlerts = [
+      {
+        type: 'urgent',
+        title: 'Documentos KYC Pendentes',
+        count: 12,
+        description: 'Verificações de identidade aguardando aprovação',
+        action: 'Revisar Agora',
+        roles: ['admin'] // Apenas admin
+      },
+      {
+        type: 'warning',
+        title: 'Anúncios Aguardando Moderação',
+        count: 7,
+        description: 'Novos anúncios precisam ser aprovados',
+        action: 'Moderar',
+        roles: ['admin', 'vendedor'] // Admin e vendedor
+      },
+      {
+        type: 'info',
+        title: 'Denúncias Recebidas',
+        count: 8,
+        description: 'Relatórios de usuários sobre conteúdo inadequado',
+        action: 'Investigar',
+        roles: ['admin'] // Apenas admin
+      },
+      {
+        type: 'success',
+        title: 'Vendedores Aprovados Hoje',
+        count: 5,
+        description: 'Novos vendedores verificados e ativos',
+        action: 'Ver Lista',
+        roles: ['admin'] // Apenas admin
+      },
+      {
+        type: 'info',
+        title: 'Novos Leilões Disponíveis',
+        count: 3,
+        description: 'Novos leilões foram iniciados hoje',
+        action: 'Ver Leilões',
+        roles: ['admin', 'vendedor', 'comprador'] // Todos
+      },
+      {
+        type: 'success',
+        title: 'Suas Vendas do Dia',
+        count: 2,
+        description: 'Você realizou 2 vendas hoje',
+        action: 'Ver Vendas',
+        roles: ['vendedor'] // Apenas vendedor
+      },
+      {
+        type: 'info',
+        title: 'Suas Compras Pendentes',
+        count: 1,
+        description: 'Você tem 1 compra aguardando confirmação',
+        action: 'Ver Compras',
+        roles: ['comprador'] // Apenas comprador
+      }
+    ]
+
+    if (isAdmin) {
+      return allAlerts.filter(alert => alert.roles.includes('admin'))
+    } else if (isSeller) {
+      return allAlerts.filter(alert => alert.roles.includes('vendedor'))
+    } else if (isBuyer) {
+      return allAlerts.filter(alert => alert.roles.includes('comprador'))
     }
-  ]
+    
+    return []
+  }
+
+  const alerts = getFilteredAlerts()
+
+  // Filtrar gráficos baseado nas permissões
+  const getFilteredCharts = () => {
+    const allCharts = [
+      {
+        id: 'sales',
+        component: <SalesChart />,
+        title: 'Evolução de Vendas por Canal',
+        icon: BarChart3,
+        roles: ['admin', 'vendedor'] // Admin e vendedor
+      },
+      {
+        id: 'categories',
+        component: <CategoryChart />,
+        title: 'Distribuição por Categorias',
+        icon: PieChart,
+        roles: ['admin', 'vendedor', 'comprador'] // Todos
+      },
+      {
+        id: 'userGrowth',
+        component: <UserGrowthChart />,
+        title: 'Crescimento de Usuários',
+        icon: Users,
+        roles: ['admin'] // Apenas admin
+      },
+      {
+        id: 'revenue',
+        component: <RevenueChart />,
+        title: 'Receita e Comissões',
+        icon: DollarSign,
+        roles: ['admin', 'vendedor'] // Admin e vendedor
+      }
+    ]
+
+    if (isAdmin) {
+      return allCharts
+    } else if (isSeller) {
+      return allCharts.filter(chart => chart.roles.includes('vendedor'))
+    } else if (isBuyer) {
+      return allCharts.filter(chart => chart.roles.includes('comprador'))
+    }
+    
+    return []
+  }
+
+  const availableCharts = getFilteredCharts()
 
   const topCategories = [
     { name: 'Gado de Corte', sales: 1247, percentage: 35.2 },
@@ -398,12 +565,11 @@ export default function OverviewSection() {
                 <SelectValue placeholder="Filtrar por setor" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">Todos os Setores</SelectItem>
-                <SelectItem value="strategic">Setor 1: Macro e Estratégicos</SelectItem>
-                <SelectItem value="channels">Setor 2: Canal de Venda</SelectItem>
-                <SelectItem value="product">Setor 3: Produto e Engajamento</SelectItem>
-                <SelectItem value="support">Setor 4: Fluxo e Suporte</SelectItem>
-                <SelectItem value="premium">Setor 5: Premium e Upgrades</SelectItem>
+                {availableSectors.map(sector => (
+                  <SelectItem key={sector.id} value={sector.id}>
+                    {sector.label}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
@@ -458,31 +624,19 @@ export default function OverviewSection() {
 
       {/* Recursos Complementares */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
-        {/* Gráfico de Vendas */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-              <BarChart3 className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E4D2B]" />
-              Evolução de Vendas por Canal
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <SalesChart />
-          </CardContent>
-        </Card>
-
-        {/* Gráfico de Categorias */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
-              <PieChart className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E4D2B]" />
-              Distribuição por Categorias
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <CategoryChart />
-          </CardContent>
-        </Card>
+        {availableCharts.slice(0, 2).map((chart) => (
+          <Card key={chart.id}>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
+                <chart.icon className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E4D2B]" />
+                {chart.title}
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              {chart.component}
+            </CardContent>
+          </Card>
+        ))}
       </div>
 
       {/* Alertas e Atividade Recente */}
@@ -533,79 +687,73 @@ export default function OverviewSection() {
       </div>
 
       {/* Gráficos Adicionais */}
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-        {/* Crescimento de Usuários */}
+      {availableCharts.length > 2 && (
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+          {availableCharts.slice(2).map((chart) => (
+            <Card key={chart.id}>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <chart.icon className="w-5 h-5 text-[#1E4D2B]" />
+                  {chart.title}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                {chart.component}
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      )}
+
+      {/* Top Categorias Mais Vendidas - Apenas para Admin e Vendedor */}
+      {(isAdmin || isSeller) && (
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Users className="w-5 h-5 text-[#1E4D2B]" />
-              Crescimento de Usuários
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <UserGrowthChart />
-          </CardContent>
-        </Card>
-
-        {/* Receita e Comissões */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <DollarSign className="w-5 h-5 text-[#1E4D2B]" />
-              Receita e Comissões
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <RevenueChart />
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Top Categorias Mais Vendidas */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <TrendingUp className="w-5 h-5 text-[#1E4D2B]" />
-              Top Categorias Mais Vendidas
-            </div>
-            <Button 
-              variant="outline" 
-              size="sm"
-              onClick={() => handleActionClick('Exportar')}
-            >
-              <Download className="w-4 h-4 mr-2" />
-              Exportar
-            </Button>
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            {topCategories.map((category, index) => (
-              <div key={index} className="flex items-center justify-between p-4 rounded-lg bg-[#F7F6F2]">
-                <div className="flex items-center gap-4">
-                  <div className="w-8 h-8 bg-[#1E4D2B] text-white rounded-full flex items-center justify-center font-bold text-sm">
-                    {index + 1}
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-[#2B2E2B]">{category.name}</h4>
-                    <p className="text-sm text-[#6E7D5B]">{category.sales} vendas</p>
-                  </div>
-                </div>
-                <div className="text-right">
-                  <p className="text-lg font-bold text-[#1E4D2B]">{category.percentage}%</p>
-                  <div className="w-20 h-2 bg-gray-200 rounded-full mt-1">
-                    <div 
-                      className="h-full bg-[#1E4D2B] rounded-full"
-                      style={{ width: `${category.percentage}%` }}
-                    ></div>
-                  </div>
-                </div>
+            <CardTitle className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <TrendingUp className="w-5 h-5 text-[#1E4D2B]" />
+                Top Categorias Mais Vendidas
               </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
+              {isAdmin && (
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => handleActionClick('Exportar')}
+                >
+                  <Download className="w-4 h-4 mr-2" />
+                  Exportar
+                </Button>
+              )}
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {topCategories.map((category, index) => (
+                <div key={index} className="flex items-center justify-between p-4 rounded-lg bg-[#F7F6F2]">
+                  <div className="flex items-center gap-4">
+                    <div className="w-8 h-8 bg-[#1E4D2B] text-white rounded-full flex items-center justify-center font-bold text-sm">
+                      {index + 1}
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-[#2B2E2B]">{category.name}</h4>
+                      <p className="text-sm text-[#6E7D5B]">{category.sales} vendas</p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-lg font-bold text-[#1E4D2B]">{category.percentage}%</p>
+                    <div className="w-20 h-2 bg-gray-200 rounded-full mt-1">
+                      <div 
+                        className="h-full bg-[#1E4D2B] rounded-full"
+                        style={{ width: `${category.percentage}%` }}
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
     </div>
   )
 }
