@@ -293,19 +293,52 @@ export default function HomePage() {
             </div>
 
             {/* CTA Buttons */}
-            <div className="animate-fade-in-up flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/catalogo">
-                <Button size="lg" className="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 backdrop-blur-sm">
-                  Explorar Catálogo
-                  <ArrowRight className="w-5 h-5 ml-2" />
-                </Button>
-              </Link>
-              <Link href="/leiloes">
-                <Button size="lg" variant="outline" className="border-2 border-white/80 text-white hover:bg-white hover:text-emerald-600 px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 backdrop-blur-sm bg-white/10">
-                  <Play className="w-5 h-5 mr-2" />
-                  Ver Leilões
-                </Button>
-              </Link>
+            <div className="animate-fade-in-up">
+              {/* Desktop Layout - 3 buttons in a row */}
+              <div className="hidden sm:flex flex-row gap-4 justify-center">
+                <Link href="/catalogo">
+                  <Button size="lg" className="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 backdrop-blur-sm">
+                    Explorar Catálogo
+                    <ArrowRight className="w-5 h-5 ml-2" />
+                  </Button>
+                </Link>
+                <Link href="/leiloes">
+                  <Button size="lg" variant="outline" className="border-2 border-white/80 text-white hover:bg-white hover:text-emerald-600 px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 backdrop-blur-sm bg-white/10">
+                    <Play className="w-5 h-5 mr-2" />
+                    Ver Leilões
+                  </Button>
+                </Link>
+                <Link href="/produtos">
+                  <Button size="lg" variant="outline" className="border-2 border-white/80 text-white hover:bg-white hover:text-emerald-600 px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 backdrop-blur-sm bg-white/10">
+                    <ShoppingCart className="w-5 h-5 mr-2" />
+                    Acessar Mercado Agro
+                  </Button>
+                </Link>
+              </div>
+
+              {/* Mobile Layout - 1 button on top, 2 buttons below */}
+              <div className="flex sm:hidden flex-col gap-4">
+                <Link href="/catalogo" className="w-full">
+                  <Button size="lg" className="w-full bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 backdrop-blur-sm">
+                    Explorar Catálogo
+                    <ArrowRight className="w-5 h-5 ml-2" />
+                  </Button>
+                </Link>
+                <div className="grid grid-cols-2 gap-3">
+                  <Link href="/leiloes">
+                    <Button size="lg" variant="outline" className="w-full border-2 border-white/80 text-white hover:bg-white hover:text-emerald-600 px-4 py-4 text-base font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 backdrop-blur-sm bg-white/10">
+                      <Play className="w-4 h-4 mr-1" />
+                      Ver Leilões
+                    </Button>
+                  </Link>
+                  <Link href="/produtos">
+                    <Button size="lg" variant="outline" className="w-full border-2 border-white/80 text-white hover:bg-white hover:text-emerald-600 px-4 py-4 text-base font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 backdrop-blur-sm bg-white/10">
+                      <ShoppingCart className="w-4 h-4 mr-1" />
+                      Mercado Agro
+                    </Button>
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -446,7 +479,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Produtos em Destaque
+              Mercado Agro
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               Os melhores produtos agropecuários para sua fazenda
