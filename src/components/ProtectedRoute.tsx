@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/hooks/useAuth'
 import LoadingSpinner from '@/components/LoadingSpinner'
@@ -16,14 +16,16 @@ export default function ProtectedRoute({
 }: ProtectedRouteProps) {
   const { user, loading } = useAuth()
   const router = useRouter()
+  const [isRedirecting, setIsRedirecting] = useState(false)
 
   // Redirecionar para login se usuário não estiver autenticado
   useEffect(() => {
-    if (!loading && !user) {
+    if (!loading && !user && !isRedirecting) {
       console.log('No user found after loading, redirecting to login')
+      setIsRedirecting(true)
       router.push('/login')
     }
-  }, [loading, user, router])
+  }, [loading, user, router, isRedirecting])
 
   // Mostrar loading enquanto verifica autenticação
   if (loading) {

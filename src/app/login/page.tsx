@@ -56,10 +56,11 @@ export default function LoginPage() {
       const { error } = await signIn(email, password)
       
       if (!error) {
-        router.push('/dashboard/visao-geral')
+        // Redirecionar para home primeiro, depois o usuário pode navegar
+        router.push('/')
       }
     } catch (err) {
-      // Erro já tratado no hook
+      console.error('Login error:', err)
     } finally {
       setIsLoading(false)
     }

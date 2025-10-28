@@ -97,7 +97,7 @@ export default function AuthButton({ className }: AuthButtonProps) {
             <div className="border-t border-gray-100 my-1"></div>
             
             {/* Painel administrativo */}
-            {isAdmin && (
+            {isAdmin() && (
               <Link 
                 href="/dashboard/visao-geral" 
                 className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
@@ -118,6 +118,7 @@ export default function AuthButton({ className }: AuthButtonProps) {
                     description: "Você foi desconectado com sucesso.",
                   })
                 } catch (error) {
+                  console.error('Logout error:', error)
                   toast({
                     title: "Erro no logout",
                     description: "Ocorreu um erro ao fazer logout. Tente novamente.",

@@ -55,7 +55,7 @@ export default function MobileAuthButton({ onMenuClose, className }: MobileAuthB
               </Button>
             </Link>
             
-            {isAdmin && (
+            {isAdmin() && (
               <Link href="/dashboard/visao-geral" className="block" onClick={onMenuClose}>
                 <Button variant="outline" className="w-full justify-start">
                   <Shield className="w-4 h-4 mr-2" />
@@ -76,6 +76,7 @@ export default function MobileAuthButton({ onMenuClose, className }: MobileAuthB
                   description: "Você foi desconectado com sucesso.",
                 })
               } catch (error) {
+                console.error('Logout error:', error)
                 toast({
                   title: "Erro no logout",
                   description: "Ocorreu um erro ao fazer logout. Tente novamente.",

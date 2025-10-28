@@ -7,7 +7,7 @@ import { hasPermission as checkPermission, hasRole as checkRole } from '@/lib/pe
 import { useToast } from '@/hooks/use-toast'
 import { useRouter } from 'next/navigation'
 
-// Definir interface AuthUser localmente
+// Interface do usuário
 interface AuthUser {
   id: string
   email: string
@@ -42,47 +42,8 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined)
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<AuthUser | null>(null)
   const [loading, setLoading] = useState(true)
-  const [isInitialized, setIsInitialized] = useState(false)
   const { toast } = useToast()
   const router = useRouter()
-
-  // Cache local para persistir estado de autenticação
-  const CACHE_KEY = 'tudo-agro-auth-cache'
-  const CACHE_EXPIRY = 5 * 60 * 1000 // 5 minutos
-
-  // Função para salvar no cache
-  const saveToCache = useCallback((userData: AuthUser | null) => {
-    try {
-      const cacheData = {
-        user: userData,
-        timestamp: Date.now()
-      }
-      localStorage.setItem(CACHE_KEY, JSON.stringify(cacheData))
-    } catch (error) {
-      console.warn('Failed to save auth cache:', error)
-    }
-  }, [])
-
-  // Função para carregar do cache
-  const loadFromCache = useCallback((): AuthUser | null => {
-    try {
-      const cached = localStorage.getItem(CACHE_KEY)
-      if (!cached) return null
-
-      const cacheData = JSON.parse(cached)
-      const isExpired = Date.now() - cacheData.timestamp > CACHE_EXPIRY
-      
-      if (isExpired) {
-        localStorage.removeItem(CACHE_KEY)
-        return null
-      }
-
-      return cacheData.user
-    } catch (error) {
-      console.warn('Failed to load auth cache:', error)
-      return null
-    }
-  }, [])
 
   // Função para criar usuário básico
   const createBasicUser = useCallback((authUser: any): AuthUser => {
@@ -94,24 +55,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       cpf: authUser.user_metadata?.cpf || null,
       cnpj: authUser.user_metadata?.cnpj || null,
       avatar_url: authUser.user_metadata?.avatar_url || null,
-      roles: ['comprador'], // Default role
+      roles: ['comprador'],
       permissions: []
     }
   }, [])
 
-  // Função para carregar dados completos do usuário
+  // Função para carregar dados do usuário
   const loadUser = useCallback(async (userId: string) => {
     try {
       console.log('Loading user data for:', userId)
       
-      // Obter dados do usuário autenticado
-      const { data: { user: authUser }, error: authError } = await supabase.auth.getUser()
-      if (authError || !authUser) {
-        console.error('Auth error:', authError)
-        setUser(null)
-        return
-      }
-
       // Buscar dados do usuário na tabela users
       const { data: userData, error } = await supabase
         .from('users')
@@ -130,23 +83,31 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       if (error) {
         console.error('Database error:', error)
-        // Se usuário não existe na tabela, criar perfil básico
+        // Se usuário não existe na tabela, usar dados básicos
         if (error.code === 'PGRST116') {
-          await createUserProfile(userId, authUser)
+          const { data: { user: authUser } } = await supabase.auth.getUser()
+          if (authUser) {
+            const basicUser = createBasicUser(authUser)
+            setUser(basicUser)
+          }
           return
         }
         
-        // Em caso de outros erros, usar dados básicos do auth
-        const basicUser = createBasicUser(authUser)
-        setUser(basicUser)
-        saveToCache(basicUser)
+        // Em caso de outros erros, usar dados básicos
+        const { data: { user: authUser } } = await supabase.auth.getUser()
+        if (authUser) {
+          const basicUser = createBasicUser(authUser)
+          setUser(basicUser)
+        }
         return
       }
 
       if (!userData) {
-        const basicUser = createBasicUser(authUser)
-        setUser(basicUser)
-        saveToCache(basicUser)
+        const { data: { user: authUser } } = await supabase.auth.getUser()
+        if (authUser) {
+          const basicUser = createBasicUser(authUser)
+          setUser(basicUser)
+        }
         return
       }
 
@@ -167,109 +128,33 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
 
       setUser(userWithData)
-      saveToCache(userWithData)
       console.log('User loaded successfully:', { id: userWithData.id, email: userWithData.email, roles })
     } catch (error) {
       console.error('Error loading user:', error)
-      // Em caso de erro, tentar usar dados básicos do auth
+      // Em caso de erro, usar dados básicos
       try {
         const { data: { user: authUser } } = await supabase.auth.getUser()
         if (authUser) {
           const basicUser = createBasicUser(authUser)
           setUser(basicUser)
-          saveToCache(basicUser)
-        } else {
-          setUser(null)
-          saveToCache(null)
         }
       } catch {
         setUser(null)
-        saveToCache(null)
       }
     }
-  }, [createBasicUser, saveToCache])
+  }, [createBasicUser])
 
-  // Função para criar perfil de usuário
-  const createUserProfile = useCallback(async (userId: string, authUser: any) => {
-    try {
-      // Buscar role de comprador
-      const { data: roles } = await supabase
-        .from('roles')
-        .select('id')
-        .eq('name', 'comprador')
-        .single()
-
-      if (roles) {
-        // Criar perfil do usuário
-        await supabase
-          .from('users')
-          .insert({
-            id: userId,
-            email: authUser.email,
-            name: authUser.user_metadata?.name || null,
-            phone: authUser.user_metadata?.phone || null,
-            cpf: authUser.user_metadata?.cpf || null,
-            cnpj: authUser.user_metadata?.cnpj || null,
-            avatar_url: authUser.user_metadata?.avatar_url || null
-          })
-
-        // Associar role de comprador
-        await supabase
-          .from('user_roles')
-          .insert({
-            user_id: userId,
-            role_id: roles.id
-          })
-      }
-      
-      const basicUser = createBasicUser(authUser)
-      setUser(basicUser)
-      saveToCache(basicUser)
-    } catch (error) {
-      console.error('Error creating user profile:', error)
-      const basicUser = createBasicUser(authUser)
-      setUser(basicUser)
-      saveToCache(basicUser)
-    }
-  }, [createBasicUser, saveToCache])
-
-  // Função para verificar usuário inicial
+  // Verificar usuário inicial
   const checkUser = useCallback(async () => {
     try {
       setLoading(true)
       console.log('Checking user session...')
-      
-      // Primeiro, tentar carregar do cache para uma resposta mais rápida
-      const cachedUser = loadFromCache()
-      if (cachedUser) {
-        console.log('User found in cache, using cached data')
-        setUser(cachedUser)
-        setLoading(false)
-        setIsInitialized(true)
-        
-        // Verificar se a sessão ainda é válida em background
-        setTimeout(async () => {
-          try {
-            const { data: { session } } = await supabase.auth.getSession()
-            if (!session?.user) {
-              console.log('Session expired, clearing cache')
-              setUser(null)
-              saveToCache(null)
-            }
-          } catch (error) {
-            console.warn('Background session check failed:', error)
-          }
-        }, 1000)
-        
-        return
-      }
       
       const { data: { session }, error } = await supabase.auth.getSession()
       
       if (error) {
         console.error('Session error:', error)
         setUser(null)
-        saveToCache(null)
         return
       }
       
@@ -279,31 +164,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       } else {
         console.log('No user session found')
         setUser(null)
-        saveToCache(null)
       }
     } catch (error) {
       console.error('Check user error:', error)
       setUser(null)
-      saveToCache(null)
     } finally {
-      console.log('Check user completed, setting loading to false')
       setLoading(false)
-      setIsInitialized(true)
     }
-  }, [loadUser, loadFromCache, saveToCache])
+  }, [loadUser])
 
-  // Função para refresh do usuário
-  const refreshUser = useCallback(async () => {
-    if (user?.id) {
-      await loadUser(user.id)
-    }
-  }, [user?.id, loadUser])
-
-  // Inicialização e listeners
+  // Inicialização
   useEffect(() => {
-    if (!isInitialized) {
-      checkUser()
-    }
+    checkUser()
 
     // Escutar mudanças na autenticação
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
@@ -316,7 +188,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           setLoading(false)
         } else if (event === 'SIGNED_OUT') {
           setUser(null)
-          saveToCache(null)
           setLoading(false)
         } else if (event === 'TOKEN_REFRESHED' && session) {
           setLoading(true)
@@ -327,7 +198,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     )
 
     return () => subscription.unsubscribe()
-  }, [isInitialized, checkUser, loadUser, saveToCache])
+  }, [checkUser, loadUser])
 
   // Função de login
   const signIn = useCallback(async (email: string, password: string) => {
@@ -376,7 +247,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       setLoading(true)
       
-      // Usar a API de signup que já gerencia roles corretamente
       const response = await fetch('/api/auth/signup', {
         method: 'POST',
         headers: {
@@ -424,37 +294,36 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }, [toast])
 
-  // Função de logout
+  // Função de logout - SIMPLIFICADA
   const signOut = useCallback(async () => {
     try {
-      setLoading(true)
       console.log('Starting logout process...')
       
+      // Limpar estado local primeiro
+      setUser(null)
+      setLoading(false)
+      
+      // Fazer logout do Supabase
       const { error } = await supabase.auth.signOut()
       
       if (error) {
         console.error('Logout error:', error)
-        throw error
+        // Mesmo com erro, continuar com logout local
       }
 
-      setUser(null)
-      saveToCache(null)
       console.log('Logout successful')
       
-      // Redirecionar para home após logout
+      // Redirecionar para home
       router.push('/')
       
     } catch (error) {
       console.error('Logout error:', error)
-      // Mesmo com erro, limpar estado local
+      // Mesmo com erro, limpar estado local e redirecionar
       setUser(null)
-      saveToCache(null)
-      router.push('/')
-      throw error
-    } finally {
       setLoading(false)
+      router.push('/')
     }
-  }, [router, saveToCache])
+  }, [router])
 
   // Função para trocar senha
   const changePassword = useCallback(async (currentPassword: string, newPassword: string) => {
@@ -552,6 +421,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       roles: user.roles || []
     }
   }, [user])
+
+  const refreshUser = useCallback(async () => {
+    if (user?.id) {
+      await loadUser(user.id)
+    }
+  }, [user?.id, loadUser])
 
   const value: AuthContextType = {
     user,
