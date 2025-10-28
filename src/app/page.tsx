@@ -26,7 +26,12 @@ import {
   MessageCircle,
   ChevronRight,
   CheckCircle,
-  Zap
+  Zap,
+  ShoppingCart,
+  UserCheck,
+  Building2,
+  Gavel,
+  BarChart3
 } from 'lucide-react'
 
 export default function HomePage() {
@@ -134,6 +139,57 @@ export default function HomePage() {
     }
   ]
 
+  const featuredProductsAgro = [
+    {
+      id: 1,
+      title: "Ração para Gado de Corte Premium",
+      category: "Rações",
+      price: 45.90,
+      location: "São Paulo, SP",
+      rating: 4.8,
+      reviews: 124,
+      image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400&h=300&fit=crop",
+      seller: "AgroNutri",
+      verified: true,
+      featured: true,
+      weight: "50kg",
+      brand: "NutriMax",
+      stock: "Em estoque"
+    },
+    {
+      id: 2,
+      title: "Sementes de Milho Híbrido",
+      category: "Sementes",
+      price: 89.50,
+      location: "Minas Gerais, MG",
+      rating: 4.9,
+      reviews: 89,
+      image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=400&h=300&fit=crop",
+      seller: "Sementes Elite",
+      verified: true,
+      featured: false,
+      weight: "60.000 sementes",
+      brand: "Pioneer",
+      stock: "Em estoque"
+    },
+    {
+      id: 3,
+      title: "Fertilizante NPK 20-10-10",
+      category: "Fertilizantes",
+      price: 125.00,
+      location: "Goiás, GO",
+      rating: 4.7,
+      reviews: 156,
+      image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400&h=300&fit=crop",
+      seller: "FertilAgro",
+      verified: true,
+      featured: true,
+      weight: "50kg",
+      brand: "Yara",
+      stock: "Em estoque"
+    }
+  ]
+
   const stats = [
     { icon: Users, value: "50k+", label: "Usuários Ativos" },
     { icon: Award, value: "R$ 2.8B", label: "Volume Negociado" },
@@ -143,32 +199,32 @@ export default function HomePage() {
 
   const features = [
     {
-      icon: "🧠",
+      icon: UserCheck,
       title: "Use como quiser: comprador, vendedor ou ambos",
       description: "Cadastre-se e escolha seu perfil: compre com segurança, anuncie seus produtos ou faça os dois com o mesmo login."
     },
     {
-      icon: "🛍️",
+      icon: ShoppingCart,
       title: "Marketplace completo de produtos agropecuários",
       description: "Tudo o que o produtor precisa — de suplementos e ração a ferramentas, vestuário rural e muito mais. Produtos agropecuários de A a Z, em um único lugar."
     },
     {
-      icon: "🔒",
+      icon: Shield,
       title: "Segurança com KYC Rural + Escrow",
       description: "Todas as transações são verificadas com KYC e protegidas por sistema de garantia (escrow). Confiança para quem compra e para quem vende."
     },
     {
-      icon: "🧑‍🌾",
+      icon: Building2,
       title: "Rede ativa com milhares de fazendas e empresas",
       description: "Acesse uma comunidade real de produtores e compradores de todo o Brasil, com histórico, avaliações e contatos verificados."
     },
     {
-      icon: "🧭",
+      icon: Gavel,
       title: "Leilões digitais em tempo real",
       description: "Participe de leilões de elite com lances online, estrutura profissional e gestão de lotes integrada."
     },
     {
-      icon: "📊",
+      icon: BarChart3,
       title: "Painel completo de controle e gestão",
       description: "Tenha uma visão clara dos seus anúncios, favoritos, negociações e histórico — tudo em um painel simples e funcional."
     }
@@ -385,6 +441,37 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Featured Products Agro Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              Produtos em Destaque
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Os melhores produtos agropecuários para sua fazenda
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {featuredProductsAgro.map((product, index) => (
+              <div key={product.id} className="animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
+                <ProductCard product={product} variant="detailed" />
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-12">
+            <Link href="/produtos">
+              <Button size="lg" variant="outline" className="border-2 border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300">
+                Ver Todos os Produtos
+                <ChevronRight className="w-5 h-5 ml-2" />
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Features Section */}
       <section className="py-20 bg-gradient-to-br from-emerald-50 to-green-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -401,8 +488,8 @@ export default function HomePage() {
             {features.map((feature, index) => (
               <Card key={index} className="text-center shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-0 bg-white animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
                 <CardContent className="p-8">
-                  <div className="text-6xl mb-6">
-                    <span>{feature.icon}</span>
+                  <div className="w-16 h-16 bg-emerald-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                    <feature.icon className="w-8 h-8 text-emerald-600" />
                   </div>
                   <h3 className="text-xl font-bold text-gray-900 mb-4">{feature.title}</h3>
                   <p className="text-gray-600 leading-relaxed">{feature.description}</p>
