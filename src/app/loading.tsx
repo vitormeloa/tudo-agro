@@ -7,7 +7,7 @@ export default function Loading() {
           <div className="flex items-center justify-center space-x-3">
             <img 
               src="/fotos/tudo-agro-logo.png" 
-              className="h-12 w-auto sm:h-16 md:h-20 lg:h-24" 
+              className="h-20 w-auto sm:h-28 md:h-36 lg:h-44" 
               alt="TudoAgro Logo"
             />
           </div>
