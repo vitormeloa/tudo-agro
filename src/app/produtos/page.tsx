@@ -285,14 +285,14 @@ export default function ProdutosPage() {
               <Truck className="w-8 h-8 text-blue-600 mr-4" />
               <div>
                 <h4 className="font-semibold text-gray-900">Frete Grátis</h4>
-                <p className="text-sm text-gray-600">Acima de R$ 200</p>
+                <p className="text-sm text-gray-600">Acima de R$ 500</p>
               </div>
             </div>
             <div className="flex items-center p-4 bg-white rounded-lg shadow-sm border">
               <Shield className="w-8 h-8 text-green-600 mr-4" />
               <div>
-                <h4 className="font-semibold text-gray-900">Garantia</h4>
-                <p className="text-sm text-gray-600">Produtos originais</p>
+                <h4 className="font-semibold text-gray-900">Garantia e Segurança</h4>
+                <p className="text-sm text-gray-600">Produtos originais com segurança garantida</p>
               </div>
             </div>
             <div className="flex items-center p-4 bg-white rounded-lg shadow-sm border">
