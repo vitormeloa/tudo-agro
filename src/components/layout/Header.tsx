@@ -47,6 +47,18 @@ export default function Header({
     return () => window.removeEventListener('scroll', handleScroll)
   }, [enableScrollOpacity])
 
+  // Prevenir scroll do body quando menu mobile está aberto
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [isMenuOpen])
+
   const navigation = [
     { name: 'Início', href: '/', current: false },
     { name: 'Animais', href: '/catalogo', current: false },
@@ -57,14 +69,13 @@ export default function Header({
     { name: 'Sobre', href: '/sobre', current: false },
   ]
 
-  const baseClasses = "sticky top-0 z-50 transition-all duration-300"
+  const baseClasses = "sticky top-0 z-[60] transition-all duration-300"
   
   // Calcular opacidade e background baseado no scroll
   const getScrollStyles = () => {
     if (!enableScrollOpacity) {
       return {
-        backgroundColor: variant === 'transparent' ? 'transparent' : 'white',
-        backdropFilter: variant === 'transparent' ? 'none' : 'blur(12px)'
+        backgroundColor: variant === 'transparent' ? 'transparent' : 'white'
       }
     }
 
@@ -75,22 +86,20 @@ export default function Header({
       // Para variant transparent, mudar de transparente para opaco com fundo branco
       const opacity = scrollProgress
       return {
-        backgroundColor: `rgba(255, 255, 255, ${opacity})`,
-        backdropFilter: scrollProgress > 0.1 ? 'blur(12px)' : 'none'
+        backgroundColor: `rgba(255, 255, 255, ${opacity})`
       }
     }
     
     // Para outros variants, manter comportamento original
     const opacity = Math.max(0.85, 0.95 - (scrollProgress * 0.1))
     return {
-      backgroundColor: `rgba(255, 255, 255, ${opacity})`,
-      backdropFilter: 'blur(12px)'
+      backgroundColor: `rgba(255, 255, 255, ${opacity})`
     }
   }
 
   const variantClasses = {
-    default: `backdrop-blur-md border-b border-gray-200/50 shadow-sm`,
-    transparent: scrollY > 10 ? "backdrop-blur-md border-b border-gray-200/50 shadow-sm" : "bg-transparent",
+    default: `border-b border-gray-200/50 shadow-sm`,
+    transparent: scrollY > 10 ? "border-b border-gray-200/50 shadow-sm" : "bg-transparent",
     minimal: "bg-white border-b border-gray-100"
   }
 
@@ -186,30 +195,64 @@ export default function Header({
           </div>
         )}
 
-        {/* Mobile Navigation */}
+        {/* Mobile Navigation Overlay */}
         {isMenuOpen && (
-          <div className="lg:hidden border-t border-gray-200 bg-white">
-            <div className="px-2 pt-2 pb-3 space-y-1">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className={cn(
-                    "block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200",
-                    item.current
-                      ? "bg-emerald-50 text-emerald-600"
-                      : "text-gray-700 hover:bg-gray-50 hover:text-emerald-600"
-                  )}
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item.name}
-                </Link>
-              ))}
-              
-              {/* Mobile Auth - only show user menu when logged in */}
-              {user && (
-                <MobileAuthButton onMenuClose={() => setIsMenuOpen(false)} />
-              )}
+          <div 
+            className="fixed top-16 lg:top-20 left-0 right-0 bottom-0 bg-black/40 backdrop-blur-md z-[55] lg:hidden"
+            style={{ animation: 'fadeIn 0.2s ease-in-out' }}
+            onClick={() => setIsMenuOpen(false)}
+          />
+        )}
+
+        {/* Mobile Navigation Menu - full width to avoid side blur */}
+        {isMenuOpen && (
+          <div 
+            className={cn(
+              "lg:hidden border-t border-gray-200 bg-white relative z-[70] shadow-xl overflow-hidden w-screen",
+              isMenuOpen && "mobile-menu-expand"
+            )}
+            style={{ 
+              maxHeight: '0',
+              opacity: '0',
+              isolation: 'isolate',
+              backdropFilter: 'none',
+              marginLeft: 'calc(-50vw + 50%)',
+              marginRight: 'calc(-50vw + 50%)'
+            }}
+          >
+            <div className="w-full px-4 sm:px-6">
+              <div className="py-3 space-y-0.5">
+                {navigation.map((item, index) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className={cn(
+                      "block px-4 py-3 rounded-lg text-base font-medium transition-all duration-200 mx-1",
+                      item.current
+                        ? "bg-emerald-50 text-emerald-600 font-semibold"
+                        : "text-gray-700 hover:bg-emerald-50/50 hover:text-emerald-600 active:bg-emerald-100"
+                    )}
+                    style={{ 
+                      animation: `fadeInUp 0.25s ease-out ${0.15 + index * 0.03}s both`
+                    }}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+                
+                {/* Mobile Auth - only show user menu when logged in */}
+                {user && (
+                  <div 
+                    className="pt-2 border-t border-gray-100 mt-2"
+                    style={{ 
+                      animation: `fadeInUp 0.25s ease-out ${0.15 + navigation.length * 0.03}s both`
+                    }}
+                  >
+                    <MobileAuthButton onMenuClose={() => setIsMenuOpen(false)} />
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         )}
