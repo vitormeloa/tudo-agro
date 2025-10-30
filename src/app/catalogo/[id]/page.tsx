@@ -48,8 +48,6 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
     description: "Touro Nelore PO (Puro de Origem) certificado, com excelente genética e conformação. Animal jovem, saudável, com histórico sanitário completo e vacinação em dia. Ideal para reprodução e melhoramento genético do rebanho.",
     images: [
       "/fotos/animais/touro-nelore.jpeg",
-      "https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=800&h=600&fit=crop",
-      "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=800&h=600&fit=crop"
     ],
     seller: {
       id: 1,
