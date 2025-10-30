@@ -94,32 +94,39 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-4">
-              <Link href="/produtos" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
-                <ArrowLeft className="w-5 h-5 text-gray-600" />
-                <span className="text-gray-600 font-medium">Voltar aos Produtos</span>
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
+          <div className="flex justify-between items-center h-14 sm:h-16 gap-2">
+            {/* Left: Back Button */}
+            <div className="flex items-center flex-shrink-0">
+              <Link href="/produtos" className="flex items-center space-x-1 sm:space-x-2 hover:opacity-80 transition-opacity">
+                <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" />
+                <span className="text-gray-600 font-medium text-xs sm:text-sm">
+                  <span className="hidden sm:inline">Voltar aos Produtos</span>
+                  <span className="sm:hidden">Voltar</span>
+                </span>
               </Link>
             </div>
 
-            <Link href="/" className="flex items-center space-x-2">
+            {/* Center: Logo */}
+            <Link href="/" className="flex items-center space-x-2 flex-shrink-0 mx-auto sm:mx-0">
               <img 
                 src="/fotos/tudo-agro-logo.png"
-                className="h-14 w-auto sm:h-18 md:h-22 lg:h-26"
+                className="h-16 w-auto sm:h-20 md:h-24 lg:h-28"
                 alt="TudoAgro Logo"
               />
             </Link>
 
-            <div className="flex items-center space-x-4">
+            {/* Right: Auth Buttons */}
+            <div className="flex items-center space-x-1 sm:space-x-2 md:space-x-4 flex-shrink-0">
               <Link href="/login">
-                <Button variant="ghost" className="text-gray-600 hover:text-green-600 hover:bg-gray-50">
+                <Button variant="ghost" size="sm" className="text-gray-600 hover:text-green-600 hover:bg-gray-50 text-xs sm:text-sm">
                   Entrar
                 </Button>
               </Link>
               <Link href="/cadastro">
-                <Button className="bg-green-600 hover:bg-green-700 text-white">
-                  Cadastrar
+                <Button size="sm" className="bg-green-600 hover:bg-green-700 text-white text-xs sm:text-sm px-2 sm:px-4">
+                  <span className="hidden sm:inline">Cadastrar</span>
+                  <span className="sm:hidden">Cad.</span>
                 </Button>
               </Link>
             </div>

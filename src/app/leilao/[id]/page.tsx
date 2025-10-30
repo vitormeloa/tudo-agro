@@ -111,38 +111,75 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
     <div className="min-h-screen bg-gray-50 text-gray-900">
       {/* Header */}
       <header className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-4">
-              <Link href="/leiloes" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
-                <ArrowLeft className="w-5 h-5 text-gray-600" />
-                <span className="text-gray-600 font-medium">Voltar aos Leilões</span>
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
+          <div className="flex justify-between items-center h-14 sm:h-16 gap-2">
+            {/* Left: Back Button */}
+            <div className="flex items-center flex-shrink-0">
+              <Link href="/leiloes" className="flex items-center space-x-1 sm:space-x-2 hover:opacity-80 transition-opacity">
+                <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" />
+                <span className="text-gray-600 font-medium text-xs sm:text-sm">
+                  <span className="hidden sm:inline">Voltar aos Leilões</span>
+                  <span className="sm:hidden">Voltar</span>
+                </span>
               </Link>
             </div>
 
-            <div className="flex items-center space-x-4">
-              <Link href="/" className="flex items-center space-x-2">
+            {/* Center: Logo and Info */}
+            <div className="flex items-center space-x-2 sm:space-x-3 md:space-x-4 flex-1 justify-center min-w-0">
+              <Link href="/" className="flex items-center flex-shrink-0">
                 <img 
                   src="/fotos/tudo-agro-logo.png" 
-                  className="h-6 w-auto sm:h-8 md:h-10 lg:h-12" 
+                  className="h-14 w-auto sm:h-20 md:h-24 lg:h-28" 
                   alt="TudoAgro Logo"
                 />
               </Link>
-              <Badge className="bg-red-500 animate-pulse text-white">
+              <Badge className="bg-red-500 animate-pulse text-white text-xs sm:text-sm whitespace-nowrap hidden sm:inline-flex">
                 AO VIVO
               </Badge>
-              <div className="flex items-center text-gray-600">
-                <Users className="w-4 h-4 mr-1" />
+              <div className="flex items-center text-gray-600 text-xs sm:text-sm whitespace-nowrap hidden md:flex">
+                <Users className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
                 <span>{auction.participants} participantes</span>
               </div>
             </div>
 
+            {/* Right: Controls */}
+            <div className="flex items-center space-x-1 sm:space-x-2 flex-shrink-0">
+              <div className="hidden sm:flex items-center space-x-1 sm:space-x-2">
+                <Button 
+                  variant="ghost" 
+                  size="sm"
+                  onClick={() => setIsMuted(!isMuted)}
+                  className="text-gray-600 hover:bg-gray-100 h-8 w-8 sm:h-9 sm:w-9 p-0"
+                >
+                  {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+                </Button>
+                <Button 
+                  variant="ghost" 
+                  size="sm"
+                  onClick={() => setIsFullscreen(!isFullscreen)}
+                  className="text-gray-600 hover:bg-gray-100 h-8 w-8 sm:h-9 sm:w-9 p-0"
+                >
+                  <Maximize className="w-4 h-4" />
+                </Button>
+              </div>
+              {/* Mobile: Show badge and participants */}
+              <Badge className="bg-red-500 animate-pulse text-white text-xs sm:hidden">
+                AO VIVO
+              </Badge>
+            </div>
+          </div>
+          {/* Mobile: Show participants and controls row */}
+          <div className="sm:hidden flex items-center justify-between pb-2 pt-1 border-t border-gray-100">
+            <div className="flex items-center text-gray-600 text-xs">
+              <Users className="w-3 h-3 mr-1" />
+              <span>{auction.participants} participantes</span>
+            </div>
             <div className="flex items-center space-x-2">
               <Button 
                 variant="ghost" 
                 size="sm"
                 onClick={() => setIsMuted(!isMuted)}
-                className="text-white hover:bg-gray-700"
+                className="text-gray-600 hover:bg-gray-100 h-8 w-8 p-0"
               >
                 {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
               </Button>
@@ -150,7 +187,7 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
                 variant="ghost" 
                 size="sm"
                 onClick={() => setIsFullscreen(!isFullscreen)}
-                className="text-white hover:bg-gray-700"
+                className="text-gray-600 hover:bg-gray-100 h-8 w-8 p-0"
               >
                 <Maximize className="w-4 h-4" />
               </Button>
