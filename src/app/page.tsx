@@ -504,7 +504,7 @@ export default function HomePage() {
               Mercado Agro
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-              Os melhores produtos agropecuários para sua fazenda
+                A vitrine do agro moderno: produtos, marcas e experiências únicas.
             </p>
           </div>
 
