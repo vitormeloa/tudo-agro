@@ -138,8 +138,27 @@ export default function Header({
 
           {/* Right side actions */}
           <div className="flex items-center space-x-2 lg:space-x-4">
-            {/* Auth Button Component */}
+            {/* Desktop Auth Button Component */}
             <AuthButton />
+
+            {/* Mobile Auth Buttons - only show when not logged in */}
+            {!user && (
+              <div className="lg:hidden flex items-center space-x-2">
+                <Link href="/login">
+                  <Button variant="ghost" size="sm" className="text-gray-700 hover:text-emerald-600 text-sm">
+                    Entrar
+                  </Button>
+                </Link>
+                <Link href="/cadastro">
+                  <Button 
+                    size="sm" 
+                    className="bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white text-sm"
+                  >
+                    Cadastrar
+                  </Button>
+                </Link>
+              </div>
+            )}
 
             {/* Mobile menu button */}
             <Button
@@ -187,8 +206,10 @@ export default function Header({
                 </Link>
               ))}
               
-              {/* Mobile Auth */}
-              <MobileAuthButton onMenuClose={() => setIsMenuOpen(false)} />
+              {/* Mobile Auth - only show user menu when logged in */}
+              {user && (
+                <MobileAuthButton onMenuClose={() => setIsMenuOpen(false)} />
+              )}
             </div>
           </div>
         )}
