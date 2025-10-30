@@ -35,29 +35,30 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
   // Dados mockados do produto
   const product = {
     id: resolvedParams.id,
-    title: "Ração para Gado de Corte Premium",
-    category: "Rações",
-    brand: "NutriMax",
-    weight: "50kg",
+    title: "Cachaça Haras Eduardo Costa 600ml",
+    category: "Bebidas",
+    brand: "Eduardo Costa",
+    weight: "600ml",
     stock: "Em estoque",
     price: 45.90,
     location: "São Paulo",
     city: "São Paulo",
-    description: "Ração premium para gado de corte com formulação balanceada de proteínas, vitaminas e minerais. Desenvolvida para maximizar o ganho de peso e conversão alimentar. Ideal para animais em engorda e terminação.",
+    description: "A Cachaça Haras Eduardo Costa 600ml é uma bebida sofisticada envelhecida em tonéis de Amburana, típica da região de Minas Gerais. Com graduação alcoólica de 42%, seu aroma é complexo e intenso, com notas adocicadas e amadeiradas, além de nuances de baunilha, canela e cravo. O sabor é suave e equilibrado, com um toque adocicado e amadeirado característico da amburana. A coloração dourada clara é adquirida durante o processo de envelhecimento e a finalização é suave e persistente, com um sabor levemente picante e amadeirado que permanece na boca. A Cachaça Haras Eduardo Costa é uma bebida que combina a tradição e o savoir-faire da produção de cachaças artesanais de qualidade com o sabor e o aroma únicos conferidos pela madeira de Amburana.\n" +
+        "\n" +
+        "Além disso, é importante destacar que a Cachaça Haras Eduardo Costa envelhecida em amburana é de uma qualidade excepcional, tendo sido adormecida por oito anos para alcançar um sabor e aroma únicos e complexos. O fundador da marca, Eduardo Costa, tinha como exigência fornecer ao seu público uma cachaça de excelente qualidade e preço acessível, e por isso investiu em técnicas de produção e escolha de ingredientes que garantissem a excelência da bebida. Com essa combinação de know-how, ingredientes selecionados e tempo de envelhecimento, a Cachaça Haras Eduardo Costa envelhecida em amburana é uma opção ideal para quem aprecia uma cachaça de alta qualidade e sabor incomparável.",
     images: [
-      "/fotos/produtos/racao-1.jpg",
-      "/fotos/produtos/racao-cavalo.jpg",
-      "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=800&h=600&fit=crop"
+      "/fotos/produtos/cachaca-edu.webp",
+      "/fotos/produtos/cachaca-edu-sem-fundo.webp",
     ],
     seller: {
       id: 1,
-      name: "AgroNutri",
+      name: "Eduardo Costa",
       location: "São Paulo, SP",
       rating: 4.8,
       totalSales: 124,
-      memberSince: "2019",
+      memberSince: "2025",
       verified: true,
-      image: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=100&h=100&fit=crop"
+      image: "/fotos/sobre/edu-secao-nossa.jpeg"
     },
     specifications: {
       protein: "18%",
