@@ -9,34 +9,34 @@ import Footer from '@/components/layout/Footer'
 
 export default function CarreirasPage() {
   const openPositions = [
-    {
-      title: 'Desenvolvedor Full Stack',
-      department: 'Tecnologia',
-      location: 'São Paulo, SP',
-      type: 'Tempo Integral',
-      description: 'Buscamos desenvolvedor experiente em React, Next.js e Node.js para integrar nossa equipe de tecnologia.'
-    },
-    {
-      title: 'Especialista em Agronegócio',
-      department: 'Negócios',
-      location: 'Remoto',
-      type: 'Tempo Integral',
-      description: 'Profissional com experiência em agronegócio para auxiliar no desenvolvimento de estratégias de mercado.'
-    },
-    {
-      title: 'Designer UX/UI',
-      department: 'Design',
-      location: 'São Paulo, SP',
-      type: 'Tempo Integral',
-      description: 'Designer criativo para melhorar a experiência do usuário em nossa plataforma digital.'
-    },
-    {
-      title: 'Analista de Marketing Digital',
-      department: 'Marketing',
-      location: 'Remoto',
-      type: 'Tempo Integral',
-      description: 'Profissional para gerenciar campanhas digitais e estratégias de comunicação no setor agropecuário.'
-    }
+    // {
+    //   title: 'Desenvolvedor Full Stack',
+    //   department: 'Tecnologia',
+    //   location: 'São Paulo, SP',
+    //   type: 'Tempo Integral',
+    //   description: 'Buscamos desenvolvedor experiente em React, Next.js e Node.js para integrar nossa equipe de tecnologia.'
+    // },
+    // {
+    //   title: 'Especialista em Agronegócio',
+    //   department: 'Negócios',
+    //   location: 'Remoto',
+    //   type: 'Tempo Integral',
+    //   description: 'Profissional com experiência em agronegócio para auxiliar no desenvolvimento de estratégias de mercado.'
+    // },
+    // {
+    //   title: 'Designer UX/UI',
+    //   department: 'Design',
+    //   location: 'São Paulo, SP',
+    //   type: 'Tempo Integral',
+    //   description: 'Designer criativo para melhorar a experiência do usuário em nossa plataforma digital.'
+    // },
+    // {
+    //   title: 'Analista de Marketing Digital',
+    //   department: 'Marketing',
+    //   location: 'Remoto',
+    //   type: 'Tempo Integral',
+    //   description: 'Profissional para gerenciar campanhas digitais e estratégias de comunicação no setor agropecuário.'
+    // }
   ]
 
   const benefits = [
