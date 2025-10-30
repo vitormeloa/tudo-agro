@@ -11,9 +11,9 @@ import Footer from '@/components/layout/Footer'
 export default function SobrePage() {
   const stats = [
     { number: "50k+", label: "Animais Vendidos", icon: TrendingUp },
-    { number: "2.5k+", label: "Fazendas Cadastradas", icon: Users },
-    { number: "R$ 2.8B", label: "Volume Negociado", icon: Award },
-    { number: "98%", label: "Satisfação", icon: Heart }
+    { number: "+127k", label: "Produtos Vendidos", icon: Users },
+    { number: "R$ 2.8B", label: "em Negócios Fechados", icon: Award },
+    { number: "98%", label: "de Satisfação", icon: Heart }
   ]
 
   const values = [
@@ -133,10 +133,10 @@ export default function SobrePage() {
                 Nossa Missão
               </h2>
               <p className="text-xl text-gray-600 mb-6 leading-relaxed">
-                Democratizar o acesso ao mercado agropecuário brasileiro, conectando produtores rurais de todo o país através de uma plataforma segura, transparente e tecnológica.
+                  Conectar o agro brasileiro à nova era digital, reunindo em um só lugar quem compra e quem vende — de animais de alto valor genético a produtos essenciais para o campo.
               </p>
               <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-                Acreditamos que a tecnologia pode transformar o agronegócio, tornando as negociações mais eficientes, seguras e acessíveis para produtores de todos os portes.
+                  Acreditamos que a tecnologia pode transformar o agronegócio, tornando negociações mais acessíveis, seguras e eficientes para produtores, criadores e marcas de todos os portes.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <div className="flex items-center">
@@ -155,12 +155,12 @@ export default function SobrePage() {
             </div>
             <div className="relative">
               <img 
-                src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=600&h=400&fit=crop" 
+                src="/fotos/sobre/edu-secao-nossa.jpeg"
                 alt="Fazenda brasileira" 
                 className="rounded-2xl shadow-2xl"
               />
               <div className="absolute -bottom-6 -left-6 bg-emerald-600 text-white p-6 rounded-xl shadow-xl">
-                <div className="text-2xl font-bold">2019</div>
+                <div className="text-2xl font-bold">2025</div>
                 <div className="text-sm">Fundação</div>
               </div>
             </div>
