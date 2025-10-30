@@ -13,8 +13,6 @@ import ProductCard from '@/components/ui/cards/ProductCard'
 import { 
   Search, 
   Filter, 
-  Grid, 
-  List, 
   SlidersHorizontal,
   ChevronDown,
   Star,
@@ -27,7 +25,6 @@ import {
 
 export default function ProdutosPage() {
   const [searchQuery, setSearchQuery] = useState('')
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
   const [favorites, setFavorites] = useState<number[]>([])
   const [showFilters, setShowFilters] = useState(false)
 
@@ -326,34 +323,16 @@ export default function ProdutosPage() {
                 <SelectItem value="recente">Mais Recentes</SelectItem>
               </SelectContent>
             </Select>
-            <div className="flex border border-gray-200 rounded-lg overflow-hidden">
-              <Button
-                variant={viewMode === 'grid' ? 'default' : 'ghost'}
-                size="sm"
-                onClick={() => setViewMode('grid')}
-                className="rounded-none"
-              >
-                <Grid className="w-4 h-4" />
-              </Button>
-              <Button
-                variant={viewMode === 'list' ? 'default' : 'ghost'}
-                size="sm"
-                onClick={() => setViewMode('list')}
-                className="rounded-none"
-              >
-                <List className="w-4 h-4" />
-              </Button>
-            </div>
           </div>
         </div>
 
         {/* Products Grid */}
-        <div className={`grid gap-6 ${viewMode === 'grid' ? 'md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'}`}>
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {products.map((product, index) => (
             <div key={product.id} className="animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
               <ProductCard 
                 product={product} 
-                variant={viewMode === 'list' ? 'compact' : 'default'}
+                variant="default"
               />
             </div>
           ))}
