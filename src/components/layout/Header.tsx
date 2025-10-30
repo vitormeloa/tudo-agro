@@ -52,6 +52,7 @@ export default function Header({
     { name: 'Animais', href: '/catalogo', current: false },
     { name: 'Leilões', href: '/leiloes', current: false },
     { name: 'Produtos', href: '/produtos', current: false },
+    { name: 'Blog', href: '/blog', current: false },
     // { name: 'Vender', href: '/vender', current: false }, // Temporariamente oculto
     { name: 'Sobre', href: '/sobre', current: false },
   ]

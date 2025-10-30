@@ -41,22 +41,22 @@ export default function SobrePage() {
 
   const team = [
     {
-      name: "João Silva",
-      role: "CEO & Fundador",
-      description: "25 anos de experiência no agronegócio",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face"
+      name: "Eduardo Costa",
+      role: "Fundador & Embaixador",
+      description: "Cantor e produtor rural apaixonado",
+      image: "/fotos/sobre/edu.jpg"
     },
     {
-      name: "Maria Santos",
-      role: "CTO",
-      description: "Especialista em tecnologia para o campo",
-      image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=300&h=300&fit=crop&crop=face"
+      name: "Dr Bernardo Guimarães",
+      role: "Fundador & Embaixador",
+      description: "Referência em genética bovina",
+      image: "/fotos/sobre/bernardo.jpeg"
     },
     {
-      name: "Carlos Oliveira",
-      role: "Diretor Comercial",
-      description: "Expert em leilões e negociações rurais",
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face"
+      name: "ExpandTech",
+      role: "Head de Tecnologia",
+      description: "Inovação e tecnologia para o agro",
+      image: "/fotos/sobre/expand.jpeg"
     }
   ]
 
@@ -201,10 +201,10 @@ export default function SobrePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Nossa Equipe
+                Time TudoAgro
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Profissionais experientes dedicados ao sucesso do agronegócio brasileiro
+                União de tradição rural com inovação digital
             </p>
           </div>
 
