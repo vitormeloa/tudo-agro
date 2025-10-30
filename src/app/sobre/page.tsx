@@ -289,11 +289,13 @@ export default function SobrePage() {
               <div className="w-4 h-4 bg-emerald-600 rounded-full mr-6"></div>
               <div className="flex-1 bg-white rounded-lg p-6 shadow-lg">
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-xl font-bold text-gray-900">2019 - Fundação</h3>
+                  <h3 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+                    <span>✅</span> 2023 — Concepção
+                  </h3>
                   <Badge className="bg-emerald-600 text-white">Início</Badge>
                 </div>
                 <p className="text-gray-600">
-                  Nascimento da ideia de conectar produtores rurais através da tecnologia. Primeiros estudos de mercado e desenvolvimento do conceito.
+                  Surgimento da ideia de criar o TudoAgro: uma plataforma completa que une tecnologia e campo, conectando produtores e compradores por meio de um ecossistema inteligente com IA especializada no agro, venda de animais e produtos, leilões online e treinamentos exclusivos para o setor.
                 </p>
               </div>
             </div>
@@ -302,11 +304,13 @@ export default function SobrePage() {
               <div className="w-4 h-4 bg-emerald-600 rounded-full mr-6"></div>
               <div className="flex-1 bg-white rounded-lg p-6 shadow-lg">
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-xl font-bold text-gray-900">2020 - Lançamento</h3>
-                  <Badge className="bg-amber-600 text-white">Marco</Badge>
+                  <h3 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+                    <span>🔧</span> 2024 — Desenvolvimento
+                  </h3>
+                  <Badge className="bg-blue-600 text-white">Estruturação</Badge>
                 </div>
                 <p className="text-gray-600">
-                  Lançamento oficial da plataforma com as primeiras fazendas cadastradas. Início das operações em Goiás e Minas Gerais.
+                  Início do desenvolvimento da plataforma, testes com produtores e validação do modelo com parceiros estratégicos do agro e da tecnologia.
                 </p>
               </div>
             </div>
@@ -315,11 +319,13 @@ export default function SobrePage() {
               <div className="w-4 h-4 bg-emerald-600 rounded-full mr-6"></div>
               <div className="flex-1 bg-white rounded-lg p-6 shadow-lg">
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-xl font-bold text-gray-900">2021 - Expansão</h3>
-                  <Badge className="bg-green-600 text-white">Crescimento</Badge>
+                  <h3 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+                    <span>🚀</span> 2025 — Lançamento
+                  </h3>
+                  <Badge className="bg-amber-600 text-white">Marco</Badge>
                 </div>
                 <p className="text-gray-600">
-                  Expansão para todo o território nacional. Implementação do sistema de leilões online e parcerias com grandes fazendas.
+                  Novembro marca o lançamento oficial do TudoAgro, reunindo marketplace de produtos, gado e cavalos, leilões online, treinamentos, inteligência artificiais, e muito mais… Em um só ecossistema.
                 </p>
               </div>
             </div>
@@ -328,11 +334,13 @@ export default function SobrePage() {
               <div className="w-4 h-4 bg-emerald-600 rounded-full mr-6"></div>
               <div className="flex-1 bg-white rounded-lg p-6 shadow-lg">
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-xl font-bold text-gray-900">2024 - Liderança</h3>
-                  <Badge className="bg-emerald-600 text-white">Presente</Badge>
+                  <h3 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+                    <span>🌱</span> 2026 — Expansão Nacional
+                  </h3>
+                  <Badge className="bg-green-600 text-white">Crescimento</Badge>
                 </div>
                 <p className="text-gray-600">
-                  Consolidação como a maior plataforma de negócios agropecuários do Brasil, com mais de 50 mil animais vendidos e R$ 2,8 bilhões em volume negociado.
+                  Consolidação como a maior plataforma agropecuária do Brasil, com operações em todos os estados, presença predominante em todo território nacional e novos funcionalidades a serem lançadas.
                 </p>
               </div>
             </div>
