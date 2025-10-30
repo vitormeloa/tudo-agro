@@ -34,11 +34,11 @@ export default function Footer({
 
   const footerLinks = {
     marketplace: [
-      { name: 'Catálogo de Animais', href: '/catalogo' },
-      { name: 'Leilões Online', href: '/leiloes' },
+      { name: 'Catálogo', href: '/catalogo' },
+      { name: 'Leilões', href: '/leiloes' },
+      { name: 'Mercado Agro', href: '/produtos' },
       { name: 'Como Vender', href: '/vender' },
       { name: 'Como Comprar', href: '/como-comprar' },
-      { name: 'Preços e Planos', href: '/precos' },
     ],
     company: [
       { name: 'Sobre Nós', href: '/sobre' },
@@ -58,8 +58,6 @@ export default function Footer({
       { name: 'Blog', href: '/blog' },
       { name: 'Guia do Comprador', href: '/guia-comprador' },
       { name: 'Guia do Vendedor', href: '/guia-vendedor' },
-      { name: 'Calculadora de Preços', href: '/calculadora' },
-      { name: 'API', href: '/api' },
     ]
   }
 
@@ -100,17 +98,17 @@ export default function Footer({
 
       {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10">
           {/* Brand Section */}
-          <div className="lg:col-span-1">
+          <div className="sm:col-span-2 lg:col-span-1">
             <div className="flex items-center space-x-3 mb-4">
               <img 
                 src="/fotos/tudo-agro-logo.png" 
-                className="h-12 w-auto sm:h-16 md:h-20 lg:h-24"
+                className="h-12 w-auto sm:h-14 md:h-16 lg:h-20"
                 alt="TudoAgro Logo"
               />
             </div>
-            <p className="text-gray-300 mb-6 text-sm leading-relaxed">
+            <p className="text-gray-300 mb-6 text-sm leading-relaxed max-w-md">
               A maior plataforma de negócios do agronegócio brasileiro. 
               Conectamos produtores e compradores com segurança e transparência.
             </p>
@@ -118,29 +116,29 @@ export default function Footer({
             {/* Contact Info */}
             <div className="space-y-2 text-sm text-gray-400">
               <div className="flex items-center">
-                <Phone className="w-4 h-4 mr-2" />
-                <span>(11) 99999-9999</span>
+                <Phone className="w-4 h-4 mr-2 flex-shrink-0" />
+                <span className="break-words">(11) 99999-9999</span>
               </div>
               <div className="flex items-center">
-                <Mail className="w-4 h-4 mr-2" />
-                <span>contato@tudoagro.com</span>
+                <Mail className="w-4 h-4 mr-2 flex-shrink-0" />
+                <span className="break-words">contato@tudoagro.com</span>
               </div>
               <div className="flex items-center">
-                <MapPin className="w-4 h-4 mr-2" />
-                <span>São Paulo, SP - Brasil</span>
+                <MapPin className="w-4 h-4 mr-2 flex-shrink-0" />
+                <span className="break-words">São Paulo, SP - Brasil</span>
               </div>
             </div>
           </div>
 
           {/* Marketplace Links */}
-          <div>
-            <h4 className="font-semibold text-white mb-4">Marketplace</h4>
-            <ul className="space-y-3">
+          <div className="sm:col-span-1">
+            <h4 className="font-semibold text-white mb-4 text-base">Marketplace</h4>
+            <ul className="space-y-2.5">
               {footerLinks.marketplace.map((link) => (
                 <li key={link.name}>
                   <Link 
                     href={link.href}
-                    className="text-gray-300 hover:text-emerald-400 transition-colors duration-200 text-sm"
+                    className="text-gray-300 hover:text-emerald-400 transition-colors duration-200 text-sm block"
                   >
                     {link.name}
                   </Link>
@@ -150,14 +148,14 @@ export default function Footer({
           </div>
 
           {/* Company Links */}
-          <div>
-            <h4 className="font-semibold text-white mb-4">Empresa</h4>
-            <ul className="space-y-3">
+          <div className="sm:col-span-1">
+            <h4 className="font-semibold text-white mb-4 text-base">Empresa</h4>
+            <ul className="space-y-2.5">
               {footerLinks.company.map((link) => (
                 <li key={link.name}>
                   <Link 
                     href={link.href}
-                    className="text-gray-300 hover:text-emerald-400 transition-colors duration-200 text-sm"
+                    className="text-gray-300 hover:text-emerald-400 transition-colors duration-200 text-sm block"
                   >
                     {link.name}
                   </Link>
@@ -167,14 +165,14 @@ export default function Footer({
           </div>
 
           {/* Support Links */}
-          <div>
-            <h4 className="font-semibold text-white mb-4">Suporte</h4>
-            <ul className="space-y-3">
+          <div className="sm:col-span-1">
+            <h4 className="font-semibold text-white mb-4 text-base">Suporte</h4>
+            <ul className="space-y-2.5">
               {footerLinks.support.map((link) => (
                 <li key={link.name}>
                   <Link 
                     href={link.href}
-                    className="text-gray-300 hover:text-emerald-400 transition-colors duration-200 text-sm"
+                    className="text-gray-300 hover:text-emerald-400 transition-colors duration-200 text-sm block"
                   >
                     {link.name}
                   </Link>
@@ -184,14 +182,14 @@ export default function Footer({
           </div>
 
           {/* Resources Links */}
-          <div>
-            <h4 className="font-semibold text-white mb-4">Recursos</h4>
-            <ul className="space-y-3">
+          <div className="sm:col-span-1 lg:col-span-1">
+            <h4 className="font-semibold text-white mb-4 text-base">Recursos</h4>
+            <ul className="space-y-2.5">
               {footerLinks.resources.map((link) => (
                 <li key={link.name}>
                   <Link 
                     href={link.href}
-                    className="text-gray-300 hover:text-emerald-400 transition-colors duration-200 text-sm"
+                    className="text-gray-300 hover:text-emerald-400 transition-colors duration-200 text-sm block"
                   >
                     {link.name}
                   </Link>

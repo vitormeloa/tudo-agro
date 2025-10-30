@@ -6,6 +6,7 @@ import PostCard from '@/components/blog/PostCard'
 import ThemeFilter from '@/components/blog/ThemeFilter'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
+import { Button } from '@/components/ui/button'
 import { Loader2 } from 'lucide-react'
 import { mockBlogPosts, mockThemes } from '@/lib/mock-blog-posts'
 
@@ -38,10 +39,13 @@ interface BlogPost {
 export default function BlogPage() {
   const searchParams = useSearchParams()
   const [posts, setPosts] = useState<BlogPost[]>([])
+  const [allPosts, setAllPosts] = useState<BlogPost[]>([])
   const [themes] = useState<BlogTheme[]>(mockThemes)
   const [selectedTheme, setSelectedTheme] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [savedPostIds, setSavedPostIds] = useState<Set<string>>(new Set())
+  const [currentPage, setCurrentPage] = useState(1)
+  const postsPerPage = 6
 
   useEffect(() => {
     const themeParam = searchParams.get('theme')
@@ -59,8 +63,12 @@ export default function BlogPage() {
   }, [])
 
   useEffect(() => {
-    loadPosts()
+    setCurrentPage(1) // Reset para primeira página quando muda o tema
   }, [selectedTheme])
+
+  useEffect(() => {
+    loadPosts()
+  }, [selectedTheme, currentPage])
 
   const loadPosts = () => {
     setLoading(true)
@@ -186,6 +194,21 @@ export default function BlogPage() {
             ))}
           </div>
         )}
+
+        {/* Pagination */}
+        <div className="flex justify-center mt-12">
+          <div className="flex items-center space-x-2">
+            <Button variant="outline" disabled className="border-gray-300 text-gray-400">
+              Anterior
+            </Button>
+            <Button className="bg-emerald-600 text-white">1</Button>
+            <Button variant="outline" className="border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white">2</Button>
+            <Button variant="outline" className="border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white">3</Button>
+            <Button variant="outline" className="border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white">
+              Próximo
+            </Button>
+          </div>
+        </div>
       </main>
 
       <Footer />
