@@ -104,7 +104,7 @@ export default function Footer({
             <div className="flex items-center space-x-3 mb-4">
               <img 
                 src="/fotos/tudo-agro-logo.png" 
-                className="h-12 w-auto sm:h-14 md:h-16 lg:h-20"
+                className="h-20 w-auto sm:h-20 md:h-22 lg:h-26"
                 alt="TudoAgro Logo"
               />
             </div>
