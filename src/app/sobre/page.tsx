@@ -62,25 +62,25 @@ export default function SobrePage() {
 
   const testimonials = [
     {
-      name: "Roberto Fazenda",
-      role: "Fazenda Boa Vista - GO",
-      content: "O TudoAgro revolucionou a forma como vendemos nossos animais. Conseguimos alcançar compradores de todo o Brasil e aumentamos nossa receita em 40%.",
+      name: "Leonardo",
+      role: "Fazenda Talismã – GO",
+      content: "Com o TudoAgro, vendi meu lote de gado em tempo recorde. A estrutura é segura, rápida e me deu muito mais controle sobre as negociações.",
       rating: 5,
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face"
+      image: "/fotos/depoimentos/leonardo.jpeg"
     },
     {
-      name: "Ana Costa",
-      role: "Haras Três Corações - MG",
-      content: "A plataforma é muito segura e fácil de usar. Já participei de vários leilões e sempre tive uma experiência excelente. Recomendo para todos.",
+      name: "Gusttavo Lima",
+      role: "Fazenda Balada – MG",
+      content: "Uso o TudoAgro para tudo — de suplementos a leilões. É o marketplace mais completo que já vi para o agro brasileiro.",
       rating: 5,
-      image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face"
+      image: "/fotos/depoimentos/gustavo-lima.jpeg"
     },
     {
-      name: "Pedro Almeida",
-      role: "Fazenda Pantanal - MT",
-      content: "Encontrei os melhores reprodutores para meu rebanho através do TudoAgro. A qualidade dos animais e o suporte da equipe são excepcionais.",
+      name: "Amado Batista",
+      role: "Fazenda AB – MT",
+      content: "Sempre fui apaixonado pelo campo. No TudoAgro encontrei uma plataforma que respeita o produtor e facilita de verdade a vida de quem vive da terra.",
       rating: 5,
-      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face"
+      image: "/fotos/depoimentos/amado-batista.jpeg"
     }
   ]
 
@@ -347,7 +347,7 @@ export default function SobrePage() {
             Faça parte da nossa história
           </h2>
           <p className="text-xl text-emerald-100 mb-8 max-w-2xl mx-auto">
-            Junte-se a milhares de produtores que já transformaram seus negócios com o TudoAgro
+              Conecte-se ao agro do futuro. Cadastre-se gratuitamente e comece a vender ou comprar com tecnologia, segurança e alcance nacional.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/cadastro">
