@@ -21,6 +21,7 @@ import {
   Gavel,
   Star
 } from 'lucide-react'
+import { mockAuctions } from '@/lib/mock-auctions'
 
 export default function LeiloesPage() {
   const [currentTime, setCurrentTime] = useState(new Date())
@@ -32,92 +33,36 @@ export default function LeiloesPage() {
     return () => clearInterval(timer)
   }, [])
 
-  const liveAuctions = [
-    {
-      id: 1,
-      title: "Leilão Fazenda Santa Rita - Elite Nelore",
-      type: "Gado de Corte",
-      currentBid: 15000,
-      startingBid: 8000,
-      endTime: new Date(Date.now() + 2 * 60 * 60 * 1000 + 45 * 60 * 1000 + 30 * 1000),
-      participants: 47,
-      totalLots: 25,
-      currentLot: 8,
-      image: "/fotos/leiloes/leilao-faz-sta-rita.jpeg",
-      location: "Goiás, GO",
-      auctioneer: "Leiloeiro João Silva",
-      status: "live"
-    },
-    {
-      id: 2,
-      title: "Leilão Elite Genética - Cavalos Premium",
-      type: "Cavalos",
-      currentBid: 85000,
-      startingBid: 45000,
-      endTime: new Date(Date.now() + 1 * 60 * 60 * 1000 + 12 * 60 * 1000 + 15 * 1000),
-      participants: 23,
-      totalLots: 12,
-      currentLot: 4,
-      image: "/fotos/leiloes/leilao-cavalo.webp",
-      location: "Minas Gerais, MG",
-      auctioneer: "Leiloeiro Maria Santos",
-      status: "live"
-    },
-    {
-      id: 3,
-      title: "Leilão Sêmen Premium - Genética Certificada",
-      type: "Sêmen Bovino",
-      currentBid: 2500,
-      startingBid: 800,
-      endTime: new Date(Date.now() + 5 * 60 * 60 * 1000 + 30 * 60 * 1000 + 45 * 1000),
-      participants: 31,
-      totalLots: 50,
-      currentLot: 15,
-      image: "/fotos/leiloes/leilao-faz-sta-rita.jpg",
-      location: "São Paulo, SP",
-      auctioneer: "Leiloeiro Carlos Oliveira",
-      status: "live"
-    }
-  ]
+  // Usar leilões ao vivo do mock
+  const liveAuctions = mockAuctions.filter(a => a.status === 'live').map(a => ({
+    id: a.id,
+    title: a.title,
+    type: a.type,
+    currentBid: a.currentBid || 0,
+    startingBid: a.startingBid || 0,
+    endTime: a.endTime || new Date(),
+    participants: a.participants,
+    totalLots: a.totalLots,
+    currentLot: a.currentLotNumber || 0,
+    image: a.image,
+    location: a.location,
+    auctioneer: a.auctioneer,
+    status: a.status
+  }))
 
-  const upcomingAuctions = [
-    {
-      id: 4,
-      title: "Leilão Fazenda Boa Esperança",
-      type: "Gado de Leite",
-      startTime: new Date(Date.now() + 24 * 60 * 60 * 1000),
-      estimatedValue: 500000,
-      totalLots: 35,
-      image: "/fotos/leiloes/leilao-fazenda.jpg",
-      location: "Rio Grande do Sul, RS",
-      auctioneer: "Leiloeiro Ana Costa",
-      status: "scheduled"
-    },
-    {
-      id: 5,
-      title: "Leilão Haras Três Corações",
-      type: "Cavalos",
-      startTime: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
-      estimatedValue: 1200000,
-      totalLots: 18,
-      image: "/fotos/leiloes/apogeu.jpg",
-      location: "Minas Gerais, MG",
-      auctioneer: "Leiloeiro Roberto Lima",
-      status: "scheduled"
-    },
-    {
-      id: 6,
-      title: "Leilão Genética Premium",
-      type: "Sêmen",
-      startTime: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-      estimatedValue: 150000,
-      totalLots: 80,
-      image: "/fotos/leiloes/leilao-faz.jpg",
-      location: "Goiás, GO",
-      auctioneer: "Leiloeiro Pedro Alves",
-      status: "scheduled"
-    }
-  ]
+  // Usar próximos leilões do mock
+  const upcomingAuctions = mockAuctions.filter(a => a.status === 'scheduled').map(a => ({
+    id: a.id,
+    title: a.title,
+    type: a.type,
+    startTime: a.startTime || new Date(),
+    estimatedValue: a.estimatedValue || 0,
+    totalLots: a.totalLots,
+    image: a.image,
+    location: a.location,
+    auctioneer: a.auctioneer,
+    status: a.status
+  }))
 
   const formatTimeLeft = (endTime: Date) => {
     const now = currentTime
@@ -247,7 +192,7 @@ export default function LeiloesPage() {
                   </div>
                   <div className="absolute top-4 right-4">
                     <div className="bg-black/70 text-white px-2 py-1 rounded text-sm font-bold">
-                      Lote {auction.currentLot}/{auction.totalLots}
+                      Lote {auction.currentLotNumber || 0}/{auction.totalLots}
                     </div>
                   </div>
                 </div>
@@ -337,16 +282,18 @@ export default function LeiloesPage() {
                     <div className="flex justify-between items-center">
                       <span className="text-gray-600">Início:</span>
                       <span className="font-bold text-emerald-600">
-                        {formatDateTime(auction.startTime)}
+                        {auction.startTime ? formatDateTime(auction.startTime) : 'A definir'}
                       </span>
                     </div>
                     
-                    <div className="flex justify-between items-center">
-                      <span className="text-gray-600">Valor estimado:</span>
-                      <span className="font-bold text-emerald-600 text-lg">
-                        R$ {auction.estimatedValue.toLocaleString()}
-                      </span>
-                    </div>
+                    {auction.estimatedValue && (
+                      <div className="flex justify-between items-center">
+                        <span className="text-gray-600">Valor estimado:</span>
+                        <span className="font-bold text-emerald-600 text-lg">
+                          R$ {auction.estimatedValue.toLocaleString()}
+                        </span>
+                      </div>
+                    )}
                     
                     <div className="flex justify-between items-center">
                       <span className="text-gray-600">Total de lotes:</span>
@@ -374,9 +321,11 @@ export default function LeiloesPage() {
                       <TrendingUp className="w-4 h-4 mr-2" />
                       Agendar Lembrete
                     </Button>
-                    <Button variant="outline" className="border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white">
-                      Ver Detalhes
-                    </Button>
+                    <Link href={`/leilao/${auction.id}`} className="flex-1">
+                      <Button variant="outline" className="w-full border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white">
+                        Ver Detalhes
+                      </Button>
+                    </Link>
                   </div>
                 </CardContent>
               </Card>

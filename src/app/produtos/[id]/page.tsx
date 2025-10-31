@@ -25,57 +25,30 @@ import {
   Play,
   ShoppingCart
 } from 'lucide-react'
+import { mockProducts } from '@/lib/mock-products'
 
 export default function ProdutoPage({ params }: { params: Promise<{ id: string }> }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [isFavorite, setIsFavorite] = useState(false)
   
   const resolvedParams = use(params)
-
-  // Dados mockados do produto
-  const product = {
-    id: resolvedParams.id,
-    title: "Cachaça Haras Eduardo Costa 600ml",
-    category: "Bebidas",
-    brand: "Eduardo Costa",
-    weight: "600ml",
-    stock: "Em estoque",
-    price: 45.90,
-    location: "São Paulo",
-    city: "São Paulo",
-    description: "A Cachaça Haras Eduardo Costa 600ml é uma bebida sofisticada envelhecida em tonéis de Amburana, típica da região de Minas Gerais. Com graduação alcoólica de 42%, seu aroma é complexo e intenso, com notas adocicadas e amadeiradas, além de nuances de baunilha, canela e cravo. O sabor é suave e equilibrado, com um toque adocicado e amadeirado característico da amburana. A coloração dourada clara é adquirida durante o processo de envelhecimento e a finalização é suave e persistente, com um sabor levemente picante e amadeirado que permanece na boca. A Cachaça Haras Eduardo Costa é uma bebida que combina a tradição e o savoir-faire da produção de cachaças artesanais de qualidade com o sabor e o aroma únicos conferidos pela madeira de Amburana.\n" +
-        "\n" +
-        "Além disso, é importante destacar que a Cachaça Haras Eduardo Costa envelhecida em amburana é de uma qualidade excepcional, tendo sido adormecida por oito anos para alcançar um sabor e aroma únicos e complexos. O fundador da marca, Eduardo Costa, tinha como exigência fornecer ao seu público uma cachaça de excelente qualidade e preço acessível, e por isso investiu em técnicas de produção e escolha de ingredientes que garantissem a excelência da bebida. Com essa combinação de know-how, ingredientes selecionados e tempo de envelhecimento, a Cachaça Haras Eduardo Costa envelhecida em amburana é uma opção ideal para quem aprecia uma cachaça de alta qualidade e sabor incomparável.",
-    images: [
-      "/fotos/produtos/cachaca-edu.webp",
-      "/fotos/produtos/cachaca-edu-sem-fundo.webp",
-    ],
-    seller: {
-      id: 1,
-      name: "Eduardo Costa",
-      location: "São Paulo, SP",
-      rating: 4.8,
-      totalSales: 124,
-      memberSince: "2025",
-      verified: true,
-      image: "/fotos/sobre/edu-secao-nossa.jpeg"
-    },
-    specifications: {
-      protein: "18%",
-      fiber: "12%",
-      calcium: "0.8%",
-      phosphorus: "0.6%",
-      energy: "2.8 Mcal/kg"
-    },
-    documents: [
-      "Certificado de qualidade",
-      "Análise nutricional",
-      "Registro no MAPA",
-      "Garantia de origem",
-      "Manual de uso"
-    ],
-    type: "venda", // ou "leilao"
-    featured: true
+  const productId = resolvedParams.id
+  
+  // Buscar produto pelo ID (UUID)
+  const product = mockProducts.find(p => p.id === productId)
+  
+  // Se não encontrar, mostrar erro
+  if (!product) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">Produto não encontrado</h1>
+          <Link href="/produtos">
+            <Button>Voltar para Produtos</Button>
+          </Link>
+        </div>
+      </div>
+    )
   }
 
   const nextImage = () => {
@@ -233,7 +206,7 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
               </div>
 
               <div className="text-4xl font-bold text-green-600 mb-6">
-                R$ {product.price.toLocaleString()}
+                R$ {product.price.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
               </div>
             </div>
 
@@ -274,10 +247,10 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
               </CardContent>
             </Card>
 
-            {/* Nutritional Details */}
+            {/* Specifications Details */}
             <Card className="bg-white border-gray-200 shadow-lg">
               <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Composição Nutricional</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">Detalhes Técnicos</h3>
                 <div className="space-y-3">
                   {Object.entries(product.specifications).map(([key, value]) => (
                     <div key={key} className="flex justify-between">
@@ -293,19 +266,10 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
 
             {/* Action Buttons */}
             <div className="space-y-4">
-              {product.type === 'venda' ? (
-                <Button className="w-full bg-green-600 hover:bg-green-700 text-white py-4 text-lg transition-all hover:scale-105">
-                  <ShoppingCart className="w-5 h-5 mr-2" />
-                  Comprar Agora
-                </Button>
-              ) : (
-                <Link href={`/leilao/${product.id}`}>
-                  <Button className="w-full bg-yellow-500 hover:bg-yellow-600 text-black py-4 text-lg transition-all hover:scale-105">
-                    <Play className="w-5 h-5 mr-2" />
-                    Participar do Leilão
-                  </Button>
-                </Link>
-              )}
+              <Button className="w-full bg-green-600 hover:bg-green-700 text-white py-4 text-lg transition-all hover:scale-105">
+                <ShoppingCart className="w-5 h-5 mr-2" />
+                Comprar Agora
+              </Button>
               
               <Button 
                 variant="outline" 
@@ -358,11 +322,11 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
               <div className="flex items-start space-x-6">
                 <div className="relative">
                   <img 
-                    src={product.seller.image} 
-                    alt={product.seller.name}
+                    src={product.sellerInfo.image} 
+                    alt={product.sellerInfo.name}
                     className="w-20 h-20 rounded-full object-cover"
                   />
-                  {product.seller.verified && (
+                  {product.sellerInfo.verified && (
                     <div className="absolute -top-2 -right-2 bg-green-600 text-white p-1 rounded-full">
                       <Shield className="w-4 h-4" />
                     </div>
@@ -372,28 +336,28 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
                 <div className="flex-1">
                   <div className="flex items-center mb-2">
                     <h3 className="text-xl font-bold text-gray-900 mr-3">
-                      {product.seller.name}
+                      {product.sellerInfo.name}
                     </h3>
-                    {product.seller.verified && (
+                    {product.sellerInfo.verified && (
                       <Badge className="bg-green-600 text-white">VERIFICADO</Badge>
                     )}
                   </div>
                   
                   <div className="flex items-center text-gray-600 mb-2">
                     <MapPin className="w-4 h-4 mr-1" />
-                    <span>{product.seller.location}</span>
+                    <span>{product.sellerInfo.location}</span>
                   </div>
                   
                   <div className="flex items-center mb-4">
                     <Star className="w-4 h-4 text-yellow-500 fill-current mr-1" />
-                    <span className="font-medium text-gray-900 mr-2">{product.seller.rating}</span>
+                    <span className="font-medium text-gray-900 mr-2">{product.sellerInfo.rating}</span>
                     <span className="text-gray-500">
-                      ({product.seller.totalSales} vendas • Membro desde {product.seller.memberSince})
+                      ({product.sellerInfo.totalSales} vendas • Membro desde {product.sellerInfo.memberSince})
                     </span>
                   </div>
                   
                   <div className="flex gap-3">
-                    <Link href={`/vendedor/${product.seller.id}`}>
+                    <Link href={`/vendedor/${product.sellerInfo.id}`}>
                       <Button variant="outline" className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white">
                         Ver Perfil Completo
                       </Button>

@@ -17,6 +17,7 @@ import {
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import ProductCard from '@/components/ui/cards/ProductCard'
+import { mockProducts } from '@/lib/mock-products'
 import { 
   Search, 
   Filter, 
@@ -37,104 +38,25 @@ export default function ProdutosPage() {
   const [showFilters, setShowFilters] = useState(false)
   const [showCategoriesModal, setShowCategoriesModal] = useState(false)
 
-  const products = [
-    {
-      id: 1,
-      title: "Cachaça Haras Eduardo Costa 600ml",
-      category: "Bebidas Artesanais e Produtos da Fazenda",
-      price: 45.90,
-      location: "São Paulo, SP",
-      rating: 4.8,
-      reviews: 124,
-      image: "/fotos/produtos/cachaca-edu.webp",
-      seller: "Eduardo Costa",
-      verified: true,
-      featured: true,
-      weight: "600ml",
-      brand: "Eduardo Costa",
-      stock: "Em estoque"
-    },
-    {
-      id: 2,
-      title: "Semente Milho Bm 3066",
-      category: "Sementes e Mudas",
-      price: 89.50,
-      location: "Minas Gerais, MG",
-      rating: 4.9,
-      reviews: 89,
-      image: "/fotos/produtos/semente-milho.jpeg",
-      seller: "Sementes Elite",
-      verified: true,
-      featured: false,
-      weight: "2.000",
-      brand: "Sementes Elite",
-      stock: "Em estoque"
-    },
-    {
-      id: 3,
-      title: "Proteinados para Pasto",
-      category: "Nutrição Animal",
-      price: 125.00,
-      location: "Goiás, GO",
-      rating: 4.7,
-      reviews: 156,
-      image: "/fotos/produtos/proteinados-para-pasto.jpeg",
-      seller: "FertilAgro",
-      verified: true,
-      featured: true,
-      weight: "50kg",
-      brand: "Yara",
-      stock: "Em estoque"
-    },
-    {
-      id: 4,
-      title: "Herbicida Glifosato Premium (1L ou 5L)",
-      category: "Insumos Agrícolas e Fertilizantes",
-      price: 78.90,
-      location: "Mato Grosso, MT",
-      rating: 4.6,
-      reviews: 67,
-      image: "/fotos/produtos/glifosato-2021.jpg",
-      seller: "AgroDefense",
-      verified: true,
-      featured: false,
-      weight: "1L",
-      brand: "Syngenta",
-      stock: "Em estoque"
-    },
-    {
-      id: 5,
-      title: "Probióticos para Ruminantes",
-      category: "Suplementos e Aditivos",
-      price: 67.50,
-      location: "Rio Grande do Sul, RS",
-      rating: 4.8,
-      reviews: 43,
-      image: "/fotos/produtos/dbr-probiotico-pasta.jpg",
-      seller: "EquiNutri",
-      verified: true,
-      featured: true,
-      weight: "25kg",
-      brand: "Purina",
-      stock: "Em estoque"
-    },
-    {
-      id: 6,
-      title: "Promotor De Engorda + Vermifugo 3.6%",
-      category: "Saúde e Bem-Estar Animal",
-      price: 145.00,
-      location: "Paraná, PR",
-      rating: 4.9,
-      reviews: 98,
-      image: "/fotos/produtos/promotor.webp",
-      seller: "Vermífugos Agro",
-      verified: true,
-      featured: false,
-      weight: "500ml",
-      brand: "Monsanto",
-      stock: "Em estoque"
-    }
-  ]
+  // Mapear produtos do mock para o formato esperado pelo ProductCard
+  const products = mockProducts.map(p => ({
+    id: p.id,
+    title: p.title,
+    category: p.category,
+    price: p.price,
+    location: p.location,
+    rating: p.rating,
+    reviews: p.reviews,
+    image: p.image,
+    seller: p.seller,
+    verified: p.verified,
+    featured: p.featured,
+    weight: p.weight,
+    brand: p.brand,
+    stock: p.stock,
+    type: 'product' as const
+  }))
+
 
   const categories = [
     { name: 'Nutrição Animal', count: 234, color: '#B8E8D1' },

@@ -25,56 +25,30 @@ import {
   Play,
   ShoppingCart
 } from 'lucide-react'
+import { mockAnimals } from '@/lib/mock-animals'
 
 export default function AnimalPage({ params }: { params: Promise<{ id: string }> }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [isFavorite, setIsFavorite] = useState(false)
   
   const resolvedParams = use(params)
-
-  // Dados mockados do animal
-  const animal = {
-    id: resolvedParams.id,
-    title: "Touro Nelore PO Certificado",
-    category: "Gado de Corte",
-    breed: "Nelore",
-    sex: "Macho",
-    age: "3 anos",
-    weight: "850kg",
-    height: "1.50m",
-    price: 45000,
-    location: "Goiás",
-    city: "Goiânia",
-    description: "Touro Nelore PO (Puro de Origem) certificado, com excelente genética e conformação. Animal jovem, saudável, com histórico sanitário completo e vacinação em dia. Ideal para reprodução e melhoramento genético do rebanho.",
-    images: [
-      "/fotos/animais/touro-nelore.jpeg",
-    ],
-    seller: {
-      id: 1,
-      name: "Fazenda Boa Vista",
-      location: "Goiânia, GO",
-      rating: 4.8,
-      totalSales: 24,
-      memberSince: "2020",
-      verified: true,
-      image: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=100&h=100&fit=crop"
-    },
-    specifications: {
-      production: "PO Certificado",
-      breeding: "Inseminação artificial",
-      feed: "Pasto + suplementação",
-      health: "Vacinação completa",
-      genetics: "Linha materna elite"
-    },
-    documents: [
-      "Registro genealógico",
-      "Exames sanitários",
-      "Certificado de vacinação",
-      "Teste de brucelose e tuberculose",
-      "Certificado de origem"
-    ],
-    type: "venda", // ou "leilao"
-    featured: true
+  const animalId = resolvedParams.id
+  
+  // Buscar animal pelo ID (UUID)
+  const animal = mockAnimals.find(a => a.id === animalId)
+  
+  // Se não encontrar, mostrar erro
+  if (!animal) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">Animal não encontrado</h1>
+          <Link href="/catalogo">
+            <Button>Voltar para Catálogo</Button>
+          </Link>
+        </div>
+      </div>
+    )
   }
 
   const nextImage = () => {

@@ -10,6 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import ProductCard from '@/components/ui/cards/ProductCard'
+import { mockAnimals } from '@/lib/mock-animals'
 import { 
   Search, 
   Filter, 
@@ -24,110 +25,24 @@ export default function CatalogoPage() {
   const [favorites, setFavorites] = useState<number[]>([])
   const [showFilters, setShowFilters] = useState(false)
 
-  const products = [
-    {
-      id: 1,
-      title: "Touro Nelore PO Certificado",
-      category: "Gado de Corte",
-      price: 45000,
-      location: "Goiás, GO",
-      rating: 4.8,
-      reviews: 24,
-      image: "/fotos/animais/touro-nelore.jpeg",
-      seller: "Fazenda Boa Vista",
-      verified: true,
-      featured: true,
-      age: "3 anos",
-      weight: "850kg",
-      breed: "Nelore",
-      type: "animal"
-    },
-    {
-      id: 2,
-      title: "Égua Mangalarga Marchador",
-      category: "Cavalos",
-      price: 25000,
-      location: "Minas Gerais, MG",
-      rating: 4.9,
-      reviews: 18,
-      image: "/fotos/animais/egua-mangalarga.jpeg",
-      seller: "Haras São João",
-      verified: true,
-      featured: false,
-      age: "5 anos",
-      weight: "450kg",
-      breed: "Mangalarga",
-      type: "animal"
-    },
-    {
-      id: 3,
-      title: "Vaca Holandesa Produtiva",
-      category: "Gado de Leite",
-      price: 8500,
-      location: "São Paulo, SP",
-      rating: 4.7,
-      reviews: 31,
-      image: "/fotos/animais/vaca-holandesa.jpeg",
-      seller: "Fazenda Três Rios",
-      verified: true,
-      featured: true,
-      age: "4 anos",
-      weight: "650kg",
-      breed: "Holandesa",
-      type: "animal"
-    },
-    {
-      id: 4,
-      title: "Sêmen Angus Premium",
-      category: "Sêmen",
-      price: 150,
-      location: "Rio Grande do Sul, RS",
-      rating: 5.0,
-      reviews: 12,
-      image: "/fotos/animais/angus-premium.jpg",
-      seller: "Genética Elite",
-      verified: true,
-      featured: false,
-      age: "N/A",
-      weight: "N/A",
-      breed: "Angus",
-      type: "animal"
-    },
-    {
-      id: 5,
-      title: "Novilha Brahman",
-      category: "Gado de Corte",
-      price: 12000,
-      location: "Mato Grosso, MT",
-      rating: 4.6,
-      reviews: 15,
-      image: "/fotos/animais/novilha-brahman.jpg",
-      seller: "Fazenda Pantanal",
-      verified: true,
-      featured: false,
-      age: "2 anos",
-      weight: "420kg",
-      breed: "Brahman",
-      type: "animal"
-    },
-    {
-      id: 6,
-      title: "Garanhão Quarto de Milha",
-      category: "Cavalos",
-      price: 35000,
-      location: "Bahia, BA",
-      rating: 4.8,
-      reviews: 9,
-      image: "/fotos/animais/garanhao-quarto-de-milha.jpg",
-      seller: "Haras Nordeste",
-      verified: true,
-      featured: true,
-      age: "6 anos",
-      weight: "520kg",
-      breed: "Quarto de Milha",
-      type: "animal"
-    }
-  ]
+  // Mapear animais do mock para o formato esperado pelo ProductCard
+  const products = mockAnimals.map(a => ({
+    id: a.id,
+    title: a.title,
+    category: a.category,
+    price: a.price,
+    location: a.location,
+    rating: 4.8, // Default rating
+    reviews: 0, // Default reviews
+    image: a.images[0],
+    seller: a.seller.name,
+    verified: a.seller.verified,
+    featured: a.featured,
+    age: a.age,
+    weight: a.weight,
+    breed: a.breed,
+    type: 'animal' as const
+  }))
 
   const categories = [
     { name: 'Gado de Corte', count: 156, color: 'bg-emerald-100 text-emerald-800' },

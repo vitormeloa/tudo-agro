@@ -24,6 +24,7 @@ import {
   AlertCircle,
   CheckCircle
 } from 'lucide-react'
+import { mockAuctions } from '@/lib/mock-auctions'
 
 export default function LeilaoPage({ params }: { params: Promise<{ id: string }> }) {
   const [currentBid, setCurrentBid] = useState(45000)
@@ -36,44 +37,38 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
   const [isFullscreen, setIsFullscreen] = useState(false)
   
   const resolvedParams = use(params)
-
-  // Dados mockados do leilão
-  const auction = {
-    id: resolvedParams.id,
-    title: "Leilão Fazenda São João - Nelore Elite",
-    currentLot: {
-      number: 15,
-      title: "Touro Nelore PO Reprodutor",
-      description: "Touro nelore de excelente genética, com registro genealógico completo",
-      age: "5 anos",
-      weight: "850kg",
-      images: [
-        "/fotos/leiloes/leilao-faz.jpg"
-      ]
-    },
-    participants: 23,
-    totalLots: 25,
-    organizer: "Fazenda São João",
-    rules: [
-      "Lance mínimo: R$ 1.000",
-      "Incremento mínimo: R$ 500", 
-      "Tempo de arrematação: 30 segundos",
-      "Pagamento: 30% entrada, saldo em 30 dias"
-    ],
-    bidHistory: [
-      { bidder: "João S.", amount: 45000, time: "14:35:20" },
-      { bidder: "Maria L.", amount: 44500, time: "14:35:15" },
-      { bidder: "Carlos M.", amount: 44000, time: "14:35:10" },
-      { bidder: "Ana P.", amount: 43500, time: "14:35:05" },
-      { bidder: "Pedro R.", amount: 43000, time: "14:35:00" }
-    ],
-    chatMessages: [
-      { user: "Moderador", message: "Lote 15 em leilão! Touro Nelore PO", time: "14:35:25", isSystem: true },
-      { user: "João S.", message: "Excelente animal!", time: "14:35:22", isSystem: false },
-      { user: "Maria L.", message: "Boa genética", time: "14:35:18", isSystem: false },
-      { user: "Moderador", message: "Lance atual: R$ 45.000", time: "14:35:20", isSystem: true }
-    ]
+  const auctionId = resolvedParams.id
+  
+  // Buscar leilão pelo ID (UUID)
+  const auction = mockAuctions.find(a => a.id === auctionId)
+  
+  // Se não encontrar, mostrar erro
+  if (!auction) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">Leilão não encontrado</h1>
+          <Link href="/leiloes">
+            <Button>Voltar para Leilões</Button>
+          </Link>
+        </div>
+      </div>
+    )
   }
+  
+  // Inicializar lance atual com o primeiro lance do histórico ou currentBid
+  useEffect(() => {
+    if (auction.status === 'live') {
+      if (auction.currentBid) {
+        setCurrentBid(auction.currentBid)
+      } else if (auction.bidHistory && auction.bidHistory.length > 0) {
+        setCurrentBid(auction.bidHistory[0].amount)
+      }
+      setIsLive(true)
+    } else {
+      setIsLive(false)
+    }
+  }, [auction])
 
   // Timer countdown
   useEffect(() => {
@@ -205,135 +200,176 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
               <CardContent className="p-0">
                 <div className="relative">
                   <img 
-                    src={auction.currentLot.images[0]} 
-                    alt={auction.currentLot.title}
+                    src={auction.image} 
+                    alt={auction.title}
                     className="w-full h-96 object-cover rounded-t-lg"
                   />
-                  <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-                    <Button 
-                      size="lg"
-                      className="bg-red-600 hover:bg-red-700 text-white rounded-full w-16 h-16"
-                    >
-                      <Play className="w-8 h-8" />
-                    </Button>
-                  </div>
-                  
-                  {/* Live Indicator */}
-                  <div className="absolute top-4 left-4">
-                    <Badge className="bg-red-500 animate-pulse">
-                      🔴 AO VIVO
-                    </Badge>
-                  </div>
+                  {auction.status === 'live' && (
+                    <>
+                      <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
+                        <Button 
+                          size="lg"
+                          className="bg-red-600 hover:bg-red-700 text-white rounded-full w-16 h-16"
+                        >
+                          <Play className="w-8 h-8" />
+                        </Button>
+                      </div>
+                      
+                      {/* Live Indicator */}
+                      <div className="absolute top-4 left-4">
+                        <Badge className="bg-red-500 animate-pulse">
+                          🔴 AO VIVO
+                        </Badge>
+                      </div>
 
-                  {/* Timer */}
-                  <div className="absolute top-4 right-4 bg-black/70 text-white px-4 py-2 rounded-lg">
-                    <div className="flex items-center">
-                      <Timer className="w-4 h-4 mr-2" />
-                      <span className="font-mono text-lg font-bold text-red-400">
-                        {formatTime(timeLeft)}
-                      </span>
+                      {/* Timer */}
+                      <div className="absolute top-4 right-4 bg-black/70 text-white px-4 py-2 rounded-lg">
+                        <div className="flex items-center">
+                          <Timer className="w-4 h-4 mr-2" />
+                          <span className="font-mono text-lg font-bold text-red-400">
+                            {formatTime(timeLeft)}
+                          </span>
+                        </div>
+                      </div>
+                    </>
+                  )}
+                  {auction.status === 'scheduled' && (
+                    <div className="absolute top-4 left-4">
+                      <Badge className="bg-blue-500 text-white">
+                        Agendado
+                      </Badge>
                     </div>
-                  </div>
+                  )}
                 </div>
                 
                 <div className="p-6">
                   <div className="flex justify-between items-start mb-4">
                     <div>
                       <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                        Lote {auction.currentLot.number}: {auction.currentLot.title}
+                        {auction.currentLot ? `Lote ${auction.currentLot.number}: ${auction.currentLot.title}` : auction.title}
                       </h2>
-                      <p className="text-gray-600 mb-4">{auction.currentLot.description}</p>
-                      <div className="flex gap-4 text-sm text-gray-500">
-                        <span>Idade: {auction.currentLot.age}</span>
-                        <span>Peso: {auction.currentLot.weight}</span>
+                      <p className="text-gray-600 mb-4">
+                        {auction.currentLot?.description || `Leilão agendado com ${auction.totalLots} lotes.`}
+                      </p>
+                      {auction.currentLot && (
+                        <div className="flex gap-4 text-sm text-gray-500">
+                          {auction.currentLot.age && <span>Idade: {auction.currentLot.age}</span>}
+                          {auction.currentLot.weight && <span>Peso: {auction.currentLot.weight}</span>}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Current Bid / Scheduled Info */}
+            {auction.status === 'live' ? (
+              <>
+                <Card className="bg-white border-gray-200 shadow-lg">
+                  <CardContent className="p-6">
+                    <div className="text-center">
+                      <div className="text-4xl font-bold text-green-600 mb-2">
+                        R$ {currentBid.toLocaleString()}
+                      </div>
+                      <div className="text-gray-500 mb-4">Lance atual</div>
+                      
+                      {timeLeft <= 10 && (
+                        <div className="text-red-600 font-bold animate-pulse">
+                          ATENÇÃO: Leilão encerrando em {timeLeft}s!
+                        </div>
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Bidding Area */}
+                <Card className="bg-white border-gray-200 shadow-lg">
+                  <CardContent className="p-6">
+                    <h3 className="text-xl font-bold text-gray-900 mb-4">Fazer Lance</h3>
+                
+                    <div className="grid md:grid-cols-2 gap-4 mb-4">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Valor do Lance (R$)
+                        </label>
+                        <div className="relative">
+                          <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500" />
+                          <Input
+                            type="number"
+                            placeholder={`Mínimo: ${(currentBid + 500).toLocaleString()}`}
+                            value={myBid}
+                            onChange={(e) => setMyBid(e.target.value)}
+                            className="pl-10 bg-white border-gray-300 text-gray-900 focus:border-green-500 focus:ring-green-500"
+                          />
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Auto-Lance até (R$)
+                        </label>
+                        <Input
+                          type="number"
+                          placeholder="Opcional"
+                          value={autoBidLimit}
+                          onChange={(e) => setAutoBidLimit(e.target.value)}
+                          className="bg-white border-gray-300 text-gray-900 focus:border-green-500 focus:ring-green-500"
+                        />
                       </div>
                     </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
 
-            {/* Current Bid */}
-            <Card className="bg-white border-gray-200 shadow-lg">
-              <CardContent className="p-6">
-                <div className="text-center">
-                  <div className="text-4xl font-bold text-green-600 mb-2">
-                    R$ {currentBid.toLocaleString()}
-                  </div>
-                  <div className="text-gray-500 mb-4">Lance atual</div>
-                  
-                  {timeLeft <= 10 && (
-                    <div className="text-red-600 font-bold animate-pulse">
-                      ATENÇÃO: Leilão encerrando em {timeLeft}s!
+                    <div className="flex gap-3">
+                      <Button 
+                        onClick={handleBid}
+                        className="flex-1 bg-green-600 hover:bg-green-700 text-white py-3 text-lg"
+                      >
+                        <Gavel className="w-5 h-5 mr-2" />
+                        Dar Lance
+                      </Button>
+                      <Button 
+                        variant="outline" 
+                        className="border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-black"
+                      >
+                        Lance Rápido +R$ 1.000
+                      </Button>
                     </div>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
 
-            {/* Bidding Area */}
-            <Card className="bg-white border-gray-200 shadow-lg">
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Fazer Lance</h3>
-                
-                <div className="grid md:grid-cols-2 gap-4 mb-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Valor do Lance (R$)
-                    </label>
-                    <div className="relative">
-                      <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500" />
-                      <Input
-                        type="number"
-                        placeholder={`Mínimo: ${(currentBid + 500).toLocaleString()}`}
-                        value={myBid}
-                        onChange={(e) => setMyBid(e.target.value)}
-                        className="pl-10 bg-white border-gray-300 text-gray-900 focus:border-green-500 focus:ring-green-500"
-                      />
+                    <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                      <div className="flex items-start">
+                        <AlertCircle className="w-5 h-5 text-blue-600 mr-2 mt-0.5" />
+                        <div className="text-sm text-blue-800">
+                          <strong>Auto-Lance:</strong> Configure um valor limite e o sistema dará lances 
+                          automaticamente por você até esse valor.
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Auto-Lance até (R$)
-                    </label>
-                    <Input
-                      type="number"
-                      placeholder="Opcional"
-                      value={autoBidLimit}
-                      onChange={(e) => setAutoBidLimit(e.target.value)}
-                      className="bg-white border-gray-300 text-gray-900 focus:border-green-500 focus:ring-green-500"
-                    />
-                  </div>
-                </div>
-
-                <div className="flex gap-3">
-                  <Button 
-                    onClick={handleBid}
-                    className="flex-1 bg-green-600 hover:bg-green-700 text-white py-3 text-lg"
-                  >
-                    <Gavel className="w-5 h-5 mr-2" />
-                    Dar Lance
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    className="border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-black"
-                  >
-                    Lance Rápido +R$ 1.000
-                  </Button>
-                </div>
-
-                <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-                  <div className="flex items-start">
-                    <AlertCircle className="w-5 h-5 text-blue-600 mr-2 mt-0.5" />
-                    <div className="text-sm text-blue-800">
-                      <strong>Auto-Lance:</strong> Configure um valor limite e o sistema dará lances 
-                      automaticamente por você até esse valor.
+                  </CardContent>
+                </Card>
+              </>
+            ) : (
+              <Card className="bg-white border-gray-200 shadow-lg">
+                <CardContent className="p-6">
+                  <div className="text-center">
+                    <div className="text-4xl font-bold text-blue-600 mb-2">
+                      {auction.startTime?.toLocaleDateString('pt-BR', {
+                        day: '2-digit',
+                        month: 'long',
+                        year: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                      })}
                     </div>
+                    <div className="text-gray-500 mb-4">Data e hora de início</div>
+                    {auction.estimatedValue && (
+                      <div className="text-xl font-semibold text-gray-700 mt-4">
+                        Valor estimado: R$ {auction.estimatedValue.toLocaleString()}
+                      </div>
+                    )}
                   </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            )}
 
             {/* Auction Rules */}
             <Card className="bg-white border-gray-200 shadow-lg">
@@ -354,69 +390,73 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
           {/* Sidebar */}
           <div className="space-y-6">
             {/* Bid History */}
-            <Card className="bg-white border-gray-200 shadow-lg">
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Histórico de Lances</h3>
-                <div className="space-y-3 max-h-64 overflow-y-auto">
-                  {auction.bidHistory.map((bid, index) => (
-                    <div key={index} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg border border-gray-200">
-                      <div>
-                        <div className="font-medium text-gray-900">{bid.bidder}</div>
-                        <div className="text-sm text-gray-500">{bid.time}</div>
+            {auction.status === 'live' && auction.bidHistory && auction.bidHistory.length > 0 && (
+              <Card className="bg-white border-gray-200 shadow-lg">
+                <CardContent className="p-6">
+                  <h3 className="text-xl font-bold text-gray-900 mb-4">Histórico de Lances</h3>
+                  <div className="space-y-3 max-h-64 overflow-y-auto">
+                    {auction.bidHistory.map((bid, index) => (
+                      <div key={index} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg border border-gray-200">
+                        <div>
+                          <div className="font-medium text-gray-900">{bid.bidder}</div>
+                          <div className="text-sm text-gray-500">{bid.time}</div>
+                        </div>
+                        <div className="text-green-600 font-bold">
+                          R$ {bid.amount.toLocaleString()}
+                        </div>
                       </div>
-                      <div className="text-green-600 font-bold">
-                        R$ {bid.amount.toLocaleString()}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            )}
 
             {/* Live Chat */}
-            <Card className="bg-white border-gray-200 shadow-lg">
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Chat ao Vivo</h3>
-                
-                <div className="space-y-3 max-h-64 overflow-y-auto mb-4">
-                  {auction.chatMessages.map((msg, index) => (
-                    <div key={index} className={`p-2 rounded-lg ${
-                      msg.isSystem ? 'bg-blue-50 border border-blue-200' : 'bg-gray-50 border border-gray-200'
-                    }`}>
-                      <div className="flex justify-between items-start">
-                        <span className={`font-medium ${
-                          msg.isSystem ? 'text-blue-600' : 'text-gray-900'
-                        }`}>
-                          {msg.user}
-                        </span>
-                        <span className="text-xs text-gray-500">{msg.time}</span>
+            {auction.status === 'live' && auction.chatMessages && auction.chatMessages.length > 0 && (
+              <Card className="bg-white border-gray-200 shadow-lg">
+                <CardContent className="p-6">
+                  <h3 className="text-xl font-bold text-gray-900 mb-4">Chat ao Vivo</h3>
+                  
+                  <div className="space-y-3 max-h-64 overflow-y-auto mb-4">
+                    {auction.chatMessages.map((msg, index) => (
+                      <div key={index} className={`p-2 rounded-lg ${
+                        msg.isSystem ? 'bg-blue-50 border border-blue-200' : 'bg-gray-50 border border-gray-200'
+                      }`}>
+                        <div className="flex justify-between items-start">
+                          <span className={`font-medium ${
+                            msg.isSystem ? 'text-blue-600' : 'text-gray-900'
+                          }`}>
+                            {msg.user}
+                          </span>
+                          <span className="text-xs text-gray-500">{msg.time}</span>
+                        </div>
+                        <div className="text-gray-600 text-sm mt-1">{msg.message}</div>
                       </div>
-                      <div className="text-gray-600 text-sm mt-1">{msg.message}</div>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
 
-                <div className="flex gap-2">
-                  <Input
-                    placeholder="Digite sua mensagem..."
-                    value={chatMessage}
-                    onChange={(e) => setChatMessage(e.target.value)}
-                    onKeyPress={(e) => e.key === 'Enter' && handleChatSend()}
-                    className="bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500"
-                  />
-                  <Button 
-                    onClick={handleChatSend}
-                    className="bg-blue-600 hover:bg-blue-700 text-white"
-                  >
-                    <Send className="w-4 h-4" />
-                  </Button>
-                </div>
+                  <div className="flex gap-2">
+                    <Input
+                      placeholder="Digite sua mensagem..."
+                      value={chatMessage}
+                      onChange={(e) => setChatMessage(e.target.value)}
+                      onKeyPress={(e) => e.key === 'Enter' && handleChatSend()}
+                      className="bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+                    />
+                    <Button 
+                      onClick={handleChatSend}
+                      className="bg-blue-600 hover:bg-blue-700 text-white"
+                    >
+                      <Send className="w-4 h-4" />
+                    </Button>
+                  </div>
 
-                <div className="mt-3 text-xs text-gray-500">
-                  Chat moderado • Seja respeitoso
-                </div>
-              </CardContent>
-            </Card>
+                  <div className="mt-3 text-xs text-gray-500">
+                    Chat moderado • Seja respeitoso
+                  </div>
+                </CardContent>
+              </Card>
+            )}
 
             {/* Auction Info */}
             <Card className="bg-white border-gray-200 shadow-lg">
@@ -431,10 +471,12 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
                     <span className="text-gray-500">Total de Lotes:</span>
                     <span className="text-gray-900 font-medium">{auction.totalLots}</span>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-500">Lote Atual:</span>
-                    <span className="text-gray-900 font-medium">{auction.currentLot.number}</span>
-                  </div>
+                  {auction.currentLotNumber && (
+                    <div className="flex justify-between">
+                      <span className="text-gray-500">Lote Atual:</span>
+                      <span className="text-gray-900 font-medium">{auction.currentLotNumber}</span>
+                    </div>
+                  )}
                   <div className="flex justify-between">
                     <span className="text-gray-500">Participantes:</span>
                     <span className="text-gray-900 font-medium">{auction.participants}</span>

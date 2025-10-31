@@ -8,6 +8,9 @@ import { Card, CardContent } from '@/components/ui/card'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import ProductCard from '@/components/ui/cards/ProductCard'
+import { mockAuctions } from '@/lib/mock-auctions'
+import { mockProducts } from '@/lib/mock-products'
+import { mockAnimals } from '@/lib/mock-animals'
 import { useToast } from '@/hooks/use-toast'
 import { 
   Search, 
@@ -65,136 +68,68 @@ export default function HomePage() {
     return () => window.removeEventListener('resize', checkIsMobile)
   }, [])
 
-  const featuredProducts = [
-    {
-      id: 1,
-      title: "Touro Nelore PO Certificado",
-      category: "Gado de Corte",
-      price: 45000,
-      location: "Goiás, GO",
-      rating: 4.8,
-      reviews: 24,
-      image: "/fotos/animais/touro-nelore.jpeg",
-      seller: "Fazenda Boa Vista",
-      verified: true,
-      featured: true,
-      age: "3 anos",
-      weight: "850kg",
-      breed: "Nelore",
-      type: "animal"
-    },
-    {
-      id: 2,
-      title: "Égua Mangalarga Marchador",
-      category: "Cavalos",
-      price: 25000,
-      location: "Minas Gerais, MG",
-      rating: 4.9,
-      reviews: 18,
-      image: "/fotos/animais/egua-mangalarga.jpeg", // Exemplo: você pode criar esta imagem
-      seller: "Haras São João",
-      verified: true,
-      featured: false,
-      age: "5 anos",
-      weight: "450kg",
-      breed: "Mangalarga",
-      type: "animal"
-    },
-    {
-      id: 3,
-      title: "Vaca Holandesa Produtiva",
-      category: "Gado de Leite",
-      price: 8500,
-      location: "São Paulo, SP",
-      rating: 4.7,
-      reviews: 31,
-      image: "/fotos/animais/vaca-holandesa.jpeg", // Exemplo: você pode criar esta imagem
-      seller: "Fazenda Três Rios",
-      verified: true,
-      featured: true,
-      age: "4 anos",
-      weight: "650kg",
-      breed: "Holandesa",
-      type: "animal"
-    }
-  ]
+  // Função auxiliar para formatar tempo restante
+  const formatTimeLeft = (endTime: Date) => {
+    const now = new Date()
+    const diff = endTime.getTime() - now.getTime()
+    
+    if (diff <= 0) return "Encerrado"
+    
+    const hours = Math.floor(diff / (1000 * 60 * 60))
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
+    
+    return `${hours}h ${minutes}m`
+  }
 
-  const liveAuctions = [
-    {
-      id: 1,
-      title: "Leilão Fazenda Santa Rita - Elite Nelore",
-      type: "Gado de Corte",
-      currentBid: 15000,
-      participants: 47,
-      timeLeft: "2h 45m",
-      image: "/fotos/leiloes/leilao-fazenda.jpg",
-      location: "Goiás, GO"
-    },
-    {
-      id: 2,
-      title: "Leilão Elite Genética - Cavalos Premium",
-      type: "Cavalos",
-      currentBid: 85000,
-      participants: 23,
-      timeLeft: "1h 12m",
-      image: "/fotos/leiloes/leilao-cavalo.webp",
-      location: "Minas Gerais, MG"
-    }
-  ]
+  // Usar animais do mock (primeiros 3)
+  const featuredProducts = mockAnimals.slice(0, 3).map(a => ({
+    id: a.id,
+    title: a.title,
+    category: a.category,
+    price: a.price,
+    location: a.location,
+    rating: 4.8,
+    reviews: 24,
+    image: a.images[0],
+    seller: a.seller.name,
+    verified: a.seller.verified,
+    featured: a.featured,
+    age: a.age,
+    weight: a.weight,
+    breed: a.breed,
+    type: "animal" as const
+  }))
 
-  const featuredProductsAgro = [
-    {
-      id: 1,
-      title: "Cachaça Haras Eduardo Costa 600ml",
-      category: "Bebidas Artesanais e Produtos da Fazenda",
-      price: 45.90,
-      location: "São Paulo, SP",
-      rating: 4.8,
-      reviews: 124,
-      image: "/fotos/produtos/cachaca-edu.webp",
-      seller: "Eduardo Costa",
-      verified: true,
-      featured: true,
-      weight: "600ml",
-      brand: "Eduardo Costa",
-      stock: "Em estoque",
-      type: "product"
-    },
-    {
-      id: 2,
-      title: "Semente Milho Bm 3066 Milho Verde",
-      category: "Sementes e Mudas",
-      price: 89.50,
-      location: "Minas Gerais, MG",
-      rating: 4.9,
-      reviews: 89,
-      image: "/fotos/produtos/semente-milho.jpeg",
-      seller: "Sementes Elite",
-      verified: true,
-      featured: false,
-      weight: "2.000",
-      brand: "Pioneer",
-      stock: "Em estoque",
-      type: "product"
-    },
-    {
-      id: 3,
-      title: "Proteinados para Pasto",
-      category: "Nutrição Animal",
-      price: 125.00,
-      location: "Goiás, GO",
-      rating: 4.7,
-      reviews: 156,
-      image: "/fotos/produtos/proteinados-para-pasto.jpeg",
-      seller: "FertilAgro",
-      verified: true,
-      featured: true,
-      weight: "50kg",
-      brand: "Yara",
-      stock: "Em estoque",
-      type: "product"
-    }
-  ]
+  // Usar leilões ao vivo do mock (primeiros 2)
+  const liveAuctions = mockAuctions.filter(a => a.status === 'live').slice(0, 2).map(a => ({
+    id: a.id,
+    title: a.title,
+    type: a.type,
+    currentBid: a.currentBid || 0,
+    participants: a.participants,
+    timeLeft: a.endTime ? formatTimeLeft(a.endTime) : "0h 0m",
+    image: a.image,
+    location: a.location
+  }))
+
+  // Usar produtos do mock (primeiros 3)
+  const featuredProductsAgro = mockProducts.slice(0, 3).map(p => ({
+    id: p.id,
+    title: p.title,
+    category: p.category,
+    price: p.price,
+    location: p.location,
+    rating: p.rating,
+    reviews: p.reviews,
+    image: p.image,
+    seller: p.seller,
+    verified: p.verified,
+    featured: p.featured,
+    weight: p.weight,
+    brand: p.brand,
+    stock: p.stock,
+    type: "product" as const
+  }))
 
   const stats = [
     { icon: Users, value: "50k+", label: "Usuários Ativos" },

@@ -17,7 +17,7 @@ import { cn } from '@/lib/utils'
 
 interface ProductCardProps {
   product: {
-    id: number
+    id: string | number
     title: string
     category: string
     price: number
