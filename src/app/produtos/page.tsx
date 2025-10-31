@@ -7,6 +7,13 @@ import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import ProductCard from '@/components/ui/cards/ProductCard'
@@ -20,19 +27,21 @@ import {
   Package,
   Truck,
   Shield,
-  Award
+  Award,
+  Grid3x3
 } from 'lucide-react'
 
 export default function ProdutosPage() {
   const [searchQuery, setSearchQuery] = useState('')
   const [favorites, setFavorites] = useState<number[]>([])
   const [showFilters, setShowFilters] = useState(false)
+  const [showCategoriesModal, setShowCategoriesModal] = useState(false)
 
   const products = [
     {
       id: 1,
       title: "Cachaça Haras Eduardo Costa 600ml",
-      category: "Bebidas",
+      category: "Bebidas Artesanais e Produtos da Fazenda",
       price: 45.90,
       location: "São Paulo, SP",
       rating: 4.8,
@@ -48,7 +57,7 @@ export default function ProdutosPage() {
     {
       id: 2,
       title: "Semente Milho Bm 3066",
-      category: "Sementes",
+      category: "Sementes e Mudas",
       price: 89.50,
       location: "Minas Gerais, MG",
       rating: 4.9,
@@ -64,7 +73,7 @@ export default function ProdutosPage() {
     {
       id: 3,
       title: "Proteinados para Pasto",
-      category: "Proteinados",
+      category: "Nutrição Animal",
       price: 125.00,
       location: "Goiás, GO",
       rating: 4.7,
@@ -80,7 +89,7 @@ export default function ProdutosPage() {
     {
       id: 4,
       title: "Herbicida Glifosato Premium (1L ou 5L)",
-      category: "Defensivos",
+      category: "Insumos Agrícolas e Fertilizantes",
       price: 78.90,
       location: "Mato Grosso, MT",
       rating: 4.6,
@@ -96,7 +105,7 @@ export default function ProdutosPage() {
     {
       id: 5,
       title: "Probióticos para Ruminantes",
-      category: "Rações",
+      category: "Suplementos e Aditivos",
       price: 67.50,
       location: "Rio Grande do Sul, RS",
       rating: 4.8,
@@ -112,7 +121,7 @@ export default function ProdutosPage() {
     {
       id: 6,
       title: "Promotor De Engorda + Vermifugo 3.6%",
-      category: "Vermífugos",
+      category: "Saúde e Bem-Estar Animal",
       price: 145.00,
       location: "Paraná, PR",
       rating: 4.9,
@@ -128,13 +137,23 @@ export default function ProdutosPage() {
   ]
 
   const categories = [
-    { name: 'Rações', count: 234, color: 'bg-emerald-100 text-emerald-800' },
-    { name: 'Sementes', count: 189, color: 'bg-blue-100 text-blue-800' },
-    { name: 'Fertilizantes', count: 156, color: 'bg-amber-100 text-amber-800' },
-    { name: 'Defensivos', count: 98, color: 'bg-red-100 text-red-800' },
-    { name: 'Equipamentos', count: 67, color: 'bg-purple-100 text-purple-800' },
-    { name: 'Outros', count: 45, color: 'bg-gray-100 text-gray-800' }
+    { name: 'Nutrição Animal', count: 234, color: '#B8E8D1' },
+    { name: 'Saúde e Bem-Estar Animal', count: 189, color: '#E2D4F9' },
+    { name: 'Reprodução e Genética', count: 156, color: '#E6E6FA' },
+    { name: 'Selaria e Utilidades', count: 98, color: '#FFE0B2' },
+    { name: 'Equipamentos e Infraestrutura Rural', count: 145, color: '#E1D5FF' },
+    { name: 'Vestuário e Lifestyle Agro', count: 87, color: '#FCE4EC' },
+    { name: 'Sementes e Mudas', count: 312, color: '#DDEBFF' },
+    { name: 'Insumos Agrícolas e Fertilizantes', count: 267, color: '#FFF8DC' },
+    { name: 'Higiene, Limpeza e Desinfecção', count: 76, color: '#E0F7FA' },
+    { name: 'Suplementos e Aditivos', count: 198, color: '#F6F0C4' },
+    { name: 'Bebidas Artesanais e Produtos da Fazenda', count: 45, color: '#FEE6E3' },
+    { name: 'Outros', count: 134, color: '#F5F5F5' }
   ]
+
+  // Mostrar apenas as primeiras 5 categorias, resto vai no modal
+  const visibleCategories = categories.slice(0, 5)
+  const hiddenCategories = categories.slice(5)
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -193,11 +212,18 @@ export default function ProdutosPage() {
                       <SelectValue placeholder="Categoria" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="racoes">Rações</SelectItem>
-                      <SelectItem value="sementes">Sementes</SelectItem>
-                      <SelectItem value="fertilizantes">Fertilizantes</SelectItem>
-                      <SelectItem value="defensivos">Defensivos</SelectItem>
-                      <SelectItem value="equipamentos">Equipamentos</SelectItem>
+                      <SelectItem value="nutricao-animal">Nutrição Animal</SelectItem>
+                      <SelectItem value="saude-bem-estar">Saúde e Bem-Estar Animal</SelectItem>
+                      <SelectItem value="reproducao-genetica">Reprodução e Genética</SelectItem>
+                      <SelectItem value="selaria-utilidades">Selaria e Utilidades</SelectItem>
+                      <SelectItem value="equipamentos-infraestrutura">Equipamentos e Infraestrutura Rural</SelectItem>
+                      <SelectItem value="vestuario-lifestyle">Vestuário e Lifestyle Agro</SelectItem>
+                      <SelectItem value="sementes-mudas">Sementes e Mudas</SelectItem>
+                      <SelectItem value="insumos-fertilizantes">Insumos Agrícolas e Fertilizantes</SelectItem>
+                      <SelectItem value="higiene-limpeza">Higiene, Limpeza e Desinfecção</SelectItem>
+                      <SelectItem value="suplementos-aditivos">Suplementos e Aditivos</SelectItem>
+                      <SelectItem value="bebidas-artesanais">Bebidas Artesanais e Produtos da Fazenda</SelectItem>
+                      <SelectItem value="acessorios-cuidados">Acessórios e Cuidados Gerais</SelectItem>
                     </SelectContent>
                   </Select>
 
@@ -263,20 +289,80 @@ export default function ProdutosPage() {
         {/* Categories */}
         <div className="mb-8">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Categorias Populares</h3>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {categories.map((category, index) => (
-              <Card key={category.name} className="hover:shadow-lg transition-all duration-300 transform hover:scale-105 cursor-pointer animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
-                <CardContent className="p-4 text-center">
-                  <div className={`inline-flex px-3 py-1 rounded-full text-sm font-medium mb-2 ${category.color}`}>
-                    {category.name}
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+            {visibleCategories.map((category, index) => (
+              <Card 
+                key={category.name} 
+                className="hover:shadow-lg transition-all duration-300 transform hover:scale-105 cursor-pointer animate-fade-in-up"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <CardContent className="p-3 text-center">
+                  <div 
+                    className="inline-flex px-3 py-1.5 rounded-full text-xs font-medium mb-2 max-w-full break-words leading-tight"
+                    style={{ 
+                      backgroundColor: category.color,
+                      color: '#1F2937' // text-gray-800 equivalente
+                    }}
+                  >
+                    <span className="text-center">{category.name}</span>
                   </div>
-                  <div className="text-2xl font-bold text-gray-900">{category.count}</div>
-                  <div className="text-sm text-gray-500">produtos</div>
+                  <div className="text-xl font-bold text-gray-900">{category.count}</div>
+                  <div className="text-xs text-gray-500">produtos</div>
                 </CardContent>
               </Card>
             ))}
+            
+            {/* Botão Ver Mais */}
+            {hiddenCategories.length > 0 && (
+              <Card 
+                className="hover:shadow-lg transition-all duration-300 transform hover:scale-105 cursor-pointer animate-fade-in-up border-2 border-dashed border-gray-300 hover:border-emerald-500"
+                style={{ animationDelay: `${visibleCategories.length * 0.1}s` }}
+                onClick={() => setShowCategoriesModal(true)}
+              >
+                <CardContent className="p-3 text-center flex flex-col items-center justify-center min-h-[100px]">
+                  <Grid3x3 className="w-6 h-6 text-gray-400 mb-2" />
+                  <div className="text-sm font-semibold text-gray-700 mb-1">Ver Mais</div>
+                  <div className="text-xs text-gray-500">{hiddenCategories.length} categorias</div>
+                </CardContent>
+              </Card>
+            )}
           </div>
         </div>
+
+        {/* Modal de Categorias */}
+        <Dialog open={showCategoriesModal} onOpenChange={setShowCategoriesModal}>
+          <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle className="text-2xl font-bold text-gray-900">Todas as Categorias</DialogTitle>
+              <DialogDescription className="text-gray-600">
+                Explore todas as categorias disponíveis em nosso marketplace
+              </DialogDescription>
+            </DialogHeader>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4">
+              {hiddenCategories.map((category, index) => (
+                <Card 
+                  key={category.name} 
+                  className="hover:shadow-lg transition-all duration-300 transform hover:scale-105 cursor-pointer"
+                  onClick={() => setShowCategoriesModal(false)}
+                >
+                  <CardContent className="p-4 text-center">
+                    <div 
+                      className="inline-flex px-4 py-2 rounded-full text-xs font-medium mb-3 max-w-full break-words leading-tight"
+                      style={{ 
+                        backgroundColor: category.color,
+                        color: '#1F2937' // text-gray-800 equivalente
+                      }}
+                    >
+                      <span className="text-center">{category.name}</span>
+                    </div>
+                    <div className="text-xl font-bold text-gray-900">{category.count}</div>
+                    <div className="text-xs text-gray-500">produtos</div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </DialogContent>
+        </Dialog>
 
         {/* Features */}
         <div className="mb-8">
