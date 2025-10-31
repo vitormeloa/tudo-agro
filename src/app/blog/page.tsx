@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
+import Image from 'next/image'
 import PostCard from '@/components/blog/PostCard'
 import ThemeFilter from '@/components/blog/ThemeFilter'
 import Header from '@/components/layout/Header'
@@ -172,7 +173,16 @@ export default function BlogPage() {
           </div>
         ) : posts.length === 0 ? (
           <div className="text-center py-20">
-            <div className="text-6xl mb-4">🌾</div>
+            <div className="flex justify-center mb-4">
+              <Image
+                src="/fotos/tudo-agro-logo.png"
+                alt="TudoAgro Logo"
+                width={120}
+                height={120}
+                className="opacity-60"
+                unoptimized
+              />
+            </div>
             <h3 className="text-xl font-semibold text-gray-900 mb-2">
               Nenhum post encontrado
             </h3>
