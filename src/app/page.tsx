@@ -146,7 +146,7 @@ export default function HomePage() {
     {
       id: 1,
       title: "Cachaça Haras Eduardo Costa 600ml",
-      category: "Bebidas",
+      category: "Bebidas Artesanais e Produtos da Fazenda",
       price: 45.90,
       location: "São Paulo, SP",
       rating: 4.8,
@@ -163,7 +163,7 @@ export default function HomePage() {
     {
       id: 2,
       title: "Semente Milho Bm 3066 Milho Verde",
-      category: "Sementes",
+      category: "Sementes e Mudas",
       price: 89.50,
       location: "Minas Gerais, MG",
       rating: 4.9,
@@ -180,7 +180,7 @@ export default function HomePage() {
     {
       id: 3,
       title: "Proteinados para Pasto",
-      category: "Proteinados",
+      category: "Nutrição Animal",
       price: 125.00,
       location: "Goiás, GO",
       rating: 4.7,
