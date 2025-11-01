@@ -50,6 +50,13 @@ export default function CadastroPage() {
         farmSize: '',
         state: '',
         city: '',
+        activityType: '',
+        // Campos específicos para Pessoa Jurídica
+        companyName: '',
+        legalRepresentativeName: '',
+        legalRepresentativeCpf: '',
+        corporateEmail: '',
+        operationTypes: [] as string[], // Tipo de atuação (múltipla escolha)
         acceptTerms: false
     })
 
@@ -64,7 +71,38 @@ export default function CadastroPage() {
         setFormData(prev => ({ ...prev, [field]: value }))
     }
 
+    const handleOperationTypeChange = (operationType: string, checked: boolean) => {
+        setFormData(prev => {
+            const currentTypes = prev.operationTypes || []
+            if (checked) {
+                return { ...prev, operationTypes: [...currentTypes, operationType] }
+            } else {
+                return { ...prev, operationTypes: currentTypes.filter(type => type !== operationType) }
+            }
+        })
+    }
+
     const handleNext = () => {
+        // Validação para step 3 quando for Pessoa Jurídica
+        if (currentStep === 3 && formData.accountType === 'pj') {
+            if (!formData.operationTypes || formData.operationTypes.length === 0) {
+                toast({
+                    title: "Selecione um tipo de atuação",
+                    description: "Por favor, selecione pelo menos uma forma de atuação para continuar.",
+                    variant: "destructive",
+                })
+                return
+            }
+            if (!formData.state || !formData.city) {
+                toast({
+                    title: "Informe a localização",
+                    description: "Por favor, informe o estado e a cidade para continuar.",
+                    variant: "destructive",
+                })
+                return
+            }
+        }
+
         if (currentStep < 4) {
             setCurrentStep(currentStep + 1)
         }
@@ -106,13 +144,35 @@ export default function CadastroPage() {
             // Todos os usuários cadastrados via /cadastro recebem role comprador por padrão
             const roles = ['comprador']
 
-            const { error } = await signUp(formData.email, formData.password, {
-                name: formData.fullName,
+            // Usar email correto baseado no tipo de conta
+            const email = formData.accountType === 'pj' ? formData.corporateEmail : formData.email
+            const name = formData.accountType === 'pj' ? formData.companyName : formData.fullName
+            const cpf = formData.accountType === 'pj' ? formData.legalRepresentativeCpf : formData.cpf
+
+            const signUpData: any = {
+                name: name,
                 phone: formData.phone,
-                cpf: formData.cpf,
+                cpf: cpf,
                 cnpj: formData.cnpj,
                 roles
-            })
+            }
+
+            // Adicionar campos específicos de PJ
+            if (formData.accountType === 'pj') {
+                signUpData.operationTypes = formData.operationTypes
+                signUpData.companyName = formData.companyName
+                signUpData.legalRepresentativeName = formData.legalRepresentativeName
+                signUpData.legalRepresentativeCpf = formData.legalRepresentativeCpf
+            }
+
+            // Adicionar campos de localização se existirem
+            if (formData.state) signUpData.state = formData.state
+            if (formData.city) signUpData.city = formData.city
+            if (formData.farmName) signUpData.farmName = formData.farmName
+            if (formData.activityType) signUpData.activityType = formData.activityType
+            if (formData.farmSize) signUpData.farmSize = formData.farmSize
+
+            const { error } = await signUp(email, formData.password, signUpData)
 
             if (!error) {
                 // Redirecionar para login
@@ -142,6 +202,60 @@ export default function CadastroPage() {
             description: "Acesse ofertas exclusivas"
         }
     ]
+
+    const getActivityTypeLabel = (value: string) => {
+        const labels: { [key: string]: string } = {
+            'produtor-gado': 'Produtor de gado',
+            'agricultor': 'Agricultor',
+            'criador-equinos': 'Criador de equinos',
+            'criador-suinos': 'Criador de suínos',
+            'criador-aves': 'Criador de aves',
+            'hobby': 'Hobby',
+            'outros': 'Outros'
+        }
+        return labels[value] || value
+    }
+
+    const getStateLabel = (value: string) => {
+        const labels: { [key: string]: string } = {
+            'ac': 'Acre',
+            'al': 'Alagoas',
+            'ap': 'Amapá',
+            'am': 'Amazonas',
+            'ba': 'Bahia',
+            'ce': 'Ceará',
+            'df': 'Distrito Federal',
+            'es': 'Espírito Santo',
+            'go': 'Goiás',
+            'ma': 'Maranhão',
+            'mt': 'Mato Grosso',
+            'ms': 'Mato Grosso do Sul',
+            'mg': 'Minas Gerais',
+            'pa': 'Pará',
+            'pb': 'Paraíba',
+            'pr': 'Paraná',
+            'pe': 'Pernambuco',
+            'pi': 'Piauí',
+            'rj': 'Rio de Janeiro',
+            'rn': 'Rio Grande do Norte',
+            'rs': 'Rio Grande do Sul',
+            'ro': 'Rondônia',
+            'rr': 'Roraima',
+            'sc': 'Santa Catarina',
+            'sp': 'São Paulo',
+            'se': 'Sergipe',
+            'to': 'Tocantins'
+        }
+        return labels[value] || value
+    }
+
+    const getOperationTypeLabel = (value: string) => {
+        const labels: { [key: string]: string } = {
+            'vendedor-animais-genetica': 'Vendedor de animais e genética (Negociação direta / Leilão)',
+            'vendedor-produtos': 'Vendedor de produtos (Mercado Agro)'
+        }
+        return labels[value] || value
+    }
 
     const renderStepContent = () => {
         switch (currentStep) {
@@ -211,6 +325,181 @@ export default function CadastroPage() {
                 )
 
             case 2:
+                // Renderizar formulário diferente baseado no tipo de conta
+                if (formData.accountType === 'pj') {
+                    return (
+                        <div className="space-y-6">
+                            <div className="text-center mb-6 sm:mb-8">
+                                <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
+                                    Dados da Empresa
+                                </h2>
+                                <p className="text-sm sm:text-base text-gray-600">
+                                    Informe os dados da sua empresa para criar sua conta
+                                </p>
+                            </div>
+
+                            <div className="space-y-6">
+                                <div className="space-y-2">
+                                    <Label htmlFor="companyName" className="text-sm font-medium text-gray-700">
+                                        Nome da empresa / propriedade
+                                    </Label>
+                                    <div className="relative">
+                                        <Building className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                                        <Input
+                                            id="companyName"
+                                            type="text"
+                                            placeholder="Nome da empresa ou propriedade"
+                                            value={formData.companyName}
+                                            onChange={(e) => handleInputChange('companyName', e.target.value)}
+                                            className="pl-10 h-12 text-lg border-2 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500/20"
+                                            required
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="space-y-2">
+                                    <Label htmlFor="cnpj" className="text-sm font-medium text-gray-700">
+                                        CNPJ
+                                    </Label>
+                                    <Input
+                                        id="cnpj"
+                                        type="text"
+                                        placeholder="00.000.000/0000-00"
+                                        value={formData.cnpj}
+                                        onChange={(e) => handleInputChange('cnpj', e.target.value)}
+                                        className="h-12 text-lg border-2 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500/20"
+                                        required
+                                    />
+                                </div>
+
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                                    <div className="space-y-2">
+                                        <Label htmlFor="legalRepresentativeName" className="text-sm font-medium text-gray-700">
+                                            Responsável legal (Nome)
+                                        </Label>
+                                        <div className="relative">
+                                            <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                                            <Input
+                                                id="legalRepresentativeName"
+                                                type="text"
+                                                placeholder="Nome completo do responsável"
+                                                value={formData.legalRepresentativeName}
+                                                onChange={(e) => handleInputChange('legalRepresentativeName', e.target.value)}
+                                                className="pl-10 h-12 text-lg border-2 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500/20"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className="space-y-2">
+                                        <Label htmlFor="legalRepresentativeCpf" className="text-sm font-medium text-gray-700">
+                                            Responsável legal (CPF)
+                                        </Label>
+                                        <Input
+                                            id="legalRepresentativeCpf"
+                                            type="text"
+                                            placeholder="000.000.000-00"
+                                            value={formData.legalRepresentativeCpf}
+                                            onChange={(e) => handleInputChange('legalRepresentativeCpf', e.target.value)}
+                                            className="h-12 text-lg border-2 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500/20"
+                                            required
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="space-y-2">
+                                    <Label htmlFor="corporateEmail" className="text-sm font-medium text-gray-700">
+                                        E-mail corporativo
+                                    </Label>
+                                    <div className="relative">
+                                        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                                        <Input
+                                            id="corporateEmail"
+                                            type="email"
+                                            placeholder="contato@empresa.com"
+                                            value={formData.corporateEmail}
+                                            onChange={(e) => handleInputChange('corporateEmail', e.target.value)}
+                                            className="pl-10 h-12 text-lg border-2 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500/20"
+                                            required
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="space-y-2">
+                                    <Label htmlFor="phone" className="text-sm font-medium text-gray-700">
+                                        Telefone com WhatsApp
+                                    </Label>
+                                    <div className="relative">
+                                        <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                                        <Input
+                                            id="phone"
+                                            type="tel"
+                                            placeholder="(11) 99999-9999"
+                                            value={formData.phone}
+                                            onChange={(e) => handleInputChange('phone', e.target.value)}
+                                            className="pl-10 h-12 text-lg border-2 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500/20"
+                                            required
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                                    <div className="space-y-2">
+                                        <Label htmlFor="password" className="text-sm font-medium text-gray-700">
+                                            Criar senha
+                                        </Label>
+                                        <div className="relative">
+                                            <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                                            <Input
+                                                id="password"
+                                                type={showPassword ? "text" : "password"}
+                                                placeholder="Mínimo 8 caracteres"
+                                                value={formData.password}
+                                                onChange={(e) => handleInputChange('password', e.target.value)}
+                                                className="pl-10 pr-10 h-12 text-lg border-2 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500/20"
+                                                required
+                                            />
+                                            <button
+                                                type="button"
+                                                onClick={() => setShowPassword(!showPassword)}
+                                                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                                            >
+                                                {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div className="space-y-2">
+                                        <Label htmlFor="confirmPassword" className="text-sm font-medium text-gray-700">
+                                            Confirmar senha
+                                        </Label>
+                                        <div className="relative">
+                                            <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                                            <Input
+                                                id="confirmPassword"
+                                                type={showConfirmPassword ? "text" : "password"}
+                                                placeholder="Confirme sua senha"
+                                                value={formData.confirmPassword}
+                                                onChange={(e) => handleInputChange('confirmPassword', e.target.value)}
+                                                className="pl-10 pr-10 h-12 text-lg border-2 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500/20"
+                                                required
+                                            />
+                                            <button
+                                                type="button"
+                                                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                                            >
+                                                {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )
+                }
+
+                // Formulário para Pessoa Física
                 return (
                     <div className="space-y-6">
                         <div className="text-center mb-6 sm:mb-8">
@@ -277,37 +566,20 @@ export default function CadastroPage() {
                                 </div>
                             </div>
 
-                            {formData.accountType === 'pf' ? (
-                                <div className="space-y-2">
-                                    <Label htmlFor="cpf" className="text-sm font-medium text-gray-700">
-                                        CPF
-                                    </Label>
-                                    <Input
-                                        id="cpf"
-                                        type="text"
-                                        placeholder="000.000.000-00"
-                                        value={formData.cpf}
-                                        onChange={(e) => handleInputChange('cpf', e.target.value)}
-                                        className="h-12 text-lg border-2 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500/20"
-                                        required
-                                    />
-                                </div>
-                            ) : (
-                                <div className="space-y-2">
-                                    <Label htmlFor="cnpj" className="text-sm font-medium text-gray-700">
-                                        CNPJ
-                                    </Label>
-                                    <Input
-                                        id="cnpj"
-                                        type="text"
-                                        placeholder="00.000.000/0000-00"
-                                        value={formData.cnpj}
-                                        onChange={(e) => handleInputChange('cnpj', e.target.value)}
-                                        className="h-12 text-lg border-2 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500/20"
-                                        required
-                                    />
-                                </div>
-                            )}
+                            <div className="space-y-2">
+                                <Label htmlFor="cpf" className="text-sm font-medium text-gray-700">
+                                    CPF
+                                </Label>
+                                <Input
+                                    id="cpf"
+                                    type="text"
+                                    placeholder="000.000.000-00"
+                                    value={formData.cpf}
+                                    onChange={(e) => handleInputChange('cpf', e.target.value)}
+                                    className="h-12 text-lg border-2 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500/20"
+                                    required
+                                />
+                            </div>
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
@@ -365,6 +637,234 @@ export default function CadastroPage() {
                 )
 
             case 3:
+                // Renderizar formulário diferente baseado no tipo de conta
+                if (formData.accountType === 'pj') {
+                    return (
+                        <div className="space-y-6">
+                            <div className="text-center mb-6 sm:mb-8">
+                                <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
+                                    Dados da propriedade
+                                </h2>
+                                <p className="text-sm sm:text-base text-gray-600">
+                                    Informe os dados da sua fazenda ou propriedade
+                                </p>
+                            </div>
+
+                            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+                                <p className="text-sm text-blue-800 text-center">
+                                    <strong>Não se preocupe se ainda não tiver todas as informações!</strong> Você poderá preencher os dados faltantes mais tarde, direto no seu painel.
+                                </p>
+                            </div>
+
+                            <div className="space-y-6">
+                                <div className="space-y-2">
+                                    <Label htmlFor="farmName" className="text-sm font-medium text-gray-700">
+                                        Nome da fazenda/propriedade
+                                    </Label>
+                                    <div className="relative">
+                                        <Building className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                                        <Input
+                                            id="farmName"
+                                            type="text"
+                                            placeholder="Fazenda Boa Vista"
+                                            value={formData.farmName}
+                                            onChange={(e) => handleInputChange('farmName', e.target.value)}
+                                            className="pl-10 h-12 text-lg border-2 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500/20"
+                                            required
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                                    <div className="space-y-2">
+                                        <Label htmlFor="state" className="text-sm font-medium text-gray-700">
+                                            Estado
+                                        </Label>
+                                        <Select value={formData.state} onValueChange={(value) => handleInputChange('state', value)}>
+                                            <SelectTrigger className="h-12 text-lg border-2 border-gray-200 focus:border-emerald-500">
+                                                <SelectValue placeholder="Selecione o estado" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="ac">Acre</SelectItem>
+                                                <SelectItem value="al">Alagoas</SelectItem>
+                                                <SelectItem value="ap">Amapá</SelectItem>
+                                                <SelectItem value="am">Amazonas</SelectItem>
+                                                <SelectItem value="ba">Bahia</SelectItem>
+                                                <SelectItem value="ce">Ceará</SelectItem>
+                                                <SelectItem value="df">Distrito Federal</SelectItem>
+                                                <SelectItem value="es">Espírito Santo</SelectItem>
+                                                <SelectItem value="go">Goiás</SelectItem>
+                                                <SelectItem value="ma">Maranhão</SelectItem>
+                                                <SelectItem value="mt">Mato Grosso</SelectItem>
+                                                <SelectItem value="ms">Mato Grosso do Sul</SelectItem>
+                                                <SelectItem value="mg">Minas Gerais</SelectItem>
+                                                <SelectItem value="pa">Pará</SelectItem>
+                                                <SelectItem value="pb">Paraíba</SelectItem>
+                                                <SelectItem value="pr">Paraná</SelectItem>
+                                                <SelectItem value="pe">Pernambuco</SelectItem>
+                                                <SelectItem value="pi">Piauí</SelectItem>
+                                                <SelectItem value="rj">Rio de Janeiro</SelectItem>
+                                                <SelectItem value="rn">Rio Grande do Norte</SelectItem>
+                                                <SelectItem value="rs">Rio Grande do Sul</SelectItem>
+                                                <SelectItem value="ro">Rondônia</SelectItem>
+                                                <SelectItem value="rr">Roraima</SelectItem>
+                                                <SelectItem value="sc">Santa Catarina</SelectItem>
+                                                <SelectItem value="sp">São Paulo</SelectItem>
+                                                <SelectItem value="se">Sergipe</SelectItem>
+                                                <SelectItem value="to">Tocantins</SelectItem>
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+
+                                    <div className="space-y-2">
+                                        <Label htmlFor="city" className="text-sm font-medium text-gray-700">
+                                            Cidade
+                                        </Label>
+                                        <div className="relative">
+                                            <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                                            <Input
+                                                id="city"
+                                                type="text"
+                                                placeholder="Sua cidade"
+                                                value={formData.city}
+                                                onChange={(e) => handleInputChange('city', e.target.value)}
+                                                className="pl-10 h-12 text-lg border-2 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500/20"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="space-y-4">
+                                    <div className="mb-4">
+                                        <Label className="text-sm font-medium text-gray-700 block mb-2">
+                                            Tipo de atuação
+                                        </Label>
+                                        <p className="text-sm text-gray-600">
+                                            Selecione uma ou ambas as opções, de acordo com sua atuação.
+                                        </p>
+                                    </div>
+                                    
+                                    <div className="space-y-4">
+                                        <div className="relative">
+                                            <Checkbox
+                                                id="vendedor-animais"
+                                                checked={formData.operationTypes?.includes('vendedor-animais-genetica') || false}
+                                                onCheckedChange={(checked) => handleOperationTypeChange('vendedor-animais-genetica', checked as boolean)}
+                                                className="sr-only"
+                                            />
+                                            <Label
+                                                htmlFor="vendedor-animais"
+                                                className={`flex items-center p-4 sm:p-6 border-2 rounded-xl cursor-pointer transition-all duration-200 ${
+                                                    formData.operationTypes?.includes('vendedor-animais-genetica')
+                                                        ? 'border-emerald-500 bg-emerald-50'
+                                                        : 'border-gray-200 hover:border-gray-300'
+                                                }`}
+                                            >
+                                                <div className="flex items-center space-x-3 sm:space-x-4">
+                                                    <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                                                        formData.operationTypes?.includes('vendedor-animais-genetica')
+                                                            ? 'bg-emerald-100'
+                                                            : 'bg-gray-100'
+                                                    }`}>
+                                                        <User className={`w-5 h-5 sm:w-6 sm:h-6 ${
+                                                            formData.operationTypes?.includes('vendedor-animais-genetica')
+                                                                ? 'text-emerald-600'
+                                                                : 'text-gray-600'
+                                                        }`} />
+                                                    </div>
+                                                    <div className="min-w-0">
+                                                        <h3 className="text-base sm:text-lg font-semibold text-gray-900">
+                                                            Vendedor de animais e genética
+                                                        </h3>
+                                                        <p className="text-sm sm:text-base text-gray-600">
+                                                            Negociação direta / Leilão
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </Label>
+                                        </div>
+
+                                        <div className="relative">
+                                            <Checkbox
+                                                id="vendedor-produtos"
+                                                checked={formData.operationTypes?.includes('vendedor-produtos') || false}
+                                                onCheckedChange={(checked) => handleOperationTypeChange('vendedor-produtos', checked as boolean)}
+                                                className="sr-only"
+                                            />
+                                            <Label
+                                                htmlFor="vendedor-produtos"
+                                                className={`flex items-center p-4 sm:p-6 border-2 rounded-xl cursor-pointer transition-all duration-200 ${
+                                                    formData.operationTypes?.includes('vendedor-produtos')
+                                                        ? 'border-emerald-500 bg-emerald-50'
+                                                        : 'border-gray-200 hover:border-gray-300'
+                                                }`}
+                                            >
+                                                <div className="flex items-center space-x-3 sm:space-x-4">
+                                                    <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                                                        formData.operationTypes?.includes('vendedor-produtos')
+                                                            ? 'bg-emerald-100'
+                                                            : 'bg-gray-100'
+                                                    }`}>
+                                                        <Building className={`w-5 h-5 sm:w-6 sm:h-6 ${
+                                                            formData.operationTypes?.includes('vendedor-produtos')
+                                                                ? 'text-emerald-600'
+                                                                : 'text-gray-600'
+                                                        }`} />
+                                                    </div>
+                                                    <div className="min-w-0">
+                                                        <h3 className="text-base sm:text-lg font-semibold text-gray-900">
+                                                            Vendedor de produtos
+                                                        </h3>
+                                                        <p className="text-sm sm:text-base text-gray-600">
+                                                            Mercado Agro
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </Label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="space-y-2">
+                                    <Label htmlFor="activityType" className="text-sm font-medium text-gray-700">
+                                        Tipo de atividade
+                                    </Label>
+                                    <Select value={formData.activityType} onValueChange={(value) => handleInputChange('activityType', value)}>
+                                        <SelectTrigger className="h-12 text-lg border-2 border-gray-200 focus:border-emerald-500">
+                                            <SelectValue placeholder="Selecione o tipo de atividade" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem value="produtor-gado">Produtor de gado</SelectItem>
+                                            <SelectItem value="agricultor">Agricultor</SelectItem>
+                                            <SelectItem value="criador-equinos">Criador de equinos</SelectItem>
+                                            <SelectItem value="criador-suinos">Criador de suínos</SelectItem>
+                                            <SelectItem value="criador-aves">Criador de aves</SelectItem>
+                                            <SelectItem value="hobby">Hobby</SelectItem>
+                                            <SelectItem value="outros">Outros</SelectItem>
+                                        </SelectContent>
+                                    </Select>
+                                </div>
+
+                                <div className="space-y-2">
+                                    <Label htmlFor="farmSize" className="text-sm font-medium text-gray-700">
+                                        Tamanho aproximado da propriedade (hectares)
+                                    </Label>
+                                    <Input
+                                        id="farmSize"
+                                        type="number"
+                                        placeholder="Ex: 100"
+                                        value={formData.farmSize}
+                                        onChange={(e) => handleInputChange('farmSize', e.target.value)}
+                                        className="h-12 text-lg border-2 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500/20"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    )
+                }
+
+                // Formulário para Pessoa Física - Dados da propriedade
                 return (
                     <div className="space-y-6">
                         <div className="text-center mb-6 sm:mb-8">
@@ -373,6 +873,12 @@ export default function CadastroPage() {
                             </h2>
                             <p className="text-sm sm:text-base text-gray-600">
                                 Informe os dados da sua fazenda ou propriedade
+                            </p>
+                        </div>
+
+                        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+                            <p className="text-sm text-blue-800 text-center">
+                                <strong>Não se preocupe se ainda não tiver todas as informações!</strong> Você poderá preencher os dados faltantes mais tarde, direto no seu painel.
                             </p>
                         </div>
 
@@ -405,14 +911,33 @@ export default function CadastroPage() {
                                             <SelectValue placeholder="Selecione o estado" />
                                         </SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="sp">São Paulo</SelectItem>
-                                            <SelectItem value="mg">Minas Gerais</SelectItem>
-                                            <SelectItem value="go">Goiás</SelectItem>
-                                            <SelectItem value="mt">Mato Grosso</SelectItem>
-                                            <SelectItem value="rs">Rio Grande do Sul</SelectItem>
-                                            <SelectItem value="pr">Paraná</SelectItem>
-                                            <SelectItem value="sc">Santa Catarina</SelectItem>
+                                            <SelectItem value="ac">Acre</SelectItem>
+                                            <SelectItem value="al">Alagoas</SelectItem>
+                                            <SelectItem value="ap">Amapá</SelectItem>
+                                            <SelectItem value="am">Amazonas</SelectItem>
                                             <SelectItem value="ba">Bahia</SelectItem>
+                                            <SelectItem value="ce">Ceará</SelectItem>
+                                            <SelectItem value="df">Distrito Federal</SelectItem>
+                                            <SelectItem value="es">Espírito Santo</SelectItem>
+                                            <SelectItem value="go">Goiás</SelectItem>
+                                            <SelectItem value="ma">Maranhão</SelectItem>
+                                            <SelectItem value="mt">Mato Grosso</SelectItem>
+                                            <SelectItem value="ms">Mato Grosso do Sul</SelectItem>
+                                            <SelectItem value="mg">Minas Gerais</SelectItem>
+                                            <SelectItem value="pa">Pará</SelectItem>
+                                            <SelectItem value="pb">Paraíba</SelectItem>
+                                            <SelectItem value="pr">Paraná</SelectItem>
+                                            <SelectItem value="pe">Pernambuco</SelectItem>
+                                            <SelectItem value="pi">Piauí</SelectItem>
+                                            <SelectItem value="rj">Rio de Janeiro</SelectItem>
+                                            <SelectItem value="rn">Rio Grande do Norte</SelectItem>
+                                            <SelectItem value="rs">Rio Grande do Sul</SelectItem>
+                                            <SelectItem value="ro">Rondônia</SelectItem>
+                                            <SelectItem value="rr">Roraima</SelectItem>
+                                            <SelectItem value="sc">Santa Catarina</SelectItem>
+                                            <SelectItem value="sp">São Paulo</SelectItem>
+                                            <SelectItem value="se">Sergipe</SelectItem>
+                                            <SelectItem value="to">Tocantins</SelectItem>
                                         </SelectContent>
                                     </Select>
                                 </div>
@@ -437,8 +962,28 @@ export default function CadastroPage() {
                             </div>
 
                             <div className="space-y-2">
+                                <Label htmlFor="activityType" className="text-sm font-medium text-gray-700">
+                                    Tipo de atividade
+                                </Label>
+                                <Select value={formData.activityType} onValueChange={(value) => handleInputChange('activityType', value)}>
+                                    <SelectTrigger className="h-12 text-lg border-2 border-gray-200 focus:border-emerald-500">
+                                        <SelectValue placeholder="Selecione o tipo de atividade" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="produtor-gado">Produtor de gado</SelectItem>
+                                        <SelectItem value="agricultor">Agricultor</SelectItem>
+                                        <SelectItem value="criador-equinos">Criador de equinos</SelectItem>
+                                        <SelectItem value="criador-suinos">Criador de suínos</SelectItem>
+                                        <SelectItem value="criador-aves">Criador de aves</SelectItem>
+                                        <SelectItem value="hobby">Hobby</SelectItem>
+                                        <SelectItem value="outros">Outros</SelectItem>
+                                    </SelectContent>
+                                </Select>
+                            </div>
+
+                            <div className="space-y-2">
                                 <Label htmlFor="farmSize" className="text-sm font-medium text-gray-700">
-                                    Tamanho da propriedade (hectares)
+                                    Tamanho aproximado da propriedade (hectares)
                                 </Label>
                                 <Input
                                     id="farmSize"
@@ -472,29 +1017,98 @@ export default function CadastroPage() {
                                 <div>
                                     <span className="text-gray-600">Tipo de conta:</span>
                                     <span className="ml-2 font-medium text-gray-900">
-                    {formData.accountType === 'pf' ? 'Pessoa Física' : 'Pessoa Jurídica'}
-                  </span>
+                                        {formData.accountType === 'pf' ? 'Pessoa Física' : 'Pessoa Jurídica'}
+                                    </span>
                                 </div>
-                                <div>
-                                    <span className="text-gray-600">Nome:</span>
-                                    <span className="ml-2 font-medium text-gray-900">{formData.fullName}</span>
-                                </div>
-                                <div>
-                                    <span className="text-gray-600">E-mail:</span>
-                                    <span className="ml-2 font-medium text-gray-900">{formData.email}</span>
-                                </div>
+                                
+                                {formData.accountType === 'pj' ? (
+                                    <>
+                                        <div>
+                                            <span className="text-gray-600">Empresa:</span>
+                                            <span className="ml-2 font-medium text-gray-900">{formData.companyName}</span>
+                                        </div>
+                                        <div>
+                                            <span className="text-gray-600">CNPJ:</span>
+                                            <span className="ml-2 font-medium text-gray-900">{formData.cnpj}</span>
+                                        </div>
+                                        <div>
+                                            <span className="text-gray-600">Responsável legal:</span>
+                                            <span className="ml-2 font-medium text-gray-900">{formData.legalRepresentativeName}</span>
+                                        </div>
+                                        <div>
+                                            <span className="text-gray-600">CPF do responsável:</span>
+                                            <span className="ml-2 font-medium text-gray-900">{formData.legalRepresentativeCpf}</span>
+                                        </div>
+                                        <div>
+                                            <span className="text-gray-600">E-mail corporativo:</span>
+                                            <span className="ml-2 font-medium text-gray-900">{formData.corporateEmail}</span>
+                                        </div>
+                                        {formData.operationTypes && formData.operationTypes.length > 0 && (
+                                            <div className="col-span-1 sm:col-span-2">
+                                                <span className="text-gray-600">Tipo de atuação:</span>
+                                                <div className="mt-1 space-y-1">
+                                                    {formData.operationTypes.map((type, index) => (
+                                                        <div key={index} className="ml-2 font-medium text-gray-900">
+                                                            • {getOperationTypeLabel(type)}
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        )}
+                                    </>
+                                ) : (
+                                    <>
+                                        <div>
+                                            <span className="text-gray-600">Nome:</span>
+                                            <span className="ml-2 font-medium text-gray-900">{formData.fullName}</span>
+                                        </div>
+                                        <div>
+                                            <span className="text-gray-600">CPF:</span>
+                                            <span className="ml-2 font-medium text-gray-900">{formData.cpf}</span>
+                                        </div>
+                                        <div>
+                                            <span className="text-gray-600">E-mail:</span>
+                                            <span className="ml-2 font-medium text-gray-900">{formData.email}</span>
+                                        </div>
+                                    </>
+                                )}
+                                
                                 <div>
                                     <span className="text-gray-600">Telefone:</span>
                                     <span className="ml-2 font-medium text-gray-900">{formData.phone}</span>
                                 </div>
-                                <div>
-                                    <span className="text-gray-600">Fazenda:</span>
-                                    <span className="ml-2 font-medium text-gray-900">{formData.farmName}</span>
-                                </div>
-                                <div>
-                                    <span className="text-gray-600">Localização:</span>
-                                    <span className="ml-2 font-medium text-gray-900">{formData.city}, {formData.state}</span>
-                                </div>
+                                
+                                {formData.farmName && (
+                                    <div>
+                                        <span className="text-gray-600">Fazenda:</span>
+                                        <span className="ml-2 font-medium text-gray-900">{formData.farmName}</span>
+                                    </div>
+                                )}
+                                
+                                {(formData.city || formData.state) && (
+                                    <div>
+                                        <span className="text-gray-600">Localização:</span>
+                                        <span className="ml-2 font-medium text-gray-900">
+                                            {formData.city && formData.state 
+                                                ? `${formData.city}, ${getStateLabel(formData.state)}`
+                                                : formData.city || getStateLabel(formData.state)}
+                                        </span>
+                                    </div>
+                                )}
+                                
+                                {formData.activityType && (
+                                    <div>
+                                        <span className="text-gray-600">Tipo de atividade:</span>
+                                        <span className="ml-2 font-medium text-gray-900">{getActivityTypeLabel(formData.activityType)}</span>
+                                    </div>
+                                )}
+                                
+                                {formData.farmSize && (
+                                    <div>
+                                        <span className="text-gray-600">Tamanho aproximado:</span>
+                                        <span className="ml-2 font-medium text-gray-900">{formData.farmSize} hectares</span>
+                                    </div>
+                                )}
                             </div>
                         </div>
 
@@ -609,14 +1223,6 @@ export default function CadastroPage() {
                                             )}
                                         </div>
                                     ))}
-                                </div>
-                                <div className="mt-4 sm:mt-6 text-center">
-                                    <h3 className="text-lg sm:text-xl font-semibold text-gray-900">
-                                        {steps[currentStep - 1].title}
-                                    </h3>
-                                    <p className="text-sm sm:text-base text-gray-600">
-                                        {steps[currentStep - 1].description}
-                                    </p>
                                 </div>
                             </div>
 

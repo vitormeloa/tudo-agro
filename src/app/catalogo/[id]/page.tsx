@@ -7,7 +7,6 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { 
-  ArrowLeft,
   MapPin, 
   Star, 
   Heart, 
@@ -27,6 +26,7 @@ import {
 } from 'lucide-react'
 import { mockAnimals } from '@/lib/mock-animals'
 import { useAuth } from '@/hooks/useAuth'
+import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 
 export default function AnimalPage({ params }: { params: Promise<{ id: string }> }) {
@@ -69,47 +69,7 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
-          <div className="flex justify-between items-center h-14 sm:h-16 gap-2">
-            {/* Left: Back Button */}
-            <div className="flex items-center flex-shrink-0">
-              <Link href="/catalogo" className="flex items-center space-x-1 sm:space-x-2 hover:opacity-80 transition-opacity">
-                <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" />
-                <span className="text-gray-600 font-medium text-xs sm:text-sm">
-                  <span className="hidden sm:inline">Voltar ao Catálogo</span>
-                  <span className="sm:hidden">Voltar</span>
-                </span>
-              </Link>
-            </div>
-
-            {/* Center: Logo */}
-            <Link href="/" className="flex items-center space-x-2 flex-shrink-0 mx-auto sm:mx-0">
-              <img 
-                src="/fotos/tudo-agro-logo.png" 
-                className="h-16 w-auto sm:h-20 md:h-24 lg:h-28"
-                alt="TudoAgro Logo"
-              />
-            </Link>
-
-            {/* Right: Auth Buttons */}
-            <div className="flex items-center space-x-1 sm:space-x-2 md:space-x-4 flex-shrink-0">
-              <Link href="/login">
-                <Button variant="ghost" size="sm" className="text-gray-600 hover:text-green-600 hover:bg-gray-50 text-xs sm:text-sm">
-                  Entrar
-                </Button>
-              </Link>
-              <Link href="/cadastro">
-                <Button size="sm" className="bg-green-600 hover:bg-green-700 text-white text-xs sm:text-sm px-2 sm:px-4">
-                  <span className="hidden sm:inline">Cadastrar</span>
-                  <span className="sm:hidden">Cad.</span>
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </header>
+      <Header />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid lg:grid-cols-2 gap-12">
