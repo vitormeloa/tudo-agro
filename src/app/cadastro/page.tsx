@@ -178,7 +178,8 @@ export default function CadastroPage() {
                                         </div>
                                         <div className="min-w-0">
                                             <h3 className="text-base sm:text-lg font-semibold text-gray-900">Pessoa Física</h3>
-                                            <p className="text-sm sm:text-base text-gray-600">Para produtores individuais e pequenos criadores</p>
+                                            <p className="text-sm sm:text-base text-gray-600">Ideal para quem deseja comprar animais, genética e produtos agropecuários para uso próprio.
+                                            </p>
                                         </div>
                                     </div>
                                 </Label>
@@ -200,7 +201,7 @@ export default function CadastroPage() {
                                         </div>
                                         <div className="min-w-0">
                                             <h3 className="text-base sm:text-lg font-semibold text-gray-900">Pessoa Jurídica</h3>
-                                            <p className="text-sm sm:text-base text-gray-600">Para empresas, cooperativas e grandes produtores</p>
+                                            <p className="text-sm sm:text-base text-gray-600">Perfil destinado a empresas, cooperativas e produtores que desejam vender animais, genética e/ou produtos no marketplace.</p>
                                         </div>
                                     </div>
                                 </Label>
@@ -549,7 +550,7 @@ export default function CadastroPage() {
                             Criar conta
                         </h1>
                         <p className="text-base sm:text-lg text-gray-600">
-                            Junte-se à maior plataforma de agropecuária
+                            Cadastre-se e tenha acesso ao melhor do agronegócio
                         </p>
                     </div>
 
