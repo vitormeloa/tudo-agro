@@ -26,7 +26,8 @@ import {
   ShoppingCart,
   ShoppingBag,
   Plus,
-  Minus
+  Minus,
+  Truck
 } from 'lucide-react'
 import { mockProducts } from '@/lib/mock-products'
 import { useCart } from '@/contexts/CartContext'
@@ -34,11 +35,16 @@ import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import { useAuth } from '@/hooks/useAuth'
 import { useToast } from '@/hooks/use-toast'
+import { calculateFreight, formatCEP, type FreightResult } from '@/lib/freight-calculator'
+import { Input } from '@/components/ui/input'
 
 export default function ProdutoPage({ params }: { params: Promise<{ id: string }> }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [isFavorite, setIsFavorite] = useState(false)
   const [quantity, setQuantity] = useState(1)
+  const [cep, setCep] = useState('')
+  const [freightResult, setFreightResult] = useState<FreightResult | null>(null)
+  const [isCalculatingFreight, setIsCalculatingFreight] = useState(false)
   const { addItem } = useCart()
   const { user } = useAuth()
   const router = useRouter()
@@ -95,6 +101,41 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
     } else if (e.target.value === '') {
       setQuantity(1)
     }
+  }
+
+  const handleCepChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/\D/g, '')
+    if (value.length <= 8) {
+      setCep(value)
+    }
+  }
+
+  const handleCalculateFreight = () => {
+    if (cep.length !== 8) {
+      toast({
+        title: 'CEP inválido',
+        description: 'Por favor, digite um CEP válido com 8 dígitos.',
+        variant: 'destructive',
+      })
+      return
+    }
+
+    setIsCalculatingFreight(true)
+    
+    // Simular delay de API
+    setTimeout(() => {
+      const result = calculateFreight(cep, product?.location)
+      setFreightResult(result)
+      setIsCalculatingFreight(false)
+      
+      if (!result) {
+        toast({
+          title: 'Erro ao calcular frete',
+          description: 'Não foi possível calcular o frete para este CEP.',
+          variant: 'destructive',
+        })
+      }
+    }, 500)
   }
   
   // Se não encontrar, mostrar erro
@@ -321,6 +362,51 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
                       <span className="font-medium text-gray-900">{value}</span>
                     </div>
                   ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Freight Calculator */}
+            <Card className="bg-white border-gray-200 shadow-lg">
+              <CardContent className="p-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
+                  <Truck className="w-5 h-5 mr-2 text-green-600" />
+                  Calcular Frete
+                </h3>
+                <div className="space-y-4">
+                  <div className="flex gap-2">
+                    <Input
+                      type="text"
+                      placeholder="00000-000"
+                      value={formatCEP(cep)}
+                      onChange={handleCepChange}
+                      maxLength={9}
+                      className="flex-1"
+                    />
+                    <Button
+                      onClick={handleCalculateFreight}
+                      disabled={cep.length !== 8 || isCalculatingFreight}
+                      className="bg-green-600 hover:bg-green-700 text-white"
+                    >
+                      {isCalculatingFreight ? 'Calculando...' : 'Calcular'}
+                    </Button>
+                  </div>
+                  
+                  {freightResult && (
+                    <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
+                      <div className="space-y-2">
+                        <div className="flex justify-between items-center">
+                          <span className="text-gray-700 font-medium">Frete:</span>
+                          <span className="text-lg font-bold text-green-600">
+                            R$ {freightResult.price.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                          </span>
+                        </div>
+                        <div className="text-sm text-gray-600 pt-2 border-t border-green-200">
+                          {freightResult.formattedDelivery}
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </CardContent>
             </Card>

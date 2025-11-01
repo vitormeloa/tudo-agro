@@ -25,6 +25,7 @@ import {
   Minus,
   Trash2
 } from 'lucide-react'
+import { calculateFreight, formatCEP, type FreightResult } from '@/lib/freight-calculator'
 
 export default function CheckoutPage() {
   const router = useRouter()
@@ -51,6 +52,8 @@ export default function CheckoutPage() {
   })
   
   const [isProcessing, setIsProcessing] = useState(false)
+  const [freightResult, setFreightResult] = useState<FreightResult | null>(null)
+  const [isCalculatingFreight, setIsCalculatingFreight] = useState(false)
 
   // Preencher dados do usuário se estiver logado
   useEffect(() => {
@@ -62,6 +65,23 @@ export default function CheckoutPage() {
       }))
     }
   }, [user])
+
+  // Calcular frete quando CEP for preenchido
+  useEffect(() => {
+    if (formData.cep.length === 8 && items.length > 0) {
+      setIsCalculatingFreight(true)
+      
+      // Usar a localização do primeiro item para calcular frete
+      const firstItem = items[0]
+      setTimeout(() => {
+        const result = calculateFreight(formData.cep, firstItem.location)
+        setFreightResult(result)
+        setIsCalculatingFreight(false)
+      }, 500)
+    } else {
+      setFreightResult(null)
+    }
+  }, [formData.cep, items])
 
   // Redirecionar se carrinho vazio
   useEffect(() => {
@@ -293,12 +313,20 @@ export default function CheckoutPage() {
                       <Input
                         id="cep"
                         name="cep"
-                        value={formData.cep}
-                        onChange={handleInputChange}
+                        value={formatCEP(formData.cep)}
+                        onChange={(e) => {
+                          const value = e.target.value.replace(/\D/g, '')
+                          if (value.length <= 8) {
+                            setFormData(prev => ({ ...prev, cep: value }))
+                          }
+                        }}
                         required
                         placeholder="00000-000"
                         maxLength={9}
                       />
+                      {freightResult && (
+                        <p className="text-xs text-green-600 mt-1">{freightResult.formattedDelivery}</p>
+                      )}
                     </div>
                     <div className="md:col-span-2">
                       <Label htmlFor="address">Endereço *</Label>
@@ -549,7 +577,16 @@ export default function CheckoutPage() {
                     </div>
                     <div className="flex justify-between text-sm">
                       <span className="text-gray-600">Frete</span>
-                      <span className="text-gray-900">A calcular</span>
+                      {isCalculatingFreight ? (
+                        <span className="text-gray-500">Calculando...</span>
+                      ) : freightResult ? (
+                        <div className="text-right">
+                          <span className="text-gray-900">R$ {freightResult.price.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                          <div className="text-xs text-gray-500 mt-1">{freightResult.formattedDelivery}</div>
+                        </div>
+                      ) : (
+                        <span className="text-gray-500">Informe o CEP</span>
+                      )}
                     </div>
                     <div className="flex justify-between text-lg font-bold pt-2 border-t">
                       <span>Total</span>
