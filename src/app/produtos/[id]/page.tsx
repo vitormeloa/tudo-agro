@@ -12,8 +12,6 @@ import {
   Star, 
   Heart, 
   Share2,
-  Phone,
-  Mail,
   FileText,
   Award,
   Shield,
@@ -418,7 +416,7 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
                 onClick={() => {
                   if (!product) return
                   if (!user) {
-                    router.push('/login')
+                    router.push('/cadastro')
                     return
                   }
                   // Adicionar ao carrinho e redirecionar para checkout
@@ -455,12 +453,7 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
                 onClick={() => {
                   if (!product) return
                   if (!user) {
-                    toast({
-                      title: 'Login necessário',
-                      description: 'Você precisa estar logado para adicionar itens ao carrinho.',
-                      variant: 'destructive',
-                    })
-                    router.push('/login')
+                    router.push('/cadastro')
                     return
                   }
                   addItem({
@@ -497,25 +490,6 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
           </Card>
         </div>
 
-        {/* Documents */}
-        <div className="mt-8">
-          <Card className="bg-white border-gray-200 shadow-lg">
-            <CardContent className="p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                <FileText className="w-6 h-6 inline mr-2" />
-                Documentos Disponíveis
-              </h2>
-              <div className="grid md:grid-cols-2 gap-4">
-                {product.documents.map((doc, index) => (
-                  <div key={index} className="flex items-center p-3 bg-gray-50 rounded-lg border border-gray-200">
-                    <Shield className="w-5 h-5 text-green-600 mr-3" />
-                    <span className="text-gray-900">{doc}</span>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </div>
 
         {/* Seller Info */}
         <div className="mt-8">
@@ -560,18 +534,12 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
                   </div>
                   
                   <div className="flex gap-3">
-                    <Link href={`/vendedor/${product.sellerInfo.id}`}>
-                      <Button variant="outline" className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white">
-                        Ver Perfil Completo
-                      </Button>
-                    </Link>
-                    <Button className="bg-green-500 hover:bg-green-600 text-white">
-                      <Phone className="w-4 h-4 mr-2" />
-                      WhatsApp
-                    </Button>
-                    <Button variant="outline" className="border-gray-600 text-gray-600 hover:bg-gray-600 hover:text-white">
-                      <Mail className="w-4 h-4 mr-2" />
-                      E-mail
+                    <Button 
+                      variant="outline" 
+                      className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white"
+                      onClick={() => router.push('/cadastro')}
+                    >
+                      Ver mais produtos do vendedor
                     </Button>
                   </div>
                 </div>
@@ -586,12 +554,12 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
             <CardContent className="p-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">
                 <MapPin className="w-6 h-6 inline mr-2" />
-                Localização do Fornecedor
+                Localização do Vendedor
               </h2>
               <div className="bg-gray-50 rounded-lg h-64 flex items-center justify-center border border-gray-200">
                 <div className="text-center text-gray-600">
                   <MapPin className="w-12 h-12 mx-auto mb-2" />
-                  <p>Mapa da localização do fornecedor</p>
+                  <p>Mapa da localização do vendedor</p>
                   <p className="text-sm">{product.city}, {product.location}</p>
                 </div>
               </div>
