@@ -205,12 +205,10 @@ export default function CadastroPage() {
 
     const getActivityTypeLabel = (value: string) => {
         const labels: { [key: string]: string } = {
-            'produtor-gado': 'Produtor de gado',
-            'agricultor': 'Agricultor',
-            'criador-equinos': 'Criador de equinos',
-            'criador-suinos': 'Criador de suínos',
-            'criador-aves': 'Criador de aves',
-            'hobby': 'Hobby',
+            'pecuarista': 'Pecuarista (gado de corte ou leite)',
+            'criador-cavalos': 'Criador de cavalos',
+            'produtor-rural': 'Produtor rural / Agricultor',
+            'hobby': 'Hobby / Criador eventual',
             'outros': 'Outros'
         }
         return labels[value] || value
@@ -251,8 +249,13 @@ export default function CadastroPage() {
 
     const getOperationTypeLabel = (value: string) => {
         const labels: { [key: string]: string } = {
-            'vendedor-animais-genetica': 'Vendedor de animais e genética (Negociação direta / Leilão)',
-            'vendedor-produtos': 'Vendedor de produtos (Mercado Agro)'
+            'vendedor-gado': 'Vendedor de gado (corte, leite ou genética)',
+            'vendedor-cavalos': 'Vendedor de cavalos (esporte, genética ou vaquejada)',
+            'fornecedor-genetica': 'Fornecedor de genética animal',
+            'fornecedor-produtos': 'Fornecedor de produtos agropecuários',
+            'empresa-agricola': 'Empresa agrícola / Agroindústria',
+            'cooperativa': 'Cooperativa / Fazenda estruturada',
+            'outros-pj': 'Outros'
         }
         return labels[value] || value
     }
@@ -741,45 +744,42 @@ export default function CadastroPage() {
                                             Tipo de atuação
                                         </Label>
                                         <p className="text-sm text-gray-600">
-                                            Selecione uma ou ambas as opções, de acordo com sua atuação.
+                                            Selecione uma ou mais opções, de acordo com sua atuação.
                                         </p>
                                     </div>
                                     
                                     <div className="space-y-4">
                                         <div className="relative">
                                             <Checkbox
-                                                id="vendedor-animais"
-                                                checked={formData.operationTypes?.includes('vendedor-animais-genetica') || false}
-                                                onCheckedChange={(checked) => handleOperationTypeChange('vendedor-animais-genetica', checked as boolean)}
+                                                id="vendedor-gado"
+                                                checked={formData.operationTypes?.includes('vendedor-gado') || false}
+                                                onCheckedChange={(checked) => handleOperationTypeChange('vendedor-gado', checked as boolean)}
                                                 className="sr-only"
                                             />
                                             <Label
-                                                htmlFor="vendedor-animais"
+                                                htmlFor="vendedor-gado"
                                                 className={`flex items-center p-4 sm:p-6 border-2 rounded-xl cursor-pointer transition-all duration-200 ${
-                                                    formData.operationTypes?.includes('vendedor-animais-genetica')
+                                                    formData.operationTypes?.includes('vendedor-gado')
                                                         ? 'border-emerald-500 bg-emerald-50'
                                                         : 'border-gray-200 hover:border-gray-300'
                                                 }`}
                                             >
                                                 <div className="flex items-center space-x-3 sm:space-x-4">
                                                     <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center flex-shrink-0 ${
-                                                        formData.operationTypes?.includes('vendedor-animais-genetica')
+                                                        formData.operationTypes?.includes('vendedor-gado')
                                                             ? 'bg-emerald-100'
                                                             : 'bg-gray-100'
                                                     }`}>
                                                         <User className={`w-5 h-5 sm:w-6 sm:h-6 ${
-                                                            formData.operationTypes?.includes('vendedor-animais-genetica')
+                                                            formData.operationTypes?.includes('vendedor-gado')
                                                                 ? 'text-emerald-600'
                                                                 : 'text-gray-600'
                                                         }`} />
                                                     </div>
                                                     <div className="min-w-0">
                                                         <h3 className="text-base sm:text-lg font-semibold text-gray-900">
-                                                            Vendedor de animais e genética
+                                                            Vendedor de gado (corte, leite ou genética)
                                                         </h3>
-                                                        <p className="text-sm sm:text-base text-gray-600">
-                                                            Negociação direta / Leilão
-                                                        </p>
                                                     </div>
                                                 </div>
                                             </Label>
@@ -787,38 +787,215 @@ export default function CadastroPage() {
 
                                         <div className="relative">
                                             <Checkbox
-                                                id="vendedor-produtos"
-                                                checked={formData.operationTypes?.includes('vendedor-produtos') || false}
-                                                onCheckedChange={(checked) => handleOperationTypeChange('vendedor-produtos', checked as boolean)}
+                                                id="vendedor-cavalos"
+                                                checked={formData.operationTypes?.includes('vendedor-cavalos') || false}
+                                                onCheckedChange={(checked) => handleOperationTypeChange('vendedor-cavalos', checked as boolean)}
                                                 className="sr-only"
                                             />
                                             <Label
-                                                htmlFor="vendedor-produtos"
+                                                htmlFor="vendedor-cavalos"
                                                 className={`flex items-center p-4 sm:p-6 border-2 rounded-xl cursor-pointer transition-all duration-200 ${
-                                                    formData.operationTypes?.includes('vendedor-produtos')
+                                                    formData.operationTypes?.includes('vendedor-cavalos')
                                                         ? 'border-emerald-500 bg-emerald-50'
                                                         : 'border-gray-200 hover:border-gray-300'
                                                 }`}
                                             >
                                                 <div className="flex items-center space-x-3 sm:space-x-4">
                                                     <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center flex-shrink-0 ${
-                                                        formData.operationTypes?.includes('vendedor-produtos')
+                                                        formData.operationTypes?.includes('vendedor-cavalos')
                                                             ? 'bg-emerald-100'
                                                             : 'bg-gray-100'
                                                     }`}>
-                                                        <Building className={`w-5 h-5 sm:w-6 sm:h-6 ${
-                                                            formData.operationTypes?.includes('vendedor-produtos')
+                                                        <User className={`w-5 h-5 sm:w-6 sm:h-6 ${
+                                                            formData.operationTypes?.includes('vendedor-cavalos')
                                                                 ? 'text-emerald-600'
                                                                 : 'text-gray-600'
                                                         }`} />
                                                     </div>
                                                     <div className="min-w-0">
                                                         <h3 className="text-base sm:text-lg font-semibold text-gray-900">
-                                                            Vendedor de produtos
+                                                            Vendedor de cavalos (esporte, genética ou vaquejada)
                                                         </h3>
-                                                        <p className="text-sm sm:text-base text-gray-600">
-                                                            Mercado Agro
-                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </Label>
+                                        </div>
+
+                                        <div className="relative">
+                                            <Checkbox
+                                                id="fornecedor-genetica"
+                                                checked={formData.operationTypes?.includes('fornecedor-genetica') || false}
+                                                onCheckedChange={(checked) => handleOperationTypeChange('fornecedor-genetica', checked as boolean)}
+                                                className="sr-only"
+                                            />
+                                            <Label
+                                                htmlFor="fornecedor-genetica"
+                                                className={`flex items-center p-4 sm:p-6 border-2 rounded-xl cursor-pointer transition-all duration-200 ${
+                                                    formData.operationTypes?.includes('fornecedor-genetica')
+                                                        ? 'border-emerald-500 bg-emerald-50'
+                                                        : 'border-gray-200 hover:border-gray-300'
+                                                }`}
+                                            >
+                                                <div className="flex items-center space-x-3 sm:space-x-4">
+                                                    <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                                                        formData.operationTypes?.includes('fornecedor-genetica')
+                                                            ? 'bg-emerald-100'
+                                                            : 'bg-gray-100'
+                                                    }`}>
+                                                        <Building className={`w-5 h-5 sm:w-6 sm:h-6 ${
+                                                            formData.operationTypes?.includes('fornecedor-genetica')
+                                                                ? 'text-emerald-600'
+                                                                : 'text-gray-600'
+                                                        }`} />
+                                                    </div>
+                                                    <div className="min-w-0">
+                                                        <h3 className="text-base sm:text-lg font-semibold text-gray-900">
+                                                            Fornecedor de genética animal
+                                                        </h3>
+                                                    </div>
+                                                </div>
+                                            </Label>
+                                        </div>
+
+                                        <div className="relative">
+                                            <Checkbox
+                                                id="fornecedor-produtos"
+                                                checked={formData.operationTypes?.includes('fornecedor-produtos') || false}
+                                                onCheckedChange={(checked) => handleOperationTypeChange('fornecedor-produtos', checked as boolean)}
+                                                className="sr-only"
+                                            />
+                                            <Label
+                                                htmlFor="fornecedor-produtos"
+                                                className={`flex items-center p-4 sm:p-6 border-2 rounded-xl cursor-pointer transition-all duration-200 ${
+                                                    formData.operationTypes?.includes('fornecedor-produtos')
+                                                        ? 'border-emerald-500 bg-emerald-50'
+                                                        : 'border-gray-200 hover:border-gray-300'
+                                                }`}
+                                            >
+                                                <div className="flex items-center space-x-3 sm:space-x-4">
+                                                    <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                                                        formData.operationTypes?.includes('fornecedor-produtos')
+                                                            ? 'bg-emerald-100'
+                                                            : 'bg-gray-100'
+                                                    }`}>
+                                                        <Building className={`w-5 h-5 sm:w-6 sm:h-6 ${
+                                                            formData.operationTypes?.includes('fornecedor-produtos')
+                                                                ? 'text-emerald-600'
+                                                                : 'text-gray-600'
+                                                        }`} />
+                                                    </div>
+                                                    <div className="min-w-0">
+                                                        <h3 className="text-base sm:text-lg font-semibold text-gray-900">
+                                                            Fornecedor de produtos agropecuários
+                                                        </h3>
+                                                    </div>
+                                                </div>
+                                            </Label>
+                                        </div>
+
+                                        <div className="relative">
+                                            <Checkbox
+                                                id="empresa-agricola"
+                                                checked={formData.operationTypes?.includes('empresa-agricola') || false}
+                                                onCheckedChange={(checked) => handleOperationTypeChange('empresa-agricola', checked as boolean)}
+                                                className="sr-only"
+                                            />
+                                            <Label
+                                                htmlFor="empresa-agricola"
+                                                className={`flex items-center p-4 sm:p-6 border-2 rounded-xl cursor-pointer transition-all duration-200 ${
+                                                    formData.operationTypes?.includes('empresa-agricola')
+                                                        ? 'border-emerald-500 bg-emerald-50'
+                                                        : 'border-gray-200 hover:border-gray-300'
+                                                }`}
+                                            >
+                                                <div className="flex items-center space-x-3 sm:space-x-4">
+                                                    <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                                                        formData.operationTypes?.includes('empresa-agricola')
+                                                            ? 'bg-emerald-100'
+                                                            : 'bg-gray-100'
+                                                    }`}>
+                                                        <Building className={`w-5 h-5 sm:w-6 sm:h-6 ${
+                                                            formData.operationTypes?.includes('empresa-agricola')
+                                                                ? 'text-emerald-600'
+                                                                : 'text-gray-600'
+                                                        }`} />
+                                                    </div>
+                                                    <div className="min-w-0">
+                                                        <h3 className="text-base sm:text-lg font-semibold text-gray-900">
+                                                            Empresa agrícola / Agroindústria
+                                                        </h3>
+                                                    </div>
+                                                </div>
+                                            </Label>
+                                        </div>
+
+                                        <div className="relative">
+                                            <Checkbox
+                                                id="cooperativa"
+                                                checked={formData.operationTypes?.includes('cooperativa') || false}
+                                                onCheckedChange={(checked) => handleOperationTypeChange('cooperativa', checked as boolean)}
+                                                className="sr-only"
+                                            />
+                                            <Label
+                                                htmlFor="cooperativa"
+                                                className={`flex items-center p-4 sm:p-6 border-2 rounded-xl cursor-pointer transition-all duration-200 ${
+                                                    formData.operationTypes?.includes('cooperativa')
+                                                        ? 'border-emerald-500 bg-emerald-50'
+                                                        : 'border-gray-200 hover:border-gray-300'
+                                                }`}
+                                            >
+                                                <div className="flex items-center space-x-3 sm:space-x-4">
+                                                    <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                                                        formData.operationTypes?.includes('cooperativa')
+                                                            ? 'bg-emerald-100'
+                                                            : 'bg-gray-100'
+                                                    }`}>
+                                                        <Building className={`w-5 h-5 sm:w-6 sm:h-6 ${
+                                                            formData.operationTypes?.includes('cooperativa')
+                                                                ? 'text-emerald-600'
+                                                                : 'text-gray-600'
+                                                        }`} />
+                                                    </div>
+                                                    <div className="min-w-0">
+                                                        <h3 className="text-base sm:text-lg font-semibold text-gray-900">
+                                                            Cooperativa / Fazenda estruturada
+                                                        </h3>
+                                                    </div>
+                                                </div>
+                                            </Label>
+                                        </div>
+
+                                        <div className="relative">
+                                            <Checkbox
+                                                id="outros-pj"
+                                                checked={formData.operationTypes?.includes('outros-pj') || false}
+                                                onCheckedChange={(checked) => handleOperationTypeChange('outros-pj', checked as boolean)}
+                                                className="sr-only"
+                                            />
+                                            <Label
+                                                htmlFor="outros-pj"
+                                                className={`flex items-center p-4 sm:p-6 border-2 rounded-xl cursor-pointer transition-all duration-200 ${
+                                                    formData.operationTypes?.includes('outros-pj')
+                                                        ? 'border-emerald-500 bg-emerald-50'
+                                                        : 'border-gray-200 hover:border-gray-300'
+                                                }`}
+                                            >
+                                                <div className="flex items-center space-x-3 sm:space-x-4">
+                                                    <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                                                        formData.operationTypes?.includes('outros-pj')
+                                                            ? 'bg-emerald-100'
+                                                            : 'bg-gray-100'
+                                                    }`}>
+                                                        <Building className={`w-5 h-5 sm:w-6 sm:h-6 ${
+                                                            formData.operationTypes?.includes('outros-pj')
+                                                                ? 'text-emerald-600'
+                                                                : 'text-gray-600'
+                                                        }`} />
+                                                    </div>
+                                                    <div className="min-w-0">
+                                                        <h3 className="text-base sm:text-lg font-semibold text-gray-900">
+                                                            Outros
+                                                        </h3>
                                                     </div>
                                                 </div>
                                             </Label>
@@ -835,12 +1012,10 @@ export default function CadastroPage() {
                                             <SelectValue placeholder="Selecione o tipo de atividade" />
                                         </SelectTrigger>
                                         <SelectContent>
-                                            <SelectItem value="produtor-gado">Produtor de gado</SelectItem>
-                                            <SelectItem value="agricultor">Agricultor</SelectItem>
-                                            <SelectItem value="criador-equinos">Criador de equinos</SelectItem>
-                                            <SelectItem value="criador-suinos">Criador de suínos</SelectItem>
-                                            <SelectItem value="criador-aves">Criador de aves</SelectItem>
-                                            <SelectItem value="hobby">Hobby</SelectItem>
+                                            <SelectItem value="pecuarista">Pecuarista (gado de corte ou leite)</SelectItem>
+                                            <SelectItem value="criador-cavalos">Criador de cavalos</SelectItem>
+                                            <SelectItem value="produtor-rural">Produtor rural / Agricultor</SelectItem>
+                                            <SelectItem value="hobby">Hobby / Criador eventual</SelectItem>
                                             <SelectItem value="outros">Outros</SelectItem>
                                         </SelectContent>
                                     </Select>
@@ -970,12 +1145,10 @@ export default function CadastroPage() {
                                         <SelectValue placeholder="Selecione o tipo de atividade" />
                                     </SelectTrigger>
                                     <SelectContent>
-                                        <SelectItem value="produtor-gado">Produtor de gado</SelectItem>
-                                        <SelectItem value="agricultor">Agricultor</SelectItem>
-                                        <SelectItem value="criador-equinos">Criador de equinos</SelectItem>
-                                        <SelectItem value="criador-suinos">Criador de suínos</SelectItem>
-                                        <SelectItem value="criador-aves">Criador de aves</SelectItem>
-                                        <SelectItem value="hobby">Hobby</SelectItem>
+                                        <SelectItem value="pecuarista">Pecuarista (gado de corte ou leite)</SelectItem>
+                                        <SelectItem value="criador-cavalos">Criador de cavalos</SelectItem>
+                                        <SelectItem value="produtor-rural">Produtor rural / Agricultor</SelectItem>
+                                        <SelectItem value="hobby">Hobby / Criador eventual</SelectItem>
                                         <SelectItem value="outros">Outros</SelectItem>
                                     </SelectContent>
                                 </Select>
