@@ -206,15 +206,6 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
                   />
                   {auction.status === 'live' && (
                     <>
-                      <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-                        <Button 
-                          size="lg"
-                          className="bg-red-600 hover:bg-red-700 text-white rounded-full w-16 h-16"
-                        >
-                          <Play className="w-8 h-8" />
-                        </Button>
-                      </div>
-                      
                       {/* Live Indicator */}
                       <div className="absolute top-4 left-4">
                         <Badge className="bg-red-500 animate-pulse">
