@@ -390,14 +390,14 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
                         Ver Perfil Completo
                       </Button>
                     </Link>
-                    <Button className="bg-green-500 hover:bg-green-600 text-white">
-                      <Phone className="w-4 h-4 mr-2" />
-                      WhatsApp
-                    </Button>
-                    <Button variant="outline" className="border-gray-600 text-gray-600 hover:bg-gray-600 hover:text-white">
-                      <Mail className="w-4 h-4 mr-2" />
-                      E-mail
-                    </Button>
+                    {/*<Button className="bg-green-500 hover:bg-green-600 text-white">*/}
+                    {/*  <Phone className="w-4 h-4 mr-2" />*/}
+                    {/*  WhatsApp*/}
+                    {/*</Button>*/}
+                    {/*<Button variant="outline" className="border-gray-600 text-gray-600 hover:bg-gray-600 hover:text-white">*/}
+                    {/*  <Mail className="w-4 h-4 mr-2" />*/}
+                    {/*  E-mail*/}
+                    {/*</Button>*/}
                   </div>
                 </div>
               </div>
