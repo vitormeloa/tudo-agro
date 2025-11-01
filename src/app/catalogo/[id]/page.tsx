@@ -11,7 +11,6 @@ import {
   Star, 
   Heart, 
   Share2,
-  MessageCircle,
   Phone,
   Mail,
   FileText,
@@ -23,7 +22,8 @@ import {
   ChevronLeft,
   ChevronRight,
   Play,
-  ShoppingCart
+  ShoppingCart,
+  Plus
 } from 'lucide-react'
 import { mockAnimals } from '@/lib/mock-animals'
 
@@ -283,8 +283,8 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
                 variant="outline" 
                 className="w-full border-green-600 text-green-600 hover:bg-green-600 hover:text-white py-4 text-lg transition-all hover:scale-105"
               >
-                <MessageCircle className="w-5 h-5 mr-2" />
-                Tirar Dúvida com Vendedor
+                <ShoppingBag className="w-5 h-5 mr-2" />
+                Adicionar ao carrinho
               </Button>
             </div>
           </div>

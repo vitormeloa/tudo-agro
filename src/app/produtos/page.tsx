@@ -253,35 +253,37 @@ export default function ProdutosPage() {
 
         {/* Modal de Categorias */}
         <Dialog open={showCategoriesModal} onOpenChange={setShowCategoriesModal}>
-          <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
-            <DialogHeader>
-              <DialogTitle className="text-2xl font-bold text-gray-900">Todas as Categorias</DialogTitle>
-              <DialogDescription className="text-gray-600">
+          <DialogContent className="max-w-[95vw] sm:max-w-2xl md:max-w-3xl lg:max-w-4xl max-h-[90vh] sm:max-h-[85vh] overflow-hidden flex flex-col p-0 gap-0">
+            <DialogHeader className="px-4 sm:px-6 pt-4 sm:pt-6 pb-3 sm:pb-4 border-b border-gray-200">
+              <DialogTitle className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900">Todas as Categorias</DialogTitle>
+              <DialogDescription className="text-sm sm:text-base text-gray-600 mt-1 sm:mt-2">
                 Explore todas as categorias disponíveis em nosso marketplace
               </DialogDescription>
             </DialogHeader>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4">
-              {hiddenCategories.map((category, index) => (
-                <Card 
-                  key={category.name} 
-                  className="hover:shadow-lg transition-all duration-300 transform hover:scale-105 cursor-pointer"
-                  onClick={() => setShowCategoriesModal(false)}
-                >
-                  <CardContent className="p-4 text-center">
-                    <div 
-                      className="inline-flex px-4 py-2 rounded-full text-xs font-medium mb-3 max-w-full break-words leading-tight"
-                      style={{ 
-                        backgroundColor: category.color,
-                        color: '#1F2937' // text-gray-800 equivalente
-                      }}
-                    >
-                      <span className="text-center">{category.name}</span>
-                    </div>
-                    <div className="text-xl font-bold text-gray-900">{category.count}</div>
-                    <div className="text-xs text-gray-500">produtos</div>
-                  </CardContent>
-                </Card>
-              ))}
+            <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-4 sm:py-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
+                {hiddenCategories.map((category, index) => (
+                  <Card 
+                    key={category.name} 
+                    className="hover:shadow-lg transition-all duration-300 transform hover:scale-[1.02] cursor-pointer border border-gray-200"
+                    onClick={() => setShowCategoriesModal(false)}
+                  >
+                    <CardContent className="p-3 sm:p-4 text-center flex flex-col items-center justify-center min-h-[120px] sm:min-h-[140px]">
+                      <div 
+                        className="inline-flex px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium mb-2 sm:mb-3 max-w-full break-words leading-tight"
+                        style={{ 
+                          backgroundColor: category.color,
+                          color: '#1F2937' // text-gray-800 equivalente
+                        }}
+                      >
+                        <span className="text-center">{category.name}</span>
+                      </div>
+                      <div className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900">{category.count}</div>
+                      <div className="text-xs sm:text-sm text-gray-500 mt-0.5">produtos</div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
             </div>
           </DialogContent>
         </Dialog>

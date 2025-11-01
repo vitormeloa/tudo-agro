@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, use } from 'react'
+import { useState, use, useEffect } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -11,7 +11,6 @@ import {
   Star, 
   Heart, 
   Share2,
-  MessageCircle,
   Phone,
   Mail,
   FileText,
@@ -23,19 +22,70 @@ import {
   ChevronLeft,
   ChevronRight,
   Play,
-  ShoppingCart
+  ShoppingCart,
+  ShoppingBag,
+  Plus,
+  Minus
 } from 'lucide-react'
 import { mockProducts } from '@/lib/mock-products'
 
 export default function ProdutoPage({ params }: { params: Promise<{ id: string }> }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [isFavorite, setIsFavorite] = useState(false)
+  const [quantity, setQuantity] = useState(1)
   
   const resolvedParams = use(params)
   const productId = resolvedParams.id
   
   // Buscar produto pelo ID (UUID)
   const product = mockProducts.find(p => p.id === productId)
+  
+  // Extrair quantidade disponível do estoque
+  const getAvailableStock = (stockString: string): number => {
+    // Tenta extrair número da string (ex: "Em estoque: 50" ou "50 unidades" ou "50 em estoque")
+    const match = stockString.match(/\d+/)
+    if (match) {
+      const number = parseInt(match[0], 10)
+      // Garantir que o número seja válido e positivo
+      if (number > 0) {
+        return number
+      }
+    }
+    // Se não encontrar número ou se o estoque diz apenas "Em estoque", usa valor padrão
+    // Valores comuns: "Em estoque", "Disponível", etc.
+    if (stockString.toLowerCase().includes('estoque') || stockString.toLowerCase().includes('disponível')) {
+      return 100 // Valor padrão quando há estoque mas não especifica quantidade
+    }
+    return 0 // Sem estoque
+  }
+  
+  const availableStock = product ? getAvailableStock(product.stock) : 0
+  
+  // Resetar quantidade quando o produto mudar
+  useEffect(() => {
+    setQuantity(1)
+  }, [productId])
+  
+  const handleIncreaseQuantity = () => {
+    if (quantity < availableStock) {
+      setQuantity(prev => prev + 1)
+    }
+  }
+  
+  const handleDecreaseQuantity = () => {
+    if (quantity > 1) {
+      setQuantity(prev => prev - 1)
+    }
+  }
+  
+  const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseInt(e.target.value, 10)
+    if (!isNaN(value) && value >= 1 && value <= availableStock) {
+      setQuantity(value)
+    } else if (e.target.value === '') {
+      setQuantity(1)
+    }
+  }
   
   // Se não encontrar, mostrar erro
   if (!product) {
@@ -205,8 +255,49 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
                 <span>{product.city}, {product.location}</span>
               </div>
 
-              <div className="text-4xl font-bold text-green-600 mb-6">
-                R$ {product.price.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              <div className="flex items-center gap-4 sm:gap-6 mb-6 flex-wrap">
+                <div className="text-3xl sm:text-4xl font-bold text-green-600 whitespace-nowrap">
+                  R$ {product.price.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                </div>
+                
+                {/* Quantity Controls */}
+                <div className="flex items-center gap-3">
+                  <label className="text-sm font-medium text-gray-700 whitespace-nowrap hidden sm:block">
+                    Quantidade:
+                  </label>
+                  <div className="flex items-center gap-2">
+                    <div className="inline-flex items-center border border-gray-300 rounded-lg bg-white shadow-sm hover:shadow transition-shadow focus-within:ring-2 focus-within:ring-green-500/20 focus-within:border-green-500">
+                      <button
+                        onClick={handleDecreaseQuantity}
+                        disabled={quantity <= 1}
+                        className="p-2.5 sm:p-3 hover:bg-green-50 active:bg-green-100 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent transition-all duration-150 flex items-center justify-center rounded-l-lg"
+                        aria-label="Diminuir quantidade"
+                      >
+                        <Minus className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700" />
+                      </button>
+                      <input
+                        type="number"
+                        min="1"
+                        max={availableStock}
+                        value={quantity}
+                        onChange={handleQuantityChange}
+                        className="w-14 sm:w-16 text-center text-base sm:text-lg font-semibold text-gray-900 border-0 focus:outline-none bg-transparent px-2 py-2.5 sm:py-3"
+                        aria-label="Quantidade"
+                      />
+                      <button
+                        onClick={handleIncreaseQuantity}
+                        disabled={quantity >= availableStock}
+                        className="p-2.5 sm:p-3 hover:bg-green-50 active:bg-green-100 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent transition-all duration-150 flex items-center justify-center rounded-r-lg"
+                        aria-label="Aumentar quantidade"
+                      >
+                        <Plus className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700" />
+                      </button>
+                    </div>
+                    <span className="text-xs sm:text-sm text-gray-500 whitespace-nowrap">
+                      ({availableStock} disponível{availableStock !== 1 ? 'eis' : 'l'})
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -250,7 +341,7 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
             {/* Specifications Details */}
             <Card className="bg-white border-gray-200 shadow-lg">
               <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Detalhes Técnicos</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">O que você precisa saber sobre esse produto</h3>
                 <div className="space-y-3">
                   {Object.entries(product.specifications).map(([key, value]) => (
                     <div key={key} className="flex justify-between">
@@ -268,15 +359,22 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
             <div className="space-y-4">
               <Button className="w-full bg-green-600 hover:bg-green-700 text-white py-4 text-lg transition-all hover:scale-105">
                 <ShoppingCart className="w-5 h-5 mr-2" />
-                Comprar Agora
+                Comprar Agora {quantity > 1 && `(${quantity}x)`}
               </Button>
+              {quantity > 1 && (
+                <div className="text-center text-sm text-gray-600">
+                  Total: <span className="font-bold text-green-600">
+                    R$ {(product.price * quantity).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                  </span>
+                </div>
+              )}
               
               <Button 
                 variant="outline" 
                 className="w-full border-green-600 text-green-600 hover:bg-green-600 hover:text-white py-4 text-lg transition-all hover:scale-105"
               >
-                <MessageCircle className="w-5 h-5 mr-2" />
-                Tirar Dúvida com Fornecedor
+                <ShoppingBag className="w-5 h-5 mr-2" />
+                Adicionar ao carrinho {quantity > 1 && `(${quantity}x)`}
               </Button>
             </div>
           </div>
