@@ -6,10 +6,12 @@ import { Button } from '@/components/ui/button'
 import { 
   Menu, 
   X, 
-  Search
+  Search,
+  ShoppingCart
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useAuth } from '@/hooks/useAuth'
+import { useCart } from '@/contexts/CartContext'
 import AuthButton from './AuthButton'
 import MobileAuthButton from './MobileAuthButton'
 
@@ -34,6 +36,8 @@ export default function Header({
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [scrollY, setScrollY] = useState(0)
   const { user, loading } = useAuth()
+  const { getTotalItems } = useCart()
+  const cartItemsCount = getTotalItems()
 
   // Efeito de scroll para opacidade
   useEffect(() => {
@@ -147,6 +151,24 @@ export default function Header({
 
           {/* Right side actions */}
           <div className="flex items-center space-x-2 lg:space-x-4">
+            {/* Carrinho - apenas quando logado */}
+            {showCart && user && !loading && (
+              <Link href="/carrinho">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="relative text-gray-600 hover:text-emerald-600 transition-colors"
+                >
+                  <ShoppingCart className="w-5 h-5" />
+                  {cartItemsCount > 0 && (
+                    <span className="absolute -top-1 -right-1 bg-emerald-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                      {cartItemsCount > 99 ? '99+' : cartItemsCount}
+                    </span>
+                  )}
+                </Button>
+              </Link>
+            )}
+            
             {/* Desktop Auth Button Component */}
             <AuthButton />
 

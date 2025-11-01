@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, use, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -28,11 +29,20 @@ import {
   Minus
 } from 'lucide-react'
 import { mockProducts } from '@/lib/mock-products'
+import { useCart } from '@/contexts/CartContext'
+import Header from '@/components/layout/Header'
+import Footer from '@/components/layout/Footer'
+import { useAuth } from '@/hooks/useAuth'
+import { useToast } from '@/hooks/use-toast'
 
 export default function ProdutoPage({ params }: { params: Promise<{ id: string }> }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [isFavorite, setIsFavorite] = useState(false)
   const [quantity, setQuantity] = useState(1)
+  const { addItem } = useCart()
+  const { user } = useAuth()
+  const router = useRouter()
+  const { toast } = useToast()
   
   const resolvedParams = use(params)
   const productId = resolvedParams.id
@@ -115,47 +125,7 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
-          <div className="flex justify-between items-center h-14 sm:h-16 gap-2">
-            {/* Left: Back Button */}
-            <div className="flex items-center flex-shrink-0">
-              <Link href="/produtos" className="flex items-center space-x-1 sm:space-x-2 hover:opacity-80 transition-opacity">
-                <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" />
-                <span className="text-gray-600 font-medium text-xs sm:text-sm">
-                  <span className="hidden sm:inline">Voltar aos Produtos</span>
-                  <span className="sm:hidden">Voltar</span>
-                </span>
-              </Link>
-            </div>
-
-            {/* Center: Logo */}
-            <Link href="/" className="flex items-center space-x-2 flex-shrink-0 mx-auto sm:mx-0">
-              <img 
-                src="/fotos/tudo-agro-logo.png"
-                className="h-16 w-auto sm:h-20 md:h-24 lg:h-28"
-                alt="TudoAgro Logo"
-              />
-            </Link>
-
-            {/* Right: Auth Buttons */}
-            <div className="flex items-center space-x-1 sm:space-x-2 md:space-x-4 flex-shrink-0">
-              <Link href="/login">
-                <Button variant="ghost" size="sm" className="text-gray-600 hover:text-green-600 hover:bg-gray-50 text-xs sm:text-sm">
-                  Entrar
-                </Button>
-              </Link>
-              <Link href="/cadastro">
-                <Button size="sm" className="bg-green-600 hover:bg-green-700 text-white text-xs sm:text-sm px-2 sm:px-4">
-                  <span className="hidden sm:inline">Cadastrar</span>
-                  <span className="sm:hidden">Cad.</span>
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </header>
+      <Header />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid lg:grid-cols-2 gap-12">
@@ -357,7 +327,31 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
 
             {/* Action Buttons */}
             <div className="space-y-4">
-              <Button className="w-full bg-green-600 hover:bg-green-700 text-white py-4 text-lg transition-all hover:scale-105">
+              <Button 
+                className="w-full bg-green-600 hover:bg-green-700 text-white py-4 text-lg transition-all hover:scale-105"
+                onClick={() => {
+                  if (!product) return
+                  if (!user) {
+                    router.push('/login')
+                    return
+                  }
+                  // Adicionar ao carrinho e redirecionar para checkout
+                  addItem({
+                    id: product.id,
+                    title: product.title,
+                    price: product.price,
+                    image: product.images[0] || product.image,
+                    seller: product.seller,
+                    stock: product.stock,
+                    availableStock: availableStock,
+                    type: 'product',
+                    location: product.location,
+                    city: product.city,
+                    quantity: quantity
+                  })
+                  router.push('/checkout')
+                }}
+              >
                 <ShoppingCart className="w-5 h-5 mr-2" />
                 Comprar Agora {quantity > 1 && `(${quantity}x)`}
               </Button>
@@ -372,6 +366,31 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
               <Button 
                 variant="outline" 
                 className="w-full border-green-600 text-green-600 hover:bg-green-600 hover:text-white py-4 text-lg transition-all hover:scale-105"
+                onClick={() => {
+                  if (!product) return
+                  if (!user) {
+                    toast({
+                      title: 'Login necessário',
+                      description: 'Você precisa estar logado para adicionar itens ao carrinho.',
+                      variant: 'destructive',
+                    })
+                    router.push('/login')
+                    return
+                  }
+                  addItem({
+                    id: product.id,
+                    title: product.title,
+                    price: product.price,
+                    image: product.images[0] || product.image,
+                    seller: product.seller,
+                    stock: product.stock,
+                    availableStock: availableStock,
+                    type: 'product',
+                    location: product.location,
+                    city: product.city,
+                    quantity: quantity
+                  })
+                }}
               >
                 <ShoppingBag className="w-5 h-5 mr-2" />
                 Adicionar ao carrinho {quantity > 1 && `(${quantity}x)`}
@@ -494,6 +513,8 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
           </Card>
         </div>
       </div>
+      
+      <Footer />
     </div>
   )
 }

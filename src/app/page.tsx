@@ -40,6 +40,7 @@ import {
 export default function HomePage() {
   const [searchQuery, setSearchQuery] = useState('')
   const [isMobile, setIsMobile] = useState(false)
+  const [isMounted, setIsMounted] = useState(false)
   const { toast } = useToast()
 
   // Verificar se há mensagem de sucesso na URL
@@ -101,13 +102,17 @@ export default function HomePage() {
   }))
 
   // Usar leilões ao vivo do mock (primeiros 2)
-  const liveAuctions = mockAuctions.filter(a => a.status === 'live').slice(0, 2).map(a => ({
+  const liveAuctionsBase = mockAuctions.filter(a => a.status === 'live').slice(0, 2)
+  
+  // Calcular tempo restante apenas no cliente para evitar problemas de hidratação
+  const liveAuctions = liveAuctionsBase.map(a => ({
     id: a.id,
     title: a.title,
     type: a.type,
     currentBid: a.currentBid || 0,
     participants: a.participants,
-    timeLeft: a.endTime ? formatTimeLeft(a.endTime) : "0h 0m",
+    timeLeft: isMounted && a.endTime ? formatTimeLeft(a.endTime) : "Carregando...",
+    endTime: a.endTime,
     image: a.image,
     location: a.location
   }))
@@ -372,10 +377,12 @@ export default function HomePage() {
                     </Badge>
                     <Badge className="bg-emerald-600 text-white shadow-lg">{auction.type}</Badge>
                   </div>
-                  <div className="absolute top-4 right-4 bg-black/80 text-white px-3 py-1 rounded-lg text-sm font-bold backdrop-blur-sm">
-                    <Clock className="w-4 h-4 inline mr-1" />
-                    {auction.timeLeft}
-                  </div>
+                  {isMounted && (
+                    <div className="absolute top-4 right-4 bg-black/80 text-white px-3 py-1 rounded-lg text-sm font-bold backdrop-blur-sm">
+                      <Clock className="w-4 h-4 inline mr-1" />
+                      {auction.endTime ? formatTimeLeft(auction.endTime) : "0h 0m"}
+                    </div>
+                  )}
                 </div>
                 <CardContent className="p-6">
                   <h3 className="font-bold text-xl text-gray-900 mb-4 group-hover:text-emerald-700 transition-colors duration-300">{auction.title}</h3>

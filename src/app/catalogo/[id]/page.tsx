@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, use } from 'react'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -30,6 +31,8 @@ import { mockAnimals } from '@/lib/mock-animals'
 export default function AnimalPage({ params }: { params: Promise<{ id: string }> }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [isFavorite, setIsFavorite] = useState(false)
+  const { addItem } = useCart()
+  const { user } = useAuth()
   
   const resolvedParams = use(params)
   const animalId = resolvedParams.id
@@ -267,7 +270,44 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
             {/* Action Buttons */}
             <div className="space-y-4">
               {animal.type === 'venda' ? (
-                <Button className="w-full bg-green-600 hover:bg-green-700 text-white py-4 text-lg transition-all hover:scale-105">
+                <Button 
+                  className="w-full bg-green-600 hover:bg-green-700 text-white py-4 text-lg transition-all hover:scale-105"
+                  onClick={() => {
+                    if (!animal) return
+                    if (!user) {
+                      router.push('/login')
+                      return
+                    }
+                    // Extrair estoque disponível
+                    const getAvailableStock = (stockString: string): number => {
+                      const match = stockString.match(/\d+/)
+                      if (match) {
+                        const number = parseInt(match[0], 10)
+                        if (number > 0) return number
+                      }
+                      if (stockString.toLowerCase().includes('estoque') || stockString.toLowerCase().includes('disponível')) {
+                        return 1 // Para animais, geralmente é 1 unidade
+                      }
+                      return 1
+                    }
+                    
+                    // Adicionar ao carrinho e redirecionar para checkout
+                    addItem({
+                      id: animal.id,
+                      title: animal.title,
+                      price: animal.price,
+                      image: animal.images[0] || animal.image,
+                      seller: animal.seller.name,
+                      stock: 'Disponível',
+                      availableStock: getAvailableStock('Disponível'),
+                      type: 'animal',
+                      location: animal.location,
+                      city: animal.city,
+                      quantity: 1
+                    })
+                    router.push('/checkout')
+                  }}
+                >
                   Comprar Agora
                 </Button>
               ) : (
@@ -282,8 +322,46 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
               <Button 
                 variant="outline" 
                 className="w-full border-green-600 text-green-600 hover:bg-green-600 hover:text-white py-4 text-lg transition-all hover:scale-105"
+                onClick={() => {
+                  if (!animal) return
+                  if (!user) {
+                    toast({
+                      title: 'Login necessário',
+                      description: 'Você precisa estar logado para adicionar itens ao carrinho.',
+                      variant: 'destructive',
+                    })
+                    router.push('/login')
+                    return
+                  }
+                  // Extrair estoque disponível
+                  const getAvailableStock = (stockString: string): number => {
+                    const match = stockString.match(/\d+/)
+                    if (match) {
+                      const number = parseInt(match[0], 10)
+                      if (number > 0) return number
+                    }
+                    if (stockString.toLowerCase().includes('estoque') || stockString.toLowerCase().includes('disponível')) {
+                      return 1 // Para animais, geralmente é 1 unidade
+                    }
+                    return 1
+                  }
+                  
+                  addItem({
+                    id: animal.id,
+                    title: animal.title,
+                    price: animal.price,
+                    image: animal.images[0] || animal.image,
+                    seller: animal.seller.name,
+                    stock: 'Disponível',
+                    availableStock: getAvailableStock('Disponível'),
+                    type: 'animal',
+                    location: animal.location,
+                    city: animal.city,
+                    quantity: 1
+                  })
+                }}
               >
-                <ShoppingBag className="w-5 h-5 mr-2" />
+                <ShoppingCart className="w-5 h-5 mr-2" />
                 Adicionar ao carrinho
               </Button>
             </div>
@@ -404,6 +482,8 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
           </Card>
         </div>
       </div>
+      
+      <Footer />
     </div>
   )
 }
