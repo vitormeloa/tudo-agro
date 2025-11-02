@@ -18,6 +18,7 @@ export interface MockAuction {
   auctioneer: string
   location: string
   image: string
+  videoUrl?: string // URL do vídeo ao vivo (YouTube, Twitch, etc.)
   currentBid?: number
   startingBid?: number
   estimatedValue?: number
@@ -37,6 +38,65 @@ export interface MockAuction {
   }[]
 }
 
+// Função helper para converter URLs do YouTube para formato embed
+// Aceita tanto URLs de watch quanto URLs de embed
+// Garante autoplay automático quando entrar na página
+export function convertToEmbedUrl(url: string): string {
+  if (!url) return url
+  
+  // Se já está no formato embed
+  if (url.includes('/embed/')) {
+    // Se já tem parâmetros, adiciona ou atualiza autoplay e mute
+    if (url.includes('?')) {
+      // Remove parâmetros existentes que vamos sobrescrever
+      let cleanUrl = url
+        .replace(/[?&]autoplay=\d+/g, '')
+        .replace(/[?&]mute=\d+/g, '')
+        .replace(/[?&]playsinline=\d+/g, '')
+        .replace(/[?&]rel=\d+/g, '')
+        .replace(/[?&]enablejsapi=\d+/g, '')
+        .replace(/[?&]origin=[^&]*/g, '')
+      
+      // Adiciona os parâmetros necessários (sem controles do YouTube)
+      const separator = cleanUrl.includes('?') ? '&' : '?'
+      const origin = typeof window !== 'undefined' ? window.location.origin : ''
+      return `${cleanUrl}${separator}autoplay=1&mute=1&playsinline=1&rel=0&enablejsapi=1&controls=0&modestbranding=1&showinfo=0&origin=${encodeURIComponent(origin)}`
+    } else {
+      const origin = typeof window !== 'undefined' ? window.location.origin : ''
+      return `${url}?autoplay=1&mute=1&playsinline=1&rel=0&enablejsapi=1&controls=0&modestbranding=1&showinfo=0&origin=${encodeURIComponent(origin)}`
+    }
+  }
+  
+  // Converte de watch?v= para embed
+  if (url.includes('youtube.com/watch?v=')) {
+    const videoId = url.match(/[?&]v=([^&]+)/)?.[1]
+    if (videoId) {
+      const origin = typeof window !== 'undefined' ? window.location.origin : ''
+      return `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&playsinline=1&rel=0&enablejsapi=1&controls=0&modestbranding=1&showinfo=0&origin=${encodeURIComponent(origin)}`
+    }
+  }
+  
+  // Converte de youtu.be/ para embed
+  if (url.includes('youtu.be/')) {
+    const videoId = url.split('youtu.be/')[1]?.split('?')[0]?.split('&')[0]
+    if (videoId) {
+      const origin = typeof window !== 'undefined' ? window.location.origin : ''
+      return `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&playsinline=1&rel=0&enablejsapi=1&origin=${encodeURIComponent(origin)}`
+    }
+  }
+  
+  // Para streams ao vivo do YouTube (live streams)
+  if (url.includes('youtube.com/live/')) {
+    const streamId = url.split('youtube.com/live/')[1]?.split('?')[0]?.split('&')[0]
+    if (streamId) {
+      const origin = typeof window !== 'undefined' ? window.location.origin : ''
+      return `https://www.youtube.com/embed/${streamId}?autoplay=1&mute=1&playsinline=1&rel=0&enablejsapi=1&controls=0&modestbranding=1&showinfo=0&origin=${encodeURIComponent(origin)}`
+    }
+  }
+  
+  return url
+}
+
 export const mockAuctions: MockAuction[] = [
   // Leilões ao vivo
   {
@@ -45,6 +105,7 @@ export const mockAuctions: MockAuction[] = [
     type: "Gado de Corte",
     status: "live",
     image: "/fotos/leiloes/leilao-faz-sta-rita.jpeg",
+    videoUrl: "https://www.youtube.com/watch?v=Ujcs-MyKc0w?autoplay=1&mute=1",
     location: "Goiás, GO",
     auctioneer: "Leiloeiro João Silva",
     organizer: "Fazenda Santa Rita",
@@ -90,6 +151,7 @@ export const mockAuctions: MockAuction[] = [
     type: "Cavalos",
     status: "live",
     image: "/fotos/leiloes/leilao-cavalo.webp",
+    videoUrl: "https://www.youtube.com/watch?v=mwOaq-Ns0N0?autoplay=1&mute=1",
     location: "Minas Gerais, MG",
     auctioneer: "Leiloeiro Maria Santos",
     organizer: "Haras Elite",
@@ -132,6 +194,7 @@ export const mockAuctions: MockAuction[] = [
     type: "Sêmen Bovino",
     status: "live",
     image: "/fotos/leiloes/leilao-faz-sta-rita.jpg",
+    videoUrl: "https://www.youtube.com/watch?v=7LZpMfiyFcQ?autoplay=1&mute=1", // Vídeo ao vivo de exemplo
     location: "São Paulo, SP",
     auctioneer: "Leiloeiro Carlos Oliveira",
     organizer: "Genética Elite",

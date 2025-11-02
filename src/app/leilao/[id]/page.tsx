@@ -1,11 +1,13 @@
 "use client"
 
-import { useState, useEffect, use } from 'react'
+import { useState, useEffect, use, useRef } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
+import { Slider } from '@/components/ui/slider'
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { 
   ArrowLeft,
   Timer, 
@@ -24,7 +26,7 @@ import {
   AlertCircle,
   CheckCircle
 } from 'lucide-react'
-import { mockAuctions } from '@/lib/mock-auctions'
+import { mockAuctions, convertToEmbedUrl } from '@/lib/mock-auctions'
 
 export default function LeilaoPage({ params }: { params: Promise<{ id: string }> }) {
   const [currentBid, setCurrentBid] = useState(45000)
@@ -35,6 +37,9 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
   const [isLive, setIsLive] = useState(true)
   const [isMuted, setIsMuted] = useState(false)
   const [isFullscreen, setIsFullscreen] = useState(false)
+  const [volume, setVolume] = useState(50) // Volume de 0 a 100
+  const iframeRef = useRef<HTMLIFrameElement>(null)
+  const [videoSrc, setVideoSrc] = useState<string>('')
   
   const resolvedParams = use(params)
   const auctionId = resolvedParams.id
@@ -65,10 +70,200 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
         setCurrentBid(auction.bidHistory[0].amount)
       }
       setIsLive(true)
+      
+      // Configurar URL do vídeo com autoplay
+      if (auction.videoUrl) {
+        const embedUrl = convertToEmbedUrl(auction.videoUrl)
+        setVideoSrc(embedUrl)
+      }
     } else {
       setIsLive(false)
     }
   }, [auction])
+
+  // Função para tentar iniciar o vídeo
+  const tryPlayVideo = () => {
+    if (iframeRef.current && iframeRef.current.contentWindow) {
+      try {
+        iframeRef.current.contentWindow.postMessage(
+          JSON.stringify({
+            event: 'command',
+            func: 'playVideo',
+            args: []
+          }),
+          'https://www.youtube.com'
+        )
+      } catch (error) {
+        // Ignorar erros silenciosamente
+      }
+    }
+  }
+
+  // Função para ajustar volume do vídeo
+  const handleVolumeChange = (newVolume: number[]) => {
+    const vol = newVolume[0]
+    setVolume(vol)
+    
+    if (iframeRef.current && iframeRef.current.contentWindow) {
+      try {
+        // Se o volume for maior que 0, desmutar
+        if (vol > 0 && isMuted) {
+          setIsMuted(false)
+        }
+        
+        // Ajustar volume via API do YouTube (0-100)
+        iframeRef.current.contentWindow.postMessage(
+          JSON.stringify({
+            event: 'command',
+            func: 'setVolume',
+            args: [vol]
+          }),
+          'https://www.youtube.com'
+        )
+      } catch (error) {
+        console.log('Error setting volume:', error)
+      }
+    }
+  }
+
+  // Função para controlar mute/unmute do vídeo
+  const handleToggleMute = () => {
+    if (iframeRef.current && iframeRef.current.contentWindow) {
+      try {
+        const newMutedState = !isMuted
+        setIsMuted(newMutedState)
+        
+        if (newMutedState) {
+          // Mutar
+          iframeRef.current.contentWindow.postMessage(
+            JSON.stringify({
+              event: 'command',
+              func: 'mute',
+              args: []
+            }),
+            'https://www.youtube.com'
+          )
+        } else {
+          // Desmutar e restaurar volume
+          iframeRef.current.contentWindow.postMessage(
+            JSON.stringify({
+              event: 'command',
+              func: 'unMute',
+              args: []
+            }),
+            'https://www.youtube.com'
+          )
+          // Também garantir que o volume está configurado
+          iframeRef.current.contentWindow.postMessage(
+            JSON.stringify({
+              event: 'command',
+              func: 'setVolume',
+              args: [volume > 0 ? volume : 50] // Se volume for 0, usar 50 como padrão
+            }),
+            'https://www.youtube.com'
+          )
+          if (volume === 0) {
+            setVolume(50)
+          }
+        }
+      } catch (error) {
+        console.log('Error toggling mute:', error)
+      }
+    }
+  }
+
+  // Função para colocar vídeo em fullscreen
+  const handleFullscreen = () => {
+    const videoContainer = iframeRef.current?.parentElement
+    if (videoContainer) {
+      try {
+        if (videoContainer.requestFullscreen) {
+          videoContainer.requestFullscreen()
+        } else if ((videoContainer as any).webkitRequestFullscreen) {
+          (videoContainer as any).webkitRequestFullscreen()
+        } else if ((videoContainer as any).mozRequestFullScreen) {
+          (videoContainer as any).mozRequestFullScreen()
+        } else if ((videoContainer as any).msRequestFullscreen) {
+          (videoContainer as any).msRequestFullscreen()
+        }
+        setIsFullscreen(true)
+      } catch (error) {
+        console.log('Error entering fullscreen:', error)
+      }
+    }
+  }
+
+  // Listener para detectar quando sai do fullscreen
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      if (!document.fullscreenElement && 
+          !(document as any).webkitFullscreenElement && 
+          !(document as any).mozFullScreenElement && 
+          !(document as any).msFullscreenElement) {
+        setIsFullscreen(false)
+      }
+    }
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange)
+    document.addEventListener('webkitfullscreenchange', handleFullscreenChange)
+    document.addEventListener('mozfullscreenchange', handleFullscreenChange)
+    document.addEventListener('MSFullscreenChange', handleFullscreenChange)
+
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange)
+      document.removeEventListener('webkitfullscreenchange', handleFullscreenChange)
+      document.removeEventListener('mozfullscreenchange', handleFullscreenChange)
+      document.removeEventListener('MSFullscreenChange', handleFullscreenChange)
+    }
+  }, [])
+
+  // Forçar autoplay do vídeo quando o componente montar
+  useEffect(() => {
+    if (videoSrc && iframeRef.current && auction.status === 'live') {
+      // Aguardar um pouco para garantir que o iframe carregou completamente
+      const timers: NodeJS.Timeout[] = []
+      const delays = [500, 1000, 2000, 3000]
+      
+      // Tentar múltiplas vezes para garantir que funcione
+      delays.forEach((delay) => {
+        const timer = setTimeout(() => {
+          tryPlayVideo()
+          // Configurar volume inicial após o vídeo iniciar
+          if (iframeRef.current && iframeRef.current.contentWindow) {
+            try {
+              iframeRef.current.contentWindow.postMessage(
+                JSON.stringify({
+                  event: 'command',
+                  func: 'setVolume',
+                  args: [volume]
+                }),
+                'https://www.youtube.com'
+              )
+            } catch (error) {
+              // Ignorar erros silenciosamente
+            }
+          }
+        }, delay)
+        timers.push(timer)
+      })
+
+      // Tentar iniciar quando o usuário interagir com a página (fallback para bloqueio de autoplay)
+      const handleUserInteraction = () => {
+        tryPlayVideo()
+      }
+
+      document.addEventListener('click', handleUserInteraction, { once: true })
+      document.addEventListener('scroll', handleUserInteraction, { once: true })
+      document.addEventListener('touchstart', handleUserInteraction, { once: true })
+
+      return () => {
+        timers.forEach(timer => clearTimeout(timer))
+        document.removeEventListener('click', handleUserInteraction)
+        document.removeEventListener('scroll', handleUserInteraction)
+        document.removeEventListener('touchstart', handleUserInteraction)
+      }
+    }
+  }, [videoSrc, auction.status])
 
   // Timer countdown
   useEffect(() => {
@@ -140,22 +335,57 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
             {/* Right: Controls */}
             <div className="flex items-center space-x-1 sm:space-x-2 flex-shrink-0">
               <div className="hidden sm:flex items-center space-x-1 sm:space-x-2">
-                <Button 
-                  variant="ghost" 
-                  size="sm"
-                  onClick={() => setIsMuted(!isMuted)}
-                  className="text-gray-600 hover:bg-gray-100 h-8 w-8 sm:h-9 sm:w-9 p-0"
-                >
-                  {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
-                </Button>
-                <Button 
-                  variant="ghost" 
-                  size="sm"
-                  onClick={() => setIsFullscreen(!isFullscreen)}
-                  className="text-gray-600 hover:bg-gray-100 h-8 w-8 sm:h-9 sm:w-9 p-0"
-                >
-                  <Maximize className="w-4 h-4" />
-                </Button>
+                {auction.status === 'live' && auction.videoUrl && (
+                  <>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button 
+                          variant="ghost" 
+                          size="sm"
+                          className="text-gray-600 hover:bg-gray-100 h-8 w-8 sm:h-9 sm:w-9 p-0"
+                        >
+                          {isMuted || volume === 0 ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-48 p-4" align="end">
+                        <div className="space-y-3">
+                          <div className="flex items-center justify-between">
+                            <span className="text-sm font-medium text-gray-700">Volume</span>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={handleToggleMute}
+                              className="h-7 w-7 p-0"
+                            >
+                              {isMuted || volume === 0 ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+                            </Button>
+                          </div>
+                          <div className="px-2">
+                            <Slider
+                              value={[volume]}
+                              onValueChange={handleVolumeChange}
+                              min={0}
+                              max={100}
+                              step={1}
+                              className="w-full"
+                            />
+                          </div>
+                          <div className="text-center text-xs text-gray-500">
+                            {volume}%
+                          </div>
+                        </div>
+                      </PopoverContent>
+                    </Popover>
+                    <Button 
+                      variant="ghost" 
+                      size="sm"
+                      onClick={handleFullscreen}
+                      className="text-gray-600 hover:bg-gray-100 h-8 w-8 sm:h-9 sm:w-9 p-0"
+                    >
+                      <Maximize className="w-4 h-4" />
+                    </Button>
+                  </>
+                )}
               </div>
               {/* Mobile: Show badge and participants */}
               <Badge className="bg-red-500 animate-pulse text-white text-xs sm:hidden">
@@ -169,24 +399,57 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
               <Users className="w-3 h-3 mr-1" />
               <span>{auction.participants} participantes</span>
             </div>
-            <div className="flex items-center space-x-2">
-              <Button 
-                variant="ghost" 
-                size="sm"
-                onClick={() => setIsMuted(!isMuted)}
-                className="text-gray-600 hover:bg-gray-100 h-8 w-8 p-0"
-              >
-                {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
-              </Button>
-              <Button 
-                variant="ghost" 
-                size="sm"
-                onClick={() => setIsFullscreen(!isFullscreen)}
-                className="text-gray-600 hover:bg-gray-100 h-8 w-8 p-0"
-              >
-                <Maximize className="w-4 h-4" />
-              </Button>
-            </div>
+            {auction.status === 'live' && auction.videoUrl && (
+              <div className="flex items-center space-x-2">
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button 
+                      variant="ghost" 
+                      size="sm"
+                      className="text-gray-600 hover:bg-gray-100 h-8 w-8 p-0"
+                    >
+                      {isMuted || volume === 0 ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-48 p-4" align="end">
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm font-medium text-gray-700">Volume</span>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={handleToggleMute}
+                          className="h-7 w-7 p-0"
+                        >
+                          {isMuted || volume === 0 ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+                        </Button>
+                      </div>
+                      <div className="px-2">
+                        <Slider
+                          value={[volume]}
+                          onValueChange={handleVolumeChange}
+                          min={0}
+                          max={100}
+                          step={1}
+                          className="w-full"
+                        />
+                      </div>
+                      <div className="text-center text-xs text-gray-500">
+                        {volume}%
+                      </div>
+                    </div>
+                  </PopoverContent>
+                </Popover>
+                <Button 
+                  variant="ghost" 
+                  size="sm"
+                  onClick={handleFullscreen}
+                  className="text-gray-600 hover:bg-gray-100 h-8 w-8 p-0"
+                >
+                  <Maximize className="w-4 h-4" />
+                </Button>
+              </div>
+            )}
           </div>
         </div>
       </header>
@@ -199,22 +462,27 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
             <Card className="bg-white border-gray-200 shadow-lg">
               <CardContent className="p-0">
                 <div className="relative">
-                  <img 
-                    src={auction.image} 
-                    alt={auction.title}
-                    className="w-full h-96 object-cover rounded-t-lg"
-                  />
-                  {auction.status === 'live' && (
-                    <>
+                  {auction.status === 'live' && videoSrc ? (
+                    <div className="w-full h-96 bg-black relative overflow-hidden rounded-t-lg">
+                      <iframe
+                        ref={iframeRef}
+                        src={videoSrc}
+                        className="w-full h-full absolute inset-0 pointer-events-none"
+                        allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+                        allowFullScreen
+                        style={{ border: 'none', pointerEvents: 'none' }}
+                        title={`Vídeo ao vivo - ${auction.title}`}
+                        key={videoSrc} // Força reload quando a URL mudar
+                      />
                       {/* Live Indicator */}
-                      <div className="absolute top-4 left-4">
+                      <div className="absolute top-4 left-4 z-10">
                         <Badge className="bg-red-500 animate-pulse">
                           🔴 AO VIVO
                         </Badge>
                       </div>
 
                       {/* Timer */}
-                      <div className="absolute top-4 right-4 bg-black/70 text-white px-4 py-2 rounded-lg">
+                      <div className="absolute top-4 right-4 bg-black/70 text-white px-4 py-2 rounded-lg z-10">
                         <div className="flex items-center">
                           <Timer className="w-4 h-4 mr-2" />
                           <span className="font-mono text-lg font-bold text-red-400">
@@ -222,14 +490,42 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
                           </span>
                         </div>
                       </div>
-                    </>
-                  )}
-                  {auction.status === 'scheduled' && (
-                    <div className="absolute top-4 left-4">
-                      <Badge className="bg-blue-500 text-white">
-                        Agendado
-                      </Badge>
                     </div>
+                  ) : (
+                    <>
+                      <img 
+                        src={auction.image} 
+                        alt={auction.title}
+                        className="w-full h-96 object-cover rounded-t-lg"
+                      />
+                      {auction.status === 'live' && (
+                        <>
+                          {/* Live Indicator */}
+                          <div className="absolute top-4 left-4">
+                            <Badge className="bg-red-500 animate-pulse">
+                              🔴 AO VIVO
+                            </Badge>
+                          </div>
+
+                          {/* Timer */}
+                          <div className="absolute top-4 right-4 bg-black/70 text-white px-4 py-2 rounded-lg">
+                            <div className="flex items-center">
+                              <Timer className="w-4 h-4 mr-2" />
+                              <span className="font-mono text-lg font-bold text-red-400">
+                                {formatTime(timeLeft)}
+                              </span>
+                            </div>
+                          </div>
+                        </>
+                      )}
+                      {auction.status === 'scheduled' && (
+                        <div className="absolute top-4 left-4">
+                          <Badge className="bg-blue-500 text-white">
+                            Agendado
+                          </Badge>
+                        </div>
+                      )}
+                    </>
                   )}
                 </div>
                 

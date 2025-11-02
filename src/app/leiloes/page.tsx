@@ -45,6 +45,7 @@ export default function LeiloesPage() {
     totalLots: a.totalLots,
     currentLot: a.currentLotNumber || 0,
     image: a.image,
+    videoUrl: a.videoUrl,
     location: a.location,
     auctioneer: a.auctioneer,
     status: a.status
@@ -192,7 +193,7 @@ export default function LeiloesPage() {
                   </div>
                   <div className="absolute top-4 right-4">
                     <div className="bg-black/70 text-white px-2 py-1 rounded text-sm font-bold">
-                      Lote {auction.currentLotNumber || 0}/{auction.totalLots}
+                      Lote {auction.currentLot || 0}/{auction.totalLots}
                     </div>
                   </div>
                 </div>
