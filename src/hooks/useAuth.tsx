@@ -367,20 +367,55 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   // Inicialização única com cache
   useEffect(() => {
     let isMounted = true
+    let timeoutId: NodeJS.Timeout | null = null
     
     // Função de inicialização
     const initialize = async () => {
-      // Tentar carregar do cache imediatamente para melhor UX
-      const cached = loadAuthCache()
-      if (cached && isMounted) {
-        userRef.current = cached
-        setUser(cached)
-        setLoading(false)
-        setInitialized(true)
-      }
+      try {
+        // Tentar carregar do cache imediatamente para melhor UX
+        const cached = loadAuthCache()
+        if (cached && isMounted) {
+          userRef.current = cached
+          setUser(cached)
+          setLoading(false)
+          setInitialized(true)
+        }
 
-      // Verificar sessão real
-      await checkUser(true)
+        // Timeout de segurança - garantir que initialized seja sempre true após 5 segundos
+        timeoutId = setTimeout(() => {
+          if (isMounted) {
+            // Verificar se ainda não foi inicializado através do estado atual
+            setInitialized(prev => {
+              if (!prev) {
+                console.warn('Auth initialization timeout - forcing initialized to true')
+                return true
+              }
+              return prev
+            })
+            setLoading(false)
+          }
+        }, 5000)
+
+        // Sempre verificar sessão real - checkUser sempre seta initialized como true no final
+        await checkUser(true)
+        
+        // Limpar timeout se chegou aqui
+        if (timeoutId) {
+          clearTimeout(timeoutId)
+          timeoutId = null
+        }
+      } catch (error) {
+        console.error('Auth initialization error:', error)
+        // Em caso de erro, garantir que initialized seja true para não travar a aplicação
+        if (isMounted) {
+          setInitialized(true)
+          setLoading(false)
+        }
+        if (timeoutId) {
+          clearTimeout(timeoutId)
+          timeoutId = null
+        }
+      }
     }
 
     initialize()
@@ -446,6 +481,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       subscription.unsubscribe()
       if (sessionCheckIntervalRef.current) {
         clearInterval(sessionCheckIntervalRef.current)
+      }
+      if (timeoutId) {
+        clearTimeout(timeoutId)
       }
     }
   }, [checkUser, loadUser]) // checkUser e loadUser são estáveis devido ao useCallback

@@ -74,9 +74,11 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
 
   const handlePurchase = () => {
     if (!user) {
-      router.push(`/login?redirect=${encodeURIComponent(`/catalogo/${animalId}`)}`)
+      // Redirecionar para login com redirect para a página interna do dashboard
+      router.push(`/login?redirect=${encodeURIComponent(`/dashboard/catalogo/${animalId}`)}`)
       return
     }
+    // Se já está logado, ir direto para a página interna do dashboard
     router.push(`/dashboard/catalogo/${animalId}`)
   }
   

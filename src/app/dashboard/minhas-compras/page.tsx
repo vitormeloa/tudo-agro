@@ -186,17 +186,17 @@ export default function MinhasComprasPage() {
             </Button>
           </div>
 
-          {/* Botão Favoritados */}
-          <div className="fixed top-20 right-6 z-10">
-            <Button
-              variant="outline"
-              size="icon"
-              className="rounded-full shadow-lg bg-white hover:bg-emerald-50"
-              onClick={() => setShowFavorites(true)}
-            >
-              <Heart className="w-5 h-5 text-red-500 fill-current" />
-            </Button>
-          </div>
+          {/*/!* Botão Favoritados *!/*/}
+          {/*<div className="fixed top-20 right-6 z-10">*/}
+          {/*  <Button*/}
+          {/*    variant="outline"*/}
+          {/*    size="icon"*/}
+          {/*    className="rounded-full shadow-lg bg-white hover:bg-emerald-50"*/}
+          {/*    onClick={() => setShowFavorites(true)}*/}
+          {/*  >*/}
+          {/*    <Heart className="w-5 h-5 text-red-500 fill-current" />*/}
+          {/*  </Button>*/}
+          {/*</div>*/}
 
           {/* Lista de Compras */}
           <div className="space-y-4">
@@ -211,7 +211,9 @@ export default function MinhasComprasPage() {
                         alt={purchase.itemName}
                         className="w-full h-full object-cover"
                         onError={(e) => {
-                          (e.target as HTMLImageElement).src = '/images/placeholder.jpg'
+                          // Fallback para logo caso a imagem não carregue
+                          (e.target as HTMLImageElement).src = '/fotos/tudo-agro-logo.png'
+                          ;(e.target as HTMLImageElement).className = 'w-full h-full object-contain p-2'
                         }}
                       />
                     </div>
@@ -289,7 +291,9 @@ export default function MinhasComprasPage() {
                         alt={selectedPurchaseData.itemName}
                         className="w-full h-full object-cover"
                         onError={(e) => {
-                          (e.target as HTMLImageElement).src = '/images/placeholder.jpg'
+                          // Fallback para logo caso a imagem não carregue
+                          (e.target as HTMLImageElement).src = '/fotos/tudo-agro-logo.png'
+                          ;(e.target as HTMLImageElement).className = 'w-full h-full object-contain p-2'
                         }}
                       />
                     </div>
@@ -441,20 +445,20 @@ export default function MinhasComprasPage() {
           )}
 
           {/* Modal Favoritados */}
-          <Dialog open={showFavorites} onOpenChange={setShowFavorites}>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Produtos Favoritados</DialogTitle>
-                <DialogDescription>
-                  Seus produtos e animais favoritados
-                </DialogDescription>
-              </DialogHeader>
-              <div className="text-center py-8 text-gray-600">
-                <Heart className="w-12 h-12 mx-auto mb-4 text-red-500" />
-                <p>Você ainda não favoritou nenhum item</p>
-              </div>
-            </DialogContent>
-          </Dialog>
+          {/*<Dialog open={showFavorites} onOpenChange={setShowFavorites}>*/}
+          {/*  <DialogContent>*/}
+          {/*    <DialogHeader>*/}
+          {/*      <DialogTitle>Produtos Favoritados</DialogTitle>*/}
+          {/*      <DialogDescription>*/}
+          {/*        Seus produtos e animais favoritados*/}
+          {/*      </DialogDescription>*/}
+          {/*    </DialogHeader>*/}
+          {/*    <div className="text-center py-8 text-gray-600">*/}
+          {/*      <Heart className="w-12 h-12 mx-auto mb-4 text-red-500" />*/}
+          {/*      <p>Você ainda não favoritou nenhum item</p>*/}
+          {/*    </div>*/}
+          {/*  </DialogContent>*/}
+          {/*</Dialog>*/}
         </div>
       </AdminLayout>
     </ProtectedRoute>

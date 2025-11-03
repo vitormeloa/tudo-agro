@@ -64,17 +64,20 @@ export default function LoginPage() {
       const { error } = await signIn(email, password)
       
       if (!error) {
-        // Aguardar um pouco para garantir que o estado foi atualizado
-        await new Promise(resolve => setTimeout(resolve, 100))
+        // Aguardar até que o estado de autenticação seja atualizado
+        // Usar um timeout maior para garantir que tudo está pronto
+        await new Promise(resolve => setTimeout(resolve, 300))
         
         // Verificar se há parâmetro redirect na URL
         const urlParams = new URLSearchParams(window.location.search)
         const redirectTo = urlParams.get('redirect')
         
         // Redirecionar para a página desejada ou dashboard padrão
+        // Usar window.location para evitar loops de redirecionamento
         const destination = redirectTo || '/dashboard/visao-geral'
-        router.push(destination)
-        router.refresh() // Forçar refresh para garantir que dados sejam carregados
+        
+        // Usar replace para evitar que o usuário volte para a página de login
+        window.location.replace(destination)
       }
     } catch (err) {
       console.error('Login error:', err)

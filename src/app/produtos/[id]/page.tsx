@@ -158,6 +158,7 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
 
   const handlePurchase = () => {
     if (!user) {
+      // Redirecionar para login com redirect para a página de checkout (depois do login vai para checkout)
       router.push(`/login?redirect=${encodeURIComponent(`/produtos/${productId}`)}`)
       return
     }

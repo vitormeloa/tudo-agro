@@ -341,6 +341,20 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
             </div>
             
             <div className="flex items-center gap-2 sm:gap-4">
+              {/* Favoritos */}
+              {isBuyer && (
+              <Link href="/dashboard/favoritos">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-[#6E7D5B] hover:text-red-500 transition-colors"
+                  title="Meus Favoritos"
+                >
+                  <Heart className="w-5 h-5" />
+                </Button>
+              </Link>
+              )}
+              
               {/* Carrinho */}
               {isBuyer && (
                 <Link href="/dashboard/carrinho">
@@ -348,6 +362,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                     variant="ghost"
                     size="sm"
                     className="relative text-[#6E7D5B] hover:text-emerald-600 transition-colors"
+                    title="Carrinho"
                   >
                     <ShoppingCart className="w-5 h-5" />
                     {cartItemsCount > 0 && (

@@ -40,9 +40,9 @@ export default function Header({
   const { getTotalItems } = useCart()
   const cartItemsCount = getTotalItems()
   
-  // Usar initialized para evitar flickering - só mostrar estado real após inicialização
-  // Enquanto não inicializou, assumir que não está logado para evitar mostrar botões errados
-  const isLoggedIn = initialized && !!user && !loading
+  // Determinar se usuário está logado - ser mais permissivo para evitar desaparecimento de botões
+  // Se tem user, está logado. Se não inicializou ainda, não mostrar botões (evita flickering)
+  const isLoggedIn = initialized ? !!user : false
 
   // Efeito de scroll para opacidade
   useEffect(() => {
@@ -187,25 +187,31 @@ export default function Header({
               </Link>
             )}
             
-            {/* Desktop Auth Button Component */}
-            {!loading && <AuthButton />}
+            {/* Desktop Auth Button Component - sempre mostrar após inicialização */}
+            {initialized && <AuthButton />}
 
-            {/* Mobile Auth Buttons - only show when not logged in */}
-            {!loading && !isLoggedIn && (
+            {/* Mobile Auth Buttons - apenas quando não inicializado ou não logado */}
+            {(!initialized || (!isLoggedIn && initialized)) && (
               <div className="lg:hidden flex items-center space-x-2">
-                <Link href="/login">
-                  <Button variant="ghost" size="sm" className="text-gray-700 hover:text-emerald-600 text-sm">
-                    Entrar
-                  </Button>
-                </Link>
-                <Link href="/cadastro">
-                  <Button 
-                    size="sm" 
-                    className="bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white text-sm"
-                  >
-                    Cadastrar
-                  </Button>
-                </Link>
+                {!initialized ? (
+                  <div className="w-20 h-8 bg-gray-200 animate-pulse rounded" />
+                ) : (
+                  <>
+                    <Link href="/login">
+                      <Button variant="ghost" size="sm" className="text-gray-700 hover:text-emerald-600 text-sm">
+                        Entrar
+                      </Button>
+                    </Link>
+                    <Link href="/cadastro">
+                      <Button 
+                        size="sm" 
+                        className="bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white text-sm"
+                      >
+                        Cadastrar
+                      </Button>
+                    </Link>
+                  </>
+                )}
               </div>
             )}
 

@@ -1,27 +1,5 @@
-export default function Loading() {
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-[#F7F6F2] to-[#FFFDF7] flex items-center justify-center px-4">
-      <div className="text-center">
-        {/* Logo */}
-        <div className="mb-8">
-          <div className="flex items-center justify-center space-x-3">
-            <img 
-              src="/fotos/tudo-agro-logo.png" 
-              className="h-20 w-auto sm:h-28 md:h-36 lg:h-44" 
-              alt="TudoAgro Logo"
-            />
-          </div>
-        </div>
+import LoadingSpinner from '@/components/LoadingSpinner'
 
-        {/* Loading Animation */}
-        <div className="flex items-center justify-center space-x-2">
-          <div className="w-3 h-3 bg-[#6E7D5B] rounded-full animate-bounce"></div>
-          <div className="w-3 h-3 bg-[#6E7D5B] rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-          <div className="w-3 h-3 bg-[#6E7D5B] rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-        </div>
-        
-        <p className="mt-4 text-[#6E7D5B]">Carregando...</p>
-      </div>
-    </div>
-  )
+export default function Loading() {
+  return <LoadingSpinner text="Carregando..." fullScreen />
 }
