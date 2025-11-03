@@ -262,27 +262,25 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
             onClick={async () => {
               try {
                 if (signOut) {
+                  // signOut já faz todo o processo de limpeza e redirecionamento
                   await signOut()
-                  toast({
-                    title: "Logout realizado",
-                    description: "Você foi desconectado com sucesso.",
-                  })
-                  // O ProtectedRoute redirecionará automaticamente para login
                 } else {
                   console.error('signOut function not available')
-                  toast({
-                    title: "Erro no logout",
-                    description: "Função de logout não disponível. Recarregue a página.",
-                    variant: "destructive",
-                  })
+                  // Se não há função de logout, forçar logout manualmente
+                  localStorage.clear()
+                  sessionStorage.clear()
+                  window.location.href = '/login'
                 }
               } catch (error) {
                 console.error('Logout error:', error)
-                toast({
-                  title: "Erro no logout",
-                  description: "Ocorreu um erro ao fazer logout. Tente novamente.",
-                  variant: "destructive",
-                })
+                // Mesmo com erro, tentar limpar e redirecionar
+                try {
+                  localStorage.clear()
+                  sessionStorage.clear()
+                } catch (e) {
+                  // Ignorar erros de limpeza
+                }
+                window.location.href = '/login'
               }
             }}
             title={sidebarOpen ? "Sair do Sistema" : "Sair"}
@@ -440,31 +438,29 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                     {/* Logout */}
                     <button
                       onClick={async () => {
+                        setIsUserMenuOpen(false)
                         try {
                           if (signOut) {
+                            // signOut já faz todo o processo de limpeza e redirecionamento
                             await signOut()
-                            toast({
-                              title: "Logout realizado",
-                              description: "Você foi desconectado com sucesso.",
-                            })
-                            // O ProtectedRoute redirecionará automaticamente para login
                           } else {
                             console.error('signOut function not available')
-                            toast({
-                              title: "Erro no logout",
-                              description: "Função de logout não disponível. Recarregue a página.",
-                              variant: "destructive",
-                            })
+                            // Se não há função de logout, forçar logout manualmente
+                            localStorage.clear()
+                            sessionStorage.clear()
+                            window.location.href = '/'
                           }
                         } catch (error) {
                           console.error('Logout error:', error)
-                          toast({
-                            title: "Erro no logout",
-                            description: "Ocorreu um erro ao fazer logout. Tente novamente.",
-                            variant: "destructive",
-                          })
+                          // Mesmo com erro, tentar limpar e redirecionar
+                          try {
+                            localStorage.clear()
+                            sessionStorage.clear()
+                          } catch (e) {
+                            // Ignorar erros de limpeza
+                          }
+                          window.location.href = '/'
                         }
-                        setIsUserMenuOpen(false)
                       }}
                       className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50"
                     >

@@ -85,21 +85,21 @@ export default function MobileAuthButton({ onMenuClose, className }: MobileAuthB
             variant="outline" 
             className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50"
             onClick={async () => {
+              onMenuClose()
               try {
+                // signOut já faz todo o processo de limpeza e redirecionamento
                 await signOut()
-                toast({
-                  title: "Logout realizado",
-                  description: "Você foi desconectado com sucesso.",
-                })
               } catch (error) {
                 console.error('Logout error:', error)
-                toast({
-                  title: "Erro no logout",
-                  description: "Ocorreu um erro ao fazer logout. Tente novamente.",
-                  variant: "destructive",
-                })
+                // Mesmo com erro, tentar limpar e redirecionar
+                try {
+                  localStorage.clear()
+                  sessionStorage.clear()
+                } catch (e) {
+                  // Ignorar erros de limpeza
+                }
+                window.location.href = '/login'
               }
-              onMenuClose()
             }}
           >
             <LogOut className="w-4 h-4 mr-2" />

@@ -121,21 +121,21 @@ export default function AuthButton({ className }: AuthButtonProps) {
                         {/* Logout */}
                         <button
                             onClick={async () => {
+                                setIsUserMenuOpen(false)
                                 try {
+                                    // signOut já faz todo o processo de limpeza e redirecionamento
                                     await signOut()
-                                    toast({
-                                        title: "Logout realizado",
-                                        description: "Você foi desconectado com sucesso.",
-                                    })
                                 } catch (error) {
                                     console.error('Logout error:', error)
-                                    toast({
-                                        title: "Erro no logout",
-                                        description: "Ocorreu um erro ao fazer logout. Tente novamente.",
-                                        variant: "destructive",
-                                    })
+                                    // Mesmo com erro, tentar limpar e redirecionar
+                                    try {
+                                        localStorage.clear()
+                                        sessionStorage.clear()
+                                    } catch (e) {
+                                        // Ignorar erros de limpeza
+                                    }
+                                    window.location.href = '/login'
                                 }
-                                setIsUserMenuOpen(false)
                             }}
                             className="flex items-center w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50"
                         >

@@ -43,7 +43,7 @@ import {
 } from 'lucide-react'
 
 export default function MinhaContaPage() {
-  const { user } = useAuth()
+  const { user, signOut } = useAuth()
   const router = useRouter()
   const [isEditingProfile, setIsEditingProfile] = useState(false)
   const [isEditingAddress, setIsEditingAddress] = useState(false)
@@ -576,7 +576,25 @@ export default function MinhaContaPage() {
                   <p className="font-semibold text-gray-900">Encerrar Sessão</p>
                   <p className="text-sm text-gray-600">Sair da sua conta atual</p>
                 </div>
-                <Button variant="outline">
+                <Button 
+                  variant="outline"
+                  onClick={async () => {
+                    try {
+                      // signOut já faz todo o processo de limpeza e redirecionamento
+                      await signOut()
+                    } catch (error) {
+                      console.error('Logout error:', error)
+                      // Mesmo com erro, tentar limpar e redirecionar
+                      try {
+                        localStorage.clear()
+                        sessionStorage.clear()
+                      } catch (e) {
+                        // Ignorar erros de limpeza
+                      }
+                      window.location.href = '/login'
+                    }
+                  }}
+                >
                   <LogOut className="w-4 h-4 mr-2" />
                   Sair
                 </Button>

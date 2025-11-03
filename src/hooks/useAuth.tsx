@@ -614,55 +614,99 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }, [toast])
 
-  // Função de logout otimizada
+  // Função de logout otimizada - garante logout completo
   const signOut = useCallback(async () => {
     try {
-      // Limpar estado local primeiro
-      if (mountedRef.current) {
-        setUser(null)
-        setLoading(false)
-        setInitialized(true)
-      }
-      clearAuthCache()
-      authEvents.emit('user:signed_out')
-      
-      // Fazer logout do Supabase
+      // Fazer logout do Supabase PRIMEIRO
       const { error } = await supabase.auth.signOut()
       
       if (error) {
-        console.error('Logout error:', error)
+        console.error('Supabase logout error:', error)
+        // Continuar mesmo com erro para garantir limpeza local
       }
 
-      // Limpar todos os cookies relacionados
+      // Limpar todos os cookies relacionados ao Supabase
       if (typeof document !== 'undefined') {
         document.cookie.split(";").forEach((c) => {
           const eqPos = c.indexOf("=")
           const name = eqPos > -1 ? c.substr(0, eqPos).trim() : c.trim()
-          if (name.startsWith('sb-') || name.includes('supabase')) {
+          if (name.startsWith('sb-') || name.includes('supabase') || name.includes('auth')) {
+            // Limpar para diferentes paths e domains
             document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`
             document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;domain=${window.location.hostname}`
+            document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;domain=.${window.location.hostname}`
           }
         })
       }
+
+      // Limpar localStorage completamente (incluindo cache de auth)
+      try {
+        localStorage.removeItem(AUTH_CACHE_KEY)
+        localStorage.removeItem(AUTH_TIMESTAMP_KEY)
+        // Limpar outros dados relacionados se necessário
+        const keysToRemove: string[] = []
+        for (let i = 0; i < localStorage.length; i++) {
+          const key = localStorage.key(i)
+          if (key && (key.includes('supabase') || key.includes('auth') || key.includes('tudoagro'))) {
+            keysToRemove.push(key)
+          }
+        }
+        keysToRemove.forEach(key => localStorage.removeItem(key))
+      } catch (e) {
+        console.error('Error clearing localStorage:', e)
+      }
+
+      // Limpar sessionStorage também
+      try {
+        sessionStorage.clear()
+      } catch (e) {
+        console.error('Error clearing sessionStorage:', e)
+      }
+
+      // Limpar estado local
+      if (mountedRef.current) {
+        userRef.current = null
+        setUser(null)
+        setLoading(false)
+        setInitialized(false) // Resetar initialized também
+      }
       
-      // Redirecionar para home
-      router.push('/')
-      router.refresh()
+      // Emitir evento de logout
+      authEvents.emit('user:signed_out')
+      
+      // Aguardar um pouco para garantir que tudo foi limpo
+      await new Promise(resolve => setTimeout(resolve, 100))
+      
+      // Usar window.location para forçar reload completo e garantir logout
+      // Redirecionar para login em todos os casos
+      window.location.href = '/login'
       
     } catch (error) {
       console.error('Logout error:', error)
-      // Mesmo com erro, limpar estado local e redirecionar
+      // Mesmo com erro, fazer limpeza completa e redirecionar
+      try {
+        // Limpar localStorage
+        localStorage.removeItem(AUTH_CACHE_KEY)
+        localStorage.removeItem(AUTH_TIMESTAMP_KEY)
+        sessionStorage.clear()
+      } catch (e) {
+        // Ignorar erros de limpeza
+      }
+      
+      // Limpar estado local
       if (mountedRef.current) {
+        userRef.current = null
         setUser(null)
         setLoading(false)
-        setInitialized(true)
+        setInitialized(false)
       }
-      clearAuthCache()
+      
       authEvents.emit('user:signed_out')
-      router.push('/')
-      router.refresh()
+      
+      // Forçar redirecionamento para login mesmo com erro
+      window.location.href = '/login'
     }
-  }, [router])
+  }, [])
 
   // Função para trocar senha (requer senha atual)
   const changePassword = useCallback(async (currentPassword: string, newPassword: string) => {
