@@ -61,7 +61,10 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
   
   const handleToggleFavorite = async () => {
     if (!user) {
-      router.push(`/login?redirect=${encodeURIComponent(`/catalogo/${animalId}`)}`)
+      // Não redirecionar, apenas mostrar toast através do toggleFavorite
+      if (animal) {
+        await toggleFavorite(animal.id)
+      }
       return
     }
     if (animal) {
@@ -71,7 +74,7 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
 
   const handlePurchase = () => {
     if (!user) {
-      router.push(`/login?redirect=${encodeURIComponent(`/dashboard/catalogo/${animalId}`)}`)
+      router.push(`/login?redirect=${encodeURIComponent(`/catalogo/${animalId}`)}`)
       return
     }
     router.push(`/dashboard/catalogo/${animalId}`)
@@ -277,7 +280,7 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
                   Comprar Agora
                 </Button>
               ) : (
-                <Link href={`/dashboard/leilao/${animal.id}`}>
+                <Link href={`/leilao/${animal.id}`}>
                   <Button className="w-full bg-yellow-500 hover:bg-yellow-600 text-black py-4 text-lg transition-all hover:scale-105">
                     <Play className="w-5 h-5 mr-2" />
                     Participar do Leilão

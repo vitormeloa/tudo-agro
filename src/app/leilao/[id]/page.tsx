@@ -27,7 +27,6 @@ import {
   CheckCircle
 } from 'lucide-react'
 import { mockAuctions, convertToEmbedUrl } from '@/lib/mock-auctions'
-import RequireAuth from '@/components/RequireAuth'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import { useAuth } from '@/hooks/useAuth'

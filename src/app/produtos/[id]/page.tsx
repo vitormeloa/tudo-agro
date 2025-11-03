@@ -145,7 +145,10 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
 
   const handleToggleFavorite = async () => {
     if (!user) {
-      router.push(`/login?redirect=${encodeURIComponent(`/produtos/${productId}`)}`)
+      // Não redirecionar, apenas mostrar toast através do toggleFavorite
+      if (product) {
+        await toggleFavorite(product.id)
+      }
       return
     }
     if (product) {
@@ -155,7 +158,7 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
 
   const handlePurchase = () => {
     if (!user) {
-      router.push(`/login?redirect=${encodeURIComponent(`/dashboard/produtos/${productId}`)}`)
+      router.push(`/login?redirect=${encodeURIComponent(`/produtos/${productId}`)}`)
       return
     }
     if (!product) return
