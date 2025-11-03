@@ -8,7 +8,7 @@ import {
   FileCheck, Gift, Crown, GraduationCap, MessageSquare, 
   Settings, Menu, X, LogOut, Home, AlertTriangle,
   ChevronDown, UserCircle, Key, Shield, Heart, Package, Star,
-  ShoppingBag, DollarSign, BookOpen, User
+  ShoppingBag, DollarSign, BookOpen, User, ShoppingCart, CircleDot
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -16,6 +16,7 @@ import { useAuth } from '@/hooks/useAuth'
 import { useToast } from '@/hooks/use-toast'
 import { useIsMobile } from '@/hooks/use-mobile'
 import { useAdminPermissions } from '@/hooks/useAdminPermissions'
+import { useCart } from '@/contexts/CartContext'
 import LoadingSpinner from '@/components/LoadingSpinner'
 
 interface AdminLayoutProps {
@@ -28,10 +29,13 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   const { toast } = useToast()
   const isMobile = useIsMobile()
   const { canAccessSection, isAdmin, isSeller, isBuyer } = useAdminPermissions()
+  const { getTotalItems } = useCart()
   const pathname = usePathname()
   const router = useRouter()
   const [sidebarOpen, setSidebarOpen] = useState(!isMobile)
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
+  
+  const cartItemsCount = getTotalItems()
 
   // Verificar se o contexto de autenticação está disponível
   if (!authContext) {
@@ -73,7 +77,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   const getMenuItems = () => {
     const allMenuItems = [
       { id: 'visao-geral', label: 'Visão Geral', icon: BarChart3, alerts: 0, roles: ['admin', 'vendedor', 'comprador'], href: '/dashboard/visao-geral' },
-      { id: 'favoritos', label: 'Favoritos', icon: Star, alerts: 0, roles: ['admin', 'vendedor', 'comprador'], href: '/dashboard/favoritos' },
+      { id: 'favoritos', label: 'Favoritos', icon: Heart, alerts: 0, roles: ['admin', 'vendedor', 'comprador'], href: '/dashboard/favoritos' },
       { id: 'minhas-compras', label: 'Minhas Compras', icon: ShoppingBag, alerts: 0, roles: ['comprador'], href: '/dashboard/minhas-compras' },
       { id: 'financeiro', label: 'Financeiro', icon: DollarSign, alerts: 0, roles: ['comprador'], href: '/dashboard/financeiro' },
       { id: 'treinamentos', label: 'Treinamentos', icon: BookOpen, alerts: 0, roles: ['admin', 'vendedor', 'comprador'], href: '/dashboard/treinamentos' },
@@ -81,7 +85,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
       { id: 'usuarios', label: 'Usuários', icon: Users, alerts: 0, roles: ['admin'], href: '/dashboard/usuarios' },
       { id: 'vendedores', label: 'Vendedores', icon: Store, alerts: 3, roles: ['admin'], href: '/dashboard/vendedores' },
       { id: 'anuncios', label: 'Anúncios', icon: FileText, alerts: 7, roles: ['admin', 'vendedor'], href: '/dashboard/anuncios' },
-      { id: 'animais', label: 'Animais', icon: Heart, alerts: 0, roles: ['admin', 'vendedor', 'comprador'], href: '/dashboard/animais' },
+      { id: 'animais', label: 'Animais', icon: CircleDot, alerts: 0, roles: ['admin', 'vendedor', 'comprador'], href: '/dashboard/animais' },
       { id: 'produtos', label: 'Produtos', icon: Package, alerts: 0, roles: ['admin', 'vendedor', 'comprador'], href: '/dashboard/produtos' },
       { id: 'leiloes', label: 'Leilões', icon: Gavel, alerts: 0, roles: ['admin', 'vendedor', 'comprador'], href: '/dashboard/leiloes' },
       { id: 'transacoes', label: 'Transações', icon: CreditCard, alerts: 2, roles: ['admin', 'vendedor', 'comprador'], href: '/dashboard/transacoes' },
@@ -337,6 +341,24 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
             </div>
             
             <div className="flex items-center gap-2 sm:gap-4">
+              {/* Carrinho */}
+              {isBuyer && (
+                <Link href="/dashboard/carrinho">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="relative text-[#6E7D5B] hover:text-emerald-600 transition-colors"
+                  >
+                    <ShoppingCart className="w-5 h-5" />
+                    {cartItemsCount > 0 && (
+                      <span className="absolute -top-1 -right-1 bg-emerald-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                        {cartItemsCount > 99 ? '99+' : cartItemsCount}
+                      </span>
+                    )}
+                  </Button>
+                </Link>
+              )}
+              
               {/* User Menu */}
               <div className="relative" data-user-menu>
                 <button

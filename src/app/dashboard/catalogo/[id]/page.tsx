@@ -29,6 +29,10 @@ import { useAuth } from '@/hooks/useAuth'
 import { useFavorites } from '@/hooks/useFavorites'
 import ProtectedRoute from '@/components/ProtectedRoute'
 import AdminLayout from '@/components/admin/AdminLayout'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import ReviewsSection from '@/components/reviews/ReviewsSection'
+import { mockAnimalReviews } from '@/lib/mock-reviews'
+import type { Review } from '@/lib/mock-reviews'
 
 export default function AnimalPage({ params }: { params: Promise<{ id: string }> }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
@@ -37,6 +41,7 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
   const router = useRouter()
   
   const [favoriteChecked, setFavoriteChecked] = useState(false)
+  const [reviews, setReviews] = useState<Review[]>(mockAnimalReviews)
   
   const resolvedParams = use(params)
   const animalId = resolvedParams.id
@@ -271,36 +276,82 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
               </div>
             </div>
 
-            {/* Description */}
+            {/* Tabs Section */}
             <div className="mt-12">
-              <Card className="bg-white border-gray-200 shadow-lg">
-                <CardContent className="p-8">
-                  <h2 className="text-2xl font-bold text-gray-900 mb-4">Descrição</h2>
-                  <p className="text-gray-600 leading-relaxed text-lg">
-                    {animal.description}
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
+              <Tabs defaultValue="descricao" className="w-full">
+                <TabsList className="grid w-full grid-cols-4">
+                  <TabsTrigger value="descricao">Descrição</TabsTrigger>
+                  <TabsTrigger value="especificacoes">Especificações</TabsTrigger>
+                  <TabsTrigger value="documentos">Documentos</TabsTrigger>
+                  <TabsTrigger value="avaliacoes">
+                    Avaliações ({reviews.length})
+                  </TabsTrigger>
+                </TabsList>
 
-            {/* Documents */}
-            <div className="mt-8">
-              <Card className="bg-white border-gray-200 shadow-lg">
-                <CardContent className="p-8">
-                  <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                    <FileText className="w-6 h-6 inline mr-2" />
-                    Documentos Disponíveis
-                  </h2>
-                  <div className="grid md:grid-cols-2 gap-4">
-                    {animal.documents.map((doc, index) => (
-                      <div key={index} className="flex items-center p-3 bg-gray-50 rounded-lg border border-gray-200">
-                        <Shield className="w-5 h-5 text-green-600 mr-3" />
-                        <span className="text-gray-900">{doc}</span>
+                <TabsContent value="descricao" className="mt-6">
+                  <Card className="bg-white border-gray-200 shadow-lg">
+                    <CardContent className="p-8">
+                      <h2 className="text-2xl font-bold text-gray-900 mb-4">Descrição</h2>
+                      <p className="text-gray-600 leading-relaxed text-lg">
+                        {animal.description}
+                      </p>
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+
+                <TabsContent value="especificacoes" className="mt-6">
+                  <Card className="bg-white border-gray-200 shadow-lg">
+                    <CardContent className="p-8">
+                      <h2 className="text-2xl font-bold text-gray-900 mb-4">Especificações de Produção</h2>
+                      <div className="space-y-3">
+                        {Object.entries(animal.specifications).map(([key, value]) => (
+                          <div key={key} className="flex justify-between py-2 border-b border-gray-100">
+                            <span className="text-gray-500 capitalize font-medium">
+                              {key.replace(/([A-Z])/g, ' $1').toLowerCase()}:
+                            </span>
+                            <span className="font-medium text-gray-900">{value}</span>
+                          </div>
+                        ))}
                       </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+
+                <TabsContent value="documentos" className="mt-6">
+                  <Card className="bg-white border-gray-200 shadow-lg">
+                    <CardContent className="p-8">
+                      <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                        <FileText className="w-6 h-6 inline mr-2" />
+                        Documentos Disponíveis
+                      </h2>
+                      <div className="grid md:grid-cols-2 gap-4">
+                        {animal.documents.map((doc, index) => (
+                          <div key={index} className="flex items-center p-3 bg-gray-50 rounded-lg border border-gray-200">
+                            <Shield className="w-5 h-5 text-green-600 mr-3" />
+                            <span className="text-gray-900">{doc}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+
+                <TabsContent value="avaliacoes" className="mt-6">
+                  <ReviewsSection
+                    reviews={reviews}
+                    itemId={animalId}
+                    itemType="animal"
+                    onAddReview={(newReview) => {
+                      const review: Review = {
+                        ...newReview,
+                        id: Date.now().toString(),
+                        date: new Date().toISOString().split('T')[0]
+                      }
+                      setReviews([review, ...reviews])
+                    }}
+                  />
+                </TabsContent>
+              </Tabs>
             </div>
 
             {/* Seller Info */}

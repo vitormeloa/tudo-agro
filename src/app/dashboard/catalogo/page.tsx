@@ -17,7 +17,7 @@ import {
   SlidersHorizontal
 } from 'lucide-react'
 
-export default function AnimaisPage() {
+export default function CatalogoPage() {
   const [searchQuery, setSearchQuery] = useState('')
   const [showFilters, setShowFilters] = useState(false)
 
@@ -44,7 +44,7 @@ export default function AnimaisPage() {
     { name: 'Gado de Corte', count: 156, color: 'bg-emerald-100 text-emerald-800' },
     { name: 'Gado de Leite', count: 89, color: 'bg-blue-100 text-blue-800' },
     { name: 'Cavalos', count: 67, color: 'bg-amber-100 text-amber-800' },
-    { name: 'S?men', count: 234, color: 'bg-purple-100 text-purple-800' }
+    { name: 'Sêmen', count: 234, color: 'bg-purple-100 text-purple-800' }
   ]
 
   return (
@@ -61,7 +61,7 @@ export default function AnimaisPage() {
                       <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                       <Input
                         type="text"
-                        placeholder="Buscar por ra?a, tipo, localiza??o..."
+                        placeholder="Buscar por raça, tipo, localização..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         className="pl-10 h-12 text-lg border-2 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500/20"
@@ -89,13 +89,13 @@ export default function AnimaisPage() {
                           <SelectItem value="gado-corte">Gado de Corte</SelectItem>
                           <SelectItem value="gado-leite">Gado de Leite</SelectItem>
                           <SelectItem value="cavalos">Cavalos</SelectItem>
-                          <SelectItem value="semen">S?men</SelectItem>
+                          <SelectItem value="semen">Sêmen</SelectItem>
                         </SelectContent>
                       </Select>
 
                       <Select>
                         <SelectTrigger className="h-10">
-                          <SelectValue placeholder="Ra?a" />
+                          <SelectValue placeholder="Raça" />
                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="nelore">Nelore</SelectItem>
@@ -108,10 +108,10 @@ export default function AnimaisPage() {
 
                       <Select>
                         <SelectTrigger className="h-10">
-                          <SelectValue placeholder="Pre?o" />
+                          <SelectValue placeholder="Preço" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="0-5000">At? R$ 5.000</SelectItem>
+                          <SelectItem value="0-5000">Até R$ 5.000</SelectItem>
                           <SelectItem value="5000-15000">R$ 5.000 - R$ 15.000</SelectItem>
                           <SelectItem value="15000-30000">R$ 15.000 - R$ 30.000</SelectItem>
                           <SelectItem value="30000+">Acima de R$ 30.000</SelectItem>
@@ -120,12 +120,12 @@ export default function AnimaisPage() {
 
                       <Select>
                         <SelectTrigger className="h-10">
-                          <SelectValue placeholder="Localiza??o" />
+                          <SelectValue placeholder="Localização" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="go">Goi?s</SelectItem>
+                          <SelectItem value="go">Goiás</SelectItem>
                           <SelectItem value="mg">Minas Gerais</SelectItem>
-                          <SelectItem value="sp">S?o Paulo</SelectItem>
+                          <SelectItem value="sp">São Paulo</SelectItem>
                           <SelectItem value="mt">Mato Grosso</SelectItem>
                           <SelectItem value="rs">Rio Grande do Sul</SelectItem>
                         </SelectContent>
@@ -183,9 +183,9 @@ export default function AnimaisPage() {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="relevancia">Mais Relevantes</SelectItem>
-                    <SelectItem value="preco-menor">Menor Pre?o</SelectItem>
-                    <SelectItem value="preco-maior">Maior Pre?o</SelectItem>
-                    <SelectItem value="avaliacao">Melhor Avalia??o</SelectItem>
+                    <SelectItem value="preco-menor">Menor Preço</SelectItem>
+                    <SelectItem value="preco-maior">Maior Preço</SelectItem>
+                    <SelectItem value="avaliacao">Melhor Avaliação</SelectItem>
                     <SelectItem value="recente">Mais Recentes</SelectItem>
                   </SelectContent>
                 </Select>
@@ -215,7 +215,7 @@ export default function AnimaisPage() {
                 <Button variant="outline" className="border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white">2</Button>
                 <Button variant="outline" className="border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white">3</Button>
                 <Button variant="outline" className="border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white">
-                  Pr?ximo
+                  Próximo
                 </Button>
               </div>
             </div>

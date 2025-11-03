@@ -21,6 +21,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "TudoAgro - Marketplace Agropecuário",
   description: "O maior marketplace agropecuário do Brasil. Compre e venda gado, cavalos e genética com segurança. Participe de leilões online em tempo real.",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
+  openGraph: {
+    locale: 'pt_BR',
+    type: 'website',
+  },
   icons: {
     icon: [
       { url: '/icon.svg', sizes: '64x64', type: 'image/svg+xml' },
@@ -39,13 +44,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <head>
-        <link rel="icon" href="/icon.svg" type="image/svg+xml" sizes="64x64" />
-        <link rel="icon" href="/icon.svg" type="image/svg+xml" sizes="32x32" />
-        <link rel="icon" href="/icon.svg" type="image/svg+xml" sizes="16x16" />
-        <link rel="shortcut icon" href="/icon.svg" />
-        <link rel="apple-touch-icon" href="/icon.svg" />
-      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

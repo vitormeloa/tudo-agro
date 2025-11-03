@@ -35,6 +35,10 @@ import { useAuth } from '@/hooks/useAuth'
 import { useToast } from '@/hooks/use-toast'
 import { calculateFreight, formatCEP, type FreightResult } from '@/lib/freight-calculator'
 import { Input } from '@/components/ui/input'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import ReviewsSection from '@/components/reviews/ReviewsSection'
+import { mockProductReviews } from '@/lib/mock-reviews'
+import type { Review } from '@/lib/mock-reviews'
 
 export default function ProdutoPage({ params }: { params: Promise<{ id: string }> }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
@@ -47,6 +51,7 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
   const { user, initialized } = useAuth()
   const router = useRouter()
   const { toast } = useToast()
+  const [reviews, setReviews] = useState<Review[]>(mockProductReviews)
   
   const resolvedParams = use(params)
   const productId = resolvedParams.id
@@ -474,17 +479,63 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
             </div>
           </div>
 
-          {/* Description */}
+          {/* Tabs Section */}
           <div className="mt-12">
-            <Card className="bg-white border-gray-200 shadow-lg">
-            <CardContent className="p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Descrição</h2>
-              <p className="text-gray-600 leading-relaxed text-lg">
-                {product.description}
-              </p>
-            </CardContent>
-          </Card>
-        </div>
+            <Tabs defaultValue="descricao" className="w-full">
+              <TabsList className="grid w-full grid-cols-3">
+                <TabsTrigger value="descricao">Descrição</TabsTrigger>
+                <TabsTrigger value="especificacoes">Especificações</TabsTrigger>
+                <TabsTrigger value="avaliacoes">
+                  Avaliações ({reviews.length})
+                </TabsTrigger>
+              </TabsList>
+
+              <TabsContent value="descricao" className="mt-6">
+                <Card className="bg-white border-gray-200 shadow-lg">
+                  <CardContent className="p-8">
+                    <h2 className="text-2xl font-bold text-gray-900 mb-4">Descrição</h2>
+                    <p className="text-gray-600 leading-relaxed text-lg">
+                      {product.description}
+                    </p>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+
+              <TabsContent value="especificacoes" className="mt-6">
+                <Card className="bg-white border-gray-200 shadow-lg">
+                  <CardContent className="p-8">
+                    <h2 className="text-2xl font-bold text-gray-900 mb-4">Especificações</h2>
+                    <div className="space-y-3">
+                      {Object.entries(product.specifications).map(([key, value]) => (
+                        <div key={key} className="flex justify-between py-2 border-b border-gray-100">
+                          <span className="text-gray-500 capitalize font-medium">
+                            {key.replace(/([A-Z])/g, ' $1').toLowerCase()}:
+                          </span>
+                          <span className="font-medium text-gray-900">{value}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+
+              <TabsContent value="avaliacoes" className="mt-6">
+                <ReviewsSection
+                  reviews={reviews}
+                  itemId={productId}
+                  itemType="product"
+                  onAddReview={(newReview) => {
+                    const review: Review = {
+                      ...newReview,
+                      id: Date.now().toString(),
+                      date: new Date().toISOString().split('T')[0]
+                    }
+                    setReviews([review, ...reviews])
+                  }}
+                />
+              </TabsContent>
+            </Tabs>
+          </div>
 
 
         {/* Seller Info */}

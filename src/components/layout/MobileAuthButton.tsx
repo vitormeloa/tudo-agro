@@ -8,10 +8,12 @@ import {
   Settings, 
   Shield, 
   Key, 
-  UserCircle
+  UserCircle,
+  ShoppingCart
 } from 'lucide-react'
 import { useAuth } from '@/hooks/useAuth'
 import { useToast } from '@/hooks/use-toast'
+import { useCart } from '@/contexts/CartContext'
 
 interface MobileAuthButtonProps {
   onMenuClose: () => void
@@ -21,6 +23,8 @@ interface MobileAuthButtonProps {
 export default function MobileAuthButton({ onMenuClose, className }: MobileAuthButtonProps) {
   const { user, signOut, isAdmin } = useAuth()
   const { toast } = useToast()
+  const { getTotalItems } = useCart()
+  const cartItemsCount = getTotalItems()
 
   // Se usuário está logado, mostrar opções do usuário
   if (user) {
@@ -34,6 +38,18 @@ export default function MobileAuthButton({ onMenuClose, className }: MobileAuthB
           
           {/* Opções do usuário mobile */}
           <div className="space-y-1">
+            <Link href="/dashboard/carrinho" className="block" onClick={onMenuClose}>
+              <Button variant="outline" className="w-full justify-start relative">
+                <ShoppingCart className="w-4 h-4 mr-2" />
+                Carrinho
+                {cartItemsCount > 0 && (
+                  <span className="ml-auto bg-emerald-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                    {cartItemsCount > 99 ? '99+' : cartItemsCount}
+                  </span>
+                )}
+              </Button>
+            </Link>
+            
             <Link href="/dashboard/minha-conta" className="block" onClick={onMenuClose}>
               <Button variant="outline" className="w-full justify-start">
                 <UserCircle className="w-4 h-4 mr-2" />
