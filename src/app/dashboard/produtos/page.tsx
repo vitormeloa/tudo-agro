@@ -53,15 +53,15 @@ export default function ProdutosPage() {
   }))
 
   const categories = [
-    { name: 'Nutri??o Animal', count: 234, color: '#B8E8D1' },
-    { name: 'Sa?de e Bem-Estar Animal', count: 189, color: '#E2D4F9' },
-    { name: 'Reprodu??o e Gen?tica', count: 156, color: '#E6E6FA' },
+    { name: 'Nutrição Animal', count: 234, color: '#B8E8D1' },
+    { name: 'Saúde e Bem-Estar Animal', count: 189, color: '#E2D4F9' },
+    { name: 'Reprodução e Genética', count: 156, color: '#E6E6FA' },
     { name: 'Selaria e Utilidades', count: 98, color: '#FFE0B2' },
     { name: 'Equipamentos e Infraestrutura Rural', count: 145, color: '#E1D5FF' },
-    { name: 'Vestu?rio e Lifestyle Agro', count: 87, color: '#FCE4EC' },
+    { name: 'Vestuário e Lifestyle Agro', count: 87, color: '#FCE4EC' },
     { name: 'Sementes e Mudas', count: 312, color: '#DDEBFF' },
-    { name: 'Insumos Agr?colas e Fertilizantes', count: 267, color: '#FFF8DC' },
-    { name: 'Higiene, Limpeza e Desinfec??o', count: 76, color: '#E0F7FA' },
+    { name: 'Insumos Agrícolas e Fertilizantes', count: 267, color: '#FFF8DC' },
+    { name: 'Higiene, Limpeza e Desinfecção', count: 76, color: '#E0F7FA' },
     { name: 'Suplementos e Aditivos', count: 198, color: '#F6F0C4' },
     { name: 'Bebidas Artesanais e Produtos da Fazenda', count: 45, color: '#FEE6E3' },
     { name: 'Outros', count: 134, color: '#F5F5F5' }
@@ -110,18 +110,18 @@ export default function ProdutosPage() {
                           <SelectValue placeholder="Categoria" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="nutricao-animal">Nutri??o Animal</SelectItem>
-                          <SelectItem value="saude-bem-estar">Sa?de e Bem-Estar Animal</SelectItem>
-                          <SelectItem value="reproducao-genetica">Reprodu??o e Gen?tica</SelectItem>
+                          <SelectItem value="nutricao-animal">Nutrição Animal</SelectItem>
+                          <SelectItem value="saude-bem-estar">Saúde e Bem-Estar Animal</SelectItem>
+                          <SelectItem value="reproducao-genetica">Reprodução e Genética</SelectItem>
                           <SelectItem value="selaria-utilidades">Selaria e Utilidades</SelectItem>
                           <SelectItem value="equipamentos-infraestrutura">Equipamentos e Infraestrutura Rural</SelectItem>
-                          <SelectItem value="vestuario-lifestyle">Vestu?rio e Lifestyle Agro</SelectItem>
+                          <SelectItem value="vestuario-lifestyle">Vestuário e Lifestyle Agro</SelectItem>
                           <SelectItem value="sementes-mudas">Sementes e Mudas</SelectItem>
-                          <SelectItem value="insumos-fertilizantes">Insumos Agr?colas e Fertilizantes</SelectItem>
-                          <SelectItem value="higiene-limpeza">Higiene, Limpeza e Desinfec??o</SelectItem>
+                          <SelectItem value="insumos-fertilizantes">Insumos Agrícolas e Fertilizantes</SelectItem>
+                          <SelectItem value="higiene-limpeza">Higiene, Limpeza e Desinfecção</SelectItem>
                           <SelectItem value="suplementos-aditivos">Suplementos e Aditivos</SelectItem>
                           <SelectItem value="bebidas-artesanais">Bebidas Artesanais e Produtos da Fazenda</SelectItem>
-                          <SelectItem value="acessorios-cuidados">Acess?rios e Cuidados Gerais</SelectItem>
+                          <SelectItem value="acessorios-cuidados">Acessórios e Cuidados Gerais</SelectItem>
                         </SelectContent>
                       </Select>
 
@@ -140,10 +140,10 @@ export default function ProdutosPage() {
 
                       <Select>
                         <SelectTrigger className="h-10">
-                          <SelectValue placeholder="Pre?o" />
+                          <SelectValue placeholder="Preço" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="0-50">At? R$ 50</SelectItem>
+                          <SelectItem value="0-50">Até R$ 50</SelectItem>
                           <SelectItem value="50-100">R$ 50 - R$ 100</SelectItem>
                           <SelectItem value="100-200">R$ 100 - R$ 200</SelectItem>
                           <SelectItem value="200+">Acima de R$ 200</SelectItem>
@@ -152,12 +152,12 @@ export default function ProdutosPage() {
 
                       <Select>
                         <SelectTrigger className="h-10">
-                          <SelectValue placeholder="Localiza??o" />
+                          <SelectValue placeholder="Localização" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="sp">S?o Paulo</SelectItem>
+                          <SelectItem value="sp">São Paulo</SelectItem>
                           <SelectItem value="mg">Minas Gerais</SelectItem>
-                          <SelectItem value="go">Goi?s</SelectItem>
+                          <SelectItem value="go">Goiás</SelectItem>
                           <SelectItem value="mt">Mato Grosso</SelectItem>
                           <SelectItem value="rs">Rio Grande do Sul</SelectItem>
                         </SelectContent>
@@ -210,7 +210,7 @@ export default function ProdutosPage() {
                   </Card>
                 ))}
                 
-                {/* Bot?o Ver Mais */}
+                {/* Botão Ver Mais */}
                 {hiddenCategories.length > 0 && (
                   <Card 
                     className="hover:shadow-lg transition-all duration-300 transform hover:scale-105 cursor-pointer animate-fade-in-up border-2 border-dashed border-gray-300 hover:border-emerald-500"
@@ -235,7 +235,7 @@ export default function ProdutosPage() {
                     <div className="flex-1 min-w-0">
                       <DialogTitle className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900">Todas as Categorias</DialogTitle>
                       <DialogDescription className="text-xs sm:text-sm text-gray-600 mt-1 sm:mt-2">
-                        Explore todas as categorias dispon?veis em nosso marketplace
+                        Explore todas as categorias disponíveis em nosso marketplace
                       </DialogDescription>
                     </div>
                   </div>
@@ -274,15 +274,15 @@ export default function ProdutosPage() {
                 <div className="flex items-center p-4 bg-white rounded-lg shadow-sm border">
                   <Truck className="w-8 h-8 text-blue-600 mr-4" />
                   <div>
-                    <h4 className="font-semibold text-gray-900">Frete Gr?tis</h4>
+                    <h4 className="font-semibold text-gray-900">Frete Grátis</h4>
                     <p className="text-sm text-gray-600">Acima de R$ 500</p>
                   </div>
                 </div>
                 <div className="flex items-center p-4 bg-white rounded-lg shadow-sm border">
                   <Shield className="w-8 h-8 text-green-600 mr-4" />
                   <div>
-                    <h4 className="font-semibold text-gray-900">Garantia e Seguran?a</h4>
-                    <p className="text-sm text-gray-600">Produtos originais com seguran?a garantida</p>
+                    <h4 className="font-semibold text-gray-900">Garantia e Segurança</h4>
+                    <p className="text-sm text-gray-600">Produtos originais com segurança garantida</p>
                   </div>
                 </div>
                 <div className="flex items-center p-4 bg-white rounded-lg shadow-sm border">
@@ -307,9 +307,9 @@ export default function ProdutosPage() {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="relevancia">Mais Relevantes</SelectItem>
-                    <SelectItem value="preco-menor">Menor Pre?o</SelectItem>
-                    <SelectItem value="preco-maior">Maior Pre?o</SelectItem>
-                    <SelectItem value="avaliacao">Melhor Avalia??o</SelectItem>
+                    <SelectItem value="preco-menor">Menor Preço</SelectItem>
+                    <SelectItem value="preco-maior">Maior Preço</SelectItem>
+                    <SelectItem value="avaliacao">Melhor Avaliação</SelectItem>
                     <SelectItem value="recente">Mais Recentes</SelectItem>
                   </SelectContent>
                 </Select>

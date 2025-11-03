@@ -35,7 +35,7 @@ export default function LeiloesPage() {
     return () => clearInterval(timer)
   }, [])
 
-  // Usar leil?es ao vivo do mock
+  // Usar leilões ao vivo do mock
   const liveAuctions = mockAuctions.filter(a => a.status === 'live').map(a => ({
     id: a.id,
     title: a.title,
@@ -53,7 +53,7 @@ export default function LeiloesPage() {
     status: a.status
   }))
 
-  // Usar pr?ximos leil?es do mock
+  // Usar próximos leilões do mock
   const upcomingAuctions = mockAuctions.filter(a => a.status === 'scheduled').map(a => ({
     id: a.id,
     title: a.title,
@@ -109,7 +109,7 @@ export default function LeiloesPage() {
                       <SelectItem value="gado-corte">Gado de Corte</SelectItem>
                       <SelectItem value="gado-leite">Gado de Leite</SelectItem>
                       <SelectItem value="cavalos">Cavalos</SelectItem>
-                      <SelectItem value="semen">S?men</SelectItem>
+                      <SelectItem value="semen">Sêmen</SelectItem>
                     </SelectContent>
                   </Select>
 
@@ -126,12 +126,12 @@ export default function LeiloesPage() {
 
                   <Select>
                     <SelectTrigger className="h-10">
-                      <SelectValue placeholder="Localiza??o" />
+                      <SelectValue placeholder="Localização" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="go">Goi?s</SelectItem>
+                      <SelectItem value="go">Goiás</SelectItem>
                       <SelectItem value="mg">Minas Gerais</SelectItem>
-                      <SelectItem value="sp">S?o Paulo</SelectItem>
+                      <SelectItem value="sp">São Paulo</SelectItem>
                       <SelectItem value="rs">Rio Grande do Sul</SelectItem>
                     </SelectContent>
                   </Select>
@@ -157,7 +157,7 @@ export default function LeiloesPage() {
                 <div className="flex items-center">
                   <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse mr-3"></div>
                   <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
-                    Leil?es ao Vivo
+                    Leilões ao Vivo
                   </h2>
                 </div>
                 <Badge className="ml-4 bg-red-500 text-white font-semibold">
@@ -231,7 +231,7 @@ export default function LeiloesPage() {
                       <Link href={`/dashboard/leilao/${auction.id}`}>
                         <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white text-lg py-3 transition-all duration-300 transform hover:scale-105">
                           <Zap className="w-5 h-5 mr-2" />
-                          Entrar no Leil?o
+                          Entrar no Leilão
                         </Button>
                       </Link>
                     </CardContent>
@@ -245,7 +245,7 @@ export default function LeiloesPage() {
               <div className="flex items-center mb-6">
                 <Calendar className="w-6 h-6 text-emerald-600 mr-3" />
                 <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
-                  Pr?ximos Leil?es
+                  Próximos Leilões
                 </h2>
               </div>
 
@@ -267,7 +267,7 @@ export default function LeiloesPage() {
                       
                       <div className="space-y-3 mb-6">
                         <div className="flex justify-between items-center">
-                          <span className="text-gray-600">In?cio:</span>
+                          <span className="text-gray-600">Início:</span>
                           <span className="font-bold text-emerald-600">
                             {auction.startTime ? formatDateTime(auction.startTime) : 'A definir'}
                           </span>
