@@ -7,7 +7,8 @@ import {
   BarChart3, Users, Store, FileText, Gavel, CreditCard, 
   FileCheck, Gift, Crown, GraduationCap, MessageSquare, 
   Settings, Menu, X, LogOut, Home, AlertTriangle,
-  ChevronDown, UserCircle, Key, Shield, Heart, Package, Star
+  ChevronDown, UserCircle, Key, Shield, Heart, Package, Star,
+  ShoppingBag, DollarSign, BookOpen, User
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -73,6 +74,10 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     const allMenuItems = [
       { id: 'visao-geral', label: 'Visão Geral', icon: BarChart3, alerts: 0, roles: ['admin', 'vendedor', 'comprador'], href: '/dashboard/visao-geral' },
       { id: 'favoritos', label: 'Favoritos', icon: Star, alerts: 0, roles: ['admin', 'vendedor', 'comprador'], href: '/dashboard/favoritos' },
+      { id: 'minhas-compras', label: 'Minhas Compras', icon: ShoppingBag, alerts: 0, roles: ['comprador'], href: '/dashboard/minhas-compras' },
+      { id: 'financeiro', label: 'Financeiro', icon: DollarSign, alerts: 0, roles: ['comprador'], href: '/dashboard/financeiro' },
+      { id: 'treinamentos', label: 'Treinamentos', icon: BookOpen, alerts: 0, roles: ['admin', 'vendedor', 'comprador'], href: '/dashboard/treinamentos' },
+      { id: 'minha-conta', label: 'Minha Conta', icon: User, alerts: 0, roles: ['admin', 'vendedor', 'comprador'], href: '/dashboard/minha-conta' },
       { id: 'usuarios', label: 'Usuários', icon: Users, alerts: 0, roles: ['admin'], href: '/dashboard/usuarios' },
       { id: 'vendedores', label: 'Vendedores', icon: Store, alerts: 3, roles: ['admin'], href: '/dashboard/vendedores' },
       { id: 'anuncios', label: 'Anúncios', icon: FileText, alerts: 7, roles: ['admin', 'vendedor'], href: '/dashboard/anuncios' },
@@ -365,16 +370,16 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                     {/* Opções do usuário */}
                     <div className="py-1">
                       <Link 
-                        href="/perfil"
+                        href="/dashboard/minha-conta"
                         className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
                         onClick={() => setIsUserMenuOpen(false)}
                       >
                         <UserCircle className="w-4 h-4 mr-3" />
-                        Meu Perfil
+                        Minha Conta
                       </Link>
                       
                       <Link 
-                        href="/perfil/senha"
+                        href="/dashboard/trocar-senha"
                         className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
                         onClick={() => setIsUserMenuOpen(false)}
                       >
@@ -383,7 +388,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                       </Link>
                       
                       <Link 
-                        href="/perfil/configuracoes"
+                        href="/dashboard/configuracoes"
                         className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
                         onClick={() => setIsUserMenuOpen(false)}
                       >

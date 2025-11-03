@@ -55,6 +55,18 @@ export function useAdminPermissions() {
       case 'academy':
         return hasPermission('academy:read')
       
+      case 'minhas-compras':
+        return hasPermission('purchase:read')
+      
+      case 'financeiro':
+        return hasPermission('financial:read')
+      
+      case 'treinamentos':
+        return hasPermission('training:read')
+      
+      case 'minha-conta':
+        return hasPermission('account:read')
+      
       case 'mensagens':
         return hasPermission('message:read') || hasPermission('support:read')
       

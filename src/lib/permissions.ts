@@ -35,6 +35,18 @@ export const PERMISSIONS = {
   // Academy e IA
   academy: ["read", "write", "delete", "moderate"],
   
+  // Minhas Compras
+  purchase: ["read", "view_details", "download_receipt", "download_invoice", "rate_seller", "chat_seller", "reorder"],
+  
+  // Financeiro
+  financial: ["read", "view_details", "download_receipt", "download_invoice", "manage_payment_methods", "view_invoices"],
+  
+  // Treinamentos
+  training: ["read", "enroll", "complete", "view_certificate", "rate"],
+  
+  // Minha Conta
+  account: ["read", "edit_profile", "edit_address", "change_password", "manage_2fa", "manage_notifications", "upload_documents", "delete_account"],
+  
   // Mensagens e Suporte
   message: ["read", "write", "delete", "moderate"],
   support: ["read", "write", "delete", "assign", "resolve"],
@@ -102,7 +114,7 @@ export const groupPermissionsByModule = (permissions: Permission[]) => {
   return grouped
 }
 
-// Mapeamento de recursos para nomes amigáveis
+  // Mapeamento de recursos para nomes amigáveis
 export const RESOURCE_LABELS: Record<PermissionResource, string> = {
   dashboard: "Dashboard",
   user: "Usuários",
@@ -110,12 +122,17 @@ export const RESOURCE_LABELS: Record<PermissionResource, string> = {
   ad: "Anúncios",
   product: "Produtos",
   animal: "Animais",
+  favorite: "Favoritos",
   auction: "Leilões",
   transaction: "Transações",
   document: "Documentos KYC",
   cashback: "Cashback",
   vip: "Planos VIP",
   academy: "Academy/IA",
+  purchase: "Minhas Compras",
+  financial: "Financeiro",
+  training: "Treinamentos",
+  account: "Minha Conta",
   message: "Mensagens",
   support: "Suporte",
   role: "Funções",
@@ -150,7 +167,26 @@ export const ACTION_LABELS: Record<PermissionAction, string> = {
   pause: "Pausar",
   request: "Solicitar",
   offer: "Fazer Oferta",
-  purchase: "Comprar"
+  purchase: "Comprar",
+  view_details: "Ver Detalhes",
+  download_receipt: "Baixar Comprovante",
+  download_invoice: "Baixar Nota Fiscal",
+  rate_seller: "Avaliar Vendedor",
+  chat_seller: "Chat com Vendedor",
+  reorder: "Recomprar",
+  manage_payment_methods: "Gerenciar Métodos de Pagamento",
+  view_invoices: "Ver Notas Fiscais",
+  enroll: "Inscrever-se",
+  complete: "Completar",
+  view_certificate: "Ver Certificado",
+  rate: "Avaliar",
+  edit_profile: "Editar Perfil",
+  edit_address: "Editar Endereço",
+  change_password: "Alterar Senha",
+  manage_2fa: "Gerenciar 2FA",
+  manage_notifications: "Gerenciar Notificações",
+  upload_documents: "Enviar Documentos",
+  delete_account: "Excluir Conta"
 }
 
 // Mapeamento de permissões para funcionalidades do admin
@@ -236,5 +272,7 @@ export const ADMIN_FEATURES = {
   'setting:read': ['configuracoes'],
   'setting:write': ['configuracoes']
 } as const
+
+export default PERMISSIONS const
 
 export default PERMISSIONS
