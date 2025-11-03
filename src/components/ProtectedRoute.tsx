@@ -14,21 +14,22 @@ export default function ProtectedRoute({
   children, 
   fallback
 }: ProtectedRouteProps) {
-  const { user, loading } = useAuth()
+  const { user, loading, initialized } = useAuth()
   const router = useRouter()
   const [isRedirecting, setIsRedirecting] = useState(false)
 
   // Redirecionar para login se usuário não estiver autenticado
+  // Só redirecionar após inicialização completa
   useEffect(() => {
-    if (!loading && !user && !isRedirecting) {
-      console.log('No user found after loading, redirecting to login')
+    if (initialized && !user && !isRedirecting) {
+      console.log('No user found after initialization, redirecting to login')
       setIsRedirecting(true)
       router.push('/login')
     }
-  }, [loading, user, router, isRedirecting])
+  }, [initialized, user, router, isRedirecting])
 
-  // Mostrar loading enquanto verifica autenticação
-  if (loading) {
+  // Mostrar loading enquanto verifica autenticação ou não inicializou
+  if (!initialized || loading) {
     return fallback || <LoadingSpinner text="Verificando acesso..." fullScreen />
   }
 

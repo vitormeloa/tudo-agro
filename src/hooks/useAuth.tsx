@@ -23,6 +23,7 @@ interface AuthUser {
 interface AuthContextType {
   user: AuthUser | null
   loading: boolean
+  initialized: boolean
   signIn: (email: string, password: string) => Promise<{ error?: string }>
   signUp: (email: string, password: string, userData: any) => Promise<{ error?: string }>
   signOut: () => Promise<void>
@@ -50,13 +51,94 @@ if (!supabaseUrl || !supabaseAnonKey) {
 
 const supabase = createBrowserClient(supabaseUrl, supabaseAnonKey)
 
-// Cache de sessão para evitar múltiplas verificações
-let sessionCache: { user: AuthUser | null; timestamp: number } | null = null
-const CACHE_DURATION = 30000 // 30 segundos
+// Chaves para localStorage
+const AUTH_CACHE_KEY = 'tudoagro_auth_cache'
+const AUTH_TIMESTAMP_KEY = 'tudoagro_auth_timestamp'
+const CACHE_DURATION = 5 * 60 * 1000 // 5 minutos
+
+// Sistema de eventos para sincronização entre componentes
+class AuthEventEmitter {
+  private listeners: Map<string, Set<Function>> = new Map()
+
+  on(event: string, callback: Function) {
+    if (!this.listeners.has(event)) {
+      this.listeners.set(event, new Set())
+    }
+    this.listeners.get(event)!.add(callback)
+    
+    return () => {
+      this.listeners.get(event)?.delete(callback)
+    }
+  }
+
+  emit(event: string, data?: any) {
+    this.listeners.get(event)?.forEach(callback => {
+      try {
+        callback(data)
+      } catch (error) {
+        console.error('Error in auth event listener:', error)
+      }
+    })
+  }
+}
+
+const authEvents = new AuthEventEmitter()
+
+// Funções de cache local
+function saveAuthCache(user: AuthUser | null) {
+  try {
+    if (typeof window === 'undefined') return
+    
+    if (user) {
+      localStorage.setItem(AUTH_CACHE_KEY, JSON.stringify(user))
+      localStorage.setItem(AUTH_TIMESTAMP_KEY, Date.now().toString())
+    } else {
+      localStorage.removeItem(AUTH_CACHE_KEY)
+      localStorage.removeItem(AUTH_TIMESTAMP_KEY)
+    }
+  } catch (error) {
+    console.error('Error saving auth cache:', error)
+  }
+}
+
+function loadAuthCache(): AuthUser | null {
+  try {
+    if (typeof window === 'undefined') return null
+    
+    const cached = localStorage.getItem(AUTH_CACHE_KEY)
+    const timestamp = localStorage.getItem(AUTH_TIMESTAMP_KEY)
+    
+    if (!cached || !timestamp) return null
+    
+    const age = Date.now() - parseInt(timestamp, 10)
+    if (age > CACHE_DURATION) {
+      // Cache expirado
+      localStorage.removeItem(AUTH_CACHE_KEY)
+      localStorage.removeItem(AUTH_TIMESTAMP_KEY)
+      return null
+    }
+    
+    return JSON.parse(cached) as AuthUser
+  } catch (error) {
+    console.error('Error loading auth cache:', error)
+    return null
+  }
+}
+
+function clearAuthCache() {
+  try {
+    if (typeof window === 'undefined') return
+    localStorage.removeItem(AUTH_CACHE_KEY)
+    localStorage.removeItem(AUTH_TIMESTAMP_KEY)
+  } catch (error) {
+    console.error('Error clearing auth cache:', error)
+  }
+}
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<AuthUser | null>(null)
   const [loading, setLoading] = useState(true)
+  const [initialized, setInitialized] = useState(false)
   const { toast } = useToast()
   const router = useRouter()
   
@@ -64,12 +146,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const loadingRef = useRef(false)
   const mountedRef = useRef(true)
   const checkInProgressRef = useRef(false)
-  const lastCheckRef = useRef(0)
+  const sessionCheckIntervalRef = useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
     mountedRef.current = true
     return () => {
       mountedRef.current = false
+      if (sessionCheckIntervalRef.current) {
+        clearInterval(sessionCheckIntervalRef.current)
+      }
     }
   }, [])
 
@@ -88,15 +173,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }, [])
 
-  // Função para carregar dados do usuário com cache
+  // Função para carregar dados do usuário
   const loadUser = useCallback(async (userId: string, force = false): Promise<AuthUser | null> => {
     if (!mountedRef.current) return null
 
-    // Verificar cache primeiro
-    if (!force && sessionCache && sessionCache.user?.id === userId) {
-      const cacheAge = Date.now() - sessionCache.timestamp
-      if (cacheAge < CACHE_DURATION) {
-        return sessionCache.user
+    // Se não for forçado, tentar cache primeiro
+    if (!force) {
+      const cached = loadAuthCache()
+      if (cached && cached.id === userId) {
+        return cached
       }
     }
 
@@ -123,7 +208,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           const { data: { user: authUser } } = await supabase.auth.getUser()
           if (authUser && mountedRef.current) {
             const basicUser = createBasicUser(authUser)
-            sessionCache = { user: basicUser, timestamp: Date.now() }
+            saveAuthCache(basicUser)
             return basicUser
           }
           return null
@@ -133,7 +218,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const { data: { user: authUser } } = await supabase.auth.getUser()
         if (authUser && mountedRef.current) {
           const basicUser = createBasicUser(authUser)
-          sessionCache = { user: basicUser, timestamp: Date.now() }
+          saveAuthCache(basicUser)
           return basicUser
         }
         return null
@@ -143,7 +228,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const { data: { user: authUser } } = await supabase.auth.getUser()
         if (authUser && mountedRef.current) {
           const basicUser = createBasicUser(authUser)
-          sessionCache = { user: basicUser, timestamp: Date.now() }
+          saveAuthCache(basicUser)
           return basicUser
         }
         return null
@@ -165,18 +250,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         permissions: permissions || []
       }
 
-      // Atualizar cache
-      sessionCache = { user: userWithData, timestamp: Date.now() }
+      // Salvar no cache
+      saveAuthCache(userWithData)
       
       return userWithData
     } catch (error) {
       console.error('Error loading user:', error)
-      // Em caso de erro, usar dados básicos
+      // Em caso de erro, tentar cache ou dados básicos
       try {
+        const cached = loadAuthCache()
+        if (cached && cached.id === userId) {
+          return cached
+        }
+        
         const { data: { user: authUser } } = await supabase.auth.getUser()
         if (authUser && mountedRef.current) {
           const basicUser = createBasicUser(authUser)
-          sessionCache = { user: basicUser, timestamp: Date.now() }
+          saveAuthCache(basicUser)
           return basicUser
         }
       } catch {
@@ -186,33 +276,49 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }, [createBasicUser])
 
-  // Verificar usuário inicial com throttling
+  // Verificar usuário com sincronização
   const checkUser = useCallback(async (force = false) => {
     // Prevenir múltiplas chamadas simultâneas
     if (checkInProgressRef.current && !force) {
       return
     }
 
-    // Throttle: máximo uma verificação a cada 2 segundos
-    const now = Date.now()
-    if (!force && now - lastCheckRef.current < 2000) {
-      return
-    }
-
     try {
       checkInProgressRef.current = true
-      lastCheckRef.current = now
       
       if (!mountedRef.current) return
 
-      setLoading(true)
+      // Tentar cache primeiro se não for forçado
+      if (!force) {
+        const cached = loadAuthCache()
+        if (cached) {
+          // Verificar se sessão ainda é válida
+          const { data: { session } } = await supabase.auth.getSession()
+          if (session?.user?.id === cached.id) {
+            if (mountedRef.current) {
+              setUser(cached)
+              setLoading(false)
+              if (!initialized) setInitialized(true)
+              authEvents.emit('user:loaded', cached)
+            }
+            return
+          }
+        }
+      }
+      
+      if (mountedRef.current) {
+        setLoading(true)
+      }
       
       const { data: { session }, error } = await supabase.auth.getSession()
       
       if (error) {
         if (mountedRef.current) {
           setUser(null)
-          sessionCache = null
+          setLoading(false)
+          setInitialized(true)
+          clearAuthCache()
+          authEvents.emit('user:cleared')
         }
         return
       }
@@ -221,36 +327,50 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const loadedUser = await loadUser(session.user.id, force)
         if (mountedRef.current) {
           setUser(loadedUser)
+          setLoading(false)
+          setInitialized(true)
+          authEvents.emit('user:loaded', loadedUser)
         }
       } else {
         if (mountedRef.current) {
           setUser(null)
-          sessionCache = null
+          setLoading(false)
+          setInitialized(true)
+          clearAuthCache()
+          authEvents.emit('user:cleared')
         }
       }
     } catch (error) {
       console.error('Check user error:', error)
       if (mountedRef.current) {
         setUser(null)
-        sessionCache = null
+        setLoading(false)
+        setInitialized(true)
+        clearAuthCache()
+        authEvents.emit('user:cleared')
       }
     } finally {
-      if (mountedRef.current) {
-        setLoading(false)
-        checkInProgressRef.current = false
-      }
+      checkInProgressRef.current = false
     }
-  }, [loadUser])
+  }, [loadUser, initialized])
 
-  // Inicialização única
+  // Inicialização única com cache
   useEffect(() => {
+    // Tentar carregar do cache imediatamente para melhor UX
+    const cached = loadAuthCache()
+    if (cached) {
+      setUser(cached)
+      setLoading(false)
+      setInitialized(true)
+    }
+
+    // Verificar sessão real
     checkUser(true)
 
     // Escutar mudanças na autenticação
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
-        // Limpar cache em mudanças de auth
-        sessionCache = null
+        clearAuthCache()
         
         if (event === 'SIGNED_IN' && session) {
           if (mountedRef.current) {
@@ -259,26 +379,43 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             if (mountedRef.current) {
               setUser(loadedUser)
               setLoading(false)
+              setInitialized(true)
+              authEvents.emit('user:signed_in', loadedUser)
             }
           }
         } else if (event === 'SIGNED_OUT') {
           if (mountedRef.current) {
             setUser(null)
             setLoading(false)
-            sessionCache = null
+            setInitialized(true)
+            clearAuthCache()
+            authEvents.emit('user:signed_out')
           }
         } else if (event === 'TOKEN_REFRESHED' && session) {
-          // Não recarregar tudo, apenas atualizar cache se necessário
+          // Atualizar usuário se necessário
           if (mountedRef.current && user?.id === session.user.id) {
-            // Apenas invalidar cache, não recarregar imediatamente
-            sessionCache = null
+            const loadedUser = await loadUser(session.user.id, true)
+            if (mountedRef.current) {
+              setUser(loadedUser)
+              authEvents.emit('user:refreshed', loadedUser)
+            }
           }
         }
       }
     )
 
+    // Verificação periódica de sessão (a cada 5 minutos)
+    sessionCheckIntervalRef.current = setInterval(() => {
+      if (mountedRef.current && user) {
+        checkUser(false)
+      }
+    }, 5 * 60 * 1000)
+
     return () => {
       subscription.unsubscribe()
+      if (sessionCheckIntervalRef.current) {
+        clearInterval(sessionCheckIntervalRef.current)
+      }
     }
   }, []) // Apenas uma vez na montagem
 
@@ -312,15 +449,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
 
       if (data.user && mountedRef.current) {
-        // Limpar cache e recarregar
-        sessionCache = null
+        clearAuthCache()
         const loadedUser = await loadUser(data.user.id, true)
         if (mountedRef.current) {
           setUser(loadedUser)
+          setLoading(false)
+          setInitialized(true)
           toast({
             title: "Login realizado com sucesso!",
             description: "Bem-vindo de volta ao TudoAgro.",
           })
+          authEvents.emit('user:signed_in', loadedUser)
         }
       }
 
@@ -413,15 +552,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       if (mountedRef.current) {
         setUser(null)
         setLoading(false)
+        setInitialized(true)
       }
-      sessionCache = null
+      clearAuthCache()
+      authEvents.emit('user:signed_out')
       
       // Fazer logout do Supabase
       const { error } = await supabase.auth.signOut()
       
       if (error) {
         console.error('Logout error:', error)
-        // Mesmo com erro, continuar com logout local
       }
 
       // Limpar todos os cookies relacionados
@@ -429,7 +569,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         document.cookie.split(";").forEach((c) => {
           const eqPos = c.indexOf("=")
           const name = eqPos > -1 ? c.substr(0, eqPos).trim() : c.trim()
-          // Limpar cookies do Supabase
           if (name.startsWith('sb-') || name.includes('supabase')) {
             document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`
             document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;domain=${window.location.hostname}`
@@ -439,7 +578,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       
       // Redirecionar para home
       router.push('/')
-      router.refresh() // Forçar refresh da página
+      router.refresh()
       
     } catch (error) {
       console.error('Logout error:', error)
@@ -447,8 +586,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       if (mountedRef.current) {
         setUser(null)
         setLoading(false)
+        setInitialized(true)
       }
-      sessionCache = null
+      clearAuthCache()
+      authEvents.emit('user:signed_out')
       router.push('/')
       router.refresh()
     }
@@ -457,7 +598,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   // Função para trocar senha (requer senha atual)
   const changePassword = useCallback(async (currentPassword: string, newPassword: string) => {
     try {
-      // Primeiro verificar senha atual fazendo login
       const { data: { user: currentUser } } = await supabase.auth.getUser()
       if (!currentUser?.email) {
         return { error: 'Usuário não encontrado' }
@@ -472,7 +612,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         return { error: 'Senha atual incorreta' }
       }
 
-      // Se senha atual está correta, atualizar
       const { error } = await supabase.auth.updateUser({
         password: newPassword
       })
@@ -620,10 +759,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const refreshUser = useCallback(async () => {
     if (user?.id) {
-      sessionCache = null
+      clearAuthCache()
       const loadedUser = await loadUser(user.id, true)
       if (mountedRef.current) {
         setUser(loadedUser)
+        authEvents.emit('user:refreshed', loadedUser)
       }
     }
   }, [user?.id, loadUser])
@@ -631,6 +771,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const value: AuthContextType = {
     user,
     loading,
+    initialized,
     signIn,
     signUp,
     signOut,
@@ -683,5 +824,5 @@ function getAuthErrorMessage(errorMessage: string): string {
   return errorMap[errorMessage] || 'Erro inesperado. Tente novamente.'
 }
 
-// Exportar supabase para uso em outros lugares se necessário
-export { supabase }
+// Exportar supabase e eventos para uso em outros lugares se necessário
+export { supabase, authEvents }

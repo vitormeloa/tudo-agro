@@ -36,12 +36,13 @@ export default function Header({
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [scrollY, setScrollY] = useState(0)
-  const { user, loading } = useAuth()
+  const { user, loading, initialized } = useAuth()
   const { getTotalItems } = useCart()
   const cartItemsCount = getTotalItems()
   
-  // Memoizar se usuário está logado para evitar re-renders desnecessários
-  const isLoggedIn = !loading && !!user
+  // Usar initialized para evitar flickering - só mostrar estado real após inicialização
+  // Enquanto não inicializou, assumir que não está logado para evitar mostrar botões errados
+  const isLoggedIn = initialized && !!user && !loading
 
   // Efeito de scroll para opacidade
   useEffect(() => {
@@ -280,8 +281,8 @@ export default function Header({
                   </Link>
                 ))}
                 
-                {/* Mobile Auth - only show user menu when logged in */}
-                {!loading && isLoggedIn && (
+                {/* Mobile Auth - only show user menu when logged in e inicializado */}
+                {initialized && isLoggedIn && (
                   <div 
                     className="pt-2 border-t border-gray-100 mt-2"
                     style={{ 

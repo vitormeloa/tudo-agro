@@ -21,12 +21,17 @@ interface AuthButtonProps {
 
 export default function AuthButton({ className }: AuthButtonProps) {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
-  const { user, signOut, isAdmin, loading } = useAuth()
+  const { user, signOut, isAdmin, loading, initialized } = useAuth()
   const { toast } = useToast()
   
-  // Não renderizar nada enquanto está carregando
-  if (loading) {
-    return null
+  // Não renderizar nada enquanto não inicializou - evita flickering
+  // Mas após inicializar, sempre mostrar algo (mesmo que seja botões de login)
+  if (!initialized) {
+    return (
+      <div className={`hidden md:flex items-center space-x-2 ${className}`}>
+        <div className="w-20 h-8 bg-gray-200 animate-pulse rounded" />
+      </div>
+    )
   }
 
   // Fechar menu do usuário quando clicar fora
