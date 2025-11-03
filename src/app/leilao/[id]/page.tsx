@@ -27,7 +27,6 @@ import {
   CheckCircle
 } from 'lucide-react'
 import { mockAuctions, convertToEmbedUrl } from '@/lib/mock-auctions'
-import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import { useAuth } from '@/hooks/useAuth'
 import { useRouter } from 'next/navigation'
@@ -44,6 +43,7 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
   const [volume, setVolume] = useState(50) // Volume de 0 a 100
   const iframeRef = useRef<HTMLIFrameElement>(null)
   const [videoSrc, setVideoSrc] = useState<string>('')
+  const [mounted, setMounted] = useState(false)
   const { user } = useAuth()
   const router = useRouter()
   
@@ -56,21 +56,22 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
   // Se não encontrar, mostrar erro
   if (!auction) {
     return (
-      <>
-        <Header />
-        <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-          <div className="text-center">
-            <h1 className="text-2xl font-bold text-gray-900 mb-4">Leilão não encontrado</h1>
-            <Link href="/leiloes">
-              <Button>Voltar para Leilões</Button>
-            </Link>
-          </div>
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">Leilão não encontrado</h1>
+          <Link href="/leiloes">
+            <Button>Voltar para Leilões</Button>
+          </Link>
         </div>
-        <Footer />
-      </>
+      </div>
     )
   }
   
+  // Marcar componente como montado no cliente
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
   // Inicializar lance atual com o primeiro lance do histórico ou currentBid
   useEffect(() => {
     if (auction.status === 'live') {
@@ -369,8 +370,7 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900">
-      <Header />
-      {/* Header */}
+      {/* Header exclusivo do leilão */}
       <header className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
         <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
           <div className="flex justify-between items-center h-14 sm:h-16 gap-2">
@@ -533,7 +533,7 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
             <Card className="bg-white border-gray-200 shadow-lg">
               <CardContent className="p-0">
                 <div className="relative">
-                  {auction.status === 'live' && videoSrc ? (
+                  {mounted && auction.status === 'live' && videoSrc ? (
                     <div className="w-full h-96 bg-black relative overflow-hidden rounded-t-lg">
                       <iframe
                         ref={iframeRef}
