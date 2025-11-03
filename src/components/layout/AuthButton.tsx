@@ -76,16 +76,16 @@ export default function AuthButton({ className }: AuthButtonProps) {
             {/* Opções do usuário */}
             <div className="py-1">
               <Link 
-                href="/perfil" 
+                href="/dashboard/minha-conta" 
                 className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
                 onClick={() => setIsUserMenuOpen(false)}
               >
                 <UserCircle className="w-4 h-4 mr-3" />
-                Meu Perfil
+                Minha Conta
               </Link>
               
               <Link 
-                href="/perfil/senha" 
+                href="/dashboard/trocar-senha" 
                 className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
                 onClick={() => setIsUserMenuOpen(false)}
               >
@@ -94,7 +94,7 @@ export default function AuthButton({ className }: AuthButtonProps) {
               </Link>
               
               <Link 
-                href="/perfil/configuracoes" 
+                href="/dashboard/configuracoes" 
                 className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
                 onClick={() => setIsUserMenuOpen(false)}
               >

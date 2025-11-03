@@ -34,21 +34,21 @@ export default function MobileAuthButton({ onMenuClose, className }: MobileAuthB
           
           {/* Opções do usuário mobile */}
           <div className="space-y-1">
-            <Link href="/perfil" className="block" onClick={onMenuClose}>
+            <Link href="/dashboard/minha-conta" className="block" onClick={onMenuClose}>
               <Button variant="outline" className="w-full justify-start">
                 <UserCircle className="w-4 h-4 mr-2" />
-                Meu Perfil
+                Minha Conta
               </Button>
             </Link>
             
-            <Link href="/perfil/senha" className="block" onClick={onMenuClose}>
+            <Link href="/dashboard/trocar-senha" className="block" onClick={onMenuClose}>
               <Button variant="outline" className="w-full justify-start">
                 <Key className="w-4 h-4 mr-2" />
                 Trocar Senha
               </Button>
             </Link>
             
-            <Link href="/perfil/configuracoes" className="block" onClick={onMenuClose}>
+            <Link href="/dashboard/configuracoes" className="block" onClick={onMenuClose}>
               <Button variant="outline" className="w-full justify-start">
                 <Settings className="w-4 h-4 mr-2" />
                 Configurações
