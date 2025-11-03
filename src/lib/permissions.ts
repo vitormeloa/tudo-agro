@@ -273,6 +273,4 @@ export const ADMIN_FEATURES = {
   'setting:write': ['configuracoes']
 } as const
 
-export default PERMISSIONS const
-
 export default PERMISSIONS
