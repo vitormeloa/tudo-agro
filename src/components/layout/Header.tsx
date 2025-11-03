@@ -7,7 +7,8 @@ import {
   Menu, 
   X, 
   Search,
-  ShoppingCart
+  ShoppingCart,
+  Heart
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useAuth } from '@/hooks/useAuth'
@@ -38,6 +39,9 @@ export default function Header({
   const { user, loading } = useAuth()
   const { getTotalItems } = useCart()
   const cartItemsCount = getTotalItems()
+  
+  // Memoizar se usuário está logado para evitar re-renders desnecessários
+  const isLoggedIn = !loading && !!user
 
   // Efeito de scroll para opacidade
   useEffect(() => {
@@ -152,7 +156,7 @@ export default function Header({
           {/* Right side actions */}
           <div className="flex items-center space-x-2 lg:space-x-4">
             {/* Carrinho - apenas quando logado */}
-            {showCart && user && !loading && (
+            {showCart && isLoggedIn && (
               <Link href="/carrinho">
                 <Button
                   variant="ghost"
@@ -169,11 +173,24 @@ export default function Header({
               </Link>
             )}
             
+            {/* Favoritos - apenas quando logado */}
+            {isLoggedIn && (
+              <Link href="/dashboard/favoritos">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-gray-600 hover:text-red-500 transition-colors"
+                >
+                  <Heart className="w-5 h-5" />
+                </Button>
+              </Link>
+            )}
+            
             {/* Desktop Auth Button Component */}
-            <AuthButton />
+            {!loading && <AuthButton />}
 
             {/* Mobile Auth Buttons - only show when not logged in */}
-            {!user && (
+            {!loading && !isLoggedIn && (
               <div className="lg:hidden flex items-center space-x-2">
                 <Link href="/login">
                   <Button variant="ghost" size="sm" className="text-gray-700 hover:text-emerald-600 text-sm">
@@ -264,7 +281,7 @@ export default function Header({
                 ))}
                 
                 {/* Mobile Auth - only show user menu when logged in */}
-                {user && (
+                {!loading && isLoggedIn && (
                   <div 
                     className="pt-2 border-t border-gray-100 mt-2"
                     style={{ 

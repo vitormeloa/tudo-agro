@@ -223,7 +223,7 @@ export default function ProdutosPage() {
                     className="inline-flex px-3 py-1.5 rounded-full text-xs font-medium mb-2 max-w-full break-words leading-tight"
                     style={{ 
                       backgroundColor: category.color,
-                      color: '#1F2937' // text-gray-800 equivalente
+                      color: '#1F2937',
                     }}
                   >
                     <span className="text-center">{category.name}</span>
@@ -253,27 +253,31 @@ export default function ProdutosPage() {
 
         {/* Modal de Categorias */}
         <Dialog open={showCategoriesModal} onOpenChange={setShowCategoriesModal}>
-          <DialogContent className="max-w-[95vw] sm:max-w-2xl md:max-w-3xl lg:max-w-4xl max-h-[90vh] sm:max-h-[85vh] overflow-hidden flex flex-col p-0 gap-0">
-            <DialogHeader className="px-4 sm:px-6 pt-4 sm:pt-6 pb-3 sm:pb-4 border-b border-gray-200">
-              <DialogTitle className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900">Todas as Categorias</DialogTitle>
-              <DialogDescription className="text-sm sm:text-base text-gray-600 mt-1 sm:mt-2">
-                Explore todas as categorias disponíveis em nosso marketplace
-              </DialogDescription>
+          <DialogContent className="max-w-[95vw] sm:max-w-2xl md:max-w-3xl lg:max-w-4xl max-h-[90vh] sm:max-h-[85vh] overflow-hidden flex flex-col p-0 gap-0 m-4 sm:m-6 rounded-lg sm:rounded-xl">
+            <DialogHeader className="px-4 sm:px-6 pt-4 sm:pt-6 pb-3 sm:pb-4 border-b border-gray-200 flex-shrink-0 bg-white relative">
+              <div className="flex items-start justify-between gap-4 pr-8 sm:pr-10">
+                <div className="flex-1 min-w-0">
+                  <DialogTitle className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900">Todas as Categorias</DialogTitle>
+                  <DialogDescription className="text-xs sm:text-sm text-gray-600 mt-1 sm:mt-2">
+                    Explore todas as categorias disponíveis em nosso marketplace
+                  </DialogDescription>
+                </div>
+              </div>
             </DialogHeader>
-            <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-4 sm:py-6">
+            <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-4 sm:py-6 overscroll-contain -webkit-overflow-scrolling-touch">
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
                 {hiddenCategories.map((category, index) => (
                   <Card 
                     key={category.name} 
-                    className="hover:shadow-lg transition-all duration-300 transform hover:scale-[1.02] cursor-pointer border border-gray-200"
+                    className="hover:shadow-lg transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] cursor-pointer border border-gray-200 touch-manipulation"
                     onClick={() => setShowCategoriesModal(false)}
                   >
-                    <CardContent className="p-3 sm:p-4 text-center flex flex-col items-center justify-center min-h-[120px] sm:min-h-[140px]">
+                    <CardContent className="p-3 sm:p-4 text-center flex flex-col items-center justify-center min-h-[100px] sm:min-h-[120px] md:min-h-[140px]">
                       <div 
                         className="inline-flex px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium mb-2 sm:mb-3 max-w-full break-words leading-tight"
                         style={{ 
                           backgroundColor: category.color,
-                          color: '#1F2937' // text-gray-800 equivalente
+                          color: '#1F2937'
                         }}
                       >
                         <span className="text-center">{category.name}</span>

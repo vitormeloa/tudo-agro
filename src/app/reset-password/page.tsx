@@ -23,7 +23,7 @@ export default function ResetPasswordPage() {
   const [isSuccess, setIsSuccess] = useState(false)
   const [error, setError] = useState('')
   
-  const { changePassword } = useAuth()
+  const { updatePassword } = useAuth()
   const router = useRouter()
   const searchParams = useSearchParams()
 
@@ -54,7 +54,7 @@ export default function ResetPasswordPage() {
     setError('')
 
     try {
-      const { error } = await changePassword('', password)
+      const { error } = await updatePassword(password)
       
       if (!error) {
         setIsSuccess(true)

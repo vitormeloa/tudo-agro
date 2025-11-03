@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -14,6 +14,7 @@ import {
   MessageCircle
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { useFavorites } from '@/hooks/useFavorites'
 
 interface ProductCardProps {
   product: {
@@ -44,10 +45,19 @@ export default function ProductCard({
   showActions = true,
   className 
 }: ProductCardProps) {
-  const [isFavorite, setIsFavorite] = useState(false)
-
-  const toggleFavorite = () => {
-    setIsFavorite(!isFavorite)
+  const { isFavorite, toggleFavorite, checkIsFavorite } = useFavorites()
+  const [favoriteChecked, setFavoriteChecked] = useState(false)
+  
+  useEffect(() => {
+    if (product && !favoriteChecked) {
+      checkIsFavorite(String(product.id)).then(() => {
+        setFavoriteChecked(true)
+      })
+    }
+  }, [product, favoriteChecked, checkIsFavorite])
+  
+  const handleToggleFavorite = async () => {
+    await toggleFavorite(String(product.id))
   }
 
   const baseClasses = "overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.02] border-0"
@@ -85,12 +95,12 @@ export default function ProductCard({
             <Button
               variant="ghost"
               size="icon"
-              onClick={toggleFavorite}
+              onClick={handleToggleFavorite}
               className={`bg-white/90 hover:bg-white transition-colors ${
-                isFavorite ? 'text-red-500' : 'text-gray-400'
+                isFavorite(String(product.id)) ? 'text-red-500' : 'text-gray-400'
               }`}
             >
-              <Heart className={`w-5 h-5 ${isFavorite ? 'fill-current' : ''}`} />
+              <Heart className={`w-5 h-5 ${isFavorite(String(product.id)) ? 'fill-current' : ''}`} />
             </Button>
           </div>
         )}

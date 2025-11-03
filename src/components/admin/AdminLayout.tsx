@@ -7,7 +7,7 @@ import {
   BarChart3, Users, Store, FileText, Gavel, CreditCard, 
   FileCheck, Gift, Crown, GraduationCap, MessageSquare, 
   Settings, Menu, X, LogOut, Home, AlertTriangle,
-  ChevronDown, UserCircle, Key, Shield, Heart, Package
+  ChevronDown, UserCircle, Key, Shield, Heart, Package, Star
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -72,6 +72,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   const getMenuItems = () => {
     const allMenuItems = [
       { id: 'visao-geral', label: 'Visão Geral', icon: BarChart3, alerts: 0, roles: ['admin', 'vendedor', 'comprador'], href: '/dashboard/visao-geral' },
+      { id: 'favoritos', label: 'Favoritos', icon: Star, alerts: 0, roles: ['admin', 'vendedor', 'comprador'], href: '/dashboard/favoritos' },
       { id: 'usuarios', label: 'Usuários', icon: Users, alerts: 0, roles: ['admin'], href: '/dashboard/usuarios' },
       { id: 'vendedores', label: 'Vendedores', icon: Store, alerts: 3, roles: ['admin'], href: '/dashboard/vendedores' },
       { id: 'anuncios', label: 'Anúncios', icon: FileText, alerts: 7, roles: ['admin', 'vendedor'], href: '/dashboard/anuncios' },

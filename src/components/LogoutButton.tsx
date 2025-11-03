@@ -30,8 +30,8 @@ export function LogoutButton({
       })
     } catch (error) {
       toast({
-        title: "Erro no logout",
-        description: "Ocorreu um erro ao fazer logout. Tente novamente.",
+        title: "Erro ao sair",
+        description: "Não foi possível realizar o logout. Por favor, tente novamente.",
         variant: "destructive",
       })
     }

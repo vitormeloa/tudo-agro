@@ -60,10 +60,10 @@ export function convertToEmbedUrl(url: string): string {
       // Adiciona os parâmetros necessários (sem controles do YouTube)
       const separator = cleanUrl.includes('?') ? '&' : '?'
       const origin = typeof window !== 'undefined' ? window.location.origin : ''
-      return `${cleanUrl}${separator}autoplay=1&mute=1&playsinline=1&rel=0&enablejsapi=1&controls=0&modestbranding=1&showinfo=0&origin=${encodeURIComponent(origin)}`
+      return `${cleanUrl}${separator}autoplay=1&mute=0&playsinline=1&rel=0&enablejsapi=1&controls=0&modestbranding=1&showinfo=0&origin=${encodeURIComponent(origin)}`
     } else {
       const origin = typeof window !== 'undefined' ? window.location.origin : ''
-      return `${url}?autoplay=1&mute=1&playsinline=1&rel=0&enablejsapi=1&controls=0&modestbranding=1&showinfo=0&origin=${encodeURIComponent(origin)}`
+      return `${url}?autoplay=1&mute=0&playsinline=1&rel=0&enablejsapi=1&controls=0&modestbranding=1&showinfo=0&origin=${encodeURIComponent(origin)}`
     }
   }
   
@@ -72,7 +72,7 @@ export function convertToEmbedUrl(url: string): string {
     const videoId = url.match(/[?&]v=([^&]+)/)?.[1]
     if (videoId) {
       const origin = typeof window !== 'undefined' ? window.location.origin : ''
-      return `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&playsinline=1&rel=0&enablejsapi=1&controls=0&modestbranding=1&showinfo=0&origin=${encodeURIComponent(origin)}`
+      return `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=0&playsinline=1&rel=0&enablejsapi=1&controls=0&modestbranding=1&showinfo=0&origin=${encodeURIComponent(origin)}`
     }
   }
   
@@ -81,7 +81,7 @@ export function convertToEmbedUrl(url: string): string {
     const videoId = url.split('youtu.be/')[1]?.split('?')[0]?.split('&')[0]
     if (videoId) {
       const origin = typeof window !== 'undefined' ? window.location.origin : ''
-      return `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&playsinline=1&rel=0&enablejsapi=1&origin=${encodeURIComponent(origin)}`
+      return `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=0&playsinline=1&rel=0&enablejsapi=1&origin=${encodeURIComponent(origin)}`
     }
   }
   
@@ -90,7 +90,7 @@ export function convertToEmbedUrl(url: string): string {
     const streamId = url.split('youtube.com/live/')[1]?.split('?')[0]?.split('&')[0]
     if (streamId) {
       const origin = typeof window !== 'undefined' ? window.location.origin : ''
-      return `https://www.youtube.com/embed/${streamId}?autoplay=1&mute=1&playsinline=1&rel=0&enablejsapi=1&controls=0&modestbranding=1&showinfo=0&origin=${encodeURIComponent(origin)}`
+      return `https://www.youtube.com/embed/${streamId}?autoplay=1&mute=0&playsinline=1&rel=0&enablejsapi=1&controls=0&modestbranding=1&showinfo=0&origin=${encodeURIComponent(origin)}`
     }
   }
   

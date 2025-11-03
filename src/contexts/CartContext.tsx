@@ -129,7 +129,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
           setTimeout(() => {
             toast({
               title: 'Estoque insuficiente',
-              description: `Apenas ${newItem.availableStock} unidades disponíveis.`,
+              description: `Apenas ${newItem.availableStock} unidade(s) disponível(eis) para este produto.`,
               variant: 'destructive',
             })
           }, 0)
@@ -179,7 +179,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         setTimeout(() => {
           toast({
             title: 'Estoque insuficiente',
-            description: `Apenas ${item.availableStock} unidades disponíveis.`,
+            description: `Apenas ${item.availableStock} unidade(s) disponível(eis) para este produto.`,
             variant: 'destructive',
           })
         }, 0)

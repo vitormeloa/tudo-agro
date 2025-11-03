@@ -31,6 +31,9 @@ export function useAdminPermissions() {
       case 'animais':
         return hasPermission('animal:read')
       
+      case 'favoritos':
+        return hasPermission('favorite:read')
+      
       case 'produtos':
         return hasPermission('product:read')
       

@@ -46,6 +46,9 @@ export default function LoginPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    if (isLoading) return // Prevenir múltiplos submits
+    
     setIsLoading(true)
 
     const formData = new FormData(e.currentTarget as HTMLFormElement)
@@ -56,8 +59,11 @@ export default function LoginPage() {
       const { error } = await signIn(email, password)
       
       if (!error) {
+        // Aguardar um pouco para garantir que o estado foi atualizado
+        await new Promise(resolve => setTimeout(resolve, 100))
         // Redirecionar para o dashboard/visao-geral após login bem-sucedido
         router.push('/dashboard/visao-geral')
+        router.refresh() // Forçar refresh para garantir que dados sejam carregados
       }
     } catch (err) {
       console.error('Login error:', err)

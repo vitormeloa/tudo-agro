@@ -21,8 +21,13 @@ interface AuthButtonProps {
 
 export default function AuthButton({ className }: AuthButtonProps) {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
-  const { user, signOut, isAdmin } = useAuth()
+  const { user, signOut, isAdmin, loading } = useAuth()
   const { toast } = useToast()
+  
+  // Não renderizar nada enquanto está carregando
+  if (loading) {
+    return null
+  }
 
   // Fechar menu do usuário quando clicar fora
   useEffect(() => {

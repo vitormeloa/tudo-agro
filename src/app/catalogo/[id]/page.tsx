@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, use } from 'react'
+import { useState, use, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
@@ -26,20 +26,38 @@ import {
 } from 'lucide-react'
 import { mockAnimals } from '@/lib/mock-animals'
 import { useAuth } from '@/hooks/useAuth'
+import { useFavorites } from '@/hooks/useFavorites'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 
 export default function AnimalPage({ params }: { params: Promise<{ id: string }> }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
-  const [isFavorite, setIsFavorite] = useState(false)
   const { user } = useAuth()
+  const { isFavorite, toggleFavorite, checkIsFavorite } = useFavorites()
   const router = useRouter()
+  
+  const [favoriteChecked, setFavoriteChecked] = useState(false)
   
   const resolvedParams = use(params)
   const animalId = resolvedParams.id
   
   // Buscar animal pelo ID (UUID)
   const animal = mockAnimals.find(a => a.id === animalId)
+  
+  // Verificar se está favoritado quando componente montar
+  useEffect(() => {
+    if (animal && user && !favoriteChecked) {
+      checkIsFavorite(animal.id).then(() => {
+        setFavoriteChecked(true)
+      })
+    }
+  }, [animal, user, favoriteChecked, checkIsFavorite])
+  
+  const handleToggleFavorite = async () => {
+    if (animal) {
+      await toggleFavorite(animal.id)
+    }
+  }
   
   // Se não encontrar, mostrar erro
   if (!animal) {
@@ -113,12 +131,12 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
                 <Button 
                   size="sm" 
                   variant="ghost" 
-                  onClick={() => setIsFavorite(!isFavorite)}
+                  onClick={handleToggleFavorite}
                   className={`bg-white/90 hover:bg-white transition-colors ${
-                    isFavorite ? 'text-red-500' : 'text-[#8B4513] hover:text-red-500'
+                    isFavorite(animal.id) ? 'text-red-500' : 'text-[#8B4513] hover:text-red-500'
                   }`}
                 >
-                  <Heart className={`w-4 h-4 ${isFavorite ? 'fill-current' : ''}`} />
+                  <Heart className={`w-4 h-4 ${isFavorite(animal.id) ? 'fill-current' : ''}`} />
                 </Button>
                 <Button 
                   size="sm" 

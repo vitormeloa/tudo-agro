@@ -228,17 +228,31 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
       delays.forEach((delay) => {
         const timer = setTimeout(() => {
           tryPlayVideo()
-          // Configurar volume inicial após o vídeo iniciar
+          // Garantir que o vídeo não está mutado e configurar volume inicial
           if (iframeRef.current && iframeRef.current.contentWindow) {
             try {
+              // Desmutar o vídeo
               iframeRef.current.contentWindow.postMessage(
                 JSON.stringify({
                   event: 'command',
-                  func: 'setVolume',
-                  args: [volume]
+                  func: 'unMute',
+                  args: []
                 }),
                 'https://www.youtube.com'
               )
+              // Configurar volume inicial após o vídeo iniciar
+              setTimeout(() => {
+                if (iframeRef.current && iframeRef.current.contentWindow) {
+                  iframeRef.current.contentWindow.postMessage(
+                    JSON.stringify({
+                      event: 'command',
+                      func: 'setVolume',
+                      args: [volume > 0 ? volume : 50]
+                    }),
+                    'https://www.youtube.com'
+                  )
+                }
+              }, 100)
             } catch (error) {
               // Ignorar erros silenciosamente
             }
@@ -250,6 +264,21 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
       // Tentar iniciar quando o usuário interagir com a página (fallback para bloqueio de autoplay)
       const handleUserInteraction = () => {
         tryPlayVideo()
+        // Também desmutar quando o usuário interagir
+        if (iframeRef.current && iframeRef.current.contentWindow) {
+          try {
+            iframeRef.current.contentWindow.postMessage(
+              JSON.stringify({
+                event: 'command',
+                func: 'unMute',
+                args: []
+              }),
+              'https://www.youtube.com'
+            )
+          } catch (error) {
+            // Ignorar erros silenciosamente
+          }
+        }
       }
 
       document.addEventListener('click', handleUserInteraction, { once: true })
@@ -263,7 +292,7 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
         document.removeEventListener('touchstart', handleUserInteraction)
       }
     }
-  }, [videoSrc, auction.status])
+  }, [videoSrc, auction.status, volume])
 
   // Timer countdown
   useEffect(() => {
@@ -279,12 +308,50 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
     return `${mins}:${secs.toString().padStart(2, '0')}`
   }
 
+  // Função para formatar valor monetário brasileiro
+  const formatCurrency = (value: string): string => {
+    // Remove tudo que não é dígito
+    const numbers = value.replace(/\D/g, '')
+    
+    if (!numbers) return ''
+    
+    // Converte para número e divide por 100 para ter centavos
+    const amount = parseInt(numbers) / 100
+    
+    // Formata como moeda brasileira
+    return new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(amount)
+  }
+
+  // Função para remover formatação e retornar apenas números
+  const unformatCurrency = (value: string): number => {
+    const numbers = value.replace(/\D/g, '')
+    return numbers ? parseInt(numbers) / 100 : 0
+  }
+
+  // Handler para mudança no input de lance
+  const handleBidChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const formatted = formatCurrency(e.target.value)
+    setMyBid(formatted)
+  }
+
+  // Handler para mudança no input de auto-lance
+  const handleAutoBidChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const formatted = formatCurrency(e.target.value)
+    setAutoBidLimit(formatted)
+  }
+
   const handleBid = () => {
-    if (myBid && parseInt(myBid) > currentBid) {
-      setCurrentBid(parseInt(myBid))
+    const bidValue = unformatCurrency(myBid)
+    if (bidValue > currentBid) {
+      setCurrentBid(bidValue)
       setMyBid('')
       setTimeLeft(30) // Reset timer
-      alert(`Lance de R$ ${parseInt(myBid).toLocaleString()} realizado com sucesso!`)
+      alert(`Lance de R$ ${bidValue.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} realizado com sucesso!`)
     } else {
       alert('O lance deve ser maior que o valor atual!')
     }
@@ -480,16 +547,6 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
                           🔴 AO VIVO
                         </Badge>
                       </div>
-
-                      {/* Timer */}
-                      <div className="absolute top-4 right-4 bg-black/70 text-white px-4 py-2 rounded-lg z-10">
-                        <div className="flex items-center">
-                          <Timer className="w-4 h-4 mr-2" />
-                          <span className="font-mono text-lg font-bold text-red-400">
-                            {formatTime(timeLeft)}
-                          </span>
-                        </div>
-                      </div>
                     </div>
                   ) : (
                     <>
@@ -505,16 +562,6 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
                             <Badge className="bg-red-500 animate-pulse">
                               🔴 AO VIVO
                             </Badge>
-                          </div>
-
-                          {/* Timer */}
-                          <div className="absolute top-4 right-4 bg-black/70 text-white px-4 py-2 rounded-lg">
-                            <div className="flex items-center">
-                              <Timer className="w-4 h-4 mr-2" />
-                              <span className="font-mono text-lg font-bold text-red-400">
-                                {formatTime(timeLeft)}
-                              </span>
-                            </div>
                           </div>
                         </>
                       )}
@@ -583,10 +630,10 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
                         <div className="relative">
                           <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500" />
                           <Input
-                            type="number"
-                            placeholder={`Mínimo: ${(currentBid + 500).toLocaleString()}`}
-                            value={myBid}
-                            onChange={(e) => setMyBid(e.target.value)}
+                            type="text"
+                            placeholder={`Mínimo: R$ ${(currentBid + 500).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
+                            value={myBid ? `R$ ${myBid}` : ''}
+                            onChange={handleBidChange}
                             className="pl-10 bg-white border-gray-300 text-gray-900 focus:border-green-500 focus:ring-green-500"
                           />
                         </div>
@@ -597,10 +644,10 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
                           Auto-Lance até (R$)
                         </label>
                         <Input
-                          type="number"
+                          type="text"
                           placeholder="Opcional"
-                          value={autoBidLimit}
-                          onChange={(e) => setAutoBidLimit(e.target.value)}
+                          value={autoBidLimit ? `R$ ${autoBidLimit}` : ''}
+                          onChange={handleAutoBidChange}
                           className="bg-white border-gray-300 text-gray-900 focus:border-green-500 focus:ring-green-500"
                         />
                       </div>
@@ -780,10 +827,10 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
         <div className="flex items-center gap-3">
           <div className="flex-1">
             <Input
-              type="number"
-              placeholder={`Mínimo: R$ ${(currentBid + 500).toLocaleString()}`}
-              value={myBid}
-              onChange={(e) => setMyBid(e.target.value)}
+              type="text"
+              placeholder={`Mínimo: R$ ${(currentBid + 500).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
+              value={myBid ? `R$ ${myBid}` : ''}
+              onChange={handleBidChange}
               className="bg-white border-gray-300 text-gray-900 focus:border-green-500 focus:ring-green-500"
             />
           </div>

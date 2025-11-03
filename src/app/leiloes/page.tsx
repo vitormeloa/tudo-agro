@@ -24,9 +24,13 @@ import {
 import { mockAuctions } from '@/lib/mock-auctions'
 
 export default function LeiloesPage() {
-  const [currentTime, setCurrentTime] = useState(new Date())
+  const [currentTime, setCurrentTime] = useState<Date | null>(null)
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
+    setMounted(true)
+    setCurrentTime(new Date())
+    
     const timer = setInterval(() => {
       setCurrentTime(new Date())
     }, 1000)
@@ -66,6 +70,8 @@ export default function LeiloesPage() {
   }))
 
   const formatTimeLeft = (endTime: Date) => {
+    if (!currentTime || !mounted) return "--:--:--"
+    
     const now = currentTime
     const diff = endTime.getTime() - now.getTime()
     
