@@ -657,38 +657,32 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
                       </div>
                     </div>
 
-                    <RequireAuth 
-                      action="dar lance neste leilão"
-                      redirectTo={`/dashboard/leilao/${auctionId}`}
-                      showDialog={false}
-                    >
-                      <div className="flex gap-3">
-                        <Button 
-                          onClick={handleBid}
-                          className="flex-1 bg-green-600 hover:bg-green-700 text-white py-3 text-lg"
-                        >
-                          <Gavel className="w-5 h-5 mr-2" />
-                          Dar Lance
-                        </Button>
-                        <Button 
-                          variant="outline" 
-                          className="border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-black"
-                          onClick={() => {
-                            if (!user) {
-                              router.push(`/login?redirect=${encodeURIComponent(`/leilao/${auctionId}`)}`)
-                              return
-                            }
-                            const quickBid = currentBid + 1000
-                            setCurrentBid(quickBid)
-                            setMyBid('')
-                            setTimeLeft(30)
-                            alert(`Lance rápido de R$ ${quickBid.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} realizado!`)
-                          }}
-                        >
-                          Lance Rápido +R$ 1.000
-                        </Button>
-                      </div>
-                    </RequireAuth>
+                    <div className="flex gap-3">
+                      <Button 
+                        onClick={handleBid}
+                        className="flex-1 bg-green-600 hover:bg-green-700 text-white py-3 text-lg"
+                      >
+                        <Gavel className="w-5 h-5 mr-2" />
+                        Dar Lance
+                      </Button>
+                      <Button 
+                        variant="outline" 
+                        className="border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-black"
+                        onClick={() => {
+                          if (!user) {
+                            router.push(`/login?redirect=${encodeURIComponent(`/leilao/${auctionId}`)}`)
+                            return
+                          }
+                          const quickBid = currentBid + 1000
+                          setCurrentBid(quickBid)
+                          setMyBid('')
+                          setTimeLeft(30)
+                          alert(`Lance rápido de R$ ${quickBid.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} realizado!`)
+                        }}
+                      >
+                        Lance Rápido +R$ 1.000
+                      </Button>
+                    </div>
 
                     <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
                       <div className="flex items-start">
@@ -790,27 +784,21 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
                     ))}
                   </div>
 
-                  <RequireAuth 
-                    action="comentar no leilão"
-                    redirectTo={`/leilao/${auctionId}`}
-                    showDialog={false}
-                  >
-                    <div className="flex gap-2">
-                      <Input
-                        placeholder="Digite sua mensagem..."
-                        value={chatMessage}
-                        onChange={(e) => setChatMessage(e.target.value)}
-                        onKeyPress={(e) => e.key === 'Enter' && handleChatSend()}
-                        className="bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500"
-                      />
-                      <Button 
-                        onClick={handleChatSend}
-                        className="bg-blue-600 hover:bg-blue-700 text-white"
-                      >
-                        <Send className="w-4 h-4" />
-                      </Button>
-                    </div>
-                  </RequireAuth>
+                  <div className="flex gap-2">
+                    <Input
+                      placeholder="Digite sua mensagem..."
+                      value={chatMessage}
+                      onChange={(e) => setChatMessage(e.target.value)}
+                      onKeyPress={(e) => e.key === 'Enter' && handleChatSend()}
+                      className="bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+                    />
+                    <Button 
+                      onClick={handleChatSend}
+                      className="bg-blue-600 hover:bg-blue-700 text-white"
+                    >
+                      <Send className="w-4 h-4" />
+                    </Button>
+                  </div>
 
                   <div className="mt-3 text-xs text-gray-500">
                     Chat moderado • Seja respeitoso
@@ -852,30 +840,24 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
       {/* Bottom Action Bar (Mobile) */}
       {auction.status === 'live' && (
         <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 shadow-lg">
-          <RequireAuth 
-            action="dar lance neste leilão"
-            redirectTo={`/dashboard/leilao/${auctionId}`}
-            showDialog={false}
-          >
-            <div className="flex items-center gap-3">
-              <div className="flex-1">
-                <Input
-                  type="text"
-                  placeholder={`Mínimo: R$ ${(currentBid + 500).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
-                  value={myBid ? `R$ ${myBid}` : ''}
-                  onChange={handleBidChange}
-                  className="bg-white border-gray-300 text-gray-900 focus:border-green-500 focus:ring-green-500"
-                />
-              </div>
-              <Button 
-                onClick={handleBid}
-                className="bg-green-600 hover:bg-green-700 text-white px-6"
-              >
-                <Gavel className="w-4 h-4 mr-2" />
-                Lance
-              </Button>
+          <div className="flex items-center gap-3">
+            <div className="flex-1">
+              <Input
+                type="text"
+                placeholder={`Mínimo: R$ ${(currentBid + 500).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
+                value={myBid ? `R$ ${myBid}` : ''}
+                onChange={handleBidChange}
+                className="bg-white border-gray-300 text-gray-900 focus:border-green-500 focus:ring-green-500"
+              />
             </div>
-          </RequireAuth>
+            <Button 
+              onClick={handleBid}
+              className="bg-green-600 hover:bg-green-700 text-white px-6"
+            >
+              <Gavel className="w-4 h-4 mr-2" />
+              Lance
+            </Button>
+          </div>
         </div>
       )}
       <Footer />

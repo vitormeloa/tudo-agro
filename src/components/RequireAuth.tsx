@@ -1,6 +1,6 @@
 'use client'
 
-import { ReactNode } from 'react'
+import { ReactNode, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/hooks/useAuth'
 import { Button } from '@/components/ui/button'
@@ -42,9 +42,14 @@ export default function RequireAuth({
   }
 
   // Se não está logado e showDialog é false, redirecionar diretamente
+  useEffect(() => {
+    if (!showDialog && initialized && !user) {
+      const loginUrl = redirectTo ? `/login?redirect=${encodeURIComponent(redirectTo)}` : '/login'
+      router.push(loginUrl)
+    }
+  }, [showDialog, initialized, user, redirectTo, router])
+
   if (!showDialog) {
-    const loginUrl = redirectTo ? `/login?redirect=${encodeURIComponent(redirectTo)}` : '/login'
-    router.push(loginUrl)
     return null
   }
 

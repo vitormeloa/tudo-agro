@@ -33,6 +33,10 @@ import { useToast } from '@/hooks/use-toast'
 import { useFavorites } from '@/hooks/useFavorites'
 import { calculateFreight, formatCEP, type FreightResult } from '@/lib/freight-calculator'
 import { Input } from '@/components/ui/input'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import ReviewsSection from '@/components/reviews/ReviewsSection'
+import { mockProductReviews } from '@/lib/mock-reviews'
+import type { Review } from '@/lib/mock-reviews'
 
 export default function ProdutoPage({ params }: { params: Promise<{ id: string }> }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
@@ -46,6 +50,7 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
   const router = useRouter()
   const { toast } = useToast()
   const [favoriteChecked, setFavoriteChecked] = useState(false)
+  const [reviews, setReviews] = useState<Review[]>(mockProductReviews)
   
   const resolvedParams = use(params)
   const productId = resolvedParams.id
@@ -409,23 +414,6 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
               </CardContent>
             </Card>
 
-            {/* Specifications Details */}
-            <Card className="bg-white border-gray-200 shadow-lg">
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">O que você precisa saber sobre esse produto</h3>
-                <div className="space-y-3">
-                  {Object.entries(product.specifications).map(([key, value]) => (
-                    <div key={key} className="flex justify-between">
-                      <span className="text-gray-500 capitalize">
-                        {key.replace(/([A-Z])/g, ' $1').toLowerCase()}:
-                      </span>
-                      <span className="font-medium text-gray-900">{value}</span>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
             {/* Freight Calculator */}
             <Card className="bg-white border-gray-200 shadow-lg">
               <CardContent className="p-6">
@@ -473,19 +461,13 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
 
             {/* Action Buttons */}
             <div className="space-y-4">
-              <RequireAuth 
-                action="comprar este produto"
-                redirectTo={`/dashboard/produtos/${productId}`}
-                showDialog={false}
+              <Button 
+                className="w-full bg-green-600 hover:bg-green-700 text-white py-4 text-lg transition-all hover:scale-105"
+                onClick={handlePurchase}
               >
-                <Button 
-                  className="w-full bg-green-600 hover:bg-green-700 text-white py-4 text-lg transition-all hover:scale-105"
-                  onClick={handlePurchase}
-                >
-                  <ShoppingCart className="w-5 h-5 mr-2" />
-                  Comprar Agora {quantity > 1 && `(${quantity}x)`}
-                </Button>
-              </RequireAuth>
+                <ShoppingCart className="w-5 h-5 mr-2" />
+                Comprar Agora {quantity > 1 && `(${quantity}x)`}
+              </Button>
               {quantity > 1 && (
                 <div className="text-center text-sm text-gray-600">
                   Total: <span className="font-bold text-green-600">
@@ -494,34 +476,74 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
                 </div>
               )}
               
-              <RequireAuth 
-                action="adicionar este produto ao carrinho"
-                redirectTo={`/produtos/${productId}`}
-                showDialog={false}
+              <Button 
+                variant="outline" 
+                className="w-full border-green-600 text-green-600 hover:bg-green-600 hover:text-white py-4 text-lg transition-all hover:scale-105"
+                onClick={handleAddToCart}
               >
-                <Button 
-                  variant="outline" 
-                  className="w-full border-green-600 text-green-600 hover:bg-green-600 hover:text-white py-4 text-lg transition-all hover:scale-105"
-                  onClick={handleAddToCart}
-                >
-                  <ShoppingBag className="w-5 h-5 mr-2" />
-                  Adicionar ao carrinho {quantity > 1 && `(${quantity}x)`}
-                </Button>
-              </RequireAuth>
+                <ShoppingBag className="w-5 h-5 mr-2" />
+                Adicionar ao carrinho {quantity > 1 && `(${quantity}x)`}
+              </Button>
             </div>
           </div>
         </div>
 
-        {/* Description */}
+        {/* Tabs Section */}
         <div className="mt-12">
-          <Card className="bg-white border-gray-200 shadow-lg">
-            <CardContent className="p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Descrição</h2>
-              <p className="text-gray-600 leading-relaxed text-lg">
-                {product.description}
-              </p>
-            </CardContent>
-          </Card>
+          <Tabs defaultValue="descricao" className="w-full">
+            <TabsList className="grid w-full grid-cols-3">
+              <TabsTrigger value="descricao">Descrição</TabsTrigger>
+              <TabsTrigger value="especificacoes">Especificações</TabsTrigger>
+              <TabsTrigger value="avaliacoes">
+                Avaliações ({reviews.length})
+              </TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="descricao" className="mt-6">
+              <Card className="bg-white border-gray-200 shadow-lg">
+                <CardContent className="p-8">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-4">Descrição</h2>
+                  <p className="text-gray-600 leading-relaxed text-lg">
+                    {product.description}
+                  </p>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="especificacoes" className="mt-6">
+              <Card className="bg-white border-gray-200 shadow-lg">
+                <CardContent className="p-8">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-4">Especificações</h2>
+                  <div className="space-y-3">
+                    {Object.entries(product.specifications).map(([key, value]) => (
+                      <div key={key} className="flex justify-between py-2 border-b border-gray-100">
+                        <span className="text-gray-500 capitalize font-medium">
+                          {key.replace(/([A-Z])/g, ' $1').toLowerCase()}:
+                        </span>
+                        <span className="font-medium text-gray-900">{value}</span>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            <TabsContent value="avaliacoes" className="mt-6">
+              <ReviewsSection
+                reviews={reviews}
+                itemId={productId}
+                itemType="product"
+                onAddReview={(newReview) => {
+                  const review: Review = {
+                    ...newReview,
+                    id: Date.now().toString(),
+                    date: new Date().toISOString().split('T')[0]
+                  }
+                  setReviews([review, ...reviews])
+                }}
+              />
+            </TabsContent>
+          </Tabs>
         </div>
 
         {/* Seller Info */}
