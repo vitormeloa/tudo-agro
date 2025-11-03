@@ -28,7 +28,7 @@ function FavoritosSection() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
-        <Loader2 className="w-8 h-8 animate-spin text-[#1C6B3E]" />
+        <Loader2 className="w-8 h-8 animate-spin text-emerald-600" />
       </div>
     )
   }
@@ -53,12 +53,12 @@ function FavoritosSection() {
         </p>
         <div className="flex gap-4 justify-center">
           <Link href="/catalogo">
-            <Button className="bg-[#1C6B3E] hover:bg-[#2B5A3A]">
+            <Button className="bg-emerald-600 hover:bg-emerald-700">
               Explorar Catálogo
             </Button>
           </Link>
           <Link href="/produtos">
-            <Button variant="outline" className="border-[#1C6B3E] text-[#1C6B3E] hover:bg-[#1C6B3E] hover:text-white">
+            <Button variant="outline" className="border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white">
               Ver Produtos
             </Button>
           </Link>
@@ -119,7 +119,7 @@ function FavoritosSection() {
                 />
                 
                 <div className="absolute top-4 left-4 flex gap-2">
-                  <Badge className={`${itemType === 'animal' ? 'bg-[#1C6B3E]' : 'bg-blue-600'}`}>
+                  <Badge className={`${itemType === 'animal' ? 'bg-emerald-600' : 'bg-blue-600'}`}>
                     {item.category || 'Sem categoria'}
                   </Badge>
                   {item.featured && (
@@ -179,7 +179,7 @@ function FavoritosSection() {
 
                 {item.price && (
                   <div className="mb-3">
-                    <span className="text-2xl font-bold text-[#1C6B3E]">
+                    <span className="text-2xl font-bold text-emerald-600">
                       R$ {typeof item.price === 'number' 
                         ? item.price.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
                         : parseFloat(item.price.toString()).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
@@ -193,7 +193,7 @@ function FavoritosSection() {
 
                 {itemType !== 'unknown' ? (
                   <Link href={detailRoute} className="block">
-                    <Button className="w-full bg-[#1C6B3E] hover:bg-[#2B5A3A]">
+                    <Button className="w-full bg-emerald-600 hover:bg-emerald-700">
                       <Eye className="w-4 h-4 mr-2" />
                       Ver Detalhes
                     </Button>

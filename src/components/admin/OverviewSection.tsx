@@ -599,7 +599,7 @@ export default function OverviewSection() {
       </div>
 
       {/* Título do Setor Selecionado */}
-      <div className="bg-gradient-to-r from-[#1E4D2B] to-[#2B5A31] text-white p-3 sm:p-4 rounded-lg">
+      <div className="bg-gradient-to-r from-emerald-600 to-emerald-700 text-white p-3 sm:p-4 rounded-lg">
         <h2 className="text-lg sm:text-xl font-bold">{getSectorTitle(selectedSector)}</h2>
         <p className="text-xs sm:text-sm opacity-90 mt-1">
           {selectedSector === 'all' 
@@ -622,57 +622,73 @@ export default function OverviewSection() {
         title={getSectorTitle(selectedSector)}
       />
 
-      {/* Recursos Complementares */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
-        {availableCharts.slice(0, 2).map((chart) => (
-          <Card key={chart.id}>
-                    <CardHeader>
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-            <div>
-                <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-                    <BarChart3 className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E4D2B]" />
-                    <span className="text-base sm:text-lg font-semibold">Gráficos de Performance</span>
-                </CardTitle>
+      {/* Gráficos - Layout adaptativo baseado na quantidade disponível */}
+      {availableCharts.length > 0 && (
+        <div className={`grid gap-4 lg:gap-6 ${
+          availableCharts.length === 1 
+            ? 'grid-cols-1' 
+            : availableCharts.length === 2 
+            ? 'grid-cols-1 lg:grid-cols-2' 
+            : availableCharts.length === 3
+            ? 'grid-cols-1 lg:grid-cols-2 xl:grid-cols-3'
+            : 'grid-cols-1 lg:grid-cols-2'
+        }`}>
+          {availableCharts.map((chart) => (
+            <Card key={chart.id} className="h-full">
+              <CardHeader>
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                  <div>
+                    <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
+                      <chart.icon className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600" />
+                      <span className="text-base sm:text-lg font-semibold">{chart.title}</span>
+                    </CardTitle>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                {chart.component}
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      )}
+
+      {/* Alertas e Atividade Recente - Layout adaptativo */}
+      <div className={`grid gap-4 lg:gap-6 ${
+        alerts.length === 0 
+          ? 'grid-cols-1' 
+          : 'grid-cols-1 lg:grid-cols-2'
+      }`}>
+        {/* Alertas */}
+        {alerts.length > 0 && (
+          <div className="space-y-3 sm:space-y-4">
+            <h3 className="text-base sm:text-lg font-semibold text-[#2B2E2B] flex items-center gap-2">
+              <AlertTriangle className="w-4 h-4 sm:w-5 sm:h-5 text-[#B8413D]" />
+              Alertas e Pendências
+            </h3>
+            <div className="grid grid-cols-1 gap-3 sm:gap-4">
+              {alerts.map((alert, index) => (
+                <AlertCard
+                  key={index}
+                  type={alert.type as 'success' | 'warning' | 'error' | 'info'}
+                  title={alert.title}
+                  message={alert.description}
+                  count={alert.count}
+                  action={alert.action}
+                  onAction={() => handleActionClick(alert.action)}
+                />
+              ))}
             </div>
           </div>
-        </CardHeader>
-            <CardContent>
-              {chart.component}
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+        )}
 
-      {/* Alertas e Atividade Recente */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
-        {/* Alertas */}
-        <div className="space-y-3 sm:space-y-4">
-          <h3 className="text-base sm:text-lg font-semibold text-[#2B2E2B] flex items-center gap-2">
-            <AlertTriangle className="w-4 h-4 sm:w-5 sm:h-5 text-[#B8413D]" />
-            Alertas e Pendências
-          </h3>
-          <div className="grid grid-cols-1 gap-3 sm:gap-4">
-            {alerts.map((alert, index) => (
-              <AlertCard
-                key={index}
-                type={alert.type as 'success' | 'warning' | 'error' | 'info'}
-                title={alert.title}
-                message={alert.description}
-                count={alert.count}
-                action={alert.action}
-                onAction={() => handleActionClick(alert.action)}
-              />
-            ))}
-          </div>
-        </div>
-
-        {/* Atividade Recente */}
-        <Card>
+        {/* Atividade Recente - Ocupa espaço completo se não há alertas */}
+        <Card className={alerts.length === 0 ? 'lg:col-span-1' : ''}>
                   <CardHeader>
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
                 <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-                    <Activity className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E4D2B]" />
+                    <Activity className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600" />
                     <span className="text-base sm:text-lg font-semibold">Atividade Recente</span>
                 </CardTitle>
             </div>
@@ -694,28 +710,6 @@ export default function OverviewSection() {
         </Card>
       </div>
 
-      {/* Gráficos Adicionais */}
-      {availableCharts.length > 2 && (
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-          {availableCharts.slice(2).map((chart) => (
-            <Card key={chart.id}>
-                      <CardHeader>
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-            <div>
-                <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-                    <BarChart3 className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E4D2B]" />
-                    <span className="text-base sm:text-lg font-semibold">Gráficos de Performance</span>
-                </CardTitle>
-            </div>
-          </div>
-        </CardHeader>
-              <CardContent>
-                {chart.component}
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      )}
 
       {/* Top Categorias Mais Vendidas - Apenas para Admin e Vendedor */}
       {(isAdmin || isSeller) && (
@@ -724,7 +718,7 @@ export default function OverviewSection() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
                 <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-                    <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E4D2B]" />
+                    <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600" />
                     <span className="text-base sm:text-lg font-semibold">Top Categorias</span>
                 </CardTitle>
             </div>
@@ -735,7 +729,7 @@ export default function OverviewSection() {
               {topCategories.map((category, index) => (
                 <div key={index} className="flex items-center justify-between p-4 rounded-lg bg-[#F7F6F2]">
                   <div className="flex items-center gap-4">
-                    <div className="w-8 h-8 bg-[#1E4D2B] text-white rounded-full flex items-center justify-center font-bold text-sm">
+                    <div className="w-8 h-8 bg-emerald-600 text-white rounded-full flex items-center justify-center font-bold text-sm">
                       {index + 1}
                     </div>
                     <div>
@@ -744,10 +738,10 @@ export default function OverviewSection() {
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="text-lg font-bold text-[#1E4D2B]">{category.percentage}%</p>
+                    <p className="text-lg font-bold text-emerald-600">{category.percentage}%</p>
                     <div className="w-20 h-2 bg-gray-200 rounded-full mt-1">
                       <div 
-                        className="h-full bg-[#1E4D2B] rounded-full"
+                        className="h-full bg-emerald-600 rounded-full"
                         style={{ width: `${category.percentage}%` }}
                       ></div>
                     </div>

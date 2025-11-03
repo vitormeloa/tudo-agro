@@ -134,7 +134,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
           <div className="flex items-center justify-between">
             {sidebarOpen && (
               <div>
-                <h1 className="text-xl sm:text-2xl font-bold text-[#1E4D2B]">TudoAgro</h1>
+                <h1 className="text-xl sm:text-2xl font-bold text-emerald-600">TudoAgro</h1>
                 <p className="text-xs sm:text-sm text-[#6E7D5B]">
                   {isAdmin ? 'Painel Administrativo' : 
                    isSeller ? 'Painel do Vendedor' : 
@@ -186,12 +186,12 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                   onClick={handleSectionChange}
                   className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg text-left transition-all duration-200 group relative overflow-hidden ${
                     isActive 
-                      ? 'bg-[#1E4D2B] text-white shadow-lg' 
-                      : 'text-[#6E7D5B] hover:bg-[#F7F6F2] hover:text-[#1E4D2B]'
+                      ? 'bg-emerald-600 text-white shadow-lg' 
+                      : 'text-[#6E7D5B] hover:bg-[#F7F6F2] hover:text-emerald-600'
                   }`}
                   title={!sidebarOpen ? item.label : undefined}
                 >
-                  <Icon className={`w-4 h-4 sm:w-5 sm:h-5 ${isActive ? 'text-white' : 'text-[#6E7D5B] group-hover:text-[#1E4D2B]'}`} />
+                  <Icon className={`w-4 h-4 sm:w-5 sm:h-5 ${isActive ? 'text-white' : 'text-[#6E7D5B] group-hover:text-emerald-600'}`} />
                   {sidebarOpen && (
                     <>
                       <span className="font-medium flex-1 text-sm sm:text-base">{item.label}</span>
@@ -315,7 +315,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                 variant="ghost"
                 size="sm"
                 onClick={() => setSidebarOpen(!sidebarOpen)}
-                className="lg:hidden text-[#6E7D5B] hover:text-[#1E4D2B] hover:bg-[#F7F6F2] group"
+                className="lg:hidden text-[#6E7D5B] hover:text-emerald-600 hover:bg-[#F7F6F2] group"
                 title="Abrir Menu"
               >
                 <Menu className="w-4 h-4 sm:w-5 sm:h-5 group-hover:scale-110 transition-transform" />
