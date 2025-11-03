@@ -14,7 +14,18 @@ import {
 } from '@/components/ui/dialog'
 import ProtectedRoute from '@/components/ProtectedRoute'
 import AdminLayout from '@/components/admin/AdminLayout'
-import { mockPurchases, getTypeIcon, getPaymentMethodLabel, type PurchaseType } from '@/lib/mock-purchases'
+import { 
+  mockFinancialTransactions,
+  getTransactionTypeLabel,
+  getTransactionTypeIcon,
+  getTransactionTypeColor,
+  getPaymentMethodLabel,
+  type TransactionType,
+  type PaymentStatus,
+  type FinancialTransaction
+} from '@/lib/mock-financial-transactions'
+import { formatDateBR } from '@/lib/date-utils'
+import { formatCurrencyBR } from '@/lib/format-utils'
 import { 
   DollarSign, 
   Calendar, 
@@ -28,32 +39,21 @@ import {
   AlertCircle,
   CheckCircle,
   XCircle,
-  Clock
+  Clock,
+  ArrowUp,
+  ArrowDown,
+  RefreshCw,
+  Gift
 } from 'lucide-react'
-
-type PaymentStatus = 'pago' | 'aguardando_pagamento' | 'cancelado'
 
 export default function FinanceiroPage() {
   const [dateFilter, setDateFilter] = useState('mes_atual')
-  const [typeFilter, setTypeFilter] = useState<PurchaseType | 'todos'>('todos')
+  const [typeFilter, setTypeFilter] = useState<TransactionType | 'todos'>('todos')
   const [statusFilter, setStatusFilter] = useState<PaymentStatus | 'todos'>('todos')
   const [selectedTransaction, setSelectedTransaction] = useState<string | null>(null)
 
-  // Converter compras em transações financeiras
-  const transactions = mockPurchases.map(purchase => ({
-    id: purchase.id,
-    type: purchase.type,
-    itemName: purchase.itemName,
-    value: purchase.value,
-    paymentMethod: purchase.paymentMethod,
-    status: purchase.status === 'cancelado' ? 'cancelado' as PaymentStatus : 
-            purchase.status === 'entregue' ? 'pago' as PaymentStatus : 
-            'aguardando_pagamento' as PaymentStatus,
-    date: purchase.purchaseDate,
-    sellerName: purchase.sellerName,
-    receiptUrl: purchase.receiptUrl,
-    invoiceUrl: purchase.invoiceUrl
-  }))
+  // Usar transações financeiras completas
+  const transactions = mockFinancialTransactions
 
   const filteredTransactions = transactions.filter(t => {
     if (typeFilter !== 'todos' && t.type !== typeFilter) return false
@@ -74,7 +74,7 @@ export default function FinanceiroPage() {
     }
     
     return true
-  })
+  }).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()) // Ordenar por data mais recente
 
   const selectedTransactionData = selectedTransaction 
     ? transactions.find(t => t.id === selectedTransaction)
@@ -89,22 +89,28 @@ export default function FinanceiroPage() {
              transactionDate.getFullYear() === now.getFullYear() &&
              t.status === 'pago'
     })
-    .reduce((sum, t) => sum + t.value, 0)
+    .reduce((sum, t) => {
+      // Somar receitas e subtrair despesas
+      if (t.type === 'venda' || t.type === 'deposito' || t.type === 'cashback' || t.type === 'reembolso' || t.type === 'estorno') {
+        return sum + t.value
+      } else {
+        return sum - t.value
+      }
+    }, 0)
 
-  const totalPurchases = transactions.length
-  const totalInvested = transactions
-    .filter(t => t.status === 'pago')
+  const totalTransactions = transactions.length
+  const totalRevenue = transactions
+    .filter(t => (t.type === 'venda' || t.type === 'deposito' || t.type === 'cashback' || t.type === 'reembolso' || t.type === 'estorno') && t.status === 'pago')
     .reduce((sum, t) => sum + t.value, 0)
-  const pendingPayments = transactions.filter(t => t.status === 'aguardando_pagamento').length
+  const totalExpenses = transactions
+    .filter(t => (t.type === 'compra' || t.type === 'taxa' || t.type === 'saque') && t.status === 'pago')
+    .reduce((sum, t) => sum + t.value, 0)
+  const pendingPayments = transactions.filter(t => t.status === 'aguardando_pagamento' || t.status === 'processando').length
+  const balance = totalRevenue - totalExpenses
 
+  // Usar utilitário centralizado para formatação de datas
   const formatDate = (date: Date) => {
-    return new Intl.DateTimeFormat('pt-BR', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
-    }).format(date)
+    return formatDateBR(date, true)
   }
 
   const getStatusBadge = (status: PaymentStatus) => {
@@ -113,6 +119,8 @@ export default function FinanceiroPage() {
         return <Badge className="bg-green-100 text-green-800 border-green-200"><CheckCircle className="w-3 h-3 mr-1" />Pago</Badge>
       case 'aguardando_pagamento':
         return <Badge className="bg-yellow-100 text-yellow-800 border-yellow-200"><Clock className="w-3 h-3 mr-1" />Aguardando</Badge>
+      case 'processando':
+        return <Badge className="bg-blue-100 text-blue-800 border-blue-200"><RefreshCw className="w-3 h-3 mr-1" />Processando</Badge>
       case 'cancelado':
         return <Badge className="bg-red-100 text-red-800 border-red-200"><XCircle className="w-3 h-3 mr-1" />Cancelado</Badge>
     }
@@ -134,12 +142,12 @@ export default function FinanceiroPage() {
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-gray-600 mb-1">Total no Mês</p>
-                    <p className="text-lg font-semibold text-emerald-600">
-                      R$ {totalThisMonth.toLocaleString('pt-BR')}
+                    <p className="text-sm text-gray-600 mb-1">Saldo do Mês</p>
+                    <p className={`text-lg font-semibold ${totalThisMonth >= 0 ? 'text-emerald-600' : 'text-red-600'}`}>
+                      {formatCurrencyBR(Math.abs(totalThisMonth), { minimumFractionDigits: 0 })}
                     </p>
                   </div>
-                  <DollarSign className="w-8 h-8 text-emerald-600" />
+                  <DollarSign className={`w-8 h-8 ${totalThisMonth >= 0 ? 'text-emerald-600' : 'text-red-600'}`} />
                 </div>
               </CardContent>
             </Card>
@@ -148,8 +156,8 @@ export default function FinanceiroPage() {
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-gray-600 mb-1">Total de Compras</p>
-                    <p className="text-lg font-semibold text-gray-900">{totalPurchases}</p>
+                    <p className="text-sm text-gray-600 mb-1">Total de Transações</p>
+                    <p className="text-lg font-semibold text-gray-900">{totalTransactions}</p>
                   </div>
                   <ShoppingCart className="w-8 h-8 text-blue-600" />
                 </div>
@@ -160,12 +168,12 @@ export default function FinanceiroPage() {
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-gray-600 mb-1">Total Investido</p>
-                    <p className="text-lg font-semibold text-gray-900">
-                      R$ {totalInvested.toLocaleString('pt-BR')}
+                    <p className="text-sm text-gray-600 mb-1">Saldo Total</p>
+                    <p className={`text-lg font-semibold ${balance >= 0 ? 'text-emerald-600' : 'text-red-600'}`}>
+                      {formatCurrencyBR(Math.abs(balance), { minimumFractionDigits: 0 })}
                     </p>
                   </div>
-                  <TrendingUp className="w-8 h-8 text-purple-600" />
+                  <TrendingUp className={`w-8 h-8 ${balance >= 0 ? 'text-emerald-600' : 'text-red-600'}`} />
                 </div>
               </CardContent>
             </Card>
@@ -237,42 +245,73 @@ export default function FinanceiroPage() {
 
           {/* Lista de Transações */}
           <div className="space-y-4">
-            {filteredTransactions.map((transaction) => (
-              <Card key={transaction.id} className="hover:shadow-lg transition-shadow">
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4 flex-1">
-                      <div className="text-3xl">{getTypeIcon(transaction.type)}</div>
-                      <div className="flex-1">
-                        <h3 className="text-lg font-semibold text-gray-900 mb-1">
-                          {transaction.itemName}
-                        </h3>
-                        <div className="flex items-center gap-4 text-sm text-gray-600">
-                          <span>{formatDate(transaction.date)}</span>
-                          <span>{getPaymentMethodLabel(transaction.paymentMethod)}</span>
-                          <span>Vendedor: {transaction.sellerName}</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-4">
-                      <div className="text-right">
-                        <p className="text-lg font-bold text-emerald-600">
-                          R$ {transaction.value.toLocaleString('pt-BR')}
-                        </p>
-                        {getStatusBadge(transaction.status)}
-                      </div>
-                      <Button
-                        variant="outline"
-                        onClick={() => setSelectedTransaction(transaction.id)}
-                      >
-                        <Eye className="w-4 h-4 mr-2" />
-                        Ver Detalhes
-                      </Button>
-                    </div>
-                  </div>
+            {filteredTransactions.length === 0 ? (
+              <Card>
+                <CardContent className="p-12 text-center">
+                  <p className="text-gray-500 text-lg">Nenhuma transação encontrada com os filtros selecionados.</p>
                 </CardContent>
               </Card>
-            ))}
+            ) : (
+              filteredTransactions.map((transaction) => {
+                const isIncome = transaction.type === 'venda' || transaction.type === 'deposito' || 
+                                 transaction.type === 'cashback' || transaction.type === 'reembolso' || 
+                                 transaction.type === 'estorno'
+                const valueColor = isIncome ? 'text-emerald-600' : 'text-red-600'
+                const valuePrefix = isIncome ? '+' : '-'
+                
+                return (
+                  <Card key={transaction.id} className="hover:shadow-lg transition-shadow">
+                    <CardContent className="p-6">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-4 flex-1">
+                          <div className="text-3xl">{getTransactionTypeIcon(transaction.type)}</div>
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2 mb-1">
+                              <h3 className="text-lg font-semibold text-gray-900">
+                                {transaction.description}
+                              </h3>
+                              {transaction.category && (
+                                <Badge variant="outline" className="text-xs">
+                                  {transaction.category}
+                                </Badge>
+                              )}
+                            </div>
+                            <div className="flex items-center gap-4 text-sm text-gray-600 flex-wrap">
+                              <span>{formatDate(transaction.date)}</span>
+                              <span>{getPaymentMethodLabel(transaction.paymentMethod)}</span>
+                              {transaction.sellerName && (
+                                <span>Vendedor: {transaction.sellerName}</span>
+                              )}
+                              {transaction.buyerName && (
+                                <span>Comprador: {transaction.buyerName}</span>
+                              )}
+                            </div>
+                            {transaction.notes && (
+                              <p className="text-xs text-gray-500 mt-1 italic">{transaction.notes}</p>
+                            )}
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-4">
+                          <div className="text-right">
+                            <p className={`text-lg font-bold ${valueColor}`}>
+                              {valuePrefix} R$ {transaction.value.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                            </p>
+                            {getStatusBadge(transaction.status)}
+                          </div>
+                          <Button
+                            variant="outline"
+                            onClick={() => setSelectedTransaction(transaction.id)}
+                          >
+                            <Eye className="w-4 h-4 mr-2" />
+                            Ver Detalhes
+                          </Button>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                )
+              })
+            )}
           </div>
 
           {/* Modal de Detalhes */}
@@ -288,19 +327,30 @@ export default function FinanceiroPage() {
 
                 <div className="space-y-6 mt-4">
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">Item Comprado</h4>
-                    <p className="text-gray-700">{selectedTransactionData.itemName}</p>
+                    <h4 className="font-semibold text-gray-900 mb-2">Descrição</h4>
+                    <p className="text-gray-700">{selectedTransactionData.description}</p>
+                    {selectedTransactionData.category && (
+                      <p className="text-sm text-gray-600 mt-1">
+                        Categoria: {selectedTransactionData.category}
+                      </p>
+                    )}
                     <p className="text-sm text-gray-600 mt-1">
-                      Categoria: {selectedTransactionData.type === 'animal' ? 'Animal' : 
-                                  selectedTransactionData.type === 'genetica' ? 'Genética' : 'Produto'}
+                      Tipo: {getTransactionTypeLabel(selectedTransactionData.type)}
                     </p>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <h4 className="font-semibold text-gray-900 mb-2">Valor</h4>
-                      <p className="text-2xl font-bold text-emerald-600">
-                        R$ {selectedTransactionData.value.toLocaleString('pt-BR')}
+                      <p className={`text-2xl font-bold ${
+                        selectedTransactionData.type === 'venda' || selectedTransactionData.type === 'deposito' || 
+                        selectedTransactionData.type === 'cashback' || selectedTransactionData.type === 'reembolso' || 
+                        selectedTransactionData.type === 'estorno' ? 'text-emerald-600' : 'text-red-600'
+                      }`}>
+                        {(selectedTransactionData.type === 'venda' || selectedTransactionData.type === 'deposito' || 
+                          selectedTransactionData.type === 'cashback' || selectedTransactionData.type === 'reembolso' || 
+                          selectedTransactionData.type === 'estorno' ? '+' : '-')} 
+                        {formatCurrencyBR(selectedTransactionData.value)}
                       </p>
                     </div>
                     <div>
@@ -317,10 +367,30 @@ export default function FinanceiroPage() {
                     </div>
                   </div>
 
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">Vendedor</h4>
-                    <p className="text-gray-700">{selectedTransactionData.sellerName}</p>
-                  </div>
+                  {(selectedTransactionData.sellerName || selectedTransactionData.buyerName) && (
+                    <div>
+                      <h4 className="font-semibold text-gray-900 mb-2">
+                        {selectedTransactionData.sellerName ? 'Vendedor' : 'Comprador'}
+                      </h4>
+                      <p className="text-gray-700">
+                        {selectedTransactionData.sellerName || selectedTransactionData.buyerName}
+                      </p>
+                    </div>
+                  )}
+
+                  {selectedTransactionData.relatedTransactionId && (
+                    <div>
+                      <h4 className="font-semibold text-gray-900 mb-2">Transação Relacionada</h4>
+                      <p className="text-gray-700">ID: {selectedTransactionData.relatedTransactionId}</p>
+                    </div>
+                  )}
+
+                  {selectedTransactionData.notes && (
+                    <div>
+                      <h4 className="font-semibold text-gray-900 mb-2">Observações</h4>
+                      <p className="text-gray-700 italic">{selectedTransactionData.notes}</p>
+                    </div>
+                  )}
 
                   <div className="flex flex-wrap gap-2 pt-4 border-t">
                     {selectedTransactionData.receiptUrl && (

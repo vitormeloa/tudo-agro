@@ -78,8 +78,8 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     const allMenuItems = [
       { id: 'visao-geral', label: 'Visão Geral', icon: BarChart3, alerts: 0, roles: ['admin', 'vendedor', 'comprador'], href: '/dashboard/visao-geral' },
       { id: 'favoritos', label: 'Favoritos', icon: Heart, alerts: 0, roles: ['admin', 'vendedor', 'comprador'], href: '/dashboard/favoritos' },
-      { id: 'minhas-compras', label: 'Minhas Compras', icon: ShoppingBag, alerts: 0, roles: ['comprador'], href: '/dashboard/minhas-compras' },
-      { id: 'financeiro', label: 'Financeiro', icon: DollarSign, alerts: 0, roles: ['comprador'], href: '/dashboard/financeiro' },
+      { id: 'minhas-compras', label: 'Minhas Compras', icon: ShoppingBag, alerts: 0, roles: ['comprador', 'vendedor', 'admin'], href: '/dashboard/minhas-compras' },
+      { id: 'financeiro', label: 'Financeiro', icon: DollarSign, alerts: 0, roles: ['comprador', 'vendedor', 'admin'], href: '/dashboard/financeiro' },
       { id: 'treinamentos', label: 'Treinamentos', icon: BookOpen, alerts: 0, roles: ['admin', 'vendedor', 'comprador'], href: '/dashboard/treinamentos' },
       { id: 'minha-conta', label: 'Minha Conta', icon: User, alerts: 0, roles: ['admin', 'vendedor', 'comprador'], href: '/dashboard/minha-conta' },
       { id: 'usuarios', label: 'Usuários', icon: Users, alerts: 0, roles: ['admin'], href: '/dashboard/usuarios' },

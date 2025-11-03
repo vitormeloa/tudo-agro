@@ -16,6 +16,7 @@ import {
   Heart
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { getCurrentYear } from '@/lib/date-utils'
 
 interface FooterProps {
   variant?: 'default' | 'minimal' | 'dark'
@@ -30,7 +31,7 @@ export default function Footer({
   showSocial = true,
   className = '' 
 }: FooterProps) {
-  const currentYear = new Date().getFullYear()
+  const currentYear = getCurrentYear()
 
   const footerLinks = {
     marketplace: [

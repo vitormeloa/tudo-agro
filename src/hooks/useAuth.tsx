@@ -277,77 +277,69 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }, [createBasicUser])
 
-  // Verificar usuário com sincronização
+  // Verificar usuário com sincronização - OTIMIZADO
   const checkUser = useCallback(async (force = false) => {
     // Prevenir múltiplas chamadas simultâneas
     if (checkInProgressRef.current && !force) {
       return
     }
 
+    // Verificar se componente ainda está montado antes de qualquer operação
+    if (!mountedRef.current) {
+      return
+    }
+
     try {
       checkInProgressRef.current = true
       
-      if (!mountedRef.current) {
-        checkInProgressRef.current = false
-        return
-      }
-
-      // Tentar cache primeiro se não for forçado
+      // Tentar cache primeiro se não for forçado - otimização para evitar chamadas desnecessárias
       if (!force) {
         const cached = loadAuthCache()
-        if (cached) {
-          // Verificar se sessão ainda é válida
+        if (cached && mountedRef.current) {
+          // Verificação rápida de sessão (sem aguardar dados completos)
           const { data: { session } } = await supabase.auth.getSession()
-          if (session?.user?.id === cached.id) {
-          if (mountedRef.current) {
+          if (session?.user?.id === cached.id && mountedRef.current) {
+            // Cache válido - usar diretamente sem recarregar
             userRef.current = cached
             setUser(cached)
             setLoading(false)
             setInitialized(true)
-            authEvents.emit('user:loaded', cached)
-          }
             checkInProgressRef.current = false
             return
           }
         }
       }
       
+      // Só setar loading se realmente for buscar dados
       if (mountedRef.current) {
         setLoading(true)
       }
       
       const { data: { session }, error } = await supabase.auth.getSession()
       
-      if (error) {
-        if (mountedRef.current) {
-          setUser(null)
-          setLoading(false)
-          setInitialized(true)
-          clearAuthCache()
-          authEvents.emit('user:cleared')
-        }
+      if (!mountedRef.current) {
         checkInProgressRef.current = false
         return
       }
       
-      if (session?.user) {
-        const loadedUser = await loadUser(session.user.id, force)
-        if (mountedRef.current) {
-          userRef.current = loadedUser
-          setUser(loadedUser)
-          setLoading(false)
-          setInitialized(true)
-          authEvents.emit('user:loaded', loadedUser)
-        }
-      } else {
-        if (mountedRef.current) {
-          userRef.current = null
-          setUser(null)
-          setLoading(false)
-          setInitialized(true)
-          clearAuthCache()
-          authEvents.emit('user:cleared')
-        }
+      if (error || !session?.user) {
+        // Sem sessão ou erro - limpar rapidamente
+        userRef.current = null
+        setUser(null)
+        setLoading(false)
+        setInitialized(true)
+        clearAuthCache()
+        checkInProgressRef.current = false
+        return
+      }
+      
+      // Carregar usuário apenas se necessário
+      const loadedUser = await loadUser(session.user.id, force)
+      if (mountedRef.current) {
+        userRef.current = loadedUser
+        setUser(loadedUser)
+        setLoading(false)
+        setInitialized(true)
       }
     } catch (error) {
       console.error('Check user error:', error)
@@ -357,7 +349,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setLoading(false)
         setInitialized(true)
         clearAuthCache()
-        authEvents.emit('user:cleared')
       }
     } finally {
       checkInProgressRef.current = false
@@ -372,19 +363,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     // Função de inicialização
     const initialize = async () => {
       try {
-        // Tentar carregar do cache imediatamente para melhor UX
+        // Tentar carregar do cache imediatamente para melhor UX (síncrono)
         const cached = loadAuthCache()
         if (cached && isMounted) {
           userRef.current = cached
           setUser(cached)
           setLoading(false)
           setInitialized(true)
+          // Verificar sessão em background sem bloquear UI
+          checkUser(false).catch(() => {})
+          return // Sair cedo se cache válido
         }
 
-        // Timeout de segurança - garantir que initialized seja sempre true após 5 segundos
+        // Timeout de segurança reduzido para 3 segundos (mais rápido)
         timeoutId = setTimeout(() => {
           if (isMounted) {
-            // Verificar se ainda não foi inicializado através do estado atual
             setInitialized(prev => {
               if (!prev) {
                 console.warn('Auth initialization timeout - forcing initialized to true')
@@ -394,9 +387,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             })
             setLoading(false)
           }
-        }, 5000)
+        }, 3000)
 
-        // Sempre verificar sessão real - checkUser sempre seta initialized como true no final
+        // Verificar sessão real apenas se não há cache válido
         await checkUser(true)
         
         // Limpar timeout se chegou aqui
