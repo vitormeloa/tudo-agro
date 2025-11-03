@@ -1,0 +1,570 @@
+"use client"
+
+import { useState, use, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import Link from 'next/link'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import { 
+  ArrowLeft,
+  MapPin, 
+  Star, 
+  Heart, 
+  Share2,
+  FileText,
+  Award,
+  Shield,
+  Calendar,
+  Weight,
+  Ruler,
+  ChevronLeft,
+  ChevronRight,
+  Play,
+  ShoppingCart,
+  ShoppingBag,
+  Plus,
+  Minus,
+  Truck
+} from 'lucide-react'
+import { mockProducts } from '@/lib/mock-products'
+import { useCart } from '@/contexts/CartContext'
+import ProtectedRoute from '@/components/ProtectedRoute'
+import AdminLayout from '@/components/admin/AdminLayout'
+import { useAuth } from '@/hooks/useAuth'
+import { useToast } from '@/hooks/use-toast'
+import { calculateFreight, formatCEP, type FreightResult } from '@/lib/freight-calculator'
+import { Input } from '@/components/ui/input'
+
+export default function ProdutoPage({ params }: { params: Promise<{ id: string }> }) {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const [isFavorite, setIsFavorite] = useState(false)
+  const [quantity, setQuantity] = useState(1)
+  const [cep, setCep] = useState('')
+  const [freightResult, setFreightResult] = useState<FreightResult | null>(null)
+  const [isCalculatingFreight, setIsCalculatingFreight] = useState(false)
+  const { addItem } = useCart()
+  const { user, initialized } = useAuth()
+  const router = useRouter()
+  const { toast } = useToast()
+  
+  const resolvedParams = use(params)
+  const productId = resolvedParams.id
+  
+  // Buscar produto pelo ID
+  const product = mockProducts.find(p => p.id === productId)
+  
+  // Extrair quantidade disponível do estoque
+  const getAvailableStock = (stockString: string): number => {
+    // Tenta extrair número da string (ex: "Em estoque: 50" ou "50 unidades" ou "50 em estoque")
+    const match = stockString.match(/\d+/)
+    if (match) {
+      const number = parseInt(match[0], 10)
+      // Garantir que o número seja válido e positivo
+      if (number > 0) {
+        return number
+      }
+    }
+    // Se não encontrar número ou se o estoque diz apenas "Em estoque", usa valor padrão
+    // Valores comuns: "Em estoque", "Disponível", etc.
+    if (stockString.toLowerCase().includes('estoque') || stockString.toLowerCase().includes('disponível')) {
+      return 100 // Valor padrão quando há estoque mas não especifica quantidade
+    }
+    return 0 // Sem estoque
+  }
+  
+  const availableStock = product ? getAvailableStock(product.stock) : 0
+  
+  // Resetar quantidade quando o produto mudar
+  useEffect(() => {
+    setQuantity(1)
+  }, [productId])
+  
+  const handleIncreaseQuantity = () => {
+    if (quantity < availableStock) {
+      setQuantity(prev => prev + 1)
+    }
+  }
+  
+  const handleDecreaseQuantity = () => {
+    if (quantity > 1) {
+      setQuantity(prev => prev - 1)
+    }
+  }
+  
+  const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseInt(e.target.value, 10)
+    if (!isNaN(value) && value >= 1 && value <= availableStock) {
+      setQuantity(value)
+    } else if (e.target.value === '') {
+      setQuantity(1)
+    }
+  }
+
+  const handleCepChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/\D/g, '')
+    if (value.length <= 8) {
+      setCep(value)
+    }
+  }
+
+  const handleCalculateFreight = () => {
+    if (cep.length !== 8) {
+      toast({
+        title: 'CEP inválido',
+        description: 'Por favor, digite um CEP válido com 8 dígitos.',
+        variant: 'destructive',
+      })
+      return
+    }
+
+    setIsCalculatingFreight(true)
+    
+    // Simular delay de API
+    setTimeout(() => {
+      const result = calculateFreight(cep, product?.location)
+      setFreightResult(result)
+      setIsCalculatingFreight(false)
+      
+      if (!result) {
+        toast({
+          title: 'Erro ao calcular frete',
+          description: 'Não foi possível calcular o frete para este CEP.',
+          variant: 'destructive',
+        })
+      }
+    }, 500)
+  }
+  
+  // Se não encontrar, mostrar erro
+  if (!product) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">Produto não encontrado</h1>
+          <Link href="/produtos">
+            <Button>Voltar para Produtos</Button>
+          </Link>
+        </div>
+      </div>
+    )
+  }
+
+  const nextImage = () => {
+    setCurrentImageIndex((prev) => 
+      prev === product.images.length - 1 ? 0 : prev + 1
+    )
+  }
+
+  const prevImage = () => {
+    setCurrentImageIndex((prev) => 
+      prev === 0 ? product.images.length - 1 : prev - 1
+    )
+  }
+
+  return (
+    <ProtectedRoute>
+      <AdminLayout>
+        <div className="min-h-screen bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div className="grid lg:grid-cols-2 gap-12">
+              {/* Image Gallery */}
+              <div className="space-y-4">
+                <div className="relative">
+              <img 
+                src={product.images[currentImageIndex]} 
+                alt={product.title}
+                className="w-full h-96 object-cover rounded-2xl"
+              />
+              
+              {/* Navigation Arrows */}
+              <button 
+                onClick={prevImage}
+                className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-black/70 transition-colors"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button 
+                onClick={nextImage}
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-black/70 transition-colors"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+
+              {/* Badges */}
+              <div className="absolute top-4 left-4 flex gap-2">
+                <Badge className="bg-[#1C6B3E]">
+                  {product.category}
+                </Badge>
+                {product.featured && (
+                  <Badge className="bg-[#D4AF37] text-black">
+                    DESTAQUE
+                  </Badge>
+                )}
+              </div>
+
+              {/* Actions */}
+              <div className="absolute top-4 right-4 flex gap-2">
+                <Button 
+                  size="sm" 
+                  variant="ghost" 
+                  onClick={() => setIsFavorite(!isFavorite)}
+                  className={`bg-white/90 hover:bg-white transition-colors ${
+                    isFavorite ? 'text-red-500' : 'text-[#8B4513] hover:text-red-500'
+                  }`}
+                >
+                  <Heart className={`w-4 h-4 ${isFavorite ? 'fill-current' : ''}`} />
+                </Button>
+                <Button 
+                  size="sm" 
+                  variant="ghost" 
+                  className="bg-white/90 hover:bg-white text-[#8B4513] hover:text-[#1C6B3E] transition-colors"
+                >
+                  <Share2 className="w-4 h-4" />
+                </Button>
+              </div>
+
+              {/* Image Counter */}
+              <div className="absolute bottom-4 right-4 bg-black/70 text-white px-3 py-1 rounded-full text-sm">
+                {currentImageIndex + 1} / {product.images.length}
+              </div>
+            </div>
+
+            {/* Thumbnail Gallery */}
+            <div className="flex gap-2 overflow-x-auto">
+              {product.images.map((image, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentImageIndex(index)}
+                  className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-colors ${
+                    index === currentImageIndex 
+                      ? 'border-[#1C6B3E]' 
+                      : 'border-transparent hover:border-[#D4AF37]'
+                  }`}
+                >
+                  <img 
+                    src={image} 
+                    alt={`${product.title} ${index + 1}`}
+                    className="w-full h-full object-cover"
+                  />
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Product Info */}
+          <div className="space-y-6">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900 mb-4">
+                {product.title}
+              </h1>
+              
+              <div className="flex items-center text-gray-600 mb-4">
+                <MapPin className="w-5 h-5 mr-2" />
+                <span>{product.city}, {product.location}</span>
+              </div>
+
+              <div className="flex items-center gap-4 sm:gap-6 mb-6 flex-wrap">
+                <div className="text-3xl sm:text-4xl font-bold text-green-600 whitespace-nowrap">
+                  R$ {product.price.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                </div>
+                
+                {/* Quantity Controls */}
+                <div className="flex items-center gap-3">
+                  <label className="text-sm font-medium text-gray-700 whitespace-nowrap hidden sm:block">
+                    Quantidade:
+                  </label>
+                  <div className="flex items-center gap-2">
+                    <div className="inline-flex items-center border border-gray-300 rounded-lg bg-white shadow-sm hover:shadow transition-shadow focus-within:ring-2 focus-within:ring-green-500/20 focus-within:border-green-500">
+                      <button
+                        onClick={handleDecreaseQuantity}
+                        disabled={quantity <= 1}
+                        className="p-2.5 sm:p-3 hover:bg-green-50 active:bg-green-100 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent transition-all duration-150 flex items-center justify-center rounded-l-lg"
+                        aria-label="Diminuir quantidade"
+                      >
+                        <Minus className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700" />
+                      </button>
+                      <input
+                        type="number"
+                        min="1"
+                        max={availableStock}
+                        value={quantity}
+                        onChange={handleQuantityChange}
+                        className="w-14 sm:w-16 text-center text-base sm:text-lg font-semibold text-gray-900 border-0 focus:outline-none bg-transparent px-2 py-2.5 sm:py-3"
+                        aria-label="Quantidade"
+                      />
+                      <button
+                        onClick={handleIncreaseQuantity}
+                        disabled={quantity >= availableStock}
+                        className="p-2.5 sm:p-3 hover:bg-green-50 active:bg-green-100 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent transition-all duration-150 flex items-center justify-center rounded-r-lg"
+                        aria-label="Aumentar quantidade"
+                      >
+                        <Plus className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700" />
+                      </button>
+                    </div>
+                    <span className="text-xs sm:text-sm text-gray-500 whitespace-nowrap">
+                      ({availableStock} disponível{availableStock !== 1 ? 'eis' : 'l'})
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Specifications */}
+            <Card className="bg-white border-gray-200 shadow-lg">
+              <CardContent className="p-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-4">Especificações</h3>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="flex items-center">
+                    <Award className="w-5 h-5 text-green-600 mr-2" />
+                    <div>
+                      <div className="text-sm text-gray-500">Marca</div>
+                      <div className="font-medium text-gray-900">{product.brand}</div>
+                    </div>
+                  </div>
+                  <div className="flex items-center">
+                    <Weight className="w-5 h-5 text-green-600 mr-2" />
+                    <div>
+                      <div className="text-sm text-gray-500">Peso</div>
+                      <div className="font-medium text-gray-900">{product.weight}</div>
+                    </div>
+                  </div>
+                  <div className="flex items-center">
+                    <Shield className="w-5 h-5 text-green-600 mr-2" />
+                    <div>
+                      <div className="text-sm text-gray-500">Estoque</div>
+                      <div className="font-medium text-gray-900">{product.stock}</div>
+                    </div>
+                  </div>
+                  <div className="flex items-center">
+                    <FileText className="w-5 h-5 text-green-600 mr-2" />
+                    <div>
+                      <div className="text-sm text-gray-500">Categoria</div>
+                      <div className="font-medium text-gray-900">{product.category}</div>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Specifications Details */}
+            <Card className="bg-white border-gray-200 shadow-lg">
+              <CardContent className="p-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-4">O que você precisa saber sobre esse produto</h3>
+                <div className="space-y-3">
+                  {Object.entries(product.specifications).map(([key, value]) => (
+                    <div key={key} className="flex justify-between">
+                      <span className="text-gray-500 capitalize">
+                        {key.replace(/([A-Z])/g, ' $1').toLowerCase()}:
+                      </span>
+                      <span className="font-medium text-gray-900">{value}</span>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Freight Calculator */}
+            <Card className="bg-white border-gray-200 shadow-lg">
+              <CardContent className="p-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
+                  <Truck className="w-5 h-5 mr-2 text-green-600" />
+                  Calcular Frete
+                </h3>
+                <div className="space-y-4">
+                  <div className="flex gap-2">
+                    <Input
+                      type="text"
+                      placeholder="00000-000"
+                      value={formatCEP(cep)}
+                      onChange={handleCepChange}
+                      maxLength={9}
+                      className="flex-1"
+                    />
+                    <Button
+                      onClick={handleCalculateFreight}
+                      disabled={cep.length !== 8 || isCalculatingFreight}
+                      className="bg-green-600 hover:bg-green-700 text-white"
+                    >
+                      {isCalculatingFreight ? 'Calculando...' : 'Calcular'}
+                    </Button>
+                  </div>
+                  
+                  {freightResult && (
+                    <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
+                      <div className="space-y-2">
+                        <div className="flex justify-between items-center">
+                          <span className="text-gray-700 font-medium">Frete:</span>
+                          <span className="text-lg font-bold text-green-600">
+                            R$ {freightResult.price.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                          </span>
+                        </div>
+                        <div className="text-sm text-gray-600 pt-2 border-t border-green-200">
+                          {freightResult.formattedDelivery}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Action Buttons */}
+            <div className="space-y-4">
+              <Button 
+                className="w-full bg-green-600 hover:bg-green-700 text-white py-4 text-lg transition-all hover:scale-105"
+                onClick={() => {
+                  if (!product) return
+                  // Adicionar ao carrinho e redirecionar para checkout
+                  addItem({
+                    id: product.id,
+                    title: product.title,
+                    price: product.price,
+                    image: product.images[0] || product.image,
+                    seller: product.seller,
+                    stock: product.stock,
+                    availableStock: availableStock,
+                    type: 'product',
+                    location: product.location,
+                    city: product.city,
+                    quantity: quantity
+                  })
+                  router.push('/dashboard/checkout')
+                }}
+              >
+                <ShoppingCart className="w-5 h-5 mr-2" />
+                Comprar Agora {quantity > 1 && `(${quantity}x)`}
+              </Button>
+              {quantity > 1 && (
+                <div className="text-center text-sm text-gray-600">
+                  Total: <span className="font-bold text-green-600">
+                    R$ {(product.price * quantity).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                  </span>
+                </div>
+              )}
+              
+              <Button 
+                variant="outline" 
+                className="w-full border-green-600 text-green-600 hover:bg-green-600 hover:text-white py-4 text-lg transition-all hover:scale-105"
+                onClick={() => {
+                  if (!product) return
+                  addItem({
+                    id: product.id,
+                    title: product.title,
+                    price: product.price,
+                    image: product.images[0] || product.image,
+                    seller: product.seller,
+                    stock: product.stock,
+                    availableStock: availableStock,
+                    type: 'product',
+                    location: product.location,
+                    city: product.city,
+                    quantity: quantity
+                  })
+                  toast({
+                    title: 'Produto adicionado!',
+                    description: `${product.title} foi adicionado ao carrinho.`,
+                  })
+                }}
+              >
+                <ShoppingBag className="w-5 h-5 mr-2" />
+                Adicionar ao carrinho {quantity > 1 && `(${quantity}x)`}
+              </Button>
+            </div>
+            </div>
+          </div>
+
+          {/* Description */}
+          <div className="mt-12">
+            <Card className="bg-white border-gray-200 shadow-lg">
+            <CardContent className="p-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">Descrição</h2>
+              <p className="text-gray-600 leading-relaxed text-lg">
+                {product.description}
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+
+
+        {/* Seller Info */}
+        <div className="mt-8">
+          <Card className="bg-white border-gray-200 shadow-lg">
+            <CardContent className="p-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">Fornecedor</h2>
+              <div className="flex items-start space-x-6">
+                <div className="relative">
+                  <img 
+                    src={product.sellerInfo.image} 
+                    alt={product.sellerInfo.name}
+                    className="w-20 h-20 rounded-full object-cover"
+                  />
+                  {product.sellerInfo.verified && (
+                    <div className="absolute -top-2 -right-2 bg-green-600 text-white p-1 rounded-full">
+                      <Shield className="w-4 h-4" />
+                    </div>
+                  )}
+                </div>
+                
+                <div className="flex-1">
+                  <div className="flex items-center mb-2">
+                    <h3 className="text-xl font-bold text-gray-900 mr-3">
+                      {product.sellerInfo.name}
+                    </h3>
+                    {product.sellerInfo.verified && (
+                      <Badge className="bg-green-600 text-white">VERIFICADO</Badge>
+                    )}
+                  </div>
+                  
+                  <div className="flex items-center text-gray-600 mb-2">
+                    <MapPin className="w-4 h-4 mr-1" />
+                    <span>{product.sellerInfo.location}</span>
+                  </div>
+                  
+                  <div className="flex items-center mb-4">
+                    <Star className="w-4 h-4 text-yellow-500 fill-current mr-1" />
+                    <span className="font-medium text-gray-900 mr-2">{product.sellerInfo.rating}</span>
+                    <span className="text-gray-500">
+                      ({product.sellerInfo.totalSales} vendas • Membro desde {product.sellerInfo.memberSince})
+                    </span>
+                  </div>
+                  
+                  <div className="flex gap-3">
+                    <Button 
+                      variant="outline" 
+                      className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white"
+                      onClick={() => router.push('/cadastro')}
+                    >
+                      Ver mais produtos do vendedor
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Location Map Placeholder */}
+        <div className="mt-8">
+          <Card className="bg-white border-gray-200 shadow-lg">
+            <CardContent className="p-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                <MapPin className="w-6 h-6 inline mr-2" />
+                Localização do Vendedor
+              </h2>
+              <div className="bg-gray-50 rounded-lg h-64 flex items-center justify-center border border-gray-200">
+                <div className="text-center text-gray-600">
+                  <MapPin className="w-12 h-12 mx-auto mb-2" />
+                  <p>Mapa da localização do vendedor</p>
+                  <p className="text-sm">{product.city}, {product.location}</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+          </div>
+        </div>
+      </AdminLayout>
+    </ProtectedRoute>
+  )
+}

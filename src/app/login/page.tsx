@@ -33,14 +33,19 @@ export default function LoginPage() {
   const { signIn } = useAuth()
   const { toast } = useToast()
 
-  // Verificar se há mensagem de sucesso na URL
+  // Verificar se há mensagem de sucesso ou redirect na URL
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search)
     const message = urlParams.get('message')
     if (message) {
       setSuccessMessage(message)
-      // Limpar a URL
-      window.history.replaceState({}, document.title, window.location.pathname)
+      // Limpar a URL mas manter o redirect se existir
+      const redirect = urlParams.get('redirect')
+      if (redirect) {
+        window.history.replaceState({}, document.title, `${window.location.pathname}?redirect=${encodeURIComponent(redirect)}`)
+      } else {
+        window.history.replaceState({}, document.title, window.location.pathname)
+      }
     }
   }, [])
 
@@ -61,8 +66,14 @@ export default function LoginPage() {
       if (!error) {
         // Aguardar um pouco para garantir que o estado foi atualizado
         await new Promise(resolve => setTimeout(resolve, 100))
-        // Redirecionar para o dashboard/visao-geral após login bem-sucedido
-        router.push('/dashboard/visao-geral')
+        
+        // Verificar se há parâmetro redirect na URL
+        const urlParams = new URLSearchParams(window.location.search)
+        const redirectTo = urlParams.get('redirect')
+        
+        // Redirecionar para a página desejada ou dashboard padrão
+        const destination = redirectTo || '/dashboard/visao-geral'
+        router.push(destination)
         router.refresh() // Forçar refresh para garantir que dados sejam carregados
       }
     } catch (err) {

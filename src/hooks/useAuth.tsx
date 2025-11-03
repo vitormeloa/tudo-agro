@@ -147,6 +147,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const mountedRef = useRef(true)
   const checkInProgressRef = useRef(false)
   const sessionCheckIntervalRef = useRef<NodeJS.Timeout | null>(null)
+  const userRef = useRef<AuthUser | null>(null)
 
   useEffect(() => {
     mountedRef.current = true
@@ -286,7 +287,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       checkInProgressRef.current = true
       
-      if (!mountedRef.current) return
+      if (!mountedRef.current) {
+        checkInProgressRef.current = false
+        return
+      }
 
       // Tentar cache primeiro se não for forçado
       if (!force) {
@@ -295,12 +299,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           // Verificar se sessão ainda é válida
           const { data: { session } } = await supabase.auth.getSession()
           if (session?.user?.id === cached.id) {
-            if (mountedRef.current) {
-              setUser(cached)
-              setLoading(false)
-              if (!initialized) setInitialized(true)
-              authEvents.emit('user:loaded', cached)
-            }
+          if (mountedRef.current) {
+            userRef.current = cached
+            setUser(cached)
+            setLoading(false)
+            setInitialized(true)
+            authEvents.emit('user:loaded', cached)
+          }
+            checkInProgressRef.current = false
             return
           }
         }
@@ -320,12 +326,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           clearAuthCache()
           authEvents.emit('user:cleared')
         }
+        checkInProgressRef.current = false
         return
       }
       
       if (session?.user) {
         const loadedUser = await loadUser(session.user.id, force)
         if (mountedRef.current) {
+          userRef.current = loadedUser
           setUser(loadedUser)
           setLoading(false)
           setInitialized(true)
@@ -333,6 +341,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         }
       } else {
         if (mountedRef.current) {
+          userRef.current = null
           setUser(null)
           setLoading(false)
           setInitialized(true)
@@ -343,6 +352,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     } catch (error) {
       console.error('Check user error:', error)
       if (mountedRef.current) {
+        userRef.current = null
         setUser(null)
         setLoading(false)
         setInitialized(true)
@@ -352,24 +362,34 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     } finally {
       checkInProgressRef.current = false
     }
-  }, [loadUser, initialized])
+  }, [loadUser])
 
   // Inicialização única com cache
   useEffect(() => {
-    // Tentar carregar do cache imediatamente para melhor UX
-    const cached = loadAuthCache()
-    if (cached) {
-      setUser(cached)
-      setLoading(false)
-      setInitialized(true)
+    let isMounted = true
+    
+    // Função de inicialização
+    const initialize = async () => {
+      // Tentar carregar do cache imediatamente para melhor UX
+      const cached = loadAuthCache()
+      if (cached && isMounted) {
+        userRef.current = cached
+        setUser(cached)
+        setLoading(false)
+        setInitialized(true)
+      }
+
+      // Verificar sessão real
+      await checkUser(true)
     }
 
-    // Verificar sessão real
-    checkUser(true)
+    initialize()
 
     // Escutar mudanças na autenticação
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
+        if (!isMounted) return
+        
         clearAuthCache()
         
         if (event === 'SIGNED_IN' && session) {
@@ -377,6 +397,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             setLoading(true)
             const loadedUser = await loadUser(session.user.id, true)
             if (mountedRef.current) {
+              userRef.current = loadedUser
               setUser(loadedUser)
               setLoading(false)
               setInitialized(true)
@@ -385,6 +406,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           }
         } else if (event === 'SIGNED_OUT') {
           if (mountedRef.current) {
+            userRef.current = null
             setUser(null)
             setLoading(false)
             setInitialized(true)
@@ -392,12 +414,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             authEvents.emit('user:signed_out')
           }
         } else if (event === 'TOKEN_REFRESHED' && session) {
-          // Atualizar usuário se necessário
-          if (mountedRef.current && user?.id === session.user.id) {
-            const loadedUser = await loadUser(session.user.id, true)
-            if (mountedRef.current) {
-              setUser(loadedUser)
-              authEvents.emit('user:refreshed', loadedUser)
+          // Atualizar usuário se necessário (sem forçar loading)
+          if (mountedRef.current) {
+            const currentUser = userRef.current // Usar ref em vez de estado
+            if (currentUser?.id === session.user.id) {
+              const loadedUser = await loadUser(session.user.id, true)
+              if (mountedRef.current) {
+                userRef.current = loadedUser
+                setUser(loadedUser)
+                authEvents.emit('user:refreshed', loadedUser)
+              }
             }
           }
         }
@@ -406,18 +432,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     // Verificação periódica de sessão (a cada 5 minutos)
     sessionCheckIntervalRef.current = setInterval(() => {
-      if (mountedRef.current && user) {
-        checkUser(false)
+      if (mountedRef.current) {
+        // Verificar se há usuário atual antes de chamar checkUser usando ref
+        const currentUser = userRef.current
+        if (currentUser) {
+          checkUser(false)
+        }
       }
     }, 5 * 60 * 1000)
 
     return () => {
+      isMounted = false
       subscription.unsubscribe()
       if (sessionCheckIntervalRef.current) {
         clearInterval(sessionCheckIntervalRef.current)
       }
     }
-  }, []) // Apenas uma vez na montagem
+  }, [checkUser, loadUser]) // checkUser e loadUser são estáveis devido ao useCallback
 
   // Função de login otimizada
   const signIn = useCallback(async (email: string, password: string) => {
@@ -758,15 +789,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [user])
 
   const refreshUser = useCallback(async () => {
-    if (user?.id) {
+    const currentUser = userRef.current
+    if (currentUser?.id) {
       clearAuthCache()
-      const loadedUser = await loadUser(user.id, true)
+      const loadedUser = await loadUser(currentUser.id, true)
       if (mountedRef.current) {
+        userRef.current = loadedUser
         setUser(loadedUser)
         authEvents.emit('user:refreshed', loadedUser)
       }
     }
-  }, [user?.id, loadUser])
+  }, [loadUser])
 
   const value: AuthContextType = {
     user,

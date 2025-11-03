@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/hooks/useAuth'
 import LoadingSpinner from '@/components/LoadingSpinner'
@@ -17,27 +17,51 @@ export default function ProtectedRoute({
   const { user, loading, initialized } = useAuth()
   const router = useRouter()
   const [isRedirecting, setIsRedirecting] = useState(false)
+  const redirectTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   // Redirecionar para login se usuário não estiver autenticado
   // Só redirecionar após inicialização completa
   useEffect(() => {
+    // Limpar timeout anterior se existir
+    if (redirectTimeoutRef.current) {
+      clearTimeout(redirectTimeoutRef.current)
+      redirectTimeoutRef.current = null
+    }
+
     if (initialized && !user && !isRedirecting) {
-      console.log('No user found after initialization, redirecting to login')
-      setIsRedirecting(true)
-      router.push('/login')
+      // Adicionar um pequeno delay para evitar loops
+      redirectTimeoutRef.current = setTimeout(() => {
+        if (!user && !isRedirecting) {
+          setIsRedirecting(true)
+          router.push('/login')
+        }
+      }, 100)
+    }
+
+    return () => {
+      if (redirectTimeoutRef.current) {
+        clearTimeout(redirectTimeoutRef.current)
+        redirectTimeoutRef.current = null
+      }
     }
   }, [initialized, user, router, isRedirecting])
 
   // Mostrar loading enquanto verifica autenticação ou não inicializou
+  // Adicionar timeout de segurança para evitar loop infinito
   if (!initialized || loading) {
     return fallback || <LoadingSpinner text="Verificando acesso..." fullScreen />
   }
 
-  // Se não há usuário, mostrar loading (será redirecionado)
-  if (!user) {
+  // Se não há usuário e já inicializou, mostrar loading (será redirecionado)
+  if (!user && initialized) {
     return fallback || <LoadingSpinner text="Redirecionando..." fullScreen />
   }
 
   // Se tem usuário, mostrar conteúdo
-  return <>{children}</>
+  if (user) {
+    return <>{children}</>
+  }
+
+  // Fallback de segurança
+  return fallback || <LoadingSpinner text="Carregando..." fullScreen />
 }

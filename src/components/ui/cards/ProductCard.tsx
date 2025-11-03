@@ -37,13 +37,15 @@ interface ProductCardProps {
   variant?: 'default' | 'compact' | 'detailed'
   showActions?: boolean
   className?: string
+  linkTo?: string
 }
 
 export default function ProductCard({ 
   product, 
   variant = 'default',
   showActions = true,
-  className 
+  className,
+  linkTo
 }: ProductCardProps) {
   const { isFavorite, toggleFavorite, checkIsFavorite } = useFavorites()
   const [favoriteChecked, setFavoriteChecked] = useState(false)
@@ -186,7 +188,7 @@ export default function ProductCard({
         {/* Actions */}
         {showActions && (
           <div className="flex gap-2">
-            <Link href={product.type === 'animal' ? `/catalogo/${product.id}` : `/produtos/${product.id}`} className="flex-1">
+            <Link href={linkTo || (product.type === 'animal' ? `/catalogo/${product.id}` : `/produtos/${product.id}`)} className="flex-1">
               <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white">
                 <Eye className="w-4 h-4 mr-2" />
                 Ver Detalhes
