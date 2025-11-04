@@ -300,7 +300,7 @@ export const mockProducts: MockProduct[] = [
   {
     id: "550e8400-e29b-41d4-a716-446655440006",
     title: "Promotor De Engorda + Vermifugo 3.6%",
-    category: "Saúde e Bem-Estar Animal",
+    category: "Suplementos e Aditivos",
     price: 145.00,
     location: "Paraná",
     city: "Curitiba",
