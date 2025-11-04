@@ -296,5 +296,47 @@ export const mockProducts: MockProduct[] = [
       verified: true,
       image: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=100&h=100&fit=crop"
     }
+  },
+  {
+    id: "550e8400-e29b-41d4-a716-446655440006",
+    title: "Promotor De Engorda + Vermifugo 3.6%",
+    category: "Saúde e Bem-Estar Animal",
+    price: 145.00,
+    location: "Paraná",
+    city: "Curitiba",
+    rating: 4.9,
+    reviews: 98,
+    image: "/fotos/produtos/promotor.webp",
+    seller: "Vermífugos Agro",
+    verified: true,
+    featured: false,
+    weight: "500ml",
+    brand: "Monsanto",
+    stock: "Em estoque",
+    description: "Produto combinado que promove ganho de peso e controle de verminoses em bovinos. Fórmula completa que atua tanto na promoção do crescimento quanto no combate a parasitas internos.",
+    images: [
+      "/fotos/produtos/promotor.webp",
+    ],
+    specifications: {
+      principio: "3.6%",
+      aplicacao: "Oral",
+      prazo: "90 dias"
+    },
+    documents: [
+      "Certificado de registro",
+      "Bula técnica",
+      "Ficha de segurança",
+      "Laudo técnico"
+    ],
+    sellerInfo: {
+      id: 6,
+      name: "Vermífugos Agro",
+      location: "Paraná, PR",
+      rating: 4.9,
+      totalSales: 98,
+      memberSince: "2020",
+      verified: true,
+      image: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=100&h=100&fit=crop"
+    }
   }
 ]
