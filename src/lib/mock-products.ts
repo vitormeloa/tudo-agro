@@ -226,7 +226,7 @@ export const mockProducts: MockProduct[] = [
     seller: "EquiNutri",
     verified: true,
     featured: true,
-    weight: "25kg",
+    weight: "40kg",
     brand: "Purina",
     stock: "Em estoque",
     description: "Suplemento probiótico especialmente formulado para ruminantes, promovendo melhor digestão e absorção de nutrientes. Ajuda a manter o equilíbrio da flora intestinal e melhora a saúde geral do animal.",
@@ -297,46 +297,357 @@ export const mockProducts: MockProduct[] = [
       image: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=100&h=100&fit=crop"
     }
   },
-  {
-    id: "550e8400-e29b-41d4-a716-446655440006",
-    title: "Promotor De Engorda + Vermifugo 3.6%",
-    category: "Suplementos e Aditivos",
-    price: 145.00,
-    location: "Paraná",
-    city: "Curitiba",
-    rating: 4.9,
-    reviews: 98,
-    image: "/fotos/produtos/promotor.webp",
-    seller: "Vermífugos Agro",
+    {
+    id: "550e8400-e29b-41d4-a716-446655440007",
+    title: "Ração Corte Confinamento Peletizada Engorda Boi Novilha Gado",
+    category: "Nutrição Animal",
+    price: 369.90,
+    location: "São Paulo",
+    city: "Ibitinga",
+    rating: 5.0,
+    reviews: 1,
+    image: "/fotos/produtos/Ração Corte Confinamento Peletizada.png",
+    seller: "Agrofértil Ibitinga",
     verified: true,
     featured: false,
-    weight: "500ml",
-    brand: "Monsanto",
+    weight: "40kg",
+    brand: "Pecuária de Corte Terminação Proteína Energia",
     stock: "Em estoque",
-    description: "Produto combinado que promove ganho de peso e controle de verminoses em bovinos. Fórmula completa que atua tanto na promoção do crescimento quanto no combate a parasitas internos.",
+    description: "Peletizada Ração Balanceada Engorda Confinamento Boi Garrote Novilha Vaca produção de carne.",
     images: [
-      "/fotos/produtos/promotor.webp",
+      "/fotos/produtos/Ração Corte Confinamento Peletizada.png",
     ],
     specifications: {
-      principio: "3.6%",
-      aplicacao: "Oral",
-      prazo: "90 dias"
+      proteinabruta: "18%",
+      fibrabruta: "12%",
+      calcium: "0.8%",
+      phosphorus: "0.8%",
     },
     documents: [
-      "Certificado de registro",
-      "Bula técnica",
-      "Ficha de segurança",
-      "Laudo técnico"
+      "Registro de Produto no MAPA (SIF/SEAPI/SIE)",
+      "Fórmula Garantida (Tabela nutricional)",
+      "Rótulo com Responsável Técnico (CRMV)",
+      "Ficha Técnica (FT)",
+      "Informações de Lote + Validade",
+      "Nota Fiscal",
+      "FISPQ",
+      "Laudos de Qualidade",
     ],
     sellerInfo: {
       id: 6,
-      name: "Vermífugos Agro",
-      location: "Paraná, PR",
-      rating: 4.9,
+      name: "Agrofértil Ibitinga",
+      location: "Ibitinga, SP",
+      rating: 5.0,
       totalSales: 98,
       memberSince: "2020",
       verified: true,
-      image: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=100&h=100&fit=crop"
+      image: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAFwAXAMBIgACEQEDEQH/xAAbAAEAAwEBAQEAAAAAAAAAAAAAAwUGBAIBB//EADUQAAEEAQMBBgQCCwEAAAAAAAEAAgMEEQUSITETMkFRYXEigZGhBhRSU2NydbGytMHR4TX/xAAZAQEAAwEBAAAAAAAAAAAAAAAAAQIDBAX/xAAhEQACAgICAQUAAAAAAAAAAAAAAQIRA0EhMQQTgZGhsf/aAAwDAQACEQMRAD8A/akREAREQBERAEREAREQBERAEXxxIaSBkgcDzUcE7JgduWub3mO4LT6qrkk62CQEEZByPRMgkgEZHUeS5IbFetH2UliLc1x6O6DJx9lJV2bZJGyNk3vLi5p6DwH0WUM6lSVXvnos40dCKGvK6ZpeW7WE/BnqR5lTLWMlJWiGqCIisQEREAREQEEk0jJNv5eR7P02EH7ZyqvV7Us1sUKveOA8g9fHHsrtUOnjH4jtiTvAOLc+4/wV5/mqbUcafEnXsb4a5lXSO2vpNSCPMzRI4DJc44A+S+1q9WaGK5pkjWtlYHxyRnLJGkZHHiCF416RxqsqRQvmfaeGOjjLdxjHMnUgd0EZz1cFnNMv29G0DW9Phg2W9LLn04Z8E9jIS6IfCcHB3NAB52gdSto+JgglGMUv35KOcny2bRji5gJGD4jyK9LH6le1qtp2uajFcmbUo0jLVdYqNY6V4aXO3NLQcDAHQZ3emT1fntWbqNOlZtwtFwyS9pXhy6JrGNzGM5BduceSD8LTxnkdF0Uovb16rQiEtydkTCSAXeOAScD2BPoASvQuVnWY6zZ4zPJEZmMDslzAQNw9MkcrIwWp9Z1LR325WhrZL1eVvZtMcojdsLsHwcByPDlS6DqV+8aV2Oq6GPUHPZMSyJogY0P7Pbzuc4FoBaQRy44GMKbFGvJx1UM1ytBYirzTxsnma90UZd8Tw3G4geOMjPusTqFzWrv4Hv37N6GOJ9SVnZsiAeS15bnPTDgDnyyMdMnRS2rMOt6ZWFwTxzOnZNmNoO5rdw5HTqB8ksUWlK5WvwCenMyaLc5u9hyMtOCPcEEKdUH4K/8AKufxW/8A3Uiv1JAVVqdGb8zHfogGePhzCcdoP9q0JABJ6BcM9m9ISynTIH62Z4YPk3k/ULHOoyjUvrstGTi7RzOl0exPHeuQxR3IBhpnZiSP0H/FVazFpl4WTDUijksx7JLTogHvbnO07tuWnoefE4weVYnRrlhxdcuNJPXAc/7E4+y6IdDgj6zTH9zaz+kBc9+TLiqIbWjO1NLpMZYZFSrCGwxrJIIIcROAzyWjeCeevlwu8xQ9nHHJFEWRHLA9oGw88ju4PJ+pV0NKpdXQ9of2j3O/mVOypWj7leJvswK3o5m7ciDPNhpGSu4Q1A+sMQFrGZiHk3BdgegU0VSs2V8sddu+TduLYzzu7x4j6nxPj4rQjgYHA9EWiwy3IFFDp1aOo+pHQaKsgIfCK/wOB6gjgHKkGl1t0LhpsW6DPZHsWgx5OTj4uMknPmrlFdY2tg4dOpQ0I3MqU467HuL3NjDWguPJPB6rtHrwvqLRKgERFICIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiID/2Q=="
     }
+  },
+  {
+  id: "550e8400-e29b-41d4-a716-446655440008",
+  title: "Ração Leite 22 Para Vacas Em Lactação De Alta Produção",
+  category: "Nutrição Animal",
+  price: 229.45,
+  location: "São Paulo",
+  city: "São Paulo",
+  rating: 5.0,
+  reviews: 1,
+  image: "/fotos/produtos/racaoleite.png",
+  seller: "RAMOSIMPORTSSSHOP",
+  verified: true,
+  featured: false,
+  weight: "40kg",
+  brand: "Agromix",
+  stock: "Em estoque",
+  description: "Ração peletizada com 22% de proteína indicada para vacas em lactação de alta produção, garantindo bom desempenho e suporte nutricional completo.",
+  images: [
+    "/fotos/produtos/racaoleite.png",
+    "/fotos/produtos/racaoleite2.png"
+  ],
+  specifications: {
+    proteina: "22%",
+    fibra: "10%",
+    calcium: "1.2%",
+    phosphorus: "0.7%",
+    energia: "2.9 Mcal/kg"
+  },
+  documents: [
+    "Registro no MAPA",
+    "Fórmula garantida",
+    "Rótulo com responsável técnico",
+    "Lote e validade na embalagem"
+  ],
+  sellerInfo: {
+    id: 6,
+    name: "RAMOSIMPORTSSSHOP",
+    location: "São Paulo, SP",
+    rating: 5.0,
+    totalSales: 10000,
+    memberSince: "2020",
+    verified: true,
+    image: "https://mla-s2-p.mlstatic.com/939078-MLA54382402941_032023-O.jpg"
   }
+},
+  {
+  id: "550e8400-e29b-41d4-a716-446655440009",
+  title: "Terneron Plus 10kg Leite Em Pó Bezerros Faz 90 LitrosTerneron Plus 10kg Leite Em Pó Bezerros Faz 90 Litros",
+  category: "Nutrição Animal",
+  price: 139.00,
+  location: "Paraná",
+  city: "Jardim Alegre",
+  rating: 4.9,
+  reviews: 35,
+  image: "/fotos/produtos/racaobezerro.png",
+  seller: "Fornecamp Multissetorial",
+  verified: true,
+  featured: false,
+  weight: "10kg",
+  brand: "Nuctramix",
+  stock: "Em estoque",
+  description: "O Leite em Pó Terneron é um excelente concentrado para bezerros, fornecendo todos os nutrientes necessários para seu crescimento e desenvolvimento! Pode ser utilizado a partir do quinto dia de vida até o desmame, de forma diluída em água morna ou misturado em ração.",
+  images: [
+    "/fotos/produtos/racaobezerro.png"
+  ],
+  specifications: {
+    proteina: "24%",
+    fibra: "0.2%",
+    calcium: "0.9%",
+    phosphorus: "0.7%",
+  },
+  documents: [
+    "Ficha Técnica",
+    "Rótulo",
+    "Registro no MAPA",
+    "Laudo de Qualidade"
+  ],
+  sellerInfo: {
+    id: 6,
+    name: "Fornecamp Multissetorial",
+    location: "Paraná, PR",
+    rating: 4.8,
+    totalSales: 98,
+    memberSince: "2020",
+    verified: true,
+    image: "https://http2.mlstatic.com/D_NQ_NP_970901-MLA82198647934_022025-F.jpg"
+  }
+},
+  {
+  id: "550e8400-e29b-41d4-a716-446655440010",
+  title: "Ração Postura Poedeiras Galinha",
+  category: "Nutrição Animal",
+  price: 78.90,
+  location: "São Paulo",
+  city: "São Paulo",
+  rating: 4.1,
+  reviews: 37,
+  image: "/fotos/produtos/racaogalinha.png",
+  seller: "RAMOSIMPORTSSSHOP",
+  verified: true,
+  featured: false,
+  weight: "20kg",
+  brand: "Agromix",
+  stock: "Em estoque",
+  description: "Ração para aves de postura em produção.",
+  images: [
+    "/fotos/produtos/racaogalinha.png",
+    "/fotos/produtos/racaogalinha2.png"
+  ],
+  specifications: {
+    proteina: "16%",
+    fibra: "4%",
+    calcium: "3.5%",
+    phosphorus: "0.5%",
+  },
+  documents: [
+    "Ficha Técnica",
+    "Rótulo Oficial",
+    "Registro no MAPA",
+    "Laudo de Qualidade"
+  ],
+  sellerInfo: {
+    id: 6,
+    name: "RAMOSIMPORTSSSHOP",
+    location: "São Paulo, SP",
+    rating: 4.8,
+    totalSales: 42,
+    memberSince: "2020",
+    verified: true,
+    image: "https://mla-s2-p.mlstatic.com/939078-MLA54382402941_032023-O.jpg"
+  }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440011",
+  title: "Ração De Engorda E Crescimento Suíno",
+  category: "Nutrição Animal",
+  price: 78.00,
+  location: "Minas Gerais",
+  city: "Belo Horizonte",
+  rating: 4.8,
+  reviews: 28,
+  image: "/fotos/produtos/racaoporco.png",
+  seller: "RAMOSIMPORTSSSHOP",
+  verified: true,
+  featured: false,
+  weight: "20kg",
+  brand: "Agromix",
+  stock: "Em estoque",
+  description: "Ração para aves de postura em produção.",
+  images: [
+    "/fotos/produtos/racaoporco.png",
+    "/fotos/produtos/racaoporco2.png"
+  ],
+  specifications: {
+    proteina: "18%",
+    fibra: "3.5%",
+    calcium: "0.8%",
+    phosphorus: "0.6%",
+  },
+  documents: [
+    "Ficha Técnica",
+    "Rótulo Oficial",
+    "Registro no MAPA",
+    "Laudo de Qualidade"
+  ],
+  sellerInfo: {
+    id: 6,
+    name: "AgroFer",
+    location: "Minas Gerais, MG",
+    rating: 4.8,
+    totalSales: 420,
+    memberSince: "2020",
+    verified: true,
+    image: "https://http2.mlstatic.com/D_NQ_NP_675934-MLA84710133319_052025-F.jpg"
+  }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440012",
+  title: "Ração Cachorro Adulto Premium Especial",
+  category: "Nutrição Animal",
+  price: 143.90,
+  location: "Minas Gerais",
+  city: "Belo Horizonte",
+  rating: 4.8,
+  reviews: 28,
+  image: "/fotos/produtos/racaocachorro.png",
+  seller: "SÃO PEDRORAÇÕES",
+  verified: true,
+  featured: false,
+  weight: "15kg",
+  brand: "Multistar",
+  stock: "Em estoque",
+  description: "A Ração Cachorro Adulto Premium Especial da marca Multistar é a escolha ideal para cães de médio a grande porte que buscam uma alimentação nutritiva e saborosa. Com ingredientes nobres e selecionados, esta ração à base de frango e arroz proporciona uma dieta equilibrada, com 23% de proteína bruta, essencial para manter a saúde e a energia de seu pet.",
+  images: [
+    "/fotos/produtos/racaocachorro.png",
+    "/fotos/produtos/racaocachorro2.png"
+  ],
+  specifications: {
+    proteina: "23%",
+    fibra: "3%",
+    calcium: "1.2%",
+    phosphorus: "0.9%",
+  },
+  documents: [
+    "Ficha Técnica",
+    "Rótulo Oficial",
+    "Registro no MAPA",
+    "Laudo de Qualidade"
+  ],
+  sellerInfo: {
+    id: 6,
+    name: "SÃO PEDRORAÇÕES",
+    location: "Minas Gerais, MG",
+    rating: 4.8,
+    totalSales: 70,
+    memberSince: "2020",
+    verified: true,
+    image: "https://http2.mlstatic.com/D_NQ_NP_675934-MLA84710133319_052025-F.jpg"
+  }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440013",
+  title: "Minerais Ração Engorda Corte Núcleo Matsuda Boi Gado Novilha",
+  category: "Nutrição Animal",
+  price: 299.90,
+  location: "São Paulo",
+  city: "Ibitinga",
+  rating: 4.8,
+  reviews: 28,
+  image: "/fotos/produtos/salcorte.png",
+  seller: "Agrofértil Ibitinga",
+  verified: true,
+  featured: false,
+  weight: "25kg",
+  brand: "Matsuda",
+  stock: "Em estoque",
+  description: "raçao balanceada proteina energia garrote desmama pecuária de corte.",
+  images: [
+    "/fotos/produtos/salcorte.png"
+  ],
+  specifications: {
+    enxofre: "0.4%",
+    sódio: "12%",
+    calcium: "12%",
+    phosphorus: "5%",
+  },
+  documents: [
+    "Ficha Técnica",
+    "Rótulo Oficial",
+    "Registro no MAPA",
+    "Laudo de Qualidade"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "Agrofértil Ibitinga",
+      location: "Ibitinga, SP",
+      rating: 5.0,
+      totalSales: 98,
+      memberSince: "2020",
+      verified: true,
+      image: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAFwAXAMBIgACEQEDEQH/xAAbAAEAAwEBAQEAAAAAAAAAAAAAAwUGBAIBB//EADUQAAEEAQMBBgQCCwEAAAAAAAEAAgMEEQUSITETMkFRYXEigZGhBhRSU2NydbGytMHR4TX/xAAZAQEAAwEBAAAAAAAAAAAAAAAAAQIDBAX/xAAhEQACAgICAQUAAAAAAAAAAAAAAQIRA0EhMQQTgZGhsf/aAAwDAQACEQMRAD8A/akREAREQBERAEREAREQBERAEXxxIaSBkgcDzUcE7JgduWub3mO4LT6qrkk62CQEEZByPRMgkgEZHUeS5IbFetH2UliLc1x6O6DJx9lJV2bZJGyNk3vLi5p6DwH0WUM6lSVXvnos40dCKGvK6ZpeW7WE/BnqR5lTLWMlJWiGqCIisQEREAREQEEk0jJNv5eR7P02EH7ZyqvV7Us1sUKveOA8g9fHHsrtUOnjH4jtiTvAOLc+4/wV5/mqbUcafEnXsb4a5lXSO2vpNSCPMzRI4DJc44A+S+1q9WaGK5pkjWtlYHxyRnLJGkZHHiCF416RxqsqRQvmfaeGOjjLdxjHMnUgd0EZz1cFnNMv29G0DW9Phg2W9LLn04Z8E9jIS6IfCcHB3NAB52gdSto+JgglGMUv35KOcny2bRji5gJGD4jyK9LH6le1qtp2uajFcmbUo0jLVdYqNY6V4aXO3NLQcDAHQZ3emT1fntWbqNOlZtwtFwyS9pXhy6JrGNzGM5BduceSD8LTxnkdF0Uovb16rQiEtydkTCSAXeOAScD2BPoASvQuVnWY6zZ4zPJEZmMDslzAQNw9MkcrIwWp9Z1LR325WhrZL1eVvZtMcojdsLsHwcByPDlS6DqV+8aV2Oq6GPUHPZMSyJogY0P7Pbzuc4FoBaQRy44GMKbFGvJx1UM1ytBYirzTxsnma90UZd8Tw3G4geOMjPusTqFzWrv4Hv37N6GOJ9SVnZsiAeS15bnPTDgDnyyMdMnRS2rMOt6ZWFwTxzOnZNmNoO5rdw5HTqB8ksUWlK5WvwCenMyaLc5u9hyMtOCPcEEKdUH4K/8AKufxW/8A3Uiv1JAVVqdGb8zHfogGePhzCcdoP9q0JABJ6BcM9m9ISynTIH62Z4YPk3k/ULHOoyjUvrstGTi7RzOl0exPHeuQxR3IBhpnZiSP0H/FVazFpl4WTDUijksx7JLTogHvbnO07tuWnoefE4weVYnRrlhxdcuNJPXAc/7E4+y6IdDgj6zTH9zaz+kBc9+TLiqIbWjO1NLpMZYZFSrCGwxrJIIIcROAzyWjeCeevlwu8xQ9nHHJFEWRHLA9oGw88ju4PJ+pV0NKpdXQ9of2j3O/mVOypWj7leJvswK3o5m7ciDPNhpGSu4Q1A+sMQFrGZiHk3BdgegU0VSs2V8sddu+TduLYzzu7x4j6nxPj4rQjgYHA9EWiwy3IFFDp1aOo+pHQaKsgIfCK/wOB6gjgHKkGl1t0LhpsW6DPZHsWgx5OTj4uMknPmrlFdY2tg4dOpQ0I3MqU467HuL3NjDWguPJPB6rtHrwvqLRKgERFICIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiID/2Q=="
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440014",
+  title: "Fós Leite Sal Mineral Suplemento Pecuária Vaca Leiteira",
+  category: "Nutrição Animal",
+  price: 319.90,
+  location: "São Paulo",
+  city: "Ibitinga",
+  rating: 5.0,
+  reviews: 8,
+  image: "/fotos/produtos/salleite.png",
+  seller: "Agrofértil Ibitinga",
+  verified: true,
+  featured: false,
+  weight: "3kg",
+  brand: "Matsuda",
+  stock: "Em estoque",
+  description: "vaca de leite pecuária leiteira gado de leite suplementação balanceada.",
+  images: [
+    "/fotos/produtos/salleite.png"
+  ],
+  specifications: {
+    enxofre: "0.4%",
+    sódio: "14%",
+    calcium: "14%",
+    phosphorus: "6%",
+  },
+  documents: [
+    "Ficha Técnica",
+    "Rótulo Oficial",
+    "Registro no MAPA",
+    "Laudo de Qualidade"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "Agrofértil Ibitinga",
+      location: "Ibitinga, SP",
+      rating: 5.0,
+      totalSales: 98,
+      memberSince: "2020",
+      verified: true,
+      image: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAFwAXAMBIgACEQEDEQH/xAAbAAEAAwEBAQEAAAAAAAAAAAAAAwUGBAIBB//EADUQAAEEAQMBBgQCCwEAAAAAAAEAAgMEEQUSITETMkFRYXEigZGhBhRSU2NydbGytMHR4TX/xAAZAQEAAwEBAAAAAAAAAAAAAAAAAQIDBAX/xAAhEQACAgICAQUAAAAAAAAAAAAAAQIRA0EhMQQTgZGhsf/aAAwDAQACEQMRAD8A/akREAREQBERAEREAREQBERAEXxxIaSBkgcDzUcE7JgduWub3mO4LT6qrkk62CQEEZByPRMgkgEZHUeS5IbFetH2UliLc1x6O6DJx9lJV2bZJGyNk3vLi5p6DwH0WUM6lSVXvnos40dCKGvK6ZpeW7WE/BnqR5lTLWMlJWiGqCIisQEREAREQEEk0jJNv5eR7P02EH7ZyqvV7Us1sUKveOA8g9fHHsrtUOnjH4jtiTvAOLc+4/wV5/mqbUcafEnXsb4a5lXSO2vpNSCPMzRI4DJc44A+S+1q9WaGK5pkjWtlYHxyRnLJGkZHHiCF416RxqsqRQvmfaeGOjjLdxjHMnUgd0EZz1cFnNMv29G0DW9Phg2W9LLn04Z8E9jIS6IfCcHB3NAB52gdSto+JgglGMUv35KOcny2bRji5gJGD4jyK9LH6le1qtp2uajFcmbUo0jLVdYqNY6V4aXO3NLQcDAHQZ3emT1fntWbqNOlZtwtFwyS9pXhy6JrGNzGM5BduceSD8LTxnkdF0Uovb16rQiEtydkTCSAXeOAScD2BPoASvQuVnWY6zZ4zPJEZmMDslzAQNw9MkcrIwWp9Z1LR325WhrZL1eVvZtMcojdsLsHwcByPDlS6DqV+8aV2Oq6GPUHPZMSyJogY0P7Pbzuc4FoBaQRy44GMKbFGvJx1UM1ytBYirzTxsnma90UZd8Tw3G4geOMjPusTqFzWrv4Hv37N6GOJ9SVnZsiAeS15bnPTDgDnyyMdMnRS2rMOt6ZWFwTxzOnZNmNoO5rdw5HTqB8ksUWlK5WvwCenMyaLc5u9hyMtOCPcEEKdUH4K/8AKufxW/8A3Uiv1JAVVqdGb8zHfogGePhzCcdoP9q0JABJ6BcM9m9ISynTIH62Z4YPk3k/ULHOoyjUvrstGTi7RzOl0exPHeuQxR3IBhpnZiSP0H/FVazFpl4WTDUijksx7JLTogHvbnO07tuWnoefE4weVYnRrlhxdcuNJPXAc/7E4+y6IdDgj6zTH9zaz+kBc9+TLiqIbWjO1NLpMZYZFSrCGwxrJIIIcROAzyWjeCeevlwu8xQ9nHHJFEWRHLA9oGw88ju4PJ+pV0NKpdXQ9of2j3O/mVOypWj7leJvswK3o5m7ciDPNhpGSu4Q1A+sMQFrGZiHk3BdgegU0VSs2V8sddu+TduLYzzu7x4j6nxPj4rQjgYHA9EWiwy3IFFDp1aOo+pHQaKsgIfCK/wOB6gjgHKkGl1t0LhpsW6DPZHsWgx5OTj4uMknPmrlFdY2tg4dOpQ0I3MqU467HuL3NjDWguPJPB6rtHrwvqLRKgERFICIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiID/2Q=="
+    }
+},
 ]
