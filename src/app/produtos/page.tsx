@@ -37,9 +37,11 @@ export default function ProdutosPage() {
   const [favorites, setFavorites] = useState<number[]>([])
   const [showFilters, setShowFilters] = useState(false)
   const [showCategoriesModal, setShowCategoriesModal] = useState(false)
+  const [currentPage, setCurrentPage] = useState(1)
+  const itemsPerPage = 9
 
   // Mapear produtos do mock para o formato esperado pelo ProductCard
-  const products = mockProducts.map(p => ({
+  const allProducts = mockProducts.map(p => ({
     id: p.id,
     title: p.title,
     category: p.category,
@@ -56,6 +58,29 @@ export default function ProdutosPage() {
     stock: p.stock,
     type: 'product' as const
   }))
+
+  // Filtrar produtos baseado na busca (se houver)
+  const filteredProducts = allProducts.filter(product => {
+    if (!searchQuery) return true
+    const query = searchQuery.toLowerCase()
+    return (
+      product.title.toLowerCase().includes(query) ||
+      product.category.toLowerCase().includes(query) ||
+      product.brand.toLowerCase().includes(query)
+    )
+  })
+
+  // Calcular paginação
+  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage)
+  const startIndex = (currentPage - 1) * itemsPerPage
+  const endIndex = startIndex + itemsPerPage
+  const products = filteredProducts.slice(startIndex, endIndex)
+
+  // Resetar para página 1 quando a busca mudar
+  const handleSearchChange = (value: string) => {
+    setSearchQuery(value)
+    setCurrentPage(1)
+  }
 
 
   const categories = [
@@ -111,7 +136,7 @@ export default function ProdutosPage() {
                     type="text"
                     placeholder="Buscar por produto, marca, categoria..."
                     value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onChange={(e) => handleSearchChange(e.target.value)}
                     className="pl-10 h-12 text-lg border-2 border-gray-200 focus:border-green-500 focus:ring-green-500/20"
                   />
                 </div>
@@ -322,7 +347,7 @@ export default function ProdutosPage() {
         {/* Results Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
           <div className="text-gray-600">
-            Mostrando <span className="font-semibold text-gray-900">{products.length}</span> resultados
+            Mostrando <span className="font-semibold text-gray-900">{startIndex + 1}</span> até <span className="font-semibold text-gray-900">{Math.min(endIndex, filteredProducts.length)}</span> de <span className="font-semibold text-gray-900">{filteredProducts.length}</span> resultados
           </div>
           <div className="flex items-center space-x-4">
             <Select defaultValue="relevancia">
@@ -353,19 +378,58 @@ export default function ProdutosPage() {
         </div>
 
         {/* Pagination */}
-        <div className="flex justify-center mt-12">
-          <div className="flex items-center space-x-2">
-            <Button variant="outline" disabled className="border-gray-300 text-gray-400">
-              Anterior
-            </Button>
-            <Button className="bg-green-600 text-white">1</Button>
-            <Button variant="outline" className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white">2</Button>
-            <Button variant="outline" className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white">3</Button>
-            <Button variant="outline" className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white">
-              Próximo
-            </Button>
+        {totalPages > 1 && (
+          <div className="flex justify-center mt-12">
+            <div className="flex items-center space-x-2">
+              <Button 
+                variant="outline" 
+                disabled={currentPage === 1}
+                onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white disabled:border-gray-300 disabled:text-gray-400"
+              >
+                Anterior
+              </Button>
+              
+              {/* Mostrar números de página */}
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
+                // Mostrar sempre primeira e última página, página atual e páginas adjacentes
+                if (
+                  page === 1 ||
+                  page === totalPages ||
+                  (page >= currentPage - 1 && page <= currentPage + 1)
+                ) {
+                  return (
+                    <Button
+                      key={page}
+                      onClick={() => setCurrentPage(page)}
+                      className={
+                        currentPage === page
+                          ? "bg-green-600 text-white"
+                          : "border-green-600 text-green-600 hover:bg-green-600 hover:text-white"
+                      }
+                      variant={currentPage === page ? "default" : "outline"}
+                    >
+                      {page}
+                    </Button>
+                  )
+                } else if (page === currentPage - 2 || page === currentPage + 2) {
+                  // Mostrar ellipsis
+                  return <span key={page} className="px-2 text-gray-500">...</span>
+                }
+                return null
+              })}
+              
+              <Button 
+                variant="outline"
+                disabled={currentPage === totalPages}
+                onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white disabled:border-gray-300 disabled:text-gray-400"
+              >
+                Próximo
+              </Button>
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       <Footer />
