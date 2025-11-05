@@ -18,14 +18,20 @@ import {
   SlidersHorizontal,
   ChevronDown,
   Star,
-  MapPin
+  MapPin,
+  Package
 } from 'lucide-react'
 
 export default function CatalogoPage() {
   const [searchQuery, setSearchQuery] = useState('')
-  const [favorites, setFavorites] = useState<number[]>([])
   const [showFilters, setShowFilters] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
+  const [selectedCategory, setSelectedCategory] = useState<string>('')
+  const [selectedBreed, setSelectedBreed] = useState<string>('')
+  const [selectedPriceRange, setSelectedPriceRange] = useState<string>('')
+  const [selectedLocation, setSelectedLocation] = useState<string>('')
+  const [selectedAge, setSelectedAge] = useState<string>('')
+  const [sortBy, setSortBy] = useState<string>('relevancia')
   const itemsPerPage = 9
 
   // Mapear animais do mock para o formato esperado pelo ProductCard
@@ -47,29 +53,134 @@ export default function CatalogoPage() {
     type: 'animal' as const
   }))
 
-  // Filtrar animais baseado na busca (se houver)
+  // Calcular contagens reais por categoria
+  const getCategoryCount = (categoryName: string) => {
+    return allProducts.filter(p => p.category === categoryName).length
+  }
+
+  // Filtrar animais baseado em todos os filtros
   const filteredProducts = allProducts.filter(product => {
-    if (!searchQuery) return true
-    const query = searchQuery.toLowerCase()
-    return (
-      product.title.toLowerCase().includes(query) ||
-      product.category.toLowerCase().includes(query) ||
-      product.breed?.toLowerCase().includes(query) ||
-      product.location.toLowerCase().includes(query)
-    )
+    // Filtro de busca
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase()
+      const matchesSearch = (
+        product.title.toLowerCase().includes(query) ||
+        product.category.toLowerCase().includes(query) ||
+        product.breed?.toLowerCase().includes(query) ||
+        product.location.toLowerCase().includes(query) ||
+        product.seller.toLowerCase().includes(query)
+      )
+      if (!matchesSearch) return false
+    }
+
+    // Filtro de categoria
+    if (selectedCategory && product.category !== selectedCategory) {
+      return false
+    }
+
+    // Filtro de raça
+    if (selectedBreed && product.breed !== selectedBreed) {
+      return false
+    }
+
+    // Filtro de preço
+    if (selectedPriceRange) {
+      const price = product.price
+      switch (selectedPriceRange) {
+        case '0-5000':
+          if (price > 5000) return false
+          break
+        case '5000-15000':
+          if (price < 5000 || price > 15000) return false
+          break
+        case '15000-30000':
+          if (price < 15000 || price > 30000) return false
+          break
+        case '30000+':
+          if (price < 30000) return false
+          break
+      }
+    }
+
+    // Filtro de localização
+    if (selectedLocation) {
+      const locationState = product.location.split(',')[1]?.trim().toLowerCase()
+      if (!locationState?.includes(selectedLocation.toLowerCase())) {
+        return false
+      }
+    }
+
+    // Filtro de idade
+    if (selectedAge) {
+        const age = parseInt(product.age || '0');
+        switch (selectedAge) {
+            case '0-2':
+                if (age > 2) return false;
+                break;
+            case '2-4':
+                if (age < 2 || age > 4) return false;
+                break;
+            case '4-6':
+                if (age < 4 || age > 6) return false;
+                break;
+            case '6+':
+                if (age < 6) return false;
+                break;
+        }
+    }
+
+    return true
+  })
+
+  // Ordenar produtos
+  const sortedProducts = [...filteredProducts].sort((a, b) => {
+    switch (sortBy) {
+      case 'preco-menor':
+        return Number(a.price) - Number(b.price)
+      case 'preco-maior':
+        return Number(b.price) - Number(a.price)
+      case 'avaliacao':
+        return Number(b.rating) - Number(a.rating)
+      case 'recente':
+        return Number(b.id) - Number(a.id)
+      default: // relevancia
+        return (b.featured ? 1 : 0) - (a.featured ? 1 : 0) || Number(b.rating) - Number(a.rating)
+    }
   })
 
   // Calcular paginação
-  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage)
+  const totalPages = Math.ceil(sortedProducts.length / itemsPerPage)
   const startIndex = (currentPage - 1) * itemsPerPage
   const endIndex = startIndex + itemsPerPage
-  const products = filteredProducts.slice(startIndex, endIndex)
+  const products = sortedProducts.slice(startIndex, endIndex)
 
-  // Resetar para página 1 quando a busca mudar
+  // Resetar para página 1 quando qualquer filtro mudar
   const handleSearchChange = (value: string) => {
     setSearchQuery(value)
     setCurrentPage(1)
   }
+
+  const handleCategoryClick = (categoryName: string) => {
+    if (selectedCategory === categoryName) {
+      setSelectedCategory('')
+    } else {
+      setSelectedCategory(categoryName)
+    }
+    setCurrentPage(1)
+  }
+
+  const clearAllFilters = () => {
+    setSearchQuery('')
+    setSelectedCategory('')
+    setSelectedBreed('')
+    setSelectedPriceRange('')
+    setSelectedLocation('')
+    setSelectedAge('')
+    setSortBy('relevancia')
+    setCurrentPage(1)
+  }
+
+  const hasActiveFilters = !!(searchQuery || selectedCategory || selectedBreed || selectedPriceRange || selectedLocation || selectedAge)
 
   // Garantir que currentPage não ultrapasse totalPages
   useEffect(() => {
@@ -85,11 +196,14 @@ export default function CatalogoPage() {
   }
 
   const categories = [
-    { name: 'Gado de Corte', count: 156, color: 'bg-emerald-100 text-emerald-800' },
-    { name: 'Gado de Leite', count: 89, color: 'bg-blue-100 text-blue-800' },
-    { name: 'Cavalos', count: 67, color: 'bg-amber-100 text-amber-800' },
-    { name: 'Sêmen', count: 234, color: 'bg-purple-100 text-purple-800' }
-  ]
+    { name: 'Gado de Corte', color: 'bg-emerald-100 text-emerald-800' },
+    { name: 'Gado de Leite', color: 'bg-blue-100 text-blue-800' },
+    { name: 'Cavalos', color: 'bg-amber-100 text-amber-800' },
+    { name: 'Sêmen', color: 'bg-purple-100 text-purple-800' }
+  ].map(cat => ({
+    ...cat,
+    count: getCategoryCount(cat.name)
+  })).filter(cat => cat.count > 0)
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -143,36 +257,36 @@ export default function CatalogoPage() {
             {showFilters && (
               <div className="border-t border-gray-200 pt-6 animate-fade-in-up">
                 <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                  <Select>
+                  <Select value={selectedCategory} onValueChange={(value) => { setSelectedCategory(value === 'all' ? '' : value); setCurrentPage(1); }}>
                     <SelectTrigger className="h-10">
                       <SelectValue placeholder="Categoria" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="gado-corte">Gado de Corte</SelectItem>
-                      <SelectItem value="gado-leite">Gado de Leite</SelectItem>
-                      <SelectItem value="cavalos">Cavalos</SelectItem>
-                      <SelectItem value="semen">Sêmen</SelectItem>
+                      <SelectItem value="all">Todas</SelectItem>
+                      {categories.map(cat => (
+                        <SelectItem key={cat.name} value={cat.name}>{cat.name} ({cat.count})</SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
 
-                  <Select>
+                  <Select value={selectedBreed} onValueChange={(value) => { setSelectedBreed(value === 'all' ? '' : value); setCurrentPage(1); }}>
                     <SelectTrigger className="h-10">
                       <SelectValue placeholder="Raça" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="nelore">Nelore</SelectItem>
-                      <SelectItem value="angus">Angus</SelectItem>
-                      <SelectItem value="brahman">Brahman</SelectItem>
-                      <SelectItem value="holandesa">Holandesa</SelectItem>
-                      <SelectItem value="mangalarga">Mangalarga</SelectItem>
+                      <SelectItem value="all">Todas</SelectItem>
+                      {Array.from(new Set(allProducts.map(p => p.breed))).sort().map(breed => (
+                        <SelectItem key={breed} value={breed}>{breed}</SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
 
-                  <Select>
+                  <Select value={selectedPriceRange} onValueChange={(value) => { setSelectedPriceRange(value === 'all' ? '' : value); setCurrentPage(1); }}>
                     <SelectTrigger className="h-10">
                       <SelectValue placeholder="Preço" />
                     </SelectTrigger>
                     <SelectContent>
+                      <SelectItem value="all">Todos</SelectItem>
                       <SelectItem value="0-5000">Até R$ 5.000</SelectItem>
                       <SelectItem value="5000-15000">R$ 5.000 - R$ 15.000</SelectItem>
                       <SelectItem value="15000-30000">R$ 15.000 - R$ 30.000</SelectItem>
@@ -180,24 +294,26 @@ export default function CatalogoPage() {
                     </SelectContent>
                   </Select>
 
-                  <Select>
+                  <Select value={selectedLocation} onValueChange={(value) => { setSelectedLocation(value === 'all' ? '' : value); setCurrentPage(1); }}>
                     <SelectTrigger className="h-10">
                       <SelectValue placeholder="Localização" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="go">Goiás</SelectItem>
-                      <SelectItem value="mg">Minas Gerais</SelectItem>
+                      <SelectItem value="all">Todas</SelectItem>
                       <SelectItem value="sp">São Paulo</SelectItem>
+                      <SelectItem value="mg">Minas Gerais</SelectItem>
+                      <SelectItem value="go">Goiás</SelectItem>
                       <SelectItem value="mt">Mato Grosso</SelectItem>
                       <SelectItem value="rs">Rio Grande do Sul</SelectItem>
                     </SelectContent>
                   </Select>
 
-                  <Select>
+                  <Select value={selectedAge} onValueChange={(value) => { setSelectedAge(value === 'all' ? '' : value); setCurrentPage(1); }}>
                     <SelectTrigger className="h-10">
                       <SelectValue placeholder="Idade" />
                     </SelectTrigger>
                     <SelectContent>
+                      <SelectItem value="all">Todas</SelectItem>
                       <SelectItem value="0-2">0-2 anos</SelectItem>
                       <SelectItem value="2-4">2-4 anos</SelectItem>
                       <SelectItem value="4-6">4-6 anos</SelectItem>
@@ -205,10 +321,16 @@ export default function CatalogoPage() {
                     </SelectContent>
                   </Select>
 
-                  <Button variant="outline" className="h-10 border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white">
-                    <Filter className="w-4 h-4 mr-2" />
-                    Aplicar
-                  </Button>
+                  {hasActiveFilters && (
+                    <Button
+                      variant="outline"
+                      className="h-10 border-red-600 text-red-600 hover:bg-red-600 hover:text-white"
+                      onClick={clearAllFilters}
+                    >
+                      <Filter className="w-4 h-4 mr-2" />
+                      Limpar Filtros
+                    </Button>
+                  )}
                 </div>
               </div>
             )}
@@ -217,10 +339,29 @@ export default function CatalogoPage() {
 
         {/* Categories */}
         <div className="mb-8">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Categorias Populares</h3>
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="text-lg font-semibold text-gray-900">Categorias Populares</h3>
+            {selectedCategory && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setSelectedCategory('')}
+                className="text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50"
+              >
+                Ver todas
+              </Button>
+            )}
+          </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {categories.map((category, index) => (
-              <Card key={category.name} className="hover:shadow-lg transition-all duration-300 transform hover:scale-105 cursor-pointer animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
+              <Card 
+                key={category.name} 
+                onClick={() => handleCategoryClick(category.name)}
+                className={`hover:shadow-lg transition-all duration-300 transform hover:scale-105 cursor-pointer animate-fade-in-up ${
+                  selectedCategory === category.name ? 'ring-2 ring-emerald-500 shadow-lg' : ''
+                }`}
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
                 <CardContent className="p-4 text-center">
                   <div className={`inline-flex px-3 py-1 rounded-full text-sm font-medium mb-2 ${category.color}`}>
                     {category.name}
@@ -236,10 +377,15 @@ export default function CatalogoPage() {
         {/* Results Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
           <div className="text-gray-600">
-            Mostrando <span className="font-semibold text-gray-900">{startIndex + 1}</span> até <span className="font-semibold text-gray-900">{Math.min(endIndex, filteredProducts.length)}</span> de <span className="font-semibold text-gray-900">{filteredProducts.length}</span> resultados
+            Mostrando <span className="font-semibold text-gray-900">{startIndex + 1}</span> até <span className="font-semibold text-gray-900">{Math.min(endIndex, sortedProducts.length)}</span> de <span className="font-semibold text-gray-900">{sortedProducts.length}</span> resultados
+            {selectedCategory && (
+              <span className="ml-2 text-emerald-600 font-semibold">
+                em {selectedCategory}
+              </span>
+            )}
           </div>
           <div className="flex items-center space-x-4">
-            <Select defaultValue="relevancia">
+            <Select value={sortBy} onValueChange={(value) => { setSortBy(value); setCurrentPage(1); }}>
               <SelectTrigger className="w-48">
                 <SelectValue />
               </SelectTrigger>
@@ -254,73 +400,128 @@ export default function CatalogoPage() {
           </div>
         </div>
 
+        {/* Active Filters Display */}
+        {hasActiveFilters && (
+          <div className="mb-6 flex flex-wrap gap-2">
+            <span className="text-sm text-gray-600 font-medium">Filtros ativos:</span>
+            {searchQuery && (
+              <Badge variant="secondary" className="bg-emerald-100 text-emerald-800 hover:bg-emerald-200">
+                Busca: "{searchQuery}"
+              </Badge>
+            )}
+            {selectedCategory && (
+              <Badge variant="secondary" className="bg-emerald-100 text-emerald-800 hover:bg-emerald-200">
+                Categoria: {selectedCategory}
+              </Badge>
+            )}
+            {selectedBreed && (
+              <Badge variant="secondary" className="bg-emerald-100 text-emerald-800 hover:bg-emerald-200">
+                Raça: {selectedBreed}
+              </Badge>
+            )}
+            {selectedPriceRange && (
+              <Badge variant="secondary" className="bg-emerald-100 text-emerald-800 hover:bg-emerald-200">
+                Preço: {selectedPriceRange === '0-5000' ? 'Até R$ 5.000' : selectedPriceRange === '5000-15000' ? 'R$ 5.000-15.000' : selectedPriceRange === '15000-30000' ? 'R$ 15.000-30.000' : 'Acima de R$ 30.000'}
+              </Badge>
+            )}
+            {selectedLocation && (
+              <Badge variant="secondary" className="bg-emerald-100 text-emerald-800 hover:bg-emerald-200">
+                Local: {selectedLocation.toUpperCase()}
+              </Badge>
+            )}
+            {selectedAge && (
+              <Badge variant="secondary" className="bg-emerald-100 text-emerald-800 hover:bg-emerald-200">
+                Idade: {selectedAge === '0-2' ? '0-2 anos' : selectedAge === '2-4' ? '2-4 anos' : selectedAge === '4-6' ? '4-6 anos' : '6+ anos'}
+              </Badge>
+            )}
+          </div>
+        )}
+
         {/* Products Grid */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {products.map((product, index) => (
-            <div key={product.id} className="animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
-              <ProductCard 
-                product={product} 
-                variant="default"
-              />
-            </div>
-          ))}
-        </div>
+        {products.length > 0 ? (
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {products.map((product, index) => (
+              <div key={product.id} className="animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
+                <ProductCard 
+                  product={product} 
+                  variant="default"
+                />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-16">
+            <Package className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">Nenhum animal encontrado</h3>
+            <p className="text-gray-600 mb-6">
+              Não encontramos animais que correspondam aos seus filtros.
+            </p>
+            {hasActiveFilters && (
+              <Button
+                onClick={clearAllFilters}
+                variant="outline"
+                className="border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white"
+              >
+                Limpar todos os filtros
+              </Button>
+            )}
+          </div>
+        )}
 
         {/* Pagination */}
-        <div className="flex justify-center mt-12">
-          <div className="flex flex-wrap items-center justify-center gap-2">
-            <Button
-              variant="outline"
-              disabled={currentPage === 1 || totalPages <= 1}
-              onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
-              className="border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white disabled:border-gray-300 disabled:text-gray-400 disabled:hover:bg-transparent disabled:hover:text-gray-400"
-            >
-              Anterior
-            </Button>
+        {totalPages > 0 && (
+          <div className="flex justify-center mt-12">
+            <div className="flex flex-wrap items-center justify-center gap-2">
+              <Button
+                variant="outline"
+                disabled={currentPage === 1}
+                onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
+                className="border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white disabled:border-gray-300 disabled:text-gray-400 disabled:hover:bg-transparent disabled:hover:text-gray-400"
+              >
+                Anterior
+              </Button>
 
-            {/* Mostrar números de página */}
-            {totalPages > 0 && Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
-              // Mostrar sempre primeira e última página, página atual e páginas adjacentes
-              if (
-                page === 1 ||
-                page === totalPages ||
-                (page >= currentPage - 1 && page <= currentPage + 1)
-              ) {
-                return (
-                  <Button
-                    key={page}
-                    onClick={() => handlePageChange(page)}
-                    className={
-                      currentPage === page
-                        ? "bg-emerald-600 text-white hover:bg-emerald-700"
-                        : "border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white"
-                    }
-                    variant={currentPage === page ? "default" : "outline"}
-                  >
-                    {page}
-                  </Button>
-                )
-              } else if (page === currentPage - 2 || page === currentPage + 2) {
-                // Mostrar ellipsis
-                return <span key={page} className="px-2 text-gray-500">...</span>
-              }
-              return null
-            })}
+              {/* Mostrar números de página */}
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
+                // Mostrar sempre primeira e última página, página atual e páginas adjacentes
+                if (
+                  page === 1 ||
+                  page === totalPages ||
+                  (page >= currentPage - 1 && page <= currentPage + 1)
+                ) {
+                  return (
+                    <Button
+                      key={page}
+                      onClick={() => handlePageChange(page)}
+                      className={
+                        currentPage === page
+                          ? "bg-emerald-600 text-white hover:bg-emerald-700"
+                          : "border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white"
+                      }
+                      variant={currentPage === page ? "default" : "outline"}
+                    >
+                      {page}
+                    </Button>
+                  )
+                } else if (page === currentPage - 2 || page === currentPage + 2) {
+                  // Mostrar ellipsis
+                  return <span key={page} className="px-2 text-gray-500">...</span>
+                }
+                return null
+              })}
 
-            <Button
-              variant="outline"
-              disabled={currentPage === totalPages || totalPages <= 1}
-              onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
-              className="border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white disabled:border-gray-300 disabled:text-gray-400 disabled:hover:bg-transparent disabled:hover:text-gray-400"
-            >
-              Próximo
-            </Button>
+              <Button
+                variant="outline"
+                disabled={currentPage === totalPages}
+                onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
+                className="border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white disabled:border-gray-300 disabled:text-gray-400 disabled:hover:bg-transparent disabled:hover:text-gray-400"
+              >
+                Próximo
+              </Button>
+            </div>
           </div>
-        </div>
+        )}
       </div>
-
-      {/* Floating WhatsApp Button */}
-      
 
       <Footer />
     </div>

@@ -114,8 +114,8 @@ export default function BlogPage() {
       if (response.ok) {
         const data = await response.json()
         if (data.savedPosts) {
-          const savedIds = new Set(
-            data.savedPosts.map((sp: any) => sp.blog_posts?.id).filter(Boolean)
+          const savedIds = new Set<string>(
+            data.savedPosts.map((sp: any) => String(sp.blog_posts?.id)).filter(Boolean) as string[]
           )
           setSavedPostIds(savedIds)
         }

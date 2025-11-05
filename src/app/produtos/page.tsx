@@ -39,6 +39,12 @@ export default function ProdutosPage() {
   const [showFilters, setShowFilters] = useState(false)
   const [showCategoriesModal, setShowCategoriesModal] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
+  const [selectedCategory, setSelectedCategory] = useState<string>('')
+  const [selectedBrand, setSelectedBrand] = useState<string>('')
+  const [selectedPriceRange, setSelectedPriceRange] = useState<string>('')
+  const [selectedLocation, setSelectedLocation] = useState<string>('')
+  const [selectedStock, setSelectedStock] = useState<string>('')
+  const [sortBy, setSortBy] = useState<string>('relevancia')
   const itemsPerPage = 9
 
   // Mapear produtos do mock para o formato esperado pelo ProductCard
@@ -60,28 +66,131 @@ export default function ProdutosPage() {
     type: 'product' as const
   }))
 
-  // Filtrar produtos baseado na busca (se houver)
+  // Calcular contagens reais por categoria
+  const getCategoryCount = (categoryName: string) => {
+    return allProducts.filter(p => p.category === categoryName).length
+  }
+
+  // Filtrar produtos baseado em todos os filtros
   const filteredProducts = allProducts.filter(product => {
-    if (!searchQuery) return true
-    const query = searchQuery.toLowerCase()
-    return (
-      product.title.toLowerCase().includes(query) ||
-      product.category.toLowerCase().includes(query) ||
-      product.brand.toLowerCase().includes(query)
-    )
+    // Filtro de busca
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase()
+      const matchesSearch = (
+        product.title.toLowerCase().includes(query) ||
+        product.category.toLowerCase().includes(query) ||
+        product.brand.toLowerCase().includes(query) ||
+        product.seller.toLowerCase().includes(query)
+      )
+      if (!matchesSearch) return false
+    }
+
+    // Filtro de categoria
+    if (selectedCategory && product.category !== selectedCategory) {
+      return false
+    }
+
+    // Filtro de marca
+    if (selectedBrand && product.brand !== selectedBrand) {
+      return false
+    }
+
+    // Filtro de preço
+    if (selectedPriceRange) {
+      const price = product.price
+      switch (selectedPriceRange) {
+        case '0-50':
+          if (price > 50) return false
+          break
+        case '50-100':
+          if (price < 50 || price > 100) return false
+          break
+        case '100-200':
+          if (price < 100 || price > 200) return false
+          break
+        case '200+':
+          if (price < 200) return false
+          break
+      }
+    }
+
+    // Filtro de localização
+    if (selectedLocation) {
+      const locationState = product.location.split(',')[1]?.trim().toLowerCase()
+      if (!locationState?.includes(selectedLocation.toLowerCase())) {
+        return false
+      }
+    }
+
+    // Filtro de disponibilidade
+    if (selectedStock) {
+      switch (selectedStock) {
+        case 'estoque':
+          if (product.stock <= 0) return false
+          break
+        case 'encomenda':
+          // Assumir que produtos com stock baixo são sob encomenda
+          if (product.stock > 5) return false
+          break
+        case 'esgotado':
+          if (product.stock > 0) return false
+          break
+      }
+    }
+
+    return true
+  })
+
+  // Ordenar produtos
+  const sortedProducts = [...filteredProducts].sort((a, b) => {
+    switch (sortBy) {
+      case 'preco-menor':
+        return Number(a.price) - Number(b.price)
+      case 'preco-maior':
+        return Number(b.price) - Number(a.price)
+      case 'avaliacao':
+        return Number(b.rating) - Number(a.rating)
+      case 'recente':
+        return Number(b.id) - Number(a.id)
+      default: // relevancia
+        return (b.featured ? 1 : 0) - (a.featured ? 1 : 0) || Number(b.rating) - Number(a.rating)
+    }
   })
 
   // Calcular paginação
-  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage)
+  const totalPages = Math.ceil(sortedProducts.length / itemsPerPage)
   const startIndex = (currentPage - 1) * itemsPerPage
   const endIndex = startIndex + itemsPerPage
-  const products = filteredProducts.slice(startIndex, endIndex)
+  const products = sortedProducts.slice(startIndex, endIndex)
 
-  // Resetar para página 1 quando a busca mudar
+  // Resetar para página 1 quando qualquer filtro mudar
   const handleSearchChange = (value: string) => {
     setSearchQuery(value)
     setCurrentPage(1)
   }
+
+  const handleCategoryClick = (categoryName: string) => {
+    if (selectedCategory === categoryName) {
+      setSelectedCategory('')
+    } else {
+      setSelectedCategory(categoryName)
+    }
+    setCurrentPage(1)
+    setShowCategoriesModal(false)
+  }
+
+  const clearAllFilters = () => {
+    setSearchQuery('')
+    setSelectedCategory('')
+    setSelectedBrand('')
+    setSelectedPriceRange('')
+    setSelectedLocation('')
+    setSelectedStock('')
+    setSortBy('relevancia')
+    setCurrentPage(1)
+  }
+
+  const hasActiveFilters = !!(searchQuery || selectedCategory || selectedBrand || selectedPriceRange || selectedLocation || selectedStock)
 
   // Garantir que currentPage não ultrapasse totalPages
   useEffect(() => {
@@ -97,19 +206,22 @@ export default function ProdutosPage() {
   }
 
   const categories = [
-    { name: 'Nutrição Animal', count: 234, color: '#B8E8D1' },
-    { name: 'Saúde e Bem-Estar Animal', count: 189, color: '#E2D4F9' },
-    { name: 'Reprodução e Genética', count: 156, color: '#E6E6FA' },
-    { name: 'Selaria e Utilidades', count: 98, color: '#FFE0B2' },
-    { name: 'Equipamentos e Infraestrutura Rural', count: 145, color: '#E1D5FF' },
-    { name: 'Vestuário e Lifestyle Agro', count: 87, color: '#FCE4EC' },
-    { name: 'Sementes e Mudas', count: 312, color: '#DDEBFF' },
-    { name: 'Insumos Agrícolas e Fertilizantes', count: 267, color: '#FFF8DC' },
-    { name: 'Higiene, Limpeza e Desinfecção', count: 76, color: '#E0F7FA' },
-    { name: 'Suplementos e Aditivos', count: 198, color: '#F6F0C4' },
-    { name: 'Bebidas Artesanais e Produtos da Fazenda', count: 45, color: '#FEE6E3' },
-    { name: 'Outros', count: 134, color: '#F5F5F5' }
-  ]
+    { name: 'Nutrição Animal', color: '#B8E8D1' },
+    { name: 'Saúde e Bem-Estar Animal', color: '#E2D4F9' },
+    { name: 'Reprodução e Genética', color: '#E6E6FA' },
+    { name: 'Selaria e Utilidades', color: '#FFE0B2' },
+    { name: 'Equipamentos e Infraestrutura Rural', color: '#E1D5FF' },
+    { name: 'Vestuário e Lifestyle Agro', color: '#FCE4EC' },
+    { name: 'Sementes e Mudas', color: '#DDEBFF' },
+    { name: 'Insumos Agrícolas e Fertilizantes', color: '#FFF8DC' },
+    { name: 'Higiene, Limpeza e Desinfecção', color: '#E0F7FA' },
+    { name: 'Suplementos e Aditivos', color: '#F6F0C4' },
+    { name: 'Bebidas Artesanais e Produtos da Fazenda', color: '#FEE6E3' },
+    { name: 'Outros', color: '#F5F5F5' }
+  ].map(cat => ({
+    ...cat,
+    count: getCategoryCount(cat.name)
+  })).filter(cat => cat.count > 0) // Apenas categorias com produtos
 
   // Mostrar apenas as primeiras 5 categorias, resto vai no modal
   const visibleCategories = categories.slice(0, 5)
@@ -167,44 +279,36 @@ export default function ProdutosPage() {
             {showFilters && (
               <div className="border-t border-gray-200 pt-6 animate-fade-in-up">
                 <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                  <Select>
+                  <Select value={selectedCategory} onValueChange={(value) => { setSelectedCategory(value === 'all' ? '' : value); setCurrentPage(1); }}>
                     <SelectTrigger className="h-10">
                       <SelectValue placeholder="Categoria" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="nutricao-animal">Nutrição Animal</SelectItem>
-                      <SelectItem value="saude-bem-estar">Saúde e Bem-Estar Animal</SelectItem>
-                      <SelectItem value="reproducao-genetica">Reprodução e Genética</SelectItem>
-                      <SelectItem value="selaria-utilidades">Selaria e Utilidades</SelectItem>
-                      <SelectItem value="equipamentos-infraestrutura">Equipamentos e Infraestrutura Rural</SelectItem>
-                      <SelectItem value="vestuario-lifestyle">Vestuário e Lifestyle Agro</SelectItem>
-                      <SelectItem value="sementes-mudas">Sementes e Mudas</SelectItem>
-                      <SelectItem value="insumos-fertilizantes">Insumos Agrícolas e Fertilizantes</SelectItem>
-                      <SelectItem value="higiene-limpeza">Higiene, Limpeza e Desinfecção</SelectItem>
-                      <SelectItem value="suplementos-aditivos">Suplementos e Aditivos</SelectItem>
-                      <SelectItem value="bebidas-artesanais">Bebidas Artesanais e Produtos da Fazenda</SelectItem>
-                      <SelectItem value="acessorios-cuidados">Acessórios e Cuidados Gerais</SelectItem>
+                      <SelectItem value="all">Todas</SelectItem>
+                      {categories.map(cat => (
+                        <SelectItem key={cat.name} value={cat.name}>{cat.name} ({cat.count})</SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
 
-                  <Select>
+                  <Select value={selectedBrand} onValueChange={(value) => { setSelectedBrand(value === 'all' ? '' : value); setCurrentPage(1); }}>
                     <SelectTrigger className="h-10">
                       <SelectValue placeholder="Marca" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="nutrimax">NutriMax</SelectItem>
-                      <SelectItem value="pioneer">Pioneer</SelectItem>
-                      <SelectItem value="yara">Yara</SelectItem>
-                      <SelectItem value="syngenta">Syngenta</SelectItem>
-                      <SelectItem value="purina">Purina</SelectItem>
+                      <SelectItem value="all">Todas</SelectItem>
+                      {Array.from(new Set(allProducts.map(p => p.brand))).sort().map(brand => (
+                        <SelectItem key={brand} value={brand}>{brand}</SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
 
-                  <Select>
+                  <Select value={selectedPriceRange} onValueChange={(value) => { setSelectedPriceRange(value === 'all' ? '' : value); setCurrentPage(1); }}>
                     <SelectTrigger className="h-10">
                       <SelectValue placeholder="Preço" />
                     </SelectTrigger>
                     <SelectContent>
+                      <SelectItem value="all">Todos</SelectItem>
                       <SelectItem value="0-50">Até R$ 50</SelectItem>
                       <SelectItem value="50-100">R$ 50 - R$ 100</SelectItem>
                       <SelectItem value="100-200">R$ 100 - R$ 200</SelectItem>
@@ -212,11 +316,12 @@ export default function ProdutosPage() {
                     </SelectContent>
                   </Select>
 
-                  <Select>
+                  <Select value={selectedLocation} onValueChange={(value) => { setSelectedLocation(value === 'all' ? '' : value); setCurrentPage(1); }}>
                     <SelectTrigger className="h-10">
                       <SelectValue placeholder="Localização" />
                     </SelectTrigger>
                     <SelectContent>
+                      <SelectItem value="all">Todas</SelectItem>
                       <SelectItem value="sp">São Paulo</SelectItem>
                       <SelectItem value="mg">Minas Gerais</SelectItem>
                       <SelectItem value="go">Goiás</SelectItem>
@@ -225,21 +330,28 @@ export default function ProdutosPage() {
                     </SelectContent>
                   </Select>
 
-                  <Select>
+                  <Select value={selectedStock} onValueChange={(value) => { setSelectedStock(value === 'all' ? '' : value); setCurrentPage(1); }}>
                     <SelectTrigger className="h-10">
                       <SelectValue placeholder="Disponibilidade" />
                     </SelectTrigger>
                     <SelectContent>
+                      <SelectItem value="all">Todos</SelectItem>
                       <SelectItem value="estoque">Em Estoque</SelectItem>
                       <SelectItem value="encomenda">Sob Encomenda</SelectItem>
                       <SelectItem value="esgotado">Esgotado</SelectItem>
                     </SelectContent>
                   </Select>
 
-                  <Button variant="outline" className="h-10 border-green-600 text-green-600 hover:bg-green-600 hover:text-white">
-                    <Filter className="w-4 h-4 mr-2" />
-                    Aplicar
-                  </Button>
+                  {hasActiveFilters && (
+                    <Button
+                      variant="outline"
+                      className="h-10 border-red-600 text-red-600 hover:bg-red-600 hover:text-white"
+                      onClick={clearAllFilters}
+                    >
+                      <Filter className="w-4 h-4 mr-2" />
+                      Limpar Filtros
+                    </Button>
+                  )}
                 </div>
               </div>
             )}
@@ -248,18 +360,33 @@ export default function ProdutosPage() {
 
         {/* Categories */}
         <div className="mb-8">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Categorias Populares</h3>
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="text-lg font-semibold text-gray-900">Categorias Populares</h3>
+            {selectedCategory && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setSelectedCategory('')}
+                className="text-green-600 hover:text-green-700 hover:bg-green-50"
+              >
+                Ver todas
+              </Button>
+            )}
+          </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
             {visibleCategories.map((category, index) => (
-              <Card 
-                key={category.name} 
-                className="hover:shadow-lg transition-all duration-300 transform hover:scale-105 cursor-pointer animate-fade-in-up"
+              <Card
+                key={category.name}
+                onClick={() => handleCategoryClick(category.name)}
+                className={`hover:shadow-lg transition-all duration-300 transform hover:scale-105 cursor-pointer animate-fade-in-up ${
+                  selectedCategory === category.name ? 'ring-2 ring-green-500 shadow-lg' : ''
+                }`}
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <CardContent className="p-3 text-center">
-                  <div 
+                  <div
                     className="inline-flex px-3 py-1.5 rounded-full text-xs font-medium mb-2 max-w-full break-words leading-tight"
-                    style={{ 
+                    style={{
                       backgroundColor: category.color,
                       color: '#1F2937',
                     }}
@@ -310,8 +437,10 @@ export default function ProdutosPage() {
                 {hiddenCategories.map((category, index) => (
                   <Card
                     key={category.name}
-                    className="hover:shadow-lg transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] cursor-pointer border border-gray-200 hover:border-green-300 bg-white touch-manipulation"
-                    onClick={() => setShowCategoriesModal(false)}
+                    onClick={() => handleCategoryClick(category.name)}
+                    className={`hover:shadow-lg transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] cursor-pointer border bg-white touch-manipulation ${
+                      selectedCategory === category.name ? 'border-green-500 ring-2 ring-green-300' : 'border-gray-200 hover:border-green-300'
+                    }`}
                     style={{
                       animation: 'fadeInUp 0.3s ease-out',
                       animationDelay: `${index * 0.05}s`,
@@ -378,10 +507,15 @@ export default function ProdutosPage() {
         {/* Results Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
           <div className="text-gray-600">
-            Mostrando <span className="font-semibold text-gray-900">{startIndex + 1}</span> até <span className="font-semibold text-gray-900">{Math.min(endIndex, filteredProducts.length)}</span> de <span className="font-semibold text-gray-900">{filteredProducts.length}</span> resultados
+            Mostrando <span className="font-semibold text-gray-900">{startIndex + 1}</span> até <span className="font-semibold text-gray-900">{Math.min(endIndex, sortedProducts.length)}</span> de <span className="font-semibold text-gray-900">{sortedProducts.length}</span> resultados
+            {selectedCategory && (
+              <span className="ml-2 text-green-600 font-semibold">
+                em {selectedCategory}
+              </span>
+            )}
           </div>
           <div className="flex items-center space-x-4">
-            <Select defaultValue="relevancia">
+            <Select value={sortBy} onValueChange={(value) => { setSortBy(value); setCurrentPage(1); }}>
               <SelectTrigger className="w-48">
                 <SelectValue />
               </SelectTrigger>
@@ -396,17 +530,73 @@ export default function ProdutosPage() {
           </div>
         </div>
 
+        {/* Active Filters Display */}
+        {hasActiveFilters && (
+          <div className="mb-6 flex flex-wrap gap-2">
+            <span className="text-sm text-gray-600 font-medium">Filtros ativos:</span>
+            {searchQuery && (
+              <Badge variant="secondary" className="bg-green-100 text-green-800 hover:bg-green-200">
+                Busca: "{searchQuery}"
+              </Badge>
+            )}
+            {selectedCategory && (
+              <Badge variant="secondary" className="bg-green-100 text-green-800 hover:bg-green-200">
+                Categoria: {selectedCategory}
+              </Badge>
+            )}
+            {selectedBrand && (
+              <Badge variant="secondary" className="bg-green-100 text-green-800 hover:bg-green-200">
+                Marca: {selectedBrand}
+              </Badge>
+            )}
+            {selectedPriceRange && (
+              <Badge variant="secondary" className="bg-green-100 text-green-800 hover:bg-green-200">
+                Preço: {selectedPriceRange === '0-50' ? 'Até R$ 50' : selectedPriceRange === '50-100' ? 'R$ 50-100' : selectedPriceRange === '100-200' ? 'R$ 100-200' : 'Acima de R$ 200'}
+              </Badge>
+            )}
+            {selectedLocation && (
+              <Badge variant="secondary" className="bg-green-100 text-green-800 hover:bg-green-200">
+                Local: {selectedLocation.toUpperCase()}
+              </Badge>
+            )}
+            {selectedStock && (
+              <Badge variant="secondary" className="bg-green-100 text-green-800 hover:bg-green-200">
+                {selectedStock === 'estoque' ? 'Em Estoque' : selectedStock === 'encomenda' ? 'Sob Encomenda' : 'Esgotado'}
+              </Badge>
+            )}
+          </div>
+        )}
+
         {/* Products Grid */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {products.map((product, index) => (
-            <div key={product.id} className="animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
-              <ProductCard 
-                product={product} 
-                variant="default"
-              />
-            </div>
-          ))}
-        </div>
+        {products.length > 0 ? (
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {products.map((product, index) => (
+              <div key={product.id} className="animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
+                <ProductCard
+                  product={product}
+                  variant="default"
+                />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-16">
+            <Package className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">Nenhum produto encontrado</h3>
+            <p className="text-gray-600 mb-6">
+              Não encontramos produtos que correspondam aos seus filtros.
+            </p>
+            {hasActiveFilters && (
+              <Button
+                onClick={clearAllFilters}
+                variant="outline"
+                className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white"
+              >
+                Limpar todos os filtros
+              </Button>
+            )}
+          </div>
+        )}
 
         {/* Pagination */}
         {totalPages > 1 && (

@@ -240,15 +240,15 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid lg:grid-cols-2 gap-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
+        <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12">
           {/* Image Gallery */}
-          <div className="space-y-4">
+          <div className="space-y-3 sm:space-y-4">
             <div className="relative">
-              <img 
-                src={product.images[currentImageIndex]} 
+              <img
+                src={product.images[currentImageIndex]}
                 alt={product.title}
-                className="w-full h-96 object-cover rounded-2xl"
+                className="w-full h-64 sm:h-80 lg:h-96 object-cover rounded-lg sm:rounded-xl lg:rounded-2xl"
               />
               
               {/* Navigation Arrows */}
@@ -266,40 +266,40 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
               </button>
 
               {/* Badges */}
-              <div className="absolute top-4 left-4 flex gap-2">
-                <Badge className="bg-[#1C6B3E]">
+              <div className="absolute top-2 sm:top-3 lg:top-4 left-2 sm:left-3 lg:left-4 flex gap-1.5 sm:gap-2">
+                <Badge className="bg-[#1C6B3E] text-xs sm:text-sm px-2 sm:px-2.5 py-0.5 sm:py-1">
                   {product.category}
                 </Badge>
                 {product.featured && (
-                  <Badge className="bg-[#D4AF37] text-black">
+                  <Badge className="bg-[#D4AF37] text-black text-xs sm:text-sm px-2 sm:px-2.5 py-0.5 sm:py-1">
                     DESTAQUE
                   </Badge>
                 )}
               </div>
 
               {/* Actions */}
-              <div className="absolute top-4 right-4 flex gap-2">
-                <Button 
-                  size="sm" 
-                  variant="ghost" 
+              <div className="absolute top-2 sm:top-3 lg:top-4 right-2 sm:right-3 lg:right-4 flex gap-1.5 sm:gap-2">
+                <Button
+                  size="sm"
+                  variant="ghost"
                   onClick={handleToggleFavorite}
-                  className={`bg-white/90 hover:bg-white transition-colors ${
+                  className={`bg-white/90 hover:bg-white transition-colors p-1.5 sm:p-2 h-auto ${
                     isFavorite(product.id) ? 'text-red-500' : 'text-[#8B4513] hover:text-red-500'
                   }`}
                 >
-                  <Heart className={`w-4 h-4 ${isFavorite(product.id) ? 'fill-current' : ''}`} />
+                  <Heart className={`w-4 h-4 sm:w-5 sm:h-5 ${isFavorite(product.id) ? 'fill-current' : ''}`} />
                 </Button>
-                <Button 
-                  size="sm" 
-                  variant="ghost" 
-                  className="bg-white/90 hover:bg-white text-[#8B4513] hover:text-[#1C6B3E] transition-colors"
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  className="bg-white/90 hover:bg-white text-[#8B4513] hover:text-[#1C6B3E] transition-colors p-1.5 sm:p-2 h-auto"
                 >
-                  <Share2 className="w-4 h-4" />
+                  <Share2 className="w-4 h-4 sm:w-5 sm:h-5" />
                 </Button>
               </div>
 
               {/* Image Counter */}
-              <div className="absolute bottom-4 right-4 bg-black/70 text-white px-3 py-1 rounded-full text-sm">
+              <div className="absolute bottom-2 sm:bottom-3 lg:bottom-4 right-2 sm:right-3 lg:right-4 bg-black/70 text-white px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs sm:text-sm">
                 {currentImageIndex + 1} / {product.images.length}
               </div>
             </div>
@@ -327,25 +327,33 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
           </div>
 
           {/* Product Info */}
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-4">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4 leading-tight">
                 {product.title}
               </h1>
-              
-              <div className="flex items-center text-gray-600 mb-4">
-                <MapPin className="w-5 h-5 mr-2" />
+
+              <div className="flex items-center text-sm sm:text-base text-gray-600 mb-4">
+                <MapPin className="w-4 h-4 sm:w-5 sm:h-5 mr-2 flex-shrink-0" />
                 <span>{product.city}, {product.location}</span>
               </div>
 
-              <div className="flex items-center gap-4 sm:gap-6 mb-6 flex-wrap">
-                <div className="text-3xl sm:text-4xl font-bold text-green-600 whitespace-nowrap">
-                  R$ {product.price.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              <div className="space-y-4 mb-6">
+                {/* Price Display */}
+                <div className="space-y-2">
+                  <div className="text-3xl sm:text-4xl font-bold text-green-600">
+                    R$ {(product.price * quantity).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                  </div>
+                  {quantity > 1 && (
+                    <div className="text-sm sm:text-base text-gray-600">
+                      {quantity}x de R$ {product.price.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    </div>
+                  )}
                 </div>
-                
+
                 {/* Quantity Controls */}
                 <div className="flex items-center gap-3">
-                  <label className="text-sm font-medium text-gray-700 whitespace-nowrap hidden sm:block">
+                  <label className="text-sm sm:text-base font-medium text-gray-700 whitespace-nowrap">
                     Quantidade:
                   </label>
                   <div className="flex items-center gap-2">
@@ -386,35 +394,35 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
 
             {/* Specifications */}
             <Card className="bg-white border-gray-200 shadow-lg">
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Especificações</h3>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="flex items-center">
-                    <Award className="w-5 h-5 text-green-600 mr-2" />
+              <CardContent className="p-4 sm:p-6">
+                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-4">Especificações</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                  <div className="flex items-center gap-2 sm:gap-3">
+                    <Award className="w-5 h-5 sm:w-6 sm:h-6 text-green-600 flex-shrink-0" />
                     <div>
-                      <div className="text-sm text-gray-500">Marca</div>
-                      <div className="font-medium text-gray-900">{product.brand}</div>
+                      <div className="text-xs sm:text-sm text-gray-500">Marca</div>
+                      <div className="font-medium text-sm sm:text-base text-gray-900">{product.brand}</div>
                     </div>
                   </div>
-                  <div className="flex items-center">
-                    <Weight className="w-5 h-5 text-green-600 mr-2" />
+                  <div className="flex items-center gap-2 sm:gap-3">
+                    <Weight className="w-5 h-5 sm:w-6 sm:h-6 text-green-600 flex-shrink-0" />
                     <div>
-                      <div className="text-sm text-gray-500">Peso</div>
-                      <div className="font-medium text-gray-900">{product.weight}</div>
+                      <div className="text-xs sm:text-sm text-gray-500">Peso</div>
+                      <div className="font-medium text-sm sm:text-base text-gray-900">{product.weight}</div>
                     </div>
                   </div>
-                  <div className="flex items-center">
-                    <Shield className="w-5 h-5 text-green-600 mr-2" />
+                  <div className="flex items-center gap-2 sm:gap-3">
+                    <Shield className="w-5 h-5 sm:w-6 sm:h-6 text-green-600 flex-shrink-0" />
                     <div>
-                      <div className="text-sm text-gray-500">Estoque</div>
-                      <div className="font-medium text-gray-900">{product.stock}</div>
+                      <div className="text-xs sm:text-sm text-gray-500">Estoque</div>
+                      <div className="font-medium text-sm sm:text-base text-gray-900">{product.stock}</div>
                     </div>
                   </div>
-                  <div className="flex items-center">
-                    <FileText className="w-5 h-5 text-green-600 mr-2" />
+                  <div className="flex items-center gap-2 sm:gap-3">
+                    <FileText className="w-5 h-5 sm:w-6 sm:h-6 text-green-600 flex-shrink-0" />
                     <div>
-                      <div className="text-sm text-gray-500">Categoria</div>
-                      <div className="font-medium text-gray-900">{product.category}</div>
+                      <div className="text-xs sm:text-sm text-gray-500">Categoria</div>
+                      <div className="font-medium text-sm sm:text-base text-gray-900">{product.category}</div>
                     </div>
                   </div>
                 </div>
@@ -423,40 +431,40 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
 
             {/* Freight Calculator */}
             <Card className="bg-white border-gray-200 shadow-lg">
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
-                  <Truck className="w-5 h-5 mr-2 text-green-600" />
+              <CardContent className="p-4 sm:p-6">
+                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-4 flex items-center">
+                  <Truck className="w-5 h-5 sm:w-6 sm:h-6 mr-2 text-green-600" />
                   Calcular Frete
                 </h3>
                 <div className="space-y-4">
-                  <div className="flex gap-2">
+                  <div className="flex flex-col sm:flex-row gap-2">
                     <Input
                       type="text"
                       placeholder="00000-000"
                       value={formatCEP(cep)}
                       onChange={handleCepChange}
                       maxLength={9}
-                      className="flex-1"
+                      className="flex-1 h-10 sm:h-11 text-base"
                     />
                     <Button
                       onClick={handleCalculateFreight}
                       disabled={cep.length !== 8 || isCalculatingFreight}
-                      className="bg-green-600 hover:bg-green-700 text-white"
+                      className="bg-green-600 hover:bg-green-700 text-white h-10 sm:h-11 text-sm sm:text-base font-semibold whitespace-nowrap"
                     >
                       {isCalculatingFreight ? 'Calculando...' : 'Calcular'}
                     </Button>
                   </div>
-                  
+
                   {freightResult && (
-                    <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
+                    <div className="mt-4 p-3 sm:p-4 bg-green-50 border border-green-200 rounded-lg">
                       <div className="space-y-2">
                         <div className="flex justify-between items-center">
-                          <span className="text-gray-700 font-medium">Frete:</span>
-                          <span className="text-lg font-bold text-green-600">
+                          <span className="text-sm sm:text-base text-gray-700 font-medium">Frete:</span>
+                          <span className="text-base sm:text-lg font-bold text-green-600">
                             R$ {freightResult.price.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                           </span>
                         </div>
-                        <div className="text-sm text-gray-600 pt-2 border-t border-green-200">
+                        <div className="text-xs sm:text-sm text-gray-600 pt-2 border-t border-green-200">
                           {freightResult.formattedDelivery}
                         </div>
                       </div>
@@ -467,61 +475,67 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
             </Card>
 
             {/* Action Buttons */}
-            <div className="space-y-4">
-              <Button 
-                className="w-full bg-green-600 hover:bg-green-700 text-white py-4 text-lg transition-all hover:scale-105"
+            <div className="space-y-3 sm:space-y-4">
+              <Button
+                className="w-full bg-green-600 hover:bg-green-700 text-white py-3 sm:py-4 text-base sm:text-lg font-semibold transition-all hover:scale-105"
                 onClick={handlePurchase}
               >
-                <ShoppingCart className="w-5 h-5 mr-2" />
-                {quantity > 1 ? `Comprar Agora (${quantity}x) - R$ ${(product.price * quantity).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : 'Comprar Agora'}
+                <ShoppingCart className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
+                Comprar Agora
               </Button>
 
-              
-              <Button 
-                variant="outline" 
-                className="w-full border-green-600 text-green-600 hover:bg-green-600 hover:text-white py-4 text-lg transition-all hover:scale-105"
+
+              <Button
+                variant="outline"
+                className="w-full border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white py-3 sm:py-4 text-base sm:text-lg font-semibold transition-all hover:scale-105"
                 onClick={handleAddToCart}
               >
-                <ShoppingBag className="w-5 h-5 mr-2" />
-                {quantity > 1 ? `Adicionar ao carrinho (${quantity}x) - R$ ${(product.price * quantity).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : 'Adicionar ao carrinho'}
+                <ShoppingBag className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
+                Adicionar ao Carrinho
               </Button>
             </div>
           </div>
         </div>
 
         {/* Tabs Section */}
-        <div className="mt-12">
+        <div className="mt-8 sm:mt-12">
           <Tabs defaultValue="descricao" className="w-full">
-            <TabsList className="grid w-full grid-cols-3">
-              <TabsTrigger value="descricao">Descrição</TabsTrigger>
-              <TabsTrigger value="especificacoes">Especificações</TabsTrigger>
-              <TabsTrigger value="avaliacoes">
-                Avaliações ({reviews.length})
+            <TabsList className="grid w-full grid-cols-3 h-auto">
+              <TabsTrigger value="descricao" className="text-xs sm:text-sm md:text-base py-2 sm:py-3">
+                Descrição
+              </TabsTrigger>
+              <TabsTrigger value="especificacoes" className="text-xs sm:text-sm md:text-base py-2 sm:py-3">
+                <span className="hidden sm:inline">Especificações</span>
+                <span className="sm:hidden">Specs</span>
+              </TabsTrigger>
+              <TabsTrigger value="avaliacoes" className="text-xs sm:text-sm md:text-base py-2 sm:py-3">
+                <span className="hidden sm:inline">Avaliações ({reviews.length})</span>
+                <span className="sm:hidden">({reviews.length})</span>
               </TabsTrigger>
             </TabsList>
 
-            <TabsContent value="descricao" className="mt-6">
+            <TabsContent value="descricao" className="mt-4 sm:mt-6">
               <Card className="bg-white border-gray-200 shadow-lg">
-                <CardContent className="p-8">
-                  <h2 className="text-2xl font-bold text-gray-900 mb-4">Descrição</h2>
-                  <p className="text-gray-600 leading-relaxed text-lg">
+                <CardContent className="p-4 sm:p-6 lg:p-8">
+                  <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">Descrição</h2>
+                  <p className="text-sm sm:text-base lg:text-lg text-gray-600 leading-relaxed">
                     {product.description}
                   </p>
                 </CardContent>
               </Card>
             </TabsContent>
 
-            <TabsContent value="especificacoes" className="mt-6">
+            <TabsContent value="especificacoes" className="mt-4 sm:mt-6">
               <Card className="bg-white border-gray-200 shadow-lg">
-                <CardContent className="p-8">
-                  <h2 className="text-2xl font-bold text-gray-900 mb-4">Especificações</h2>
-                  <div className="space-y-3">
+                <CardContent className="p-4 sm:p-6 lg:p-8">
+                  <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">Especificações</h2>
+                  <div className="space-y-2 sm:space-y-3">
                     {Object.entries(product.specifications).map(([key, value]) => (
-                      <div key={key} className="flex justify-between py-2 border-b border-gray-100">
-                        <span className="text-gray-500 capitalize font-medium">
+                      <div key={key} className="flex flex-col sm:flex-row sm:justify-between py-2 sm:py-3 border-b border-gray-100 gap-1 sm:gap-2">
+                        <span className="text-xs sm:text-sm text-gray-500 capitalize font-medium">
                           {key.replace(/([A-Z])/g, ' $1').toLowerCase()}:
                         </span>
-                        <span className="font-medium text-gray-900">{value}</span>
+                        <span className="text-sm sm:text-base font-medium text-gray-900 break-words">{value}</span>
                       </div>
                     ))}
                   </div>
@@ -548,14 +562,14 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
         </div>
 
         {/* Seller Info */}
-        <div className="mt-8">
+        <div className="mt-6 sm:mt-8">
           <SellerInfoCard seller={product.sellerInfo} />
         </div>
 
         {/* Questions Section */}
-        <div className="mt-8">
+        <div className="mt-6 sm:mt-8">
           <Card className="bg-white border-gray-200 shadow-lg">
-            <CardContent className="p-6 sm:p-8">
+            <CardContent className="p-4 sm:p-6 lg:p-8">
               <QuestionsSection
                 questions={getProductQuestions(product.id)}
                 sellerName={product.sellerInfo.name}
@@ -565,18 +579,18 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
         </div>
 
         {/* Location Map Placeholder */}
-        <div className="mt-8">
+        <div className="mt-6 sm:mt-8">
           <Card className="bg-white border-gray-200 shadow-lg">
-            <CardContent className="p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                <MapPin className="w-6 h-6 inline mr-2" />
+            <CardContent className="p-4 sm:p-6 lg:p-8">
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4 flex items-center">
+                <MapPin className="w-5 h-5 sm:w-6 sm:h-6 inline mr-2" />
                 Localização do Vendedor
               </h2>
-              <div className="bg-gray-50 rounded-lg h-64 flex items-center justify-center border border-gray-200">
-                <div className="text-center text-gray-600">
-                  <MapPin className="w-12 h-12 mx-auto mb-2" />
-                  <p>Mapa da localização do vendedor</p>
-                  <p className="text-sm">{product.city}, {product.location}</p>
+              <div className="bg-gray-50 rounded-lg h-48 sm:h-56 lg:h-64 flex items-center justify-center border border-gray-200">
+                <div className="text-center text-gray-600 px-4">
+                  <MapPin className="w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-2" />
+                  <p className="text-sm sm:text-base">Mapa da localização do vendedor</p>
+                  <p className="text-xs sm:text-sm mt-1">{product.city}, {product.location}</p>
                 </div>
               </div>
             </CardContent>

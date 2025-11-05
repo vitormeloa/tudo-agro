@@ -91,21 +91,7 @@ export default function ProductCard({
           </Badge>
         </div>
 
-        {/* Actions */}
-        {showActions && (
-          <div className="absolute top-4 right-4 flex gap-2">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={handleToggleFavorite}
-              className={`bg-white/90 hover:bg-white transition-colors ${
-                isFavorite(String(product.id)) ? 'text-red-500' : 'text-gray-400'
-              }`}
-            >
-              <Heart className={`w-5 h-5 ${isFavorite(String(product.id)) ? 'fill-current' : ''}`} />
-            </Button>
-          </div>
-        )}
+
 
         {/* Verified Badge */}
         {product.verified && (
@@ -194,6 +180,16 @@ export default function ProductCard({
                 Ver Detalhes
               </Button>
             </Link>
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={handleToggleFavorite}
+              className={`border-gray-300 ${
+                isFavorite(String(product.id)) ? 'text-red-500 border-red-500' : 'text-gray-400'
+              }`}
+            >
+              <Heart className={`w-5 h-5 ${isFavorite(String(product.id)) ? 'fill-current' : ''}`} />
+            </Button>
           </div>
         )}
       </CardContent>

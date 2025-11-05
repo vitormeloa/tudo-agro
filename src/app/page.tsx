@@ -256,7 +256,7 @@ export default function HomePage() {
               <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 md:gap-4 justify-center items-center max-w-5xl mx-auto">
                 <Link href="/catalogo" className="w-full sm:w-auto">
                   <Button size="lg" className="w-full sm:w-auto bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white px-6 sm:px-8 md:px-10 py-3 sm:py-3.5 md:py-4 lg:py-5 text-sm sm:text-base md:text-lg font-semibold rounded-full shadow-2xl hover:shadow-emerald-500/25 transition-all duration-300 hover:scale-105 group">
-                    Explorar Catálogo
+                    Ver Animais
                     <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                   </Button>
                 </Link>

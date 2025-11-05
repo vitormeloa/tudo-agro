@@ -6,8 +6,7 @@ import "./globals.css";
 import "../lib/fonts";
 import { AuthProvider } from "@/hooks/useAuth";
 import { CartProvider } from "@/contexts/CartContext";
-import { Toaster } from "@/components/ui/toaster";
-import FloatingWhatsAppButton from "@/components/FloatingWhatsAppButton";
+import ClientLayout from "@/components/layout/ClientLayout";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -51,9 +50,7 @@ export default function RootLayout({
       >
         <AuthProvider>
           <CartProvider>
-            {children}
-            <Toaster />
-            <FloatingWhatsAppButton />
+            <ClientLayout>{children}</ClientLayout>
           </CartProvider>
         </AuthProvider>
       </body>

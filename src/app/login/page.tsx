@@ -9,13 +9,15 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Separator } from '@/components/ui/separator'
+import { InputError } from '@/components/ui/input-error'
 import { useAuth } from '@/hooks/useAuth'
 import { useToast } from '@/hooks/use-toast'
-import { 
-  Mail, 
-  Lock, 
-  Eye, 
-  EyeOff, 
+import { validateEmail, validationMessages } from '@/lib/validators'
+import {
+  Mail,
+  Lock,
+  Eye,
+  EyeOff,
   ArrowRight,
   ArrowLeft,
   Shield,
@@ -28,9 +30,35 @@ export default function LoginPage() {
   const [rememberMe, setRememberMe] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [successMessage, setSuccessMessage] = useState('')
+  const [errors, setErrors] = useState<Record<string, string>>({})
+  const [formData, setFormData] = useState({ email: '', password: '' })
   const router = useRouter()
   const { signIn } = useAuth()
   const { toast } = useToast()
+
+  const handleBlur = (field: string) => {
+    let error = ''
+    if (field === 'email') {
+      if (!formData.email) {
+        error = validationMessages.email.required
+      } else if (!validateEmail(formData.email)) {
+        error = validationMessages.email.invalid
+      }
+    } else if (field === 'password') {
+      if (!formData.password) {
+        error = validationMessages.password.required
+      }
+    }
+    setErrors(prev => ({ ...prev, [field]: error }))
+  }
+
+  const handleChange = (field: string, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }))
+    // Limpar erro quando usuário começar a digitar
+    if (errors[field]) {
+      setErrors(prev => ({ ...prev, [field]: '' }))
+    }
+  }
 
   // Verificar se há mensagem de sucesso ou redirect na URL
   useEffect(() => {
@@ -50,17 +78,36 @@ export default function LoginPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    
+
     if (isLoading) return // Prevenir múltiplos submits
-    
+
+    // Validar campos antes de enviar
+    const newErrors: Record<string, string> = {}
+
+    if (!formData.email) {
+      newErrors.email = validationMessages.email.required
+    } else if (!validateEmail(formData.email)) {
+      newErrors.email = validationMessages.email.invalid
+    }
+
+    if (!formData.password) {
+      newErrors.password = validationMessages.password.required
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors)
+      toast({
+        title: "Campos inválidos",
+        description: "Por favor, corrija os campos destacados em vermelho.",
+        variant: "destructive",
+      })
+      return
+    }
+
     setIsLoading(true)
 
-    const formData = new FormData(e.currentTarget as HTMLFormElement)
-    const email = formData.get('email') as string
-    const password = formData.get('password') as string
-
     try {
-      const { error } = await signIn(email, password)
+      const { error } = await signIn(formData.email, formData.password)
       
       if (!error) {
         // Aguardar até que o estado de autenticação seja atualizado
@@ -146,7 +193,7 @@ export default function LoginPage() {
               <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
                 <div className="space-y-2">
                   <Label htmlFor="email" className="text-xs sm:text-sm font-medium text-gray-700">
-                    E-mail ou WhatsApp
+                    E-mail
                   </Label>
                   <div className="relative">
                     <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 sm:w-5 sm:h-5" />
@@ -154,11 +201,15 @@ export default function LoginPage() {
                       id="email"
                       name="email"
                       type="email"
-                      placeholder="seu@email.com ou (11) 99999-9999"
-                      className="pl-9 sm:pl-10 h-11 sm:h-12 text-base sm:text-lg border-2 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500/20"
+                      placeholder="seu@email.com"
+                      value={formData.email}
+                      onChange={(e) => handleChange('email', e.target.value)}
+                      onBlur={() => handleBlur('email')}
+                      className={`pl-9 sm:pl-10 h-11 sm:h-12 text-base sm:text-lg border-2 ${errors.email ? 'border-red-500' : 'border-gray-200'} focus:border-emerald-500 focus:ring-emerald-500/20`}
                       required
                     />
                   </div>
+                  <InputError error={errors.email} />
                 </div>
 
                 <div className="space-y-2">
@@ -172,7 +223,10 @@ export default function LoginPage() {
                       name="password"
                       type={showPassword ? "text" : "password"}
                       placeholder="Sua senha"
-                      className="pl-9 sm:pl-10 pr-9 sm:pr-10 h-11 sm:h-12 text-base sm:text-lg border-2 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500/20"
+                      value={formData.password}
+                      onChange={(e) => handleChange('password', e.target.value)}
+                      onBlur={() => handleBlur('password')}
+                      className={`pl-9 sm:pl-10 pr-9 sm:pr-10 h-11 sm:h-12 text-base sm:text-lg border-2 ${errors.password ? 'border-red-500' : 'border-gray-200'} focus:border-emerald-500 focus:ring-emerald-500/20`}
                       required
                     />
                     <button
@@ -183,6 +237,7 @@ export default function LoginPage() {
                       {showPassword ? <EyeOff className="w-4 h-4 sm:w-5 sm:h-5" /> : <Eye className="w-4 h-4 sm:w-5 sm:h-5" />}
                     </button>
                   </div>
+                  <InputError error={errors.password} />
                 </div>
 
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-0">

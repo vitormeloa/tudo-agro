@@ -1,5 +1,7 @@
 "use client"
 
+import ProtectedRoute from '@/components/ProtectedRoute'
+import AdminLayout from '@/components/admin/AdminLayout'
 import { useState, useEffect, use, useRef } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'

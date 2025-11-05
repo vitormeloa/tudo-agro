@@ -12,6 +12,19 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { useAuth } from '@/hooks/useAuth'
 import { useToast } from '@/hooks/use-toast'
+import { MaskedInput } from '@/components/ui/masked-input'
+import { InputError } from '@/components/ui/input-error'
+import {
+    validateEmail,
+    validateCPF,
+    validateCNPJ,
+    validatePhone,
+    validatePassword,
+    validatePasswordMatch,
+    validateFullName,
+    validationMessages
+} from '@/lib/validators'
+import { maskPatterns } from '@/lib/masks'
 import {
     User,
     Mail,
@@ -23,7 +36,8 @@ import {
     Building,
     MapPin,
     Phone,
-    CheckCircle
+    CheckCircle,
+    AlertCircle
 } from 'lucide-react'
 
 export default function CadastroPage() {
@@ -57,6 +71,50 @@ export default function CadastroPage() {
         acceptTerms: false
     })
 
+    const [errors, setErrors] = useState<Record<string, string>>({})
+
+    // Função para validar campo individual
+    const validateField = (field: string, value: string): string => {
+        switch (field) {
+            case 'email':
+            case 'corporateEmail':
+                if (!value) return validationMessages.email.required
+                if (!validateEmail(value)) return validationMessages.email.invalid
+                return ''
+            case 'cpf':
+                if (!value) return validationMessages.cpf.required
+                if (!validateCPF(value)) return validationMessages.cpf.invalid
+                return ''
+            case 'legalRepresentativeCpf':
+                if (!value) return validationMessages.cpf.required
+                if (!validateCPF(value)) return validationMessages.cpf.invalid
+                return ''
+            case 'cnpj':
+                if (!value) return validationMessages.cnpj.required
+                if (!validateCNPJ(value)) return validationMessages.cnpj.invalid
+                return ''
+            case 'phone':
+                if (!value) return validationMessages.phone.required
+                if (!validatePhone(value)) return validationMessages.phone.invalid
+                return ''
+            case 'password':
+                if (!value) return validationMessages.password.required
+                if (!validatePassword(value)) return validationMessages.password.invalid
+                return ''
+            case 'confirmPassword':
+                if (!value) return validationMessages.password.required
+                if (!validatePasswordMatch(formData.password, value)) return validationMessages.password.mismatch
+                return ''
+            case 'fullName':
+            case 'legalRepresentativeName':
+                if (!value) return validationMessages.name.required
+                if (!validateFullName(value)) return validationMessages.name.invalid
+                return ''
+            default:
+                return ''
+        }
+    }
+
     const steps = [
         { number: 1, title: 'Tipo de Conta', description: 'Escolha o tipo de conta' },
         { number: 2, title: 'Dados Pessoais', description: 'Informações básicas' },
@@ -66,6 +124,16 @@ export default function CadastroPage() {
 
     const handleInputChange = (field: string, value: string | boolean) => {
         setFormData(prev => ({ ...prev, [field]: value }))
+        // Limpar erro do campo quando usuário começar a digitar
+        if (errors[field]) {
+            setErrors(prev => ({ ...prev, [field]: '' }))
+        }
+    }
+
+    const handleBlur = (field: string) => {
+        const value = formData[field as keyof typeof formData] as string
+        const error = validateField(field, value)
+        setErrors(prev => ({ ...prev, [field]: error }))
     }
 
     const handleOperationTypeChange = (operationType: string, checked: boolean) => {
@@ -80,6 +148,44 @@ export default function CadastroPage() {
     }
 
     const handleNext = () => {
+        // Validação para step 1
+        if (currentStep === 1) {
+            if (!formData.accountType) {
+                toast({
+                    title: "Selecione o tipo de conta",
+                    description: "Por favor, escolha entre Pessoa Física ou Pessoa Jurídica para continuar.",
+                    variant: "destructive",
+                })
+                return
+            }
+        }
+
+        // Validação para step 2 (dados pessoais)
+        if (currentStep === 2) {
+            const fieldsToValidate: string[] = formData.accountType === 'pj'
+                ? ['companyName', 'cnpj', 'legalRepresentativeName', 'legalRepresentativeCpf', 'corporateEmail', 'phone', 'password', 'confirmPassword']
+                : ['fullName', 'phone', 'email', 'cpf', 'password', 'confirmPassword']
+
+            const newErrors: Record<string, string> = {}
+            fieldsToValidate.forEach(field => {
+                const value = formData[field as keyof typeof formData] as string
+                const error = validateField(field, value)
+                if (error) {
+                    newErrors[field] = error
+                }
+            })
+
+            if (Object.keys(newErrors).length > 0) {
+                setErrors(newErrors)
+                toast({
+                    title: "Campos inválidos",
+                    description: "Por favor, corrija os campos destacados em vermelho.",
+                    variant: "destructive",
+                })
+                return
+            }
+        }
+
         // Validação para step 3 quando for Pessoa Jurídica
         if (currentStep === 3 && formData.accountType === 'pj') {
             if (!formData.operationTypes || formData.operationTypes.length === 0) {
@@ -343,15 +449,22 @@ export default function CadastroPage() {
                                     <Label htmlFor="cnpj" className="text-sm font-medium text-gray-700">
                                         CNPJ
                                     </Label>
-                                    <Input
+                                    <MaskedInput
                                         id="cnpj"
-                                        type="text"
+                                        mask={maskPatterns.cnpj}
                                         placeholder="00.000.000/0000-00"
                                         value={formData.cnpj}
                                         onChange={(e) => handleInputChange('cnpj', e.target.value)}
-                                        className="h-12 text-lg border-2 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500/20"
+                                        onBlur={() => handleBlur('cnpj')}
+                                        className={`h-12 text-lg border-2 ${errors.cnpj ? 'border-red-500' : 'border-gray-200'} focus:border-emerald-500 focus:ring-emerald-500/20`}
                                         required
                                     />
+                                    {errors.cnpj && (
+                                        <div className="flex items-center gap-1 text-red-500 text-sm mt-1">
+                                            <AlertCircle className="w-4 h-4" />
+                                            <span>{errors.cnpj}</span>
+                                        </div>
+                                    )}
                                 </div>
 
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
@@ -360,32 +473,40 @@ export default function CadastroPage() {
                                             Responsável legal (Nome)
                                         </Label>
                                         <div className="relative">
-                                            <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                                            <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 z-10" />
                                             <Input
                                                 id="legalRepresentativeName"
                                                 type="text"
                                                 placeholder="Nome completo do responsável"
                                                 value={formData.legalRepresentativeName}
                                                 onChange={(e) => handleInputChange('legalRepresentativeName', e.target.value)}
-                                                className="pl-10 h-12 text-lg border-2 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500/20"
+                                                onBlur={() => handleBlur('legalRepresentativeName')}
+                                                className={`pl-10 h-12 text-lg border-2 ${errors.legalRepresentativeName ? 'border-red-500' : 'border-gray-200'} focus:border-emerald-500 focus:ring-emerald-500/20`}
                                                 required
                                             />
                                         </div>
+                                        {errors.legalRepresentativeName && (
+                                            <InputError error={errors.legalRepresentativeName} />
+                                        )}
                                     </div>
 
                                     <div className="space-y-2">
                                         <Label htmlFor="legalRepresentativeCpf" className="text-sm font-medium text-gray-700">
                                             Responsável legal (CPF)
                                         </Label>
-                                        <Input
+                                        <MaskedInput
                                             id="legalRepresentativeCpf"
-                                            type="text"
+                                            mask={maskPatterns.cpf}
                                             placeholder="000.000.000-00"
                                             value={formData.legalRepresentativeCpf}
                                             onChange={(e) => handleInputChange('legalRepresentativeCpf', e.target.value)}
-                                            className="h-12 text-lg border-2 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500/20"
+                                            onBlur={() => handleBlur('legalRepresentativeCpf')}
+                                            className={`h-12 text-lg border-2 ${errors.legalRepresentativeCpf ? 'border-red-500' : 'border-gray-200'} focus:border-emerald-500 focus:ring-emerald-500/20`}
                                             required
                                         />
+                                        {errors.legalRepresentativeCpf && (
+                                            <InputError error={errors.legalRepresentativeCpf} />
+                                        )}
                                     </div>
                                 </div>
 
@@ -394,17 +515,21 @@ export default function CadastroPage() {
                                         E-mail corporativo
                                     </Label>
                                     <div className="relative">
-                                        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                                        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 z-10" />
                                         <Input
                                             id="corporateEmail"
                                             type="email"
                                             placeholder="contato@empresa.com"
                                             value={formData.corporateEmail}
                                             onChange={(e) => handleInputChange('corporateEmail', e.target.value)}
-                                            className="pl-10 h-12 text-lg border-2 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500/20"
+                                            onBlur={() => handleBlur('corporateEmail')}
+                                            className={`pl-10 h-12 text-lg border-2 ${errors.corporateEmail ? 'border-red-500' : 'border-gray-200'} focus:border-emerald-500 focus:ring-emerald-500/20`}
                                             required
                                         />
                                     </div>
+                                    {errors.corporateEmail && (
+                                        <InputError error={errors.corporateEmail} />
+                                    )}
                                 </div>
 
                                 <div className="space-y-2">
@@ -412,17 +537,21 @@ export default function CadastroPage() {
                                         Telefone com WhatsApp
                                     </Label>
                                     <div className="relative">
-                                        <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                                        <Input
+                                        <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 z-10" />
+                                        <MaskedInput
                                             id="phone"
-                                            type="tel"
+                                            mask={maskPatterns.phone}
                                             placeholder="(11) 99999-9999"
                                             value={formData.phone}
                                             onChange={(e) => handleInputChange('phone', e.target.value)}
-                                            className="pl-10 h-12 text-lg border-2 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500/20"
+                                            onBlur={() => handleBlur('phone')}
+                                            className={`pl-10 h-12 text-lg border-2 ${errors.phone ? 'border-red-500' : 'border-gray-200'} focus:border-emerald-500 focus:ring-emerald-500/20`}
                                             required
                                         />
                                     </div>
+                                    {errors.phone && (
+                                        <InputError error={errors.phone} />
+                                    )}
                                 </div>
 
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
@@ -431,24 +560,29 @@ export default function CadastroPage() {
                                             Criar senha
                                         </Label>
                                         <div className="relative">
-                                            <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                                            <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 z-10" />
                                             <Input
                                                 id="password"
                                                 type={showPassword ? "text" : "password"}
                                                 placeholder="Mínimo 8 caracteres"
                                                 value={formData.password}
                                                 onChange={(e) => handleInputChange('password', e.target.value)}
-                                                className="pl-10 pr-10 h-12 text-lg border-2 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500/20"
+                                                onBlur={() => handleBlur('password')}
+                                                className={`pl-10 pr-10 h-12 text-lg border-2 ${errors.password ? 'border-red-500' : 'border-gray-200'} focus:border-emerald-500 focus:ring-emerald-500/20`}
                                                 required
                                             />
                                             <button
                                                 type="button"
                                                 onClick={() => setShowPassword(!showPassword)}
-                                                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                                                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 z-10"
                                             >
                                                 {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                                             </button>
                                         </div>
+                                        {errors.password && (
+                                            <InputError error={errors.password} />
+                                        )}
+                                        <p className="text-xs text-gray-500">Mínimo 8 caracteres, incluindo letras e números</p>
                                     </div>
 
                                     <div className="space-y-2">
@@ -456,24 +590,28 @@ export default function CadastroPage() {
                                             Confirmar senha
                                         </Label>
                                         <div className="relative">
-                                            <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                                            <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 z-10" />
                                             <Input
                                                 id="confirmPassword"
                                                 type={showConfirmPassword ? "text" : "password"}
                                                 placeholder="Confirme sua senha"
                                                 value={formData.confirmPassword}
                                                 onChange={(e) => handleInputChange('confirmPassword', e.target.value)}
-                                                className="pl-10 pr-10 h-12 text-lg border-2 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500/20"
+                                                onBlur={() => handleBlur('confirmPassword')}
+                                                className={`pl-10 pr-10 h-12 text-lg border-2 ${errors.confirmPassword ? 'border-red-500' : 'border-gray-200'} focus:border-emerald-500 focus:ring-emerald-500/20`}
                                                 required
                                             />
                                             <button
                                                 type="button"
                                                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                                                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                                                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 z-10"
                                             >
                                                 {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                                             </button>
                                         </div>
+                                        {errors.confirmPassword && (
+                                            <InputError error={errors.confirmPassword} />
+                                        )}
                                     </div>
                                 </div>
                             </div>
@@ -499,17 +637,21 @@ export default function CadastroPage() {
                                     Nome completo
                                 </Label>
                                 <div className="relative">
-                                    <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                                    <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 z-10" />
                                     <Input
                                         id="fullName"
                                         type="text"
                                         placeholder="Seu nome completo"
                                         value={formData.fullName}
                                         onChange={(e) => handleInputChange('fullName', e.target.value)}
-                                        className="pl-10 h-12 text-lg border-2 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500/20"
+                                        onBlur={() => handleBlur('fullName')}
+                                        className={`pl-10 h-12 text-lg border-2 ${errors.fullName ? 'border-red-500' : 'border-gray-200'} focus:border-emerald-500 focus:ring-emerald-500/20`}
                                         required
                                     />
                                 </div>
+                                {errors.fullName && (
+                                    <InputError error={errors.fullName} />
+                                )}
                             </div>
 
                             <div className="space-y-2">
@@ -517,17 +659,21 @@ export default function CadastroPage() {
                                     Telefone/WhatsApp
                                 </Label>
                                 <div className="relative">
-                                    <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                                    <Input
+                                    <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 z-10" />
+                                    <MaskedInput
                                         id="phone"
-                                        type="tel"
+                                        mask={maskPatterns.phone}
                                         placeholder="(11) 99999-9999"
                                         value={formData.phone}
                                         onChange={(e) => handleInputChange('phone', e.target.value)}
-                                        className="pl-10 h-12 text-lg border-2 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500/20"
+                                        onBlur={() => handleBlur('phone')}
+                                        className={`pl-10 h-12 text-lg border-2 ${errors.phone ? 'border-red-500' : 'border-gray-200'} focus:border-emerald-500 focus:ring-emerald-500/20`}
                                         required
                                     />
                                 </div>
+                                {errors.phone && (
+                                    <InputError error={errors.phone} />
+                                )}
                             </div>
 
                             <div className="space-y-2">
@@ -535,32 +681,40 @@ export default function CadastroPage() {
                                     E-mail
                                 </Label>
                                 <div className="relative">
-                                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 z-10" />
                                     <Input
                                         id="email"
                                         type="email"
                                         placeholder="seu@email.com"
                                         value={formData.email}
                                         onChange={(e) => handleInputChange('email', e.target.value)}
-                                        className="pl-10 h-12 text-lg border-2 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500/20"
+                                        onBlur={() => handleBlur('email')}
+                                        className={`pl-10 h-12 text-lg border-2 ${errors.email ? 'border-red-500' : 'border-gray-200'} focus:border-emerald-500 focus:ring-emerald-500/20`}
                                         required
                                     />
                                 </div>
+                                {errors.email && (
+                                    <InputError error={errors.email} />
+                                )}
                             </div>
 
                             <div className="space-y-2">
                                 <Label htmlFor="cpf" className="text-sm font-medium text-gray-700">
                                     CPF
                                 </Label>
-                                <Input
+                                <MaskedInput
                                     id="cpf"
-                                    type="text"
+                                    mask={maskPatterns.cpf}
                                     placeholder="000.000.000-00"
                                     value={formData.cpf}
                                     onChange={(e) => handleInputChange('cpf', e.target.value)}
-                                    className="h-12 text-lg border-2 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500/20"
+                                    onBlur={() => handleBlur('cpf')}
+                                    className={`h-12 text-lg border-2 ${errors.cpf ? 'border-red-500' : 'border-gray-200'} focus:border-emerald-500 focus:ring-emerald-500/20`}
                                     required
                                 />
+                                {errors.cpf && (
+                                    <InputError error={errors.cpf} />
+                                )}
                             </div>
                         </div>
 
@@ -570,24 +724,29 @@ export default function CadastroPage() {
                                     Senha
                                 </Label>
                                 <div className="relative">
-                                    <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                                    <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 z-10" />
                                     <Input
                                         id="password"
                                         type={showPassword ? "text" : "password"}
                                         placeholder="Mínimo 8 caracteres"
                                         value={formData.password}
                                         onChange={(e) => handleInputChange('password', e.target.value)}
-                                        className="pl-10 pr-10 h-12 text-lg border-2 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500/20"
+                                        onBlur={() => handleBlur('password')}
+                                        className={`pl-10 pr-10 h-12 text-lg border-2 ${errors.password ? 'border-red-500' : 'border-gray-200'} focus:border-emerald-500 focus:ring-emerald-500/20`}
                                         required
                                     />
                                     <button
                                         type="button"
                                         onClick={() => setShowPassword(!showPassword)}
-                                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 z-10"
                                     >
                                         {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                                     </button>
                                 </div>
+                                {errors.password && (
+                                    <InputError error={errors.password} />
+                                )}
+                                <p className="text-xs text-gray-500">Mínimo 8 caracteres, incluindo letras e números</p>
                             </div>
 
                             <div className="space-y-2">
@@ -595,24 +754,28 @@ export default function CadastroPage() {
                                     Confirmar senha
                                 </Label>
                                 <div className="relative">
-                                    <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                                    <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5 z-10" />
                                     <Input
                                         id="confirmPassword"
                                         type={showConfirmPassword ? "text" : "password"}
                                         placeholder="Confirme sua senha"
                                         value={formData.confirmPassword}
                                         onChange={(e) => handleInputChange('confirmPassword', e.target.value)}
-                                        className="pl-10 pr-10 h-12 text-lg border-2 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500/20"
+                                        onBlur={() => handleBlur('confirmPassword')}
+                                        className={`pl-10 pr-10 h-12 text-lg border-2 ${errors.confirmPassword ? 'border-red-500' : 'border-gray-200'} focus:border-emerald-500 focus:ring-emerald-500/20`}
                                         required
                                     />
                                     <button
                                         type="button"
                                         onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 z-10"
                                     >
                                         {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                                     </button>
                                 </div>
+                                {errors.confirmPassword && (
+                                    <InputError error={errors.confirmPassword} />
+                                )}
                             </div>
                         </div>
                     </div>
@@ -1305,11 +1468,13 @@ export default function CadastroPage() {
                 <div className="w-full max-w-4xl">
                     {/* Logo */}
                     <div className="flex items-center justify-center mb-3 sm:mb-4">
-                        <img
-                            src="/fotos/tudo-agro-logo.png"
-                            className="h-36 w-auto sm:h-40 md:h-44 lg:h-48 xl:h-52"
-                            alt="TudoAgro Logo"
-                        />
+                        <Link href="/">
+                            <img
+                                src="/fotos/tudo-agro-logo.png"
+                                className="h-36 w-auto sm:h-40 md:h-44 lg:h-48 xl:h-52 cursor-pointer"
+                                alt="TudoAgro Logo"
+                            />
+                        </Link>
                     </div>
 
                     {/* Main Registration Card */}

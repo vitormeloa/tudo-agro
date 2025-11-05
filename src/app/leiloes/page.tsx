@@ -348,7 +348,7 @@ export default function LeiloesPage() {
           <p className="text-xl text-emerald-100 mb-6 max-w-2xl mx-auto">
             Nossa plataforma oferece todas as ferramentas para você realizar leilões profissionais
           </p>
-          <Link href="/vender">
+          <Link href="/login">
             <Button className="bg-amber-500 hover:bg-amber-600 text-white px-8 py-3 text-lg transition-all duration-300 transform hover:scale-105">
               <Gavel className="w-5 h-5 mr-2" />
               Criar Meu Leilão

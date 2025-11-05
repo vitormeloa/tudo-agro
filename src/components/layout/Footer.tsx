@@ -1,13 +1,14 @@
 'use client'
 
+import { useState } from 'react'
 import Link from 'next/link'
-import { 
-  Facebook, 
-  Instagram, 
-  Twitter, 
-  Youtube, 
-  Mail, 
-  Phone, 
+import {
+  Facebook,
+  Instagram,
+  Twitter,
+  Youtube,
+  Mail,
+  Phone,
   MapPin,
   ArrowRight,
   Shield,
@@ -16,7 +17,10 @@ import {
   Heart
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { InputError } from '@/components/ui/input-error'
 import { getCurrentYear } from '@/lib/date-utils'
+import { validateEmail, validationMessages } from '@/lib/validators'
+import { useToast } from '@/hooks/use-toast'
 
 interface FooterProps {
   variant?: 'default' | 'minimal' | 'dark'
@@ -25,13 +29,56 @@ interface FooterProps {
   className?: string
 }
 
-export default function Footer({ 
-  variant = 'default', 
+export default function Footer({
+  variant = 'default',
   showNewsletter = true,
   showSocial = true,
-  className = '' 
+  className = ''
 }: FooterProps) {
   const currentYear = getCurrentYear()
+  const { toast } = useToast()
+  const [newsletterEmail, setNewsletterEmail] = useState('')
+  const [newsletterError, setNewsletterError] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+
+    // Validar e-mail
+    if (!newsletterEmail) {
+      setNewsletterError(validationMessages.email.required)
+      return
+    }
+
+    if (!validateEmail(newsletterEmail)) {
+      setNewsletterError(validationMessages.email.invalid)
+      return
+    }
+
+    setIsSubmitting(true)
+    setNewsletterError('')
+
+    try {
+      // Aqui você pode adicionar a lógica de envio para o backend
+      // Por enquanto, vamos simular um sucesso
+      await new Promise(resolve => setTimeout(resolve, 1000))
+
+      toast({
+        title: "Inscrição realizada!",
+        description: "Você receberá nossas novidades em breve.",
+      })
+
+      setNewsletterEmail('')
+    } catch (error) {
+      toast({
+        title: "Erro ao inscrever",
+        description: "Tente novamente mais tarde.",
+        variant: "destructive",
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
   const footerLinks = {
     marketplace: [
@@ -81,17 +128,49 @@ export default function Footer({
               <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
                 Receba ofertas exclusivas, novos leilões e dicas do agronegócio diretamente no seu e-mail
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-                <input
-                  type="email"
-                  placeholder="Seu melhor e-mail"
-                  className="flex-1 px-4 py-3 rounded-lg border border-gray-600 bg-gray-800 text-white placeholder-gray-400 focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
-                />
-                <Button className="bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white px-6 py-3">
-                  <ArrowRight className="w-4 h-4 mr-2" />
-                  Inscrever
-                </Button>
-              </div>
+              <form onSubmit={handleNewsletterSubmit} className="max-w-md mx-auto">
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <div className="flex-1">
+                    <input
+                      type="email"
+                      placeholder="Seu melhor e-mail"
+                      value={newsletterEmail}
+                      onChange={(e) => {
+                        setNewsletterEmail(e.target.value)
+                        setNewsletterError('')
+                      }}
+                      onBlur={() => {
+                        if (newsletterEmail && !validateEmail(newsletterEmail)) {
+                          setNewsletterError(validationMessages.email.invalid)
+                        }
+                      }}
+                      className={`w-full px-4 py-3 rounded-lg border ${newsletterError ? 'border-red-500' : 'border-gray-600'} bg-gray-800 text-white placeholder-gray-400 focus:ring-2 focus:ring-emerald-500 focus:border-transparent`}
+                    />
+                    {newsletterError && (
+                      <div className="mt-2">
+                        <InputError error={newsletterError} />
+                      </div>
+                    )}
+                  </div>
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white px-6 py-3 disabled:opacity-50"
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                        Inscrevendo...
+                      </>
+                    ) : (
+                      <>
+                        <ArrowRight className="w-4 h-4 mr-2" />
+                        Inscrever
+                      </>
+                    )}
+                  </Button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
