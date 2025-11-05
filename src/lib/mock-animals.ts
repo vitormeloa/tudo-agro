@@ -264,7 +264,7 @@ export const mockAnimals: MockAnimal[] = [
       "/fotos/animais/garanhao-quarto-de-milha.jpg",
     ],
     seller: {
-      id: "seller-6",
+      id: 6,
       name: "Haras Elite",
       location: "Goiás, GO",
       rating: 4.9,
