@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import ProductCard from '@/components/ui/cards/ProductCard'
-import FloatingWhatsAppButton from '@/components/FloatingWhatsAppButton'
+
 import { mockAnimals } from '@/lib/mock-animals'
 import {
   Search,
@@ -320,7 +320,7 @@ export default function CatalogoPage() {
       </div>
 
       {/* Floating WhatsApp Button */}
-      <FloatingWhatsAppButton />
+      
 
       <Footer />
     </div>

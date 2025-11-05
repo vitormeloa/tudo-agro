@@ -8,7 +8,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import ProductCard from '@/components/ui/cards/ProductCard'
-import FloatingWhatsAppButton from '@/components/FloatingWhatsAppButton'
+
 import { mockAuctions } from '@/lib/mock-auctions'
 import { mockProducts } from '@/lib/mock-products'
 import { mockAnimals } from '@/lib/mock-animals'
@@ -536,7 +536,7 @@ export default function HomePage() {
       </section>
 
       {/* Floating WhatsApp Button */}
-      <FloatingWhatsAppButton />
+      
 
       <Footer />
     </div>

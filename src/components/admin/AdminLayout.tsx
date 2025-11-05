@@ -17,7 +17,7 @@ import { useToast } from '@/hooks/use-toast'
 import { useIsMobile } from '@/hooks/use-mobile'
 import { useAdminPermissions } from '@/hooks/useAdminPermissions'
 import { useCart } from '@/contexts/CartContext'
-import FloatingWhatsAppButton from '@/components/FloatingWhatsAppButton'
+
 import LoadingSpinner from '@/components/LoadingSpinner'
 
 interface AdminLayoutProps {
@@ -482,7 +482,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
       </div>
 
       {/* Floating WhatsApp Button */}
-      <FloatingWhatsAppButton />
+      
       </div>
     </>
   )

@@ -17,7 +17,7 @@ import {
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import ProductCard from '@/components/ui/cards/ProductCard'
-import FloatingWhatsAppButton from '@/components/FloatingWhatsAppButton'
+
 import { mockProducts } from '@/lib/mock-products'
 import {
   Search,
@@ -464,7 +464,7 @@ export default function ProdutosPage() {
       </div>
 
       {/* Floating WhatsApp Button */}
-      <FloatingWhatsAppButton />
+      
 
       <Footer />
     </div>
