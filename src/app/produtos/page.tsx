@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -82,6 +82,18 @@ export default function ProdutosPage() {
     setCurrentPage(1)
   }
 
+  // Garantir que currentPage não ultrapasse totalPages
+  useEffect(() => {
+    if (currentPage > totalPages && totalPages > 0) {
+      setCurrentPage(totalPages)
+    }
+  }, [totalPages, currentPage])
+
+  // Scroll to top ao mudar de página
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   const categories = [
     { name: 'Nutrição Animal', count: 234, color: '#B8E8D1' },
@@ -398,16 +410,16 @@ export default function ProdutosPage() {
         {/* Pagination */}
         {totalPages > 1 && (
           <div className="flex justify-center mt-12">
-            <div className="flex items-center space-x-2">
-              <Button 
-                variant="outline" 
+            <div className="flex flex-wrap items-center justify-center gap-2">
+              <Button
+                variant="outline"
                 disabled={currentPage === 1}
-                onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
-                className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white disabled:border-gray-300 disabled:text-gray-400"
+                onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
+                className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white disabled:border-gray-300 disabled:text-gray-400 disabled:hover:bg-transparent disabled:hover:text-gray-400"
               >
                 Anterior
               </Button>
-              
+
               {/* Mostrar números de página */}
               {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
                 // Mostrar sempre primeira e última página, página atual e páginas adjacentes
@@ -419,10 +431,10 @@ export default function ProdutosPage() {
                   return (
                     <Button
                       key={page}
-                      onClick={() => setCurrentPage(page)}
+                      onClick={() => handlePageChange(page)}
                       className={
                         currentPage === page
-                          ? "bg-green-600 text-white"
+                          ? "bg-green-600 text-white hover:bg-green-700"
                           : "border-green-600 text-green-600 hover:bg-green-600 hover:text-white"
                       }
                       variant={currentPage === page ? "default" : "outline"}
@@ -436,12 +448,12 @@ export default function ProdutosPage() {
                 }
                 return null
               })}
-              
-              <Button 
+
+              <Button
                 variant="outline"
                 disabled={currentPage === totalPages}
-                onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
-                className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white disabled:border-gray-300 disabled:text-gray-400"
+                onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
+                className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white disabled:border-gray-300 disabled:text-gray-400 disabled:hover:bg-transparent disabled:hover:text-gray-400"
               >
                 Próximo
               </Button>

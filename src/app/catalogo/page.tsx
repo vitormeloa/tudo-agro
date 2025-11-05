@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -11,9 +11,9 @@ import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import ProductCard from '@/components/ui/cards/ProductCard'
 import { mockAnimals } from '@/lib/mock-animals'
-import { 
-  Search, 
-  Filter, 
+import {
+  Search,
+  Filter,
   SlidersHorizontal,
   ChevronDown,
   Star,
@@ -68,6 +68,19 @@ export default function CatalogoPage() {
   const handleSearchChange = (value: string) => {
     setSearchQuery(value)
     setCurrentPage(1)
+  }
+
+  // Garantir que currentPage não ultrapasse totalPages
+  useEffect(() => {
+    if (currentPage > totalPages && totalPages > 0) {
+      setCurrentPage(totalPages)
+    }
+  }, [totalPages, currentPage])
+
+  // Scroll to top ao mudar de página
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   const categories = [
@@ -253,58 +266,56 @@ export default function CatalogoPage() {
         </div>
 
         {/* Pagination */}
-        {totalPages > 1 && (
-          <div className="flex justify-center mt-12">
-            <div className="flex items-center space-x-2">
-              <Button 
-                variant="outline" 
-                disabled={currentPage === 1}
-                onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
-                className="border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white disabled:border-gray-300 disabled:text-gray-400"
-              >
-                Anterior
-              </Button>
-              
-              {/* Mostrar números de página */}
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
-                // Mostrar sempre primeira e última página, página atual e páginas adjacentes
-                if (
-                  page === 1 ||
-                  page === totalPages ||
-                  (page >= currentPage - 1 && page <= currentPage + 1)
-                ) {
-                  return (
-                    <Button
-                      key={page}
-                      onClick={() => setCurrentPage(page)}
-                      className={
-                        currentPage === page
-                          ? "bg-emerald-600 text-white"
-                          : "border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white"
-                      }
-                      variant={currentPage === page ? "default" : "outline"}
-                    >
-                      {page}
-                    </Button>
-                  )
-                } else if (page === currentPage - 2 || page === currentPage + 2) {
-                  // Mostrar ellipsis
-                  return <span key={page} className="px-2 text-gray-500">...</span>
-                }
-                return null
-              })}
-              
-              <Button 
-                variant="outline"
-                disabled={currentPage === totalPages}
-                onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
-                className="border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white disabled:border-gray-300 disabled:text-gray-400"
-              >
-                Próximo
-              </Button>
-            </div>
+        <div className="flex justify-center mt-12">
+          <div className="flex flex-wrap items-center justify-center gap-2">
+            <Button
+              variant="outline"
+              disabled={currentPage === 1 || totalPages <= 1}
+              onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
+              className="border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white disabled:border-gray-300 disabled:text-gray-400 disabled:hover:bg-transparent disabled:hover:text-gray-400"
+            >
+              Anterior
+            </Button>
+
+            {/* Mostrar números de página */}
+            {totalPages > 0 && Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
+              // Mostrar sempre primeira e última página, página atual e páginas adjacentes
+              if (
+                page === 1 ||
+                page === totalPages ||
+                (page >= currentPage - 1 && page <= currentPage + 1)
+              ) {
+                return (
+                  <Button
+                    key={page}
+                    onClick={() => handlePageChange(page)}
+                    className={
+                      currentPage === page
+                        ? "bg-emerald-600 text-white hover:bg-emerald-700"
+                        : "border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white"
+                    }
+                    variant={currentPage === page ? "default" : "outline"}
+                  >
+                    {page}
+                  </Button>
+                )
+              } else if (page === currentPage - 2 || page === currentPage + 2) {
+                // Mostrar ellipsis
+                return <span key={page} className="px-2 text-gray-500">...</span>
+              }
+              return null
+            })}
+
+            <Button
+              variant="outline"
+              disabled={currentPage === totalPages || totalPages <= 1}
+              onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
+              className="border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white disabled:border-gray-300 disabled:text-gray-400 disabled:hover:bg-transparent disabled:hover:text-gray-400"
+            >
+              Próximo
+            </Button>
           </div>
-        )}
+        </div>
       </div>
 
       <Footer />
