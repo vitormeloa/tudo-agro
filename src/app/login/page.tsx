@@ -190,14 +190,14 @@ export default function LoginPage() {
                     <Checkbox
                       id="remember"
                       checked={rememberMe}
-                      onCheckedChange={setRememberMe}
+                      onCheckedChange={(checked) => setRememberMe(checked === true)}
                     />
                     <Label htmlFor="remember" className="text-xs sm:text-sm text-gray-600 cursor-pointer">
                       Lembrar de mim
                     </Label>
                   </div>
-                  <Link 
-                    href="/esqueci-senha" 
+                  <Link
+                    href="/esqueci-senha"
                     className="text-xs sm:text-sm text-emerald-600 hover:text-emerald-700 font-medium"
                   >
                     Esqueceu a senha?

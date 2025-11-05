@@ -23,10 +23,7 @@ import {
     Building,
     MapPin,
     Phone,
-    CheckCircle,
-    Shield,
-    Users,
-    Award
+    CheckCircle
 } from 'lucide-react'
 
 export default function CadastroPage() {
@@ -184,24 +181,6 @@ export default function CadastroPage() {
             setIsLoading(false)
         }
     }
-
-    const features = [
-        {
-            icon: Shield,
-            title: "Segurança Total",
-            description: "Dados protegidos com criptografia de ponta"
-        },
-        {
-            icon: Users,
-            title: "Comunidade Ativa",
-            description: "50k+ produtores conectados"
-        },
-        {
-            icon: Award,
-            title: "Melhores Negócios",
-            description: "Acesse ofertas exclusivas"
-        }
-    ]
 
     const getActivityTypeLabel = (value: string) => {
         const labels: { [key: string]: string } = {
@@ -1322,57 +1301,41 @@ export default function CadastroPage() {
     return (
         <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-green-50">
             {/* Centralized Registration Form */}
-            <div className="flex items-center justify-center min-h-screen p-2 sm:p-4">
+            <div className="flex items-center justify-center min-h-screen pt-2 sm:pt-3 lg:pt-4 pb-4 sm:pb-6 px-4 sm:px-6 lg:px-8">
                 <div className="w-full max-w-4xl">
-                    {/* Header */}
-                    <div className="text-center mb-8">
-                        <div className="flex items-center justify-center mb-6">
-                            <img 
-                                src="/fotos/tudo-agro-logo.png" 
-                                className="h-16 w-auto sm:h-20 md:h-24 lg:h-28 xl:h-32"
-                                alt="TudoAgro Logo"
-                            />
-                        </div>
-                        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-2">
-                            Criar conta
-                        </h1>
-                        <p className="text-base sm:text-lg text-gray-600">
-                            Cadastre-se e tenha acesso ao melhor do agronegócio
-                        </p>
-                    </div>
-
-                    {/* Features Section - Above the form */}
-                    <div className="mb-6 sm:mb-8">
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
-                            {features.map((feature, index) => (
-                                <div key={index} className="text-center p-4 sm:p-6 bg-white/50 rounded-xl border border-emerald-100">
-                                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-emerald-100 rounded-xl flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                                        <feature.icon className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600" />
-                                    </div>
-                                    <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2">
-                                        {feature.title}
-                                    </h3>
-                                    <p className="text-gray-600 text-xs sm:text-sm">
-                                        {feature.description}
-                                    </p>
-                                </div>
-                            ))}
-                        </div>
+                    {/* Logo */}
+                    <div className="flex items-center justify-center mb-3 sm:mb-4">
+                        <img
+                            src="/fotos/tudo-agro-logo.png"
+                            className="h-36 w-auto sm:h-40 md:h-44 lg:h-48 xl:h-52"
+                            alt="TudoAgro Logo"
+                        />
                     </div>
 
                     {/* Main Registration Card */}
-                    <Card className="shadow-2xl border-0 bg-white/80 backdrop-blur-sm">
-                        <CardContent className="p-4 sm:p-6 lg:p-8">
+                    <Card className="shadow-2xl border-0">
+                        <CardContent className="p-6 sm:p-8">
+                            {/* Título e Subtítulo */}
+                            <div className="text-center mb-6 sm:mb-8">
+                                <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+                                    Criar Conta
+                                </h1>
+                                <p className="text-xs sm:text-sm md:text-base text-gray-600">
+                                    Cadastre-se e tenha acesso ao melhor do agronegócio
+                                </p>
+                            </div>
+
                             {/* Botão de Voltar */}
-                            <div className="mb-6">
+                            <div className="mb-4 sm:mb-6">
                                 <Link href="/">
-                                    <Button 
-                                        type="button" 
-                                        variant="ghost" 
-                                        className="text-gray-600 hover:text-emerald-600 hover:bg-emerald-50 p-2"
+                                    <Button
+                                        type="button"
+                                        variant="ghost"
+                                        className="text-gray-600 hover:text-emerald-600 hover:bg-emerald-50 p-2 text-sm sm:text-base"
                                     >
-                                        <ArrowLeft className="w-5 h-5 mr-2" />
-                                        Voltar ao início
+                                        <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
+                                        <span className="hidden sm:inline">Voltar ao início</span>
+                                        <span className="sm:hidden">Voltar</span>
                                     </Button>
                                 </Link>
                             </div>

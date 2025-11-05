@@ -18,9 +18,9 @@ import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import ProductCard from '@/components/ui/cards/ProductCard'
 import { mockProducts } from '@/lib/mock-products'
-import { 
-  Search, 
-  Filter, 
+import {
+  Search,
+  Filter,
   SlidersHorizontal,
   ChevronDown,
   Star,
@@ -278,41 +278,59 @@ export default function ProdutosPage() {
 
         {/* Modal de Categorias */}
         <Dialog open={showCategoriesModal} onOpenChange={setShowCategoriesModal}>
-          <DialogContent className="max-w-[95vw] sm:max-w-2xl md:max-w-3xl lg:max-w-4xl max-h-[90vh] sm:max-h-[85vh] overflow-hidden flex flex-col p-0 gap-0 m-4 sm:m-6 rounded-lg sm:rounded-xl">
-            <DialogHeader className="px-4 sm:px-6 pt-4 sm:pt-6 pb-3 sm:pb-4 border-b border-gray-200 flex-shrink-0 bg-white relative">
-              <div className="flex items-start justify-between gap-4 pr-8 sm:pr-10">
-                <div className="flex-1 min-w-0">
-                  <DialogTitle className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900">Todas as Categorias</DialogTitle>
-                  <DialogDescription className="text-xs sm:text-sm text-gray-600 mt-1 sm:mt-2">
-                    Explore todas as categorias disponíveis em nosso marketplace
-                  </DialogDescription>
-                </div>
+          <DialogContent className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[calc(100%-2rem)] sm:w-[calc(100%-4rem)] max-w-[90vw] sm:max-w-2xl md:max-w-3xl lg:max-w-4xl h-[calc(100vh-4rem)] sm:h-auto max-h-[85vh] overflow-hidden flex flex-col p-0 gap-0 rounded-xl sm:rounded-2xl shadow-2xl border-0 bg-white">
+            {/* Header */}
+            <DialogHeader className="px-4 sm:px-6 pt-4 sm:pt-6 pb-3 sm:pb-4 border-b border-gray-200 flex-shrink-0 bg-gradient-to-r from-green-50 to-emerald-50 relative rounded-t-xl sm:rounded-t-2xl">
+              <div className="pr-8 sm:pr-10">
+                <DialogTitle className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900">
+                  Todas as Categorias
+                </DialogTitle>
+                <DialogDescription className="text-xs sm:text-sm text-gray-600 mt-1 sm:mt-2">
+                  Explore todas as {hiddenCategories.length} categorias disponíveis
+                </DialogDescription>
               </div>
             </DialogHeader>
-            <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-4 sm:py-6 overscroll-contain -webkit-overflow-scrolling-touch">
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
+
+            {/* Corpo do Modal com Scroll */}
+            <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-4 sm:py-6 bg-gray-50 overscroll-contain" style={{ WebkitOverflowScrolling: 'touch' }}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                 {hiddenCategories.map((category, index) => (
-                  <Card 
-                    key={category.name} 
-                    className="hover:shadow-lg transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] cursor-pointer border border-gray-200 touch-manipulation"
+                  <Card
+                    key={category.name}
+                    className="hover:shadow-lg transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] cursor-pointer border border-gray-200 hover:border-green-300 bg-white touch-manipulation"
                     onClick={() => setShowCategoriesModal(false)}
+                    style={{
+                      animation: 'fadeInUp 0.3s ease-out',
+                      animationDelay: `${index * 0.05}s`,
+                      animationFillMode: 'both'
+                    }}
                   >
-                    <CardContent className="p-3 sm:p-4 text-center flex flex-col items-center justify-center min-h-[100px] sm:min-h-[120px] md:min-h-[140px]">
-                      <div 
-                        className="inline-flex px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium mb-2 sm:mb-3 max-w-full break-words leading-tight"
-                        style={{ 
+                    <CardContent className="p-3 sm:p-4 text-center flex flex-col items-center justify-center min-h-[100px] sm:min-h-[110px]">
+                      <div
+                        className="inline-flex px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium mb-2 sm:mb-3 max-w-full break-words leading-tight shadow-sm"
+                        style={{
                           backgroundColor: category.color,
                           color: '#1F2937'
                         }}
                       >
                         <span className="text-center">{category.name}</span>
                       </div>
-                      <div className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900">{category.count}</div>
+                      <div className="text-xl sm:text-2xl font-bold text-gray-900">{category.count}</div>
                       <div className="text-xs sm:text-sm text-gray-500 mt-0.5">produtos</div>
                     </CardContent>
                   </Card>
                 ))}
               </div>
+            </div>
+
+            {/* Rodapé com botão Fechar (mobile friendly) */}
+            <div className="px-4 sm:px-6 py-3 sm:py-4 border-t border-gray-200 bg-white flex-shrink-0 rounded-b-xl sm:rounded-b-2xl">
+              <Button
+                onClick={() => setShowCategoriesModal(false)}
+                className="w-full bg-green-600 hover:bg-green-700 text-white h-11 sm:h-12 text-base sm:text-lg font-semibold transition-all duration-200 touch-manipulation active:scale-[0.98]"
+              >
+                Fechar
+              </Button>
             </div>
           </DialogContent>
         </Dialog>
