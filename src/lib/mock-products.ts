@@ -1365,7 +1365,7 @@ export const mockProducts: MockProduct[] = [
       name: "CIRUVIX",
       location: "São Paulo, SP",
       rating: 4.3,
-      totalSales: 4,
+      totalSales: 400,
       memberSince: "2020",
       verified: true,
       image: "https://http2.mlstatic.com/storage/mshops-appearance-api/images/30/89b96f22989d4904a90a0122d9256c7f4858730/logo-2023102014232739658.jpeg"
@@ -1409,10 +1409,540 @@ export const mockProducts: MockProduct[] = [
       name: "OriginalVet",
       location: "Osasco, SP",
       rating: 4.3,
-      totalSales: 4,
+      totalSales: 486,
       memberSince: "2020",
       verified: true,
       image: "https://http2.mlstatic.com/storage/mshops-appearance-api/images/30/89b96f22989d4904a90a0122d9256c7f4858730/logo-2023102014232739658.jpeg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440033",
+  title: "Sela Australiana Pinheiro Marrom",
+  category: "Selaria e Utilidades",
+  price: 1278.00,
+  location: "Minas Gerais",
+  city: "Dores de Campos",
+  rating: 5,
+  reviews: 1,
+  image: "/fotos/produtos/australiana.png",
+  seller: "Selaria Pinheiro",
+  verified: true,
+  featured: false,
+  weight: "12kg",
+  brand: "Selaria Pinheiro",
+  stock: "Em estoque",
+  description: "Sela completa, confeccionada e emcouro legítmo sobre armação de ferro e madeira, inervada em couro cru.",
+  images: [
+    "/fotos/produtos/australiana.png",
+  ],
+  specifications: {
+    uso: "Montaria, trabalho e cavalgadas longas",
+    conforto: "Alta absorção de impacto e estabilidade",
+    manutencao: "Limpar com pano úmido e hidratar o couro periodicamente"
+  },
+  documents: [
+    "Ficha Técnica",
+    "Certificado de Garantia",
+    "Certificado de Qualidade",
+    "Manual de Cuidados e Manutenção",
+    "Nota Fiscal",
+    "Termo de Origem do Fabricante"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "Selaria Pinheiro",
+      location: "Dores de Campos, MG",
+      rating: 5,
+      totalSales: 122,
+      memberSince: "2020",
+      verified: true,
+      image: "https://mla-s2-p.mlstatic.com/786652-MLA31563882658_072019-O.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440034",
+  title: "Cabeçada Para Cavalo Com Argola Premium Couro Oleado",
+  category: "Selaria e Utilidades",
+  price: 118.08,
+  location: "Minas Gerais",
+  city: "Belo Horizonte",
+  rating: 4.8,
+  reviews: 17,
+  image: "/fotos/produtos/cabecada.png",
+  seller: "Selaria Pinheiro",
+  verified: true,
+  featured: false,
+  weight: "",
+  brand: "Cavalo Real",
+  stock: "Em estoque",
+  description: "Cabeçada Para Cavalo De Argola Premium Couro Oleado.",
+  images: [
+    "/fotos/produtos/cabecada.png",
+  ],
+  specifications: {
+    uso: "Montaria, treinamentos e cavalgadas",
+    conforto: "Design anatômico que evita atrito e melhora o ajuste",
+    resistencia: "Alta resistência a tração e intempéries",
+    manutencao: "Limpar com pano úmido e aplicar óleo ou graxa de couro periodicamente"
+  },
+  documents: [
+    "Ficha Técnica",
+    "Certificado de Garantia",
+    "Certificado de Qualidade",
+    "Manual de Cuidados e Manutenção",
+    "Nota Fiscal",
+    "Termo de Origem do Fabricante"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "Cavalo Real",
+      location: "Belo Horizonte, MG",
+      rating: 4.8,
+      totalSales: 177,
+      memberSince: "2020",
+      verified: true,
+      image: "https://mla-s1-p.mlstatic.com/876137-MLA31469259049_072019-O.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440035",
+  title: "Rédea De Couro De Bode Trançada",
+  category: "Selaria e Utilidades",
+  price: 78.00,
+  location: "São Paulo",
+  city: "Osasco",
+  rating: 4.8,
+  reviews: 17,
+  image: "/fotos/produtos/redea.png",
+  seller: "MANIACOUNTRY",
+  verified: true,
+  featured: false,
+  weight: "",
+  brand: "Selaria Ferreira",
+  stock: "Em estoque",
+  description: "Rédea Couro de Bode, confeccionada em legítimo couro de bode trançado.",
+  images: [
+    "/fotos/produtos/redea.png",
+  ],
+  specifications: {
+    uso: "Montaria, treinamentos e cavalgadas",
+    conforto: "Design anatômico que evita atrito e melhora o ajuste",
+    resistencia: "Alta resistência a tração e intempéries",
+    manutencao: "Limpar com pano úmido e aplicar óleo ou graxa de couro periodicamente"
+  },
+  documents: [
+    "Ficha Técnica",
+    "Certificado de Garantia",
+    "Certificado de Qualidade",
+    "Manual de Cuidados e Manutenção",
+    "Nota Fiscal",
+    "Termo de Origem do Fabricante"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "MANIACOUNTRY",
+      location: "Osasco, São Paulo",
+      rating: 4.8,
+      totalSales: 177,
+      memberSince: "2020",
+      verified: true,
+      image: "https://mla-s1-p.mlstatic.com/947397-MLA47297371628_082021-O.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440036",
+  title: "Estribo Par Em Aço Inox 12mm Fabricante Premium",
+  category: "Selaria e Utilidades",
+  price: 79.00,
+  location: "São Paulo",
+  city: "Osasco",
+  rating: 4.8,
+  reviews: 17,
+  image: "/fotos/produtos/redea.png",
+  seller: "BASIKEARTESANATO",
+  verified: true,
+  featured: false,
+  weight: "",
+  brand: "Artsanal",
+  stock: "Em estoque",
+  description: "Estribo de aço inox de 12 mm de fabricação artesanal.",
+  images: [
+    "/fotos/produtos/estribo.png",
+  ],
+  specifications: {
+    resistencia: "Suporta altas cargas sem deformar",
+    durabilidade: "Resistente à corrosão e oxidação",
+    manutencao: "Limpar com pano seco e evitar produtos abrasivos"
+  },
+  documents: [
+  "Ficha Técnica",
+  "Certificado de Garantia",
+  "Certificado de Qualidade",
+  "Laudo de Conformidade do Material (Aço Inox)",
+  "Nota Fiscal",
+  "Termo de Origem do Fabricante"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "BASIKEARTESANATO",
+      location: "Osasco, São Paulo",
+      rating: 5,
+      totalSales: 126,
+      memberSince: "2020",
+      verified: true,
+      image: "https://mla-s1-p.mlstatic.com/947397-MLA47297371628_082021-O.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440037",
+  title: "Freio Campista Inox Para Cavalo Mula Pesado",
+  category: "Selaria e Utilidades",
+  price: 62.95,
+  location: "Minas Gerais",
+  city: "Belo Horizonte",
+  rating: 3.9,
+  reviews: 37,
+  image: "/fotos/produtos/freio.png",
+  seller: "JU SHOP",
+  verified: true,
+  featured: false,
+  weight: "",
+  brand: "JU SHOP",
+  stock: "Em estoque",
+  description: "Freio campista é um produto com finíssimo acabamento, para extrair o melhor na sua cavalgada.",
+  images: [
+    "/fotos/produtos/freio.png",
+  ],
+  specifications: {
+    resistencia: "Suporta altas cargas sem deformar",
+    durabilidade: "Resistente à corrosão e oxidação",
+    manutencao: "Limpar com pano seco e evitar produtos abrasivos"
+  },
+  documents: [
+  "Ficha Técnica",
+  "Certificado de Garantia",
+  "Certificado de Qualidade",
+  "Laudo de Conformidade do Material (Aço Inox)",
+  "Nota Fiscal",
+  "Termo de Origem do Fabricante"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "JU SHOP",
+      location: "Belo Horizonte, Minas Gerais",
+      rating: 5,
+      totalSales: 126,
+      memberSince: "2020",
+      verified: true,
+      image: "https://mla-s1-p.mlstatic.com/947397-MLA47297371628_082021-O.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440038",
+  title: "Peitoral Mangalarga Marchador Modelo Y Em Couro",
+  category: "Selaria e Utilidades",
+  price: 78.00,
+  location: "Minas Gerais",
+  city: "Dores de Campos",
+  rating: 5,
+  reviews: 4,
+  image: "/fotos/produtos/peitoral.png",
+  seller: "Selaria Essencial",
+  verified: true,
+  featured: false,
+  weight: "",
+  brand: "Selaria Essencial",
+  stock: "Em estoque",
+  description: "Peitoral Manga Larga Confeccionado em couro de búfalo legitimo oleado.",
+  images: [
+    "/fotos/produtos/peitoral.png",
+  ],
+  specifications: {
+    resistencia: "Suporta altas cargas sem deformar",
+    durabilidade: "Resistente à corrosão e oxidação",
+    manutencao: "Limpar com pano seco e evitar produtos abrasivos"
+  },
+  documents: [
+  "Ficha Técnica",
+  "Certificado de Garantia",
+  "Certificado de Qualidade",
+  "Laudo de Conformidade do Material (Aço Inox)",
+  "Nota Fiscal",
+  "Termo de Origem do Fabricante"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "Selaria Essencial",
+      location: "Dores de Campos, Minas Gerais",
+      rating: 5,
+      totalSales: 428,
+      memberSince: "2020",
+      verified: true,
+      image: "https://http2.mlstatic.com/D_NQ_NP_665370-MLA79440041362_102024-F.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440039",
+  title: "Conjunto Barrigueira E Cilha Estrela Luxo Promoção Marrom",
+  category: "Selaria e Utilidades",
+  price: 76.00,
+  location: "Minas Gerais",
+  city: "Dores de Campos",
+  rating: 4.6,
+  reviews: 38,
+  image: "/fotos/produtos/barrigueira.png",
+  seller: "GS Selas",
+  verified: true,
+  featured: false,
+  weight: "",
+  brand: "GS Selas",
+  stock: "Em estoque",
+  description: "Peitoral Manga Larga Confeccionado em couro de búfalo legitimo oleado.",
+  images: [
+    "/fotos/produtos/barrigueira.png",
+  ],
+  specifications: {
+    resistencia: "Suporta altas cargas sem deformar",
+    durabilidade: "Resistente à corrosão e oxidação",
+    manutencao: "Limpar com pano seco e evitar produtos abrasivos"
+  },
+  documents: [
+  "Ficha Técnica",
+  "Certificado de Garantia",
+  "Certificado de Qualidade",
+  "Laudo de Conformidade do Material (Aço Inox)",
+  "Nota Fiscal",
+  "Termo de Origem do Fabricante"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "GS Selas",
+      location: "Dores de Campos, Minas Gerais",
+      rating: 5,
+      totalSales: 428,
+      memberSince: "2020",
+      verified: true,
+      image: "https://mla-s1-p.mlstatic.com/947397-MLA47297371628_082021-O.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440040",
+  title: "Manta Baixeiro Para Sela Ou Arreio Promoção Manta Bacheiro",
+  category: "Selaria e Utilidades",
+  price: 58.99,
+  location: "Minas Gerais",
+  city: "Belo Horizonte",
+  rating: 4.6,
+  reviews: 5,
+  image: "/fotos/produtos/manta.png",
+  seller: "Selaria Minas",
+  verified: true,
+  featured: false,
+  weight: "",
+  brand: "Selaria Minas",
+  stock: "Em estoque",
+  description: "Manta produzida em brim.",
+  images: [
+    "/fotos/produtos/barrigueira.png",
+  ],
+  specifications: {
+    respirabilidade: "Boa ventilação, evitando superaquecimento",
+    uso: "Montaria, treinamento e cavalgadas",
+    manutencao: "Lavar à mão com sabão neutro e secar à sombra"
+  },
+  documents: [
+  "Ficha Técnica",
+  "Certificado de Garantia",
+  "Certificado de Qualidade",
+  "Laudo de Conformidade do Material (Aço Inox)",
+  "Nota Fiscal",
+  "Termo de Origem do Fabricante"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "Selaria Minas",
+      location: "Belo Horizonte, Minas Gerais",
+      rating: 5,
+      totalSales: 428,
+      memberSince: "2020",
+      verified: true,
+      image: "https://http2.mlstatic.com/D_NQ_NP_838959-MLA88471614720_072025-F.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440039",
+  title: "Conjunto Barrigueira E Cilha Estrela Luxo Promoção Marrom",
+  category: "Selaria e Utilidades",
+  price: 76.00,
+  location: "Minas Gerais",
+  city: "Dores de Campos",
+  rating: 4.6,
+  reviews: 38,
+  image: "/fotos/produtos/barrigueira.png",
+  seller: "GS Selas",
+  verified: true,
+  featured: false,
+  weight: "",
+  brand: "GS Selas",
+  stock: "Em estoque",
+  description: "Peitoral Manga Larga Confeccionado em couro de búfalo legitimo oleado.",
+  images: [
+    "/fotos/produtos/barrigueira.png",
+  ],
+  specifications: {
+    resistencia: "Suporta altas cargas sem deformar",
+    durabilidade: "Resistente à corrosão e oxidação",
+    manutencao: "Limpar com pano seco e evitar produtos abrasivos"
+  },
+  documents: [
+  "Ficha Técnica",
+  "Certificado de Garantia",
+  "Certificado de Qualidade",
+  "Laudo de Conformidade do Material (Aço Inox)",
+  "Nota Fiscal",
+  "Termo de Origem do Fabricante"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "GS Selas",
+      location: "Dores de Campos, Minas Gerais",
+      rating: 5,
+      totalSales: 428,
+      memberSince: "2020",
+      verified: true,
+      image: "https://mla-s1-p.mlstatic.com/947397-MLA47297371628_082021-O.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440040",
+  title: "Manta Baixeiro Para Sela Ou Arreio Promoção Manta Bacheiro",
+  category: "Selaria e Utilidades",
+  price: 58.99,
+  location: "Minas Gerais",
+  city: "Belo Horizonte",
+  rating: 4.6,
+  reviews: 5,
+  image: "/fotos/produtos/manta.png",
+  seller: "Selaria Minas",
+  verified: true,
+  featured: false,
+  weight: "",
+  brand: "Selaria Minas",
+  stock: "Em estoque",
+  description: "Manta produzida em brim.",
+  images: [
+    "/fotos/produtos/barrigueira.png",
+  ],
+  specifications: {
+    respirabilidade: "Boa ventilação, evitando superaquecimento",
+    uso: "Montaria, treinamento e cavalgadas",
+    manutencao: "Lavar à mão com sabão neutro e secar à sombra"
+  },
+  documents: [
+  "Ficha Técnica",
+  "Certificado de Garantia",
+  "Certificado de Qualidade",
+  "Laudo de Conformidade do Material (Aço Inox)",
+  "Nota Fiscal",
+  "Termo de Origem do Fabricante"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "Selaria Minas",
+      location: "Belo Horizonte, Minas Gerais",
+      rating: 5,
+      totalSales: 428,
+      memberSince: "2020",
+      verified: true,
+      image: "https://http2.mlstatic.com/D_NQ_NP_838959-MLA88471614720_072025-F.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440039",
+  title: "Conjunto Barrigueira E Cilha Estrela Luxo Promoção Marrom",
+  category: "Selaria e Utilidades",
+  price: 76.00,
+  location: "Minas Gerais",
+  city: "Dores de Campos",
+  rating: 4.6,
+  reviews: 38,
+  image: "/fotos/produtos/barrigueira.png",
+  seller: "GS Selas",
+  verified: true,
+  featured: false,
+  weight: "",
+  brand: "GS Selas",
+  stock: "Em estoque",
+  description: "Peitoral Manga Larga Confeccionado em couro de búfalo legitimo oleado.",
+  images: [
+    "/fotos/produtos/barrigueira.png",
+  ],
+  specifications: {
+    resistencia: "Suporta altas cargas sem deformar",
+    durabilidade: "Resistente à corrosão e oxidação",
+    manutencao: "Limpar com pano seco e evitar produtos abrasivos"
+  },
+  documents: [
+  "Ficha Técnica",
+  "Certificado de Garantia",
+  "Certificado de Qualidade",
+  "Laudo de Conformidade do Material (Aço Inox)",
+  "Nota Fiscal",
+  "Termo de Origem do Fabricante"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "GS Selas",
+      location: "Dores de Campos, Minas Gerais",
+      rating: 5,
+      totalSales: 428,
+      memberSince: "2020",
+      verified: true,
+      image: "https://mla-s1-p.mlstatic.com/947397-MLA47297371628_082021-O.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440041",
+  title: "Espora Para Cavalo 16 Bicos Cavalgadas Com Correias Unissex",
+  category: "Selaria e Utilidades",
+  price: 58.99,
+  location: "Minas Gerais",
+  city: "Belo Horizonte",
+  rating: 4.7,
+  reviews: 7,
+  image: "/fotos/produtos/espora.png",
+  seller: "Selaria Rodrigues Silva",
+  verified: true,
+  featured: false,
+  weight: "",
+  brand: "Selaria Rodrigues Silva",
+  stock: "Em estoque",
+  description: "Espora de ferro com 16 bicos: a melhor opção para suas cavalgadas.",
+  images: [
+    "/fotos/produtos/espora.png",
+  ],
+  specifications: {
+    respirabilidade: "Boa ventilação, evitando superaquecimento",
+    uso: "Montaria, treinamento e cavalgadas",
+    manutencao: "Lavar à mão com sabão neutro e secar à sombra"
+  },
+  documents: [
+  "Ficha Técnica",
+  "Certificado de Garantia",
+  "Certificado de Qualidade",
+  "Laudo de Conformidade do Material (Aço Inox)",
+  "Nota Fiscal",
+  "Termo de Origem do Fabricante"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "Selaria Rodrigues Silva",
+      location: "Belo Horizonte, Minas Gerais",
+      rating: 5,
+      totalSales: 508,
+      memberSince: "2020",
+      verified: true,
+      image: "https://http2.mlstatic.com/D_NQ_NP_781084-MLA91071595800_092025-F.jpg"
     }
 },
 ]
