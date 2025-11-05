@@ -7,19 +7,16 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
-import { 
-  ArrowLeft,
+import {
   MapPin, 
   Star, 
   Shield,
   Award,
   Calendar,
-  TrendingUp,
   MessageCircle,
   Phone,
   Mail,
   Users,
-  Gavel,
   CheckCircle
 } from 'lucide-react'
 import { mockAnimals } from '@/lib/mock-animals'
@@ -59,13 +56,13 @@ function getSellerById(sellerId: string | number): Seller | null {
   
   // Buscar em animais
   const animalWithSeller = mockAnimals.find(a => {
-    const animalSellerId = typeof a.seller.id === 'string' ? parseInt(a.seller.id.toString(), 10) : a.seller.id
+    const animalSellerId = typeof a.seller.id === 'string' ? parseInt(a.seller.id, 10) : a.seller.id
     return animalSellerId === idNum || a.seller.id.toString() === sellerId.toString()
   })
   
   if (animalWithSeller) {
     const sellerAnimals = mockAnimals.filter(a => {
-      const animalSellerId = typeof a.seller.id === 'string' ? parseInt(a.seller.id.toString(), 10) : a.seller.id
+      const animalSellerId = typeof a.seller.id === 'string' ? parseInt(a.seller.id, 10) : a.seller.id
       return animalSellerId === idNum || a.seller.id.toString() === sellerId.toString()
     })
     
@@ -202,7 +199,7 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
   
   // Buscar produtos e animais do vendedor
   const sellerAnimals = mockAnimals.filter(a => {
-    const animalSellerId = typeof a.seller.id === 'string' ? parseInt(a.seller.id.toString(), 10) : a.seller.id
+    const animalSellerId = typeof a.seller.id === 'string' ? parseInt(a.seller.id, 10) : a.seller.id
     const idNum = typeof sellerId === 'string' ? parseInt(sellerId, 10) : sellerId
     return animalSellerId === idNum || a.seller.id.toString() === sellerId.toString()
   })
@@ -420,7 +417,7 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
                   <Card key={lot.id} className="overflow-hidden hover:shadow-xl transition-all group hover:scale-105 border-gray-200">
                     <div className="relative">
                       <img 
-                        src={lot.image} 
+                        src={lot.image}
                         alt={lot.title}
                         className="w-full h-48 object-cover group-hover:scale-100 transition-transform duration-300"
                       />

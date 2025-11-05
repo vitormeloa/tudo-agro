@@ -7,7 +7,6 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { 
-  ArrowLeft,
   MapPin, 
   Star, 
   Heart, 
@@ -15,12 +14,9 @@ import {
   FileText,
   Award,
   Shield,
-  Calendar,
   Weight,
-  Ruler,
   ChevronLeft,
   ChevronRight,
-  Play,
   ShoppingCart,
   ShoppingBag,
   Plus,
@@ -29,28 +25,34 @@ import {
 } from 'lucide-react'
 import { mockProducts } from '@/lib/mock-products'
 import { useCart } from '@/contexts/CartContext'
-import ProtectedRoute from '@/components/ProtectedRoute'
-import AdminLayout from '@/components/admin/AdminLayout'
+import RequireAuth from '@/components/RequireAuth'
+import Header from '@/components/layout/Header'
+import Footer from '@/components/layout/Footer'
 import { useAuth } from '@/hooks/useAuth'
 import { useToast } from '@/hooks/use-toast'
+import { useFavorites } from '@/hooks/useFavorites'
 import { calculateFreight, formatCEP, type FreightResult } from '@/lib/freight-calculator'
 import { Input } from '@/components/ui/input'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import ReviewsSection from '@/components/reviews/ReviewsSection'
+import SellerInfoCard from '@/components/ui/cards/SellerInfoCard'
 import { mockProductReviews } from '@/lib/mock-reviews'
 import type { Review } from '@/lib/mock-reviews'
+import QuestionsSection from '@/components/questions/QuestionsSection'
+import { getProductQuestions } from '@/lib/mock-questions'
 
 export default function ProdutoPage({ params }: { params: Promise<{ id: string }> }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
-  const [isFavorite, setIsFavorite] = useState(false)
   const [quantity, setQuantity] = useState(1)
   const [cep, setCep] = useState('')
   const [freightResult, setFreightResult] = useState<FreightResult | null>(null)
   const [isCalculatingFreight, setIsCalculatingFreight] = useState(false)
   const { addItem } = useCart()
   const { user, initialized } = useAuth()
+  const { isFavorite, toggleFavorite, checkIsFavorite } = useFavorites()
   const router = useRouter()
   const { toast } = useToast()
+  const [favoriteChecked, setFavoriteChecked] = useState(false)
   const [reviews, setReviews] = useState<Review[]>(mockProductReviews)
   
   const resolvedParams = use(params)
@@ -59,28 +61,32 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
   // Buscar produto pelo ID
   const product = mockProducts.find(p => p.id === productId)
   
+  // Verificar se está favoritado quando componente montar
+  useEffect(() => {
+    if (product && user && !favoriteChecked) {
+      checkIsFavorite(product.id).then(() => {
+        setFavoriteChecked(true)
+      })
+    }
+  }, [product, user, favoriteChecked, checkIsFavorite])
+  
   // Extrair quantidade disponível do estoque
   const getAvailableStock = (stockString: string): number => {
-    // Tenta extrair número da string (ex: "Em estoque: 50" ou "50 unidades" ou "50 em estoque")
     const match = stockString.match(/\d+/)
     if (match) {
       const number = parseInt(match[0], 10)
-      // Garantir que o número seja válido e positivo
       if (number > 0) {
         return number
       }
     }
-    // Se não encontrar número ou se o estoque diz apenas "Em estoque", usa valor padrão
-    // Valores comuns: "Em estoque", "Disponível", etc.
     if (stockString.toLowerCase().includes('estoque') || stockString.toLowerCase().includes('disponível')) {
-      return 100 // Valor padrão quando há estoque mas não especifica quantidade
+      return 100
     }
-    return 0 // Sem estoque
+    return 0
   }
   
   const availableStock = product ? getAvailableStock(product.stock) : 0
   
-  // Resetar quantidade quando o produto mudar
   useEffect(() => {
     setQuantity(1)
   }, [productId])
@@ -125,7 +131,6 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
 
     setIsCalculatingFreight(true)
     
-    // Simular delay de API
     setTimeout(() => {
       const result = calculateFreight(cep, product?.location)
       setFreightResult(result)
@@ -140,18 +145,83 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
       }
     }, 500)
   }
+
+  const handleToggleFavorite = async () => {
+    if (!user) {
+      // Não redirecionar, apenas mostrar toast através do toggleFavorite
+      if (product) {
+        await toggleFavorite(product.id)
+      }
+      return
+    }
+    if (product) {
+      await toggleFavorite(product.id)
+    }
+  }
+
+  const handlePurchase = () => {
+    if (!user) {
+      // Redirecionar para login com redirect para a página de checkout (depois do login vai para checkout)
+      router.push(`/login?redirect=${encodeURIComponent(`/produtos/${productId}`)}`)
+      return
+    }
+    if (!product) return
+    addItem({
+      id: product.id,
+      title: product.title,
+      price: product.price,
+      image: product.images[0] || product.image,
+      seller: product.seller,
+      stock: product.stock,
+      availableStock: availableStock,
+      type: 'product',
+      location: product.location,
+      city: product.city,
+      quantity: quantity
+    })
+    router.push('/dashboard/checkout')
+  }
+
+  const handleAddToCart = () => {
+    if (!user) {
+      router.push(`/login?redirect=${encodeURIComponent(`/produtos/${productId}`)}`)
+      return
+    }
+    if (!product) return
+    addItem({
+      id: product.id,
+      title: product.title,
+      price: product.price,
+      image: product.images[0] || product.image,
+      seller: product.seller,
+      stock: product.stock,
+      availableStock: availableStock,
+      type: 'product',
+      location: product.location,
+      city: product.city,
+      quantity: quantity
+    })
+    toast({
+      title: 'Produto adicionado!',
+      description: `${product.title} foi adicionado ao carrinho.`,
+    })
+  }
   
   // Se não encontrar, mostrar erro
   if (!product) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Produto não encontrado</h1>
-          <Link href="/produtos">
-            <Button>Voltar para Produtos</Button>
-          </Link>
+      <>
+        <Header />
+        <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+          <div className="text-center">
+            <h1 className="text-2xl font-bold text-gray-900 mb-4">Produto não encontrado</h1>
+            <Link href="/produtos">
+              <Button>Voltar para Produtos</Button>
+            </Link>
+          </div>
         </div>
-      </div>
+        <Footer />
+      </>
     )
   }
 
@@ -168,14 +238,13 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
   }
 
   return (
-    <ProtectedRoute>
-      <AdminLayout>
-        <div className="min-h-screen bg-gray-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <div className="grid lg:grid-cols-2 gap-12">
-              {/* Image Gallery */}
-              <div className="space-y-4">
-                <div className="relative">
+    <div className="min-h-screen bg-gray-50">
+      <Header />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="grid lg:grid-cols-2 gap-12">
+          {/* Image Gallery */}
+          <div className="space-y-4">
+            <div className="relative">
               <img 
                 src={product.images[currentImageIndex]} 
                 alt={product.title}
@@ -213,12 +282,12 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
                 <Button 
                   size="sm" 
                   variant="ghost" 
-                  onClick={() => setIsFavorite(!isFavorite)}
+                  onClick={handleToggleFavorite}
                   className={`bg-white/90 hover:bg-white transition-colors ${
-                    isFavorite ? 'text-red-500' : 'text-[#8B4513] hover:text-red-500'
+                    isFavorite(product.id) ? 'text-red-500' : 'text-[#8B4513] hover:text-red-500'
                   }`}
                 >
-                  <Heart className={`w-4 h-4 ${isFavorite ? 'fill-current' : ''}`} />
+                  <Heart className={`w-4 h-4 ${isFavorite(product.id) ? 'fill-current' : ''}`} />
                 </Button>
                 <Button 
                   size="sm" 
@@ -352,23 +421,6 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
               </CardContent>
             </Card>
 
-            {/* Specifications Details */}
-            <Card className="bg-white border-gray-200 shadow-lg">
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">O que você precisa saber sobre esse produto</h3>
-                <div className="space-y-3">
-                  {Object.entries(product.specifications).map(([key, value]) => (
-                    <div key={key} className="flex justify-between">
-                      <span className="text-gray-500 capitalize">
-                        {key.replace(/([A-Z])/g, ' $1').toLowerCase()}:
-                      </span>
-                      <span className="font-medium text-gray-900">{value}</span>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
             {/* Freight Calculator */}
             <Card className="bg-white border-gray-200 shadow-lg">
               <CardContent className="p-6">
@@ -418,24 +470,7 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
             <div className="space-y-4">
               <Button 
                 className="w-full bg-green-600 hover:bg-green-700 text-white py-4 text-lg transition-all hover:scale-105"
-                onClick={() => {
-                  if (!product) return
-                  // Adicionar ao carrinho e redirecionar para checkout
-                  addItem({
-                    id: product.id,
-                    title: product.title,
-                    price: product.price,
-                    image: product.images[0] || product.image,
-                    seller: product.seller,
-                    stock: product.stock,
-                    availableStock: availableStock,
-                    type: 'product',
-                    location: product.location,
-                    city: product.city,
-                    quantity: quantity
-                  })
-                  router.push('/dashboard/checkout')
-                }}
+                onClick={handlePurchase}
               >
                 <ShoppingCart className="w-5 h-5 mr-2" />
                 Comprar Agora {quantity > 1 && `(${quantity}x)`}
@@ -451,146 +486,86 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
               <Button 
                 variant="outline" 
                 className="w-full border-green-600 text-green-600 hover:bg-green-600 hover:text-white py-4 text-lg transition-all hover:scale-105"
-                onClick={() => {
-                  if (!product) return
-                  addItem({
-                    id: product.id,
-                    title: product.title,
-                    price: product.price,
-                    image: product.images[0] || product.image,
-                    seller: product.seller,
-                    stock: product.stock,
-                    availableStock: availableStock,
-                    type: 'product',
-                    location: product.location,
-                    city: product.city,
-                    quantity: quantity
-                  })
-                  toast({
-                    title: 'Produto adicionado!',
-                    description: `${product.title} foi adicionado ao carrinho.`,
-                  })
-                }}
+                onClick={handleAddToCart}
               >
                 <ShoppingBag className="w-5 h-5 mr-2" />
                 Adicionar ao carrinho {quantity > 1 && `(${quantity}x)`}
               </Button>
             </div>
-            </div>
           </div>
+        </div>
 
-          {/* Tabs Section */}
-          <div className="mt-12">
-            <Tabs defaultValue="descricao" className="w-full">
-              <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger value="descricao">Descrição</TabsTrigger>
-                <TabsTrigger value="especificacoes">Especificações</TabsTrigger>
-                <TabsTrigger value="avaliacoes">
-                  Avaliações ({reviews.length})
-                </TabsTrigger>
-              </TabsList>
+        {/* Tabs Section */}
+        <div className="mt-12">
+          <Tabs defaultValue="descricao" className="w-full">
+            <TabsList className="grid w-full grid-cols-3">
+              <TabsTrigger value="descricao">Descrição</TabsTrigger>
+              <TabsTrigger value="especificacoes">Especificações</TabsTrigger>
+              <TabsTrigger value="avaliacoes">
+                Avaliações ({reviews.length})
+              </TabsTrigger>
+            </TabsList>
 
-              <TabsContent value="descricao" className="mt-6">
-                <Card className="bg-white border-gray-200 shadow-lg">
-                  <CardContent className="p-8">
-                    <h2 className="text-2xl font-bold text-gray-900 mb-4">Descrição</h2>
-                    <p className="text-gray-600 leading-relaxed text-lg">
-                      {product.description}
-                    </p>
-                  </CardContent>
-                </Card>
-              </TabsContent>
+            <TabsContent value="descricao" className="mt-6">
+              <Card className="bg-white border-gray-200 shadow-lg">
+                <CardContent className="p-8">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-4">Descrição</h2>
+                  <p className="text-gray-600 leading-relaxed text-lg">
+                    {product.description}
+                  </p>
+                </CardContent>
+              </Card>
+            </TabsContent>
 
-              <TabsContent value="especificacoes" className="mt-6">
-                <Card className="bg-white border-gray-200 shadow-lg">
-                  <CardContent className="p-8">
-                    <h2 className="text-2xl font-bold text-gray-900 mb-4">Especificações</h2>
-                    <div className="space-y-3">
-                      {Object.entries(product.specifications).map(([key, value]) => (
-                        <div key={key} className="flex justify-between py-2 border-b border-gray-100">
-                          <span className="text-gray-500 capitalize font-medium">
-                            {key.replace(/([A-Z])/g, ' $1').toLowerCase()}:
-                          </span>
-                          <span className="font-medium text-gray-900">{value}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              </TabsContent>
+            <TabsContent value="especificacoes" className="mt-6">
+              <Card className="bg-white border-gray-200 shadow-lg">
+                <CardContent className="p-8">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-4">Especificações</h2>
+                  <div className="space-y-3">
+                    {Object.entries(product.specifications).map(([key, value]) => (
+                      <div key={key} className="flex justify-between py-2 border-b border-gray-100">
+                        <span className="text-gray-500 capitalize font-medium">
+                          {key.replace(/([A-Z])/g, ' $1').toLowerCase()}:
+                        </span>
+                        <span className="font-medium text-gray-900">{value}</span>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
 
-              <TabsContent value="avaliacoes" className="mt-6">
-                <ReviewsSection
-                  reviews={reviews}
-                  itemId={productId}
-                  itemType="product"
-                  onAddReview={(newReview) => {
-                    const review: Review = {
-                      ...newReview,
-                      id: Date.now().toString(),
-                      date: new Date().toISOString().split('T')[0]
-                    }
-                    setReviews([review, ...reviews])
-                  }}
-                />
-              </TabsContent>
-            </Tabs>
-          </div>
-
+            <TabsContent value="avaliacoes" className="mt-6">
+              <ReviewsSection
+                reviews={reviews}
+                itemId={productId}
+                itemType="product"
+                onAddReview={(newReview) => {
+                  const review: Review = {
+                    ...newReview,
+                    id: Date.now().toString(),
+                    date: new Date().toISOString().split('T')[0]
+                  }
+                  setReviews([review, ...reviews])
+                }}
+              />
+            </TabsContent>
+          </Tabs>
+        </div>
 
         {/* Seller Info */}
         <div className="mt-8">
+          <SellerInfoCard seller={product.sellerInfo} />
+        </div>
+
+        {/* Questions Section */}
+        <div className="mt-8">
           <Card className="bg-white border-gray-200 shadow-lg">
-            <CardContent className="p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Vendedor</h2>
-              <div className="flex items-start space-x-6">
-                <div className="relative">
-                  <img 
-                    src={product.sellerInfo.image} 
-                    alt={product.sellerInfo.name}
-                    className="w-20 h-20 rounded-full object-cover"
-                  />
-                  {product.sellerInfo.verified && (
-                    <div className="absolute -top-2 -right-2 bg-green-600 text-white p-1 rounded-full">
-                      <Shield className="w-4 h-4" />
-                    </div>
-                  )}
-                </div>
-                
-                <div className="flex-1">
-                  <div className="flex items-center mb-2">
-                    <h3 className="text-xl font-bold text-gray-900 mr-3">
-                      {product.sellerInfo.name}
-                    </h3>
-                    {product.sellerInfo.verified && (
-                      <Badge className="bg-green-600 text-white">VERIFICADO</Badge>
-                    )}
-                  </div>
-                  
-                  <div className="flex items-center text-gray-600 mb-2">
-                    <MapPin className="w-4 h-4 mr-1" />
-                    <span>{product.sellerInfo.location}</span>
-                  </div>
-                  
-                  <div className="flex items-center mb-4">
-                    <Star className="w-4 h-4 text-yellow-500 fill-current mr-1" />
-                    <span className="font-medium text-gray-900 mr-2">{product.sellerInfo.rating}</span>
-                    <span className="text-gray-500">
-                      ({product.sellerInfo.totalSales} vendas • Membro desde {product.sellerInfo.memberSince})
-                    </span>
-                  </div>
-                  
-                  <div className="flex gap-3">
-                    <Button 
-                      variant="outline" 
-                      className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white"
-                      onClick={() => router.push('/cadastro')}
-                    >
-                      Ver mais produtos do vendedor
-                    </Button>
-                  </div>
-                </div>
-              </div>
+            <CardContent className="p-6 sm:p-8">
+              <QuestionsSection
+                questions={getProductQuestions(product.id)}
+                sellerName={product.sellerInfo.name}
+              />
             </CardContent>
           </Card>
         </div>
@@ -613,9 +588,8 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
             </CardContent>
           </Card>
         </div>
-          </div>
-        </div>
-      </AdminLayout>
-    </ProtectedRoute>
+      </div>
+      <Footer />
+    </div>
   )
 }

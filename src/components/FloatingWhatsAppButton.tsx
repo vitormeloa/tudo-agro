@@ -1,7 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { MessageCircle, X } from 'lucide-react'
+import { X } from 'lucide-react'
+import { FaWhatsapp } from 'react-icons/fa'
 
 export default function FloatingWhatsAppButton() {
   const [isHovered, setIsHovered] = useState(false)
@@ -33,12 +34,9 @@ export default function FloatingWhatsAppButton() {
 
       {/* Button */}
       <div className="relative">
-        {/* Pulse animation ring */}
-        <div className="absolute inset-0 bg-green-500 rounded-full animate-ping opacity-75"></div>
-
         {/* Main button */}
         <div className="relative bg-green-500 hover:bg-green-600 text-white rounded-full p-4 shadow-2xl transition-all duration-300 transform hover:scale-110 active:scale-95">
-          <MessageCircle className="w-7 h-7" strokeWidth={2.5} />
+          <FaWhatsapp className="w-7 h-7" />
         </div>
 
         {/* Badge/Indicator */}
