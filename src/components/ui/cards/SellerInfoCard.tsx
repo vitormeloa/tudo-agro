@@ -33,8 +33,15 @@ export default function SellerInfoCard({ seller }: SellerInfoCardProps) {
 
   return (
     <Card className="bg-white border-gray-200 shadow-lg">
-      <CardContent className="p-6">
-        <h2 className="text-xl font-bold text-gray-900 mb-4">Informações sobre o vendedor</h2>
+      <CardContent className="p-6 relative">
+        <div className="absolute top-6 right-6 hidden sm:block">
+          <Link href={`/vendedor/${seller.id}`}>
+            <Button variant="outline" className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white">
+              Ver perfil do vendedor
+            </Button>
+          </Link>
+        </div>
+        <h2 className="text-xl font-bold text-gray-900 mb-4">Vendedor</h2>
         <div className="flex flex-col sm:flex-row items-start space-y-4 sm:space-y-0 sm:space-x-6">
           <div className="flex-shrink-0">
             <Link href={`/vendedor/${seller.id}`}>
@@ -87,11 +94,13 @@ export default function SellerInfoCard({ seller }: SellerInfoCardProps) {
               </div>
             </div>
             
-            <Link href={`/vendedor/${seller.id}`}>
-              <Button variant="outline" className="w-full sm:w-auto border-green-600 text-green-600 hover:bg-green-600 hover:text-white">
-                Ver perfil do vendedor
-              </Button>
-            </Link>
+            <div className="sm:hidden">
+              <Link href={`/vendedor/${seller.id}`}>
+                <Button variant="outline" className="w-full border-green-600 text-green-600 hover:bg-green-600 hover:text-white">
+                  Ver perfil do vendedor
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </CardContent>
