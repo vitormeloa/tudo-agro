@@ -194,12 +194,6 @@ export default function ProductCard({
                 Ver Detalhes
               </Button>
             </Link>
-            <Button 
-              variant="outline" 
-              className="border-amber-500 text-amber-600 hover:bg-amber-500 hover:text-white"
-            >
-              <MessageCircle className="w-4 h-4" />
-            </Button>
           </div>
         )}
       </CardContent>

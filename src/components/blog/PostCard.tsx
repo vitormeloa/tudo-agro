@@ -122,7 +122,7 @@ export default function PostCard({ post, isSaved: initialSaved, onSaveToggle }: 
               src={post.featured_image}
               alt={post.title}
               fill
-              className="object-cover group-hover:scale-105 transition-transform duration-300"
+              className="object-cover group-hover:scale-100 transition-transform duration-300"
               sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
               unoptimized
             />

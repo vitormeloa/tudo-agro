@@ -25,13 +25,13 @@ interface HeaderProps {
   enableScrollOpacity?: boolean
 }
 
-export default function Header({ 
-  variant = 'default', 
+export default function Header({
+  variant = 'default',
   showSearch = true,
   showNotifications = true,
   showCart = true,
   className,
-  enableScrollOpacity = false
+  enableScrollOpacity = true
 }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
@@ -46,7 +46,7 @@ export default function Header({
 
   // Efeito de scroll para opacidade
   useEffect(() => {
-    if (!enableScrollOpacity) return
+    if (!enableScrollOpacity) return;
 
     const handleScroll = () => {
       setScrollY(window.scrollY)
@@ -84,7 +84,8 @@ export default function Header({
   const getScrollStyles = () => {
     if (!enableScrollOpacity) {
       return {
-        backgroundColor: variant === 'transparent' ? 'transparent' : 'white'
+        backgroundColor: variant === 'transparent' ? 'transparent' : 'white',
+        backdropFilter: variant === 'transparent' ? 'none' : 'blur(12px)'
       }
     }
 
@@ -92,25 +93,27 @@ export default function Header({
     const scrollProgress = Math.min(scrollY / maxScroll, 1)
     
     if (variant === 'transparent') {
+      // Para variant transparent, mudar de transparente para opaco com fundo branco
       const opacity = scrollProgress
       return {
-        backgroundColor: `rgba(255, 255, 255, ${opacity})`
+        backgroundColor: `rgba(255, 255, 255, ${opacity})`,
+        backdropFilter: scrollProgress > 0.1 ? 'blur(12px)' : 'none'
       }
     }
     
     // Para outros variants, manter comportamento original
     const opacity = Math.max(0.85, 0.95 - (scrollProgress * 0.1))
     return {
-      backgroundColor: `rgba(255, 255, 255, ${opacity})`
+      backgroundColor: `rgba(255, 255, 255, ${opacity})`,
+      backdropFilter: 'blur(12px)'
     }
   }
 
   const variantClasses = {
-    default: `border-b border-gray-200/50 shadow-sm`,
-    transparent: scrollY > 10 ? "border-b border-gray-200/50 shadow-sm" : "bg-transparent",
+    default: `backdrop-blur-md border-b border-gray-200/50 shadow-sm`,
+    transparent: scrollY > 10 ? "backdrop-blur-md border-b border-gray-200/50 shadow-sm" : "bg-transparent",
     minimal: "bg-white border-b border-gray-100"
   }
-
   const scrollStyles = getScrollStyles()
 
   return (

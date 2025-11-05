@@ -78,7 +78,7 @@ export const mockProducts: MockProduct[] = [
       name: "Eduardo Costa",
       location: "São Paulo, SP",
       rating: 4.8,
-      totalSales: 124,
+      totalSales: 1124,
       memberSince: "2025",
       verified: true,
       image: "/fotos/sobre/edu-secao-nossa.jpeg"
@@ -121,7 +121,7 @@ export const mockProducts: MockProduct[] = [
       name: "Sementes Elite",
       location: "Minas Gerais, MG",
       rating: 4.9,
-      totalSales: 89,
+      totalSales: 1089,
       memberSince: "2023",
       verified: true,
       image: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=100&h=100&fit=crop"
@@ -165,7 +165,7 @@ export const mockProducts: MockProduct[] = [
       name: "FertilAgro",
       location: "Goiás, GO",
       rating: 4.7,
-      totalSales: 156,
+      totalSales: 1156,
       memberSince: "2022",
       verified: true,
       image: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=100&h=100&fit=crop"
@@ -207,7 +207,7 @@ export const mockProducts: MockProduct[] = [
       name: "AgroDefense",
       location: "Mato Grosso, MT",
       rating: 4.6,
-      totalSales: 67,
+      totalSales: 1067,
       memberSince: "2021",
       verified: true,
       image: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=100&h=100&fit=crop"
@@ -249,7 +249,7 @@ export const mockProducts: MockProduct[] = [
       name: "EquiNutri",
       location: "Rio Grande do Sul, RS",
       rating: 4.8,
-      totalSales: 43,
+      totalSales: 1043,
       memberSince: "2024",
       verified: true,
       image: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=100&h=100&fit=crop"
@@ -290,8 +290,7 @@ export const mockProducts: MockProduct[] = [
       id: 6,
       name: "Vermífugos Agro",
       location: "Paraná, PR",
-      rating: 4.9,
-      totalSales: 98,
+      totalSales: 1098,
       memberSince: "2020",
       verified: true,
       image: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=100&h=100&fit=crop"
@@ -338,7 +337,7 @@ export const mockProducts: MockProduct[] = [
       name: "Agrofértil Ibitinga",
       location: "Ibitinga, SP",
       rating: 5.0,
-      totalSales: 98,
+      totalSales: 1098,
       memberSince: "2020",
       verified: true,
       image: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAFwAXAMBIgACEQEDEQH/xAAbAAEAAwEBAQEAAAAAAAAAAAAAAwUGBAIBB//EADUQAAEEAQMBBgQCCwEAAAAAAAEAAgMEEQUSITETMkFRYXEigZGhBhRSU2NydbGytMHR4TX/xAAZAQEAAwEBAAAAAAAAAAAAAAAAAQIDBAX/xAAhEQACAgICAQUAAAAAAAAAAAAAAQIRA0EhMQQTgZGhsf/aAAwDAQACEQMRAD8A/akREAREQBERAEREAREQBERAEXxxIaSBkgcDzUcE7JgduWub3mO4LT6qrkk62CQEEZByPRMgkgEZHUeS5IbFetH2UliLc1x6O6DJx9lJV2bZJGyNk3vLi5p6DwH0WUM6lSVXvnos40dCKGvK6ZpeW7WE/BnqR5lTLWMlJWiGqCIisQEREAREQEEk0jJNv5eR7P02EH7ZyqvV7Us1sUKveOA8g9fHHsrtUOnjH4jtiTvAOLc+4/wV5/mqbUcafEnXsb4a5lXSO2vpNSCPMzRI4DJc44A+S+1q9WaGK5pkjWtlYHxyRnLJGkZHHiCF416RxqsqRQvmfaeGOjjLdxjHMnUgd0EZz1cFnNMv29G0DW9Phg2W9LLn04Z8E9jIS6IfCcHB3NAB52gdSto+JgglGMUv35KOcny2bRji5gJGD4jyK9LH6le1qtp2uajFcmbUo0jLVdYqNY6V4aXO3NLQcDAHQZ3emT1fntWbqNOlZtwtFwyS9pXhy6JrGNzGM5BduceSD8LTxnkdF0Uovb16rQiEtydkTCSAXeOAScD2BPoASvQuVnWY6zZ4zPJEZmMDslzAQNw9MkcrIwWp9Z1LR325WhrZL1eVvZtMcojdsLsHwcByPDlS6DqV+8aV2Oq6GPUHPZMSyJogY0P7Pbzuc4FoBaQRy44GMKbFGvJx1UM1ytBYirzTxsnma90UZd8Tw3G4geOMjPusTqFzWrv4Hv37N6GOJ9SVnZsiAeS15bnPTDgDnyyMdMnRS2rMOt6ZWFwTxzOnZNmNoO5rdw5HTqB8ksUWlK5WvwCenMyaLc5u9hyMtOCPcEEKdUH4K/8AKufxW/8A3Uiv1JAVVqdGb8zHfogGePhzCcdoP9q0JABJ6BcM9m9ISynTIH62Z4YPk3k/ULHOoyjUvrstGTi7RzOl0exPHeuQxR3IBhpnZiSP0H/FVazFpl4WTDUijksx7JLTogHvbnO07tuWnoefE4weVYnRrlhxdcuNJPXAc/7E4+y6IdDgj6zTH9zaz+kBc9+TLiqIbWjO1NLpMZYZFSrCGwxrJIIIcROAzyWjeCeevlwu8xQ9nHHJFEWRHLA9oGw88ju4PJ+pV0NKpdXQ9of2j3O/mVOypWj7leJvswK3o5m7ciDPNhpGSu4Q1A+sMQFrGZiHk3BdgegU0VSs2V8sddu+TduLYzzu7x4j6nxPj4rQjgYHA9EWiwy3IFFDp1aOo+pHQaKsgIfCK/wOB6gjgHKkGl1t0LhpsW6DPZHsWgx5OTj4uMknPmrlFdY2tg4dOpQ0I3MqU467HuL3NjDWguPJPB6rtHrwvqLRKgERFICIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiID/2Q=="
@@ -426,7 +425,7 @@ export const mockProducts: MockProduct[] = [
     name: "Fornecamp Multissetorial",
     location: "Paraná, PR",
     rating: 4.8,
-    totalSales: 98,
+    totalSales: 1098,
     memberSince: "2020",
     verified: true,
     image: "https://http2.mlstatic.com/D_NQ_NP_970901-MLA82198647934_022025-F.jpg"
@@ -470,7 +469,7 @@ export const mockProducts: MockProduct[] = [
     name: "RAMOSIMPORTSSSHOP",
     location: "São Paulo, SP",
     rating: 4.8,
-    totalSales: 42,
+    totalSales: 1042,
     memberSince: "2020",
     verified: true,
     image: "https://mla-s2-p.mlstatic.com/939078-MLA54382402941_032023-O.jpg"
@@ -514,7 +513,7 @@ export const mockProducts: MockProduct[] = [
     name: "AgroFer",
     location: "Minas Gerais, MG",
     rating: 4.8,
-    totalSales: 420,
+    totalSales: 1420,
     memberSince: "2020",
     verified: true,
     image: "https://http2.mlstatic.com/D_NQ_NP_675934-MLA84710133319_052025-F.jpg"
@@ -558,7 +557,7 @@ export const mockProducts: MockProduct[] = [
     name: "SÃO PEDRORAÇÕES",
     location: "Minas Gerais, MG",
     rating: 4.8,
-    totalSales: 70,
+    totalSales: 1070,
     memberSince: "2020",
     verified: true,
     image: "https://http2.mlstatic.com/D_NQ_NP_675934-MLA84710133319_052025-F.jpg"
@@ -601,7 +600,7 @@ export const mockProducts: MockProduct[] = [
       name: "Agrofértil Ibitinga",
       location: "Ibitinga, SP",
       rating: 5.0,
-      totalSales: 98,
+      totalSales: 1098,
       memberSince: "2020",
       verified: true,
       image: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAFwAXAMBIgACEQEDEQH/xAAbAAEAAwEBAQEAAAAAAAAAAAAAAwUGBAIBB//EADUQAAEEAQMBBgQCCwEAAAAAAAEAAgMEEQUSITETMkFRYXEigZGhBhRSU2NydbGytMHR4TX/xAAZAQEAAwEBAAAAAAAAAAAAAAAAAQIDBAX/xAAhEQACAgICAQUAAAAAAAAAAAAAAQIRA0EhMQQTgZGhsf/aAAwDAQACEQMRAD8A/akREAREQBERAEREAREQBERAEXxxIaSBkgcDzUcE7JgduWub3mO4LT6qrkk62CQEEZByPRMgkgEZHUeS5IbFetH2UliLc1x6O6DJx9lJV2bZJGyNk3vLi5p6DwH0WUM6lSVXvnos40dCKGvK6ZpeW7WE/BnqR5lTLWMlJWiGqCIisQEREAREQEEk0jJNv5eR7P02EH7ZyqvV7Us1sUKveOA8g9fHHsrtUOnjH4jtiTvAOLc+4/wV5/mqbUcafEnXsb4a5lXSO2vpNSCPMzRI4DJc44A+S+1q9WaGK5pkjWtlYHxyRnLJGkZHHiCF416RxqsqRQvmfaeGOjjLdxjHMnUgd0EZz1cFnNMv29G0DW9Phg2W9LLn04Z8E9jIS6IfCcHB3NAB52gdSto+JgglGMUv35KOcny2bRji5gJGD4jyK9LH6le1qtp2uajFcmbUo0jLVdYqNY6V4aXO3NLQcDAHQZ3emT1fntWbqNOlZtwtFwyS9pXhy6JrGNzGM5BduceSD8LTxnkdF0Uovb16rQiEtydkTCSAXeOAScD2BPoASvQuVnWY6zZ4zPJEZmMDslzAQNw9MkcrIwWp9Z1LR325WhrZL1eVvZtMcojdsLsHwcByPDlS6DqV+8aV2Oq6GPUHPZMSyJogY0P7Pbzuc4FoBaQRy44GMKbFGvJx1UM1ytBYirzTxsnma90UZd8Tw3G4geOMjPusTqFzWrv4Hv37N6GOJ9SVnZsiAeS15bnPTDgDnyyMdMnRS2rMOt6ZWFwTxzOnZNmNoO5rdw5HTqB8ksUWlK5WvwCenMyaLc5u9hyMtOCPcEEKdUH4K/8AKufxW/8A3Uiv1JAVVqdGb8zHfogGePhzCcdoP9q0JABJ6BcM9m9ISynTIH62Z4YPk3k/ULHOoyjUvrstGTi7RzOl0exPHeuQxR3IBhpnZiSP0H/FVazFpl4WTDUijksx7JLTogHvbnO07tuWnoefE4weVYnRrlhxdcuNJPXAc/7E4+y6IdDgj6zTH9zaz+kBc9+TLiqIbWjO1NLpMZYZFSrCGwxrJIIIcROAzyWjeCeevlwu8xQ9nHHJFEWRHLA9oGw88ju4PJ+pV0NKpdXQ9of2j3O/mVOypWj7leJvswK3o5m7ciDPNhpGSu4Q1A+sMQFrGZiHk3BdgegU0VSs2V8sddu+TduLYzzu7x4j6nxPj4rQjgYHA9EWiwy3IFFDp1aOo+pHQaKsgIfCK/wOB6gjgHKkGl1t0LhpsW6DPZHsWgx5OTj4uMknPmrlFdY2tg4dOpQ0I3MqU467HuL3NjDWguPJPB6rtHrwvqLRKgERFICIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiID/2Q=="
@@ -644,7 +643,7 @@ export const mockProducts: MockProduct[] = [
       name: "Agrofértil Ibitinga",
       location: "Ibitinga, SP",
       rating: 5.0,
-      totalSales: 98,
+      totalSales: 1098,
       memberSince: "2020",
       verified: true,
       image: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAFwAXAMBIgACEQEDEQH/xAAbAAEAAwEBAQEAAAAAAAAAAAAAAwUGBAIBB//EADUQAAEEAQMBBgQCCwEAAAAAAAEAAgMEEQUSITETMkFRYXEigZGhBhRSU2NydbGytMHR4TX/xAAZAQEAAwEBAAAAAAAAAAAAAAAAAQIDBAX/xAAhEQACAgICAQUAAAAAAAAAAAAAAQIRA0EhMQQTgZGhsf/aAAwDAQACEQMRAD8A/akREAREQBERAEREAREQBERAEXxxIaSBkgcDzUcE7JgduWub3mO4LT6qrkk62CQEEZByPRMgkgEZHUeS5IbFetH2UliLc1x6O6DJx9lJV2bZJGyNk3vLi5p6DwH0WUM6lSVXvnos40dCKGvK6ZpeW7WE/BnqR5lTLWMlJWiGqCIisQEREAREQEEk0jJNv5eR7P02EH7ZyqvV7Us1sUKveOA8g9fHHsrtUOnjH4jtiTvAOLc+4/wV5/mqbUcafEnXsb4a5lXSO2vpNSCPMzRI4DJc44A+S+1q9WaGK5pkjWtlYHxyRnLJGkZHHiCF416RxqsqRQvmfaeGOjjLdxjHMnUgd0EZz1cFnNMv29G0DW9Phg2W9LLn04Z8E9jIS6IfCcHB3NAB52gdSto+JgglGMUv35KOcny2bRji5gJGD4jyK9LH6le1qtp2uajFcmbUo0jLVdYqNY6V4aXO3NLQcDAHQZ3emT1fntWbqNOlZtwtFwyS9pXhy6JrGNzGM5BduceSD8LTxnkdF0Uovb16rQiEtydkTCSAXeOAScD2BPoASvQuVnWY6zZ4zPJEZmMDslzAQNw9MkcrIwWp9Z1LR325WhrZL1eVvZtMcojdsLsHwcByPDlS6DqV+8aV2Oq6GPUHPZMSyJogY0P7Pbzuc4FoBaQRy44GMKbFGvJx1UM1ytBYirzTxsnma90UZd8Tw3G4geOMjPusTqFzWrv4Hv37N6GOJ9SVnZsiAeS15bnPTDgDnyyMdMnRS2rMOt6ZWFwTxzOnZNmNoO5rdw5HTqB8ksUWlK5WvwCenMyaLc5u9hyMtOCPcEEKdUH4K/8AKufxW/8A3Uiv1JAVVqdGb8zHfogGePhzCcdoP9q0JABJ6BcM9m9ISynTIH62Z4YPk3k/ULHOoyjUvrstGTi7RzOl0exPHeuQxR3IBhpnZiSP0H/FVazFpl4WTDUijksx7JLTogHvbnO07tuWnoefE4weVYnRrlhxdcuNJPXAc/7E4+y6IdDgj6zTH9zaz+kBc9+TLiqIbWjO1NLpMZYZFSrCGwxrJIIIcROAzyWjeCeevlwu8xQ9nHHJFEWRHLA9oGw88ju4PJ+pV0NKpdXQ9of2j3O/mVOypWj7leJvswK3o5m7ciDPNhpGSu4Q1A+sMQFrGZiHk3BdgegU0VSs2V8sddu+TduLYzzu7x4j6nxPj4rQjgYHA9EWiwy3IFFDp1aOo+pHQaKsgIfCK/wOB6gjgHKkGl1t0LhpsW6DPZHsWgx5OTj4uMknPmrlFdY2tg4dOpQ0I3MqU467HuL3NjDWguPJPB6rtHrwvqLRKgERFICIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiID/2Q=="
@@ -689,7 +688,7 @@ export const mockProducts: MockProduct[] = [
       name: "COLOMBO PRODUTOS AGROPECUÁRIOS",
       location: "Osasco, SP",
       rating: 5.0,
-      totalSales: 98,
+      totalSales: 1098,
       memberSince: "2020",
       verified: true,
       image: "https://http2.mlstatic.com/D_NQ_NP_635565-MLA75222019116_032024-F.jpg"
@@ -732,7 +731,7 @@ export const mockProducts: MockProduct[] = [
       name: "AGROPECUARIA AGROFAL",
       location: "Monte Mor, SP",
       rating: 4.8,
-      totalSales: 134,
+      totalSales: 1134,
       memberSince: "2020",
       verified: true,
       image: "https://http2.mlstatic.com/D_NQ_NP_966847-MLA83358275120_042025-F.jpg"
@@ -774,7 +773,7 @@ export const mockProducts: MockProduct[] = [
       name: "Cat&Dog atacado",
       location: "Três Cachoeiras, RS",
       rating: 4.9,
-      totalSales: 17,
+      totalSales: 1017,
       memberSince: "2020",
       verified: true,
       image: "https://http2.mlstatic.com/D_NQ_NP_744234-MLA79517356833_092024-G.jpg"
@@ -817,7 +816,7 @@ export const mockProducts: MockProduct[] = [
       name: "fernandokleinerak",
       location: "Três Cachoeiras, RS",
       rating: 4.9,
-      totalSales: 17,
+      totalSales: 1017,
       memberSince: "2020",
       verified: true,
       image: "https://mla-s1-p.mlstatic.com/697837-MLA83884988297_042025-O.jpg"
@@ -860,7 +859,7 @@ export const mockProducts: MockProduct[] = [
       name: "DUPET STORE",
       location: "Belo Horizonte, MG",
       rating: 4.7,
-      totalSales: 178,
+      totalSales: 1178,
       memberSince: "2020",
       verified: true,
       image: "https://mla-s1-p.mlstatic.com/806856-MLA40643195210_022020-O.jpg"
@@ -902,7 +901,7 @@ export const mockProducts: MockProduct[] = [
       name: "Santa Laura Vet",
       location: "Belo Horizonte, MG",
       rating: 5,
-      totalSales: 3,
+      totalSales: 1003,
       memberSince: "2020",
       verified: true,
       image: "https://http2.mlstatic.com/D_NQ_NP_803589-MLA95246466847_102025-F.jpg"
@@ -944,7 +943,7 @@ export const mockProducts: MockProduct[] = [
       name: "COLOMBO PRODUTOS AGROPECUÁRIOS",
       location: "Osasco, SP",
       rating: 5,
-      totalSales: 3,
+      totalSales: 1003,
       memberSince: "2020",
       verified: true,
       image: "https://http2.mlstatic.com/D_NQ_NP_635565-MLA75222019116_032024-F.jpg"
@@ -987,7 +986,7 @@ export const mockProducts: MockProduct[] = [
       name: "fernandokleinerak",
       location: "Três Cachoeiras, RS",
       rating: 4.9,
-      totalSales: 15,
+      totalSales: 1015,
       memberSince: "2020",
       verified: true,
       image: "https://mla-s1-p.mlstatic.com/697837-MLA83884988297_042025-O.jpg"
@@ -1031,7 +1030,7 @@ export const mockProducts: MockProduct[] = [
       name: "Imperial Nutri",
       location: "São José do Rio Preto , SP",
       rating: 4.9,
-      totalSales: 15,
+      totalSales: 1015,
       memberSince: "2020",
       verified: true,
       image: "https://http2.mlstatic.com/D_NQ_NP_703782-MLA84648900565_052025-G.jpg"

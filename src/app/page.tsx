@@ -369,7 +369,7 @@ export default function HomePage() {
             {liveAuctions.map((auction, index) => (
               <Card key={auction.id} className="overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-0 bg-white/80 backdrop-blur-sm animate-fade-in-up group" style={{ animationDelay: `${index * 0.1}s` }}>
                 <div className="relative">
-                  <img src={auction.image} alt={auction.title} className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500" />
+                  <img src={auction.image} alt={auction.title} className="w-full h-48 object-cover group-hover:scale-100 transition-transform duration-500" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                   <div className="absolute top-4 left-4 flex gap-2">
                     <Badge className="bg-red-500 text-white font-semibold animate-pulse shadow-lg">

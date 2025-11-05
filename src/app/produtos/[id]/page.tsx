@@ -35,6 +35,7 @@ import { calculateFreight, formatCEP, type FreightResult } from '@/lib/freight-c
 import { Input } from '@/components/ui/input'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import ReviewsSection from '@/components/reviews/ReviewsSection'
+import SellerInfoCard from '@/components/ui/cards/SellerInfoCard'
 import { mockProductReviews } from '@/lib/mock-reviews'
 import type { Review } from '@/lib/mock-reviews'
 import QuestionsSection from '@/components/questions/QuestionsSection'
@@ -554,58 +555,7 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
 
         {/* Seller Info */}
         <div className="mt-8">
-          <Card className="bg-white border-gray-200 shadow-lg">
-            <CardContent className="p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Vendedor</h2>
-              <div className="flex items-start space-x-6">
-                <div className="relative">
-                  <img 
-                    src={product.sellerInfo.image} 
-                    alt={product.sellerInfo.name}
-                    className="w-20 h-20 rounded-full object-cover"
-                  />
-                  {product.sellerInfo.verified && (
-                    <div className="absolute -top-2 -right-2 bg-green-600 text-white p-1 rounded-full">
-                      <Shield className="w-4 h-4" />
-                    </div>
-                  )}
-                </div>
-                
-                <div className="flex-1">
-                  <div className="flex items-center mb-2">
-                    <h3 className="text-xl font-bold text-gray-900 mr-3">
-                      {product.sellerInfo.name}
-                    </h3>
-                    {product.sellerInfo.verified && (
-                      <Badge className="bg-green-600 text-white">VERIFICADO</Badge>
-                    )}
-                  </div>
-                  
-                  <div className="flex items-center text-gray-600 mb-2">
-                    <MapPin className="w-4 h-4 mr-1" />
-                    <span>{product.sellerInfo.location}</span>
-                  </div>
-                  
-                  <div className="flex items-center mb-4">
-                    <Star className="w-4 h-4 text-yellow-500 fill-current mr-1" />
-                    <span className="font-medium text-gray-900 mr-2">{product.sellerInfo.rating}</span>
-                    <span className="text-gray-500">
-                      ({product.sellerInfo.totalSales} vendas • Membro desde {product.sellerInfo.memberSince})
-                    </span>
-                  </div>
-                  
-                  <div className="flex gap-3">
-                    <Button 
-                      variant="outline" 
-                      className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white"
-                    >
-                      Ver mais produtos do vendedor
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+          <SellerInfoCard seller={product.sellerInfo} />
         </div>
 
         {/* Questions Section */}

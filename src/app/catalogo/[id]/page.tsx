@@ -32,6 +32,7 @@ import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import ReviewsSection from '@/components/reviews/ReviewsSection'
+import SellerInfoCard from '@/components/ui/cards/SellerInfoCard'
 import { mockAnimalReviews } from '@/lib/mock-reviews'
 import type { Review } from '@/lib/mock-reviews'
 import QuestionsSection from '@/components/questions/QuestionsSection'
@@ -377,57 +378,7 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
 
         {/* Seller Info */}
         <div className="mt-8">
-          <Card className="bg-white border-gray-200 shadow-lg">
-            <CardContent className="p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Vendedor</h2>
-              <div className="flex items-start space-x-6">
-                <div className="relative">
-                  <img 
-                    src={animal.seller.image} 
-                    alt={animal.seller.name}
-                    className="w-20 h-20 rounded-full object-cover"
-                  />
-                  {animal.seller.verified && (
-                    <div className="absolute -top-2 -right-2 bg-green-600 text-white p-1 rounded-full">
-                      <Shield className="w-4 h-4" />
-                    </div>
-                  )}
-                </div>
-                
-                <div className="flex-1">
-                  <div className="flex items-center mb-2">
-                    <h3 className="text-xl font-bold text-gray-900 mr-3">
-                      {animal.seller.name}
-                    </h3>
-                    {animal.seller.verified && (
-                      <Badge className="bg-green-600 text-white">VERIFICADO</Badge>
-                    )}
-                  </div>
-                  
-                  <div className="flex items-center text-gray-600 mb-2">
-                    <MapPin className="w-4 h-4 mr-1" />
-                    <span>{animal.seller.location}</span>
-                  </div>
-                  
-                  <div className="flex items-center mb-4">
-                    <Star className="w-4 h-4 text-yellow-500 fill-current mr-1" />
-                    <span className="font-medium text-gray-900 mr-2">{animal.seller.rating}</span>
-                    <span className="text-gray-500">
-                      ({animal.seller.totalSales} vendas • Membro desde {animal.seller.memberSince})
-                    </span>
-                  </div>
-                  
-                  <div className="flex gap-3">
-                    <Link href={`/vendedor/${animal.seller.id}`}>
-                      <Button variant="outline" className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white">
-                        Ver Perfil Completo
-                      </Button>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+          <SellerInfoCard seller={animal.seller} />
         </div>
 
         {/* Questions Section */}

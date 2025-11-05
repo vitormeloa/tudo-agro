@@ -57,7 +57,7 @@ export const mockAnimals: MockAnimal[] = [
       name: "Fazenda Boa Vista",
       location: "Goiânia, GO",
       rating: 4.8,
-      totalSales: 24,
+      totalSales: 1024,
       memberSince: "2020",
       verified: true,
       image: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=100&h=100&fit=crop"
@@ -100,7 +100,7 @@ export const mockAnimals: MockAnimal[] = [
       name: "Haras São João",
       location: "Minas Gerais, MG",
       rating: 4.9,
-      totalSales: 18,
+      totalSales: 1018,
       memberSince: "2019",
       verified: true,
       image: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=100&h=100&fit=crop"
@@ -142,7 +142,7 @@ export const mockAnimals: MockAnimal[] = [
       name: "Fazenda Três Rios",
       location: "São Paulo, SP",
       rating: 4.7,
-      totalSales: 31,
+      totalSales: 1031,
       memberSince: "2021",
       verified: true,
       image: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=100&h=100&fit=crop"
@@ -184,7 +184,7 @@ export const mockAnimals: MockAnimal[] = [
       name: "Genética Elite",
       location: "Rio Grande do Sul, RS",
       rating: 5.0,
-      totalSales: 12,
+      totalSales: 1012,
       memberSince: "2023",
       verified: true,
       image: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=100&h=100&fit=crop"
@@ -226,7 +226,7 @@ export const mockAnimals: MockAnimal[] = [
       name: "Fazenda Santa Rita",
       location: "Mato Grosso, MT",
       rating: 4.8,
-      totalSales: 42,
+      totalSales: 1042,
       memberSince: "2018",
       verified: true,
       image: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=100&h=100&fit=crop"
@@ -268,7 +268,7 @@ export const mockAnimals: MockAnimal[] = [
       name: "Haras Elite",
       location: "Goiás, GO",
       rating: 4.9,
-      totalSales: 15,
+      totalSales: 1015,
       memberSince: "2020",
       verified: true,
       image: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=100&h=100&fit=crop"

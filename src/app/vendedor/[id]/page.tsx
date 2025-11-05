@@ -422,7 +422,7 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
                       <img 
                         src={lot.image} 
                         alt={lot.title}
-                        className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
+                        className="w-full h-48 object-cover group-hover:scale-100 transition-transform duration-300"
                       />
                       <div className="absolute bottom-4 left-4 flex gap-2">
                         <Badge className="bg-green-600">
