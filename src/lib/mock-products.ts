@@ -997,8 +997,8 @@ export const mockProducts: MockProduct[] = [
   title: "Premix Probiótico Para Aumentar Leite Vaca - Max Leite 5 Kg",
   category: "Saúde e Bem-Estar Animal",
   price: 230.66,
-  location: "São José do Rio Preto",
-  city: "São Paulo",
+  location: "São Paulo",
+  city: "São José do Rio Preto",
   rating: 5,
   reviews: 1,
   image: "/fotos/produtos/probiotico.png",
@@ -1034,6 +1034,914 @@ export const mockProducts: MockProduct[] = [
       memberSince: "2020",
       verified: true,
       image: "https://http2.mlstatic.com/D_NQ_NP_703782-MLA84648900565_052025-G.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440024",
+  title: "Kit Inseminação Artificial De Bovinos - Essencial",
+  category: "Reprodução e Genética",
+  price: 389.90,
+  location: "São Paulo",
+  city: "Osasco",
+  rating: 5,
+  reviews: 1,
+  image: "/fotos/produtos/kit.png",
+  seller: "Vetz Agroshop",
+  verified: true,
+  featured: false,
+  weight: "",
+  brand: "IMV/AGZ",
+  stock: "Em estoque",
+  description: "KIT INSEMINAÇÃO DE BOVINOS / ESSENCIAL.",
+  images: [
+    "/fotos/produtos/kit.png",
+    "/fotos/produtos/kit2.png"
+  ],
+  specifications: {
+    material: "plástico alta resistência",
+  },
+  documents: [
+    "Ficha Técnica",
+    "Rótulo Oficial",
+    "Registro no MAPA",
+    "Certificado de Garantia ",
+    "Manual Técnico",
+    "Nota Fiscal"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "Imperial Nutri",
+      location: "Osasco, SP",
+      rating: 5,
+      totalSales: 150,
+      memberSince: "2020",
+      verified: true,
+      image: "https://mla-s1-p.mlstatic.com/950947-MLA53290907196_012023-O.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440025",
+  title: "Bainha Imv Para Inseminação De Bovinos C/ 50 Unidades-kit 5 Transparente",
+  category: "Reprodução e Genética",
+  price: 179.90,
+  location: "Minas Gerais",
+  city: "Sete Lagoas",
+  rating: 5,
+  reviews: 1,
+  image: "/fotos/produtos/bainha.png",
+  seller: "Agromaximo shop",
+  verified: true,
+  featured: false,
+  weight: "",
+  brand: "IMV",
+  stock: "Em estoque",
+  description: "A Bainha IMV Francesa é a opção perfeita para profissionais que trabalham com inseminação artificial em bovinos.",
+  images: [
+    "/fotos/produtos/bainha.png",
+  ],
+  specifications: {
+    material: "plástico",
+  },
+  documents: [
+    "Ficha Técnica",
+    "Rótulo Oficial",
+    "Registro no MAPA",
+    "Certificado de Qualidade IMV",
+    "Manual Técnico",
+    "Nota Fiscal"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "Agromaximo shop",
+      location: "Sete Lagoas, MG",
+      rating: 5,
+      totalSales: 150,
+      memberSince: "2020",
+      verified: true,
+      image: "https://http2.mlstatic.com/D_NQ_NP_652894-MLA94058190851_102025-F.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440026",
+  title: "Botijão Nitrogênio P/ Sêmen Ou Material Genético Yds 10 - 10lts",
+  category: "Reprodução e Genética",
+  price: 6700.00,
+  location: "São Paulo",
+  city: "Itu",
+  rating: 5,
+  reviews: 1,
+  image: "/fotos/produtos/nitro.png",
+  seller: "Agrovet equipamentos",
+  verified: true,
+  featured: false,
+  weight: "10L",
+  brand: "Cryofarm",
+  stock: "Em estoque",
+  description: "Botijão Cryofarm YDS-10A - 10Lts - Bocal 50mm - Cap. 600 ds Palhetas Média em Rack.",
+  images: [
+    "/fotos/produtos/nitro.png",
+  ],
+  specifications: {
+    modelo: "YDS-10",
+  },
+  documents: [
+    "Ficha Técnica", 
+    "Manual de Utilização e Segurança",
+    "Certificado de Garantia",  
+    "Certificado de Qualidade / Controle de Vácuo",  
+    "Nota Fiscal / Termo de Origem",  
+    "Certificação de Conformidade (opcional)"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "Agrovet equipamentos",
+      location: "Itu, SP",
+      rating: 5,
+      totalSales: 50,
+      memberSince: "2020",
+      verified: true,
+      image: "https://mla-s1-p.mlstatic.com/922896-MLA79853967913_102024-O.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440027",
+  title: "Luva Descartável Inseminação Palpação Veterinária Walmur Cx",
+  category: "Reprodução e Genética",
+  price: 76.90,
+  location: "São Paulo",
+  city: "Itu",
+  rating: 4.8,
+  reviews: 20,
+  image: "/fotos/produtos/luva.png",
+  seller: "dipexcomeletroni",
+  verified: true,
+  featured: false,
+  weight: "",
+  brand: "Walmur",
+  stock: "Em estoque",
+  description: "LUVAS ESPECIALFLEX PARA INSEMINAÇÃO E PALPAÇÃO CAIXA COM 100 UNIDADES TAMANHO 80CM.",
+  images: [
+    "/fotos/produtos/luva.png",
+  ],
+  specifications: {
+    modelo: "ESPECIALFLEX",
+  },
+  documents: [
+    "Ficha Técnica",   
+    "Nota Fiscal / Termo de Origem",  
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "dipexcomeletroni",
+      location: "Itu, SP",
+      rating: 4.8,
+      totalSales: 400,
+      memberSince: "2020",
+      verified: true,
+      image: "https://mla-s2-p.mlstatic.com/886556-MLA77270441071_062024-O.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440028",
+  title: "Tinta Líquida P/ Detecção De Cio Em Vacas",
+  category: "Reprodução e Genética",
+  price: 104.90,
+  location: "Minas Gerais",
+  city: "Sete Lagoas",
+  rating: 5,
+  reviews: 1,
+  image: "/fotos/produtos/cio.png",
+  seller: "Agromaximo shop",
+  verified: true,
+  featured: false,
+  weight: "500ml",
+  brand: "Ciopaint",
+  stock: "Em estoque",
+  description: "Com auxílio do bico pincel, aplique a tinta deixando uma marcação de aproximadamente 15 cm, próximo a extremidade superior do rabo.",
+  images: [
+    "/fotos/produtos/cio.png",
+  ],
+  specifications: {
+    modelo: "tinta liquida vermelha",
+  },
+  documents: [
+    "Ficha Técnica",   
+    "Nota Fiscal / Termo de Origem",  
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "Agromaximo shop",
+      location: "Sete Lagoas, MG",
+      rating: 5,
+      totalSales: 150,
+      memberSince: "2020",
+      verified: true,
+      image: "https://http2.mlstatic.com/D_NQ_NP_652894-MLA94058190851_102025-F.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440029",
+  title: "Aplicador De Implante De Progesterona Iatf Gado Cidr Primer",
+  category: "Reprodução e Genética",
+  price: 45.00,
+  location: "São Paulo",
+  city: "Osasco",
+  rating: 4.6,
+  reviews: 56,
+  image: "/fotos/produtos/aplic.png",
+  seller: "MaxiPec",
+  verified: true,
+  featured: false,
+  weight: "100g",
+  brand: "Globalgem",
+  stock: "Em estoque",
+  description: "Aplicador de Implantes de Progesterona para fêmeas bovinas.",
+  images: [
+    "/fotos/produtos/aplic.png",
+  ],
+  specifications: {
+    modelo: "Bovino",
+  },
+  documents: [
+  "Ficha Técnica",
+  "Manual de Utilização e Higienização",
+  "Certificado de Garantia",
+  "Certificado de Qualidade / Conformidade",
+  "Rótulo Oficial",
+  "Nota Fiscal"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "MaxiPec",
+      location: "Osasco, SP",
+      rating: 4.6,
+      totalSales: 141,
+      memberSince: "2020",
+      verified: true,
+      image: "https://http2.mlstatic.com/D_NQ_NP_854322-MLA74313954710_022024-F.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440030",
+  title: "Cidr Dispositivo Intravaginal Progesterona 1,9g 10 Un Zoetis",
+  category: "Reprodução e Genética",
+  price: 589.90,
+  location: "São Paulo",
+  city: "São José do Rio Preto",
+  rating: 4.6,
+  reviews: 56,
+  image: "/fotos/produtos/cidr.png",
+  seller: "ISOPHOS",
+  verified: true,
+  featured: false,
+  weight: "1.9g",
+  brand: "Zoetis",
+  stock: "Em estoque",
+  description: "CIDR é um dispositivo intravaginal em forma de T, contendo progesterona, indicado para programas de sincronização de cio e ovulação em bovinos de leite e corte.",
+  images: [
+    "/fotos/produtos/cidr.png",
+  ],
+  specifications: {
+    modelo: "Bovino",
+    apresentacao: "Caixa com 10 dispositivos",
+    armazenament: "15 °C a 30 °C, protegido da luz e umidade",
+    precaucao: "Uso sob prescrição veterinária, não reutilizar"
+  },
+  documents: [
+    "Bula Oficial Zoetis",
+    "Ficha Técnica",
+    "Rótulo Oficial",
+    "Registro no MAPA",
+    "Certificado de Qualidade",
+    "Nota Fiscal"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "ISOPHOS",
+      location: "São José do Rio Preto, SP",
+      rating: 4.6,
+      totalSales: 141,
+      memberSince: "2020",
+      verified: true,
+      image: "https://http2.mlstatic.com/D_NQ_NP_785106-MLA87765702842_072025-F.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440031",
+  title: "Termômetro Digital -50°c 300°c Tipo Espeto Simpla Te07",
+  category: "Reprodução e Genética",
+  price: 62.10,
+  location: "São Paulo",
+  city: "São Paulo",
+  rating: 4.3,
+  reviews: 4,
+  image: "/fotos/produtos/termo.png",
+  seller: "CIRUVIX",
+  verified: true,
+  featured: false,
+  weight: "",
+  brand: "Akso",
+  stock: "Em estoque",
+  description: "Termômetro tipo espeto com haste de penetração de aço inox com 148mm de comprimento.",
+  images: [
+    "/fotos/produtos/termo.png",
+  ],
+  specifications: {
+   material: "Aço inox e plástico ABS",
+   aplicacoes: "Uso em alimentos, líquidos, rações, laboratórios e processos agropecuários",
+   cuidados: "Não submergir totalmente o aparelho em líquidos; limpar o espeto após o uso"
+  },
+  documents: [
+    "Ficha Técnica",
+    "Manual de Instruções",
+    "Certificado de Qualidade",
+    "Certificado de Calibração (quando aplicável)",
+    "Nota Fiscal",
+    "Garantia do Fabricante"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "CIRUVIX",
+      location: "São Paulo, SP",
+      rating: 4.3,
+      totalSales: 400,
+      memberSince: "2020",
+      verified: true,
+      image: "https://http2.mlstatic.com/storage/mshops-appearance-api/images/30/89b96f22989d4904a90a0122d9256c7f4858730/logo-2023102014232739658.jpeg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440032",
+  title: "Termômetro Clínico Infravermelho Veterinário",
+  category: "Reprodução e Genética",
+  price: 509.90,
+  location: "São Paulo",
+  city: "Osasco",
+  rating: 4.3,
+  reviews: 4,
+  image: "/fotos/produtos/infra.png",
+  seller: "OriginalVet",
+  verified: true,
+  featured: false,
+  weight: "",
+  brand: "Incoterm",
+  stock: "Em estoque",
+  description: "Sistema Infravermelho de medição de temperatura; alarme de temperatura febril.",
+  images: [
+    "/fotos/produtos/infra.png",
+  ],
+  specifications: {
+    aplicacoes: "Medição rápida e higiênica da temperatura corporal em animais",
+    modo_de_uso: "Apontar para a região auricular ou frontal do animal e pressionar o botão de leitura",
+    cuidados: "Evitar exposição à luz solar direta e quedas; limpar o sensor com pano seco"
+  },
+  documents: [
+    "Ficha Técnica",
+    "Manual de Instruções",
+    "Certificado de Qualidade",
+    "Certificado de Calibração (quando aplicável)",
+    "Nota Fiscal",
+    "Garantia do Fabricante"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "OriginalVet",
+      location: "Osasco, SP",
+      rating: 4.3,
+      totalSales: 486,
+      memberSince: "2020",
+      verified: true,
+      image: "https://http2.mlstatic.com/storage/mshops-appearance-api/images/30/89b96f22989d4904a90a0122d9256c7f4858730/logo-2023102014232739658.jpeg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440033",
+  title: "Sela Australiana Pinheiro Marrom",
+  category: "Selaria e Utilidades",
+  price: 1278.00,
+  location: "Minas Gerais",
+  city: "Dores de Campos",
+  rating: 5,
+  reviews: 1,
+  image: "/fotos/produtos/australiana.png",
+  seller: "Selaria Pinheiro",
+  verified: true,
+  featured: false,
+  weight: "12kg",
+  brand: "Selaria Pinheiro",
+  stock: "Em estoque",
+  description: "Sela completa, confeccionada e emcouro legítmo sobre armação de ferro e madeira, inervada em couro cru.",
+  images: [
+    "/fotos/produtos/australiana.png",
+  ],
+  specifications: {
+    uso: "Montaria, trabalho e cavalgadas longas",
+    conforto: "Alta absorção de impacto e estabilidade",
+    manutencao: "Limpar com pano úmido e hidratar o couro periodicamente"
+  },
+  documents: [
+    "Ficha Técnica",
+    "Certificado de Garantia",
+    "Certificado de Qualidade",
+    "Manual de Cuidados e Manutenção",
+    "Nota Fiscal",
+    "Termo de Origem do Fabricante"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "Selaria Pinheiro",
+      location: "Dores de Campos, MG",
+      rating: 5,
+      totalSales: 122,
+      memberSince: "2020",
+      verified: true,
+      image: "https://mla-s2-p.mlstatic.com/786652-MLA31563882658_072019-O.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440034",
+  title: "Cabeçada Para Cavalo Com Argola Premium Couro Oleado",
+  category: "Selaria e Utilidades",
+  price: 118.08,
+  location: "Minas Gerais",
+  city: "Belo Horizonte",
+  rating: 4.8,
+  reviews: 17,
+  image: "/fotos/produtos/cabecada.png",
+  seller: "Selaria Pinheiro",
+  verified: true,
+  featured: false,
+  weight: "",
+  brand: "Cavalo Real",
+  stock: "Em estoque",
+  description: "Cabeçada Para Cavalo De Argola Premium Couro Oleado.",
+  images: [
+    "/fotos/produtos/cabecada.png",
+  ],
+  specifications: {
+    uso: "Montaria, treinamentos e cavalgadas",
+    conforto: "Design anatômico que evita atrito e melhora o ajuste",
+    resistencia: "Alta resistência a tração e intempéries",
+    manutencao: "Limpar com pano úmido e aplicar óleo ou graxa de couro periodicamente"
+  },
+  documents: [
+    "Ficha Técnica",
+    "Certificado de Garantia",
+    "Certificado de Qualidade",
+    "Manual de Cuidados e Manutenção",
+    "Nota Fiscal",
+    "Termo de Origem do Fabricante"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "Cavalo Real",
+      location: "Belo Horizonte, MG",
+      rating: 4.8,
+      totalSales: 177,
+      memberSince: "2020",
+      verified: true,
+      image: "https://mla-s1-p.mlstatic.com/876137-MLA31469259049_072019-O.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440035",
+  title: "Rédea De Couro De Bode Trançada",
+  category: "Selaria e Utilidades",
+  price: 78.00,
+  location: "São Paulo",
+  city: "Osasco",
+  rating: 4.8,
+  reviews: 17,
+  image: "/fotos/produtos/redea.png",
+  seller: "MANIACOUNTRY",
+  verified: true,
+  featured: false,
+  weight: "",
+  brand: "Selaria Ferreira",
+  stock: "Em estoque",
+  description: "Rédea Couro de Bode, confeccionada em legítimo couro de bode trançado.",
+  images: [
+    "/fotos/produtos/redea.png",
+  ],
+  specifications: {
+    uso: "Montaria, treinamentos e cavalgadas",
+    conforto: "Design anatômico que evita atrito e melhora o ajuste",
+    resistencia: "Alta resistência a tração e intempéries",
+    manutencao: "Limpar com pano úmido e aplicar óleo ou graxa de couro periodicamente"
+  },
+  documents: [
+    "Ficha Técnica",
+    "Certificado de Garantia",
+    "Certificado de Qualidade",
+    "Manual de Cuidados e Manutenção",
+    "Nota Fiscal",
+    "Termo de Origem do Fabricante"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "MANIACOUNTRY",
+      location: "Osasco, São Paulo",
+      rating: 4.8,
+      totalSales: 177,
+      memberSince: "2020",
+      verified: true,
+      image: "https://mla-s1-p.mlstatic.com/947397-MLA47297371628_082021-O.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440036",
+  title: "Estribo Par Em Aço Inox 12mm Fabricante Premium",
+  category: "Selaria e Utilidades",
+  price: 79.00,
+  location: "São Paulo",
+  city: "Osasco",
+  rating: 4.8,
+  reviews: 17,
+  image: "/fotos/produtos/redea.png",
+  seller: "BASIKEARTESANATO",
+  verified: true,
+  featured: false,
+  weight: "",
+  brand: "Artsanal",
+  stock: "Em estoque",
+  description: "Estribo de aço inox de 12 mm de fabricação artesanal.",
+  images: [
+    "/fotos/produtos/estribo.png",
+  ],
+  specifications: {
+    resistencia: "Suporta altas cargas sem deformar",
+    durabilidade: "Resistente à corrosão e oxidação",
+    manutencao: "Limpar com pano seco e evitar produtos abrasivos"
+  },
+  documents: [
+  "Ficha Técnica",
+  "Certificado de Garantia",
+  "Certificado de Qualidade",
+  "Laudo de Conformidade do Material (Aço Inox)",
+  "Nota Fiscal",
+  "Termo de Origem do Fabricante"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "BASIKEARTESANATO",
+      location: "Osasco, São Paulo",
+      rating: 5,
+      totalSales: 126,
+      memberSince: "2020",
+      verified: true,
+      image: "https://mla-s1-p.mlstatic.com/947397-MLA47297371628_082021-O.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440037",
+  title: "Freio Campista Inox Para Cavalo Mula Pesado",
+  category: "Selaria e Utilidades",
+  price: 62.95,
+  location: "Minas Gerais",
+  city: "Belo Horizonte",
+  rating: 3.9,
+  reviews: 37,
+  image: "/fotos/produtos/freio.png",
+  seller: "JU SHOP",
+  verified: true,
+  featured: false,
+  weight: "",
+  brand: "JU SHOP",
+  stock: "Em estoque",
+  description: "Freio campista é um produto com finíssimo acabamento, para extrair o melhor na sua cavalgada.",
+  images: [
+    "/fotos/produtos/freio.png",
+  ],
+  specifications: {
+    resistencia: "Suporta altas cargas sem deformar",
+    durabilidade: "Resistente à corrosão e oxidação",
+    manutencao: "Limpar com pano seco e evitar produtos abrasivos"
+  },
+  documents: [
+  "Ficha Técnica",
+  "Certificado de Garantia",
+  "Certificado de Qualidade",
+  "Laudo de Conformidade do Material (Aço Inox)",
+  "Nota Fiscal",
+  "Termo de Origem do Fabricante"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "JU SHOP",
+      location: "Belo Horizonte, Minas Gerais",
+      rating: 5,
+      totalSales: 126,
+      memberSince: "2020",
+      verified: true,
+      image: "https://mla-s1-p.mlstatic.com/947397-MLA47297371628_082021-O.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440038",
+  title: "Peitoral Mangalarga Marchador Modelo Y Em Couro",
+  category: "Selaria e Utilidades",
+  price: 78.00,
+  location: "Minas Gerais",
+  city: "Dores de Campos",
+  rating: 5,
+  reviews: 4,
+  image: "/fotos/produtos/peitoral.png",
+  seller: "Selaria Essencial",
+  verified: true,
+  featured: false,
+  weight: "",
+  brand: "Selaria Essencial",
+  stock: "Em estoque",
+  description: "Peitoral Manga Larga Confeccionado em couro de búfalo legitimo oleado.",
+  images: [
+    "/fotos/produtos/peitoral.png",
+  ],
+  specifications: {
+    resistencia: "Suporta altas cargas sem deformar",
+    durabilidade: "Resistente à corrosão e oxidação",
+    manutencao: "Limpar com pano seco e evitar produtos abrasivos"
+  },
+  documents: [
+  "Ficha Técnica",
+  "Certificado de Garantia",
+  "Certificado de Qualidade",
+  "Laudo de Conformidade do Material (Aço Inox)",
+  "Nota Fiscal",
+  "Termo de Origem do Fabricante"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "Selaria Essencial",
+      location: "Dores de Campos, Minas Gerais",
+      rating: 5,
+      totalSales: 428,
+      memberSince: "2020",
+      verified: true,
+      image: "https://http2.mlstatic.com/D_NQ_NP_665370-MLA79440041362_102024-F.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440039",
+  title: "Conjunto Barrigueira E Cilha Estrela Luxo Promoção Marrom",
+  category: "Selaria e Utilidades",
+  price: 76.00,
+  location: "Minas Gerais",
+  city: "Dores de Campos",
+  rating: 4.6,
+  reviews: 38,
+  image: "/fotos/produtos/barrigueira.png",
+  seller: "GS Selas",
+  verified: true,
+  featured: false,
+  weight: "",
+  brand: "GS Selas",
+  stock: "Em estoque",
+  description: "Peitoral Manga Larga Confeccionado em couro de búfalo legitimo oleado.",
+  images: [
+    "/fotos/produtos/barrigueira.png",
+  ],
+  specifications: {
+    resistencia: "Suporta altas cargas sem deformar",
+    durabilidade: "Resistente à corrosão e oxidação",
+    manutencao: "Limpar com pano seco e evitar produtos abrasivos"
+  },
+  documents: [
+  "Ficha Técnica",
+  "Certificado de Garantia",
+  "Certificado de Qualidade",
+  "Laudo de Conformidade do Material (Aço Inox)",
+  "Nota Fiscal",
+  "Termo de Origem do Fabricante"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "GS Selas",
+      location: "Dores de Campos, Minas Gerais",
+      rating: 5,
+      totalSales: 428,
+      memberSince: "2020",
+      verified: true,
+      image: "https://mla-s1-p.mlstatic.com/947397-MLA47297371628_082021-O.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440040",
+  title: "Manta Baixeiro Para Sela Ou Arreio Promoção Manta Bacheiro",
+  category: "Selaria e Utilidades",
+  price: 58.99,
+  location: "Minas Gerais",
+  city: "Belo Horizonte",
+  rating: 4.6,
+  reviews: 5,
+  image: "/fotos/produtos/manta.png",
+  seller: "Selaria Minas",
+  verified: true,
+  featured: false,
+  weight: "",
+  brand: "Selaria Minas",
+  stock: "Em estoque",
+  description: "Manta produzida em brim.",
+  images: [
+    "/fotos/produtos/barrigueira.png",
+  ],
+  specifications: {
+    respirabilidade: "Boa ventilação, evitando superaquecimento",
+    uso: "Montaria, treinamento e cavalgadas",
+    manutencao: "Lavar à mão com sabão neutro e secar à sombra"
+  },
+  documents: [
+  "Ficha Técnica",
+  "Certificado de Garantia",
+  "Certificado de Qualidade",
+  "Laudo de Conformidade do Material (Aço Inox)",
+  "Nota Fiscal",
+  "Termo de Origem do Fabricante"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "Selaria Minas",
+      location: "Belo Horizonte, Minas Gerais",
+      rating: 5,
+      totalSales: 428,
+      memberSince: "2020",
+      verified: true,
+      image: "https://http2.mlstatic.com/D_NQ_NP_838959-MLA88471614720_072025-F.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440039",
+  title: "Conjunto Barrigueira E Cilha Estrela Luxo Promoção Marrom",
+  category: "Selaria e Utilidades",
+  price: 76.00,
+  location: "Minas Gerais",
+  city: "Dores de Campos",
+  rating: 4.6,
+  reviews: 38,
+  image: "/fotos/produtos/barrigueira.png",
+  seller: "GS Selas",
+  verified: true,
+  featured: false,
+  weight: "",
+  brand: "GS Selas",
+  stock: "Em estoque",
+  description: "Peitoral Manga Larga Confeccionado em couro de búfalo legitimo oleado.",
+  images: [
+    "/fotos/produtos/barrigueira.png",
+  ],
+  specifications: {
+    resistencia: "Suporta altas cargas sem deformar",
+    durabilidade: "Resistente à corrosão e oxidação",
+    manutencao: "Limpar com pano seco e evitar produtos abrasivos"
+  },
+  documents: [
+  "Ficha Técnica",
+  "Certificado de Garantia",
+  "Certificado de Qualidade",
+  "Laudo de Conformidade do Material (Aço Inox)",
+  "Nota Fiscal",
+  "Termo de Origem do Fabricante"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "GS Selas",
+      location: "Dores de Campos, Minas Gerais",
+      rating: 5,
+      totalSales: 428,
+      memberSince: "2020",
+      verified: true,
+      image: "https://mla-s1-p.mlstatic.com/947397-MLA47297371628_082021-O.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440040",
+  title: "Manta Baixeiro Para Sela Ou Arreio Promoção Manta Bacheiro",
+  category: "Selaria e Utilidades",
+  price: 58.99,
+  location: "Minas Gerais",
+  city: "Belo Horizonte",
+  rating: 4.6,
+  reviews: 5,
+  image: "/fotos/produtos/manta.png",
+  seller: "Selaria Minas",
+  verified: true,
+  featured: false,
+  weight: "",
+  brand: "Selaria Minas",
+  stock: "Em estoque",
+  description: "Manta produzida em brim.",
+  images: [
+    "/fotos/produtos/barrigueira.png",
+  ],
+  specifications: {
+    respirabilidade: "Boa ventilação, evitando superaquecimento",
+    uso: "Montaria, treinamento e cavalgadas",
+    manutencao: "Lavar à mão com sabão neutro e secar à sombra"
+  },
+  documents: [
+  "Ficha Técnica",
+  "Certificado de Garantia",
+  "Certificado de Qualidade",
+  "Laudo de Conformidade do Material (Aço Inox)",
+  "Nota Fiscal",
+  "Termo de Origem do Fabricante"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "Selaria Minas",
+      location: "Belo Horizonte, Minas Gerais",
+      rating: 5,
+      totalSales: 428,
+      memberSince: "2020",
+      verified: true,
+      image: "https://http2.mlstatic.com/D_NQ_NP_838959-MLA88471614720_072025-F.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440039",
+  title: "Conjunto Barrigueira E Cilha Estrela Luxo Promoção Marrom",
+  category: "Selaria e Utilidades",
+  price: 76.00,
+  location: "Minas Gerais",
+  city: "Dores de Campos",
+  rating: 4.6,
+  reviews: 38,
+  image: "/fotos/produtos/barrigueira.png",
+  seller: "GS Selas",
+  verified: true,
+  featured: false,
+  weight: "",
+  brand: "GS Selas",
+  stock: "Em estoque",
+  description: "Peitoral Manga Larga Confeccionado em couro de búfalo legitimo oleado.",
+  images: [
+    "/fotos/produtos/barrigueira.png",
+  ],
+  specifications: {
+    resistencia: "Suporta altas cargas sem deformar",
+    durabilidade: "Resistente à corrosão e oxidação",
+    manutencao: "Limpar com pano seco e evitar produtos abrasivos"
+  },
+  documents: [
+  "Ficha Técnica",
+  "Certificado de Garantia",
+  "Certificado de Qualidade",
+  "Laudo de Conformidade do Material (Aço Inox)",
+  "Nota Fiscal",
+  "Termo de Origem do Fabricante"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "GS Selas",
+      location: "Dores de Campos, Minas Gerais",
+      rating: 5,
+      totalSales: 428,
+      memberSince: "2020",
+      verified: true,
+      image: "https://mla-s1-p.mlstatic.com/947397-MLA47297371628_082021-O.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440041",
+  title: "Espora Para Cavalo 16 Bicos Cavalgadas Com Correias Unissex",
+  category: "Selaria e Utilidades",
+  price: 58.99,
+  location: "Minas Gerais",
+  city: "Belo Horizonte",
+  rating: 4.7,
+  reviews: 7,
+  image: "/fotos/produtos/espora.png",
+  seller: "Selaria Rodrigues Silva",
+  verified: true,
+  featured: false,
+  weight: "",
+  brand: "Selaria Rodrigues Silva",
+  stock: "Em estoque",
+  description: "Espora de ferro com 16 bicos: a melhor opção para suas cavalgadas.",
+  images: [
+    "/fotos/produtos/espora.png",
+  ],
+  specifications: {
+    respirabilidade: "Boa ventilação, evitando superaquecimento",
+    uso: "Montaria, treinamento e cavalgadas",
+    manutencao: "Lavar à mão com sabão neutro e secar à sombra"
+  },
+  documents: [
+  "Ficha Técnica",
+  "Certificado de Garantia",
+  "Certificado de Qualidade",
+  "Laudo de Conformidade do Material (Aço Inox)",
+  "Nota Fiscal",
+  "Termo de Origem do Fabricante"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "Selaria Rodrigues Silva",
+      location: "Belo Horizonte, Minas Gerais",
+      rating: 5,
+      totalSales: 508,
+      memberSince: "2020",
+      verified: true,
+      image: "https://http2.mlstatic.com/D_NQ_NP_781084-MLA91071595800_092025-F.jpg"
     }
 },
 ]
