@@ -998,8 +998,8 @@ export const mockProducts: MockProduct[] = [
   title: "Premix Probiótico Para Aumentar Leite Vaca - Max Leite 5 Kg",
   category: "Saúde e Bem-Estar Animal",
   price: 230.66,
-  location: "São José do Rio Preto",
-  city: "São Paulo",
+  location: "São Paulo",
+  city: "São José do Rio Preto",
   rating: 5,
   reviews: 1,
   image: "/fotos/produtos/probiotico.png",
@@ -1035,6 +1035,384 @@ export const mockProducts: MockProduct[] = [
       memberSince: "2020",
       verified: true,
       image: "https://http2.mlstatic.com/D_NQ_NP_703782-MLA84648900565_052025-G.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440024",
+  title: "Kit Inseminação Artificial De Bovinos - Essencial",
+  category: "Reprodução e Genética",
+  price: 389.90,
+  location: "São Paulo",
+  city: "Osasco",
+  rating: 5,
+  reviews: 1,
+  image: "/fotos/produtos/kit.png",
+  seller: "Vetz Agroshop",
+  verified: true,
+  featured: false,
+  weight: "",
+  brand: "IMV/AGZ",
+  stock: "Em estoque",
+  description: "KIT INSEMINAÇÃO DE BOVINOS / ESSENCIAL.",
+  images: [
+    "/fotos/produtos/kit.png",
+    "/fotos/produtos/kit2.png"
+  ],
+  specifications: {
+    material: "plástico alta resistência",
+  },
+  documents: [
+    "Ficha Técnica",
+    "Rótulo Oficial",
+    "Registro no MAPA",
+    "Certificado de Garantia ",
+    "Manual Técnico",
+    "Nota Fiscal"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "Imperial Nutri",
+      location: "Osasco, SP",
+      rating: 5,
+      totalSales: 150,
+      memberSince: "2020",
+      verified: true,
+      image: "https://mla-s1-p.mlstatic.com/950947-MLA53290907196_012023-O.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440025",
+  title: "Bainha Imv Para Inseminação De Bovinos C/ 50 Unidades-kit 5 Transparente",
+  category: "Reprodução e Genética",
+  price: 179.90,
+  location: "Minas Gerais",
+  city: "Sete Lagoas",
+  rating: 5,
+  reviews: 1,
+  image: "/fotos/produtos/bainha.png",
+  seller: "Agromaximo shop",
+  verified: true,
+  featured: false,
+  weight: "",
+  brand: "IMV",
+  stock: "Em estoque",
+  description: "A Bainha IMV Francesa é a opção perfeita para profissionais que trabalham com inseminação artificial em bovinos.",
+  images: [
+    "/fotos/produtos/bainha.png",
+  ],
+  specifications: {
+    material: "plástico",
+  },
+  documents: [
+    "Ficha Técnica",
+    "Rótulo Oficial",
+    "Registro no MAPA",
+    "Certificado de Qualidade IMV",
+    "Manual Técnico",
+    "Nota Fiscal"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "Agromaximo shop",
+      location: "Sete Lagoas, MG",
+      rating: 5,
+      totalSales: 150,
+      memberSince: "2020",
+      verified: true,
+      image: "https://http2.mlstatic.com/D_NQ_NP_652894-MLA94058190851_102025-F.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440026",
+  title: "Botijão Nitrogênio P/ Sêmen Ou Material Genético Yds 10 - 10lts",
+  category: "Reprodução e Genética",
+  price: 6700.00,
+  location: "São Paulo",
+  city: "Itu",
+  rating: 5,
+  reviews: 1,
+  image: "/fotos/produtos/nitro.png",
+  seller: "Agrovet equipamentos",
+  verified: true,
+  featured: false,
+  weight: "10L",
+  brand: "Cryofarm",
+  stock: "Em estoque",
+  description: "Botijão Cryofarm YDS-10A - 10Lts - Bocal 50mm - Cap. 600 ds Palhetas Média em Rack.",
+  images: [
+    "/fotos/produtos/nitro.png",
+  ],
+  specifications: {
+    modelo: "YDS-10",
+  },
+  documents: [
+    "Ficha Técnica", 
+    "Manual de Utilização e Segurança",
+    "Certificado de Garantia",  
+    "Certificado de Qualidade / Controle de Vácuo",  
+    "Nota Fiscal / Termo de Origem",  
+    "Certificação de Conformidade (opcional)"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "Agrovet equipamentos",
+      location: "Itu, SP",
+      rating: 5,
+      totalSales: 50,
+      memberSince: "2020",
+      verified: true,
+      image: "https://mla-s1-p.mlstatic.com/922896-MLA79853967913_102024-O.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440027",
+  title: "Luva Descartável Inseminação Palpação Veterinária Walmur Cx",
+  category: "Reprodução e Genética",
+  price: 76.90,
+  location: "São Paulo",
+  city: "Itu",
+  rating: 4.8,
+  reviews: 20,
+  image: "/fotos/produtos/luva.png",
+  seller: "dipexcomeletroni",
+  verified: true,
+  featured: false,
+  weight: "",
+  brand: "Walmur",
+  stock: "Em estoque",
+  description: "LUVAS ESPECIALFLEX PARA INSEMINAÇÃO E PALPAÇÃO CAIXA COM 100 UNIDADES TAMANHO 80CM.",
+  images: [
+    "/fotos/produtos/luva.png",
+  ],
+  specifications: {
+    modelo: "ESPECIALFLEX",
+  },
+  documents: [
+    "Ficha Técnica",   
+    "Nota Fiscal / Termo de Origem",  
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "dipexcomeletroni",
+      location: "Itu, SP",
+      rating: 4.8,
+      totalSales: 400,
+      memberSince: "2020",
+      verified: true,
+      image: "https://mla-s2-p.mlstatic.com/886556-MLA77270441071_062024-O.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440028",
+  title: "Tinta Líquida P/ Detecção De Cio Em Vacas",
+  category: "Reprodução e Genética",
+  price: 104.90,
+  location: "Minas Gerais",
+  city: "Sete Lagoas",
+  rating: 5,
+  reviews: 1,
+  image: "/fotos/produtos/cio.png",
+  seller: "Agromaximo shop",
+  verified: true,
+  featured: false,
+  weight: "500ml",
+  brand: "Ciopaint",
+  stock: "Em estoque",
+  description: "Com auxílio do bico pincel, aplique a tinta deixando uma marcação de aproximadamente 15 cm, próximo a extremidade superior do rabo.",
+  images: [
+    "/fotos/produtos/cio.png",
+  ],
+  specifications: {
+    modelo: "tinta liquida vermelha",
+  },
+  documents: [
+    "Ficha Técnica",   
+    "Nota Fiscal / Termo de Origem",  
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "Agromaximo shop",
+      location: "Sete Lagoas, MG",
+      rating: 5,
+      totalSales: 150,
+      memberSince: "2020",
+      verified: true,
+      image: "https://http2.mlstatic.com/D_NQ_NP_652894-MLA94058190851_102025-F.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440029",
+  title: "Aplicador De Implante De Progesterona Iatf Gado Cidr Primer",
+  category: "Reprodução e Genética",
+  price: 45.00,
+  location: "São Paulo",
+  city: "Osasco",
+  rating: 4.6,
+  reviews: 56,
+  image: "/fotos/produtos/aplic.png",
+  seller: "MaxiPec",
+  verified: true,
+  featured: false,
+  weight: "100g",
+  brand: "Globalgem",
+  stock: "Em estoque",
+  description: "Aplicador de Implantes de Progesterona para fêmeas bovinas.",
+  images: [
+    "/fotos/produtos/aplic.png",
+  ],
+  specifications: {
+    modelo: "Bovino",
+  },
+  documents: [
+  "Ficha Técnica",
+  "Manual de Utilização e Higienização",
+  "Certificado de Garantia",
+  "Certificado de Qualidade / Conformidade",
+  "Rótulo Oficial",
+  "Nota Fiscal"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "MaxiPec",
+      location: "Osasco, SP",
+      rating: 4.6,
+      totalSales: 141,
+      memberSince: "2020",
+      verified: true,
+      image: "https://http2.mlstatic.com/D_NQ_NP_854322-MLA74313954710_022024-F.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440030",
+  title: "Cidr Dispositivo Intravaginal Progesterona 1,9g 10 Un Zoetis",
+  category: "Reprodução e Genética",
+  price: 589.90,
+  location: "São Paulo",
+  city: "São José do Rio Preto",
+  rating: 4.6,
+  reviews: 56,
+  image: "/fotos/produtos/cidr.png",
+  seller: "ISOPHOS",
+  verified: true,
+  featured: false,
+  weight: "1.9g",
+  brand: "Zoetis",
+  stock: "Em estoque",
+  description: "CIDR é um dispositivo intravaginal em forma de T, contendo progesterona, indicado para programas de sincronização de cio e ovulação em bovinos de leite e corte.",
+  images: [
+    "/fotos/produtos/cidr.png",
+  ],
+  specifications: {
+    modelo: "Bovino",
+    apresentacao: "Caixa com 10 dispositivos",
+    armazenament: "15 °C a 30 °C, protegido da luz e umidade",
+    precaucao: "Uso sob prescrição veterinária, não reutilizar"
+  },
+  documents: [
+    "Bula Oficial Zoetis",
+    "Ficha Técnica",
+    "Rótulo Oficial",
+    "Registro no MAPA",
+    "Certificado de Qualidade",
+    "Nota Fiscal"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "ISOPHOS",
+      location: "São José do Rio Preto, SP",
+      rating: 4.6,
+      totalSales: 141,
+      memberSince: "2020",
+      verified: true,
+      image: "https://http2.mlstatic.com/D_NQ_NP_785106-MLA87765702842_072025-F.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440031",
+  title: "Termômetro Digital -50°c 300°c Tipo Espeto Simpla Te07",
+  category: "Reprodução e Genética",
+  price: 62.10,
+  location: "São Paulo",
+  city: "São Paulo",
+  rating: 4.3,
+  reviews: 4,
+  image: "/fotos/produtos/termo.png",
+  seller: "CIRUVIX",
+  verified: true,
+  featured: false,
+  weight: "",
+  brand: "Akso",
+  stock: "Em estoque",
+  description: "Termômetro tipo espeto com haste de penetração de aço inox com 148mm de comprimento.",
+  images: [
+    "/fotos/produtos/termo.png",
+  ],
+  specifications: {
+   material: "Aço inox e plástico ABS",
+   aplicacoes: "Uso em alimentos, líquidos, rações, laboratórios e processos agropecuários",
+   cuidados: "Não submergir totalmente o aparelho em líquidos; limpar o espeto após o uso"
+  },
+  documents: [
+    "Ficha Técnica",
+    "Manual de Instruções",
+    "Certificado de Qualidade",
+    "Certificado de Calibração (quando aplicável)",
+    "Nota Fiscal",
+    "Garantia do Fabricante"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "CIRUVIX",
+      location: "São Paulo, SP",
+      rating: 4.3,
+      totalSales: 4,
+      memberSince: "2020",
+      verified: true,
+      image: "https://http2.mlstatic.com/storage/mshops-appearance-api/images/30/89b96f22989d4904a90a0122d9256c7f4858730/logo-2023102014232739658.jpeg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440032",
+  title: "Termômetro Clínico Infravermelho Veterinário",
+  category: "Reprodução e Genética",
+  price: 509.90,
+  location: "São Paulo",
+  city: "Osasco",
+  rating: 4.3,
+  reviews: 4,
+  image: "/fotos/produtos/infra.png",
+  seller: "OriginalVet",
+  verified: true,
+  featured: false,
+  weight: "",
+  brand: "Incoterm",
+  stock: "Em estoque",
+  description: "Sistema Infravermelho de medição de temperatura; alarme de temperatura febril.",
+  images: [
+    "/fotos/produtos/infra.png",
+  ],
+  specifications: {
+    aplicacoes: "Medição rápida e higiênica da temperatura corporal em animais",
+    modo_de_uso: "Apontar para a região auricular ou frontal do animal e pressionar o botão de leitura",
+    cuidados: "Evitar exposição à luz solar direta e quedas; limpar o sensor com pano seco"
+  },
+  documents: [
+    "Ficha Técnica",
+    "Manual de Instruções",
+    "Certificado de Qualidade",
+    "Certificado de Calibração (quando aplicável)",
+    "Nota Fiscal",
+    "Garantia do Fabricante"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "OriginalVet",
+      location: "Osasco, SP",
+      rating: 4.3,
+      totalSales: 4,
+      memberSince: "2020",
+      verified: true,
+      image: "https://http2.mlstatic.com/storage/mshops-appearance-api/images/30/89b96f22989d4904a90a0122d9256c7f4858730/logo-2023102014232739658.jpeg"
     }
 },
 ]
