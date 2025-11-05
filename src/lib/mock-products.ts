@@ -650,4 +650,391 @@ export const mockProducts: MockProduct[] = [
       image: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAFwAXAMBIgACEQEDEQH/xAAbAAEAAwEBAQEAAAAAAAAAAAAAAwUGBAIBB//EADUQAAEEAQMBBgQCCwEAAAAAAAEAAgMEEQUSITETMkFRYXEigZGhBhRSU2NydbGytMHR4TX/xAAZAQEAAwEBAAAAAAAAAAAAAAAAAQIDBAX/xAAhEQACAgICAQUAAAAAAAAAAAAAAQIRA0EhMQQTgZGhsf/aAAwDAQACEQMRAD8A/akREAREQBERAEREAREQBERAEXxxIaSBkgcDzUcE7JgduWub3mO4LT6qrkk62CQEEZByPRMgkgEZHUeS5IbFetH2UliLc1x6O6DJx9lJV2bZJGyNk3vLi5p6DwH0WUM6lSVXvnos40dCKGvK6ZpeW7WE/BnqR5lTLWMlJWiGqCIisQEREAREQEEk0jJNv5eR7P02EH7ZyqvV7Us1sUKveOA8g9fHHsrtUOnjH4jtiTvAOLc+4/wV5/mqbUcafEnXsb4a5lXSO2vpNSCPMzRI4DJc44A+S+1q9WaGK5pkjWtlYHxyRnLJGkZHHiCF416RxqsqRQvmfaeGOjjLdxjHMnUgd0EZz1cFnNMv29G0DW9Phg2W9LLn04Z8E9jIS6IfCcHB3NAB52gdSto+JgglGMUv35KOcny2bRji5gJGD4jyK9LH6le1qtp2uajFcmbUo0jLVdYqNY6V4aXO3NLQcDAHQZ3emT1fntWbqNOlZtwtFwyS9pXhy6JrGNzGM5BduceSD8LTxnkdF0Uovb16rQiEtydkTCSAXeOAScD2BPoASvQuVnWY6zZ4zPJEZmMDslzAQNw9MkcrIwWp9Z1LR325WhrZL1eVvZtMcojdsLsHwcByPDlS6DqV+8aV2Oq6GPUHPZMSyJogY0P7Pbzuc4FoBaQRy44GMKbFGvJx1UM1ytBYirzTxsnma90UZd8Tw3G4geOMjPusTqFzWrv4Hv37N6GOJ9SVnZsiAeS15bnPTDgDnyyMdMnRS2rMOt6ZWFwTxzOnZNmNoO5rdw5HTqB8ksUWlK5WvwCenMyaLc5u9hyMtOCPcEEKdUH4K/8AKufxW/8A3Uiv1JAVVqdGb8zHfogGePhzCcdoP9q0JABJ6BcM9m9ISynTIH62Z4YPk3k/ULHOoyjUvrstGTi7RzOl0exPHeuQxR3IBhpnZiSP0H/FVazFpl4WTDUijksx7JLTogHvbnO07tuWnoefE4weVYnRrlhxdcuNJPXAc/7E4+y6IdDgj6zTH9zaz+kBc9+TLiqIbWjO1NLpMZYZFSrCGwxrJIIIcROAzyWjeCeevlwu8xQ9nHHJFEWRHLA9oGw88ju4PJ+pV0NKpdXQ9of2j3O/mVOypWj7leJvswK3o5m7ciDPNhpGSu4Q1A+sMQFrGZiHk3BdgegU0VSs2V8sddu+TduLYzzu7x4j6nxPj4rQjgYHA9EWiwy3IFFDp1aOo+pHQaKsgIfCK/wOB6gjgHKkGl1t0LhpsW6DPZHsWgx5OTj4uMknPmrlFdY2tg4dOpQ0I3MqU467HuL3NjDWguPJPB6rtHrwvqLRKgERFICIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiID/2Q=="
     }
 },
+{
+  id: "550e8400-e29b-41d4-a716-446655440015",
+  title: "Indupharma Triplo Atack longa ação moscas carrapatos vermes bovinos",
+  category: "Saúde e Bem-Estar Animal",
+  price: 178.44,
+  location: "São Paulo",
+  city: "Osasco",
+  rating: 4.6,
+  reviews: 43,
+  image: "/fotos/produtos/verme.png",
+  seller: "COLOMBO PRODUTOS AGROPECUÁRIOS",
+  verified: true,
+  featured: false,
+  weight: "500ml",
+  brand: "Indupharma",
+  stock: "Em estoque",
+  description: "Triplo Atack Longa Ação - Moscas Carrapatos Vermes Bovinos' atua pela interferência da formação da quitina do carrapato, interrompendo o ciclo de vida e impedindo o desenvolvimento do carrapato. É indicado para tratamento e controle eficaz das infecções causadas por vermes redondos (gastrintestinais e pulmonares), infestações por berne e carrapato dos bovinos.",
+  images: [
+    "/fotos/produtos/verme.png",
+    "/fotos/produtos/verme2.png"
+  ],
+  specifications: {
+    Ivermectina: "1%",
+    Fluazuron: "1%",
+    Abamectina: "1%",
+  },
+  documents: [
+    "Ficha Técnica",
+    "Rótulo Oficial",
+    "Registro no MAPA",
+    "Laudo de Qualidade",
+    "Bula do Produto",
+    "FISPQ"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "COLOMBO PRODUTOS AGROPECUÁRIOS",
+      location: "Osasco, SP",
+      rating: 5.0,
+      totalSales: 98,
+      memberSince: "2020",
+      verified: true,
+      image: "https://http2.mlstatic.com/D_NQ_NP_635565-MLA75222019116_032024-F.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440016",
+  title: "Hipofen Vermífugo Fembendazol Égua Cavalo Potro Mula 6 Unidades",
+  category: "Saúde e Bem-Estar Animal",
+  price: 78.99,
+  location: "São Paulo",
+  city: "Monte Mor",
+  rating: 5,
+  reviews: 14,
+  image: "/fotos/produtos/vermecavalo.png",
+  seller: "AGROPECUARIA AGROFAL",
+  verified: true,
+  featured: false,
+  weight: "120g",
+  brand: "Calbos",
+  stock: "Em estoque",
+  description: "Antiparasitário para equinos e asininos que contém em sua fórmulação o Febendazol, que caracteriza-se por um amplo espectro de atividade e ampla margem de segurança. Não possui contra indicação para éguas prenhes. Indicado para o controle e tratamento de verminoses gastrointestinais, causadas por nematódeos.",
+  images: [
+    "/fotos/produtos/vermecavalo.png",
+    "/fotos/produtos/vermecavalo2.png"
+  ],
+  specifications: {
+    Fembendazol: "15%",
+  },
+  documents: [
+    "Ficha Técnica",
+    "Rótulo Oficial",
+    "Registro no MAPA",
+    "Laudo de Qualidade",
+    "Bula do Produto",
+    "FISPQ"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "AGROPECUARIA AGROFAL",
+      location: "Monte Mor, SP",
+      rating: 4.8,
+      totalSales: 134,
+      memberSince: "2020",
+      verified: true,
+      image: "https://http2.mlstatic.com/D_NQ_NP_966847-MLA83358275120_042025-F.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440017",
+  title: "V Pentabiotico 6000000Ui Reforcado 15ml Antibiotico - Fort Dodge",
+  category: "Saúde e Bem-Estar Animal",
+  price: 36.99,
+  location: "Rio Grande do Sul",
+  city: "Três Cachoeiras",
+  rating: 4.9,
+  reviews: 17,
+  image: "/fotos/produtos/antibiotico.png",
+  seller: "Cat&Dog atacado",
+  verified: true,
+  featured: false,
+  weight: "15ml",
+  brand: "Zoetis",
+  stock: "Em estoque",
+  description: "Não administrar em animais com alergia a penicilina e nefrite com perda funcional superior a 75%.",
+  images: [
+    "/fotos/produtos/antibiotico.png"
+  ],
+  specifications: {
+    Estreptomicina: "1,0g",
+  },
+  documents: [
+    "Ficha Técnica",
+    "Rótulo Oficial",
+    "Registro no MAPA",
+    "Laudo de Qualidade",
+    "Bula do Produto",
+    "FISPQ"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "Cat&Dog atacado",
+      location: "Três Cachoeiras, RS",
+      rating: 4.9,
+      totalSales: 17,
+      memberSince: "2020",
+      verified: true,
+      image: "https://http2.mlstatic.com/D_NQ_NP_744234-MLA79517356833_092024-G.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440018",
+  title: "Vetaglos Pomada Cicatrizante Vetnil 20g",
+  category: "Saúde e Bem-Estar Animal",
+  price: 39.90,
+  location: "Rio Grande do Sul",
+  city: "Três Cachoeiras",
+  rating: 4.8,
+  reviews: 775,
+  image: "/fotos/produtos/pomadacasco.png",
+  seller: "fernandokleinerak",
+  verified: true,
+  featured: false,
+  weight: "20g",
+  brand: "Vetaglos",
+  stock: "Em estoque",
+  description: "Cicatrização rápida e eficaz para feridas e lesões",
+  images: [
+    "/fotos/produtos/pomadacasco.png"
+  ],
+  specifications: {
+    Retinol: "2.000.000 UI",
+    Colecalciferol: "200.000 UI",
+  },
+  documents: [
+    "Ficha Técnica",
+    "Rótulo Oficial",
+    "Registro no MAPA",
+    "Laudo de Qualidade",
+    "Bula do Produto",
+    "FISPQ"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "fernandokleinerak",
+      location: "Três Cachoeiras, RS",
+      rating: 4.9,
+      totalSales: 17,
+      memberSince: "2020",
+      verified: true,
+      image: "https://mla-s1-p.mlstatic.com/697837-MLA83884988297_042025-O.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440019",
+  title: "Petiolate Antisséptico E Cicatrizante Spray 50ml",
+  category: "Saúde e Bem-Estar Animal",
+  price: 27.55,
+  location: "Minas Gerais",
+  city: "Belo Horizonte",
+  rating: 4.7,
+  reviews: 178,
+  image: "/fotos/produtos/spray.png",
+  seller: "DUPET STORE",
+  verified: true,
+  featured: false,
+  weight: "50ml",
+  brand: "Petiolate",
+  stock: "Em estoque",
+  description: "Cicatrização rápida e eficaz para feridas e lesões",
+  images: [
+    "/fotos/produtos/spray.png"
+  ],
+  specifications: {
+    Clorexidina: "0.5g",
+    Dexpantenol: "5g",
+  },
+  documents: [
+    "Ficha Técnica",
+    "Rótulo Oficial",
+    "Registro no MAPA",
+    "Laudo de Qualidade",
+    "Bula do Produto",
+    "FISPQ"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "DUPET STORE",
+      location: "Belo Horizonte, MG",
+      rating: 4.7,
+      totalSales: 178,
+      memberSince: "2020",
+      verified: true,
+      image: "https://mla-s1-p.mlstatic.com/806856-MLA40643195210_022020-O.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440020",
+  title: "Terramicina La - 50ml/ Zoetis/ Kit Com 3 Unidades",
+  category: "Saúde e Bem-Estar Animal",
+  price: 104.90,
+  location: "Minas Gerais",
+  city: "Belo Horizonte",
+  rating: 5,
+  reviews: 3,
+  image: "/fotos/produtos/vacina.png",
+  seller: "Santa Laura Vet",
+  verified: true,
+  featured: false,
+  weight: "50ml",
+  brand: "Zoetis",
+  stock: "Em estoque",
+  description: "Altamente ativo contra um grande número de microrganismos Gram-positivos e Gram-negativos.",
+  images: [
+    "/fotos/produtos/vacina.png"
+  ],
+  specifications: {
+    Oxitetraciclina: "200g",
+  },
+  documents: [
+    "Ficha Técnica",
+    "Rótulo Oficial",
+    "Registro no MAPA",
+    "Laudo de Qualidade",
+    "Bula do Produto",
+    "FISPQ"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "Santa Laura Vet",
+      location: "Belo Horizonte, MG",
+      rating: 5,
+      totalSales: 3,
+      memberSince: "2020",
+      verified: true,
+      image: "https://http2.mlstatic.com/D_NQ_NP_803589-MLA95246466847_102025-F.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440021",
+  title: "Vacina Millenium - 250mL - Dechra",
+  category: "Saúde e Bem-Estar Animal",
+  price: 58.00,
+  location: "São Paulo",
+  city: "Osasco",
+  rating: 4.9,
+  reviews: 1111,
+  image: "/fotos/produtos/aftosa.png",
+  seller: "COLOMBO PRODUTOS AGROPECUÁRIOS",
+  verified: true,
+  featured: false,
+  weight: "250ml",
+  brand: "Dechra",
+  stock: "Em estoque",
+  description: "O produto deve ser aplicado via subcutânea, observando-se os cuidados usuais de assepsia.",
+  images: [
+    "/fotos/produtos/aftosa.png"
+  ],
+  specifications: {
+    Dosagem: "2ml",
+  },
+  documents: [
+    "Ficha Técnica",
+    "Rótulo Oficial",
+    "Registro no MAPA",
+    "Laudo de Qualidade",
+    "Bula do Produto",
+    "FISPQ"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "COLOMBO PRODUTOS AGROPECUÁRIOS",
+      location: "Osasco, SP",
+      rating: 5,
+      totalSales: 3,
+      memberSince: "2020",
+      verified: true,
+      image: "https://http2.mlstatic.com/D_NQ_NP_635565-MLA75222019116_032024-F.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440022",
+  title: "Dexaflan 50ml Dexametazona",
+  category: "Saúde e Bem-Estar Animal",
+  price: 29.59,
+  location: "Rio Grande do Sul",
+  city: "Três Cachoeiras",
+  rating: 4.9,
+  reviews: 15,
+  image: "/fotos/produtos/antiinflamatorio.png",
+  seller: "fernandokleinerak",
+  verified: true,
+  featured: false,
+  weight: "50ml",
+  brand: "Dexaflan",
+  stock: "Em estoque",
+  description: "DEXAFLAN é indicado como tratamento básico nos processos inflamatórios ou como coadjuvantes",
+  images: [
+    "/fotos/produtos/antiinflamatorio.png"
+  ],
+  specifications: {
+    Dexametasona: "1ml",
+    Dosagem: "20ml",
+  },
+  documents: [
+    "Ficha Técnica",
+    "Rótulo Oficial",
+    "Registro no MAPA",
+    "Laudo de Qualidade",
+    "Bula do Produto",
+    "FISPQ"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "fernandokleinerak",
+      location: "Três Cachoeiras, RS",
+      rating: 4.9,
+      totalSales: 15,
+      memberSince: "2020",
+      verified: true,
+      image: "https://mla-s1-p.mlstatic.com/697837-MLA83884988297_042025-O.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440023",
+  title: "Premix Probiótico Para Aumentar Leite Vaca - Max Leite 5 Kg",
+  category: "Saúde e Bem-Estar Animal",
+  price: 230.66,
+  location: "São José do Rio Preto",
+  city: "São Paulo",
+  rating: 5,
+  reviews: 1,
+  image: "/fotos/produtos/probiotico.png",
+  seller: "Imperial Nutri",
+  verified: true,
+  featured: false,
+  weight: "5kg",
+  brand: "Imperial Nutri",
+  stock: "Em estoque",
+  description: "Núcleo mineral, vitamínico, aminoácido, para mistura, destinado aos Bovinos de Leite, de todas as idades, e em todas as suas fases de criação, contendo Sais Cálcicos de Ácidos Graxos.",
+  images: [
+    "/fotos/produtos/probiotico.png"
+  ],
+  specifications: {
+    calcium: "8%",
+    sodio: "5%",
+    phosphorus: "3%",
+  },
+  documents: [
+    "Ficha Técnica",
+    "Rótulo Oficial",
+    "Registro no MAPA",
+    "Laudo de Qualidade",
+    "Bula do Produto",
+    "FISPQ"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "Imperial Nutri",
+      location: "São José do Rio Preto , SP",
+      rating: 4.9,
+      totalSales: 15,
+      memberSince: "2020",
+      verified: true,
+      image: "https://http2.mlstatic.com/D_NQ_NP_703782-MLA84648900565_052025-G.jpg"
+    }
+},
 ]
