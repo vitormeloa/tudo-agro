@@ -182,7 +182,7 @@ export default function HomePage() {
       <Header variant="transparent" />
       
       {/* Hero Section */}
-        <section className="relative min-h-screen overflow-hidden pt-36 sm:pt-12 md:pt-46 lg:pt-20 xl:pt-20 2xl:pt-28">
+        <section className="relative h-screen overflow-hidden">
         {/* Video Background */}
         <div className="absolute inset-0 w-full h-full">
           <video
@@ -190,7 +190,7 @@ export default function HomePage() {
             muted
             loop
             playsInline
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover scale-105"
             poster="/videos/agro-hero-poster.jpg"
           >
             <source src="/videos/agro-hero-video.mp4" type="video/mp4" />
@@ -199,93 +199,87 @@ export default function HomePage() {
             <div className="w-full h-full bg-gradient-to-br from-emerald-50 via-white to-green-50"></div>
           </video>
         </div>
-        
-        {/* Overlay para melhorar legibilidade do texto */}
-        <div className="absolute inset-0 bg-black/60"></div>
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/40 via-black/30 to-green-900/40"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
-        
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <div className="animate-fade-in-up">
-              
-              <h1 className="text-4xl md:text-7xl font-bold text-white mb-6 leading-tight text-shadow-2xl">
-                  O marketplace
-                  {' '}
-                <span className="gradient-text text-shadow-xl">agro</span>
+
+        {/* Overlay moderno com gradiente suave */}
+        <div className="absolute inset-0 bg-gradient-to-br from-black/75 via-emerald-950/60 to-black/70"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20"></div>
+
+        {/* Elementos decorativos modernos */}
+        <div className="absolute top-1/4 left-1/4 w-64 h-64 sm:w-96 sm:h-96 bg-emerald-500/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-64 h-64 sm:w-96 sm:h-96 bg-green-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+
+        {/* Container centralizado */}
+        <div className="relative h-full w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center py-20">
+          <div className="text-center space-y-4 sm:space-y-6 md:space-y-7 lg:space-y-8">
+
+            {/* Título principal modernizado */}
+            <div className="animate-fade-in-up space-y-3 sm:space-y-4 md:space-y-5" style={{ animationDelay: '0.1s' }}>
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-bold text-white leading-[1.1] tracking-tight px-2">
+                O marketplace{' '}
+                <span className="relative inline-block">
+                  <span className="bg-gradient-to-r from-emerald-400 via-green-400 to-emerald-500 bg-clip-text text-transparent">
+                    agro
+                  </span>
+                  <div className="absolute -inset-1 bg-gradient-to-r from-emerald-400/20 to-green-400/20 blur-xl -z-10"></div>
+                </span>
                 <br />
                 mais completo do Brasil
               </h1>
-              
-              <p className="text-lg md:text-2xl text-white/95 mb-8 max-w-3xl mx-auto leading-relaxed text-shadow-lg font-medium">
-                  Compra e venda de gado, cavalos, sêmen e produtos do agronegócio com um clique.
+
+              <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/80 max-w-3xl mx-auto leading-relaxed font-light px-4">
+                Compre e venda gado, cavalos, genética e produtos agropecuários<br className="hidden sm:block" /> com segurança e praticidade.
               </p>
             </div>
 
-            {/* Search Bar */}
-            <div className="animate-fade-in-up max-w-2xl mx-auto mb-12">
-              <div className="relative">
-                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 w-5 h-5 sm:left-6 sm:w-6 sm:h-6" />
-                <input
-                  type="text"
-                  placeholder={isMobile ? "Buscar..." : "Buscar animais, raças, produtos, e muito mais…"}
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-12 pr-24 py-4 text-base sm:pl-16 sm:pr-32 sm:py-6 sm:text-lg border-2 border-white/30 rounded-2xl focus:ring-4 focus:ring-emerald-500/30 focus:border-emerald-400 transition-all duration-300 shadow-xl bg-white/95 backdrop-blur-sm text-gray-900 placeholder-gray-600"
-                />
-                <Button className="absolute right-1 top-1/2 transform -translate-y-1/2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-3 text-sm font-semibold rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 sm:right-2 sm:px-8 sm:py-4 sm:text-lg">
-                  Buscar
-                </Button>
+            {/* Search Bar modernizada */}
+            <div className="animate-fade-in-up max-w-2xl mx-auto" style={{ animationDelay: '0.2s' }}>
+              <div className="relative group">
+                <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-green-500/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="relative flex items-center">
+                  <Search className="absolute left-4 sm:left-5 md:left-6 text-gray-400 w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 transition-colors group-focus-within:text-emerald-500" />
+                  <input
+                    type="text"
+                    placeholder={isMobile ? "Buscar..." : "Buscar animais, raças, produtos e muito mais…"}
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full pl-12 sm:pl-14 md:pl-16 pr-28 sm:pr-32 md:pr-40 py-3 sm:py-3.5 md:py-4 lg:py-5 text-sm sm:text-base md:text-lg border-2 border-white/20 rounded-full focus:outline-none focus:ring-2 focus:ring-emerald-400/50 focus:border-emerald-400/50 transition-all duration-300 shadow-2xl bg-white/95 backdrop-blur-xl text-gray-900 placeholder-gray-500 hover:border-white/30"
+                  />
+                  <Button className="absolute right-1.5 sm:right-2 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white px-4 sm:px-6 md:px-8 py-2 sm:py-2.5 md:py-3 text-xs sm:text-sm md:text-base font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                    Buscar
+                  </Button>
+                </div>
               </div>
             </div>
 
-            {/* CTA Buttons */}
-            <div className="animate-fade-in-up">
-              {/* Desktop Layout - 3 buttons in a row */}
-              <div className="hidden sm:flex flex-row gap-4 justify-center">
-                <Link href="/catalogo">
-                  <Button size="lg" className="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 backdrop-blur-sm">
+            {/* CTA Buttons modernizados */}
+            <div className="animate-fade-in-up pt-2 sm:pt-4" style={{ animationDelay: '0.3s' }}>
+              <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 md:gap-4 justify-center items-center max-w-5xl mx-auto">
+                <Link href="/catalogo" className="w-full sm:w-auto">
+                  <Button size="lg" className="w-full sm:w-auto bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white px-6 sm:px-8 md:px-10 py-3 sm:py-3.5 md:py-4 lg:py-5 text-sm sm:text-base md:text-lg font-semibold rounded-full shadow-2xl hover:shadow-emerald-500/25 transition-all duration-300 hover:scale-105 group">
                     Explorar Catálogo
-                    <ArrowRight className="w-5 h-5 ml-2" />
+                    <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                   </Button>
                 </Link>
-                <Link href="/leiloes">
-                  <Button size="lg" variant="outline" className="border-2 border-white/80 text-white hover:bg-white hover:text-emerald-600 px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 backdrop-blur-sm bg-white/10">
-                    <Play className="w-5 h-5 mr-2" />
+                <Link href="/leiloes" className="w-full sm:w-auto">
+                  <Button size="lg" variant="outline" className="w-full sm:w-auto border-2 border-white/80 text-white hover:bg-white hover:text-emerald-700 px-6 sm:px-8 md:px-10 py-3 sm:py-3.5 md:py-4 lg:py-5 text-sm sm:text-base md:text-lg font-semibold rounded-full transition-all duration-300 hover:scale-105 bg-white/5 backdrop-blur-sm hover:shadow-xl group">
+                    <Play className="w-4 h-4 sm:w-5 sm:h-5 mr-2 group-hover:scale-110 transition-transform" />
                     Ver Leilões
                   </Button>
                 </Link>
-                <Link href="/produtos">
-                  <Button size="lg" variant="outline" className="border-2 border-white/80 text-white hover:bg-white hover:text-emerald-600 px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 backdrop-blur-sm bg-white/10">
-                    <ShoppingCart className="w-5 h-5 mr-2" />
-                    Acessar Mercado Agro
+                <Link href="/produtos" className="w-full sm:w-auto">
+                  <Button size="lg" variant="outline" className="w-full sm:w-auto border-2 border-white/80 text-white hover:bg-white hover:text-emerald-700 px-6 sm:px-8 md:px-10 py-3 sm:py-3.5 md:py-4 lg:py-5 text-sm sm:text-base md:text-lg font-semibold rounded-full transition-all duration-300 hover:scale-105 bg-white/5 backdrop-blur-sm hover:shadow-xl group">
+                    <ShoppingCart className="w-4 h-4 sm:w-5 sm:h-5 mr-2 group-hover:scale-110 transition-transform" />
+                    Mercado Agro
                   </Button>
                 </Link>
               </div>
+            </div>
+          </div>
 
-              {/* Mobile Layout - 1 button on top, 2 buttons below */}
-              <div className="flex sm:hidden flex-col gap-4">
-                <Link href="/catalogo" className="w-full">
-                  <Button size="lg" className="w-full bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 backdrop-blur-sm">
-                    Explorar Catálogo
-                    <ArrowRight className="w-5 h-5 ml-2" />
-                  </Button>
-                </Link>
-                <div className="grid grid-cols-2 gap-3">
-                  <Link href="/leiloes">
-                    <Button size="lg" variant="outline" className="w-full border-2 border-white/80 text-white hover:bg-white hover:text-emerald-600 px-4 py-4 text-base font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 backdrop-blur-sm bg-white/10">
-                      <Play className="w-4 h-4 mr-1" />
-                      Ver Leilões
-                    </Button>
-                  </Link>
-                  <Link href="/produtos">
-                    <Button size="lg" variant="outline" className="w-full border-2 border-white/80 text-white hover:bg-white hover:text-emerald-600 px-4 py-4 text-base font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 backdrop-blur-sm bg-white/10">
-                      <ShoppingCart className="w-4 h-4 mr-1" />
-                      Mercado Agro
-                    </Button>
-                  </Link>
-                </div>
-              </div>
+          {/* Scroll indicator */}
+          <div className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 animate-bounce hidden sm:block">
+            <div className="w-5 h-8 sm:w-6 sm:h-10 border-2 border-white/30 rounded-full p-1">
+              <div className="w-1 h-2 sm:w-1.5 sm:h-3 bg-white/50 rounded-full mx-auto animate-pulse"></div>
             </div>
           </div>
         </div>
