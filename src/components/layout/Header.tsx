@@ -66,7 +66,7 @@ export default function Header({
     return () => {
       document.body.style.overflow = ''
     }
-  }, [isMenuOpen])
+  }, [isMenuOpen]);
 
   const navigation = [
     { name: 'Início', href: '/', current: false },
@@ -82,6 +82,12 @@ export default function Header({
   
   // Calcular opacidade e background baseado no scroll
   const getScrollStyles = () => {
+    if (isMenuOpen) {
+      return {
+        backgroundColor: 'white',
+        backdropFilter: 'none'
+      }
+    }
     if (!enableScrollOpacity) {
       return {
         backgroundColor: variant === 'transparent' ? 'transparent' : 'white',
@@ -253,21 +259,16 @@ export default function Header({
         )}
 
         {/* Mobile Navigation Menu - full width to avoid side blur */}
-        {isMenuOpen && (
-          <div 
-            className={cn(
-              "lg:hidden border-t border-gray-200 bg-white relative z-[70] shadow-xl overflow-hidden w-screen",
-              isMenuOpen && "mobile-menu-expand"
-            )}
-            style={{ 
-              maxHeight: '0',
-              opacity: '0',
-              isolation: 'isolate',
-              backdropFilter: 'none',
-              marginLeft: 'calc(-50vw + 50%)',
-              marginRight: 'calc(-50vw + 50%)'
-            }}
-          >
+        <div 
+          className={cn(
+            "lg:hidden border-t border-gray-200 bg-white relative z-[70] shadow-xl overflow-hidden w-screen transition-all duration-300 ease-in-out",
+            isMenuOpen ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0",
+          )}
+          style={{
+            marginLeft: 'calc(-50vw + 50%)',
+            marginRight: 'calc(-50vw + 50%)'
+          }}
+        >
             <div className="w-full px-4 sm:px-6">
               <div className="py-3 space-y-0.5">
                 {navigation.map((item, index) => (
@@ -303,7 +304,6 @@ export default function Header({
               </div>
             </div>
           </div>
-        )}
       </div>
     </header>
   )

@@ -473,15 +473,9 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
                 onClick={handlePurchase}
               >
                 <ShoppingCart className="w-5 h-5 mr-2" />
-                Comprar Agora {quantity > 1 && `(${quantity}x)`}
+                {quantity > 1 ? `Comprar Agora (${quantity}x) - R$ ${(product.price * quantity).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : 'Comprar Agora'}
               </Button>
-              {quantity > 1 && (
-                <div className="text-center text-sm text-gray-600">
-                  Total: <span className="font-bold text-green-600">
-                    R$ {(product.price * quantity).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                  </span>
-                </div>
-              )}
+
               
               <Button 
                 variant="outline" 
@@ -489,7 +483,7 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
                 onClick={handleAddToCart}
               >
                 <ShoppingBag className="w-5 h-5 mr-2" />
-                Adicionar ao carrinho {quantity > 1 && `(${quantity}x)`}
+                {quantity > 1 ? `Adicionar ao carrinho (${quantity}x) - R$ ${(product.price * quantity).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : 'Adicionar ao carrinho'}
               </Button>
             </div>
           </div>
