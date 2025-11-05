@@ -37,6 +37,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import ReviewsSection from '@/components/reviews/ReviewsSection'
 import { mockProductReviews } from '@/lib/mock-reviews'
 import type { Review } from '@/lib/mock-reviews'
+import QuestionsSection from '@/components/questions/QuestionsSection'
+import { getProductQuestions } from '@/lib/mock-questions'
 
 export default function ProdutoPage({ params }: { params: Promise<{ id: string }> }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
@@ -554,7 +556,7 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
         <div className="mt-8">
           <Card className="bg-white border-gray-200 shadow-lg">
             <CardContent className="p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Fornecedor</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">Vendedor</h2>
               <div className="flex items-start space-x-6">
                 <div className="relative">
                   <img 
@@ -602,6 +604,18 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
                   </div>
                 </div>
               </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Questions Section */}
+        <div className="mt-8">
+          <Card className="bg-white border-gray-200 shadow-lg">
+            <CardContent className="p-6 sm:p-8">
+              <QuestionsSection
+                questions={getProductQuestions(product.id)}
+                sellerName={product.sellerInfo.name}
+              />
             </CardContent>
           </Card>
         </div>

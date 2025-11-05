@@ -542,7 +542,7 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
         <div className="mt-8">
           <Card className="bg-white border-gray-200 shadow-lg">
             <CardContent className="p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Fornecedor</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">Vendedor</h2>
               <div className="flex items-start space-x-6">
                 <div className="relative">
                   <img 

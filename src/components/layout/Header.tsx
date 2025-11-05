@@ -31,7 +31,7 @@ export default function Header({
   showNotifications = true,
   showCart = true,
   className,
-  enableScrollOpacity = true
+  enableScrollOpacity = false
 }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
@@ -92,7 +92,6 @@ export default function Header({
     const scrollProgress = Math.min(scrollY / maxScroll, 1)
     
     if (variant === 'transparent') {
-      // Para variant transparent, mudar de transparente para opaco com fundo branco
       const opacity = scrollProgress
       return {
         backgroundColor: `rgba(255, 255, 255, ${opacity})`

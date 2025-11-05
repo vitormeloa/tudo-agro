@@ -34,6 +34,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import ReviewsSection from '@/components/reviews/ReviewsSection'
 import { mockAnimalReviews } from '@/lib/mock-reviews'
 import type { Review } from '@/lib/mock-reviews'
+import QuestionsSection from '@/components/questions/QuestionsSection'
+import { getAnimalQuestions } from '@/lib/mock-questions'
+import { calculateSellerLevel, getSellerBadges } from '@/lib/seller-levels'
+import { ShoppingBag } from 'lucide-react'
 
 export default function AnimalPage({ params }: { params: Promise<{ id: string }> }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
@@ -422,6 +426,18 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
                   </div>
                 </div>
               </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Questions Section */}
+        <div className="mt-8">
+          <Card className="bg-white border-gray-200 shadow-lg">
+            <CardContent className="p-6 sm:p-8">
+              <QuestionsSection
+                questions={getAnimalQuestions(animal.id.toString())}
+                sellerName={animal.seller.name}
+              />
             </CardContent>
           </Card>
         </div>
