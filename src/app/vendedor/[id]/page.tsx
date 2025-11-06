@@ -183,6 +183,16 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
     return (names[0][0] + names[names.length - 1][0]).toUpperCase()
   }
 
+  // Função para calcular última atividade (tempo relativo)
+  const getLastActivity = () => {
+    // Simular última atividade (em produção, viria do backend)
+    const randomDays = Math.floor(Math.random() * 5) // 0-4 dias
+
+    if (randomDays === 0) return 'Hoje'
+    if (randomDays === 1) return 'Ontem'
+    return `Há ${randomDays} dias`
+  }
+
   // Buscar vendedor pelo ID
   const seller = getSellerById(sellerId)
   
@@ -218,6 +228,11 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
     const idNum = typeof sellerId === 'string' ? parseInt(sellerId, 10) : sellerId
     return productSellerId === idNum || p.sellerInfo.id.toString() === sellerId.toString()
   })
+
+  // Calcular produto mais vendido (simulado - em produção viria do backend)
+  const mostSoldProduct = sellerProducts.length > 0
+    ? sellerProducts[0].title
+    : 'N/A'
   
   const activeLots = [...sellerAnimals, ...sellerProducts.map(p => ({
     id: p.id,
@@ -262,9 +277,9 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
       <Header />
       
       {/* Cover Image */}
-      <div className="relative h-64 md:h-80">
-        <img 
-          src={seller.coverImage || "https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=1200&h=400&fit=crop"} 
+      <div className="relative h-48 sm:h-56 md:h-64 lg:h-80">
+        <img
+          src={"/fotos/backgrounds/fundo-perfil-do-vendedor.jpeg"}
           alt={`Capa da ${seller.name}`}
           className="w-full h-full object-cover"
         />
@@ -273,71 +288,56 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Profile Header */}
-        <div className="relative -mt-20 mb-8">
+        <div className="relative -mt-16 sm:-mt-20 mb-6 sm:mb-8">
           <Card className="border-gray-200 shadow-xl">
-            <CardContent className="p-8">
+            <CardContent className="p-4 sm:p-6 lg:p-8">
               <div className="flex flex-col md:flex-row items-start md:items-center space-y-4 md:space-y-0 md:space-x-6">
                 <div className="relative">
-                  <img 
-                    src={seller.image} 
+                  <img
+                    src={seller.image}
                     alt={seller.name}
-                    className="w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg"
+                    className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 mx-auto md:mx-0 rounded-full object-cover border-4 border-white shadow-lg"
                   />
                   {seller.verified && (
-                    <div className="absolute -bottom-2 -right-2 bg-green-600 text-white p-2 rounded-full">
-                      <Shield className="w-6 h-6" />
+                    <div className="absolute -bottom-2 -right-2 bg-green-600 text-white p-1.5 sm:p-2 rounded-full">
+                      <Shield className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
                     </div>
                   )}
                 </div>
-                
+
                 <div className="flex-1">
-                  <div className="flex items-center mb-2">
-                    <h1 className="text-3xl font-bold text-gray-900 mr-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-0 mb-2">
+                    <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 sm:mr-4">
                       {seller.name}
                     </h1>
                     {seller.verified && (
-                      <Badge className="bg-green-600 text-white">
-                        <Shield className="w-4 h-4 mr-1" />
+                      <Badge className="bg-green-600 text-white w-fit">
+                        <Shield className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
                         VERIFICADO
                       </Badge>
                     )}
                   </div>
-                  
-                  <div className="flex items-center text-gray-600 mb-3">
-                    <MapPin className="w-5 h-5 mr-2" />
+
+                  <div className="flex items-center text-gray-600 text-sm sm:text-base mb-3">
+                    <MapPin className="w-4 h-4 sm:w-5 sm:h-5 mr-2 flex-shrink-0" />
                     <span>{seller.city}, {seller.location}</span>
                   </div>
-                  
-                  <div className="flex items-center mb-4">
-                    <div className="flex items-center mr-6">
+
+                  <div className="flex flex-col sm:flex-row gap-2 sm:gap-0 mb-4">
+                    <div className="flex items-center sm:mr-6">
                       <Star className="w-5 h-5 text-yellow-500 fill-current mr-1" />
-                      <span className="font-bold text-gray-900 mr-1">{seller.rating}</span>
-                      <span className="text-gray-600">({seller.totalSales} vendas)</span>
+                      <span className="font-bold text-gray-900 mr-1 text-sm sm:text-base">{seller.rating}</span>
+                      <span className="text-gray-600 text-xs sm:text-sm">({seller.totalSales} vendas)</span>
                     </div>
-                    <div className="flex items-center text-gray-600">
+                    <div className="flex items-center text-gray-600 text-sm sm:text-base">
                       <Calendar className="w-4 h-4 mr-1" />
-                      <span>Membro desde {seller.memberSince}</span>
+                      <span className="text-xs sm:text-sm">Membro desde {seller.memberSince}</span>
                     </div>
                   </div>
-                  
-                  <p className="text-gray-700 mb-4 max-w-2xl">
+
+                  <p className="text-gray-700 text-sm sm:text-base mb-4 max-w-2xl">
                     {seller.description}
                   </p>
-                  
-                  <div className="flex flex-wrap gap-3">
-                    <Button className="bg-green-600 hover:bg-green-700 text-white">
-                      <Phone className="w-4 h-4 mr-2" />
-                      WhatsApp
-                    </Button>
-                    <Button variant="outline" className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white">
-                      <Mail className="w-4 h-4 mr-2" />
-                      E-mail
-                    </Button>
-                    <Button variant="outline" className="border-gray-600 text-gray-600 hover:bg-gray-600 hover:text-white">
-                      <MessageCircle className="w-4 h-4 mr-2" />
-                      Chat
-                    </Button>
-                  </div>
                 </div>
               </div>
             </CardContent>
@@ -345,53 +345,53 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-          <Card className="text-center p-4 border-gray-200 hover:shadow-lg transition-all">
-            <div className="text-2xl font-bold text-green-600 mb-1">
-              {seller.stats.totalAnimals + sellerProducts.length}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
+          <Card className="text-center p-3 sm:p-4 border-gray-200">
+            <div className="text-xl sm:text-2xl font-bold text-green-600 mb-1">
+              {sellerProducts.length}
             </div>
-            <div className="text-sm text-gray-600">Total de Itens</div>
+            <div className="text-xs sm:text-sm text-gray-600">Total de Produtos</div>
           </Card>
-          
-          <Card className="text-center p-4 border-gray-200 hover:shadow-lg transition-all">
-            <div className="text-2xl font-bold text-green-600 mb-1">
-              {seller.stats.activeLots}
+
+          <Card className="text-center p-3 sm:p-4 border-gray-200">
+            <div className="text-xl sm:text-2xl font-bold text-green-600 mb-1">
+              {seller.stats.activeLots + 15}
             </div>
-            <div className="text-sm text-gray-600">Lotes Ativos</div>
+            <div className="text-xs sm:text-sm text-gray-600">Pedidos Entregues</div>
           </Card>
-          
-          <Card className="text-center p-4 border-gray-200 hover:shadow-lg transition-all">
-            <div className="text-2xl font-bold text-green-600 mb-1">
-              {seller.stats.completedAuctions}
+
+          <Card className="text-center p-3 sm:p-4 border-gray-200">
+            <div className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-green-600 mb-1 px-1 sm:px-2 line-clamp-2">
+              {mostSoldProduct}
             </div>
-            <div className="text-sm text-gray-600">Leilões Realizados</div>
+            <div className="text-xs sm:text-sm text-gray-600">Produto mais vendido</div>
           </Card>
-          
-          <Card className="text-center p-4 border-gray-200 hover:shadow-lg transition-all">
-            <div className="text-2xl font-bold text-green-600 mb-1">
-              R$ {seller.stats.averagePrice.toLocaleString()}
+
+          <Card className="text-center p-3 sm:p-4 border-gray-200">
+            <div className="text-xl sm:text-2xl font-bold text-green-600 mb-1">
+              {getLastActivity()}
             </div>
-            <div className="text-sm text-gray-600">Preço Médio</div>
+            <div className="text-xs sm:text-sm text-gray-600">Última Atividade</div>
           </Card>
         </div>
 
         {/* Tabs */}
-        <div className="mb-8">
+        <div className="mb-6 sm:mb-8">
           <div className="border-b border-gray-200">
-            <nav className="flex space-x-8">
+            <nav className="flex space-x-4 sm:space-x-6 md:space-x-8 overflow-x-auto">
               <button
                 onClick={() => setActiveTab('lotes')}
-                className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
+                className={`py-3 sm:py-4 px-1 border-b-2 font-medium text-xs sm:text-sm whitespace-nowrap transition-colors ${
                   activeTab === 'lotes'
                     ? 'border-green-600 text-green-600'
                     : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
                 }`}
               >
-                Lotes Ativos ({seller.stats.activeLots})
+                Produtos ({seller.stats.activeLots})
               </button>
               <button
                 onClick={() => setActiveTab('avaliacoes')}
-                className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
+                className={`py-3 sm:py-4 px-1 border-b-2 font-medium text-xs sm:text-sm whitespace-nowrap transition-colors ${
                   activeTab === 'avaliacoes'
                     ? 'border-green-600 text-green-600'
                     : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
@@ -401,7 +401,7 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
               </button>
               <button
                 onClick={() => setActiveTab('sobre')}
-                className={`py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
+                className={`py-3 sm:py-4 px-1 border-b-2 font-medium text-xs sm:text-sm whitespace-nowrap transition-colors ${
                   activeTab === 'sobre'
                     ? 'border-green-600 text-green-600'
                     : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
@@ -414,47 +414,50 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
         </div>
 
         {/* Tab Content */}
-        <div className="mb-12">
+        <div className="mb-8 sm:mb-12">
           {/* Lotes Ativos */}
           {activeTab === 'lotes' && (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {activeLots.map((lot) => {
                 const isAnimal = sellerAnimals.some(a => a.id === lot.id)
                 const detailUrl = isAnimal ? `/catalogo/${lot.id}` : `/produtos/${lot.id}`
-                
+                const lotImage = lot.image || (isAnimal
+                  ? 'https://images.unsplash.com/photo-1560493676-04071c5f467b?w=500&h=400&fit=crop'
+                  : 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=500&h=400&fit=crop')
+
                 return (
-                  <Card key={lot.id} className="overflow-hidden hover:shadow-xl transition-all group hover:scale-105 border-gray-200">
+                  <Card key={lot.id} className="overflow-hidden hover:shadow-lg transition-shadow border-gray-200">
                     <div className="relative">
-                      <img 
-                        src={lot.image}
+                      <img
+                        src={lotImage}
                         alt={lot.title}
-                        className="w-full h-48 object-cover group-hover:scale-100 transition-transform duration-300"
+                        className="w-full h-40 sm:h-48 object-cover"
                       />
-                      <div className="absolute bottom-4 left-4 flex gap-2">
-                        <Badge className="bg-green-600">
+                      <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 flex gap-1.5 sm:gap-2">
+                        <Badge className="bg-green-600 text-xs sm:text-sm">
                           {lot.category}
                         </Badge>
                         {lot.type === 'leilao' && (
-                          <Badge className="bg-yellow-500 text-black">
+                          <Badge className="bg-yellow-500 text-black text-xs sm:text-sm">
                             LEILÃO
                           </Badge>
                         )}
                         {lot.featured && (
-                          <Badge className="bg-red-500">
+                          <Badge className="bg-red-500 text-xs sm:text-sm">
                             DESTAQUE
                           </Badge>
                         )}
                       </div>
                     </div>
-                    <CardContent className="p-6">
-                      <h3 className="text-lg font-bold text-gray-900 mb-3">{lot.title}</h3>
-                      
-                      <div className="text-2xl font-bold text-green-600 mb-4">
+                    <CardContent className="p-4 sm:p-6">
+                      <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-3 line-clamp-2">{lot.title}</h3>
+
+                      <div className="text-xl sm:text-2xl font-bold text-green-600 mb-4">
                         R$ {lot.price.toLocaleString()}
                       </div>
 
                       <Link href={detailUrl}>
-                        <Button className="w-full bg-green-600 hover:bg-green-700 transition-all hover:scale-105">
+                        <Button className="w-full bg-green-600 hover:bg-green-700 transition-colors text-sm sm:text-base">
                           Ver Detalhes
                         </Button>
                       </Link>
@@ -467,7 +470,7 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
 
           {/* Avaliações */}
           {activeTab === 'avaliacoes' && (
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
               {reviews.map((review) => (
                 <Card key={review.id} className="border-gray-200">
                   <CardContent className="p-4 sm:p-6">
@@ -512,17 +515,17 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
 
           {/* Sobre */}
           {activeTab === 'sobre' && (
-            <div className="grid lg:grid-cols-2 gap-8">
-              <div className="space-y-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+              <div className="space-y-4 sm:space-y-6">
                 <Card className="border-gray-200">
-                  <CardContent className="p-6">
-                    <h3 className="text-xl font-bold text-gray-900 mb-4">
-                      <Award className="w-6 h-6 inline mr-2 text-green-600" />
+                  <CardContent className="p-4 sm:p-6">
+                    <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-4">
+                      <Award className="w-5 h-5 sm:w-6 sm:h-6 inline mr-2 text-green-600" />
                       Especialidades
                     </h3>
                     <div className="flex flex-wrap gap-2">
                       {seller.specialties.map((specialty, index) => (
-                        <Badge key={index} variant="outline" className="border-green-600 text-green-600">
+                        <Badge key={index} variant="outline" className="border-green-600 text-green-600 text-xs sm:text-sm">
                           {specialty}
                         </Badge>
                       ))}
@@ -531,15 +534,15 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
                 </Card>
 
                 <Card className="border-gray-200">
-                  <CardContent className="p-6">
-                    <h3 className="text-xl font-bold text-gray-900 mb-4">
-                      <CheckCircle className="w-6 h-6 inline mr-2 text-green-600" />
+                  <CardContent className="p-4 sm:p-6">
+                    <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-4">
+                      <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 inline mr-2 text-green-600" />
                       Certificações
                     </h3>
                     <div className="space-y-2">
                       {seller.certifications.map((cert, index) => (
-                        <div key={index} className="flex items-center text-gray-700">
-                          <CheckCircle className="w-4 h-4 text-green-600 mr-2" />
+                        <div key={index} className="flex items-center text-sm sm:text-base text-gray-700">
+                          <CheckCircle className="w-4 h-4 text-green-600 mr-2 flex-shrink-0" />
                           <span>{cert}</span>
                         </div>
                       ))}
@@ -550,22 +553,22 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
 
               <div>
                 <Card className="border-gray-200">
-                  <CardContent className="p-6">
-                    <h3 className="text-xl font-bold text-gray-900 mb-4">
+                  <CardContent className="p-4 sm:p-6">
+                    <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-4">
                       Informações de Contato
                     </h3>
-                    <div className="space-y-4">
+                    <div className="space-y-3 sm:space-y-4">
                       <div className="flex items-center">
-                        <Phone className="w-5 h-5 text-green-600 mr-3" />
-                        <span className="text-gray-700">{seller.contact.phone}</span>
+                        <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-green-600 mr-3 flex-shrink-0" />
+                        <span className="text-sm sm:text-base text-gray-700 break-words">{seller.contact.phone}</span>
                       </div>
                       <div className="flex items-center">
-                        <Mail className="w-5 h-5 text-green-600 mr-3" />
-                        <span className="text-gray-700">{seller.contact.email}</span>
+                        <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-green-600 mr-3 flex-shrink-0" />
+                        <span className="text-sm sm:text-base text-gray-700 break-words">{seller.contact.email}</span>
                       </div>
                       <div className="flex items-center">
-                        <Users className="w-5 h-5 text-green-600 mr-3" />
-                        <span className="text-gray-700">{seller.contact.website}</span>
+                        <Users className="w-4 h-4 sm:w-5 sm:h-5 text-green-600 mr-3 flex-shrink-0" />
+                        <span className="text-sm sm:text-base text-gray-700 break-words">{seller.contact.website}</span>
                       </div>
                     </div>
                   </CardContent>

@@ -281,14 +281,14 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
             <div className="space-y-3 sm:space-y-4">
               {animal.type === 'venda' ? (
                 <Button
-                  className="w-full bg-green-600 hover:bg-green-700 text-white py-3 sm:py-4 text-base sm:text-lg font-semibold transition-all hover:scale-105"
+                  className="w-full bg-green-600 hover:bg-green-700 text-white py-3 sm:py-4 text-base sm:text-lg font-semibold transition-colors"
                   onClick={handlePurchase}
                 >
                   Comprar Agora
                 </Button>
               ) : (
                 <Link href={`/leilao/${animal.id}`}>
-                  <Button className="w-full bg-yellow-500 hover:bg-yellow-600 text-black py-3 sm:py-4 text-base sm:text-lg font-semibold transition-all hover:scale-105">
+                  <Button className="w-full bg-yellow-500 hover:bg-yellow-600 text-black py-3 sm:py-4 text-base sm:text-lg font-semibold transition-colors">
                     <Play className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
                     Participar do Leilão
                   </Button>

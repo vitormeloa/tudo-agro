@@ -242,9 +242,9 @@ export default function HomePage() {
                     placeholder={isMobile ? "Buscar..." : "Buscar animais, raças, produtos e muito mais…"}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full pl-12 sm:pl-14 md:pl-16 pr-28 sm:pr-32 md:pr-40 py-3 sm:py-3.5 md:py-4 lg:py-5 text-sm sm:text-base md:text-lg border-2 border-white/20 rounded-full focus:outline-none focus:ring-2 focus:ring-emerald-400/50 focus:border-emerald-400/50 transition-all duration-300 shadow-2xl bg-white/95 backdrop-blur-xl text-gray-900 placeholder-gray-500 hover:border-white/30"
+                    className="w-full pl-12 sm:pl-14 md:pl-16 pr-28 sm:pr-32 md:pr-40 py-3 sm:py-3.5 md:py-4 lg:py-5 text-sm sm:text-base md:text-lg border-2 border-white/20 rounded-full focus:outline-none focus:ring-2 focus:ring-emerald-400/50 focus:border-emerald-400/50 transition-colors duration-300 shadow-2xl bg-white/95 backdrop-blur-xl text-gray-900 placeholder-gray-500 hover:border-white/30"
                   />
-                  <Button className="absolute right-1.5 sm:right-2 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white px-4 sm:px-6 md:px-8 py-2 sm:py-2.5 md:py-3 text-xs sm:text-sm md:text-base font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                  <Button className="absolute right-1.5 sm:right-2 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white px-4 sm:px-6 md:px-8 py-2 sm:py-2.5 md:py-3 text-xs sm:text-sm md:text-base font-semibold rounded-full shadow-lg hover:shadow-xl transition-colors duration-300">
                     Buscar
                   </Button>
                 </div>
@@ -255,20 +255,20 @@ export default function HomePage() {
             <div className="animate-fade-in-up pt-2 sm:pt-4" style={{ animationDelay: '0.3s' }}>
               <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 md:gap-4 justify-center items-center max-w-5xl mx-auto">
                 <Link href="/catalogo" className="w-full sm:w-auto">
-                  <Button size="lg" className="w-full sm:w-auto bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white px-6 sm:px-8 md:px-10 py-3 sm:py-3.5 md:py-4 lg:py-5 text-sm sm:text-base md:text-lg font-semibold rounded-full shadow-2xl hover:shadow-emerald-500/25 transition-all duration-300 hover:scale-105 group">
+                  <Button size="lg" className="w-full sm:w-auto bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white px-6 sm:px-8 md:px-10 py-3 sm:py-3.5 md:py-4 lg:py-5 text-sm sm:text-base md:text-lg font-semibold rounded-full shadow-2xl hover:shadow-emerald-500/25 transition-colors duration-300 group">
                     Ver Animais
                     <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                   </Button>
                 </Link>
                 <Link href="/leiloes" className="w-full sm:w-auto">
-                  <Button size="lg" variant="outline" className="w-full sm:w-auto border-2 border-white/80 text-white hover:bg-white hover:text-emerald-700 px-6 sm:px-8 md:px-10 py-3 sm:py-3.5 md:py-4 lg:py-5 text-sm sm:text-base md:text-lg font-semibold rounded-full transition-all duration-300 hover:scale-105 bg-white/5 backdrop-blur-sm hover:shadow-xl group">
-                    <Play className="w-4 h-4 sm:w-5 sm:h-5 mr-2 group-hover:scale-110 transition-transform" />
+                  <Button size="lg" variant="outline" className="w-full sm:w-auto border-2 border-white/80 text-white hover:bg-white hover:text-emerald-700 px-6 sm:px-8 md:px-10 py-3 sm:py-3.5 md:py-4 lg:py-5 text-sm sm:text-base md:text-lg font-semibold rounded-full transition-colors duration-300 bg-white/5 backdrop-blur-sm hover:shadow-xl group">
+                    <Play className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
                     Ver Leilões
                   </Button>
                 </Link>
                 <Link href="/produtos" className="w-full sm:w-auto">
-                  <Button size="lg" variant="outline" className="w-full sm:w-auto border-2 border-white/80 text-white hover:bg-white hover:text-emerald-700 px-6 sm:px-8 md:px-10 py-3 sm:py-3.5 md:py-4 lg:py-5 text-sm sm:text-base md:text-lg font-semibold rounded-full transition-all duration-300 hover:scale-105 bg-white/5 backdrop-blur-sm hover:shadow-xl group">
-                    <ShoppingCart className="w-4 h-4 sm:w-5 sm:h-5 mr-2 group-hover:scale-110 transition-transform" />
+                  <Button size="lg" variant="outline" className="w-full sm:w-auto border-2 border-white/80 text-white hover:bg-white hover:text-emerald-700 px-6 sm:px-8 md:px-10 py-3 sm:py-3.5 md:py-4 lg:py-5 text-sm sm:text-base md:text-lg font-semibold rounded-full transition-colors duration-300 bg-white/5 backdrop-blur-sm hover:shadow-xl group">
+                    <ShoppingCart className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
                     Mercado Agro
                   </Button>
                 </Link>
@@ -295,7 +295,7 @@ export default function HomePage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
               <div key={index} className="text-center animate-fade-in-up group" style={{ animationDelay: `${index * 0.1}s` }}>
-                <div className="w-20 h-20 bg-gradient-to-br from-emerald-100 to-green-100 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
+                <div className="w-20 h-20 bg-gradient-to-br from-emerald-100 to-green-100 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:shadow-xl transition-shadow duration-300">
                   <stat.icon className="w-10 h-10 text-emerald-600" />
                 </div>
                 <div className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent mb-3">{stat.value}</div>
@@ -325,7 +325,7 @@ export default function HomePage() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {featuredProducts.map((product, index) => (
               <div key={product.id} className="animate-fade-in-up group" style={{ animationDelay: `${index * 0.1}s` }}>
-                <div className="transform group-hover:scale-105 transition-all duration-300">
+                <div className="transition-shadow duration-300">
                   <ProductCard product={product} variant="detailed" />
                 </div>
               </div>
@@ -334,7 +334,7 @@ export default function HomePage() {
 
           <div className="text-center mt-16">
             <Link href="/catalogo">
-              <Button size="lg" variant="outline" className="border-2 border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
+              <Button size="lg" variant="outline" className="border-2 border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white px-8 py-4 text-lg font-semibold rounded-xl transition-colors duration-300 shadow-lg hover:shadow-xl">
                 Ver Todos os Animais
                 <ChevronRight className="w-5 h-5 ml-2" />
               </Button>
@@ -361,9 +361,9 @@ export default function HomePage() {
 
           <div className="grid md:grid-cols-2 gap-8">
             {liveAuctions.map((auction, index) => (
-              <Card key={auction.id} className="overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-0 bg-white/80 backdrop-blur-sm animate-fade-in-up group" style={{ animationDelay: `${index * 0.1}s` }}>
+              <Card key={auction.id} className="overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 border-0 bg-white/80 backdrop-blur-sm animate-fade-in-up group" style={{ animationDelay: `${index * 0.1}s` }}>
                 <div className="relative">
-                  <img src={auction.image} alt={auction.title} className="w-full h-48 object-cover group-hover:scale-100 transition-transform duration-500" />
+                  <img src={auction.image} alt={auction.title} className="w-full h-48 object-cover transition-transform duration-500" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                   <div className="absolute top-4 left-4 flex gap-2">
                     <Badge className="bg-red-500 text-white font-semibold animate-pulse shadow-lg">
@@ -408,7 +408,7 @@ export default function HomePage() {
                   </div>
 
                   <Link href={`/leilao/${auction.id}`}>
-                    <Button className="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white py-3 text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                    <Button className="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white py-3 text-lg transition-colors duration-300 shadow-lg hover:shadow-xl">
                       <Zap className="w-5 h-5 mr-2" />
                       Entrar no Leilão
                     </Button>
@@ -420,7 +420,7 @@ export default function HomePage() {
 
           <div className="text-center mt-16">
             <Link href="/leiloes">
-              <Button size="lg" variant="outline" className="border-2 border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
+              <Button size="lg" variant="outline" className="border-2 border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white px-8 py-4 text-lg font-semibold rounded-xl transition-colors duration-300 shadow-lg hover:shadow-xl">
                 Ver Todos os Leilões
                 <ChevronRight className="w-5 h-5 ml-2" />
               </Button>
@@ -448,7 +448,7 @@ export default function HomePage() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {featuredProductsAgro.map((product, index) => (
               <div key={product.id} className="animate-fade-in-up group" style={{ animationDelay: `${index * 0.1}s` }}>
-                <div className="transform group-hover:scale-105 transition-all duration-300">
+                <div className="transition-shadow duration-300">
                   <ProductCard product={product} variant="detailed" />
                 </div>
               </div>
@@ -457,7 +457,7 @@ export default function HomePage() {
 
           <div className="text-center mt-16">
             <Link href="/produtos">
-              <Button size="lg" variant="outline" className="border-2 border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
+              <Button size="lg" variant="outline" className="border-2 border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white px-8 py-4 text-lg font-semibold rounded-xl transition-colors duration-300 shadow-lg hover:shadow-xl">
                 Ver Todos os Produtos
                 <ChevronRight className="w-5 h-5 ml-2" />
               </Button>
@@ -484,9 +484,9 @@ export default function HomePage() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature, index) => (
-              <Card key={index} className="text-center shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-0 bg-white/80 backdrop-blur-sm animate-fade-in-up group" style={{ animationDelay: `${index * 0.1}s` }}>
+              <Card key={index} className="text-center shadow-xl hover:shadow-2xl transition-shadow duration-300 border-0 bg-white/80 backdrop-blur-sm animate-fade-in-up group" style={{ animationDelay: `${index * 0.1}s` }}>
                 <CardContent className="p-8">
-                  <div className="w-20 h-20 bg-gradient-to-br from-emerald-100 to-green-100 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
+                  <div className="w-20 h-20 bg-gradient-to-br from-emerald-100 to-green-100 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:shadow-xl transition-shadow duration-300">
                     <feature.icon className="w-10 h-10 text-emerald-600" />
                   </div>
                   <h3 className="text-xl font-bold text-gray-900 mb-4 group-hover:text-emerald-700 transition-colors duration-300">{feature.title}</h3>
@@ -514,13 +514,13 @@ export default function HomePage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/cadastro">
-              <Button size="lg" className="bg-white text-emerald-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+              <Button size="lg" className="bg-white text-emerald-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold rounded-xl shadow-xl hover:shadow-2xl transition-colors duration-300">
                 <Users className="w-5 h-5 mr-2" />
                 Criar Conta Gratuita
               </Button>
             </Link>
             <Link href="/catalogo">
-              <Button size="lg" variant="outline" className="border-2 border-white/80 text-white hover:bg-white hover:text-emerald-600 px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 backdrop-blur-sm bg-white/10">
+              <Button size="lg" variant="outline" className="border-2 border-white/80 text-white hover:bg-white hover:text-emerald-600 px-8 py-4 text-lg font-semibold rounded-xl transition-colors duration-300 backdrop-blur-sm bg-white/10">
                 <Eye className="w-5 h-5 mr-2" />
                 Explorar Agora
               </Button>

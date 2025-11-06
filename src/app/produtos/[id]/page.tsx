@@ -477,7 +477,7 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
             {/* Action Buttons */}
             <div className="space-y-3 sm:space-y-4">
               <Button
-                className="w-full bg-green-600 hover:bg-green-700 text-white py-3 sm:py-4 text-base sm:text-lg font-semibold transition-all hover:scale-105"
+                className="w-full bg-green-600 hover:bg-green-700 text-white py-3 sm:py-4 text-base sm:text-lg font-semibold transition-colors"
                 onClick={handlePurchase}
               >
                 <ShoppingCart className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
@@ -487,7 +487,7 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
 
               <Button
                 variant="outline"
-                className="w-full border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white py-3 sm:py-4 text-base sm:text-lg font-semibold transition-all hover:scale-105"
+                className="w-full border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white py-3 sm:py-4 text-base sm:text-lg font-semibold transition-colors"
                 onClick={handleAddToCart}
               >
                 <ShoppingBag className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />

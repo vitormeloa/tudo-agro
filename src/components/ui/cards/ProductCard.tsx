@@ -62,7 +62,7 @@ export default function ProductCard({
         await toggleFavorite(String(product.id))
     }
 
-    const baseClasses = "overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.02] border-0"
+    const baseClasses = "overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 border-0"
 
     const variantClasses = {
         default: "bg-white",
