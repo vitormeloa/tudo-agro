@@ -180,9 +180,9 @@ function FavoritosSection() {
                 {item.price && (
                   <div className="mb-3">
                     <span className="text-2xl font-bold text-emerald-600">
-                      R$ {typeof item.price === 'number' 
+                      R$ {item.price !== null
                         ? item.price.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-                        : parseFloat(item.price.toString()).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+                        : 'Preço não disponível'
                       }
                     </span>
                     {item.negotiable && (

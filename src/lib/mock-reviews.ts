@@ -18,7 +18,7 @@ export const mockProductReviews: Review[] = [
     userAvatar: '/placeholder-avatar.jpg',
     rating: 5,
     comment: 'Excelente produto! Chegou rapidamente e está funcionando perfeitamente na minha fazenda. Recomendo muito!',
-    date: '2024-01-15',
+    date: '2025-11-06',
     verifiedPurchase: true,
     helpful: 12
   },
@@ -29,7 +29,7 @@ export const mockProductReviews: Review[] = [
     userAvatar: '/placeholder-avatar.jpg',
     rating: 4,
     comment: 'Bom produto, mas a entrega demorou um pouco mais do que o esperado. Qualidade é ótima.',
-    date: '2024-01-10',
+    date: '2025-11-05',
     verifiedPurchase: true,
     helpful: 8
   },
@@ -40,7 +40,7 @@ export const mockProductReviews: Review[] = [
     userAvatar: '/placeholder-avatar.jpg',
     rating: 5,
     comment: 'Produto de alta qualidade! Vale muito a pena o investimento. Estou muito satisfeito.',
-    date: '2024-01-05',
+    date: '2025-11-04',
     verifiedPurchase: true,
     helpful: 15
   }
@@ -54,7 +54,7 @@ export const mockAnimalReviews: Review[] = [
     userAvatar: '/placeholder-avatar.jpg',
     rating: 5,
     comment: 'Animal excelente! Conforme descrito e muito bem cuidado. Recomendo o vendedor!',
-    date: '2024-01-12',
+    date: '2025-11-03',
     verifiedPurchase: true,
     helpful: 10
   },
@@ -65,7 +65,7 @@ export const mockAnimalReviews: Review[] = [
     userAvatar: '/placeholder-avatar.jpg',
     rating: 4,
     comment: 'Animal saudável e bem cuidado. Apenas achei o preço um pouco alto, mas valeu a pena.',
-    date: '2024-01-08',
+    date: '2025-11-02',
     verifiedPurchase: true,
     helpful: 6
   },
@@ -76,7 +76,7 @@ export const mockAnimalReviews: Review[] = [
     userAvatar: '/placeholder-avatar.jpg',
     rating: 5,
     comment: 'Melhor compra que fiz! Animal de excelente genética e o vendedor foi muito atencioso.',
-    date: '2024-01-03',
+    date: '2025-11-01',
     verifiedPurchase: true,
     helpful: 18
   }

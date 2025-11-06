@@ -19,8 +19,8 @@ import {
   Users,
   CheckCircle
 } from 'lucide-react'
-import { mockAnimals } from '@/lib/mock-animals'
-import { mockProducts } from '@/lib/mock-products'
+import { mockAnimals, MockAnimal } from '@/lib/mock-animals'
+import { mockProducts, MockProduct } from '@/lib/mock-products'
 
 interface Seller {
   id: string | number
@@ -193,6 +193,7 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
     return `Há ${randomDays} dias`
   }
 
+  const lastActivityDisplay = getLastActivity()
   // Buscar vendedor pelo ID
   const seller = getSellerById(sellerId)
   
@@ -369,7 +370,7 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
 
           <Card className="text-center p-3 sm:p-4 border-gray-200">
             <div className="text-xl sm:text-2xl font-bold text-green-600 mb-1">
-              {getLastActivity()}
+              {lastActivityDisplay}
             </div>
             <div className="text-xs sm:text-sm text-gray-600">Última Atividade</div>
           </Card>
@@ -421,9 +422,9 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
               {activeLots.map((lot) => {
                 const isAnimal = sellerAnimals.some(a => a.id === lot.id)
                 const detailUrl = isAnimal ? `/catalogo/${lot.id}` : `/produtos/${lot.id}`
-                const lotImage = lot.image || (isAnimal
-                  ? 'https://images.unsplash.com/photo-1560493676-04071c5f467b?w=500&h=400&fit=crop'
-                  : 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=500&h=400&fit=crop')
+                const lotImage = isAnimal
+                  ? (lot as MockAnimal).images[0] || 'https://images.unsplash.com/photo-1560493676-04071c5f467b?w=500&h=400&fit=crop'
+                  : (lot as unknown as MockProduct).image || 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=500&h=400&fit=crop'
 
                 return (
                   <Card key={lot.id} className="overflow-hidden hover:shadow-lg transition-shadow border-gray-200">
@@ -515,65 +516,47 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
 
           {/* Sobre */}
           {activeTab === 'sobre' && (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
-              <div className="space-y-4 sm:space-y-6">
-                <Card className="border-gray-200">
-                  <CardContent className="p-4 sm:p-6">
-                    <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-4">
-                      <Award className="w-5 h-5 sm:w-6 sm:h-6 inline mr-2 text-green-600" />
-                      Especialidades
-                    </h3>
-                    <div className="flex flex-wrap gap-2">
-                      {seller.specialties.map((specialty, index) => (
-                        <Badge key={index} variant="outline" className="border-green-600 text-green-600 text-xs sm:text-sm">
-                          {specialty}
-                        </Badge>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
+            <div className="space-y-6 sm:space-y-8">
+              <Card className="border-gray-200">
+                <CardContent className="p-4 sm:p-6">
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-4">
+                    Resumo de Atuação do Vendedor
+                  </h3>
+                  <ul className="list-disc list-inside space-y-2 text-gray-700 text-sm sm:text-base">
+                    <li>Ativo na plataforma por +6 meses</li>
+                    <li>Total de vendas ({seller.totalSales} vendas concluídas)</li>
+                    <li>Categoria principal ({seller.specialties[0] || 'Não informada'})</li>
+                    <li>Prazo médio de envio (1 a 3 dias úteis)</li>
+                    <li>0 reclamações abertas nos últimos 60 dias</li>
+                  </ul>
+                </CardContent>
+              </Card>
 
-                <Card className="border-gray-200">
-                  <CardContent className="p-4 sm:p-6">
-                    <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-4">
-                      <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 inline mr-2 text-green-600" />
-                      Certificações
-                    </h3>
-                    <div className="space-y-2">
-                      {seller.certifications.map((cert, index) => (
-                        <div key={index} className="flex items-center text-sm sm:text-base text-gray-700">
-                          <CheckCircle className="w-4 h-4 text-green-600 mr-2 flex-shrink-0" />
-                          <span>{cert}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
+              <Card className="border-gray-200">
+                <CardContent className="p-4 sm:p-6">
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-4">
+                    Categorias em que atua:
+                  </h3>
+                  <ul className="list-disc list-inside space-y-2 text-gray-700 text-sm sm:text-base">
+                    {seller.specialties.map((specialty, index) => (
+                      <li key={index}>{specialty}</li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
 
-              <div>
-                <Card className="border-gray-200">
-                  <CardContent className="p-4 sm:p-6">
-                    <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-4">
-                      Informações de Contato
-                    </h3>
-                    <div className="space-y-3 sm:space-y-4">
-                      <div className="flex items-center">
-                        <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-green-600 mr-3 flex-shrink-0" />
-                        <span className="text-sm sm:text-base text-gray-700 break-words">{seller.contact.phone}</span>
-                      </div>
-                      <div className="flex items-center">
-                        <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-green-600 mr-3 flex-shrink-0" />
-                        <span className="text-sm sm:text-base text-gray-700 break-words">{seller.contact.email}</span>
-                      </div>
-                      <div className="flex items-center">
-                        <Users className="w-4 h-4 sm:w-5 sm:h-5 text-green-600 mr-3 flex-shrink-0" />
-                        <span className="text-sm sm:text-base text-gray-700 break-words">{seller.contact.website}</span>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
+              <Card className="border-gray-200">
+                <CardContent className="p-4 sm:p-6">
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-4">
+                    Top 3 Produtos mais vendidos
+                  </h3>
+                  <ul className="list-disc list-inside space-y-2 text-gray-700 text-sm sm:text-base">
+                    <li>Ração Premium Leiteiro</li>
+                    <li>Suplemento Mineral Nutri+</li>
+                    <li>Balde com tampa reforçada</li>
+                  </ul>
+                </CardContent>
+              </Card>
             </div>
           )}
         </div>

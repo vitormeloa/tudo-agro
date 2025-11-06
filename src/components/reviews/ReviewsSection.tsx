@@ -257,7 +257,7 @@ export default function ReviewsSection({ reviews, itemId, itemType, onAddReview 
       {/* Reviews List */}
       <div className="space-y-4">
         <h3 className="text-xl font-bold text-gray-900">
-          Todas as avaliações ({reviews.length})
+          Últimas avaliações ({reviews.length})
         </h3>
 
         {reviews.length === 0 ? (
@@ -289,7 +289,7 @@ export default function ReviewsSection({ reviews, itemId, itemType, onAddReview 
                         <div className="flex items-center gap-2 mb-1">
                           <h4 className="font-semibold text-gray-900">{review.userName}</h4>
                           {review.verifiedPurchase && (
-                            <Badge className="bg-green-100 text-green-800 text-xs">
+                            <Badge className="bg-green-100 text-green-800 text-xs hidden sm:inline-flex">
                               <CheckCircle className="w-3 h-3 mr-1" />
                               Compra verificada
                             </Badge>
