@@ -1558,7 +1558,7 @@ export const mockProducts: MockProduct[] = [
   city: "Osasco",
   rating: 4.8,
   reviews: 17,
-  image: "/fotos/produtos/redea.png",
+  image: "/fotos/produtos/estribo.png",
   seller: "BASIKEARTESANATO",
   verified: true,
   featured: false,
@@ -1770,138 +1770,6 @@ export const mockProducts: MockProduct[] = [
     }
 },
 {
-  id: "550e8400-e29b-41d4-a716-446655440039",
-  title: "Conjunto Barrigueira E Cilha Estrela Luxo Promoção Marrom",
-  category: "Selaria e Utilidades",
-  price: 76.00,
-  location: "Minas Gerais",
-  city: "Dores de Campos",
-  rating: 4.6,
-  reviews: 38,
-  image: "/fotos/produtos/barrigueira.png",
-  seller: "GS Selas",
-  verified: true,
-  featured: false,
-  weight: "",
-  brand: "GS Selas",
-  stock: "Em estoque",
-  description: "Peitoral Manga Larga Confeccionado em couro de búfalo legitimo oleado.",
-  images: [
-    "/fotos/produtos/barrigueira.png",
-  ],
-  specifications: {
-    resistencia: "Suporta altas cargas sem deformar",
-    durabilidade: "Resistente à corrosão e oxidação",
-    manutencao: "Limpar com pano seco e evitar produtos abrasivos"
-  },
-  documents: [
-  "Ficha Técnica",
-  "Certificado de Garantia",
-  "Certificado de Qualidade",
-  "Laudo de Conformidade do Material (Aço Inox)",
-  "Nota Fiscal",
-  "Termo de Origem do Fabricante"
-  ],
-  sellerInfo: {
-      id: 6,
-      name: "GS Selas",
-      location: "Dores de Campos, Minas Gerais",
-      rating: 5,
-      totalSales: 428,
-      memberSince: "2020",
-      verified: true,
-      image: "https://mla-s1-p.mlstatic.com/947397-MLA47297371628_082021-O.jpg"
-    }
-},
-{
-  id: "550e8400-e29b-41d4-a716-446655440040",
-  title: "Manta Baixeiro Para Sela Ou Arreio Promoção Manta Bacheiro",
-  category: "Selaria e Utilidades",
-  price: 58.99,
-  location: "Minas Gerais",
-  city: "Belo Horizonte",
-  rating: 4.6,
-  reviews: 5,
-  image: "/fotos/produtos/manta.png",
-  seller: "Selaria Minas",
-  verified: true,
-  featured: false,
-  weight: "",
-  brand: "Selaria Minas",
-  stock: "Em estoque",
-  description: "Manta produzida em brim.",
-  images: [
-    "/fotos/produtos/barrigueira.png",
-  ],
-  specifications: {
-    respirabilidade: "Boa ventilação, evitando superaquecimento",
-    uso: "Montaria, treinamento e cavalgadas",
-    manutencao: "Lavar à mão com sabão neutro e secar à sombra"
-  },
-  documents: [
-  "Ficha Técnica",
-  "Certificado de Garantia",
-  "Certificado de Qualidade",
-  "Laudo de Conformidade do Material (Aço Inox)",
-  "Nota Fiscal",
-  "Termo de Origem do Fabricante"
-  ],
-  sellerInfo: {
-      id: 6,
-      name: "Selaria Minas",
-      location: "Belo Horizonte, Minas Gerais",
-      rating: 5,
-      totalSales: 428,
-      memberSince: "2020",
-      verified: true,
-      image: "https://http2.mlstatic.com/D_NQ_NP_838959-MLA88471614720_072025-F.jpg"
-    }
-},
-{
-  id: "550e8400-e29b-41d4-a716-446655440039",
-  title: "Conjunto Barrigueira E Cilha Estrela Luxo Promoção Marrom",
-  category: "Selaria e Utilidades",
-  price: 76.00,
-  location: "Minas Gerais",
-  city: "Dores de Campos",
-  rating: 4.6,
-  reviews: 38,
-  image: "/fotos/produtos/barrigueira.png",
-  seller: "GS Selas",
-  verified: true,
-  featured: false,
-  weight: "",
-  brand: "GS Selas",
-  stock: "Em estoque",
-  description: "Peitoral Manga Larga Confeccionado em couro de búfalo legitimo oleado.",
-  images: [
-    "/fotos/produtos/barrigueira.png",
-  ],
-  specifications: {
-    resistencia: "Suporta altas cargas sem deformar",
-    durabilidade: "Resistente à corrosão e oxidação",
-    manutencao: "Limpar com pano seco e evitar produtos abrasivos"
-  },
-  documents: [
-  "Ficha Técnica",
-  "Certificado de Garantia",
-  "Certificado de Qualidade",
-  "Laudo de Conformidade do Material (Aço Inox)",
-  "Nota Fiscal",
-  "Termo de Origem do Fabricante"
-  ],
-  sellerInfo: {
-      id: 6,
-      name: "GS Selas",
-      location: "Dores de Campos, Minas Gerais",
-      rating: 5,
-      totalSales: 428,
-      memberSince: "2020",
-      verified: true,
-      image: "https://mla-s1-p.mlstatic.com/947397-MLA47297371628_082021-O.jpg"
-    }
-},
-{
   id: "550e8400-e29b-41d4-a716-446655440041",
   title: "Espora Para Cavalo 16 Bicos Cavalgadas Com Correias Unissex",
   category: "Selaria e Utilidades",
@@ -1943,6 +1811,275 @@ export const mockProducts: MockProduct[] = [
       memberSince: "2020",
       verified: true,
       image: "https://http2.mlstatic.com/D_NQ_NP_781084-MLA91071595800_092025-F.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440042",
+  title: "Cerca Elétrica Para Gado Solar Kit Completo Com Acessórios",
+  category: "Equipamentos e Infraestrutura Rural",
+  price: 636.65,
+  location: "São Paulo",
+  city: "Osasco",
+  rating: 4.7,
+  reviews: 7,
+  image: "/fotos/produtos/cerca.png",
+  seller: "Maximoeletro Silva",
+  verified: true,
+  featured: false,
+  weight: "",
+  brand: "Maximoeletro Silva",
+  stock: "Em estoque",
+  description: "Kit Completo com Eletrificador + Placa Solar + Kit Anti Raio (Pára-raios) + 1000 metros de Fio Eletroplástico.",
+  images: [
+    "/fotos/produtos/cerca.png",
+    "/fotos/produtos/cerca2.png"
+  ],
+  specifications: {
+    resistencia: "Alta durabilidade contra chuva e sol",
+    instalacao: "Fácil montagem com postes, isoladores e esticadores inclusos",
+    seguranca: "Sistema de pulso elétrico intermitente — não causa ferimentos",
+    manutencao: "Verificar periodicamente isoladores, conexões e limpeza do painel solar"
+  },
+  documents: [
+    "Ficha Técnica",
+    "Manual de Instalação e Operação",
+    "Certificado de Qualidade",
+    "Laudo de Conformidade Elétrica",
+    "Certificado de Garantia",
+    "Nota Fiscal"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "Maximoeletro Silva",
+      location: "Osasco, São Paulo",
+      rating: 5,
+      totalSales: 508,
+      memberSince: "2020",
+      verified: true,
+      image: "https://http2.mlstatic.com/D_NQ_NP_781084-MLA91071595800_092025-F.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440043",
+  title: "Kit Painel Placa Energia Solar 2x155w Caminhão 12ou24 Volts Cor Azul Voltagem De Circuito Aberto 24.46v Voltagem Máxima Do Sistema 20.64v",
+  category: "Equipamentos e Infraestrutura Rural",
+  price: 899.90,
+  location: "Minas Gerais",
+  city: "Belo Horizonte",
+  rating: 4.8,
+  reviews: 1099,
+  image: "/fotos/produtos/solar.png",
+  seller: "Hawk",
+  verified: true,
+  featured: false,
+  weight: "11kg",
+  brand: "ResunSolar",
+  stock: "Em estoque",
+  description: "Kit Completo com Eletrificador + Placa Solar + Kit Anti Raio (Pára-raios) + 1000 metros de Fio Eletroplástico.",
+  images: [
+    "/fotos/produtos/solar.png",
+  ],
+  specifications: {
+    vida_util: "Mais de 25 anos",
+    instalacao: "Compatível com controladores PWM e MPPT 12V/24V",
+    manutencao: "Limpar o vidro com pano úmido e evitar sombreamento nos painéis"
+  },
+  documents: [
+    "Ficha Técnica",
+    "Manual de Instalação e Conexão",
+    "Certificado de Garantia",
+    "Certificado de Qualidade ISO 9001",
+    "Laudo de Eficiência Energética",
+    "Nota Fiscal"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "Hawk",
+      location: "Belo Horizonte, Minas Gerais",
+      rating: 5,
+      totalSales: 508,
+      memberSince: "2020",
+      verified: true,
+      image: "https://http2.mlstatic.com/D_NQ_NP_886268-MLA93739712898_102025-G.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440044",
+  title: "Balança De Gado Com Impressora Termica Adesiva 4000kg - Cinza",
+  category: "Equipamentos e Infraestrutura Rural",
+  price: 3790.00,
+  location: "Minas Gerais",
+  city: "Belo Horizonte",
+  rating: 4.7,
+  reviews: 6,
+  image: "/fotos/produtos/balanca.png",
+  seller: "INSIDEBALMAQUINASEEQUIPAMEN",
+  verified: true,
+  featured: false,
+  weight: "4000kg",
+  brand: "INSIDEBALMAQUINASEEQUIPAMEN",
+  stock: "Em estoque",
+  description: "Balança Digital 100cm de comprimento, 4000kg aplicação de balança gado/suínos/caprinos/ovinos/Aves.",
+  images: [
+    "/fotos/produtos/balanca.png",
+  ],
+  specifications: {
+    alimentacao: "Bateria interna recarregável ou rede elétrica 110/220V",
+    resistencia: "Alta durabilidade para uso contínuo em fazendas",
+    aplicacao: "Pesagem de bovinos, equinos e outros animais de grande porte",
+    manutencao: "Limpeza periódica da plataforma e revisão das células de carga e impressora"
+  },
+  documents: [
+    "Ficha Técnica",
+    "Manual de Operação",
+    "Certificado de Calibração",
+    "Certificado de Garantia",
+    "Certificado de Qualidade",
+    "Nota Fiscal"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "INSIDEBALMAQUINASEEQUIPAMEN",
+      location: "Belo Horizonte, Minas Gerais",
+      rating: 4.7,
+      totalSales: 8,
+      memberSince: "2020",
+      verified: true,
+      image: "https://mla-s2-p.mlstatic.com/627597-MLA83134146784_032025-O.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440045",
+  title: "Tronco De Contenção Modelo Americano Com 1 Cabine E Balança",
+  category: "Equipamentos e Infraestrutura Rural",
+  price: 23900.00,
+  location: "Minas Gerais",
+  city: "Belo Horizonte",
+  rating: 5,
+  reviews: 1,
+  image: "/fotos/produtos/tronco.png",
+  seller: "M A TRONCOS",
+  verified: true,
+  featured: false,
+  weight: "4000kg",
+  brand: "M A TRONCOS",
+  stock: "Em estoque",
+  description: "Balança Digital 100cm de comprimento, 4000kg aplicação de balança gado/suínos/caprinos/ovinos/Aves.",
+  images: [
+    "/fotos/produtos/tronco.png",
+  ],
+  specifications: {
+    balanca_integrada: "Digital, com célula de carga, precisão ±0,5 kg",
+    rodas_ou_base: "Base fixa ou com rodízios opcionais",
+    resistencia: "Alta durabilidade, suportando uso contínuo em fazendas",
+    manutencao: "Lubrificar portas, verificar células de carga e limpeza periódica",
+  },
+  documents: [
+    "Ficha Técnica",
+    "Manual de Operação",
+    "Certificado de Calibração da Balança",
+    "Certificado de Garantia",
+    "Certificado de Qualidade",
+    "Nota Fiscal"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "M A TRONCOS",
+      location: "Belo Horizonte, Minas Gerais",
+      rating: 5,
+      totalSales: 98,
+      memberSince: "2020",
+      verified: true,
+      image: "https://http2.mlstatic.com/storage/mshops-appearance-api/images/95/4300bacc1e0048df9f31d74aeada5e3622972095/logo-2023102013145393882.jpeg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440046",
+  title: "Cocho De Polietileno 2,24m 450 Litros",
+  category: "Equipamentos e Infraestrutura Rural",
+  price: 345.00,
+  location: "São Paulo",
+  city: "Pompeia",
+  rating: 5,
+  reviews: 5,
+  image: "/fotos/produtos/cocho.png",
+  seller: "PORTAL DA TERRA",
+  verified: true,
+  featured: false,
+  weight: "450kg",
+  brand: "PORTAL DA TERRA",
+  stock: "Em estoque",
+  description: "Capacidade de 450 litros para armazenar ração, água e sais minerais.",
+  images: [
+    "/fotos/produtos/cocho.png",
+  ],
+  specifications: {
+    aplicacao: "Fornecimento de ração ou água para bovinos, equinos e outros animais de grande porte",
+    manutencao: "Limpar periodicamente com água e detergente neutro",
+    estabilidade: "Base larga que evita tombamento",
+    transporte: "Leve, podendo ser deslocado manualmente ou com equipamento leve"
+  },
+  documents: [
+    "Ficha Técnica",
+    "Certificado de Qualidade",
+    "Manual de Cuidados e Limpeza",
+    "Nota Fiscal",
+    "Termo de Origem do Fabricante"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "PORTAL DA TERRA",
+      location: "Pompeia, São Paulo",
+      rating: 5,
+      totalSales: 60,
+      memberSince: "2020",
+      verified: true,
+      image: "https://http2.mlstatic.com/D_NQ_NP_834219-MLA85623539720_062025-F.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440047",
+  title: "Bebedouro Cocho Pet Com Bóia 7 Litros Cavalos E Bovinos Cor Verde",
+  category: "Equipamentos e Infraestrutura Rural",
+  price: 42.90,
+  location: "São Paulo",
+  city: "Osasco",
+  rating: 4.8,
+  reviews: 11,
+  image: "/fotos/produtos/bebedouro.png",
+  seller: "ZYLODISTRIBUIDORA3",
+  verified: true,
+  featured: false,
+  weight: "7kg",
+  brand: "Alvorada",
+  stock: "Em estoque",
+  description: "Capacidade de até 7 litros para garantir água sempre disponível.",
+  images: [
+    "/fotos/produtos/bebedouro.png",
+  ],
+  specifications: {
+    mecanismo: "Bóia reguladora automática para manter o nível constante de água",
+    manutencao: "Limpar regularmente com água e sabão neutro",
+    resistencia: "Alta durabilidade e resistente à intempéries",
+    transporte: "Leve e fácil de instalar ou mover",
+    compatibilidade: "Pode ser acoplado a rede hidráulica ou encher manualmente"
+  },
+  documents: [
+    "Ficha Técnica",
+    "Certificado de Qualidade",
+    "Manual de Instalação e Uso",
+    "Nota Fiscal",
+    "Termo de Origem do Fabricante"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "ZYLODISTRIBUIDORA3",
+      location: "Osasco, São Paulo",
+      rating: 5,
+      totalSales: 120,
+      memberSince: "2020",
+      verified: true,
+      image: "https://http2.mlstatic.com/D_NQ_NP_834219-MLA85623539720_062025-F.jpg"
     }
 },
 ]
