@@ -500,17 +500,24 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
         {/* Tabs Section */}
         <div className="mt-8 sm:mt-12">
           <Tabs defaultValue="descricao" className="w-full">
-            <TabsList className="grid w-full grid-cols-3 h-auto">
-              <TabsTrigger value="descricao" className="text-xs sm:text-sm md:text-base py-2 sm:py-3">
+            <TabsList className="grid w-full grid-cols-3 h-auto gap-1 sm:gap-0 p-1">
+              <TabsTrigger
+                value="descricao"
+                className="text-[10px] xs:text-xs sm:text-sm md:text-base py-2 sm:py-3 px-1 xs:px-2 sm:px-3 data-[state=active]:bg-white"
+              >
                 Descrição
               </TabsTrigger>
-              <TabsTrigger value="especificacoes" className="text-xs sm:text-sm md:text-base py-2 sm:py-3">
-                <span className="hidden sm:inline">Especificações</span>
-                <span className="sm:hidden">Specs</span>
+              <TabsTrigger
+                value="especificacoes"
+                className="text-[10px] xs:text-xs sm:text-sm md:text-base py-2 sm:py-3 px-1 xs:px-2 sm:px-3 data-[state=active]:bg-white"
+              >
+                Especificações
               </TabsTrigger>
-              <TabsTrigger value="avaliacoes" className="text-xs sm:text-sm md:text-base py-2 sm:py-3">
-                <span className="hidden sm:inline">Avaliações ({reviews.length})</span>
-                <span className="sm:hidden">({reviews.length})</span>
+              <TabsTrigger
+                value="avaliacoes"
+                className="text-[10px] xs:text-xs sm:text-sm md:text-base py-2 sm:py-3 px-1 xs:px-2 sm:px-3 data-[state=active]:bg-white"
+              >
+                Avaliações ({reviews.length})
               </TabsTrigger>
             </TabsList>
 

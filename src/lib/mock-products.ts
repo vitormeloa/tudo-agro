@@ -291,6 +291,7 @@ export const mockProducts: MockProduct[] = [
       name: "Vermífugos Agro",
       location: "Paraná, PR",
       totalSales: 1098,
+      rating: 5.0,
       memberSince: "2020",
       verified: true,
       image: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=100&h=100&fit=crop"

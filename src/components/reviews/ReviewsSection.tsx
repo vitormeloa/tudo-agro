@@ -28,6 +28,15 @@ export default function ReviewsSection({ reviews, itemId, itemType, onAddReview 
   const [comment, setComment] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
 
+  // Função para obter iniciais do nome
+  const getInitials = (name: string) => {
+    const names = name.trim().split(' ')
+    if (names.length === 1) {
+      return names[0].substring(0, 2).toUpperCase()
+    }
+    return (names[0][0] + names[names.length - 1][0]).toUpperCase()
+  }
+
   const averageRating = reviews.length > 0
     ? reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length
     : 0
@@ -264,12 +273,14 @@ export default function ReviewsSection({ reviews, itemId, itemType, onAddReview 
             <Card key={review.id}>
               <CardContent className="p-6">
                 <div className="flex items-start gap-4">
-                  {/* Avatar */}
-                  <img
-                    src={review.userAvatar}
-                    alt={review.userName}
-                    className="w-12 h-12 rounded-full object-cover"
-                  />
+                  {/* Avatar with Initials */}
+                  <div className="flex-shrink-0">
+                    <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                      <span className="text-green-600 font-semibold text-lg">
+                        {getInitials(review.userName)}
+                      </span>
+                    </div>
+                  </div>
 
                   {/* Review Content */}
                   <div className="flex-1">

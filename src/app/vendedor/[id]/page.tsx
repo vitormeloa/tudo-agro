@@ -170,10 +170,19 @@ function getSellerById(sellerId: string | number): Seller | null {
 
 export default function VendedorPage({ params }: { params: Promise<{ id: string }> }) {
   const [activeTab, setActiveTab] = useState('lotes')
-  
+
   const resolvedParams = use(params)
   const sellerId = resolvedParams.id
-  
+
+  // Função para obter iniciais do nome
+  const getInitials = (name: string) => {
+    const names = name.trim().split(' ')
+    if (names.length === 1) {
+      return names[0].substring(0, 2).toUpperCase()
+    }
+    return (names[0][0] + names[names.length - 1][0]).toUpperCase()
+  }
+
   // Buscar vendedor pelo ID
   const seller = getSellerById(sellerId)
   
@@ -461,26 +470,40 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
             <div className="space-y-6">
               {reviews.map((review) => (
                 <Card key={review.id} className="border-gray-200">
-                  <CardContent className="p-6">
-                    <div className="flex justify-between items-start mb-4">
-                      <div>
-                        <div className="font-bold text-gray-900 mb-1">{review.buyer}</div>
-                        <div className="text-sm text-gray-600">
-                          Comprou: {review.purchase}
+                  <CardContent className="p-4 sm:p-6">
+                    <div className="flex gap-3 sm:gap-4">
+                      {/* Avatar com Iniciais */}
+                      <div className="flex-shrink-0">
+                        <div className="w-10 h-10 sm:w-12 sm:h-12 bg-green-100 rounded-full flex items-center justify-center">
+                          <span className="text-green-600 font-semibold text-base sm:text-lg">
+                            {getInitials(review.buyer)}
+                          </span>
                         </div>
                       </div>
-                      <div className="text-right">
-                        <div className="flex items-center mb-1">
-                          {[...Array(review.rating)].map((_, i) => (
-                            <Star key={i} className="w-4 h-4 text-yellow-500 fill-current" />
-                          ))}
+
+                      {/* Conteúdo da Avaliação */}
+                      <div className="flex-1 min-w-0">
+                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-3 sm:mb-4 gap-2 sm:gap-4">
+                          <div className="flex-1">
+                            <div className="font-bold text-sm sm:text-base text-gray-900 mb-1">{review.buyer}</div>
+                            <div className="text-xs sm:text-sm text-gray-600 break-words">
+                              Comprou: {review.purchase}
+                            </div>
+                          </div>
+                          <div className="flex flex-row sm:flex-col sm:text-right gap-2 sm:gap-0">
+                            <div className="flex items-center mb-0 sm:mb-1">
+                              {[...Array(review.rating)].map((_, i) => (
+                                <Star key={i} className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-500 fill-current" />
+                              ))}
+                            </div>
+                            <div className="text-xs sm:text-sm text-gray-600">
+                              {new Date(review.date).toLocaleDateString('pt-BR')}
+                            </div>
+                          </div>
                         </div>
-                        <div className="text-sm text-gray-600">
-                          {new Date(review.date).toLocaleDateString('pt-BR')}
-                        </div>
+                        <p className="text-sm sm:text-base text-gray-700 break-words">{review.comment}</p>
                       </div>
                     </div>
-                    <p className="text-gray-700">{review.comment}</p>
                   </CardContent>
                 </Card>
               ))}

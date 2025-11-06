@@ -79,8 +79,8 @@ export default function QuestionsSection({ questions, sellerName }: QuestionsSec
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-            <MessageCircle className="w-6 h-6 text-green-600" />
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 flex items-center gap-2">
+            <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6 text-green-600 flex-shrink-0" />
             Perguntas e Respostas
           </h2>
           <p className="text-sm text-gray-600 mt-1">
@@ -91,9 +91,9 @@ export default function QuestionsSection({ questions, sellerName }: QuestionsSec
         {!showQuestionForm && (
           <Button
             onClick={() => setShowQuestionForm(true)}
-            className="bg-green-600 hover:bg-green-700 text-white"
+            className="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white text-sm sm:text-base"
           >
-            <MessageCircle className="w-4 h-4 mr-2" />
+            <MessageCircle className="w-4 h-4 mr-2 flex-shrink-0" />
             Fazer uma pergunta
           </Button>
         )}
@@ -167,12 +167,6 @@ export default function QuestionsSection({ questions, sellerName }: QuestionsSec
             <p className="text-gray-600 mb-4">
               Seja o primeiro a perguntar sobre este item!
             </p>
-            <Button
-              onClick={() => setShowQuestionForm(true)}
-              className="bg-green-600 hover:bg-green-700 text-white"
-            >
-              Fazer a primeira pergunta
-            </Button>
           </CardContent>
         </Card>
       ) : (
@@ -191,39 +185,39 @@ export default function QuestionsSection({ questions, sellerName }: QuestionsSec
                         className="w-10 h-10 rounded-full"
                       />
                     ) : (
-                      <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
-                        <User className="w-5 h-5 text-gray-500" />
+                      <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                        <User className="w-5 h-5 text-green-600" />
                       </div>
                     )}
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex flex-wrap items-center gap-2 mb-1">
-                      <span className="font-semibold text-gray-900">{question.userName}</span>
+                      <span className="font-semibold text-sm sm:text-base text-gray-900">{question.userName}</span>
                       <span className="text-xs text-gray-500">{formatDate(question.createdAt)}</span>
                     </div>
-                    <p className="text-gray-700">{question.question}</p>
+                    <p className="text-sm sm:text-base text-gray-700 break-words">{question.question}</p>
                   </div>
                 </div>
 
                 {/* Resposta */}
                 {question.answer && (
-                  <div className="ml-0 sm:ml-14 pl-4 border-l-4 border-green-500 bg-green-50/50 rounded-r-lg p-4">
-                    <div className="flex items-center gap-2 mb-2">
-                      <CheckCircle className="w-4 h-4 text-green-600" />
-                      <span className="font-semibold text-green-900">{question.answeredBy}</span>
+                  <div className="ml-0 sm:ml-14 pl-3 sm:pl-4 border-l-3 sm:border-l-4 border-green-500 bg-green-50/50 rounded-r-lg p-3 sm:p-4">
+                    <div className="flex flex-wrap items-center gap-2 mb-2">
+                      <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0" />
+                      <span className="font-semibold text-sm sm:text-base text-green-900">{question.answeredBy}</span>
                       <Badge className="bg-green-600 text-white text-xs">Vendedor</Badge>
                       {question.answeredAt && (
                         <span className="text-xs text-gray-600">• {formatDate(question.answeredAt)}</span>
                       )}
                     </div>
-                    <p className="text-gray-700">{question.answer}</p>
+                    <p className="text-sm sm:text-base text-gray-700 break-words">{question.answer}</p>
                   </div>
                 )}
 
                 {/* Footer com likes */}
-                <div className="flex items-center gap-4 mt-4 ml-0 sm:ml-14">
-                  <button className="flex items-center gap-1 text-sm text-gray-600 hover:text-green-600 transition-colors">
-                    <ThumbsUp className="w-4 h-4" />
+                <div className="flex flex-wrap items-center gap-2 sm:gap-4 mt-4 ml-0 sm:ml-14">
+                  <button className="flex items-center gap-1 text-xs sm:text-sm text-gray-600 hover:text-green-600 transition-colors">
+                    <ThumbsUp className="w-4 h-4 flex-shrink-0" />
                     <span>{question.likes}</span>
                   </button>
                   <span className="text-xs text-gray-500">
@@ -247,23 +241,23 @@ export default function QuestionsSection({ questions, sellerName }: QuestionsSec
                         className="w-10 h-10 rounded-full"
                       />
                     ) : (
-                      <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
-                        <User className="w-5 h-5 text-gray-500" />
+                      <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                        <User className="w-5 h-5 text-green-600" />
                       </div>
                     )}
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex flex-wrap items-center gap-2 mb-1">
-                      <span className="font-semibold text-gray-900">{question.userName}</span>
+                      <span className="font-semibold text-sm sm:text-base text-gray-900">{question.userName}</span>
                       <Badge className="bg-amber-500 text-white text-xs">Aguardando resposta</Badge>
                       <span className="text-xs text-gray-500">{formatDate(question.createdAt)}</span>
                     </div>
-                    <p className="text-gray-700">{question.question}</p>
+                    <p className="text-sm sm:text-base text-gray-700 break-words">{question.question}</p>
 
                     {/* Footer com likes */}
-                    <div className="flex items-center gap-4 mt-3">
-                      <button className="flex items-center gap-1 text-sm text-gray-600 hover:text-green-600 transition-colors">
-                        <ThumbsUp className="w-4 h-4" />
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-4 mt-3">
+                      <button className="flex items-center gap-1 text-xs sm:text-sm text-gray-600 hover:text-green-600 transition-colors">
+                        <ThumbsUp className="w-4 h-4 flex-shrink-0" />
                         <span>{question.likes}</span>
                       </button>
                     </div>

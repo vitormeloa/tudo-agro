@@ -19,13 +19,48 @@ interface SellerInfoCardProps {
   seller: Seller;
 }
 
-// Helper function to determine seller level
+// Helper function to determine seller level with Mercado Livre style
 const getSellerLevel = (sales: number) => {
-  if (sales > 1000) return { level: 5, name: 'Vendedor Mestre' };
-  if (sales > 500) return { level: 4, name: 'Vendedor Diamante' };
-  if (sales > 100) return { level: 3, name: 'Vendedor Ouro' };
-  if (sales > 50) return { level: 2, name: 'Vendedor Prata' };
-  return { level: 1, name: 'Vendedor Bronze' };
+  // Define thresholds for each level
+  const levels = [
+    { threshold: 0, name: 'Novo', color: '#ef4444', textColor: 'text-red-600' }, // Vermelho - Ruim
+    { threshold: 50, name: 'Bronze', color: '#f97316', textColor: 'text-orange-600' }, // Laranja - Regular
+    { threshold: 100, name: 'Prata', color: '#eab308', textColor: 'text-yellow-600' }, // Amarelo - Bom
+    { threshold: 500, name: 'Ouro', color: '#22c55e', textColor: 'text-green-500' }, // Verde claro - Muito bom
+    { threshold: 1000, name: 'Diamante', color: '#10b981', textColor: 'text-green-600' }, // Verde - Excelente
+  ];
+
+  // Find current level
+  let currentLevel = 0;
+  for (let i = levels.length - 1; i >= 0; i--) {
+    if (sales >= levels[i].threshold) {
+      currentLevel = i;
+      break;
+    }
+  }
+
+  // Calculate progress within current level
+  const current = levels[currentLevel];
+  const next = levels[currentLevel + 1];
+  let progress = 0;
+
+  if (next) {
+    const levelRange = next.threshold - current.threshold;
+    const salesInLevel = sales - current.threshold;
+    progress = (salesInLevel / levelRange) * 100;
+  } else {
+    // Max level reached
+    progress = 100;
+  }
+
+  return {
+    level: currentLevel,
+    name: current.name,
+    color: current.color,
+    textColor: current.textColor,
+    progress: Math.min(progress, 100),
+    levels: levels,
+  };
 };
 
 export default function SellerInfoCard({ seller }: SellerInfoCardProps) {
@@ -61,15 +96,43 @@ export default function SellerInfoCard({ seller }: SellerInfoCardProps) {
             </Link>
             <p className="text-sm text-gray-500 mb-3">{seller.location}</p>
 
-            <div className="flex items-center mb-4">
-              <div className="flex-1">
-                <p className="text-sm font-semibold text-green-700">{sellerLevel.name}</p>
-                <div className="w-full bg-gray-200 rounded-full h-1.5 mt-1">
-                  <div 
-                    className="bg-green-600 h-1.5 rounded-full" 
-                    style={{ width: `${(sellerLevel.level / 5) * 100}%` }}
-                  ></div>
-                </div>
+            <div className="mb-4">
+              <div className="flex items-center justify-between mb-1">
+                <p className={`text-sm font-bold ${sellerLevel.textColor}`}>
+                  {sellerLevel.name}
+                </p>
+                <span className="text-xs text-gray-500">
+                  {seller.totalSales} vendas
+                </span>
+              </div>
+
+              {/* Mercado Livre style segmented progress bar */}
+              <div className="flex gap-0.5">
+                {sellerLevel.levels.map((levelBar, index) => {
+                  const isActive = index <= sellerLevel.level;
+                  const isCurrent = index === sellerLevel.level;
+
+                  return (
+                    <div
+                      key={index}
+                      className="flex-1 h-2 rounded-sm overflow-hidden"
+                      style={{
+                        backgroundColor: isActive ? levelBar.color : '#e5e7eb',
+                        opacity: isCurrent ? 1 : (isActive ? 0.9 : 1)
+                      }}
+                    >
+                      {isCurrent && sellerLevel.progress < 100 && (
+                        <div
+                          className="h-full bg-gray-200"
+                          style={{
+                            width: `${100 - sellerLevel.progress}%`,
+                            marginLeft: `${sellerLevel.progress}%`
+                          }}
+                        />
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             </div>
 
