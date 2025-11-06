@@ -94,7 +94,7 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
         <Header />
         <div className="min-h-screen bg-gray-50 flex items-center justify-center">
           <div className="text-center">
-            <h1 className="text-2xl font-bold text-gray-900 mb-4">Animal não encontrado</h1>
+            <h1 className="text-2xl font-bold text-[#101828] mb-4">Animal não encontrado</h1>
             <Link href="/catalogo">
               <Button>Voltar para Catálogo</Button>
             </Link>
@@ -164,7 +164,7 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
                   variant="ghost"
                   onClick={handleToggleFavorite}
                   className={`bg-white/90 hover:bg-white transition-colors p-1.5 sm:p-2 h-auto ${
-                    isFavorite(animal.id) ? 'text-red-500' : 'text-[#8B4513] hover:text-red-500'
+                    isFavorite(animal.id) ? 'text-red-500' : 'text-gray-700 hover:text-red-500'
                   }`}
                 >
                   <Heart className={`w-4 h-4 sm:w-5 sm:h-5 ${isFavorite(animal.id) ? 'fill-current' : ''}`} />
@@ -172,7 +172,7 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
                 <Button
                   size="sm"
                   variant="ghost"
-                  className="bg-white/90 hover:bg-white text-[#8B4513] hover:text-[#1C6B3E] transition-colors p-1.5 sm:p-2 h-auto"
+                  className="bg-white/90 hover:bg-white text-gray-700 hover:text-emerald-700 transition-colors p-1.5 sm:p-2 h-auto"
                 >
                   <Share2 className="w-4 h-4 sm:w-5 sm:h-5" />
                 </Button>
@@ -209,7 +209,7 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
           {/* Animal Info */}
           <div className="space-y-4 sm:space-y-6">
             <div>
-              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4 leading-tight">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#101828] mb-3 sm:mb-4 leading-tight">
                 {animal.title}
               </h1>
 
@@ -218,7 +218,7 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
                 <span>{animal.city}, {animal.location}</span>
               </div>
 
-              <div className="text-3xl sm:text-4xl font-bold text-green-600 mb-4 sm:mb-6">
+              <div className="text-3xl sm:text-4xl font-bold text-emerald-600 mb-4 sm:mb-6">
                 R$ {animal.price.toLocaleString()}
               </div>
             </div>
@@ -226,34 +226,34 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
             {/* Specifications */}
             <Card className="bg-white border-gray-200 shadow-lg">
               <CardContent className="p-4 sm:p-6">
-                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-4">Especificações</h3>
+                <h3 className="text-lg sm:text-xl font-bold text-[#101828] mb-4">Especificações</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   <div className="flex items-center gap-2 sm:gap-3">
-                    <Award className="w-5 h-5 sm:w-6 sm:h-6 text-green-600 flex-shrink-0" />
+                    <Award className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600 flex-shrink-0" />
                     <div>
                       <div className="text-xs sm:text-sm text-gray-500">Raça</div>
-                      <div className="font-medium text-sm sm:text-base text-gray-900">{animal.breed}</div>
+                      <div className="font-medium text-sm sm:text-base text-[#101828]">{animal.breed}</div>
                     </div>
                   </div>
                   <div className="flex items-center gap-2 sm:gap-3">
-                    <Calendar className="w-5 h-5 sm:w-6 sm:h-6 text-green-600 flex-shrink-0" />
+                    <Calendar className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600 flex-shrink-0" />
                     <div>
                       <div className="text-xs sm:text-sm text-gray-500">Idade</div>
-                      <div className="font-medium text-sm sm:text-base text-gray-900">{animal.age}</div>
+                      <div className="font-medium text-sm sm:text-base text-[#101828]">{animal.age}</div>
                     </div>
                   </div>
                   <div className="flex items-center gap-2 sm:gap-3">
-                    <Weight className="w-5 h-5 sm:w-6 sm:h-6 text-green-600 flex-shrink-0" />
+                    <Weight className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600 flex-shrink-0" />
                     <div>
                       <div className="text-xs sm:text-sm text-gray-500">Peso</div>
-                      <div className="font-medium text-sm sm:text-base text-gray-900">{animal.weight}</div>
+                      <div className="font-medium text-sm sm:text-base text-[#101828]">{animal.weight}</div>
                     </div>
                   </div>
                   <div className="flex items-center gap-2 sm:gap-3">
-                    <Ruler className="w-5 h-5 sm:w-6 sm:h-6 text-green-600 flex-shrink-0" />
+                    <Ruler className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600 flex-shrink-0" />
                     <div>
                       <div className="text-xs sm:text-sm text-gray-500">Altura</div>
-                      <div className="font-medium text-sm sm:text-base text-gray-900">{animal.height}</div>
+                      <div className="font-medium text-sm sm:text-base text-[#101828]">{animal.height}</div>
                     </div>
                   </div>
                 </div>
@@ -263,14 +263,14 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
             {/* Production Details */}
             <Card className="bg-white border-gray-200 shadow-lg">
               <CardContent className="p-4 sm:p-6">
-                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-4">Detalhes de Produção</h3>
+                <h3 className="text-lg sm:text-xl font-bold text-[#101828] mb-4">Detalhes de Produção</h3>
                 <div className="space-y-2 sm:space-y-3">
                   {Object.entries(animal.specifications).map(([key, value]) => (
                     <div key={key} className="flex flex-col sm:flex-row sm:justify-between gap-1 sm:gap-2">
                       <span className="text-xs sm:text-sm text-gray-500 capitalize">
                         {key.replace(/([A-Z])/g, ' $1').toLowerCase()}:
                       </span>
-                      <span className="font-medium text-sm sm:text-base text-gray-900 break-words">{value}</span>
+                      <span className="font-medium text-sm sm:text-base text-[#101828] break-words">{value}</span>
                     </div>
                   ))}
                 </div>
@@ -281,7 +281,7 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
             <div className="space-y-3 sm:space-y-4">
               {animal.type === 'venda' ? (
                 <Button
-                  className="w-full bg-green-600 hover:bg-green-700 text-white py-3 sm:py-4 text-base sm:text-lg font-semibold transition-colors"
+                  className="w-full primary hover:bg-[#2E7A5A] text-white py-3 sm:py-4 text-base sm:text-lg font-semibold transition-colors"
                   onClick={handlePurchase}
                 >
                   Comprar Agora
@@ -331,7 +331,7 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
             <TabsContent value="descricao" className="mt-4 sm:mt-6">
               <Card className="bg-white border-gray-200 shadow-lg">
                 <CardContent className="p-4 sm:p-6 lg:p-8">
-                  <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">Descrição</h2>
+                  <h2 className="text-xl sm:text-2xl font-bold text-[#101828] mb-3 sm:mb-4">Descrição</h2>
                   <p className="text-sm sm:text-base lg:text-lg text-gray-600 leading-relaxed">
                     {animal.description}
                   </p>
@@ -342,14 +342,14 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
             <TabsContent value="especificacoes" className="mt-4 sm:mt-6">
               <Card className="bg-white border-gray-200 shadow-lg">
                 <CardContent className="p-4 sm:p-6 lg:p-8">
-                  <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">Especificações de Produção</h2>
+                  <h2 className="text-xl sm:text-2xl font-bold text-[#101828] mb-3 sm:mb-4">Especificações de Produção</h2>
                   <div className="space-y-2 sm:space-y-3">
                     {Object.entries(animal.specifications).map(([key, value]) => (
                       <div key={key} className="flex flex-col sm:flex-row sm:justify-between py-2 sm:py-3 border-b border-gray-100 gap-1 sm:gap-2">
                         <span className="text-xs sm:text-sm text-gray-500 capitalize font-medium">
                           {key.replace(/([A-Z])/g, ' $1').toLowerCase()}:
                         </span>
-                        <span className="text-sm sm:text-base font-medium text-gray-900 break-words">{value}</span>
+                        <span className="text-sm sm:text-base font-medium text-[#101828] break-words">{value}</span>
                       </div>
                     ))}
                   </div>
@@ -360,15 +360,15 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
             <TabsContent value="documentos" className="mt-4 sm:mt-6">
               <Card className="bg-white border-gray-200 shadow-lg">
                 <CardContent className="p-4 sm:p-6 lg:p-8">
-                  <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4 flex items-center">
+                  <h2 className="text-xl sm:text-2xl font-bold text-[#101828] mb-3 sm:mb-4 flex items-center">
                     <FileText className="w-5 h-5 sm:w-6 sm:h-6 inline mr-2 flex-shrink-0" />
                     Documentos Disponíveis
                   </h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
                     {animal.documents.map((doc, index) => (
                       <div key={index} className="flex items-center p-3 sm:p-4 bg-gray-50 rounded-lg border border-gray-200">
-                        <Shield className="w-4 h-4 sm:w-5 sm:h-5 text-green-600 mr-2 sm:mr-3 flex-shrink-0" />
-                        <span className="text-sm sm:text-base text-gray-900 break-words">{doc}</span>
+                        <Shield className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600 mr-2 sm:mr-3 flex-shrink-0" />
+                        <span className="text-sm sm:text-base text-[#101828] break-words">{doc}</span>
                       </div>
                     ))}
                   </div>
@@ -415,7 +415,7 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
         <div className="mt-6 sm:mt-8">
           <Card className="bg-white border-gray-200 shadow-lg">
             <CardContent className="p-4 sm:p-6 lg:p-8">
-              <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4 flex items-center">
+              <h2 className="text-xl sm:text-2xl font-bold text-[#101828] mb-3 sm:mb-4 flex items-center">
                 <MapPin className="w-5 h-5 sm:w-6 sm:h-6 inline mr-2" />
                 Localização
               </h2>

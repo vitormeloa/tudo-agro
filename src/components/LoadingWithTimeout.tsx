@@ -63,13 +63,13 @@ export default function LoadingWithTimeout({
         
         {showTimeout ? (
           <>
-            <p className="text-[#6E7D5B] mb-2">{timeoutMessage}</p>
+            <p className="text-gray-600 mb-2">{timeoutMessage}</p>
             {showManualRedirect && (
               <p className="text-sm text-gray-500">
                 Se não for redirecionado automaticamente,{' '}
                 <button 
                   onClick={handleManualRedirect}
-                  className="text-[#1E4D2B] hover:underline font-medium"
+                  className="text-emerald-800 hover:underline font-medium"
                 >
                   clique aqui
                 </button>
@@ -77,7 +77,7 @@ export default function LoadingWithTimeout({
             )}
           </>
         ) : (
-          <p className="text-[#6E7D5B]">{message}</p>
+          <p className="text-gray-600">{message}</p>
         )}
       </div>
     </div>

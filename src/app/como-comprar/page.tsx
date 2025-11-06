@@ -63,7 +63,7 @@ export default function ComoComprarPage() {
       <Header />
       
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-emerald-600 via-green-600 to-emerald-700 text-white py-20">
+      <section className="bg-gradient-to-r from-emerald-600 via-emerald-600 to-emerald-700 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">Como Comprar</h1>
@@ -77,7 +77,7 @@ export default function ComoComprarPage() {
       <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Steps Section */}
         <section className="mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Passo a Passo</h2>
+          <h2 className="text-3xl font-bold text-[#101828] mb-8 text-center">Passo a Passo</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {steps.map((step, index) => (
               <Card key={index} className="border-2 border-gray-200 hover:border-emerald-500 transition-colors">
@@ -86,7 +86,7 @@ export default function ComoComprarPage() {
                     <div className="bg-emerald-100 p-3 rounded-lg mr-4">
                       <step.icon className="w-6 h-6 text-emerald-600" />
                     </div>
-                    <h3 className="text-xl font-semibold text-gray-900">{step.title}</h3>
+                    <h3 className="text-xl font-semibold text-[#101828]">{step.title}</h3>
                   </div>
                   <p className="text-gray-600">{step.description}</p>
                 </CardContent>
@@ -97,7 +97,7 @@ export default function ComoComprarPage() {
 
         {/* Benefits Section */}
         <section className="mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Por que Comprar no TudoAgro?</h2>
+          <h2 className="text-3xl font-bold text-[#101828] mb-8 text-center">Por que Comprar no TudoAgro?</h2>
           <div className="grid md:grid-cols-3 gap-6">
             {benefits.map((benefit, index) => (
               <Card key={index} className="text-center border-2 border-gray-200">
@@ -105,7 +105,7 @@ export default function ComoComprarPage() {
                   <div className="bg-emerald-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                     <benefit.icon className="w-8 h-8 text-emerald-600" />
                   </div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">{benefit.title}</h3>
+                  <h3 className="text-xl font-semibold text-[#101828] mb-2">{benefit.title}</h3>
                   <p className="text-gray-600">{benefit.description}</p>
                 </CardContent>
               </Card>
@@ -114,13 +114,13 @@ export default function ComoComprarPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="bg-gradient-to-r from-emerald-50 to-green-50 rounded-lg p-8 text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Pronto para Começar?</h2>
+        <section className="bg-gradient-to-r from-emerald-50 to-emerald-50 rounded-lg p-8 text-center">
+          <h2 className="text-2xl font-bold text-[#101828] mb-4">Pronto para Começar?</h2>
           <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
             Explore nosso catálogo e encontre os melhores produtos e animais para seu negócio
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild className="bg-emerald-600 hover:bg-emerald-700 text-white">
+            <Button asChild className="bg-emerald-600 hover:bg-[#2E7A5A] text-white">
               <a href="/catalogo">Ver Catálogo de Animais</a>
             </Button>
             <Button asChild variant="outline" className="border-emerald-600 text-emerald-600 hover:bg-emerald-50">

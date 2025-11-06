@@ -197,7 +197,7 @@ export default function ProductsSection() {
     } else if (stock <= minStock) {
       return <Badge variant="outline" className="text-xs text-yellow-600">Estoque Baixo</Badge>
     } else {
-      return <Badge variant="outline" className="text-xs text-green-600">Em Estoque</Badge>
+      return <Badge variant="outline" className="text-xs text-emerald-600">Em Estoque</Badge>
     }
   }
 
@@ -242,7 +242,7 @@ export default function ProductsSection() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
                 <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-                    <Package className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E4D2B]" />
+                    <Package className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-800" />
                     <span className="text-base sm:text-lg font-semibold">Gerenciamento de Produtos</span>
                 </CardTitle>
             </div>
@@ -261,7 +261,7 @@ export default function ProductsSection() {
             {/* Busca */}
             <div className="flex-1">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#6E7D5B] w-4 h-4" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 w-4 h-4" />
                 <Input
                   placeholder="Buscar produtos..."
                   value={searchTerm}
@@ -323,10 +323,10 @@ export default function ProductsSection() {
             <CardHeader className="pb-3">
               <div className="flex justify-between items-start">
                 <div className="flex-1 min-w-0">
-                  <CardTitle className="text-base sm:text-lg font-semibold text-[#2B2E2B] line-clamp-2">
+                  <CardTitle className="text-base sm:text-lg font-semibold text-[#101828] line-clamp-2">
                     {product.name}
                   </CardTitle>
-                  <p className="text-sm text-[#6E7D5B] mt-1 line-clamp-2">
+                  <p className="text-sm text-gray-600 mt-1 line-clamp-2">
                     {product.description}
                   </p>
                 </div>
@@ -342,7 +342,7 @@ export default function ProductsSection() {
                   {product.brand}
                 </Badge>
                 {product.freeShipping && (
-                  <Badge variant="outline" className="text-xs text-green-600">
+                  <Badge variant="outline" className="text-xs text-emerald-600">
                     Frete Grátis
                   </Badge>
                 )}
@@ -353,11 +353,11 @@ export default function ProductsSection() {
               <div className="space-y-3">
                 {/* Preço */}
                 <div className="flex items-center gap-2">
-                  <div className="text-lg font-bold text-[#1E4D2B]">
+                  <div className="text-lg font-bold text-emerald-800">
                     R$ {product.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
                   </div>
                   {product.originalPrice && (
-                    <div className="text-sm text-[#6E7D5B] line-through">
+                    <div className="text-sm text-gray-600 line-through">
                       R$ {product.originalPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
                     </div>
                   )}
@@ -373,24 +373,24 @@ export default function ProductsSection() {
                   <div className="flex items-center gap-1">
                     <Star className="w-4 h-4 text-yellow-500 fill-current" />
                     <span className="font-medium">{product.rating}</span>
-                    <span className="text-[#6E7D5B]">({product.reviews})</span>
+                    <span className="text-gray-600">({product.reviews})</span>
                   </div>
                 </div>
                 
                 {/* Vendedor e Localização */}
                 <div className="space-y-1 text-sm">
                   <div className="flex items-center gap-2">
-                    <User className="w-4 h-4 text-[#6E7D5B]" />
-                    <span className="text-[#2B2E2B] font-medium">{product.seller}</span>
+                    <User className="w-4 h-4 text-gray-600" />
+                    <span className="text-[#101828] font-medium">{product.seller}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <MapPin className="w-4 h-4 text-[#6E7D5B]" />
-                    <span className="text-[#2B2E2B]">{product.location}</span>
+                    <MapPin className="w-4 h-4 text-gray-600" />
+                    <span className="text-[#101828]">{product.location}</span>
                   </div>
                 </div>
                 
                 {/* Estatísticas */}
-                <div className="flex items-center justify-between text-sm text-[#6E7D5B]">
+                <div className="flex items-center justify-between text-sm text-gray-600">
                   <div className="flex items-center gap-1">
                     <Eye className="w-4 h-4" />
                     {product.views} visualizações
@@ -403,8 +403,8 @@ export default function ProductsSection() {
                 
                 {/* Especificações */}
                 <div className="space-y-1">
-                  <div className="text-xs font-medium text-[#2B2E2B]">Especificações:</div>
-                  <div className="grid grid-cols-2 gap-1 text-xs text-[#6E7D5B]">
+                  <div className="text-xs font-medium text-[#101828]">Especificações:</div>
+                  <div className="grid grid-cols-2 gap-1 text-xs text-gray-600">
                     {Object.entries(product.specifications).slice(0, 4).map(([key, value]) => (
                       <div key={key} className="flex justify-between">
                         <span>{key}:</span>
@@ -467,7 +467,7 @@ export default function ProductsSection() {
                       variant="outline" 
                       size="sm"
                       onClick={() => handleAction('shipping', product)}
-                      className="text-blue-600 hover:text-blue-700"
+                      className="text-emerald-600 hover:text-emerald-700"
                     >
                       <Truck className="w-4 h-4 mr-1" />
                       Frete
@@ -485,28 +485,28 @@ export default function ProductsSection() {
         <CardContent className="pt-6">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             <div className="text-center">
-              <div className="text-2xl font-bold text-[#1E4D2B]">
+              <div className="text-2xl font-bold text-emerald-800">
                 {products.filter(product => product.status === 'available').length}
               </div>
-              <div className="text-sm text-[#6E7D5B]">Disponíveis</div>
+              <div className="text-sm text-gray-600">Disponíveis</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-purple-600">
+              <div className="text-2xl font-bold text-emerald-600">
                 {products.filter(product => product.status === 'promotion').length}
               </div>
-              <div className="text-sm text-[#6E7D5B]">Promoções</div>
+              <div className="text-sm text-gray-600">Promoções</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-blue-600">
+              <div className="text-2xl font-bold text-emerald-600">
                 {products.filter(product => product.featured).length}
               </div>
-              <div className="text-sm text-[#6E7D5B]">Destaque</div>
+              <div className="text-sm text-gray-600">Destaque</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-[#1E4D2B]">
+              <div className="text-2xl font-bold text-emerald-800">
                 {products.reduce((sum, product) => sum + product.sales, 0)}
               </div>
-              <div className="text-sm text-[#6E7D5B]">Vendas</div>
+              <div className="text-sm text-gray-600">Vendas</div>
             </div>
           </div>
         </CardContent>
@@ -532,15 +532,15 @@ export default function ProductsSection() {
           
           <div className="space-y-4">
             <div className="p-4 bg-gray-50 rounded-lg">
-              <h4 className="font-medium text-[#2B2E2B]">{selectedProduct?.name}</h4>
-              <p className="text-sm text-[#6E7D5B]">{selectedProduct?.brand} - {selectedProduct?.category}</p>
-              <p className="text-lg font-bold text-[#1E4D2B]">
+              <h4 className="font-medium text-[#101828]">{selectedProduct?.name}</h4>
+              <p className="text-sm text-gray-600">{selectedProduct?.brand} - {selectedProduct?.category}</p>
+              <p className="text-lg font-bold text-emerald-800">
                 R$ {selectedProduct?.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
               </p>
             </div>
             
             <div>
-              <label className="text-sm font-medium text-[#2B2E2B]">
+              <label className="text-sm font-medium text-[#101828]">
                 Justificativa (opcional)
               </label>
               <Textarea
@@ -565,7 +565,7 @@ export default function ProductsSection() {
               <Button 
                 onClick={confirmAction}
                 className={actionType === 'delete' || actionType === 'reject' ? 
-                  'bg-red-600 hover:bg-red-700' : 
+                  'bg-red-600 hover:bg-[#A03730]' : 
                   'bg-[#1E4D2B] hover:bg-[#2B5A3A]'
                 }
               >

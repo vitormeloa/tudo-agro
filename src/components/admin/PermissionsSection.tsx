@@ -329,7 +329,7 @@ export default function PermissionsSection() {
         <div className="flex items-center justify-center py-12">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1E4D2B] mx-auto mb-4"></div>
-            <p className="text-[#6E7D5B]">Carregando funções...</p>
+            <p className="text-gray-600">Carregando funções...</p>
           </div>
         </div>
       </div>
@@ -343,10 +343,10 @@ export default function PermissionsSection() {
         <CardHeader className="p-3 sm:p-6">
           <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
             <div className="flex items-center gap-2">
-              <Shield className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E4D2B]" />
+              <Shield className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-800" />
               <span className="text-base sm:text-lg font-semibold">Gerenciamento de Funções</span>
             </div>
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 text-xs sm:text-sm text-[#6E7D5B]">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-600">
               <span>Total: {roles.length}</span>
               <span>Usuários: {users.length}</span>
               <span>Permissões: {Object.values(PERMISSIONS).flat().length}</span>
@@ -358,7 +358,7 @@ export default function PermissionsSection() {
             {/* Busca */}
             <div className="flex-1">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#6E7D5B] w-4 h-4" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 w-4 h-4" />
                 <Input
                   placeholder="Buscar por nome ou descrição..."
                   value={searchTerm}
@@ -372,7 +372,7 @@ export default function PermissionsSection() {
             {canShowButton('create-role') && (
               <Button
                 onClick={() => openRoleDialog()}
-                className="bg-[#1E4D2B] hover:bg-[#2D5A3D] text-sm"
+                className="bg-[#1E4D2B] hover:bg-[#163B20] text-sm"
               >
                 <Plus className="w-4 h-4 mr-2" />
                 Nova Função
@@ -398,21 +398,21 @@ export default function PermissionsSection() {
                     {/* Informações Principais */}
                     <div className="flex-1 w-full min-w-0">
                       <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-2">
-                        <h3 className="text-base sm:text-lg font-semibold text-[#2B2E2B] break-words">{role.name}</h3>
+                        <h3 className="text-base sm:text-lg font-semibold text-[#101828] break-words">{role.name}</h3>
                         <div className="flex flex-wrap items-center gap-2">
-                          <Badge variant="secondary" className="bg-[#F0F9FF] text-[#1E4D2B]">
+                          <Badge variant="secondary" className="bg-[#F0F9FF] text-emerald-800">
                             {role.permissions.length} permissões
                           </Badge>
                         </div>
                       </div>
                       
-                      <div className="text-xs sm:text-sm text-[#6E7D5B] mb-3 sm:mb-4">
+                      <div className="text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4">
                         <p className="break-words">{role.description}</p>
                       </div>
 
                       {/* Permissões */}
                       <div className="mb-3 sm:mb-4">
-                        <p className="text-xs sm:text-sm font-medium text-[#2B2E2B] mb-2">Permissões:</p>
+                        <p className="text-xs sm:text-sm font-medium text-[#101828] mb-2">Permissões:</p>
                         <div className="flex flex-wrap gap-1 sm:gap-2">
                           {role.permissions.slice(0, 8).map((permission) => (
                             <Badge key={permission} variant="outline" className="text-xs">
@@ -428,7 +428,7 @@ export default function PermissionsSection() {
                       </div>
 
                       {/* Datas */}
-                      <div className="text-xs sm:text-sm text-[#6E7D5B] space-y-1">
+                      <div className="text-xs sm:text-sm text-gray-600 space-y-1">
                         <div className="flex items-center gap-2">
                           <Calendar className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
                           <span className="truncate">Criado: {new Date(role.created_at).toLocaleDateString('pt-BR')}</span>
@@ -444,11 +444,11 @@ export default function PermissionsSection() {
                   {/* Estatísticas */}
                   <div className="grid grid-cols-2 gap-2 sm:gap-4 mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-gray-100">
                     <div className="text-center">
-                      <p className="text-lg sm:text-2xl font-bold text-[#1E4D2B]">{role.permissions.length}</p>
-                      <p className="text-xs text-[#6E7D5B]">Permissões</p>
+                      <p className="text-lg sm:text-2xl font-bold text-emerald-800">{role.permissions.length}</p>
+                      <p className="text-xs text-gray-600">Permissões</p>
                     </div>
                     <div className="text-center">
-                      <p className="text-lg sm:text-2xl font-bold text-[#1E4D2B]">
+                      <p className="text-lg sm:text-2xl font-bold text-emerald-800">
                         {(() => {
                           const userCount = users.filter(user => {
                             const hasRole = user.roles.includes(role.name)
@@ -459,7 +459,7 @@ export default function PermissionsSection() {
                           return userCount
                         })()}
                       </p>
-                      <p className="text-xs text-[#6E7D5B]">Usuários</p>
+                      <p className="text-xs text-gray-600">Usuários</p>
                     </div>
                   </div>
                 </div>
@@ -496,7 +496,7 @@ export default function PermissionsSection() {
                           <AlertDialogCancel>Cancelar</AlertDialogCancel>
                           <AlertDialogAction
                             onClick={() => handleDeleteRole(role.id)}
-                            className="bg-red-600 hover:bg-red-700"
+                            className="bg-red-600 hover:bg-[#A03730]"
                           >
                             Excluir
                           </AlertDialogAction>
@@ -549,7 +549,7 @@ export default function PermissionsSection() {
                   <Card key={resource} className="border border-[#E5E7EB]">
                     <CardHeader className="pb-3">
                       <div className="flex items-center justify-between">
-                        <h4 className="font-medium text-[#1E4D2B]">
+                        <h4 className="font-medium text-emerald-800">
                           {RESOURCE_LABELS[resource as keyof typeof RESOURCE_LABELS]}
                         </h4>
                         <Button
@@ -599,7 +599,7 @@ export default function PermissionsSection() {
               </Button>
               <Button
                 onClick={editingRole ? handleUpdateRole : handleCreateRole}
-                className="bg-[#1E4D2B] hover:bg-[#2D5A3D]"
+                className="bg-[#1E4D2B] hover:bg-[#163B20]"
               >
                 <Save className="h-4 w-4 mr-2" />
                 {editingRole ? 'Atualizar' : 'Criar'} Função
@@ -658,7 +658,7 @@ export default function PermissionsSection() {
               </Button>
               <Button
                 onClick={handleAssignUserRoles}
-                className="bg-[#1E4D2B] hover:bg-[#2D5A3D]"
+                className="bg-[#1E4D2B] hover:bg-[#163B20]"
               >
                 <Save className="h-4 w-4 mr-2" />
                 Salvar

@@ -1,0 +1,509 @@
+'use client';
+
+import { useState, useRef, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import {
+  Package,
+  Gavel,
+  DollarSign,
+  BookOpen,
+  MessageSquare,
+  Send,
+  Sparkles,
+  RefreshCw,
+  ThumbsDown,
+  User,
+  X,
+} from "lucide-react";
+import { AgroIAAvatar } from "@/components/AgroIAAvatar";
+import { TypingIndicator } from "@/components/TypingIndicator";
+import { AudioRecorder } from "@/components/AudioRecorder";
+import { MediaUpload } from "@/components/MediaUpload";
+import { toast } from "@/hooks/use-toast";
+import { supabase } from "@/lib/supabase";
+
+interface Message {
+  id: number;
+  sender: "user" | "ai";
+  text: string;
+  time: string;
+  hasAction?: boolean;
+  actionLabel?: string;
+  actionLink?: string;
+  mediaUrl?: string;
+  mediaType?: 'image' | 'video';
+}
+
+const AjudaIA = () => {
+  const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [isTyping, setIsTyping] = useState(false);
+  const [attachedFile, setAttachedFile] = useState<{file: File, type: 'image' | 'video'} | null>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // Removed auto-scroll to let users control scrolling manually
+
+  const quickQuestions = [
+    {
+      category: "📦 Compras",
+      icon: Package,
+      questions: [
+        "Como acompanhar um pedido?",
+        "Onde vejo meus comprovantes?",
+        "O que significa 'preparando envio'?",
+        "Como cancelar uma compra?",
+      ],
+    },
+    {
+      category: "🧬 Animais / Genética",
+      icon: Sparkles,
+      questions: [
+        "Como saber se um animal é verificado?",
+        "Onde encontro gado de corte?",
+        "Quais documentos acompanham o sêmen?",
+        "Como verificar pedigree?",
+      ],
+    },
+    {
+      category: "🔨 Leilões",
+      icon: Gavel,
+      questions: [
+        "Como funciona o lance automático?",
+        "O que é um leilão ao vivo?",
+        "Como saber o valor final pago?",
+        "Posso cancelar um lance?",
+      ],
+    },
+    {
+      category: "💸 Financeiro",
+      icon: DollarSign,
+      questions: [
+        "Como baixo a nota fiscal?",
+        "Qual o prazo de reembolso?",
+        "Posso pagar com Pix ou Cartão?",
+        "Como adicionar novo método de pagamento?",
+      ],
+    },
+    {
+      category: "🎓 Treinamentos",
+      icon: BookOpen,
+      questions: [
+        "Como ganho meu certificado?",
+        "Onde acesso os módulos?",
+        "Como assistir novamente?",
+        "Quanto tempo tenho acesso?",
+      ],
+    },
+  ];
+
+  const sendToAI = async (userMessage: Message) => {
+    setIsTyping(true);
+    
+    try {
+      const conversationHistory = messages.map(msg => ({
+        role: msg.sender === "user" ? "user" : "assistant",
+        content: msg.text
+      }));
+
+      conversationHistory.push({
+        role: "user",
+        content: userMessage.text
+      });
+
+      const { data, error } = await supabase.functions.invoke('agroia-chat', {
+        body: { 
+          messages: conversationHistory,
+          includeActions: true
+        }
+      });
+
+      if (error) throw error;
+
+      const aiResponse: Message = {
+        id: Date.now(),
+        sender: "ai",
+        text: data.message || "Desculpe, não consegui processar sua mensagem.",
+        time: "Agora",
+        hasAction: !!data.action,
+        actionLabel: data.action?.label,
+        actionLink: data.action?.link,
+      };
+
+      setMessages((prev) => [...prev, aiResponse]);
+    } catch (error: any) {
+      console.error("Error calling AgroIA:", error);
+      
+      let errorMessage = "Desculpe, houve um erro ao processar sua mensagem. Tente novamente.";
+      
+      if (error.message?.includes("429")) {
+        errorMessage = "Muitas solicitações. Por favor, aguarde um momento.";
+      } else if (error.message?.includes("402")) {
+        errorMessage = "Serviço temporariamente indisponível. Tente novamente em breve.";
+      }
+
+      toast({
+        title: "Erro",
+        description: errorMessage,
+        variant: "destructive",
+      });
+    } finally {
+      setIsTyping(false);
+    }
+  };
+
+  const handleQuickQuestion = (question: string) => {
+    const newUserMessage: Message = {
+      id: Date.now(),
+      sender: "user",
+      text: question,
+      time: "Agora",
+    };
+
+    setMessages((prev) => [...prev, newUserMessage]);
+    sendToAI(newUserMessage);
+  };
+
+  const handleSendMessage = async () => {
+    if (!message.trim() && !attachedFile) return;
+
+    let mediaUrl: string | undefined;
+    let mediaType: 'image' | 'video' | undefined;
+
+    // Handle file upload if there's an attached file
+    if (attachedFile) {
+      mediaUrl = URL.createObjectURL(attachedFile.file);
+      mediaType = attachedFile.type;
+    }
+
+    const newUserMessage: Message = {
+      id: Date.now(),
+      sender: "user",
+      text: message || (attachedFile ? `[${attachedFile.type === 'image' ? 'Imagem' : 'Vídeo'} anexado]` : ""),
+      time: "Agora",
+      mediaUrl,
+      mediaType,
+    };
+
+    setMessages((prev) => [...prev, newUserMessage]);
+    sendToAI(newUserMessage);
+    setMessage("");
+    setAttachedFile(null);
+  };
+
+  const handleAudioRecording = (audioBlob: Blob) => {
+    const audioUrl = URL.createObjectURL(audioBlob);
+    toast({
+      title: "Áudio gravado!",
+      description: "Processando sua mensagem...",
+    });
+    
+    // For now, just add a message indicating audio was recorded
+    // In the future, you could transcribe this using Whisper API
+    const audioMessage: Message = {
+      id: Date.now(),
+      sender: "user",
+      text: "[Áudio gravado]",
+      time: "Agora",
+    };
+    
+    setMessages((prev) => [...prev, audioMessage]);
+    sendToAI(audioMessage);
+  };
+
+  const handleFileSelect = (file: File, type: 'image' | 'video') => {
+    setAttachedFile({ file, type });
+  };
+
+  const handleRetry = (questionText: string) => {
+    const retryMessage: Message = {
+      id: Date.now(),
+      sender: "user",
+      text: questionText,
+      time: "Agora",
+    };
+    sendToAI(retryMessage);
+  };
+
+  const handleNotHelpful = () => {
+    toast({
+      title: "Obrigado pelo feedback!",
+      description: "Vamos melhorar essa resposta. Gostaria de falar com um atendente?",
+    });
+  };
+
+  const handleHumanSupport = () => {
+    toast({
+      title: "Conectando ao suporte...",
+      description: "Um atendente entrará em contato em breve!",
+    });
+  };
+
+  return (
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="relative">
+        {/* Animated background effect */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#2A5C2E]/5 via-[#4CAF50]/5 to-[#2A5C2E]/5 rounded-2xl blur-xl animate-pulse" />
+        
+        <Card className="relative border-2 border-[#2A5C2E]/20 bg-gradient-to-br from-background to-[#2A5C2E]/5 shadow-lg overflow-hidden">
+          {/* Tech pattern overlay */}
+          <div className="absolute inset-0 opacity-5">
+            <div className="absolute inset-0" style={{
+              backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 10px, #2A5C2E 10px, #2A5C2E 11px)`,
+            }} />
+          </div>
+
+          <CardContent className="p-6 relative">
+            <div className="flex items-center gap-4">
+              <div className="relative">
+                <AgroIAAvatar size="lg" />
+                {/* Pulsing rings */}
+                <div className="absolute inset-0 rounded-full border-2 border-[#2A5C2E]/30 animate-ping" />
+                <div className="absolute inset-0 rounded-full border-2 border-[#4CAF50]/20 animate-pulse" style={{ animationDelay: "0.5s" }} />
+              </div>
+              
+              <div className="flex-1">
+                <div className="flex items-center gap-3">
+                  <h1 className="text-2xl lg:text-3xl font-bold bg-gradient-to-r from-[#2A5C2E] to-[#4CAF50] bg-clip-text text-transparent">
+                    AgroIA
+                  </h1>
+                  <Sparkles className="h-5 w-5 text-[#3D9970] animate-pulse" />
+                </div>
+                <div className="flex items-center gap-3 mt-2">
+                  <Badge className="bg-gradient-to-r from-[#2A5C2E] to-[#4CAF50] text-white hover:from-[#2A5C2E]/90 hover:to-[#4CAF50]/90 shadow-lg">
+                    <span className="h-2 w-2 rounded-full bg-white animate-pulse mr-2 shadow-sm" />
+                    Online
+                  </Badge>
+                  <span className="text-xs lg:text-sm text-muted-foreground font-medium">
+                    🤖 Inteligência Artificial • Responde em tempo real
+                  </span>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+
+          {/* Animated border effect */}
+          <div className="absolute inset-0 rounded-lg overflow-hidden pointer-events-none">
+            <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#4CAF50] to-transparent animate-pulse" />
+            <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#2A5C2E] to-transparent animate-pulse" style={{ animationDelay: "1s" }} />
+          </div>
+        </Card>
+      </div>
+
+      {/* Main Content */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Chat Area */}
+        <Card className="lg:col-span-2 flex flex-col min-h-[500px] shadow-xl border-2 border-[#2A5C2E]/20 bg-gradient-to-b from-background to-[#2A5C2E]/5 relative overflow-hidden">
+          {/* Animated corner accents */}
+          <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-[#4CAF50]/10 to-transparent rounded-bl-full" />
+          <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-[#2A5C2E]/10 to-transparent rounded-tr-full" />
+          
+          {/* Messages */}
+          <div className="flex-1 overflow-y-auto p-4 lg:p-6 space-y-4 relative z-10">
+            {/* Welcome Message */}
+            {messages.length === 0 && (
+              <div className="flex gap-3 animate-fade-in">
+                <AgroIAAvatar size="md" />
+                <div className="max-w-[85%] lg:max-w-[80%]">
+                  <div className="bg-muted/50 rounded-2xl rounded-tl-none p-4 shadow-sm">
+                    <p className="text-sm lg:text-base">
+                      Olá 👋, eu sou a <span className="font-semibold text-emerald-800">AgroIA</span>, sua assistente aqui no TudoAgro.
+                    </p>
+                    <p className="text-sm lg:text-base mt-2">Como posso te ajudar hoje?</p>
+                  </div>
+                  <span className="text-xs text-muted-foreground mt-1 block ml-2">Agora</span>
+                </div>
+              </div>
+            )}
+
+            {/* Chat Messages */}
+            {messages.map((msg, index) => (
+              <div
+                key={msg.id}
+                className={`flex gap-3 ${msg.sender === "user" ? "justify-end" : "justify-start"} animate-fade-in`}
+              >
+                {msg.sender === "ai" && <AgroIAAvatar size="md" />}
+                
+                <div className={`max-w-[85%] lg:max-w-[80%] ${msg.sender === "user" ? "order-first" : ""}`}>
+                  <div
+                    className={`rounded-2xl p-3 lg:p-4 shadow-sm ${
+                      msg.sender === "user"
+                        ? "bg-[#2A5C2E] text-white rounded-tr-none ml-auto"
+                        : "bg-muted/50 rounded-tl-none"
+                    }`}
+                  >
+                    {msg.mediaUrl && (
+                      <div className="mb-2">
+                        {msg.mediaType === 'image' ? (
+                          <img src={msg.mediaUrl} alt="Anexo" className="max-w-full rounded-lg max-h-48" />
+                        ) : (
+                          <video src={msg.mediaUrl} controls className="max-w-full rounded-lg max-h-48" />
+                        )}
+                      </div>
+                    )}
+                    <p className="text-sm lg:text-base whitespace-pre-wrap">{msg.text}</p>
+                    
+                    {msg.hasAction && msg.actionLink && (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="mt-3 bg-white hover:bg-gray-50 border-[#2A5C2E] text-emerald-800"
+                        onClick={() => window.location.href = msg.actionLink!}
+                      >
+                        {msg.actionLabel}
+                      </Button>
+                    )}
+                  </div>
+                  
+                  <div className={`flex items-center gap-2 mt-1 ${msg.sender === "user" ? "justify-end" : "justify-start"}`}>
+                    <span className="text-xs text-muted-foreground">{msg.time}</span>
+                    
+                    {msg.sender === "ai" && (
+                      <div className="flex gap-1">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="h-6 px-2 text-xs"
+                          onClick={() => handleRetry(messages[index - 1]?.text || "")}
+                        >
+                          <RefreshCw className="h-3 w-3 mr-1" />
+                          Refazer
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="h-6 px-2 text-xs"
+                          onClick={handleNotHelpful}
+                        >
+                          <ThumbsDown className="h-3 w-3 mr-1" />
+                          Não ajudou
+                        </Button>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {msg.sender === "user" && (
+                  <div className="h-8 w-8 lg:h-10 lg:w-10 rounded-full bg-[#4CAF50]/20 flex items-center justify-center flex-shrink-0">
+                    <User className="h-4 w-4 lg:h-5 lg:w-5 text-emerald-800" />
+                  </div>
+                )}
+              </div>
+            ))}
+
+            {/* Typing Indicator */}
+            {isTyping && (
+              <div className="flex gap-3 animate-fade-in">
+                <AgroIAAvatar size="md" isTyping />
+                <TypingIndicator />
+              </div>
+            )}
+
+            <div ref={messagesEndRef} />
+          </div>
+
+          {/* Input Area */}
+          <div className="border-t bg-background p-3 lg:p-4 sticky bottom-0 z-10">
+            {attachedFile && (
+              <div className="flex items-center gap-2 mb-2 p-2 bg-muted rounded-lg">
+                <span className="text-sm text-muted-foreground flex-1">
+                  {attachedFile.type === 'image' ? '📷' : '🎥'} {attachedFile.file.name}
+                </span>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setAttachedFile(null)}
+                >
+                  <X className="h-4 w-4" />
+                </Button>
+              </div>
+            )}
+            
+            <div className="flex gap-2">
+              <MediaUpload onFileSelect={handleFileSelect} />
+              <AudioRecorder onRecordingComplete={handleAudioRecording} />
+              
+              <Input
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                placeholder="Digite sua dúvida..."
+                className="rounded-full bg-muted/50 border-none flex-1"
+                onKeyPress={(e) => {
+                  if (e.key === "Enter") {
+                    handleSendMessage();
+                  }
+                }}
+              />
+              <Button
+                onClick={handleSendMessage}
+                size="icon"
+                className="rounded-full bg-[#2A5C2E] hover:bg-[#2A5C2E]/90 h-10 w-10 flex-shrink-0"
+                disabled={isTyping}
+              >
+                <Send className="h-4 w-4" />
+              </Button>
+            </div>
+            
+            {messages.length >= 3 && (
+              <Button
+                variant="ghost"
+                size="sm"
+                className="w-full mt-2 text-xs text-muted-foreground"
+                onClick={handleHumanSupport}
+              >
+                <MessageSquare className="h-3 w-3 mr-1" />
+                Falar com atendimento humano
+              </Button>
+            )}
+          </div>
+        </Card>
+
+        {/* Quick Questions Sidebar */}
+        <div className="space-y-4">
+          <h2 className="font-semibold text-base lg:text-lg flex items-center gap-2">
+            <Sparkles className="h-5 w-5 text-emerald-800" />
+            Perguntas Rápidas
+          </h2>
+          
+          <Accordion type="single" collapsible className="space-y-3">
+            {quickQuestions.map((category, idx) => (
+              <AccordionItem key={idx} value={`item-${idx}`} className="border rounded-lg">
+                <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-accent/50 rounded-lg transition-colors">
+                  <div className="flex items-center gap-2 text-sm lg:text-base">
+                    <category.icon className="h-4 w-4 lg:h-5 lg:w-5 text-emerald-800" />
+                    <span className="font-medium">{category.category}</span>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="px-4 pb-3">
+                  <div className="space-y-2 pt-2">
+                    {category.questions.map((question, qIdx) => (
+                      <Button
+                        key={qIdx}
+                        variant="ghost"
+                        className="w-full justify-start text-left h-auto py-2 px-3 hover:bg-[#1E4D2B]/10 hover:text-emerald-800 transition-colors text-xs lg:text-sm"
+                        onClick={() => handleQuickQuestion(question)}
+                      >
+                        {question}
+                      </Button>
+                    ))}
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default AjudaIA;

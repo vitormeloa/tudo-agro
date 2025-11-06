@@ -609,9 +609,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   // Função de logout otimizada - garante logout completo
   const signOut = useCallback(async () => {
+    console.log('signOut: Iniciando processo de logout...')
     try {
       // Fazer logout do Supabase PRIMEIRO
+      console.log('signOut: Chamando supabase.auth.signOut()...')
       const { error } = await supabase.auth.signOut()
+      console.log('signOut: supabase.auth.signOut() concluído. Erro:', error)
       
       if (error) {
         console.error('Supabase logout error:', error)
@@ -670,6 +673,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       // Aguardar um pouco para garantir que tudo foi limpo
       await new Promise(resolve => setTimeout(resolve, 100))
       
+      console.log('signOut: Redirecionando para /login...')
       // Usar window.location para forçar reload completo e garantir logout
       // Redirecionar para login em todos os casos
       window.location.href = '/login'

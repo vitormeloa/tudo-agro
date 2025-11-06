@@ -155,7 +155,7 @@ export default function AdsSection() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
                 <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-                    <Store className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E4D2B]" />
+                    <Store className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-800" />
                     <span className="text-base sm:text-lg font-semibold">Gerenciamento de Anúncios</span>
                 </CardTitle>
             </div>
@@ -174,7 +174,7 @@ export default function AdsSection() {
             {/* Busca */}
             <div className="flex-1">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#6E7D5B] w-4 h-4" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 w-4 h-4" />
                 <Input
                   placeholder="Buscar anúncios..."
                   value={searchTerm}
@@ -224,10 +224,10 @@ export default function AdsSection() {
             <CardHeader className="pb-3">
               <div className="flex justify-between items-start">
                 <div className="flex-1 min-w-0">
-                  <CardTitle className="text-base sm:text-lg font-semibold text-[#2B2E2B] line-clamp-2">
+                  <CardTitle className="text-base sm:text-lg font-semibold text-[#101828] line-clamp-2">
                     {ad.title}
                   </CardTitle>
-                  <p className="text-sm text-[#6E7D5B] mt-1 line-clamp-2">
+                  <p className="text-sm text-gray-600 mt-1 line-clamp-2">
                     {ad.description}
                   </p>
                 </div>
@@ -249,18 +249,18 @@ export default function AdsSection() {
               <div className="space-y-3">
                 {/* Informações do Vendedor */}
                 <div className="flex items-center gap-2 text-sm">
-                  <User className="w-4 h-4 text-[#6E7D5B]" />
-                  <span className="text-[#2B2E2B] font-medium">{ad.seller}</span>
+                  <User className="w-4 h-4 text-gray-600" />
+                  <span className="text-[#101828] font-medium">{ad.seller}</span>
                 </div>
                 
                 {/* Preço */}
-                <div className="flex items-center gap-2 text-lg font-bold text-[#1E4D2B]">
+                <div className="flex items-center gap-2 text-lg font-bold text-emerald-800">
                   <DollarSign className="w-4 h-4" />
                   R$ {ad.price.toLocaleString('pt-BR')}
                 </div>
                 
                 {/* Estatísticas */}
-                <div className="flex items-center justify-between text-sm text-[#6E7D5B]">
+                <div className="flex items-center justify-between text-sm text-gray-600">
                   <div className="flex items-center gap-1">
                     <Eye className="w-4 h-4" />
                     {ad.views} visualizações
@@ -324,7 +324,7 @@ export default function AdsSection() {
                         variant="outline" 
                         size="sm"
                         onClick={() => handleAction('approve', ad.id)}
-                        className="text-green-600 hover:text-green-700"
+                        className="text-emerald-600 hover:text-emerald-700"
                       >
                         <CheckCircle className="w-4 h-4" />
                       </Button>
@@ -372,28 +372,28 @@ export default function AdsSection() {
         <CardContent className="pt-6">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             <div className="text-center">
-              <div className="text-2xl font-bold text-[#1E4D2B]">
+              <div className="text-2xl font-bold text-emerald-800">
                 {ads.filter(ad => ad.status === 'active').length}
               </div>
-              <div className="text-sm text-[#6E7D5B]">Ativos</div>
+              <div className="text-sm text-gray-600">Ativos</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-yellow-600">
                 {ads.filter(ad => ad.status === 'pending').length}
               </div>
-              <div className="text-sm text-[#6E7D5B]">Pendentes</div>
+              <div className="text-sm text-gray-600">Pendentes</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-blue-600">
+              <div className="text-2xl font-bold text-emerald-600">
                 {ads.filter(ad => ad.featured).length}
               </div>
-              <div className="text-sm text-[#6E7D5B]">Destaque</div>
+              <div className="text-sm text-gray-600">Destaque</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-[#1E4D2B]">
+              <div className="text-2xl font-bold text-emerald-800">
                 {ads.reduce((sum, ad) => sum + ad.views, 0).toLocaleString()}
               </div>
-              <div className="text-sm text-[#6E7D5B]">Visualizações</div>
+              <div className="text-sm text-gray-600">Visualizações</div>
             </div>
           </div>
         </CardContent>

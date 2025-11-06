@@ -57,7 +57,7 @@ export default function LoadingSpinner({
         </div>
         
         {text && (
-          <p className={cn("mt-4 text-[#6E7D5B]", textSizeClasses[size])}>
+          <p className={cn("mt-4 text-gray-600", textSizeClasses[size])}>
             {text}
           </p>
         )}

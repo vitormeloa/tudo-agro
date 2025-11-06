@@ -45,15 +45,15 @@ export default function ForgotPasswordPage() {
 
   if (emailSent) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-green-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-emerald-50 flex items-center justify-center p-4">
         <div className="w-full max-w-md">
           <Card className="shadow-2xl border-0">
             <CardContent className="p-8 text-center">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <CheckCircle className="w-8 h-8 text-green-600" />
+              <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <CheckCircle className="w-8 h-8 text-emerald-600" />
               </div>
               
-              <h1 className="text-2xl font-bold text-gray-900 mb-4">
+              <h1 className="text-2xl font-bold text-[#101828] mb-4">
                 Email enviado!
               </h1>
               
@@ -72,7 +72,7 @@ export default function ForgotPasswordPage() {
                 </Button>
                 
                 <Link href="/login">
-                  <Button className="w-full bg-emerald-600 hover:bg-emerald-700">
+                  <Button className="w-full bg-emerald-600 hover:bg-[#2E7A5A]">
                     Voltar ao login
                   </Button>
                 </Link>
@@ -85,7 +85,7 @@ export default function ForgotPasswordPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-green-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-emerald-50 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <div className="flex items-center justify-center mb-6">
@@ -95,7 +95,7 @@ export default function ForgotPasswordPage() {
               alt="TudoAgro Logo"
             />
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          <h1 className="text-3xl font-bold text-[#101828] mb-2">
             Esqueceu sua senha?
           </h1>
           <p className="text-gray-600">
@@ -126,7 +126,7 @@ export default function ForgotPasswordPage() {
 
               <Button 
                 type="submit" 
-                className="w-full bg-emerald-600 hover:bg-emerald-700 text-white h-12 text-lg font-semibold"
+                className="w-full bg-emerald-600 hover:bg-[#2E7A5A] text-white h-12 text-lg font-semibold"
                 disabled={isLoading || !email}
               >
                 {isLoading ? (

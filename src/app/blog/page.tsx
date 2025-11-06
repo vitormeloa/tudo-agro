@@ -139,7 +139,7 @@ export default function BlogPage() {
       
       {/* Hero Section */}
       <section className="relative pt-16 pb-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald-600 via-green-600 to-emerald-700"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-600 via-emerald-600 to-emerald-700"></div>
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="absolute inset-0 opacity-40">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.15)_1px,transparent_0)] bg-[length:20px_20px]"></div>
@@ -183,7 +183,7 @@ export default function BlogPage() {
                 unoptimized
               />
             </div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">
+            <h3 className="text-xl font-semibold text-[#101828] mb-2">
               Nenhum post encontrado
             </h3>
             <p className="text-gray-600">

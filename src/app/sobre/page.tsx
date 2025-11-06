@@ -90,7 +90,7 @@ export default function SobrePage() {
 
       {/* Hero Section */}
       <section className="relative pt-16 pb-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald-600 via-green-600 to-emerald-700"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-600 via-emerald-600 to-emerald-700"></div>
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="absolute inset-0 opacity-40">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.15)_1px,transparent_0)] bg-[length:20px_20px]"></div>
@@ -116,7 +116,7 @@ export default function SobrePage() {
                 <div className="w-16 h-16 bg-emerald-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
                   <stat.icon className="w-8 h-8 text-emerald-600" />
                 </div>
-                <div className="text-4xl md:text-5xl font-bold text-gray-900 mb-2">{stat.number}</div>
+                <div className="text-4xl md:text-5xl font-bold text-[#101828] mb-2">{stat.number}</div>
                 <div className="text-gray-600 font-medium">{stat.label}</div>
               </div>
             ))}
@@ -125,11 +125,11 @@ export default function SobrePage() {
       </section>
 
       {/* Mission Section */}
-      <section className="py-20 bg-gradient-to-br from-emerald-50 to-green-50">
+      <section className="py-20 bg-gradient-to-br from-emerald-50 to-emerald-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl md:text-4xl font-bold text-[#101828] mb-6">
                 Nossa Missão
               </h2>
               <p className="text-xl text-gray-600 mb-6 leading-relaxed">
@@ -141,15 +141,15 @@ export default function SobrePage() {
               <div className="flex flex-col sm:flex-row gap-4">
                 <div className="flex items-center">
                   <Target className="w-6 h-6 text-emerald-600 mr-3" />
-                  <span className="text-gray-900 font-semibold">Missão</span>
+                  <span className="text-[#101828] font-semibold">Missão</span>
                 </div>
                 <div className="flex items-center">
                   <Eye className="w-6 h-6 text-emerald-600 mr-3" />
-                  <span className="text-gray-900 font-semibold">Visão</span>
+                  <span className="text-[#101828] font-semibold">Visão</span>
                 </div>
                 <div className="flex items-center">
                   <Heart className="w-6 h-6 text-emerald-600 mr-3" />
-                  <span className="text-gray-900 font-semibold">Valores</span>
+                  <span className="text-[#101828] font-semibold">Valores</span>
                 </div>
               </div>
             </div>
@@ -172,7 +172,7 @@ export default function SobrePage() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#101828] mb-4">
               Nossos Valores
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
@@ -187,7 +187,7 @@ export default function SobrePage() {
                   <div className="w-16 h-16 bg-emerald-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
                     <value.icon className="w-8 h-8 text-emerald-600" />
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-4">{value.title}</h3>
+                  <h3 className="text-xl font-bold text-[#101828] mb-4">{value.title}</h3>
                   <p className="text-gray-600 leading-relaxed">{value.description}</p>
                 </CardContent>
               </Card>
@@ -197,10 +197,10 @@ export default function SobrePage() {
       </section>
 
       {/* Team Section */}
-      <section className="py-20 bg-gradient-to-br from-emerald-50 to-green-50">
+      <section className="py-20 bg-gradient-to-br from-emerald-50 to-emerald-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#101828] mb-4">
                 Time TudoAgro
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
@@ -217,7 +217,7 @@ export default function SobrePage() {
                     alt={member.name}
                     className="w-24 h-24 rounded-full mx-auto mb-6 object-cover"
                   />
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">{member.name}</h3>
+                  <h3 className="text-xl font-bold text-[#101828] mb-2">{member.name}</h3>
                   <Badge className="bg-emerald-600 text-white mb-4">{member.role}</Badge>
                   <p className="text-gray-600">{member.description}</p>
                 </CardContent>
@@ -231,7 +231,7 @@ export default function SobrePage() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#101828] mb-4">
               O que nossos clientes dizem
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
@@ -258,7 +258,7 @@ export default function SobrePage() {
                       className="w-12 h-12 rounded-full mr-4 object-cover"
                     />
                     <div>
-                      <div className="font-semibold text-gray-900">{testimonial.name}</div>
+                      <div className="font-semibold text-[#101828]">{testimonial.name}</div>
                       <div className="text-sm text-gray-600 flex items-center">
                         <MapPin className="w-3 h-3 mr-1" />
                         {testimonial.role}
@@ -273,10 +273,10 @@ export default function SobrePage() {
       </section>
 
       {/* History Section */}
-      <section className="py-20 bg-gradient-to-br from-emerald-50 to-green-50">
+      <section className="py-20 bg-gradient-to-br from-emerald-50 to-emerald-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#101828] mb-4">
               Nossa História
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
@@ -289,7 +289,7 @@ export default function SobrePage() {
               <div className="w-4 h-4 bg-emerald-600 rounded-full mr-6"></div>
               <div className="flex-1 bg-white rounded-lg p-6 shadow-lg">
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+                  <h3 className="text-xl font-bold text-[#101828] flex items-center gap-2">
                     <span>✅</span> 2023 — Concepção
                   </h3>
                   <Badge className="bg-emerald-600 text-white">Início</Badge>
@@ -304,7 +304,7 @@ export default function SobrePage() {
               <div className="w-4 h-4 bg-emerald-600 rounded-full mr-6"></div>
               <div className="flex-1 bg-white rounded-lg p-6 shadow-lg">
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+                  <h3 className="text-xl font-bold text-[#101828] flex items-center gap-2">
                     <span>🔧</span> 2024 — Desenvolvimento
                   </h3>
                   <Badge className="bg-blue-600 text-white">Estruturação</Badge>
@@ -319,7 +319,7 @@ export default function SobrePage() {
               <div className="w-4 h-4 bg-emerald-600 rounded-full mr-6"></div>
               <div className="flex-1 bg-white rounded-lg p-6 shadow-lg">
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+                  <h3 className="text-xl font-bold text-[#101828] flex items-center gap-2">
                     <span>🚀</span> 2025 — Lançamento
                   </h3>
                   <Badge className="bg-amber-600 text-white">Marco</Badge>
@@ -334,10 +334,10 @@ export default function SobrePage() {
               <div className="w-4 h-4 bg-emerald-600 rounded-full mr-6"></div>
               <div className="flex-1 bg-white rounded-lg p-6 shadow-lg">
                 <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+                  <h3 className="text-xl font-bold text-[#101828] flex items-center gap-2">
                     <span>🌱</span> 2026 — Expansão Nacional
                   </h3>
-                  <Badge className="bg-green-600 text-white">Crescimento</Badge>
+                  <Badge className="bg-emerald-600 text-white">Crescimento</Badge>
                 </div>
                 <p className="text-gray-600">
                   Consolidação como a maior plataforma agropecuária do Brasil, com operações em todos os estados, presença predominante em todo território nacional e novos funcionalidades a serem lançadas.
@@ -349,7 +349,7 @@ export default function SobrePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-emerald-600 to-green-700">
+      <section className="py-20 bg-gradient-to-br from-emerald-600 to-emerald-700">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
             Faça parte da nossa história

@@ -68,7 +68,7 @@ export default function AjudaPage() {
       <Header />
       
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-emerald-600 via-green-600 to-emerald-700 text-white py-20">
+      <section className="bg-gradient-to-r from-emerald-600 via-emerald-600 to-emerald-700 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">Central de Ajuda</h1>
@@ -107,7 +107,7 @@ export default function AjudaPage() {
                     <div className="bg-emerald-100 p-3 rounded-lg">
                       <category.icon className="w-6 h-6 text-emerald-600" />
                     </div>
-                    <h2 className="text-xl font-semibold text-gray-900">{category.title}</h2>
+                    <h2 className="text-xl font-semibold text-[#101828]">{category.title}</h2>
                   </div>
                   {openCategory === category.id ? (
                     <ChevronUp className="w-5 h-5 text-gray-500" />
@@ -120,7 +120,7 @@ export default function AjudaPage() {
                   <div className="px-6 pb-6 space-y-4 border-t border-gray-200">
                     {category.articles.map((article, index) => (
                       <div key={index} className="pt-4">
-                        <h3 className="font-semibold text-gray-900 mb-2">{article.question}</h3>
+                        <h3 className="font-semibold text-[#101828] mb-2">{article.question}</h3>
                         <p className="text-gray-600">{article.answer}</p>
                       </div>
                     ))}
@@ -132,13 +132,13 @@ export default function AjudaPage() {
         </section>
 
         {/* Contact Section */}
-        <section className="mt-12 bg-gradient-to-r from-emerald-50 to-green-50 rounded-lg p-8 text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Não Encontrou o que Procurava?</h2>
+        <section className="mt-12 bg-gradient-to-r from-emerald-50 to-emerald-50 rounded-lg p-8 text-center">
+          <h2 className="text-2xl font-bold text-[#101828] mb-4">Não Encontrou o que Procurava?</h2>
           <p className="text-gray-600 mb-6">
             Nossa equipe está pronta para ajudar você. Entre em contato conosco!
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild className="bg-emerald-600 hover:bg-emerald-700 text-white">
+            <Button asChild className="bg-emerald-600 hover:bg-[#2E7A5A] text-white">
               <a href="/contato">Entrar em Contato</a>
             </Button>
             <Button asChild variant="outline" className="border-emerald-600 text-emerald-600 hover:bg-emerald-50">

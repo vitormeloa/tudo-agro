@@ -76,12 +76,12 @@ export default function Error403({
         </div>
 
         {/* Título */}
-        <h1 className="text-3xl font-bold text-[#1E4D2B] mb-4">
+        <h1 className="text-3xl font-bold text-emerald-800 mb-4">
           {title}
         </h1>
 
         {/* Descrição */}
-        <p className="text-[#6E7D5B] mb-6 leading-relaxed">
+        <p className="text-gray-600 mb-6 leading-relaxed">
           {message}
         </p>
 
@@ -96,14 +96,14 @@ export default function Error403({
         <div className="space-y-4">
           <Link
             href="/login"
-            className="w-full bg-[#1E4D2B] text-white px-6 py-3 rounded-lg font-medium hover:bg-[#2D5A3D] transition-colors duration-200 inline-block"
+            className="w-full bg-[#1E4D2B] text-white px-6 py-3 rounded-lg font-medium hover:bg-[#163B20] transition-colors duration-200 inline-block"
           >
             Fazer Login
           </Link>
           
           <Link
             href="/cadastro"
-            className="w-full bg-transparent border-2 border-[#1E4D2B] text-[#1E4D2B] px-6 py-3 rounded-lg font-medium hover:bg-[#1E4D2B] hover:text-white transition-colors duration-200 inline-block"
+            className="w-full bg-transparent border-2 border-[#1E4D2B] text-emerald-800 px-6 py-3 rounded-lg font-medium hover:bg-[#1E4D2B] hover:text-white transition-colors duration-200 inline-block"
           >
             Criar Conta
           </Link>
@@ -111,7 +111,7 @@ export default function Error403({
           {showBackButton && (
             <Link
               href={redirectTo || "/"}
-              className="w-full text-[#6E7D5B] hover:text-[#1E4D2B] transition-colors duration-200 inline-block"
+              className="w-full text-gray-600 hover:text-emerald-800 transition-colors duration-200 inline-block"
             >
               ← Voltar
             </Link>
@@ -120,10 +120,10 @@ export default function Error403({
 
         {/* Countdown */}
         {showCountdown && (
-          <div className="mt-8 text-sm text-[#6E7D5B]">
+          <div className="mt-8 text-sm text-gray-600">
             <p>
               Redirecionando automaticamente para o login em{' '}
-              <span className="font-bold text-[#1E4D2B]">{countdown}</span> segundos...
+              <span className="font-bold text-emerald-800">{countdown}</span> segundos...
             </p>
           </div>
         )}

@@ -40,7 +40,7 @@ export default function DocumentsSection() {
   const getStatusBadge = (status: string) => {
     const config = {
       pendente: { color: 'bg-orange-100 text-orange-800', icon: Clock },
-      aprovado: { color: 'bg-green-100 text-green-800', icon: CheckCircle },
+      aprovado: { color: 'bg-emerald-100 text-emerald-800', icon: CheckCircle },
       recusado: { color: 'bg-red-100 text-red-800', icon: XCircle }
     }
     const { color, icon: Icon } = config[status as keyof typeof config] || config.pendente
@@ -59,7 +59,7 @@ export default function DocumentsSection() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
                 <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-                    <FileCheck className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E4D2B]" />
+                    <FileCheck className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-800" />
                     <span className="text-base sm:text-lg font-semibold">Gerenciamento de Documentos</span>
                 </CardTitle>
             </div>
@@ -73,11 +73,11 @@ export default function DocumentsSection() {
                   <div className="flex flex-col lg:flex-row items-start justify-between gap-4">
                     <div className="flex-1 w-full">
                       <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-2">
-                        <User className="w-4 h-4 sm:w-5 sm:h-5 text-[#6E7D5B] flex-shrink-0" />
-                        <h3 className="font-semibold text-[#2B2E2B] text-sm sm:text-base break-words">{doc.user}</h3>
+                        <User className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600 flex-shrink-0" />
+                        <h3 className="font-semibold text-[#101828] text-sm sm:text-base break-words">{doc.user}</h3>
                         {getStatusBadge(doc.status)}
                       </div>
-                      <p className="text-xs sm:text-sm text-[#6E7D5B] mb-3 break-words">{doc.type}</p>
+                      <p className="text-xs sm:text-sm text-gray-600 mb-3 break-words">{doc.type}</p>
                       
                       <div className="flex flex-wrap gap-1 sm:gap-2 mb-3">
                         {doc.documents.map((document, index) => (
@@ -87,7 +87,7 @@ export default function DocumentsSection() {
                         ))}
                       </div>
                       
-                      <div className="text-xs sm:text-sm text-[#6E7D5B] space-y-1">
+                      <div className="text-xs sm:text-sm text-gray-600 space-y-1">
                         <p className="break-words">Enviado em: {new Date(doc.submittedDate).toLocaleDateString('pt-BR')}</p>
                         {doc.reviewDate && (
                           <p className="break-words">Revisado em: {new Date(doc.reviewDate).toLocaleDateString('pt-BR')}</p>
@@ -106,7 +106,7 @@ export default function DocumentsSection() {
                       </Button>
                       {doc.status === 'pendente' && (
                         <>
-                          <Button size="sm" className="bg-green-600 hover:bg-green-700 text-xs sm:text-sm">
+                          <Button size="sm" className="bg-emerald-600 hover:bg-[#2E7A5A] text-xs sm:text-sm">
                             <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
                             <span className="hidden sm:inline">Aprovar</span>
                             <span className="sm:hidden">Aprovar</span>

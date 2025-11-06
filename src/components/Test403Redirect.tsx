@@ -54,8 +54,8 @@ export default function Test403Redirect() {
             </p>
             
             <PermissionGuard permission="admin:read">
-              <div className="p-4 bg-green-100 border border-green-300 rounded-lg">
-                <p className="text-green-800">
+              <div className="p-4 bg-emerald-100 border border-emerald-300 rounded-lg">
+                <p className="text-emerald-800">
                   ✅ Você tem permissão para ver este conteúdo!
                 </p>
               </div>
@@ -81,8 +81,8 @@ export default function Test403Redirect() {
             </p>
             
             <PermissionRoute requiredSection="admin">
-              <div className="p-4 bg-green-100 border border-green-300 rounded-lg">
-                <p className="text-green-800">
+              <div className="p-4 bg-emerald-100 border border-emerald-300 rounded-lg">
+                <p className="text-emerald-800">
                   ✅ Você tem acesso à seção admin!
                 </p>
               </div>

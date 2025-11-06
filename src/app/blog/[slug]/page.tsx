@@ -229,7 +229,7 @@ export default function BlogPostPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-green-50">
+      <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-emerald-50">
         <Header />
         <div className="flex items-center justify-center py-40">
           <Loader2 className="w-8 h-8 animate-spin text-emerald-600" />
@@ -244,7 +244,7 @@ export default function BlogPostPage() {
       <div className="min-h-screen bg-gray-50">
         <Header />
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">Post não encontrado</h1>
+          <h1 className="text-3xl font-bold text-[#101828] mb-4">Post não encontrado</h1>
           <p className="text-gray-600 mb-8">O post que você está procurando não existe.</p>
           <Link href="/blog">
             <Button>Voltar para o blog</Button>
@@ -301,7 +301,7 @@ export default function BlogPostPage() {
             </Link>
           )}
 
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#101828] mb-4">
             {post.title}
           </h1>
 

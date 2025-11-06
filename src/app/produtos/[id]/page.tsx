@@ -214,7 +214,7 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
         <Header />
         <div className="min-h-screen bg-gray-50 flex items-center justify-center">
           <div className="text-center">
-            <h1 className="text-2xl font-bold text-gray-900 mb-4">Produto não encontrado</h1>
+            <h1 className="text-2xl font-bold text-[#101828] mb-4">Produto não encontrado</h1>
             <Link href="/produtos">
               <Button>Voltar para Produtos</Button>
             </Link>
@@ -284,7 +284,7 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
                   variant="ghost"
                   onClick={handleToggleFavorite}
                   className={`bg-white/90 hover:bg-white transition-colors p-1.5 sm:p-2 h-auto ${
-                    isFavorite(product.id) ? 'text-red-500' : 'text-[#8B4513] hover:text-red-500'
+                    isFavorite(product.id) ? 'text-red-500' : 'text-gray-700 hover:text-red-500'
                   }`}
                 >
                   <Heart className={`w-4 h-4 sm:w-5 sm:h-5 ${isFavorite(product.id) ? 'fill-current' : ''}`} />
@@ -292,7 +292,7 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
                 <Button
                   size="sm"
                   variant="ghost"
-                  className="bg-white/90 hover:bg-white text-[#8B4513] hover:text-[#1C6B3E] transition-colors p-1.5 sm:p-2 h-auto"
+                  className="bg-white/90 hover:bg-white text-gray-700 hover:text-emerald-700 transition-colors p-1.5 sm:p-2 h-auto"
                 >
                   <Share2 className="w-4 h-4 sm:w-5 sm:h-5" />
                 </Button>
@@ -329,7 +329,7 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
           {/* Product Info */}
           <div className="space-y-4 sm:space-y-6">
             <div>
-              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4 leading-tight">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#101828] mb-3 sm:mb-4 leading-tight">
                 {product.title}
               </h1>
 
@@ -341,7 +341,7 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
               <div className="space-y-4 mb-6">
                 {/* Price Display */}
                 <div className="space-y-2">
-                  <div className="text-3xl sm:text-4xl font-bold text-green-600">
+                  <div className="text-3xl sm:text-4xl font-bold text-emerald-600">
                     R$ {(product.price * quantity).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                   </div>
                   {quantity > 1 && (
@@ -357,11 +357,11 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
                     Quantidade:
                   </label>
                   <div className="flex items-center gap-2">
-                    <div className="inline-flex items-center border border-gray-300 rounded-lg bg-white shadow-sm hover:shadow transition-shadow focus-within:ring-2 focus-within:ring-green-500/20 focus-within:border-green-500">
+                    <div className="inline-flex items-center border border-gray-300 rounded-lg bg-white shadow-sm hover:shadow transition-shadow focus-within:ring-2 focus-within:ring-emerald-500/20 focus-within:border-emerald-500">
                       <button
                         onClick={handleDecreaseQuantity}
                         disabled={quantity <= 1}
-                        className="p-2.5 sm:p-3 hover:bg-green-50 active:bg-green-100 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent transition-all duration-150 flex items-center justify-center rounded-l-lg"
+                        className="p-2.5 sm:p-3 hover:bg-emerald-50 active:bg-emerald-100 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent transition-all duration-150 flex items-center justify-center rounded-l-lg"
                         aria-label="Diminuir quantidade"
                       >
                         <Minus className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700" />
@@ -372,13 +372,13 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
                         max={availableStock}
                         value={quantity}
                         onChange={handleQuantityChange}
-                        className="w-14 sm:w-16 text-center text-base sm:text-lg font-semibold text-gray-900 border-0 focus:outline-none bg-transparent px-2 py-2.5 sm:py-3"
+                        className="w-14 sm:w-16 text-center text-base sm:text-lg font-semibold text-[#101828] border-0 focus:outline-none bg-transparent px-2 py-2.5 sm:py-3"
                         aria-label="Quantidade"
                       />
                       <button
                         onClick={handleIncreaseQuantity}
                         disabled={quantity >= availableStock}
-                        className="p-2.5 sm:p-3 hover:bg-green-50 active:bg-green-100 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent transition-all duration-150 flex items-center justify-center rounded-r-lg"
+                        className="p-2.5 sm:p-3 hover:bg-emerald-50 active:bg-emerald-100 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent transition-all duration-150 flex items-center justify-center rounded-r-lg"
                         aria-label="Aumentar quantidade"
                       >
                         <Plus className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700" />
@@ -395,34 +395,34 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
             {/* Specifications */}
             <Card className="bg-white border-gray-200 shadow-lg">
               <CardContent className="p-4 sm:p-6">
-                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-4">Especificações</h3>
+                <h3 className="text-lg sm:text-xl font-bold text-[#101828] mb-4">Especificações</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   <div className="flex items-center gap-2 sm:gap-3">
-                    <Award className="w-5 h-5 sm:w-6 sm:h-6 text-green-600 flex-shrink-0" />
+                    <Award className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600 flex-shrink-0" />
                     <div>
                       <div className="text-xs sm:text-sm text-gray-500">Marca</div>
-                      <div className="font-medium text-sm sm:text-base text-gray-900">{product.brand}</div>
+                      <div className="font-medium text-sm sm:text-base text-[#101828]">{product.brand}</div>
                     </div>
                   </div>
                   <div className="flex items-center gap-2 sm:gap-3">
-                    <Weight className="w-5 h-5 sm:w-6 sm:h-6 text-green-600 flex-shrink-0" />
+                    <Weight className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600 flex-shrink-0" />
                     <div>
                       <div className="text-xs sm:text-sm text-gray-500">Peso</div>
-                      <div className="font-medium text-sm sm:text-base text-gray-900">{product.weight}</div>
+                      <div className="font-medium text-sm sm:text-base text-[#101828]">{product.weight}</div>
                     </div>
                   </div>
                   <div className="flex items-center gap-2 sm:gap-3">
-                    <Shield className="w-5 h-5 sm:w-6 sm:h-6 text-green-600 flex-shrink-0" />
+                    <Shield className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600 flex-shrink-0" />
                     <div>
                       <div className="text-xs sm:text-sm text-gray-500">Estoque</div>
-                      <div className="font-medium text-sm sm:text-base text-gray-900">{product.stock}</div>
+                      <div className="font-medium text-sm sm:text-base text-[#101828]">{product.stock}</div>
                     </div>
                   </div>
                   <div className="flex items-center gap-2 sm:gap-3">
-                    <FileText className="w-5 h-5 sm:w-6 sm:h-6 text-green-600 flex-shrink-0" />
+                    <FileText className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600 flex-shrink-0" />
                     <div>
                       <div className="text-xs sm:text-sm text-gray-500">Categoria</div>
-                      <div className="font-medium text-sm sm:text-base text-gray-900">{product.category}</div>
+                      <div className="font-medium text-sm sm:text-base text-[#101828]">{product.category}</div>
                     </div>
                   </div>
                 </div>
@@ -432,8 +432,8 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
             {/* Freight Calculator */}
             <Card className="bg-white border-gray-200 shadow-lg">
               <CardContent className="p-4 sm:p-6">
-                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-4 flex items-center">
-                  <Truck className="w-5 h-5 sm:w-6 sm:h-6 mr-2 text-green-600" />
+                <h3 className="text-lg sm:text-xl font-bold text-[#101828] mb-4 flex items-center">
+                  <Truck className="w-5 h-5 sm:w-6 sm:h-6 mr-2 text-emerald-600" />
                   Calcular Frete
                 </h3>
                 <div className="space-y-4">
@@ -449,22 +449,22 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
                     <Button
                       onClick={handleCalculateFreight}
                       disabled={cep.length !== 8 || isCalculatingFreight}
-                      className="bg-green-600 hover:bg-green-700 text-white h-10 sm:h-11 text-sm sm:text-base font-semibold whitespace-nowrap"
+                      className="bg-emerald-600 hover:bg-[#2E7A5A] text-white h-10 sm:h-11 text-sm sm:text-base font-semibold whitespace-nowrap"
                     >
                       {isCalculatingFreight ? 'Calculando...' : 'Calcular'}
                     </Button>
                   </div>
 
                   {freightResult && (
-                    <div className="mt-4 p-3 sm:p-4 bg-green-50 border border-green-200 rounded-lg">
+                    <div className="mt-4 p-3 sm:p-4 bg-emerald-50 border border-emerald-200 rounded-lg">
                       <div className="space-y-2">
                         <div className="flex justify-between items-center">
                           <span className="text-sm sm:text-base text-gray-700 font-medium">Frete:</span>
-                          <span className="text-base sm:text-lg font-bold text-green-600">
+                          <span className="text-base sm:text-lg font-bold text-emerald-600">
                             R$ {freightResult.price.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                           </span>
                         </div>
-                        <div className="text-xs sm:text-sm text-gray-600 pt-2 border-t border-green-200">
+                        <div className="text-xs sm:text-sm text-gray-600 pt-2 border-t border-emerald-200">
                           {freightResult.formattedDelivery}
                         </div>
                       </div>
@@ -477,7 +477,7 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
             {/* Action Buttons */}
             <div className="space-y-3 sm:space-y-4">
               <Button
-                className="w-full bg-green-600 hover:bg-green-700 text-white py-3 sm:py-4 text-base sm:text-lg font-semibold transition-colors"
+                className="w-full bg-emerald-600 hover:bg-[#2E7A5A] text-white py-3 sm:py-4 text-base sm:text-lg font-semibold transition-colors"
                 onClick={handlePurchase}
               >
                 <ShoppingCart className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
@@ -487,7 +487,7 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
 
               <Button
                 variant="outline"
-                className="w-full border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white py-3 sm:py-4 text-base sm:text-lg font-semibold transition-colors"
+                className="w-full border-2 border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white py-3 sm:py-4 text-base sm:text-lg font-semibold transition-colors"
                 onClick={handleAddToCart}
               >
                 <ShoppingBag className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
@@ -524,7 +524,7 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
             <TabsContent value="descricao" className="mt-4 sm:mt-6">
               <Card className="bg-white border-gray-200 shadow-lg">
                 <CardContent className="p-4 sm:p-6 lg:p-8">
-                  <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">Descrição</h2>
+                  <h2 className="text-xl sm:text-2xl font-bold text-[#101828] mb-3 sm:mb-4">Descrição</h2>
                   <p className="text-sm sm:text-base lg:text-lg text-gray-600 leading-relaxed">
                     {product.description}
                   </p>
@@ -535,14 +535,14 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
             <TabsContent value="especificacoes" className="mt-4 sm:mt-6">
               <Card className="bg-white border-gray-200 shadow-lg">
                 <CardContent className="p-4 sm:p-6 lg:p-8">
-                  <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">Especificações</h2>
+                  <h2 className="text-xl sm:text-2xl font-bold text-[#101828] mb-3 sm:mb-4">Especificações</h2>
                   <div className="space-y-2 sm:space-y-3">
                     {Object.entries(product.specifications).map(([key, value]) => (
                       <div key={key} className="flex flex-col sm:flex-row sm:justify-between py-2 sm:py-3 border-b border-gray-100 gap-1 sm:gap-2">
                         <span className="text-xs sm:text-sm text-gray-500 capitalize font-medium">
                           {key.replace(/([A-Z])/g, ' $1').toLowerCase()}:
                         </span>
-                        <span className="text-sm sm:text-base font-medium text-gray-900 break-words">{value}</span>
+                        <span className="text-sm sm:text-base font-medium text-[#101828] break-words">{value}</span>
                       </div>
                     ))}
                   </div>
@@ -589,7 +589,7 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
         <div className="mt-6 sm:mt-8">
           <Card className="bg-white border-gray-200 shadow-lg">
             <CardContent className="p-4 sm:p-6 lg:p-8">
-              <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4 flex items-center">
+              <h2 className="text-xl sm:text-2xl font-bold text-[#101828] mb-3 sm:mb-4 flex items-center">
                 <MapPin className="w-5 h-5 sm:w-6 sm:h-6 inline mr-2" />
                 Localização do Vendedor
               </h2>

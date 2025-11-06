@@ -53,7 +53,7 @@ export default function UserDetailsModal({ user, isOpen, onClose }: UserDetailsM
 
   const getStatusBadge = (status: string) => {
     const statusConfig = {
-      ativo: { color: 'bg-green-100 text-green-800', label: 'Ativo' },
+      ativo: { color: 'bg-emerald-100 text-emerald-800', label: 'Ativo' },
       inativo: { color: 'bg-gray-100 text-gray-800', label: 'Inativo' },
       pendente: { color: 'bg-orange-100 text-orange-800', label: 'Pendente' },
       bloqueado: { color: 'bg-red-100 text-red-800', label: 'Bloqueado' }
@@ -68,8 +68,8 @@ export default function UserDetailsModal({ user, isOpen, onClose }: UserDetailsM
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b">
           <div className="flex items-center gap-3">
-            <User className="w-6 h-6 text-[#1E4D2B]" />
-            <h2 className="text-xl font-bold text-[#2B2E2B]">Detalhes do Usuário</h2>
+            <User className="w-6 h-6 text-emerald-800" />
+            <h2 className="text-xl font-bold text-[#101828]">Detalhes do Usuário</h2>
           </div>
           <Button variant="ghost" size="sm" onClick={onClose}>
             <X className="w-5 h-5" />
@@ -82,7 +82,7 @@ export default function UserDetailsModal({ user, isOpen, onClose }: UserDetailsM
             <CardHeader>
               <div className="flex items-center justify-between">
                 <CardTitle className="flex items-center gap-2">
-                  <User className="w-5 h-5 text-[#1E4D2B]" />
+                  <User className="w-5 h-5 text-emerald-800" />
                   Informações Básicas
                 </CardTitle>
                 <Button 
@@ -144,7 +144,7 @@ export default function UserDetailsModal({ user, isOpen, onClose }: UserDetailsM
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Shield className="w-5 h-5 text-[#1E4D2B]" />
+                <Shield className="w-5 h-5 text-emerald-800" />
                 Status e Verificação
               </CardTitle>
             </CardHeader>
@@ -157,7 +157,7 @@ export default function UserDetailsModal({ user, isOpen, onClose }: UserDetailsM
                 <div className="flex items-center gap-2">
                   <span className="text-sm font-medium">Verificado:</span>
                   {editedUser.isVerified ? (
-                    <CheckCircle className="w-5 h-5 text-green-500" />
+                    <CheckCircle className="w-5 h-5 text-[#3D9970]" />
                   ) : (
                     <AlertTriangle className="w-5 h-5 text-orange-500" />
                   )}
@@ -195,31 +195,31 @@ export default function UserDetailsModal({ user, isOpen, onClose }: UserDetailsM
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Activity className="w-5 h-5 text-[#1E4D2B]" />
+                <Activity className="w-5 h-5 text-emerald-800" />
                 Estatísticas de Atividade
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div className="text-center p-4 bg-[#F7F6F2] rounded-lg">
-                  <FileText className="w-8 h-8 text-[#1E4D2B] mx-auto mb-2" />
-                  <p className="text-2xl font-bold text-[#1E4D2B]">{user.adsCount}</p>
-                  <p className="text-sm text-[#6E7D5B]">Anúncios</p>
+                  <FileText className="w-8 h-8 text-emerald-800 mx-auto mb-2" />
+                  <p className="text-2xl font-bold text-emerald-800">{user.adsCount}</p>
+                  <p className="text-sm text-gray-600">Anúncios</p>
                 </div>
                 <div className="text-center p-4 bg-[#F7F6F2] rounded-lg">
-                  <Gavel className="w-8 h-8 text-[#1E4D2B] mx-auto mb-2" />
-                  <p className="text-2xl font-bold text-[#1E4D2B]">{user.auctionsCount}</p>
-                  <p className="text-sm text-[#6E7D5B]">Leilões</p>
+                  <Gavel className="w-8 h-8 text-emerald-800 mx-auto mb-2" />
+                  <p className="text-2xl font-bold text-emerald-800">{user.auctionsCount}</p>
+                  <p className="text-sm text-gray-600">Leilões</p>
                 </div>
                 <div className="text-center p-4 bg-[#F7F6F2] rounded-lg">
-                  <Heart className="w-8 h-8 text-[#1E4D2B] mx-auto mb-2" />
-                  <p className="text-2xl font-bold text-[#1E4D2B]">{user.favoritesCount}</p>
-                  <p className="text-sm text-[#6E7D5B]">Favoritos</p>
+                  <Heart className="w-8 h-8 text-emerald-800 mx-auto mb-2" />
+                  <p className="text-2xl font-bold text-emerald-800">{user.favoritesCount}</p>
+                  <p className="text-sm text-gray-600">Favoritos</p>
                 </div>
                 <div className="text-center p-4 bg-[#F7F6F2] rounded-lg">
-                  <DollarSign className="w-8 h-8 text-[#1E4D2B] mx-auto mb-2" />
-                  <p className="text-2xl font-bold text-[#1E4D2B]">{user.purchasesCount}</p>
-                  <p className="text-sm text-[#6E7D5B]">Compras</p>
+                  <DollarSign className="w-8 h-8 text-emerald-800 mx-auto mb-2" />
+                  <p className="text-2xl font-bold text-emerald-800">{user.purchasesCount}</p>
+                  <p className="text-sm text-gray-600">Compras</p>
                 </div>
               </div>
             </CardContent>
@@ -229,25 +229,25 @@ export default function UserDetailsModal({ user, isOpen, onClose }: UserDetailsM
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Calendar className="w-5 h-5 text-[#1E4D2B]" />
+                <Calendar className="w-5 h-5 text-emerald-800" />
                 Informações de Cadastro
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                 <div className="flex items-center gap-2">
-                  <Calendar className="w-4 h-4 text-[#6E7D5B]" />
-                  <span className="text-[#6E7D5B]">Cadastrado em:</span>
+                  <Calendar className="w-4 h-4 text-gray-600" />
+                  <span className="text-gray-600">Cadastrado em:</span>
                   <span className="font-medium">{new Date(user.joinDate).toLocaleDateString('pt-BR')}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Activity className="w-4 h-4 text-[#6E7D5B]" />
-                  <span className="text-[#6E7D5B]">Última atividade:</span>
+                  <Activity className="w-4 h-4 text-gray-600" />
+                  <span className="text-gray-600">Última atividade:</span>
                   <span className="font-medium">{new Date(user.lastActivity).toLocaleDateString('pt-BR')}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <MapPin className="w-4 h-4 text-[#6E7D5B]" />
-                  <span className="text-[#6E7D5B]">Origem:</span>
+                  <MapPin className="w-4 h-4 text-gray-600" />
+                  <span className="text-gray-600">Origem:</span>
                   <Badge variant="outline">{user.origin}</Badge>
                 </div>
               </div>

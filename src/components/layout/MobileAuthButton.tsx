@@ -32,7 +32,7 @@ export default function MobileAuthButton({ onMenuClose, className }: MobileAuthB
       <div className={`pt-4 border-t border-gray-200 ${className}`}>
         <div className="space-y-2">
           <div className="px-3 py-2">
-            <p className="text-sm font-medium text-gray-900">{user.name || 'Usuário'}</p>
+            <p className="text-sm font-medium text-[#101828]">{user.name || 'Usuário'}</p>
             <p className="text-xs text-gray-500">{user.email}</p>
           </div>
           
@@ -72,7 +72,7 @@ export default function MobileAuthButton({ onMenuClose, className }: MobileAuthB
             </Link>
             
             {isAdmin() && (
-              <Link href="/dashboard/visao-geral" className="block" onClick={onMenuClose}>
+              <Link href="/dashboard" className="block" onClick={onMenuClose}>
                 <Button variant="outline" className="w-full justify-start">
                   <Shield className="w-4 h-4 mr-2" />
                   Painel
@@ -121,7 +121,7 @@ export default function MobileAuthButton({ onMenuClose, className }: MobileAuthB
           </Button>
         </Link>
         <Link href="/cadastro" className="block" onClick={onMenuClose}>
-          <Button className="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700">
+          <Button className="w-full bg-gradient-to-r from-emerald-600 to-emerald-600 hover:from-emerald-700 hover:to-emerald-700">
             Cadastrar
           </Button>
         </Link>

@@ -100,7 +100,7 @@ export default function LeiloesPage() {
       
       {/* Hero Section */}
         <section className="relative pt-16 pb-20 overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-teal-600 via-emerald-600 to-green-700"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-teal-600 via-emerald-600 to-emerald-700"></div>
             <div className="absolute inset-0 bg-black/20"></div>
             <div className="absolute inset-0 opacity-40">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.15)_1px,transparent_0)] bg-[length:20px_20px]"></div>
@@ -176,7 +176,7 @@ export default function LeiloesPage() {
           <div className="flex items-center mb-6">
             <div className="flex items-center">
               <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse mr-3"></div>
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
+              <h2 className="text-2xl md:text-3xl font-bold text-[#101828]">
                 Leilões ao Vivo
               </h2>
             </div>
@@ -204,7 +204,7 @@ export default function LeiloesPage() {
                   </div>
                 </div>
                 <CardContent className="p-6">
-                  <h3 className="font-bold text-lg text-gray-900 mb-3 line-clamp-2">{auction.title}</h3>
+                  <h3 className="font-bold text-lg text-[#101828] mb-3 line-clamp-2">{auction.title}</h3>
                   
                   <div className="space-y-3 mb-6">
                     <div className="flex justify-between items-center">
@@ -229,7 +229,7 @@ export default function LeiloesPage() {
                     
                     <div className="flex justify-between items-center">
                       <span className="text-gray-600">Participantes:</span>
-                      <span className="font-bold text-gray-900 flex items-center">
+                      <span className="font-bold text-[#101828] flex items-center">
                         <Users className="w-4 h-4 mr-1 text-emerald-600" />
                         {auction.participants} online
                       </span>
@@ -237,7 +237,7 @@ export default function LeiloesPage() {
 
                     <div className="flex justify-between items-center">
                       <span className="text-gray-600">Local:</span>
-                      <span className="font-semibold text-gray-900 flex items-center">
+                      <span className="font-semibold text-[#101828] flex items-center">
                         <MapPin className="w-4 h-4 mr-1 text-gray-500" />
                         {auction.location}
                       </span>
@@ -245,11 +245,11 @@ export default function LeiloesPage() {
                   </div>
 
                   <div className="text-sm text-gray-600 mb-4">
-                    Leiloeiro: <span className="font-semibold text-gray-900">{auction.auctioneer}</span>
+                    Leiloeiro: <span className="font-semibold text-[#101828]">{auction.auctioneer}</span>
                   </div>
 
                   <Link href={`/leilao/${auction.id}`}>
-                    <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white text-lg py-3 transition-all duration-300 transform hover:scale-105">
+                    <Button className="w-full bg-emerald-600 hover:bg-[#2E7A5A] text-white text-lg py-3 transition-all duration-300 transform hover:scale-105">
                       <Zap className="w-5 h-5 mr-2" />
                       Entrar no Leilão
                     </Button>
@@ -264,7 +264,7 @@ export default function LeiloesPage() {
         <section>
           <div className="flex items-center mb-6">
             <Calendar className="w-6 h-6 text-emerald-600 mr-3" />
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
+            <h2 className="text-2xl md:text-3xl font-bold text-[#101828]">
               Próximos Leilões
             </h2>
           </div>
@@ -283,7 +283,7 @@ export default function LeiloesPage() {
                   </div>
                 </div>
                 <CardContent className="p-6">
-                  <h3 className="font-bold text-lg text-gray-900 mb-3 line-clamp-2">{auction.title}</h3>
+                  <h3 className="font-bold text-lg text-[#101828] mb-3 line-clamp-2">{auction.title}</h3>
                   
                   <div className="space-y-3 mb-6">
                     <div className="flex justify-between items-center">
@@ -304,7 +304,7 @@ export default function LeiloesPage() {
                     
                     <div className="flex justify-between items-center">
                       <span className="text-gray-600">Total de lotes:</span>
-                      <span className="font-bold text-gray-900 flex items-center">
+                      <span className="font-bold text-[#101828] flex items-center">
                         <Trophy className="w-4 h-4 mr-1 text-emerald-600" />
                         {auction.totalLots} lotes
                       </span>
@@ -312,7 +312,7 @@ export default function LeiloesPage() {
 
                     <div className="flex justify-between items-center">
                       <span className="text-gray-600">Local:</span>
-                      <span className="font-semibold text-gray-900 flex items-center">
+                      <span className="font-semibold text-[#101828] flex items-center">
                         <MapPin className="w-4 h-4 mr-1 text-gray-500" />
                         {auction.location}
                       </span>
@@ -320,7 +320,7 @@ export default function LeiloesPage() {
                   </div>
 
                   <div className="text-sm text-gray-600 mb-4">
-                    Leiloeiro: <span className="font-semibold text-gray-900">{auction.auctioneer}</span>
+                    Leiloeiro: <span className="font-semibold text-[#101828]">{auction.auctioneer}</span>
                   </div>
 
                   <div className="flex gap-2">
@@ -341,7 +341,7 @@ export default function LeiloesPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="mt-16 bg-gradient-to-br from-teal-600 to-green-700 rounded-2xl p-8 text-center text-white">
+        <section className="mt-16 bg-gradient-to-br from-teal-600 to-emerald-700 rounded-2xl p-8 text-center text-white">
           <h2 className="text-2xl md:text-3xl font-bold mb-4">
             Quer organizar seu próprio leilão?
           </h2>

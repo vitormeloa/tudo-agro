@@ -519,7 +519,7 @@ export default function OverviewSection() {
   const getColorClasses = (color: string) => {
     const colors = {
       blue: 'bg-blue-500 text-white',
-      green: 'bg-green-500 text-white',
+      green: 'bg-emerald-500 text-white',
       orange: 'bg-orange-500 text-white',
       purple: 'bg-purple-500 text-white',
       red: 'bg-red-500 text-white'
@@ -532,18 +532,18 @@ export default function OverviewSection() {
       urgent: 'border-red-200 bg-red-50',
       warning: 'border-orange-200 bg-orange-50',
       info: 'border-blue-200 bg-blue-50',
-      success: 'border-green-200 bg-green-50'
+      success: 'border-emerald-200 bg-emerald-50'
     }
     return colors[type as keyof typeof colors] || colors.info
   }
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case 'success': return <CheckCircle className="w-4 h-4 text-green-500" />
+      case 'success': return <CheckCircle className="w-4 h-4 text-[#3D9970]" />
       case 'warning': return <AlertTriangle className="w-4 h-4 text-orange-500" />
       case 'info': return <Eye className="w-4 h-4 text-blue-500" />
       case 'pending': return <Clock className="w-4 h-4 text-gray-500" />
-      default: return <CheckCircle className="w-4 h-4 text-green-500" />
+      default: return <CheckCircle className="w-4 h-4 text-[#3D9970]" />
     }
   }
 
@@ -559,7 +559,7 @@ export default function OverviewSection() {
       <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-3 sm:gap-4 bg-white p-3 sm:p-4 rounded-lg border">
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 w-full lg:w-auto">
           <div className="flex items-center gap-2 w-full sm:w-auto">
-            <Filter className="w-4 h-4 text-[#6E7D5B] flex-shrink-0" />
+            <Filter className="w-4 h-4 text-gray-600 flex-shrink-0" />
             <Select value={selectedSector} onValueChange={setSelectedSector}>
               <SelectTrigger className="w-full sm:w-[280px]">
                 <SelectValue placeholder="Filtrar por setor" />
@@ -577,7 +577,7 @@ export default function OverviewSection() {
         
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 w-full lg:w-auto">
           <div className="flex items-center gap-2 w-full sm:w-auto">
-            <Calendar className="w-4 h-4 text-[#6E7D5B] flex-shrink-0" />
+            <Calendar className="w-4 h-4 text-gray-600 flex-shrink-0" />
             <Select value={selectedPeriod} onValueChange={setSelectedPeriod}>
               <SelectTrigger className="w-full sm:w-[180px]">
                 <SelectValue placeholder="Período" />
@@ -662,8 +662,8 @@ export default function OverviewSection() {
         {/* Alertas */}
         {alerts.length > 0 && (
           <div className="space-y-3 sm:space-y-4">
-            <h3 className="text-base sm:text-lg font-semibold text-[#2B2E2B] flex items-center gap-2">
-              <AlertTriangle className="w-4 h-4 sm:w-5 sm:h-5 text-[#B8413D]" />
+            <h3 className="text-base sm:text-lg font-semibold text-[#101828] flex items-center gap-2">
+              <AlertTriangle className="w-4 h-4 sm:w-5 sm:h-5 text-red-600" />
               Alertas e Pendências
             </h3>
             <div className="grid grid-cols-1 gap-3 sm:gap-4">
@@ -697,11 +697,11 @@ export default function OverviewSection() {
           <CardContent>
             <div className="space-y-3 sm:space-y-4">
               {recentActivity.map((activity, index) => (
-                <div key={index} className="flex items-start gap-2 sm:gap-3 p-2 sm:p-3 rounded-lg hover:bg-[#F7F6F2] transition-colors">
+                <div key={index} className="flex items-start gap-2 sm:gap-3 p-2 sm:p-3 rounded-lg hover:bg-gray-100 transition-colors">
                   {getStatusIcon(activity.status)}
                   <div className="flex-1 min-w-0">
-                    <p className="text-xs sm:text-sm font-medium text-[#2B2E2B] break-words">{activity.message}</p>
-                    <p className="text-xs text-[#6E7D5B] mt-1">{activity.time}</p>
+                    <p className="text-xs sm:text-sm font-medium text-[#101828] break-words">{activity.message}</p>
+                    <p className="text-xs text-gray-600 mt-1">{activity.time}</p>
                   </div>
                 </div>
               ))}
@@ -733,8 +733,8 @@ export default function OverviewSection() {
                       {index + 1}
                     </div>
                     <div>
-                      <h4 className="font-semibold text-[#2B2E2B]">{category.name}</h4>
-                      <p className="text-sm text-[#6E7D5B]">{category.sales} vendas</p>
+                      <h4 className="font-semibold text-[#101828]">{category.name}</h4>
+                      <p className="text-sm text-gray-600">{category.sales} vendas</p>
                     </div>
                   </div>
                   <div className="text-right">

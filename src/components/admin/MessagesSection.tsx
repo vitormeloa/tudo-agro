@@ -48,7 +48,7 @@ export default function MessagesSection() {
   const getStatusBadge = (status: string) => {
     const config = {
       novo: 'bg-red-100 text-red-800',
-      respondido: 'bg-green-100 text-green-800',
+      respondido: 'bg-emerald-100 text-emerald-800',
       arquivado: 'bg-gray-100 text-gray-800'
     }
     return <Badge className={config[status as keyof typeof config]}>{status.charAt(0).toUpperCase() + status.slice(1)}</Badge>
@@ -56,10 +56,10 @@ export default function MessagesSection() {
 
   const getTypeBadge = (type: string) => {
     const config = {
-      suporte: 'bg-blue-100 text-blue-800',
+      suporte: 'bg-emerald-100 text-emerald-800',
       denúncia: 'bg-red-100 text-red-800',
-      elogio: 'bg-green-100 text-green-800',
-      financeiro: 'bg-purple-100 text-purple-800'
+      elogio: 'bg-emerald-100 text-emerald-800',
+      financeiro: 'bg-emerald-100 text-emerald-800'
     }
     return <Badge variant="outline" className={config[type as keyof typeof config]}>{type.charAt(0).toUpperCase() + type.slice(1)}</Badge>
   }
@@ -76,10 +76,10 @@ export default function MessagesSection() {
         <CardHeader className="p-3 sm:p-6">
           <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
             <div className="flex items-center gap-2">
-              <MessageSquare className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E4D2B]" />
+              <MessageSquare className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-800" />
               <span className="text-base sm:text-lg font-semibold">Mensagens e Suporte</span>
             </div>
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 text-xs sm:text-sm text-[#6E7D5B]">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-600">
               <span>Novos: {messages.filter(m => m.status === 'novo').length}</span>
               <span>Pendentes: {messages.filter(m => m.status === 'respondido').length}</span>
             </div>
@@ -93,8 +93,8 @@ export default function MessagesSection() {
                   <div className="flex flex-col lg:flex-row items-start justify-between gap-4">
                     <div className="flex-1 w-full">
                       <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-2">
-                        <User className="w-4 h-4 sm:w-5 sm:h-5 text-[#6E7D5B] flex-shrink-0" />
-                        <h3 className="font-semibold text-[#2B2E2B] text-sm sm:text-base break-words">{message.user}</h3>
+                        <User className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600 flex-shrink-0" />
+                        <h3 className="font-semibold text-[#101828] text-sm sm:text-base break-words">{message.user}</h3>
                         <div className="flex flex-wrap items-center gap-1 sm:gap-2">
                           {getStatusBadge(message.status)}
                           {getTypeBadge(message.type)}
@@ -102,10 +102,10 @@ export default function MessagesSection() {
                         </div>
                       </div>
                       
-                      <h4 className="font-medium text-[#2B2E2B] mb-2 text-sm sm:text-base break-words">{message.subject}</h4>
-                      <p className="text-xs sm:text-sm text-[#6E7D5B] mb-3 break-words">{message.preview}</p>
+                      <h4 className="font-medium text-[#101828] mb-2 text-sm sm:text-base break-words">{message.subject}</h4>
+                      <p className="text-xs sm:text-sm text-gray-600 mb-3 break-words">{message.preview}</p>
                       
-                      <div className="text-xs text-[#6E7D5B] break-words">
+                      <div className="text-xs text-gray-600 break-words">
                         {message.date}
                       </div>
                     </div>
@@ -132,10 +132,10 @@ export default function MessagesSection() {
 
           {/* Templates de Resposta */}
           <div className="mt-4 sm:mt-6">
-            <h3 className="font-semibold text-[#2B2E2B] mb-3 sm:mb-4 text-sm sm:text-base">Modelos de Resposta Rápida</h3>
+            <h3 className="font-semibold text-[#101828] mb-3 sm:mb-4 text-sm sm:text-base">Modelos de Resposta Rápida</h3>
             <div className="grid gap-2">
               {templates.map((template, index) => (
-                <div key={index} className="p-2 sm:p-3 bg-[#F7F6F2] rounded-lg text-xs sm:text-sm text-[#6E7D5B] cursor-pointer hover:bg-gray-100 break-words">
+                <div key={index} className="p-2 sm:p-3 bg-[#F7F6F2] rounded-lg text-xs sm:text-sm text-gray-600 cursor-pointer hover:bg-gray-100 break-words">
                   {template}
                 </div>
               ))}

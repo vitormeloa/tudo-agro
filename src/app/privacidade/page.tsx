@@ -10,7 +10,7 @@ export default function PrivacidadePage() {
       <Header />
       
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-emerald-600 via-green-600 to-emerald-700 text-white py-20">
+      <section className="bg-gradient-to-r from-emerald-600 via-emerald-600 to-emerald-700 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">Política de Privacidade</h1>
@@ -26,7 +26,7 @@ export default function PrivacidadePage() {
           <div className="flex items-center gap-3 mb-6 pb-4 border-b border-gray-200">
             <Shield className="w-6 h-6 text-emerald-600" />
             <div>
-              <h2 className="text-xl font-semibold text-gray-900">Última Atualização</h2>
+              <h2 className="text-xl font-semibold text-[#101828]">Última Atualização</h2>
               <div className="flex items-center gap-2 text-sm text-gray-500">
                 <Calendar className="w-4 h-4" />
                 <span>15 de Janeiro, 2024</span>
@@ -36,7 +36,7 @@ export default function PrivacidadePage() {
 
           <div className="prose prose-lg max-w-none">
             <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">1. Introdução</h2>
+              <h2 className="text-2xl font-bold text-[#101828] mb-4">1. Introdução</h2>
               <p className="text-gray-700 mb-4">
                 O TudoAgro respeita sua privacidade e está comprometido em proteger suas informações pessoais. 
                 Esta Política de Privacidade explica como coletamos, usamos, compartilhamos e protegemos suas 
@@ -45,8 +45,8 @@ export default function PrivacidadePage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">2. Informações que Coletamos</h2>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3 mt-4">2.1. Informações Fornecidas por Você</h3>
+              <h2 className="text-2xl font-bold text-[#101828] mb-4">2. Informações que Coletamos</h2>
+              <h3 className="text-xl font-semibold text-[#101828] mb-3 mt-4">2.1. Informações Fornecidas por Você</h3>
               <ul className="list-disc pl-6 text-gray-700 space-y-2">
                 <li>Nome completo e informações de contato</li>
                 <li>Endereço de e-mail e número de telefone</li>
@@ -55,7 +55,7 @@ export default function PrivacidadePage() {
                 <li>Informações sobre propriedades rurais</li>
               </ul>
 
-              <h3 className="text-xl font-semibold text-gray-900 mb-3 mt-6">2.2. Informações Coletadas Automaticamente</h3>
+              <h3 className="text-xl font-semibold text-[#101828] mb-3 mt-6">2.2. Informações Coletadas Automaticamente</h3>
               <ul className="list-disc pl-6 text-gray-700 space-y-2">
                 <li>Endereço IP e informações do dispositivo</li>
                 <li>Dados de navegação e uso da plataforma</li>
@@ -65,7 +65,7 @@ export default function PrivacidadePage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">3. Como Usamos suas Informações</h2>
+              <h2 className="text-2xl font-bold text-[#101828] mb-4">3. Como Usamos suas Informações</h2>
               <p className="text-gray-700 mb-4">Utilizamos suas informações para:</p>
               <ul className="list-disc pl-6 text-gray-700 space-y-2">
                 <li>Fornecer e melhorar nossos serviços</li>
@@ -79,7 +79,7 @@ export default function PrivacidadePage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">4. Compartilhamento de Informações</h2>
+              <h2 className="text-2xl font-bold text-[#101828] mb-4">4. Compartilhamento de Informações</h2>
               <p className="text-gray-700 mb-4">
                 Não vendemos suas informações pessoais. Podemos compartilhar suas informações apenas nas seguintes situações:
               </p>
@@ -92,7 +92,7 @@ export default function PrivacidadePage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">5. Segurança das Informações</h2>
+              <h2 className="text-2xl font-bold text-[#101828] mb-4">5. Segurança das Informações</h2>
               <p className="text-gray-700 mb-4">
                 Implementamos medidas de segurança técnicas e organizacionais para proteger suas informações pessoais, incluindo:
               </p>
@@ -106,7 +106,7 @@ export default function PrivacidadePage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">6. Cookies e Tecnologias Similares</h2>
+              <h2 className="text-2xl font-bold text-[#101828] mb-4">6. Cookies e Tecnologias Similares</h2>
               <p className="text-gray-700 mb-4">
                 Utilizamos cookies e tecnologias similares para melhorar sua experiência, analisar o uso da plataforma 
                 e personalizar conteúdo. Você pode gerenciar suas preferências de cookies através das configurações 
@@ -115,7 +115,7 @@ export default function PrivacidadePage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">7. Seus Direitos</h2>
+              <h2 className="text-2xl font-bold text-[#101828] mb-4">7. Seus Direitos</h2>
               <p className="text-gray-700 mb-4">De acordo com a LGPD, você tem direito a:</p>
               <ul className="list-disc pl-6 text-gray-700 space-y-2">
                 <li>Acessar suas informações pessoais</li>
@@ -128,7 +128,7 @@ export default function PrivacidadePage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">8. Retenção de Dados</h2>
+              <h2 className="text-2xl font-bold text-[#101828] mb-4">8. Retenção de Dados</h2>
               <p className="text-gray-700 mb-4">
                 Mantemos suas informações pessoais apenas pelo tempo necessário para cumprir os propósitos descritos 
                 nesta política, a menos que um período de retenção mais longo seja exigido ou permitido por lei.
@@ -136,7 +136,7 @@ export default function PrivacidadePage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">9. Privacidade de Menores</h2>
+              <h2 className="text-2xl font-bold text-[#101828] mb-4">9. Privacidade de Menores</h2>
               <p className="text-gray-700 mb-4">
                 Nossa plataforma não é destinada a menores de 18 anos. Não coletamos intencionalmente informações 
                 pessoais de menores. Se descobrirmos que coletamos informações de um menor, tomaremos medidas para 
@@ -145,7 +145,7 @@ export default function PrivacidadePage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">10. Alterações nesta Política</h2>
+              <h2 className="text-2xl font-bold text-[#101828] mb-4">10. Alterações nesta Política</h2>
               <p className="text-gray-700 mb-4">
                 Podemos atualizar esta Política de Privacidade periodicamente. Notificaremos você sobre mudanças 
                 significativas publicando a nova política na plataforma e atualizando a data de "Última Atualização".
@@ -153,7 +153,7 @@ export default function PrivacidadePage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">11. Contato</h2>
+              <h2 className="text-2xl font-bold text-[#101828] mb-4">11. Contato</h2>
               <p className="text-gray-700">
                 Se você tiver dúvidas sobre esta Política de Privacidade ou sobre como tratamos suas informações, 
                 entre em contato conosco através do e-mail 

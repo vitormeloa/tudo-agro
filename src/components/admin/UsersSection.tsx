@@ -121,7 +121,7 @@ export default function UsersSection() {
 
   const getStatusBadge = (status: string) => {
     const statusConfig = {
-      ativo: { color: 'bg-green-100 text-green-800', label: 'Ativo' },
+      ativo: { color: 'bg-emerald-100 text-emerald-800', label: 'Ativo' },
       inativo: { color: 'bg-gray-100 text-gray-800', label: 'Inativo' },
       pendente: { color: 'bg-orange-100 text-orange-800', label: 'Pendente' },
       bloqueado: { color: 'bg-red-100 text-red-800', label: 'Bloqueado' }
@@ -132,9 +132,9 @@ export default function UsersSection() {
 
   const getOriginBadge = (origin: string) => {
     const originConfig = {
-      orgânico: { color: 'bg-blue-100 text-blue-800', label: 'Orgânico' },
-      'rede social': { color: 'bg-purple-100 text-purple-800', label: 'Rede Social' },
-      indicação: { color: 'bg-green-100 text-green-800', label: 'Indicação' },
+      orgânico: { color: 'bg-emerald-100 text-emerald-800', label: 'Orgânico' },
+      'rede social': { color: 'bg-emerald-100 text-emerald-800', label: 'Rede Social' },
+      indicação: { color: 'bg-emerald-100 text-emerald-800', label: 'Indicação' },
       leilão: { color: 'bg-orange-100 text-orange-800', label: 'Leilão' }
     }
     const config = originConfig[origin as keyof typeof originConfig] || originConfig.orgânico
@@ -163,7 +163,7 @@ export default function UsersSection() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
                 <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-                    <User className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E4D2B]" />
+                    <User className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-800" />
                     <span className="text-base sm:text-lg font-semibold">Gerenciamento de Usuários</span>
                 </CardTitle>
             </div>
@@ -184,7 +184,7 @@ export default function UsersSection() {
             {/* Busca */}
             <div className="flex-1">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#6E7D5B] w-4 h-4" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 w-4 h-4" />
                 <Input
                   placeholder="Buscar por nome ou email..."
                   value={searchTerm}
@@ -240,10 +240,10 @@ export default function UsersSection() {
                     {/* Informações Principais */}
                     <div className="flex-1 w-full">
                       <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-2">
-                        <h3 className="text-lg font-semibold text-[#2B2E2B]">{user.name}</h3>
+                        <h3 className="text-lg font-semibold text-[#101828]">{user.name}</h3>
                         <div className="flex items-center gap-2 flex-wrap">
                           {user.isVerified && (
-                            <CheckCircle className="w-5 h-5 text-green-500" title="Verificado" />
+                            <CheckCircle className="w-5 h-5 text-[#3D9970]" title="Verificado" />
                           )}
                           {getStatusBadge(user.status)}
                           <Badge variant="outline" className="text-xs">
@@ -252,7 +252,7 @@ export default function UsersSection() {
                         </div>
                       </div>
                       
-                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-sm text-[#6E7D5B]">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-sm text-gray-600">
                         <div className="flex items-center gap-2">
                           <Mail className="w-4 h-4" />
                           {user.email}
@@ -273,7 +273,7 @@ export default function UsersSection() {
                       
                       <div className="flex items-center gap-2 mt-3">
                         {getOriginBadge(user.origin)}
-                        <div className="flex items-center gap-1 text-xs text-[#6E7D5B]">
+                        <div className="flex items-center gap-1 text-xs text-gray-600">
                           <Activity className="w-3 h-3" />
                           Última atividade: {new Date(user.lastActivity).toLocaleDateString('pt-BR')}
                         </div>
@@ -284,20 +284,20 @@ export default function UsersSection() {
                   {/* Estatísticas */}
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-4 pt-4 border-t border-gray-100">
                     <div className="text-center">
-                      <p className="text-2xl font-bold text-[#1E4D2B]">{user.adsCount}</p>
-                      <p className="text-xs text-[#6E7D5B]">Anúncios</p>
+                      <p className="text-2xl font-bold text-emerald-800">{user.adsCount}</p>
+                      <p className="text-xs text-gray-600">Anúncios</p>
                     </div>
                     <div className="text-center">
-                      <p className="text-2xl font-bold text-[#1E4D2B]">{user.auctionsCount}</p>
-                      <p className="text-xs text-[#6E7D5B]">Leilões</p>
+                      <p className="text-2xl font-bold text-emerald-800">{user.auctionsCount}</p>
+                      <p className="text-xs text-gray-600">Leilões</p>
                     </div>
                     <div className="text-center">
-                      <p className="text-2xl font-bold text-[#1E4D2B]">{user.favoritesCount}</p>
-                      <p className="text-xs text-[#6E7D5B]">Favoritos</p>
+                      <p className="text-2xl font-bold text-emerald-800">{user.favoritesCount}</p>
+                      <p className="text-xs text-gray-600">Favoritos</p>
                     </div>
                     <div className="text-center">
-                      <p className="text-2xl font-bold text-[#1E4D2B]">{user.purchasesCount}</p>
-                      <p className="text-xs text-[#6E7D5B]">Compras</p>
+                      <p className="text-2xl font-bold text-emerald-800">{user.purchasesCount}</p>
+                      <p className="text-xs text-gray-600">Compras</p>
                     </div>
                   </div>
                 </div>
@@ -334,7 +334,7 @@ export default function UsersSection() {
                       size="sm" 
                       icon={<CheckCircle className="w-4 h-4" />}
                       text="Ativar"
-                      className="text-green-600 hover:text-green-700"
+                      className="text-emerald-600 hover:text-emerald-700"
                       fullWidthOnMobile={true}
                     />
                   )}
@@ -348,7 +348,7 @@ export default function UsersSection() {
       {/* Resumo */}
       <Card>
         <CardContent className="p-6">
-          <div className="flex items-center justify-between text-sm text-[#6E7D5B]">
+          <div className="flex items-center justify-between text-sm text-gray-600">
             <span>Mostrando {filteredUsers.length} de {users.length} usuários</span>
             <div className="flex items-center gap-4">
               <span>Total de usuários ativos: {users.filter(u => u.status === 'ativo').length}</span>

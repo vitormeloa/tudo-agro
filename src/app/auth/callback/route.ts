@@ -61,7 +61,7 @@ export async function GET(request: NextRequest) {
         }
 
         // Redirecionar para o dashboard com mensagem de sucesso
-        return NextResponse.redirect(`${requestUrl.origin}/dashboard/visao-geral?message=Conta ativada com sucesso! Bem-vindo ao TudoAgro.`)
+        return NextResponse.redirect(`${requestUrl.origin}/dashboard?message=Conta ativada com sucesso! Bem-vindo ao TudoAgro.`)
       }
     } catch (error) {
       console.error('Error in auth callback:', error)

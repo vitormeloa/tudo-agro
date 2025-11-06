@@ -26,8 +26,8 @@ const getSellerLevel = (sales: number) => {
     { threshold: 0, name: 'Novo', color: '#ef4444', textColor: 'text-red-600' }, // Vermelho - Ruim
     { threshold: 50, name: 'Bronze', color: '#f97316', textColor: 'text-orange-600' }, // Laranja - Regular
     { threshold: 100, name: 'Prata', color: '#eab308', textColor: 'text-yellow-600' }, // Amarelo - Bom
-    { threshold: 500, name: 'Ouro', color: '#22c55e', textColor: 'text-green-500' }, // Verde claro - Muito bom
-    { threshold: 1000, name: 'Diamante', color: '#10b981', textColor: 'text-green-600' }, // Verde - Excelente
+    { threshold: 500, name: 'Ouro', color: '#22c55e', textColor: 'text-[#3D9970]' }, // Verde claro - Muito bom
+    { threshold: 1000, name: 'Diamante', color: '#10b981', textColor: 'text-emerald-600' }, // Verde - Excelente
   ];
 
   // Find current level
@@ -71,12 +71,12 @@ export default function SellerInfoCard({ seller }: SellerInfoCardProps) {
       <CardContent className="p-6 relative">
         <div className="absolute top-6 right-6 hidden sm:block">
           <Link href={`/vendedor/${seller.id}`}>
-            <Button variant="outline" className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white">
+            <Button variant="outline" className="border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white">
               Ver perfil do vendedor
             </Button>
           </Link>
         </div>
-        <h2 className="text-xl font-bold text-gray-900 mb-4">Vendedor</h2>
+        <h2 className="text-xl font-bold text-[#101828] mb-4">Vendedor</h2>
         <div className="flex flex-col sm:flex-row items-start space-y-4 sm:space-y-0 sm:space-x-6">
           <div className="flex-shrink-0">
             <Link href={`/vendedor/${seller.id}`}>
@@ -90,7 +90,7 @@ export default function SellerInfoCard({ seller }: SellerInfoCardProps) {
           
           <div className="flex-1">
             <Link href={`/vendedor/${seller.id}`}>
-              <h3 className="text-lg font-bold text-gray-900 hover:text-green-700 transition-colors">
+              <h3 className="text-lg font-bold text-[#101828] hover:text-emerald-700 transition-colors">
                 {seller.name}
               </h3>
             </Link>
@@ -138,20 +138,20 @@ export default function SellerInfoCard({ seller }: SellerInfoCardProps) {
 
             <div className="grid grid-cols-3 gap-4 text-center mb-4">
               <div>
-                <p className="font-bold text-lg text-gray-900">{seller.totalSales}</p>
+                <p className="font-bold text-lg text-[#101828]">{seller.totalSales}</p>
                 <p className="text-xs text-gray-500">Vendas nos últimos 60 dias</p>
               </div>
               <div>
                 <div className="flex items-center justify-center">
                   <MessageSquare className="w-4 h-4 text-gray-500 mr-1" />
-                  <p className="font-bold text-lg text-gray-900">Ótimo</p>
+                  <p className="font-bold text-lg text-[#101828]">Ótimo</p>
                 </div>
                 <p className="text-xs text-gray-500">Presta um bom atendimento</p>
               </div>
               <div>
                 <div className="flex items-center justify-center">
                   <Clock className="w-4 h-4 text-gray-500 mr-1" />
-                  <p className="font-bold text-lg text-gray-900">No prazo</p>
+                  <p className="font-bold text-lg text-[#101828]">No prazo</p>
                 </div>
                 <p className="text-xs text-gray-500">Entrega os produtos no prazo</p>
               </div>
@@ -159,7 +159,7 @@ export default function SellerInfoCard({ seller }: SellerInfoCardProps) {
             
             <div className="sm:hidden">
               <Link href={`/vendedor/${seller.id}`}>
-                <Button variant="outline" className="w-full border-green-600 text-green-600 hover:bg-green-600 hover:text-white">
+                <Button variant="outline" className="w-full border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white">
                   Ver perfil do vendedor
                 </Button>
               </Link>

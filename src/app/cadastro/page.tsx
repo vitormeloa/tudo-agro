@@ -351,7 +351,7 @@ export default function CadastroPage() {
                 return (
                     <div className="space-y-6">
                         <div className="text-center mb-6 sm:mb-8">
-                            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
+                            <h2 className="text-xl sm:text-2xl font-bold text-[#101828] mb-2">
                                 Escolha o tipo de conta
                             </h2>
                             <p className="text-sm sm:text-base text-gray-600">
@@ -379,7 +379,7 @@ export default function CadastroPage() {
                                             <User className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600" />
                                         </div>
                                         <div className="min-w-0">
-                                            <h3 className="text-base sm:text-lg font-semibold text-gray-900">Pessoa Física</h3>
+                                            <h3 className="text-base sm:text-lg font-semibold text-[#101828]">Pessoa Física</h3>
                                             <p className="text-sm sm:text-base text-gray-600">Ideal para quem deseja comprar animais, genética e produtos agropecuários para uso próprio.
                                             </p>
                                         </div>
@@ -402,7 +402,7 @@ export default function CadastroPage() {
                                             <Building className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600" />
                                         </div>
                                         <div className="min-w-0">
-                                            <h3 className="text-base sm:text-lg font-semibold text-gray-900">Pessoa Jurídica</h3>
+                                            <h3 className="text-base sm:text-lg font-semibold text-[#101828]">Pessoa Jurídica</h3>
                                             <p className="text-sm sm:text-base text-gray-600">Perfil destinado a empresas, cooperativas e produtores que desejam vender animais, genética e/ou produtos no marketplace.</p>
                                         </div>
                                     </div>
@@ -418,7 +418,7 @@ export default function CadastroPage() {
                     return (
                         <div className="space-y-6">
                             <div className="text-center mb-6 sm:mb-8">
-                                <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
+                                <h2 className="text-xl sm:text-2xl font-bold text-[#101828] mb-2">
                                     Dados da Empresa
                                 </h2>
                                 <p className="text-sm sm:text-base text-gray-600">
@@ -623,7 +623,7 @@ export default function CadastroPage() {
                 return (
                     <div className="space-y-6">
                         <div className="text-center mb-6 sm:mb-8">
-                            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
+                            <h2 className="text-xl sm:text-2xl font-bold text-[#101828] mb-2">
                                 Dados pessoais
                             </h2>
                             <p className="text-sm sm:text-base text-gray-600">
@@ -787,7 +787,7 @@ export default function CadastroPage() {
                     return (
                         <div className="space-y-6">
                             <div className="text-center mb-6 sm:mb-8">
-                                <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
+                                <h2 className="text-xl sm:text-2xl font-bold text-[#101828] mb-2">
                                     Dados da propriedade
                                 </h2>
                                 <p className="text-sm sm:text-base text-gray-600">
@@ -796,7 +796,7 @@ export default function CadastroPage() {
                             </div>
 
                             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-                                <p className="text-sm text-blue-800 text-center">
+                                <p className="text-sm text-emerald-800 text-center">
                                     <strong>Não se preocupe se ainda não tiver todas as informações!</strong> Você poderá preencher os dados faltantes mais tarde, direto no seu painel.
                                 </p>
                             </div>
@@ -919,7 +919,7 @@ export default function CadastroPage() {
                                                         }`} />
                                                     </div>
                                                     <div className="min-w-0">
-                                                        <h3 className="text-base sm:text-lg font-semibold text-gray-900">
+                                                        <h3 className="text-base sm:text-lg font-semibold text-[#101828]">
                                                             Vendedor de gado (corte, leite ou genética)
                                                         </h3>
                                                     </div>
@@ -955,7 +955,7 @@ export default function CadastroPage() {
                                                         }`} />
                                                     </div>
                                                     <div className="min-w-0">
-                                                        <h3 className="text-base sm:text-lg font-semibold text-gray-900">
+                                                        <h3 className="text-base sm:text-lg font-semibold text-[#101828]">
                                                             Vendedor de cavalos (esporte, genética ou vaquejada)
                                                         </h3>
                                                     </div>
@@ -991,7 +991,7 @@ export default function CadastroPage() {
                                                         }`} />
                                                     </div>
                                                     <div className="min-w-0">
-                                                        <h3 className="text-base sm:text-lg font-semibold text-gray-900">
+                                                        <h3 className="text-base sm:text-lg font-semibold text-[#101828]">
                                                             Fornecedor de genética animal
                                                         </h3>
                                                     </div>
@@ -1027,7 +1027,7 @@ export default function CadastroPage() {
                                                         }`} />
                                                     </div>
                                                     <div className="min-w-0">
-                                                        <h3 className="text-base sm:text-lg font-semibold text-gray-900">
+                                                        <h3 className="text-base sm:text-lg font-semibold text-[#101828]">
                                                             Fornecedor de produtos agropecuários
                                                         </h3>
                                                     </div>
@@ -1063,7 +1063,7 @@ export default function CadastroPage() {
                                                         }`} />
                                                     </div>
                                                     <div className="min-w-0">
-                                                        <h3 className="text-base sm:text-lg font-semibold text-gray-900">
+                                                        <h3 className="text-base sm:text-lg font-semibold text-[#101828]">
                                                             Empresa agrícola / Agroindústria
                                                         </h3>
                                                     </div>
@@ -1099,7 +1099,7 @@ export default function CadastroPage() {
                                                         }`} />
                                                     </div>
                                                     <div className="min-w-0">
-                                                        <h3 className="text-base sm:text-lg font-semibold text-gray-900">
+                                                        <h3 className="text-base sm:text-lg font-semibold text-[#101828]">
                                                             Cooperativa / Fazenda estruturada
                                                         </h3>
                                                     </div>
@@ -1135,7 +1135,7 @@ export default function CadastroPage() {
                                                         }`} />
                                                     </div>
                                                     <div className="min-w-0">
-                                                        <h3 className="text-base sm:text-lg font-semibold text-gray-900">
+                                                        <h3 className="text-base sm:text-lg font-semibold text-[#101828]">
                                                             Outros
                                                         </h3>
                                                     </div>
@@ -1185,7 +1185,7 @@ export default function CadastroPage() {
                 return (
                     <div className="space-y-6">
                         <div className="text-center mb-6 sm:mb-8">
-                            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
+                            <h2 className="text-xl sm:text-2xl font-bold text-[#101828] mb-2">
                                 Dados da propriedade
                             </h2>
                             <p className="text-sm sm:text-base text-gray-600">
@@ -1194,7 +1194,7 @@ export default function CadastroPage() {
                         </div>
 
                         <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-                            <p className="text-sm text-blue-800 text-center">
+                            <p className="text-sm text-emerald-800 text-center">
                                 <strong>Não se preocupe se ainda não tiver todas as informações!</strong> Você poderá preencher os dados faltantes mais tarde, direto no seu painel.
                             </p>
                         </div>
@@ -1317,7 +1317,7 @@ export default function CadastroPage() {
                 return (
                     <div className="space-y-6">
                         <div className="text-center mb-6 sm:mb-8">
-                            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
+                            <h2 className="text-xl sm:text-2xl font-bold text-[#101828] mb-2">
                                 Confirmação
                             </h2>
                             <p className="text-sm sm:text-base text-gray-600">
@@ -1326,12 +1326,12 @@ export default function CadastroPage() {
                         </div>
 
                         <div className="bg-gray-50 rounded-xl p-4 sm:p-6 space-y-4">
-                            <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-4">Resumo do cadastro</h3>
+                            <h3 className="text-base sm:text-lg font-semibold text-[#101828] mb-4">Resumo do cadastro</h3>
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 text-xs sm:text-sm">
                                 <div>
                                     <span className="text-gray-600">Tipo de conta:</span>
-                                    <span className="ml-2 font-medium text-gray-900">
+                                    <span className="ml-2 font-medium text-[#101828]">
                                         {formData.accountType === 'pf' ? 'Pessoa Física' : 'Pessoa Jurídica'}
                                     </span>
                                 </div>
@@ -1340,30 +1340,30 @@ export default function CadastroPage() {
                                     <>
                                         <div>
                                             <span className="text-gray-600">Empresa:</span>
-                                            <span className="ml-2 font-medium text-gray-900">{formData.companyName}</span>
+                                            <span className="ml-2 font-medium text-[#101828]">{formData.companyName}</span>
                                         </div>
                                         <div>
                                             <span className="text-gray-600">CNPJ:</span>
-                                            <span className="ml-2 font-medium text-gray-900">{formData.cnpj}</span>
+                                            <span className="ml-2 font-medium text-[#101828]">{formData.cnpj}</span>
                                         </div>
                                         <div>
                                             <span className="text-gray-600">Responsável legal:</span>
-                                            <span className="ml-2 font-medium text-gray-900">{formData.legalRepresentativeName}</span>
+                                            <span className="ml-2 font-medium text-[#101828]">{formData.legalRepresentativeName}</span>
                                         </div>
                                         <div>
                                             <span className="text-gray-600">CPF do responsável:</span>
-                                            <span className="ml-2 font-medium text-gray-900">{formData.legalRepresentativeCpf}</span>
+                                            <span className="ml-2 font-medium text-[#101828]">{formData.legalRepresentativeCpf}</span>
                                         </div>
                                         <div>
                                             <span className="text-gray-600">E-mail corporativo:</span>
-                                            <span className="ml-2 font-medium text-gray-900">{formData.corporateEmail}</span>
+                                            <span className="ml-2 font-medium text-[#101828]">{formData.corporateEmail}</span>
                                         </div>
                                         {formData.operationTypes && formData.operationTypes.length > 0 && (
                                             <div className="col-span-1 sm:col-span-2">
                                                 <span className="text-gray-600">Tipo de atuação:</span>
                                                 <div className="mt-1 space-y-1">
                                                     {formData.operationTypes.map((type, index) => (
-                                                        <div key={index} className="ml-2 font-medium text-gray-900">
+                                                        <div key={index} className="ml-2 font-medium text-[#101828]">
                                                             • {getOperationTypeLabel(type)}
                                                         </div>
                                                     ))}
@@ -1375,35 +1375,35 @@ export default function CadastroPage() {
                                     <>
                                         <div>
                                             <span className="text-gray-600">Nome:</span>
-                                            <span className="ml-2 font-medium text-gray-900">{formData.fullName}</span>
+                                            <span className="ml-2 font-medium text-[#101828]">{formData.fullName}</span>
                                         </div>
                                         <div>
                                             <span className="text-gray-600">CPF:</span>
-                                            <span className="ml-2 font-medium text-gray-900">{formData.cpf}</span>
+                                            <span className="ml-2 font-medium text-[#101828]">{formData.cpf}</span>
                                         </div>
                                         <div>
                                             <span className="text-gray-600">E-mail:</span>
-                                            <span className="ml-2 font-medium text-gray-900">{formData.email}</span>
+                                            <span className="ml-2 font-medium text-[#101828]">{formData.email}</span>
                                         </div>
                                     </>
                                 )}
                                 
                                 <div>
                                     <span className="text-gray-600">Telefone:</span>
-                                    <span className="ml-2 font-medium text-gray-900">{formData.phone}</span>
+                                    <span className="ml-2 font-medium text-[#101828]">{formData.phone}</span>
                                 </div>
                                 
                                 {formData.farmName && (
                                     <div>
                                         <span className="text-gray-600">Fazenda:</span>
-                                        <span className="ml-2 font-medium text-gray-900">{formData.farmName}</span>
+                                        <span className="ml-2 font-medium text-[#101828]">{formData.farmName}</span>
                                     </div>
                                 )}
                                 
                                 {(formData.city || formData.state) && (
                                     <div>
                                         <span className="text-gray-600">Localização:</span>
-                                        <span className="ml-2 font-medium text-gray-900">
+                                        <span className="ml-2 font-medium text-[#101828]">
                                             {formData.city && formData.state 
                                                 ? `${formData.city}, ${getStateLabel(formData.state)}`
                                                 : formData.city || getStateLabel(formData.state)}
@@ -1414,14 +1414,14 @@ export default function CadastroPage() {
                                 {formData.activityType && (
                                     <div>
                                         <span className="text-gray-600">Tipo de atividade:</span>
-                                        <span className="ml-2 font-medium text-gray-900">{getActivityTypeLabel(formData.activityType)}</span>
+                                        <span className="ml-2 font-medium text-[#101828]">{getActivityTypeLabel(formData.activityType)}</span>
                                     </div>
                                 )}
                                 
                                 {formData.farmSize && (
                                     <div>
                                         <span className="text-gray-600">Tamanho aproximado:</span>
-                                        <span className="ml-2 font-medium text-gray-900">{formData.farmSize} hectares</span>
+                                        <span className="ml-2 font-medium text-[#101828]">{formData.farmSize} hectares</span>
                                     </div>
                                 )}
                             </div>
@@ -1462,7 +1462,7 @@ export default function CadastroPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-green-50">
+        <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-emerald-50">
             {/* Centralized Registration Form */}
             <div className="flex items-center justify-center min-h-screen pt-2 sm:pt-3 lg:pt-4 pb-4 sm:pb-6 px-4 sm:px-6 lg:px-8">
                 <div className="w-full max-w-4xl">
@@ -1482,7 +1482,7 @@ export default function CadastroPage() {
                         <CardContent className="p-6 sm:p-8">
                             {/* Título e Subtítulo */}
                             <div className="text-center mb-6 sm:mb-8">
-                                <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+                                <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#101828] mb-2">
                                     Criar Conta
                                 </h1>
                                 <p className="text-xs sm:text-sm md:text-base text-gray-600">
@@ -1546,7 +1546,7 @@ export default function CadastroPage() {
                                         <Button
                                             type="button"
                                             onClick={handleNext}
-                                            className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white px-6 sm:px-8 py-3 text-sm sm:text-base"
+                                            className="w-full sm:w-auto bg-emerald-600 hover:bg-[#2E7A5A] text-white px-6 sm:px-8 py-3 text-sm sm:text-base"
                                         >
                                             Próximo
                                             <ArrowRight className="w-4 h-4 ml-2" />
@@ -1554,7 +1554,7 @@ export default function CadastroPage() {
                                     ) : (
                                         <Button
                                             type="submit"
-                                            className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white px-6 sm:px-8 py-3 text-sm sm:text-base"
+                                            className="w-full sm:w-auto bg-emerald-600 hover:bg-[#2E7A5A] text-white px-6 sm:px-8 py-3 text-sm sm:text-base"
                                             disabled={isLoading || !formData.acceptTerms}
                                         >
                                             {isLoading ? (

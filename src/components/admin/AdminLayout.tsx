@@ -77,7 +77,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   // Definir itens do menu baseado no role do usuário
   const getMenuItems = () => {
     const allMenuItems = [
-      { id: 'visao-geral', label: 'Visão Geral', icon: BarChart3, alerts: 0, roles: ['admin', 'vendedor', 'comprador'], href: '/dashboard/visao-geral' },
+      { id: 'visao-geral', label: 'Visão Geral', icon: BarChart3, alerts: 0, roles: ['admin', 'vendedor', 'comprador'], href: '/dashboard' },
       { id: 'favoritos', label: 'Favoritos', icon: Heart, alerts: 0, roles: ['admin', 'vendedor', 'comprador'], href: '/dashboard/favoritos' },
       { id: 'minhas-compras', label: 'Minhas Compras', icon: ShoppingBag, alerts: 0, roles: ['comprador', 'vendedor', 'admin'], href: '/dashboard/minhas-compras' },
       { id: 'financeiro', label: 'Financeiro', icon: DollarSign, alerts: 0, roles: ['comprador', 'vendedor', 'admin'], href: '/dashboard/financeiro' },
@@ -136,7 +136,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
             {sidebarOpen && (
               <div>
                 <h1 className="text-xl sm:text-2xl font-bold text-emerald-600">TudoAgro</h1>
-                <p className="text-xs sm:text-sm text-[#6E7D5B]">
+                <p className="text-xs sm:text-sm text-gray-600">
                   {isAdmin ? 'Painel Administrativo' : 
                    isSeller ? 'Painel do Vendedor' : 
                    'Painel do Usuário'}
@@ -147,7 +147,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
               variant="ghost"
               size="sm"
               onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="text-[#6E7D5B] hover:text-[#1E4D2B] hover:bg-[#F7F6F2] group relative overflow-hidden"
+              className="text-gray-600 hover:text-emerald-600 hover:bg-gray-100 group relative overflow-hidden"
               title={sidebarOpen ? "Fechar Menu" : "Abrir Menu"}
             >
               {sidebarOpen ? (
@@ -188,17 +188,17 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                   className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg text-left transition-all duration-200 group relative overflow-hidden ${
                     isActive 
                       ? 'bg-emerald-600 text-white shadow-lg' 
-                      : 'text-[#6E7D5B] hover:bg-[#F7F6F2] hover:text-emerald-600'
+                      : 'text-gray-600 hover:bg-gray-100 hover:text-emerald-600'
                   }`}
                   title={!sidebarOpen ? item.label : undefined}
                 >
-                  <Icon className={`w-4 h-4 sm:w-5 sm:h-5 ${isActive ? 'text-white' : 'text-[#6E7D5B] group-hover:text-emerald-600'}`} />
+                  <Icon className={`w-4 h-4 sm:w-5 sm:h-5 ${isActive ? 'text-white' : 'text-gray-600 group-hover:text-emerald-600'}`} />
                   {sidebarOpen && (
                     <>
                       <span className="font-medium flex-1 text-sm sm:text-base">{item.label}</span>
                       {item.alerts > 0 && (
                         <Badge className={`${
-                          isActive ? 'bg-white text-[#1E4D2B]' : 'bg-[#B8413D] text-white'
+                          isActive ? 'bg-white text-emerald-800' : 'bg-[#B8413D] text-white'
                         } text-xs px-2 py-1`}>
                           {item.alerts}
                         </Badge>
@@ -230,17 +230,17 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
           {sidebarOpen ? (
             <div className="mb-4 p-3 bg-[#F7F6F2] rounded-lg">
               <div className="flex items-center gap-2 mb-2">
-                <AlertTriangle className="w-4 h-4 text-[#B8413D]" />
-                <span className="text-sm font-medium text-[#2B2E2B]">Alertas Pendentes</span>
+                <AlertTriangle className="w-4 h-4 text-red-600" />
+                <span className="text-sm font-medium text-[#101828]">Alertas Pendentes</span>
               </div>
-              <p className="text-2xl font-bold text-[#B8413D]">{totalAlerts}</p>
-              <p className="text-xs text-[#6E7D5B]">Requerem atenção</p>
+              <p className="text-2xl font-bold text-red-600">{totalAlerts}</p>
+              <p className="text-xs text-gray-600">Requerem atenção</p>
             </div>
           ) : (
             totalAlerts > 0 && (
               <div className="mb-4 p-2 bg-red-50 rounded-lg group relative">
                 <div className="flex items-center justify-center">
-                  <AlertTriangle className="w-5 h-5 text-[#B8413D]" />
+                  <AlertTriangle className="w-5 h-5 text-red-600" />
                   <div className="absolute -top-1 -right-1 w-5 h-5 bg-[#B8413D] text-white text-xs rounded-full flex items-center justify-center font-bold">
                     {totalAlerts}
                   </div>
@@ -257,7 +257,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
           
           <Button
             variant="ghost"
-            className={`w-full justify-start text-[#6E7D5B] hover:text-[#B8413D] hover:bg-red-50 group relative overflow-hidden ${
+            className={`w-full justify-start text-gray-600 hover:text-red-600 hover:bg-red-50 group relative overflow-hidden ${
               !sidebarOpen ? 'hover:bg-red-100' : ''
             }`}
             onClick={async () => {
@@ -316,7 +316,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                 variant="ghost"
                 size="sm"
                 onClick={() => setSidebarOpen(!sidebarOpen)}
-                className="lg:hidden text-[#6E7D5B] hover:text-emerald-600 hover:bg-[#F7F6F2] group"
+                className="lg:hidden text-gray-600 hover:text-emerald-600 hover:bg-gray-100 group"
                 title="Abrir Menu"
               >
                 <Menu className="w-4 h-4 sm:w-5 sm:h-5 group-hover:scale-110 transition-transform" />
@@ -328,10 +328,10 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                 alt="TudoAgro Logo"
               />
               <div className="hidden sm:block">
-                <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-[#2B2E2B]">
+                <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-[#101828]">
                   {activeItem?.label || 'Dashboard'}
                 </h2>
-                <p className="text-[#6E7D5B] text-xs sm:text-sm hidden md:block">
+                <p className="text-gray-600 text-xs sm:text-sm hidden md:block">
                   {isAdmin ? 'Gerencie e monitore as operações da plataforma' :
                    isSeller ? 'Gerencie seus produtos, leilões e vendas' :
                    'Acompanhe suas compras, leilões e atividades'}
@@ -346,7 +346,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="text-[#6E7D5B] hover:text-red-500 transition-colors"
+                  className="text-gray-600 hover:text-red-500 transition-colors"
                   title="Meus Favoritos"
                 >
                   <Heart className="w-5 h-5" />
@@ -360,7 +360,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="relative text-[#6E7D5B] hover:text-emerald-600 transition-colors"
+                    className="relative text-gray-600 hover:text-emerald-600 transition-colors"
                     title="Carrinho"
                   >
                     <ShoppingCart className="w-5 h-5" />
@@ -385,21 +385,21 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                     </span>
                   </div>
                   <div className="text-sm text-left hidden sm:block">
-                    <p className="font-medium text-[#2B2E2B] text-xs sm:text-sm">
+                    <p className="font-medium text-[#101828] text-xs sm:text-sm">
                       {isAdmin ? 'Administrador' : 
                        isSeller ? 'Vendedor' : 
                        'Usuário'}
                     </p>
-                    <p className="text-[#6E7D5B] text-xs truncate max-w-32">{user?.email}</p>
+                    <p className="text-gray-600 text-xs truncate max-w-32">{user?.email}</p>
                   </div>
-                  <ChevronDown className={`w-3 h-3 sm:w-4 sm:h-4 text-[#6E7D5B] transition-transform ${isUserMenuOpen ? 'rotate-180' : ''}`} />
+                  <ChevronDown className={`w-3 h-3 sm:w-4 sm:h-4 text-gray-600 transition-transform ${isUserMenuOpen ? 'rotate-180' : ''}`} />
                 </button>
 
                 {/* User Dropdown Menu */}
                 {isUserMenuOpen && (
                   <div className="absolute top-full right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50 max-h-96 overflow-y-auto">
                     <div className="px-4 py-3 border-b border-gray-100">
-                      <p className="text-sm font-medium text-gray-900">{user?.name || 'Usuário'}</p>
+                      <p className="text-sm font-medium text-[#101828]">{user?.name || 'Usuário'}</p>
                       <p className="text-xs text-gray-500">{user?.email}</p>
                     </div>
                     

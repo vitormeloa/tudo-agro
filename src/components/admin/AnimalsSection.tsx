@@ -158,8 +158,8 @@ export default function AnimalsSection() {
 
   const getHealthBadge = (health: Animal['healthStatus']) => {
     const healthConfig = {
-      excellent: { label: 'Excelente', variant: 'default' as const, color: 'text-green-600' },
-      good: { label: 'Bom', variant: 'secondary' as const, color: 'text-blue-600' },
+      excellent: { label: 'Excelente', variant: 'default' as const, color: 'text-emerald-600' },
+      good: { label: 'Bom', variant: 'secondary' as const, color: 'text-emerald-600' },
       fair: { label: 'Regular', variant: 'outline' as const, color: 'text-yellow-600' },
       poor: { label: 'Ruim', variant: 'destructive' as const, color: 'text-red-600' }
     }
@@ -215,7 +215,7 @@ export default function AnimalsSection() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
                 <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-                    <Heart className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E4D2B]" />
+                    <Heart className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-800" />
                     <span className="text-base sm:text-lg font-semibold">Gerenciamento de Animais</span>
                 </CardTitle>
             </div>
@@ -234,7 +234,7 @@ export default function AnimalsSection() {
             {/* Busca */}
             <div className="flex-1">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#6E7D5B] w-4 h-4" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 w-4 h-4" />
                 <Input
                   placeholder="Buscar animais..."
                   value={searchTerm}
@@ -296,10 +296,10 @@ export default function AnimalsSection() {
             <CardHeader className="pb-3">
               <div className="flex justify-between items-start">
                 <div className="flex-1 min-w-0">
-                  <CardTitle className="text-base sm:text-lg font-semibold text-[#2B2E2B] line-clamp-2">
+                  <CardTitle className="text-base sm:text-lg font-semibold text-[#101828] line-clamp-2">
                     {animal.name}
                   </CardTitle>
-                  <p className="text-sm text-[#6E7D5B] mt-1 line-clamp-2">
+                  <p className="text-sm text-gray-600 mt-1 line-clamp-2">
                     {animal.description}
                   </p>
                 </div>
@@ -312,7 +312,7 @@ export default function AnimalsSection() {
                 {getStatusBadge(animal.status)}
                 {getHealthBadge(animal.healthStatus)}
                 {animal.pedigree && (
-                  <Badge variant="outline" className="text-xs text-purple-600">
+                  <Badge variant="outline" className="text-xs text-emerald-600">
                     Pedigree
                   </Badge>
                 )}
@@ -327,35 +327,35 @@ export default function AnimalsSection() {
                 {/* Informações Básicas */}
                 <div className="grid grid-cols-2 gap-2 text-sm">
                   <div className="flex items-center gap-1">
-                    <Calendar className="w-4 h-4 text-[#6E7D5B]" />
+                    <Calendar className="w-4 h-4 text-gray-600" />
                     <span>{animal.age} meses</span>
                   </div>
                   <div className="flex items-center gap-1">
-                    <BarChart3 className="w-4 h-4 text-[#6E7D5B]" />
+                    <BarChart3 className="w-4 h-4 text-gray-600" />
                     <span>{animal.weight}kg</span>
                   </div>
                 </div>
                 
                 {/* Localização */}
                 <div className="flex items-center gap-2 text-sm">
-                  <MapPin className="w-4 h-4 text-[#6E7D5B]" />
-                  <span className="text-[#2B2E2B]">{animal.location}</span>
+                  <MapPin className="w-4 h-4 text-gray-600" />
+                  <span className="text-[#101828]">{animal.location}</span>
                 </div>
                 
                 {/* Vendedor */}
                 <div className="flex items-center gap-2 text-sm">
-                  <User className="w-4 h-4 text-[#6E7D5B]" />
-                  <span className="text-[#2B2E2B] font-medium">{animal.seller}</span>
+                  <User className="w-4 h-4 text-gray-600" />
+                  <span className="text-[#101828] font-medium">{animal.seller}</span>
                 </div>
                 
                 {/* Preço */}
-                <div className="flex items-center gap-2 text-lg font-bold text-[#1E4D2B]">
+                <div className="flex items-center gap-2 text-lg font-bold text-emerald-800">
                   <DollarSign className="w-4 h-4" />
                   R$ {animal.price.toLocaleString('pt-BR')}
                 </div>
                 
                 {/* Estatísticas */}
-                <div className="flex items-center justify-between text-sm text-[#6E7D5B]">
+                <div className="flex items-center justify-between text-sm text-gray-600">
                   <div className="flex items-center gap-1">
                     <Eye className="w-4 h-4" />
                     {animal.views} visualizações
@@ -408,7 +408,7 @@ export default function AnimalsSection() {
                       variant="outline" 
                       size="sm"
                       onClick={() => handleAction('offer', animal)}
-                      className="text-blue-600 hover:text-blue-700"
+                      className="text-emerald-600 hover:text-emerald-700"
                     >
                       <Heart className="w-4 h-4 mr-1" />
                       Ofertar
@@ -431,7 +431,7 @@ export default function AnimalsSection() {
                       variant="outline" 
                       size="sm"
                       onClick={() => handleAction('bid', animal)}
-                      className="text-purple-600 hover:text-purple-700"
+                      className="text-emerald-600 hover:text-emerald-700"
                     >
                       <Zap className="w-4 h-4 mr-1" />
                       Lances
@@ -449,28 +449,28 @@ export default function AnimalsSection() {
         <CardContent className="pt-6">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             <div className="text-center">
-              <div className="text-2xl font-bold text-[#1E4D2B]">
+              <div className="text-2xl font-bold text-emerald-800">
                 {animals.filter(animal => animal.status === 'available').length}
               </div>
-              <div className="text-sm text-[#6E7D5B]">Disponíveis</div>
+              <div className="text-sm text-gray-600">Disponíveis</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-purple-600">
+              <div className="text-2xl font-bold text-emerald-600">
                 {animals.filter(animal => animal.status === 'auction').length}
               </div>
-              <div className="text-sm text-[#6E7D5B]">Leilões</div>
+              <div className="text-sm text-gray-600">Leilões</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-blue-600">
+              <div className="text-2xl font-bold text-emerald-600">
                 {animals.filter(animal => animal.featured).length}
               </div>
-              <div className="text-sm text-[#6E7D5B]">Destaque</div>
+              <div className="text-sm text-gray-600">Destaque</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-[#1E4D2B]">
+              <div className="text-2xl font-bold text-emerald-800">
                 {animals.reduce((sum, animal) => sum + animal.offers, 0)}
               </div>
-              <div className="text-sm text-[#6E7D5B]">Ofertas</div>
+              <div className="text-sm text-gray-600">Ofertas</div>
             </div>
           </div>
         </CardContent>
@@ -497,15 +497,15 @@ export default function AnimalsSection() {
           
           <div className="space-y-4">
             <div className="p-4 bg-gray-50 rounded-lg">
-              <h4 className="font-medium text-[#2B2E2B]">{selectedAnimal?.name}</h4>
-              <p className="text-sm text-[#6E7D5B]">{selectedAnimal?.breed} - {selectedAnimal?.category}</p>
-              <p className="text-lg font-bold text-[#1E4D2B]">
+              <h4 className="font-medium text-[#101828]">{selectedAnimal?.name}</h4>
+              <p className="text-sm text-gray-600">{selectedAnimal?.breed} - {selectedAnimal?.category}</p>
+              <p className="text-lg font-bold text-emerald-800">
                 R$ {selectedAnimal?.price.toLocaleString('pt-BR')}
               </p>
             </div>
             
             <div>
-              <label className="text-sm font-medium text-[#2B2E2B]">
+              <label className="text-sm font-medium text-[#101828]">
                 Justificativa (opcional)
               </label>
               <Textarea
@@ -530,7 +530,7 @@ export default function AnimalsSection() {
               <Button 
                 onClick={confirmAction}
                 className={actionType === 'delete' || actionType === 'reject' ? 
-                  'bg-red-600 hover:bg-red-700' : 
+                  'bg-red-600 hover:bg-[#A03730]' : 
                   'bg-[#1E4D2B] hover:bg-[#2B5A3A]'
                 }
               >

@@ -204,9 +204,9 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
         <Header />
         <div className="flex items-center justify-center min-h-[60vh]">
           <div className="text-center">
-            <h1 className="text-2xl font-bold text-gray-900 mb-4">Vendedor não encontrado</h1>
+            <h1 className="text-2xl font-bold text-[#101828] mb-4">Vendedor não encontrado</h1>
             <Link href="/">
-              <Button className="bg-green-600 hover:bg-green-700">
+              <Button className="bg-emerald-600 hover:bg-[#2E7A5A]">
                 Voltar para Home
               </Button>
             </Link>
@@ -300,7 +300,7 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
                     className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 mx-auto md:mx-0 rounded-full object-cover border-4 border-white shadow-lg"
                   />
                   {seller.verified && (
-                    <div className="absolute -bottom-2 -right-2 bg-green-600 text-white p-1.5 sm:p-2 rounded-full">
+                    <div className="absolute -bottom-2 -right-2 bg-emerald-600 text-white p-1.5 sm:p-2 rounded-full">
                       <Shield className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
                     </div>
                   )}
@@ -308,11 +308,11 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
 
                 <div className="flex-1">
                   <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-0 mb-2">
-                    <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 sm:mr-4">
+                    <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#101828] sm:mr-4">
                       {seller.name}
                     </h1>
                     {seller.verified && (
-                      <Badge className="bg-green-600 text-white w-fit">
+                      <Badge className="bg-emerald-600 text-white w-fit">
                         <Shield className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
                         VERIFICADO
                       </Badge>
@@ -327,7 +327,7 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
                   <div className="flex flex-col sm:flex-row gap-2 sm:gap-0 mb-4">
                     <div className="flex items-center sm:mr-6">
                       <Star className="w-5 h-5 text-yellow-500 fill-current mr-1" />
-                      <span className="font-bold text-gray-900 mr-1 text-sm sm:text-base">{seller.rating}</span>
+                      <span className="font-bold text-[#101828] mr-1 text-sm sm:text-base">{seller.rating}</span>
                       <span className="text-gray-600 text-xs sm:text-sm">({seller.totalSales} vendas)</span>
                     </div>
                     <div className="flex items-center text-gray-600 text-sm sm:text-base">
@@ -348,28 +348,28 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
         {/* Stats Cards */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
           <Card className="text-center p-3 sm:p-4 border-gray-200">
-            <div className="text-xl sm:text-2xl font-bold text-green-600 mb-1">
+            <div className="text-xl sm:text-2xl font-bold text-emerald-600 mb-1">
               {sellerProducts.length}
             </div>
             <div className="text-xs sm:text-sm text-gray-600">Total de Produtos</div>
           </Card>
 
           <Card className="text-center p-3 sm:p-4 border-gray-200">
-            <div className="text-xl sm:text-2xl font-bold text-green-600 mb-1">
+            <div className="text-xl sm:text-2xl font-bold text-emerald-600 mb-1">
               {seller.stats.activeLots + 15}
             </div>
             <div className="text-xs sm:text-sm text-gray-600">Pedidos Entregues</div>
           </Card>
 
           <Card className="text-center p-3 sm:p-4 border-gray-200">
-            <div className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-green-600 mb-1 px-1 sm:px-2 line-clamp-2">
+            <div className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-emerald-600 mb-1 px-1 sm:px-2 line-clamp-2">
               {mostSoldProduct}
             </div>
             <div className="text-xs sm:text-sm text-gray-600">Produto mais vendido</div>
           </Card>
 
           <Card className="text-center p-3 sm:p-4 border-gray-200">
-            <div className="text-xl sm:text-2xl font-bold text-green-600 mb-1">
+            <div className="text-xl sm:text-2xl font-bold text-emerald-600 mb-1">
               {lastActivityDisplay}
             </div>
             <div className="text-xs sm:text-sm text-gray-600">Última Atividade</div>
@@ -384,8 +384,8 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
                 onClick={() => setActiveTab('lotes')}
                 className={`py-3 sm:py-4 px-1 border-b-2 font-medium text-xs sm:text-sm whitespace-nowrap transition-colors ${
                   activeTab === 'lotes'
-                    ? 'border-green-600 text-green-600'
-                    : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
+                    ? 'border-emerald-600 text-emerald-600'
+                    : 'border-transparent text-gray-600 hover:text-[#101828] hover:border-gray-300'
                 }`}
               >
                 Produtos ({seller.stats.activeLots})
@@ -394,8 +394,8 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
                 onClick={() => setActiveTab('avaliacoes')}
                 className={`py-3 sm:py-4 px-1 border-b-2 font-medium text-xs sm:text-sm whitespace-nowrap transition-colors ${
                   activeTab === 'avaliacoes'
-                    ? 'border-green-600 text-green-600'
-                    : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
+                    ? 'border-emerald-600 text-emerald-600'
+                    : 'border-transparent text-gray-600 hover:text-[#101828] hover:border-gray-300'
                 }`}
               >
                 Avaliações ({reviews.length})
@@ -404,8 +404,8 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
                 onClick={() => setActiveTab('sobre')}
                 className={`py-3 sm:py-4 px-1 border-b-2 font-medium text-xs sm:text-sm whitespace-nowrap transition-colors ${
                   activeTab === 'sobre'
-                    ? 'border-green-600 text-green-600'
-                    : 'border-transparent text-gray-600 hover:text-gray-900 hover:border-gray-300'
+                    ? 'border-emerald-600 text-emerald-600'
+                    : 'border-transparent text-gray-600 hover:text-[#101828] hover:border-gray-300'
                 }`}
               >
                 Sobre
@@ -435,7 +435,7 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
                         className="w-full h-40 sm:h-48 object-cover"
                       />
                       <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 flex gap-1.5 sm:gap-2">
-                        <Badge className="bg-green-600 text-xs sm:text-sm">
+                        <Badge className="bg-emerald-600 text-xs sm:text-sm">
                           {lot.category}
                         </Badge>
                         {lot.type === 'leilao' && (
@@ -451,14 +451,14 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
                       </div>
                     </div>
                     <CardContent className="p-4 sm:p-6">
-                      <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-3 line-clamp-2">{lot.title}</h3>
+                      <h3 className="text-base sm:text-lg font-bold text-[#101828] mb-3 line-clamp-2">{lot.title}</h3>
 
-                      <div className="text-xl sm:text-2xl font-bold text-green-600 mb-4">
+                      <div className="text-xl sm:text-2xl font-bold text-emerald-600 mb-4">
                         R$ {lot.price.toLocaleString()}
                       </div>
 
                       <Link href={detailUrl}>
-                        <Button className="w-full bg-green-600 hover:bg-green-700 transition-colors text-sm sm:text-base">
+                        <Button className="w-full bg-emerald-600 hover:bg-[#2E7A5A] transition-colors text-sm sm:text-base">
                           Ver Detalhes
                         </Button>
                       </Link>
@@ -478,8 +478,8 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
                     <div className="flex gap-3 sm:gap-4">
                       {/* Avatar com Iniciais */}
                       <div className="flex-shrink-0">
-                        <div className="w-10 h-10 sm:w-12 sm:h-12 bg-green-100 rounded-full flex items-center justify-center">
-                          <span className="text-green-600 font-semibold text-base sm:text-lg">
+                        <div className="w-10 h-10 sm:w-12 sm:h-12 bg-emerald-100 rounded-full flex items-center justify-center">
+                          <span className="text-emerald-600 font-semibold text-base sm:text-lg">
                             {getInitials(review.buyer)}
                           </span>
                         </div>
@@ -489,7 +489,7 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
                       <div className="flex-1 min-w-0">
                         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-3 sm:mb-4 gap-2 sm:gap-4">
                           <div className="flex-1">
-                            <div className="font-bold text-sm sm:text-base text-gray-900 mb-1">{review.buyer}</div>
+                            <div className="font-bold text-sm sm:text-base text-[#101828] mb-1">{review.buyer}</div>
                             <div className="text-xs sm:text-sm text-gray-600 break-words">
                               Comprou: {review.purchase}
                             </div>
@@ -519,7 +519,7 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
             <div className="space-y-6 sm:space-y-8">
               <Card className="border-gray-200">
                 <CardContent className="p-4 sm:p-6">
-                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-4">
+                  <h3 className="text-lg sm:text-xl font-bold text-[#101828] mb-4">
                     Resumo de Atuação do Vendedor
                   </h3>
                   <ul className="list-disc list-inside space-y-2 text-gray-700 text-sm sm:text-base">
@@ -534,7 +534,7 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
 
               <Card className="border-gray-200">
                 <CardContent className="p-4 sm:p-6">
-                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-4">
+                  <h3 className="text-lg sm:text-xl font-bold text-[#101828] mb-4">
                     Categorias em que atua:
                   </h3>
                   <ul className="list-disc list-inside space-y-2 text-gray-700 text-sm sm:text-base">
@@ -547,7 +547,7 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
 
               <Card className="border-gray-200">
                 <CardContent className="p-4 sm:p-6">
-                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-4">
+                  <h3 className="text-lg sm:text-xl font-bold text-[#101828] mb-4">
                     Top 3 Produtos mais vendidos
                   </h3>
                   <ul className="list-disc list-inside space-y-2 text-gray-700 text-sm sm:text-base">

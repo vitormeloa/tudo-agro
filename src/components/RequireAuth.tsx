@@ -68,7 +68,7 @@ export default function RequireAuth({
         </DialogHeader>
         <DialogFooter className="flex-col sm:flex-row gap-2 sm:gap-0">
           <Link href={redirectTo ? `/login?redirect=${encodeURIComponent(redirectTo)}` : '/login'} className="w-full sm:w-auto">
-            <Button className="w-full bg-emerald-600 hover:bg-emerald-700">
+            <Button className="w-full bg-emerald-600 hover:bg-[#2E7A5A]">
               <LogIn className="w-4 h-4 mr-2" />
               Fazer Login
             </Button>

@@ -58,7 +58,7 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Leilão não encontrado</h1>
+          <h1 className="text-2xl font-bold text-[#101828] mb-4">Leilão não encontrado</h1>
           <Link href="/leiloes">
             <Button>Voltar para Leilões</Button>
           </Link>
@@ -369,7 +369,7 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-900">
+    <div className="min-h-screen bg-gray-50 text-[#101828]">
       {/* Header exclusivo do leilão */}
       <header className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
         <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
@@ -582,7 +582,7 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
                 <div className="p-6">
                   <div className="flex justify-between items-start mb-4">
                     <div>
-                      <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                      <h2 className="text-2xl font-bold text-[#101828] mb-2">
                         {auction.currentLot ? `Lote ${auction.currentLot.number}: ${auction.currentLot.title}` : auction.title}
                       </h2>
                       <p className="text-gray-600 mb-4">
@@ -606,7 +606,7 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
                 <Card className="bg-white border-gray-200 shadow-lg">
                   <CardContent className="p-6">
                     <div className="text-center">
-                      <div className="text-4xl font-bold text-green-600 mb-2">
+                      <div className="text-4xl font-bold text-emerald-600 mb-2">
                         R$ {currentBid.toLocaleString()}
                       </div>
                       <div className="text-gray-500 mb-4">Lance atual</div>
@@ -623,7 +623,7 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
                 {/* Bidding Area */}
                 <Card className="bg-white border-gray-200 shadow-lg">
                   <CardContent className="p-6">
-                    <h3 className="text-xl font-bold text-gray-900 mb-4">Fazer Lance</h3>
+                    <h3 className="text-xl font-bold text-[#101828] mb-4">Fazer Lance</h3>
                 
                     <div className="grid md:grid-cols-2 gap-4 mb-4">
                       <div>
@@ -637,7 +637,7 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
                             placeholder={`Mínimo: R$ ${(currentBid + 500).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
                             value={myBid ? `R$ ${myBid}` : ''}
                             onChange={handleBidChange}
-                            className="pl-10 bg-white border-gray-300 text-gray-900 focus:border-green-500 focus:ring-green-500"
+                            className="pl-10 bg-white border-gray-300 text-[#101828] focus:border-emerald-500 focus:ring-emerald-500"
                           />
                         </div>
                       </div>
@@ -651,7 +651,7 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
                           placeholder="Opcional"
                           value={autoBidLimit ? `R$ ${autoBidLimit}` : ''}
                           onChange={handleAutoBidChange}
-                          className="bg-white border-gray-300 text-gray-900 focus:border-green-500 focus:ring-green-500"
+                          className="bg-white border-gray-300 text-[#101828] focus:border-emerald-500 focus:ring-emerald-500"
                         />
                       </div>
                     </div>
@@ -659,7 +659,7 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
                     <div className="flex gap-3">
                       <Button 
                         onClick={handleBid}
-                        className="flex-1 bg-green-600 hover:bg-green-700 text-white py-3 text-lg"
+                        className="flex-1 bg-emerald-600 hover:bg-[#2E7A5A] text-white py-3 text-lg"
                       >
                         <Gavel className="w-5 h-5 mr-2" />
                         Dar Lance
@@ -685,8 +685,8 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
 
                     <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
                       <div className="flex items-start">
-                        <AlertCircle className="w-5 h-5 text-blue-600 mr-2 mt-0.5" />
-                        <div className="text-sm text-blue-800">
+                        <AlertCircle className="w-5 h-5 text-emerald-600 mr-2 mt-0.5" />
+                        <div className="text-sm text-emerald-800">
                           <strong>Auto-Lance:</strong> Configure um valor limite e o sistema dará lances 
                           automaticamente por você até esse valor.
                         </div>
@@ -699,7 +699,7 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
               <Card className="bg-white border-gray-200 shadow-lg">
                 <CardContent className="p-6">
                   <div className="text-center">
-                    <div className="text-4xl font-bold text-blue-600 mb-2">
+                    <div className="text-4xl font-bold text-emerald-600 mb-2">
                       {auction.startTime?.toLocaleDateString('pt-BR', {
                         day: '2-digit',
                         month: 'long',
@@ -722,11 +722,11 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
             {/* Auction Rules */}
             <Card className="bg-white border-gray-200 shadow-lg">
               <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Regras do Leilão</h3>
+                <h3 className="text-xl font-bold text-[#101828] mb-4">Regras do Leilão</h3>
                 <div className="space-y-2">
                   {auction.rules.map((rule, index) => (
                     <div key={index} className="flex items-center text-gray-600">
-                      <CheckCircle className="w-4 h-4 text-green-600 mr-2" />
+                      <CheckCircle className="w-4 h-4 text-emerald-600 mr-2" />
                       <span>{rule}</span>
                     </div>
                   ))}
@@ -741,15 +741,15 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
             {auction.status === 'live' && auction.bidHistory && auction.bidHistory.length > 0 && (
               <Card className="bg-white border-gray-200 shadow-lg">
                 <CardContent className="p-6">
-                  <h3 className="text-xl font-bold text-gray-900 mb-4">Histórico de Lances</h3>
+                  <h3 className="text-xl font-bold text-[#101828] mb-4">Histórico de Lances</h3>
                   <div className="space-y-3 max-h-64 overflow-y-auto">
                     {auction.bidHistory.map((bid, index) => (
                       <div key={index} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg border border-gray-200">
                         <div>
-                          <div className="font-medium text-gray-900">{bid.bidder}</div>
+                          <div className="font-medium text-[#101828]">{bid.bidder}</div>
                           <div className="text-sm text-gray-500">{bid.time}</div>
                         </div>
-                        <div className="text-green-600 font-bold">
+                        <div className="text-emerald-600 font-bold">
                           R$ {bid.amount.toLocaleString()}
                         </div>
                       </div>
@@ -763,7 +763,7 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
             {auction.status === 'live' && auction.chatMessages && auction.chatMessages.length > 0 && (
               <Card className="bg-white border-gray-200 shadow-lg">
                 <CardContent className="p-6">
-                  <h3 className="text-xl font-bold text-gray-900 mb-4">Chat ao Vivo</h3>
+                  <h3 className="text-xl font-bold text-[#101828] mb-4">Chat ao Vivo</h3>
                   
                   <div className="space-y-3 max-h-64 overflow-y-auto mb-4">
                     {auction.chatMessages.map((msg, index) => (
@@ -772,7 +772,7 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
                       }`}>
                         <div className="flex justify-between items-start">
                           <span className={`font-medium ${
-                            msg.isSystem ? 'text-blue-600' : 'text-gray-900'
+                            msg.isSystem ? 'text-emerald-600' : 'text-[#101828]'
                           }`}>
                             {msg.user}
                           </span>
@@ -789,7 +789,7 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
                       value={chatMessage}
                       onChange={(e) => setChatMessage(e.target.value)}
                       onKeyPress={(e) => e.key === 'Enter' && handleChatSend()}
-                      className="bg-white border-gray-300 text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+                      className="bg-white border-gray-300 text-[#101828] focus:border-blue-500 focus:ring-blue-500"
                     />
                     <Button 
                       onClick={handleChatSend}
@@ -809,25 +809,25 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
             {/* Auction Info */}
             <Card className="bg-white border-gray-200 shadow-lg">
               <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Informações</h3>
+                <h3 className="text-xl font-bold text-[#101828] mb-4">Informações</h3>
                 <div className="space-y-3 text-sm">
                   <div className="flex justify-between">
                     <span className="text-gray-500">Organizador:</span>
-                    <span className="text-gray-900 font-medium">{auction.organizer}</span>
+                    <span className="text-[#101828] font-medium">{auction.organizer}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-500">Total de Lotes:</span>
-                    <span className="text-gray-900 font-medium">{auction.totalLots}</span>
+                    <span className="text-[#101828] font-medium">{auction.totalLots}</span>
                   </div>
                   {auction.currentLotNumber && (
                     <div className="flex justify-between">
                       <span className="text-gray-500">Lote Atual:</span>
-                      <span className="text-gray-900 font-medium">{auction.currentLotNumber}</span>
+                      <span className="text-[#101828] font-medium">{auction.currentLotNumber}</span>
                     </div>
                   )}
                   <div className="flex justify-between">
                     <span className="text-gray-500">Participantes:</span>
-                    <span className="text-gray-900 font-medium">{auction.participants}</span>
+                    <span className="text-[#101828] font-medium">{auction.participants}</span>
                   </div>
                 </div>
               </CardContent>
@@ -846,12 +846,12 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
                 placeholder={`Mínimo: R$ ${(currentBid + 500).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
                 value={myBid ? `R$ ${myBid}` : ''}
                 onChange={handleBidChange}
-                className="bg-white border-gray-300 text-gray-900 focus:border-green-500 focus:ring-green-500"
+                className="bg-white border-gray-300 text-[#101828] focus:border-emerald-500 focus:ring-emerald-500"
               />
             </div>
             <Button 
               onClick={handleBid}
-              className="bg-green-600 hover:bg-green-700 text-white px-6"
+              className="bg-emerald-600 hover:bg-[#2E7A5A] text-white px-6"
             >
               <Gavel className="w-4 h-4 mr-2" />
               Lance

@@ -184,8 +184,8 @@ export default function AcademySection() {
   const getQuestionStatusBadge = (status: AIQuestion['status']) => {
     const statusConfig = {
       trending: { label: 'Em Alta', variant: 'default' as const, color: 'text-red-600' },
-      popular: { label: 'Popular', variant: 'secondary' as const, color: 'text-blue-600' },
-      new: { label: 'Novo', variant: 'outline' as const, color: 'text-green-600' }
+      popular: { label: 'Popular', variant: 'secondary' as const, color: 'text-emerald-600' },
+      new: { label: 'Novo', variant: 'outline' as const, color: 'text-emerald-600' }
     }
     
     const config = statusConfig[status]
@@ -230,7 +230,7 @@ export default function AcademySection() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
                 <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-                    <GraduationCap className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E4D2B]" />
+                    <GraduationCap className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-800" />
                     <span className="text-base sm:text-lg font-semibold">Gerenciamento de Academy</span>
                 </CardTitle>
             </div>
@@ -249,7 +249,7 @@ export default function AcademySection() {
             {/* Busca */}
             <div className="flex-1">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#6E7D5B] w-4 h-4" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 w-4 h-4" />
                 <Input
                   placeholder="Buscar cursos ou perguntas..."
                   value={searchTerm}
@@ -297,7 +297,7 @@ export default function AcademySection() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
                 <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-                    <BookOpen className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E4D2B]" />
+                    <BookOpen className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-800" />
                     <span className="text-base sm:text-lg font-semibold">Cursos Disponíveis</span>
                 </CardTitle>
             </div>
@@ -311,10 +311,10 @@ export default function AcademySection() {
                 <CardHeader className="pb-3">
                   <div className="flex justify-between items-start">
                     <div className="flex-1 min-w-0">
-                      <CardTitle className="text-base sm:text-lg font-semibold text-[#2B2E2B] line-clamp-2">
+                      <CardTitle className="text-base sm:text-lg font-semibold text-[#101828] line-clamp-2">
                         {course.title}
                       </CardTitle>
-                      <p className="text-sm text-[#6E7D5B] mt-1 line-clamp-2">
+                      <p className="text-sm text-gray-600 mt-1 line-clamp-2">
                         {course.description}
                       </p>
                     </div>
@@ -335,18 +335,18 @@ export default function AcademySection() {
                   <div className="space-y-3">
                     {/* Informações do Instrutor */}
                     <div className="flex items-center gap-2 text-sm">
-                      <User className="w-4 h-4 text-[#6E7D5B]" />
-                      <span className="text-[#2B2E2B] font-medium">{course.instructor}</span>
+                      <User className="w-4 h-4 text-gray-600" />
+                      <span className="text-[#101828] font-medium">{course.instructor}</span>
                     </div>
                     
                     {/* Preço */}
-                    <div className="flex items-center gap-2 text-lg font-bold text-[#1E4D2B]">
+                    <div className="flex items-center gap-2 text-lg font-bold text-emerald-800">
                       <DollarSign className="w-4 h-4" />
                       {course.price === 0 ? 'Gratuito' : `R$ ${course.price}`}
                     </div>
                     
                     {/* Estatísticas */}
-                    <div className="grid grid-cols-2 gap-4 text-sm text-[#6E7D5B]">
+                    <div className="grid grid-cols-2 gap-4 text-sm text-gray-600">
                       <div className="flex items-center gap-1">
                         <Users className="w-4 h-4" />
                         {course.students} alunos
@@ -418,7 +418,7 @@ export default function AcademySection() {
                             variant="outline" 
                             size="sm"
                             onClick={() => handleAction('approve', course.id)}
-                            className="text-green-600 hover:text-green-700"
+                            className="text-emerald-600 hover:text-emerald-700"
                           >
                             <CheckCircle className="w-4 h-4" />
                           </Button>
@@ -469,7 +469,7 @@ export default function AcademySection() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
                 <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-                    <Brain className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E4D2B]" />
+                    <Brain className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-800" />
                     <span className="text-base sm:text-lg font-semibold">IA Agro - Perguntas Frequentes</span>
                 </CardTitle>
             </div>
@@ -484,10 +484,10 @@ export default function AcademySection() {
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-2">
-                        <MessageSquare className="w-4 h-4 text-[#6E7D5B] flex-shrink-0" />
-                        <span className="text-sm font-medium text-[#2B2E2B]">{question.question}</span>
+                        <MessageSquare className="w-4 h-4 text-gray-600 flex-shrink-0" />
+                        <span className="text-sm font-medium text-[#101828]">{question.question}</span>
                       </div>
-                      <div className="flex items-center gap-4 text-xs text-[#6E7D5B]">
+                      <div className="flex items-center gap-4 text-xs text-gray-600">
                         <div className="flex items-center gap-1">
                           <Tag className="w-3 h-3" />
                           {question.category}
@@ -517,28 +517,28 @@ export default function AcademySection() {
         <CardContent className="pt-6">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             <div className="text-center">
-              <div className="text-2xl font-bold text-[#1E4D2B]">
+              <div className="text-2xl font-bold text-emerald-800">
                 {courses.filter(course => course.status === 'active').length}
               </div>
-              <div className="text-sm text-[#6E7D5B]">Cursos Ativos</div>
+              <div className="text-sm text-gray-600">Cursos Ativos</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-yellow-600">
                 {courses.filter(course => course.status === 'draft').length}
               </div>
-              <div className="text-sm text-[#6E7D5B]">Rascunhos</div>
+              <div className="text-sm text-gray-600">Rascunhos</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-blue-600">
+              <div className="text-2xl font-bold text-emerald-600">
                 {courses.reduce((sum, course) => sum + course.students, 0).toLocaleString()}
               </div>
-              <div className="text-sm text-[#6E7D5B]">Total Alunos</div>
+              <div className="text-sm text-gray-600">Total Alunos</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-[#1E4D2B]">
+              <div className="text-2xl font-bold text-emerald-800">
                 {aiQuestions.length}
               </div>
-              <div className="text-sm text-[#6E7D5B]">Perguntas IA</div>
+              <div className="text-sm text-gray-600">Perguntas IA</div>
             </div>
           </div>
         </CardContent>

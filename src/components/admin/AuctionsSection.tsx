@@ -48,7 +48,7 @@ export default function AuctionsSection() {
 
   const getStatusBadge = (status: string) => {
     const config = {
-      ativo: 'bg-green-100 text-green-800',
+      ativo: 'bg-emerald-100 text-emerald-800',
       encerrado: 'bg-gray-100 text-gray-800',
       suspenso: 'bg-red-100 text-red-800'
     }
@@ -67,7 +67,7 @@ export default function AuctionsSection() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
                 <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-                    <Gavel className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E4D2B]" />
+                    <Gavel className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-800" />
                     <span className="text-base sm:text-lg font-semibold">Gerenciamento de Leilões</span>
                 </CardTitle>
             </div>
@@ -81,7 +81,7 @@ export default function AuctionsSection() {
                   <div className="flex flex-col lg:flex-row items-start justify-between gap-4">
                     <div className="flex-1 w-full">
                       <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-2">
-                        <h3 className="text-base sm:text-lg font-semibold text-[#2B2E2B]">#{auction.id}</h3>
+                        <h3 className="text-base sm:text-lg font-semibold text-[#101828]">#{auction.id}</h3>
                         {getStatusBadge(auction.status)}
                         {auction.alerts > 0 && (
                           <Badge className="bg-red-100 text-red-800 text-xs">
@@ -90,25 +90,25 @@ export default function AuctionsSection() {
                           </Badge>
                         )}
                       </div>
-                      <h4 className="font-medium text-[#2B2E2B] mb-2 text-sm sm:text-base break-words">{auction.title}</h4>
-                      <p className="text-xs sm:text-sm text-[#6E7D5B] mb-3 sm:mb-4">Vendedor: {auction.seller}</p>
+                      <h4 className="font-medium text-[#101828] mb-2 text-sm sm:text-base break-words">{auction.title}</h4>
+                      <p className="text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4">Vendedor: {auction.seller}</p>
                       
                       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4">
                         <div className="text-center">
-                          <p className="text-lg sm:text-2xl font-bold text-[#1E4D2B]">{auction.bids}</p>
-                          <p className="text-xs text-[#6E7D5B]">Lances</p>
+                          <p className="text-lg sm:text-2xl font-bold text-emerald-800">{auction.bids}</p>
+                          <p className="text-xs text-gray-600">Lances</p>
                         </div>
                         <div className="text-center">
-                          <p className="text-lg sm:text-2xl font-bold text-[#1E4D2B]">{auction.participants}</p>
-                          <p className="text-xs text-[#6E7D5B]">Participantes</p>
+                          <p className="text-lg sm:text-2xl font-bold text-emerald-800">{auction.participants}</p>
+                          <p className="text-xs text-gray-600">Participantes</p>
                         </div>
                         <div className="text-center">
-                          <p className="text-sm sm:text-lg font-bold text-[#1E4D2B] break-words">{auction.currentPrice}</p>
-                          <p className="text-xs text-[#6E7D5B]">Lance Atual</p>
+                          <p className="text-sm sm:text-lg font-bold text-emerald-800 break-words">{auction.currentPrice}</p>
+                          <p className="text-xs text-gray-600">Lance Atual</p>
                         </div>
                         <div className="text-center">
-                          <p className="text-xs sm:text-sm font-medium text-[#2B2E2B] break-words">{auction.endTime}</p>
-                          <p className="text-xs text-[#6E7D5B]">Encerramento</p>
+                          <p className="text-xs sm:text-sm font-medium text-[#101828] break-words">{auction.endTime}</p>
+                          <p className="text-xs text-gray-600">Encerramento</p>
                         </div>
                       </div>
                     </div>

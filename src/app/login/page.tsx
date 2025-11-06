@@ -120,7 +120,7 @@ export default function LoginPage() {
         
         // Redirecionar para a página desejada ou dashboard padrão
         // Usar window.location para evitar loops de redirecionamento
-        const destination = redirectTo || '/dashboard/visao-geral'
+        const destination = redirectTo || '/dashboard'
         
         // Usar replace para evitar que o usuário volte para a página de login
         window.location.replace(destination)
@@ -151,7 +151,7 @@ export default function LoginPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-green-50 flex flex-col lg:flex-row">
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-emerald-50 flex flex-col lg:flex-row">
       {/* Left Side - Login Form */}
       <div className="flex-1 flex items-center justify-center pt-2 sm:pt-3 lg:pt-4 pb-4 sm:pb-6 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-[480px]">
@@ -167,7 +167,7 @@ export default function LoginPage() {
             <CardContent className="p-6 sm:p-8">
               {/* Título e Subtítulo */}
               <div className="text-center mb-6 sm:mb-8">
-                <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+                <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#101828] mb-2">
                   Bem-vindo de volta
                 </h1>
                 <p className="text-xs sm:text-sm md:text-base text-gray-600">
@@ -260,14 +260,14 @@ export default function LoginPage() {
                 </div>
 
                 {successMessage && (
-                  <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg text-sm">
+                  <div className="bg-emerald-50 border border-emerald-200 text-emerald-700 px-4 py-3 rounded-lg text-sm">
                     {successMessage}
                   </div>
                 )}
 
                 <Button 
                   type="submit" 
-                  className="w-full bg-emerald-600 hover:bg-emerald-700 text-white h-11 sm:h-12 text-base sm:text-lg font-semibold transition-all duration-300 transform hover:scale-[1.02]"
+                  className="w-full bg-emerald-600 hover:bg-[#2E7A5A] text-white h-11 sm:h-12 text-base sm:text-lg font-semibold transition-all duration-300 transform hover:scale-[1.02]"
                   disabled={isLoading}
                 >
                   {isLoading ? (
@@ -330,7 +330,7 @@ export default function LoginPage() {
       </div>
 
       {/* Right Side - Features */}
-      <div className="hidden lg:flex lg:flex-1 bg-gradient-to-br from-emerald-600 to-green-700 p-8 xl:p-12 items-center">
+      <div className="hidden lg:flex lg:flex-1 bg-gradient-to-br from-emerald-600 to-emerald-700 p-8 xl:p-12 items-center">
         <div className="max-w-md">
           <h2 className="text-3xl xl:text-4xl font-bold text-white mb-4 xl:mb-6 leading-tight">
             TudoAgro: A plataforma Nº1 do agronegócio digital

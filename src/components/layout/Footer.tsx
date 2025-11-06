@@ -113,7 +113,7 @@ export default function Footer({
   
   const variantClasses = {
     default: "bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white",
-    minimal: "bg-white border-t border-gray-200 text-gray-900",
+    minimal: "bg-white border-t border-gray-200 text-[#101828]",
     dark: "bg-gray-900 text-white"
   }
 
@@ -155,7 +155,7 @@ export default function Footer({
                   <Button
                     type="submit"
                     disabled={isSubmitting}
-                    className="bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white px-6 py-3 disabled:opacity-50"
+                    className="bg-gradient-to-r from-emerald-600 to-emerald-600 hover:from-emerald-700 hover:to-emerald-700 text-white px-6 py-3 disabled:opacity-50"
                   >
                     {isSubmitting ? (
                       <>
@@ -218,7 +218,7 @@ export default function Footer({
                 <li key={link.name}>
                   <Link 
                     href={link.href}
-                    className="text-gray-300 hover:text-emerald-400 transition-colors duration-200 text-sm block"
+                    className="text-gray-300 hover:text-[#8FBC6D] transition-colors duration-200 text-sm block"
                   >
                     {link.name}
                   </Link>
@@ -235,7 +235,7 @@ export default function Footer({
                 <li key={link.name}>
                   <Link 
                     href={link.href}
-                    className="text-gray-300 hover:text-emerald-400 transition-colors duration-200 text-sm block"
+                    className="text-gray-300 hover:text-[#8FBC6D] transition-colors duration-200 text-sm block"
                   >
                     {link.name}
                   </Link>
@@ -252,7 +252,7 @@ export default function Footer({
                 <li key={link.name}>
                   <Link 
                     href={link.href}
-                    className="text-gray-300 hover:text-emerald-400 transition-colors duration-200 text-sm block"
+                    className="text-gray-300 hover:text-[#8FBC6D] transition-colors duration-200 text-sm block"
                   >
                     {link.name}
                   </Link>
@@ -269,7 +269,7 @@ export default function Footer({
                 <li key={link.name}>
                   <Link 
                     href={link.href}
-                    className="text-gray-300 hover:text-emerald-400 transition-colors duration-200 text-sm block"
+                    className="text-gray-300 hover:text-[#8FBC6D] transition-colors duration-200 text-sm block"
                   >
                     {link.name}
                   </Link>

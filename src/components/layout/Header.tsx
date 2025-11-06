@@ -213,7 +213,7 @@ export default function Header({
                     <Link href="/cadastro">
                       <Button 
                         size="sm" 
-                        className="bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white text-sm"
+                        className="bg-gradient-to-r from-emerald-600 to-emerald-600 hover:from-emerald-700 hover:to-emerald-700 text-white text-sm"
                       >
                         Cadastrar
                       </Button>

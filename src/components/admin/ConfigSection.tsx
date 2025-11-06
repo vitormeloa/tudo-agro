@@ -57,7 +57,7 @@ export default function ConfigSection() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
                 <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-                    <Settings className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E4D2B]" />
+                    <Settings className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-800" />
                     <span className="text-base sm:text-lg font-semibold">Gerenciamento de Configurações</span>
                 </CardTitle>
             </div>
@@ -67,7 +67,7 @@ export default function ConfigSection() {
                 <div className="space-y-4">
                   {section.items.map((item, itemIndex) => (
                     <div key={itemIndex} className="flex items-center justify-between">
-                      <Label className="text-sm font-medium text-[#2B2E2B]">{item.label}</Label>
+                      <Label className="text-sm font-medium text-[#101828]">{item.label}</Label>
                       <div className="flex items-center gap-2">
                         <Input 
                           defaultValue={item.value} 
@@ -92,7 +92,7 @@ export default function ConfigSection() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
                 <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-                    <Settings className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E4D2B]" />
+                    <Settings className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-800" />
                     <span className="text-base sm:text-lg font-semibold">Gerenciamento de Configurações</span>
                 </CardTitle>
             </div>
@@ -103,15 +103,15 @@ export default function ConfigSection() {
             {contentPages.map((page, index) => (
               <div key={index} className="flex items-center justify-between p-4 bg-[#F7F6F2] rounded-lg">
                 <div>
-                  <h4 className="font-medium text-[#2B2E2B]">{page.name}</h4>
-                  <p className="text-sm text-[#6E7D5B]">
+                  <h4 className="font-medium text-[#101828]">{page.name}</h4>
+                  <p className="text-sm text-gray-600">
                     Última edição: {new Date(page.lastEdit).toLocaleDateString('pt-BR')}
                   </p>
                 </div>
                 <div className="flex items-center gap-3">
                   <span className={`text-xs px-2 py-1 rounded-full ${
                     page.status === 'Atualizado' 
-                      ? 'bg-green-100 text-green-800' 
+                      ? 'bg-emerald-100 text-emerald-800' 
                       : 'bg-orange-100 text-orange-800'
                   }`}>
                     {page.status}
@@ -132,7 +132,7 @@ export default function ConfigSection() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
                 <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-                    <Settings className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E4D2B]" />
+                    <Settings className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-800" />
                     <span className="text-base sm:text-lg font-semibold">Gerenciamento de Configurações</span>
                 </CardTitle>
             </div>
@@ -141,7 +141,7 @@ export default function ConfigSection() {
         <CardContent>
           <div className="space-y-4">
             <div>
-              <Label className="text-sm font-medium text-[#2B2E2B]">Regras de Moderação</Label>
+              <Label className="text-sm font-medium text-[#101828]">Regras de Moderação</Label>
               <Textarea 
                 className="mt-2"
                 defaultValue="1. Imagens devem ser nítidas e mostrar claramente o animal
@@ -165,7 +165,7 @@ export default function ConfigSection() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
                 <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-                    <Settings className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E4D2B]" />
+                    <Settings className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-800" />
                     <span className="text-base sm:text-lg font-semibold">Gerenciamento de Configurações</span>
                 </CardTitle>
             </div>
@@ -176,13 +176,13 @@ export default function ConfigSection() {
             {integrations.map((integration, index) => (
               <div key={index} className="flex items-center justify-between p-4 bg-[#F7F6F2] rounded-lg">
                 <div>
-                  <h4 className="font-medium text-[#2B2E2B]">{integration.name}</h4>
-                  <p className="text-sm text-[#6E7D5B]">{integration.type}</p>
+                  <h4 className="font-medium text-[#101828]">{integration.name}</h4>
+                  <p className="text-sm text-gray-600">{integration.type}</p>
                 </div>
                 <div className="flex items-center gap-3">
                   <span className={`text-xs px-2 py-1 rounded-full ${
                     integration.status === 'Conectado' 
-                      ? 'bg-green-100 text-green-800' 
+                      ? 'bg-emerald-100 text-emerald-800' 
                       : 'bg-red-100 text-red-800'
                   }`}>
                     {integration.status}

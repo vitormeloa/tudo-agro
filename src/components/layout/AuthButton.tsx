@@ -69,7 +69,7 @@ export default function AuthButton({ className }: AuthButtonProps) {
                 {isUserMenuOpen && (
                     <div className="absolute top-full right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
                         <div className="px-4 py-3 border-b border-gray-100">
-                            <p className="text-sm font-medium text-gray-900">{user.name || 'Usuário'}</p>
+                            <p className="text-sm font-medium text-[#101828]">{user.name || 'Usuário'}</p>
                             <p className="text-xs text-gray-500">{user.email}</p>
                         </div>
 
@@ -109,7 +109,7 @@ export default function AuthButton({ className }: AuthButtonProps) {
                         {/* Painel administrativo */}
 
                         <Link
-                            href="/dashboard/visao-geral"
+                            href="/dashboard"
                             className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
                             onClick={() => setIsUserMenuOpen(false)}
                         >
@@ -123,16 +123,13 @@ export default function AuthButton({ className }: AuthButtonProps) {
                             onClick={async () => {
                                 setIsUserMenuOpen(false)
                                 try {
-                                    // signOut já faz todo o processo de limpeza e redirecionamento
                                     await signOut()
                                 } catch (error) {
                                     console.error('Logout error:', error)
-                                    // Mesmo com erro, tentar limpar e redirecionar
                                     try {
                                         localStorage.clear()
                                         sessionStorage.clear()
                                     } catch (e) {
-                                        // Ignorar erros de limpeza
                                     }
                                     window.location.href = '/login'
                                 }
@@ -159,7 +156,7 @@ export default function AuthButton({ className }: AuthButtonProps) {
             <Link href="/cadastro">
                 <Button
                     size="sm"
-                    className="bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white shadow-lg hover:shadow-xl transition-all duration-300"
+                    className="bg-gradient-to-r from-emerald-600 to-emerald-600 hover:from-emerald-700 hover:to-emerald-700 text-white shadow-lg hover:shadow-xl transition-all duration-300"
                 >
                     Cadastrar
                 </Button>

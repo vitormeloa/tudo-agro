@@ -116,7 +116,7 @@ export function ResponsiveTableCell({
     <Component
       className={cn(
         'px-3 py-4 text-sm',
-        header ? 'font-medium text-gray-900' : 'text-gray-700',
+        header ? 'font-medium text-[#101828]' : 'text-gray-700',
         align === 'center' && 'text-center',
         align === 'right' && 'text-right',
         mobileHidden && 'hidden sm:table-cell',

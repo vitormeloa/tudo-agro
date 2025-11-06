@@ -128,7 +128,7 @@ export default function ReviewsSection({ reviews, itemId, itemType, onAddReview 
           <div className="flex flex-col md:flex-row gap-8">
             {/* Average Rating */}
             <div className="flex flex-col items-center justify-center border-r border-gray-200 pr-8">
-              <div className="text-5xl font-bold text-gray-900 mb-2">
+              <div className="text-5xl font-bold text-[#101828] mb-2">
                 {averageRating.toFixed(1)}
               </div>
               <div className="flex items-center mb-2">
@@ -173,13 +173,13 @@ export default function ReviewsSection({ reviews, itemId, itemType, onAddReview 
       {/* Add Review Form */}
       <Card>
         <CardContent className="p-6">
-          <h3 className="text-xl font-bold text-gray-900 mb-4">Deixe sua avaliação</h3>
+          <h3 className="text-xl font-bold text-[#101828] mb-4">Deixe sua avaliação</h3>
           {!user ? (
             <div className="text-center py-8">
               <p className="text-gray-600 mb-4">Você precisa estar logado para deixar uma avaliação.</p>
               <Button
                 onClick={() => router.push(`/login?redirect=${encodeURIComponent(pathname || '/')}`)}
-                className="bg-green-600 hover:bg-green-700 text-white"
+                className="bg-emerald-600 hover:bg-[#2E7A5A] text-white"
               >
                 Fazer Login
               </Button>
@@ -245,7 +245,7 @@ export default function ReviewsSection({ reviews, itemId, itemType, onAddReview 
               <Button
                 type="submit"
                 disabled={isSubmitting || rating === 0 || comment.trim().length < 10}
-                className="bg-green-600 hover:bg-green-700 text-white"
+                className="bg-emerald-600 hover:bg-[#2E7A5A] text-white"
               >
                 {isSubmitting ? 'Enviando...' : 'Publicar Avaliação'}
               </Button>
@@ -256,7 +256,7 @@ export default function ReviewsSection({ reviews, itemId, itemType, onAddReview 
 
       {/* Reviews List */}
       <div className="space-y-4">
-        <h3 className="text-xl font-bold text-gray-900">
+        <h3 className="text-xl font-bold text-[#101828]">
           Últimas avaliações ({reviews.length})
         </h3>
 
@@ -275,8 +275,8 @@ export default function ReviewsSection({ reviews, itemId, itemType, onAddReview 
                 <div className="flex items-start gap-4">
                   {/* Avatar with Initials */}
                   <div className="flex-shrink-0">
-                    <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                      <span className="text-green-600 font-semibold text-lg">
+                    <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center">
+                      <span className="text-emerald-600 font-semibold text-lg">
                         {getInitials(review.userName)}
                       </span>
                     </div>
@@ -287,9 +287,9 @@ export default function ReviewsSection({ reviews, itemId, itemType, onAddReview 
                     <div className="flex items-start justify-between mb-2">
                       <div>
                         <div className="flex items-center gap-2 mb-1">
-                          <h4 className="font-semibold text-gray-900">{review.userName}</h4>
+                          <h4 className="font-semibold text-[#101828]">{review.userName}</h4>
                           {review.verifiedPurchase && (
-                            <Badge className="bg-green-100 text-green-800 text-xs hidden sm:inline-flex">
+                            <Badge className="bg-emerald-100 text-emerald-800 text-xs hidden sm:inline-flex">
                               <CheckCircle className="w-3 h-3 mr-1" />
                               Compra verificada
                             </Badge>
@@ -317,7 +317,7 @@ export default function ReviewsSection({ reviews, itemId, itemType, onAddReview 
 
                     {/* Helpful Button */}
                     {review.helpful !== undefined && (
-                      <button className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900">
+                      <button className="flex items-center gap-2 text-sm text-gray-600 hover:text-[#101828]">
                         <ThumbsUp className="w-4 h-4" />
                         <span>Útil ({review.helpful})</span>
                       </button>

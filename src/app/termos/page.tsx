@@ -10,7 +10,7 @@ export default function TermosPage() {
       <Header />
       
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-emerald-600 via-green-600 to-emerald-700 text-white py-20">
+      <section className="bg-gradient-to-r from-emerald-600 via-emerald-600 to-emerald-700 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">Termos de Uso</h1>
@@ -26,7 +26,7 @@ export default function TermosPage() {
           <div className="flex items-center gap-3 mb-6 pb-4 border-b border-gray-200">
             <FileText className="w-6 h-6 text-emerald-600" />
             <div>
-              <h2 className="text-xl font-semibold text-gray-900">Última Atualização</h2>
+              <h2 className="text-xl font-semibold text-[#101828]">Última Atualização</h2>
               <div className="flex items-center gap-2 text-sm text-gray-500">
                 <Calendar className="w-4 h-4" />
                 <span>15 de Janeiro, 2024</span>
@@ -36,7 +36,7 @@ export default function TermosPage() {
 
           <div className="prose prose-lg max-w-none">
             <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">1. Aceitação dos Termos</h2>
+              <h2 className="text-2xl font-bold text-[#101828] mb-4">1. Aceitação dos Termos</h2>
               <p className="text-gray-700 mb-4">
                 Ao acessar e usar a plataforma TudoAgro, você concorda em cumprir e estar vinculado aos seguintes 
                 Termos de Uso. Se você não concorda com qualquer parte destes termos, não deve usar nossos serviços.
@@ -44,7 +44,7 @@ export default function TermosPage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">2. Definições</h2>
+              <h2 className="text-2xl font-bold text-[#101828] mb-4">2. Definições</h2>
               <ul className="list-disc pl-6 text-gray-700 space-y-2">
                 <li><strong>Plataforma:</strong> Refere-se ao site TudoAgro e todos os seus serviços relacionados.</li>
                 <li><strong>Usuário:</strong> Qualquer pessoa que acessa ou utiliza a plataforma.</li>
@@ -54,7 +54,7 @@ export default function TermosPage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">3. Uso da Plataforma</h2>
+              <h2 className="text-2xl font-bold text-[#101828] mb-4">3. Uso da Plataforma</h2>
               <p className="text-gray-700 mb-4">
                 Você concorda em usar a plataforma apenas para fins legais e de acordo com estes Termos de Uso. 
                 É proibido:
@@ -69,7 +69,7 @@ export default function TermosPage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">4. Cadastro e Conta</h2>
+              <h2 className="text-2xl font-bold text-[#101828] mb-4">4. Cadastro e Conta</h2>
               <p className="text-gray-700 mb-4">
                 Para usar certas funcionalidades da plataforma, você precisa criar uma conta. Você é responsável por:
               </p>
@@ -82,7 +82,7 @@ export default function TermosPage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">5. Transações</h2>
+              <h2 className="text-2xl font-bold text-[#101828] mb-4">5. Transações</h2>
               <p className="text-gray-700 mb-4">
                 A plataforma TudoAgro atua como intermediária entre compradores e vendedores. Nós:
               </p>
@@ -95,7 +95,7 @@ export default function TermosPage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">6. Taxas e Pagamentos</h2>
+              <h2 className="text-2xl font-bold text-[#101828] mb-4">6. Taxas e Pagamentos</h2>
               <p className="text-gray-700 mb-4">
                 O uso de certas funcionalidades da plataforma pode estar sujeito a taxas. Todas as taxas serão 
                 claramente comunicadas antes da realização da transação. Os vendedores são responsáveis por 
@@ -104,7 +104,7 @@ export default function TermosPage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">7. Propriedade Intelectual</h2>
+              <h2 className="text-2xl font-bold text-[#101828] mb-4">7. Propriedade Intelectual</h2>
               <p className="text-gray-700 mb-4">
                 Todo o conteúdo da plataforma, incluindo textos, gráficos, logos, ícones e software, é propriedade 
                 do TudoAgro ou de seus licenciadores e está protegido por leis de direitos autorais e outras leis 
@@ -113,7 +113,7 @@ export default function TermosPage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">8. Limitação de Responsabilidade</h2>
+              <h2 className="text-2xl font-bold text-[#101828] mb-4">8. Limitação de Responsabilidade</h2>
               <p className="text-gray-700 mb-4">
                 O TudoAgro não será responsável por quaisquer danos diretos, indiretos, incidentais ou consequenciais 
                 resultantes do uso ou impossibilidade de uso da plataforma. Nosso serviço é fornecido "como está" 
@@ -122,7 +122,7 @@ export default function TermosPage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">9. Modificações dos Termos</h2>
+              <h2 className="text-2xl font-bold text-[#101828] mb-4">9. Modificações dos Termos</h2>
               <p className="text-gray-700 mb-4">
                 Reservamos o direito de modificar estes Termos de Uso a qualquer momento. As alterações entrarão 
                 em vigor imediatamente após a publicação na plataforma. O uso continuado da plataforma após 
@@ -131,7 +131,7 @@ export default function TermosPage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">10. Lei Aplicável</h2>
+              <h2 className="text-2xl font-bold text-[#101828] mb-4">10. Lei Aplicável</h2>
               <p className="text-gray-700 mb-4">
                 Estes Termos de Uso são regidos pelas leis brasileiras. Qualquer disputa relacionada a estes 
                 termos será resolvida nos tribunais competentes do Brasil.
@@ -139,7 +139,7 @@ export default function TermosPage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">11. Contato</h2>
+              <h2 className="text-2xl font-bold text-[#101828] mb-4">11. Contato</h2>
               <p className="text-gray-700">
                 Se você tiver dúvidas sobre estes Termos de Uso, entre em contato conosco através do e-mail 
                 <a href="mailto:contato@tudoagro.com" className="text-emerald-600 hover:underline ml-1">

@@ -99,7 +99,7 @@ export default function ProductCard({
                 {/* Verified Badge */}
                 {product.verified && (
                     <div className="absolute bottom-4 left-4">
-                        <Badge variant="secondary" className="bg-green-100 text-green-800 border-green-200">
+                        <Badge variant="secondary" className="bg-emerald-100 text-emerald-800 border-emerald-200">
                             <Shield className="w-3 h-3 mr-1" />
                             VERIFICADO
                         </Badge>
@@ -109,7 +109,7 @@ export default function ProductCard({
 
             <CardContent className="p-6">
                 {/* Title */}
-                <h3 className="font-bold text-lg text-gray-900 mb-2 line-clamp-2">
+                <h3 className="font-bold text-lg text-[#101828] mb-2 line-clamp-2">
                     {product.title}
                 </h3>
 
@@ -144,19 +144,19 @@ export default function ProductCard({
                         {product.age && (
                             <div>
                                 <span className="text-gray-500">Idade:</span>
-                                <div className="font-semibold text-gray-900">{product.age}</div>
+                                <div className="font-semibold text-[#101828]">{product.age}</div>
                             </div>
                         )}
                         {product.weight && (
                             <div>
                                 <span className="text-gray-500">Peso:</span>
-                                <div className="font-semibold text-gray-900">{product.weight}</div>
+                                <div className="font-semibold text-[#101828]">{product.weight}</div>
                             </div>
                         )}
                         {product.breed && (
                             <div>
                                 <span className="text-gray-500">Raça:</span>
-                                <div className="font-semibold text-gray-900">{product.breed}</div>
+                                <div className="font-semibold text-[#101828]">{product.breed}</div>
                             </div>
                         )}
                     </div>
@@ -171,14 +171,14 @@ export default function ProductCard({
 
                 {/* Seller */}
                 <div className="text-sm text-gray-600 mb-4">
-                    Vendido por: <span className="font-semibold text-gray-900">{product.seller}</span>
+                    Vendido por: <span className="font-semibold text-[#101828]">{product.seller}</span>
                 </div>
 
                 {/* Actions */}
                 {showActions && (
                     <div className="flex gap-2">
                         <Link href={linkTo || (product.type === 'animal' ? `/catalogo/${product.id}` : `/produtos/${product.id}`)} className="flex-1">
-                            <Button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white">
+                            <Button className="w-full bg-emerald-600 hover:bg-[#2E7A5A] text-white">
                                 <Eye className="w-4 h-4 mr-2" />
                                 Ver Detalhes
                             </Button>

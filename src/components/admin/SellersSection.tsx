@@ -117,7 +117,7 @@ export default function SellersSection() {
   const getStatusBadge = (status: string) => {
     const statusConfig = {
       pendente: { color: 'bg-orange-100 text-orange-800', label: 'Pendente', icon: Clock },
-      aprovado: { color: 'bg-green-100 text-green-800', label: 'Aprovado', icon: CheckCircle },
+      aprovado: { color: 'bg-emerald-100 text-emerald-800', label: 'Aprovado', icon: CheckCircle },
       recusado: { color: 'bg-red-100 text-red-800', label: 'Recusado', icon: XCircle }
     }
     const config = statusConfig[status as keyof typeof statusConfig] || statusConfig.pendente
@@ -160,12 +160,12 @@ export default function SellersSection() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
                 <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-                    <Store className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E4D2B]" />
+                    <Store className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-800" />
                     <span className="text-base sm:text-lg font-semibold">Gerenciamento de Vendedores</span>
                 </CardTitle>
             </div>
             
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 text-xs sm:text-sm text-[#6E7D5B]">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-600">
               <span>Pendentes: {sellers.filter(s => s.status === 'pendente').length}</span>
               <span>Aprovados: {sellers.filter(s => s.status === 'aprovado').length}</span>
               <span>Recusados: {sellers.filter(s => s.status === 'recusado').length}</span>
@@ -177,7 +177,7 @@ export default function SellersSection() {
             {/* Busca */}
             <div className="flex-1">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#6E7D5B] w-4 h-4" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 w-4 h-4" />
                 <Input
                   placeholder="Buscar por nome ou email..."
                   value={searchTerm}
@@ -219,7 +219,7 @@ export default function SellersSection() {
                     {/* Informações Principais */}
                     <div className="flex-1 w-full min-w-0">
                       <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-2">
-                        <h3 className="text-base sm:text-lg font-semibold text-[#2B2E2B] break-words">{seller.name}</h3>
+                        <h3 className="text-base sm:text-lg font-semibold text-[#101828] break-words">{seller.name}</h3>
                         <div className="flex flex-wrap items-center gap-2">
                           {getStatusBadge(seller.status)}
                           <Badge variant="outline" className="text-xs">
@@ -228,7 +228,7 @@ export default function SellersSection() {
                         </div>
                       </div>
                       
-                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 text-xs sm:text-sm text-[#6E7D5B] mb-3 sm:mb-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4">
                         <div className="flex items-center gap-2 min-w-0">
                           <Mail className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
                           <span className="truncate">{seller.email}</span>
@@ -245,7 +245,7 @@ export default function SellersSection() {
 
                       {/* Documentos */}
                       <div className="mb-3 sm:mb-4">
-                        <p className="text-xs sm:text-sm font-medium text-[#2B2E2B] mb-2">Documentos Enviados:</p>
+                        <p className="text-xs sm:text-sm font-medium text-[#101828] mb-2">Documentos Enviados:</p>
                         <div className="flex flex-wrap gap-1 sm:gap-2">
                           {seller.documentsSubmitted.map((doc, index) => (
                             <Badge key={index} variant="outline" className="text-xs">
@@ -257,13 +257,13 @@ export default function SellersSection() {
                       </div>
 
                       {/* Datas Importantes */}
-                      <div className="text-xs sm:text-sm text-[#6E7D5B] space-y-1">
+                      <div className="text-xs sm:text-sm text-gray-600 space-y-1">
                         <div className="flex items-center gap-2">
                           <Calendar className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
                           <span className="truncate">Solicitação: {new Date(seller.requestDate).toLocaleDateString('pt-BR')}</span>
                         </div>
                         {seller.approvalDate && (
-                          <div className="flex items-center gap-2 text-green-600">
+                          <div className="flex items-center gap-2 text-emerald-600">
                             <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
                             <span className="truncate">Aprovado em: {new Date(seller.approvalDate).toLocaleDateString('pt-BR')}</span>
                           </div>
@@ -287,18 +287,18 @@ export default function SellersSection() {
                   {/* Estatísticas */}
                   <div className="grid grid-cols-3 gap-2 sm:gap-4 mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-gray-100">
                     <div className="text-center">
-                      <p className="text-lg sm:text-2xl font-bold text-[#1E4D2B]">{seller.activeAds}</p>
-                      <p className="text-xs text-[#6E7D5B]">Anúncios Ativos</p>
+                      <p className="text-lg sm:text-2xl font-bold text-emerald-800">{seller.activeAds}</p>
+                      <p className="text-xs text-gray-600">Anúncios Ativos</p>
                     </div>
                     <div className="text-center">
-                      <p className="text-lg sm:text-2xl font-bold text-[#1E4D2B]">{seller.completedSales}</p>
-                      <p className="text-xs text-[#6E7D5B]">Vendas Finalizadas</p>
+                      <p className="text-lg sm:text-2xl font-bold text-emerald-800">{seller.completedSales}</p>
+                      <p className="text-xs text-gray-600">Vendas Finalizadas</p>
                     </div>
                     <div className="text-center">
-                      <p className="text-lg sm:text-2xl font-bold text-[#1E4D2B]">
+                      <p className="text-lg sm:text-2xl font-bold text-emerald-800">
                         {seller.rating > 0 ? seller.rating.toFixed(1) : '-'}
                       </p>
-                      <p className="text-xs text-[#6E7D5B]">Avaliação</p>
+                      <p className="text-xs text-gray-600">Avaliação</p>
                     </div>
                   </div>
                 </div>
@@ -309,7 +309,7 @@ export default function SellersSection() {
                     <>
                       <Button 
                         size="sm" 
-                        className="bg-green-600 hover:bg-green-700 text-white text-xs sm:text-sm"
+                        className="bg-emerald-600 hover:bg-[#2E7A5A] text-white text-xs sm:text-sm"
                         onClick={() => handleAction(seller, 'approve')}
                       >
                         <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
@@ -349,7 +349,7 @@ export default function SellersSection() {
             </DialogTitle>
           </DialogHeader>
           <div className="space-y-4">
-            <p className="text-sm text-[#6E7D5B]">
+            <p className="text-sm text-gray-600">
               {actionType === 'approve' 
                 ? `Tem certeza que deseja aprovar ${selectedSeller?.name} como vendedor?`
                 : `Tem certeza que deseja recusar a solicitação de ${selectedSeller?.name}?`
@@ -357,7 +357,7 @@ export default function SellersSection() {
             </p>
             
             <div>
-              <label className="text-sm font-medium text-[#2B2E2B] block mb-2">
+              <label className="text-sm font-medium text-[#101828] block mb-2">
                 {actionType === 'approve' ? 'Observações (opcional):' : 'Motivo da recusa:'}
               </label>
               <Textarea
@@ -379,8 +379,8 @@ export default function SellersSection() {
               <Button 
                 onClick={confirmAction}
                 className={actionType === 'approve' 
-                  ? 'bg-green-600 hover:bg-green-700' 
-                  : 'bg-red-600 hover:bg-red-700'
+                  ? 'bg-emerald-600 hover:bg-[#2E7A5A]' 
+                  : 'bg-red-600 hover:bg-[#A03730]'
                 }
                 disabled={actionType === 'reject' && !justification.trim()}
               >

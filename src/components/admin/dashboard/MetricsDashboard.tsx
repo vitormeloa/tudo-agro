@@ -29,7 +29,7 @@ function MetricCard({
   const getColorClasses = (color: string) => {
     const colors = {
       blue: 'bg-blue-500 text-white',
-      green: 'bg-green-500 text-white',
+      green: 'bg-emerald-500 text-white',
       orange: 'bg-orange-500 text-white',
       purple: 'bg-purple-500 text-white',
       red: 'bg-red-500 text-white'
@@ -40,7 +40,7 @@ function MetricCard({
   const getTrendIcon = () => {
     switch (trend) {
       case 'up':
-        return <TrendingUp className="w-4 h-4 text-green-500" />
+        return <TrendingUp className="w-4 h-4 text-[#3D9970]" />
       case 'down':
         return <TrendingDown className="w-4 h-4 text-red-500" />
       default:
@@ -51,7 +51,7 @@ function MetricCard({
   const getTrendColor = () => {
     switch (trend) {
       case 'up':
-        return 'text-green-600'
+        return 'text-emerald-600'
       case 'down':
         return 'text-red-600'
       default:
@@ -73,10 +73,10 @@ function MetricCard({
         </div>
       </div>
       <div>
-        <p className="text-sm font-medium text-[#6E7D5B] mb-1 truncate">{title}</p>
-        <p className="text-2xl font-bold text-[#2B2E2B] mb-1">{value}</p>
+        <p className="text-sm font-medium text-gray-600 mb-1 truncate">{title}</p>
+        <p className="text-2xl font-bold text-[#101828] mb-1">{value}</p>
         {description && (
-          <p className="text-xs text-[#6E7D5B] truncate">{description}</p>
+          <p className="text-xs text-gray-600 truncate">{description}</p>
         )}
       </div>
     </ResponsiveCard>
@@ -97,7 +97,7 @@ export default function MetricsDashboard({
   return (
     <div className={className}>
       {title && (
-        <h3 className="text-lg font-semibold text-[#2B2E2B] mb-4">{title}</h3>
+        <h3 className="text-lg font-semibold text-[#101828] mb-4">{title}</h3>
       )}
       <ResponsiveGrid 
         cols={{ default: 1, sm: 2, lg: 3, xl: 4, '2xl': 5 }}
@@ -133,10 +133,10 @@ export function AlertCard({
     const configs = {
       success: {
         icon: CheckCircle,
-        bgColor: 'bg-green-50',
-        borderColor: 'border-green-200',
-        iconColor: 'text-green-500',
-        textColor: 'text-green-800'
+        bgColor: 'bg-emerald-50',
+        borderColor: 'border-emerald-200',
+        iconColor: 'text-[#3D9970]',
+        textColor: 'text-emerald-800'
       },
       warning: {
         icon: AlertTriangle,
@@ -164,7 +164,7 @@ export function AlertCard({
         bgColor: 'bg-blue-50',
         borderColor: 'border-blue-200',
         iconColor: 'text-blue-500',
-        textColor: 'text-blue-800'
+        textColor: 'text-emerald-800'
       }
     }
     return configs[type] || configs.info // Fallback para 'info' se tipo não for encontrado

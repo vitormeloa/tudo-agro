@@ -28,12 +28,12 @@ export default function Error({
         </div>
 
         {/* Título */}
-        <h1 className="text-3xl font-bold text-[#1E4D2B] mb-4">
+        <h1 className="text-3xl font-bold text-emerald-800 mb-4">
           {title}
         </h1>
 
         {/* Descrição */}
-        <p className="text-[#6E7D5B] mb-6 leading-relaxed">
+        <p className="text-gray-600 mb-6 leading-relaxed">
           {message}
         </p>
 
@@ -51,7 +51,7 @@ export default function Error({
           {reset && (
             <Button
               onClick={reset}
-              className="w-full bg-[#1E4D2B] text-white px-6 py-3 rounded-lg font-medium hover:bg-[#2D5A3D] transition-colors duration-200 inline-block"
+              className="w-full bg-[#1E4D2B] text-white px-6 py-3 rounded-lg font-medium hover:bg-[#163B20] transition-colors duration-200 inline-block"
             >
               <RefreshCw className="w-4 h-4 mr-2" />
               Tentar Novamente
@@ -60,7 +60,7 @@ export default function Error({
           
           <Link
             href="/"
-            className="w-full bg-transparent border-2 border-[#1E4D2B] text-[#1E4D2B] px-6 py-3 rounded-lg font-medium hover:bg-[#1E4D2B] hover:text-white transition-colors duration-200 inline-block"
+            className="w-full bg-transparent border-2 border-[#1E4D2B] text-emerald-800 px-6 py-3 rounded-lg font-medium hover:bg-[#1E4D2B] hover:text-white transition-colors duration-200 inline-block"
           >
             <Home className="w-4 h-4 mr-2 inline-block" />
             Voltar ao Início
@@ -68,7 +68,7 @@ export default function Error({
         </div>
 
         {/* Help Text */}
-        <div className="mt-8 text-sm text-[#6E7D5B]">
+        <div className="mt-8 text-sm text-gray-600">
           <p>Se o problema persistir, entre em contato conosco.</p>
         </div>
       </div>

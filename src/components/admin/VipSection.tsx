@@ -36,7 +36,7 @@ export default function VipSection() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
                 <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-                    <Crown className="w-4 h-4 sm:w-5 sm:h-5 text-[#1E4D2B]" />
+                    <Crown className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-800" />
                     <span className="text-base sm:text-lg font-semibold">Gerenciamento de VIP</span>
                 </CardTitle>
             </div>
@@ -51,14 +51,14 @@ export default function VipSection() {
                     <div className="flex-1 w-full">
                       <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-2">
                         <Crown className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-600 flex-shrink-0" />
-                        <h3 className="font-semibold text-[#2B2E2B] text-sm sm:text-base break-words">{user.name}</h3>
+                        <h3 className="font-semibold text-[#101828] text-sm sm:text-base break-words">{user.name}</h3>
                         <div className="flex flex-wrap items-center gap-1 sm:gap-2">
                           <Badge className="bg-yellow-100 text-yellow-800 text-xs">{user.plan}</Badge>
-                          <Badge className="bg-green-100 text-green-800 text-xs">Ativo</Badge>
+                          <Badge className="bg-emerald-100 text-emerald-800 text-xs">Ativo</Badge>
                         </div>
                       </div>
                       
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 text-xs sm:text-sm text-[#6E7D5B] mb-3 sm:mb-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4">
                         <div>
                           <p className="font-medium">Período:</p>
                           <p className="break-words">{new Date(user.startDate).toLocaleDateString('pt-BR')} - {new Date(user.endDate).toLocaleDateString('pt-BR')}</p>
@@ -78,7 +78,7 @@ export default function VipSection() {
                       </div>
                       
                       <div>
-                        <p className="font-medium text-[#2B2E2B] mb-2 text-xs sm:text-sm">Benefícios Ativos:</p>
+                        <p className="font-medium text-[#101828] mb-2 text-xs sm:text-sm">Benefícios Ativos:</p>
                         <div className="flex flex-wrap gap-1 sm:gap-2">
                           {user.benefits.map((benefit, index) => (
                             <Badge key={index} variant="outline" className="text-xs">

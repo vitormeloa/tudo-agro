@@ -197,9 +197,9 @@ export default function CatalogoPage() {
 
   const categories = [
     { name: 'Gado de Corte', color: 'bg-emerald-100 text-emerald-800' },
-    { name: 'Gado de Leite', color: 'bg-blue-100 text-blue-800' },
+    { name: 'Gado de Leite', color: 'bg-emerald-100 text-emerald-800' },
     { name: 'Cavalos', color: 'bg-amber-100 text-amber-800' },
-    { name: 'Sêmen', color: 'bg-purple-100 text-purple-800' }
+    { name: 'Sêmen', color: 'bg-emerald-100 text-emerald-800' }
   ].map(cat => ({
     ...cat,
     count: getCategoryCount(cat.name)
@@ -211,7 +211,7 @@ export default function CatalogoPage() {
       
       {/* Hero Section */}
         <section className="relative pt-16 pb-20 overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-lime-600 via-green-600 to-emerald-700"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-lime-600 via-emerald-600 to-emerald-700"></div>
             <div className="absolute inset-0 bg-black/20"></div>
             <div className="absolute inset-0 opacity-40">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.15)_1px,transparent_0)] bg-[length:20px_20px]"></div>
@@ -245,7 +245,7 @@ export default function CatalogoPage() {
                 </div>
               </div>
               <Button 
-                className="bg-emerald-600 hover:bg-emerald-700 text-white px-8 h-12"
+                className="bg-primary hover:bg-[#2E7A5A] text-white px-8 h-12"
                 onClick={() => setShowFilters(!showFilters)}
               >
                 <SlidersHorizontal className="w-5 h-5 mr-2" />
@@ -340,7 +340,7 @@ export default function CatalogoPage() {
         {/* Categories */}
         <div className="mb-8">
           <div className="flex justify-between items-center mb-4">
-            <h3 className="text-lg font-semibold text-gray-900">Categorias Populares</h3>
+            <h3 className="text-lg font-semibold text-[#101828]">Categorias Populares</h3>
             {selectedCategory && (
               <Button
                 variant="ghost"
@@ -366,7 +366,7 @@ export default function CatalogoPage() {
                   <div className={`inline-flex px-3 py-1 rounded-full text-sm font-medium mb-2 ${category.color}`}>
                     {category.name}
                   </div>
-                  <div className="text-2xl font-bold text-gray-900">{category.count}</div>
+                  <div className="text-2xl font-bold text-[#101828]">{category.count}</div>
                   <div className="text-sm text-gray-500">animais</div>
                 </CardContent>
               </Card>
@@ -377,7 +377,7 @@ export default function CatalogoPage() {
         {/* Results Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
           <div className="text-gray-600">
-            Mostrando <span className="font-semibold text-gray-900">{startIndex + 1}</span> até <span className="font-semibold text-gray-900">{Math.min(endIndex, sortedProducts.length)}</span> de <span className="font-semibold text-gray-900">{sortedProducts.length}</span> resultados
+            Mostrando <span className="font-semibold text-[#101828]">{startIndex + 1}</span> até <span className="font-semibold text-[#101828]">{Math.min(endIndex, sortedProducts.length)}</span> de <span className="font-semibold text-[#101828]">{sortedProducts.length}</span> resultados
             {selectedCategory && (
               <span className="ml-2 text-emerald-600 font-semibold">
                 em {selectedCategory}
@@ -452,7 +452,7 @@ export default function CatalogoPage() {
         ) : (
           <div className="text-center py-16">
             <Package className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">Nenhum animal encontrado</h3>
+            <h3 className="text-xl font-semibold text-[#101828] mb-2">Nenhum animal encontrado</h3>
             <p className="text-gray-600 mb-6">
               Não encontramos animais que correspondam aos seus filtros.
             </p>
@@ -495,7 +495,7 @@ export default function CatalogoPage() {
                       onClick={() => handlePageChange(page)}
                       className={
                         currentPage === page
-                          ? "bg-emerald-600 text-white hover:bg-emerald-700"
+                          ? "bg-emerald-600 text-white hover:bg-[#2E7A5A]"
                           : "border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white"
                       }
                       variant={currentPage === page ? "default" : "outline"}

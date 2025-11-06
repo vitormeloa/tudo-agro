@@ -209,7 +209,7 @@ export default function VenderPage() {
 
       {/* Hero Section */}
       <section className="relative pt-20 pb-16 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-white to-green-50"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-white to-emerald-50"></div>
         <div className="absolute inset-0 opacity-40">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(5,150,105,0.15)_1px,transparent_0)] bg-[length:20px_20px]"></div>
         </div>
@@ -217,9 +217,9 @@ export default function VenderPage() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+            <h1 className="text-4xl md:text-6xl font-bold text-[#101828] mb-6 leading-tight">
               Venda seu{' '}
-              <span className="bg-gradient-to-r from-emerald-600 to-green-600 bg-clip-text text-transparent">animal</span>
+              <span className="bg-gradient-to-r from-emerald-600 to-emerald-600 bg-clip-text text-transparent">animal</span>
               <br />
               com facilidade
             </h1>
@@ -279,7 +279,7 @@ export default function VenderPage() {
         {/* Form Card */}
         <Card className="shadow-2xl border-0 bg-white rounded-2xl">
           <CardHeader className="pb-6">
-            <CardTitle className="text-2xl text-center text-gray-900">
+            <CardTitle className="text-2xl text-center text-[#101828]">
               {steps[currentStep - 1].title}
             </CardTitle>
             <p className="text-center text-gray-600">
@@ -292,7 +292,7 @@ export default function VenderPage() {
               {currentStep === 1 && (
                 <div className="space-y-6">
                   <div className="text-center mb-6">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                    <h3 className="text-lg font-semibold text-[#101828] mb-2">
                       Como você quer vender?
                     </h3>
                     <p className="text-gray-600">
@@ -313,7 +313,7 @@ export default function VenderPage() {
                       <div className="flex items-center mb-4">
                         <DollarSign className="w-8 h-8 text-emerald-600 mr-3" />
                         <div>
-                          <h4 className="font-bold text-gray-900">Venda Direta</h4>
+                          <h4 className="font-bold text-[#101828]">Venda Direta</h4>
                           <Badge className="bg-emerald-600 text-white text-xs">RECOMENDADO</Badge>
                         </div>
                       </div>
@@ -348,7 +348,7 @@ export default function VenderPage() {
                       <div className="flex items-center mb-4">
                         <Calendar className="w-8 h-8 text-amber-600 mr-3" />
                         <div>
-                          <h4 className="font-bold text-gray-900">Leilão Online</h4>
+                          <h4 className="font-bold text-[#101828]">Leilão Online</h4>
                           <Badge className="bg-amber-600 text-white text-xs">MAIOR VALOR</Badge>
                         </div>
                       </div>
@@ -396,7 +396,7 @@ export default function VenderPage() {
                 <div className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
-                      <label htmlFor="title" className="block text-sm font-medium text-gray-900 mb-2">
+                      <label htmlFor="title" className="block text-sm font-medium text-[#101828] mb-2">
                         Título do Anúncio *
                       </label>
                       <Input
@@ -411,7 +411,7 @@ export default function VenderPage() {
                     </div>
 
                     <div>
-                      <label htmlFor="category" className="block text-sm font-medium text-gray-900 mb-2">
+                      <label htmlFor="category" className="block text-sm font-medium text-[#101828] mb-2">
                         Categoria *
                       </label>
                       <Select value={formData.category} onValueChange={(value) => setFormData({...formData, category: value})}>
@@ -429,7 +429,7 @@ export default function VenderPage() {
 
                   <div className="grid md:grid-cols-3 gap-4">
                     <div>
-                      <label htmlFor="breed" className="block text-sm font-medium text-gray-900 mb-2">
+                      <label htmlFor="breed" className="block text-sm font-medium text-[#101828] mb-2">
                         Raça *
                       </label>
                       <Select value={formData.breed} onValueChange={(value) => setFormData({...formData, breed: value})}>
@@ -445,7 +445,7 @@ export default function VenderPage() {
                     </div>
 
                     <div>
-                      <label htmlFor="gender" className="block text-sm font-medium text-gray-900 mb-2">
+                      <label htmlFor="gender" className="block text-sm font-medium text-[#101828] mb-2">
                         Sexo *
                       </label>
                       <Select value={formData.gender} onValueChange={(value) => setFormData({...formData, gender: value})}>
@@ -460,7 +460,7 @@ export default function VenderPage() {
                     </div>
 
                     <div>
-                      <label htmlFor="age" className="block text-sm font-medium text-gray-900 mb-2">
+                      <label htmlFor="age" className="block text-sm font-medium text-[#101828] mb-2">
                         Idade *
                       </label>
                       <Input
@@ -477,7 +477,7 @@ export default function VenderPage() {
 
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
-                      <label htmlFor="weight" className="block text-sm font-medium text-[#2B2E2B] mb-2">
+                      <label htmlFor="weight" className="block text-sm font-medium text-[#101828] mb-2">
                         Peso (kg)
                       </label>
                       <Input
@@ -491,7 +491,7 @@ export default function VenderPage() {
                     </div>
 
                     <div>
-                      <label htmlFor="healthStatus" className="block text-sm font-medium text-[#2B2E2B] mb-2">
+                      <label htmlFor="healthStatus" className="block text-sm font-medium text-[#101828] mb-2">
                         Estado de Saúde
                       </label>
                       <Select value={formData.healthStatus} onValueChange={(value) => setFormData({...formData, healthStatus: value})}>
@@ -508,7 +508,7 @@ export default function VenderPage() {
                   </div>
 
                   <div>
-                    <label htmlFor="description" className="block text-sm font-medium text-[#2B2E2B] mb-2">
+                    <label htmlFor="description" className="block text-sm font-medium text-[#101828] mb-2">
                       Descrição Detalhada *
                     </label>
                     <textarea
@@ -529,9 +529,9 @@ export default function VenderPage() {
                         type="checkbox"
                         checked={formData.vaccinated}
                         onChange={(e) => setFormData({...formData, vaccinated: e.target.checked})}
-                        className="h-4 w-4 text-[#1E4D2B] focus:ring-[#1E4D2B] border-gray-300 rounded"
+                        className="h-4 w-4 text-emerald-800 focus:ring-[#1E4D2B] border-gray-300 rounded"
                       />
-                      <label htmlFor="vaccinated" className="ml-3 text-sm text-[#2B2E2B]">
+                      <label htmlFor="vaccinated" className="ml-3 text-sm text-[#101828]">
                         Animal vacinado
                       </label>
                     </div>
@@ -542,9 +542,9 @@ export default function VenderPage() {
                         type="checkbox"
                         checked={formData.registered}
                         onChange={(e) => setFormData({...formData, registered: e.target.checked})}
-                        className="h-4 w-4 text-[#1E4D2B] focus:ring-[#1E4D2B] border-gray-300 rounded"
+                        className="h-4 w-4 text-emerald-800 focus:ring-[#1E4D2B] border-gray-300 rounded"
                       />
-                      <label htmlFor="registered" className="ml-3 text-sm text-[#2B2E2B]">
+                      <label htmlFor="registered" className="ml-3 text-sm text-[#101828]">
                         Animal registrado
                       </label>
                     </div>
@@ -557,17 +557,17 @@ export default function VenderPage() {
                 <div className="space-y-8">
                   {/* Upload de Fotos */}
                   <div>
-                    <h3 className="text-lg font-semibold text-[#2B2E2B] mb-4 flex items-center">
-                      <Camera className="w-5 h-5 mr-2 text-[#C89F45]" />
+                    <h3 className="text-lg font-semibold text-[#101828] mb-4 flex items-center">
+                      <Camera className="w-5 h-5 mr-2 text-amber-600" />
                       Fotos do Animal (máximo 10)
                     </h3>
                     
                     <div className="border-2 border-dashed border-[#C89F45] rounded-lg p-6 text-center hover:border-[#1E4D2B] transition-colors duration-300">
-                      <Camera className="w-12 h-12 text-[#C89F45] mx-auto mb-4" />
-                      <h4 className="font-semibold text-[#2B2E2B] mb-2">
+                      <Camera className="w-12 h-12 text-amber-600 mx-auto mb-4" />
+                      <h4 className="font-semibold text-[#101828] mb-2">
                         Adicionar Fotos
                       </h4>
-                      <p className="text-sm text-[#6E7D5B] mb-4">
+                      <p className="text-sm text-gray-600 mb-4">
                         Fotos de qualidade aumentam as chances de venda
                       </p>
                       <input
@@ -610,17 +610,17 @@ export default function VenderPage() {
 
                   {/* Upload de Documentos */}
                   <div>
-                    <h3 className="text-lg font-semibold text-[#2B2E2B] mb-4 flex items-center">
-                      <FileText className="w-5 h-5 mr-2 text-[#1E4D2B]" />
+                    <h3 className="text-lg font-semibold text-[#101828] mb-4 flex items-center">
+                      <FileText className="w-5 h-5 mr-2 text-emerald-800" />
                       Documentos (máximo 5)
                     </h3>
                     
                     <div className="border-2 border-dashed border-[#1E4D2B] rounded-lg p-6 text-center hover:border-[#C89F45] transition-colors duration-300">
-                      <FileText className="w-12 h-12 text-[#1E4D2B] mx-auto mb-4" />
-                      <h4 className="font-semibold text-[#2B2E2B] mb-2">
+                      <FileText className="w-12 h-12 text-emerald-800 mx-auto mb-4" />
+                      <h4 className="font-semibold text-[#101828] mb-2">
                         Adicionar Documentos
                       </h4>
-                      <p className="text-sm text-[#6E7D5B] mb-4">
+                      <p className="text-sm text-gray-600 mb-4">
                         Certificados, exames, registro, etc.
                       </p>
                       <input
@@ -632,7 +632,7 @@ export default function VenderPage() {
                         id="document-upload"
                       />
                       <label htmlFor="document-upload">
-                        <Button type="button" variant="outline" className="border-[#1E4D2B] text-[#1E4D2B] hover:bg-[#1E4D2B] hover:text-white">
+                        <Button type="button" variant="outline" className="border-[#1E4D2B] text-emerald-800 hover:bg-[#1E4D2B] hover:text-white">
                           <Upload className="w-4 h-4 mr-2" />
                           Escolher Documentos
                         </Button>
@@ -644,13 +644,13 @@ export default function VenderPage() {
                         {documents.map((doc, index) => (
                           <div key={index} className="flex items-center justify-between bg-[#F7F6F2] p-3 rounded-lg">
                             <div className="flex items-center">
-                              <FileText className="w-5 h-5 text-[#1E4D2B] mr-3" />
-                              <span className="text-sm text-[#2B2E2B]">{doc.name}</span>
+                              <FileText className="w-5 h-5 text-emerald-800 mr-3" />
+                              <span className="text-sm text-[#101828]">{doc.name}</span>
                             </div>
                             <button
                               type="button"
                               onClick={() => removeDocument(index)}
-                              className="text-[#B8413D] hover:text-[#A03730] transition-colors"
+                              className="text-red-600 hover:text-[#A03730] transition-colors"
                             >
                               <X className="w-4 h-4" />
                             </button>
@@ -667,15 +667,15 @@ export default function VenderPage() {
                 <div className="space-y-6">
                   {/* Preço */}
                   <div className="bg-[#1E4D2B]/5 border border-[#1E4D2B]/20 rounded-lg p-6">
-                    <h3 className="text-lg font-semibold text-[#2B2E2B] mb-4 flex items-center">
-                      <DollarSign className="w-5 h-5 mr-2 text-[#1E4D2B]" />
+                    <h3 className="text-lg font-semibold text-[#101828] mb-4 flex items-center">
+                      <DollarSign className="w-5 h-5 mr-2 text-emerald-800" />
                       {saleType === 'direct' ? 'Preço de Venda' : 'Configuração do Leilão'}
                     </h3>
 
                     {saleType === 'direct' ? (
                       <div className="grid md:grid-cols-2 gap-4">
                         <div>
-                          <label htmlFor="price" className="block text-sm font-medium text-[#2B2E2B] mb-2">
+                          <label htmlFor="price" className="block text-sm font-medium text-[#101828] mb-2">
                             Preço (R$) *
                           </label>
                           <Input
@@ -694,9 +694,9 @@ export default function VenderPage() {
                             type="checkbox"
                             checked={formData.negotiable}
                             onChange={(e) => setFormData({...formData, negotiable: e.target.checked})}
-                            className="h-4 w-4 text-[#1E4D2B] focus:ring-[#1E4D2B] border-gray-300 rounded"
+                            className="h-4 w-4 text-emerald-800 focus:ring-[#1E4D2B] border-gray-300 rounded"
                           />
-                          <label htmlFor="negotiable" className="ml-3 text-sm text-[#2B2E2B]">
+                          <label htmlFor="negotiable" className="ml-3 text-sm text-[#101828]">
                             Aceito propostas
                           </label>
                         </div>
@@ -704,7 +704,7 @@ export default function VenderPage() {
                     ) : (
                       <div className="grid md:grid-cols-2 gap-4">
                         <div>
-                          <label htmlFor="startingBid" className="block text-sm font-medium text-[#2B2E2B] mb-2">
+                          <label htmlFor="startingBid" className="block text-sm font-medium text-[#101828] mb-2">
                             Lance Inicial (R$) *
                           </label>
                           <Input
@@ -718,7 +718,7 @@ export default function VenderPage() {
                           />
                         </div>
                         <div>
-                          <label htmlFor="auctionDate" className="block text-sm font-medium text-[#2B2E2B] mb-2">
+                          <label htmlFor="auctionDate" className="block text-sm font-medium text-[#101828] mb-2">
                             Data do Leilão *
                           </label>
                           <Input
@@ -736,14 +736,14 @@ export default function VenderPage() {
 
                   {/* Localização */}
                   <div>
-                    <h3 className="text-lg font-semibold text-[#2B2E2B] mb-4 flex items-center">
-                      <MapPin className="w-5 h-5 mr-2 text-[#C89F45]" />
+                    <h3 className="text-lg font-semibold text-[#101828] mb-4 flex items-center">
+                      <MapPin className="w-5 h-5 mr-2 text-amber-600" />
                       Localização
                     </h3>
 
                     <div className="grid md:grid-cols-2 gap-4 mb-4">
                       <div>
-                        <label htmlFor="state" className="block text-sm font-medium text-[#2B2E2B] mb-2">
+                        <label htmlFor="state" className="block text-sm font-medium text-[#101828] mb-2">
                           Estado *
                         </label>
                         <Input
@@ -757,7 +757,7 @@ export default function VenderPage() {
                         />
                       </div>
                       <div>
-                        <label htmlFor="city" className="block text-sm font-medium text-[#2B2E2B] mb-2">
+                        <label htmlFor="city" className="block text-sm font-medium text-[#101828] mb-2">
                           Cidade *
                         </label>
                         <Input
@@ -773,7 +773,7 @@ export default function VenderPage() {
                     </div>
 
                     <div>
-                      <label htmlFor="address" className="block text-sm font-medium text-[#2B2E2B] mb-2">
+                      <label htmlFor="address" className="block text-sm font-medium text-[#101828] mb-2">
                         Endereço da Fazenda
                       </label>
                       <Input
@@ -789,13 +789,13 @@ export default function VenderPage() {
 
                   {/* Contato */}
                   <div>
-                    <h3 className="text-lg font-semibold text-[#2B2E2B] mb-4">
+                    <h3 className="text-lg font-semibold text-[#101828] mb-4">
                       Informações de Contato
                     </h3>
 
                     <div className="grid md:grid-cols-2 gap-4">
                       <div>
-                        <label htmlFor="contactName" className="block text-sm font-medium text-[#2B2E2B] mb-2">
+                        <label htmlFor="contactName" className="block text-sm font-medium text-[#101828] mb-2">
                           Nome para Contato *
                         </label>
                         <Input
@@ -809,7 +809,7 @@ export default function VenderPage() {
                         />
                       </div>
                       <div>
-                        <label htmlFor="contactPhone" className="block text-sm font-medium text-[#2B2E2B] mb-2">
+                        <label htmlFor="contactPhone" className="block text-sm font-medium text-[#101828] mb-2">
                           WhatsApp *
                         </label>
                         <Input
@@ -840,10 +840,10 @@ export default function VenderPage() {
                         <AlertCircle className="w-8 h-8 text-amber-600" />
                       )}
                     </div>
-                    <h3 className="text-lg font-semibold text-[#2B2E2B] mb-2">
+                    <h3 className="text-lg font-semibold text-[#101828] mb-2">
                       {isFormValid() ? 'Anúncio Pronto!' : 'Complete os Dados'}
                     </h3>
-                    <p className="text-[#6E7D5B]">
+                    <p className="text-gray-600">
                       {isFormValid() 
                         ? 'Confira todos os dados antes de publicar'
                         : 'Preencha todos os campos obrigatórios para continuar'
@@ -852,48 +852,48 @@ export default function VenderPage() {
                   </div>
 
                   <div className="bg-[#F7F6F2] rounded-lg p-6">
-                    <h4 className="font-semibold text-[#2B2E2B] mb-4">Resumo do Anúncio</h4>
+                    <h4 className="font-semibold text-[#101828] mb-4">Resumo do Anúncio</h4>
                     <div className="grid md:grid-cols-2 gap-4 text-sm">
                       <div>
-                        <span className="text-[#6E7D5B]">Título:</span>
-                        <div className="font-semibold text-[#2B2E2B]">{formData.title || 'Não informado'}</div>
+                        <span className="text-gray-600">Título:</span>
+                        <div className="font-semibold text-[#101828]">{formData.title || 'Não informado'}</div>
                       </div>
                       <div>
-                        <span className="text-[#6E7D5B]">Categoria:</span>
-                        <div className="font-semibold text-[#2B2E2B]">{formData.category || 'Não informado'}</div>
+                        <span className="text-gray-600">Categoria:</span>
+                        <div className="font-semibold text-[#101828]">{formData.category || 'Não informado'}</div>
                       </div>
                       <div>
-                        <span className="text-[#6E7D5B]">Tipo de Venda:</span>
-                        <div className="font-semibold text-[#2B2E2B]">
+                        <span className="text-gray-600">Tipo de Venda:</span>
+                        <div className="font-semibold text-[#101828]">
                           {saleType === 'direct' ? 'Venda Direta' : 'Leilão Online'}
                         </div>
                       </div>
                       <div>
-                        <span className="text-[#6E7D5B]">
+                        <span className="text-gray-600">
                           {saleType === 'direct' ? 'Preço:' : 'Lance Inicial:'}
                         </span>
-                        <div className="font-semibold text-[#1E4D2B]">
+                        <div className="font-semibold text-emerald-800">
                           R$ {(saleType === 'direct' ? formData.price : formData.startingBid) || '0'}
                         </div>
                       </div>
                       <div>
-                        <span className="text-[#6E7D5B]">Localização:</span>
-                        <div className="font-semibold text-[#2B2E2B]">
+                        <span className="text-gray-600">Localização:</span>
+                        <div className="font-semibold text-[#101828]">
                           {formData.city && formData.state ? `${formData.city}, ${formData.state}` : 'Não informado'}
                         </div>
                       </div>
                       <div>
-                        <span className="text-[#6E7D5B]">Fotos:</span>
-                        <div className="font-semibold text-[#2B2E2B]">{images.length} imagem(ns)</div>
+                        <span className="text-gray-600">Fotos:</span>
+                        <div className="font-semibold text-[#101828]">{images.length} imagem(ns)</div>
                       </div>
                     </div>
                   </div>
 
                   <div className="bg-[#1E4D2B]/5 border border-[#1E4D2B]/20 rounded-lg p-4">
-                    <h4 className="font-semibold text-[#1E4D2B] mb-2">
+                    <h4 className="font-semibold text-emerald-800 mb-2">
                       ✓ Próximos passos:
                     </h4>
-                    <ul className="text-sm text-[#6E7D5B] space-y-1">
+                    <ul className="text-sm text-gray-600 space-y-1">
                       {!user && (
                         <li className="text-emerald-600 font-medium">• Fazer login ou criar conta (próximo passo)</li>
                       )}
@@ -913,7 +913,7 @@ export default function VenderPage() {
                   variant="outline"
                   onClick={handlePrevious}
                   disabled={currentStep === 1}
-                  className="border-[#6E7D5B] text-[#6E7D5B] hover:bg-[#6E7D5B] hover:text-white"
+                  className="border-[#6E7D5B] text-gray-600 hover:bg-[#6E7D5B] hover:text-white"
                 >
                   Anterior
                 </Button>
@@ -946,10 +946,10 @@ export default function VenderPage() {
 
         {/* Help Section */}
         <div className="mt-8 text-center">
-          <p className="text-[#6E7D5B] mb-4">
+          <p className="text-gray-600 mb-4">
             Precisa de ajuda para criar seu anúncio?
           </p>
-          <Button variant="outline" className="border-[#C89F45] text-[#C89F45] hover:bg-[#C89F45] hover:text-white">
+          <Button variant="outline" className="border-[#C89F45] text-amber-600 hover:bg-[#C89F45] hover:text-white">
             Falar com Especialista
           </Button>
         </div>
@@ -960,7 +960,7 @@ export default function VenderPage() {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <Card className="w-full max-w-md bg-white rounded-2xl shadow-2xl">
             <CardHeader className="text-center pb-4">
-              <CardTitle className="text-2xl text-gray-900">
+              <CardTitle className="text-2xl text-[#101828]">
                 {isLoginMode ? 'Fazer Login' : 'Criar Conta'}
               </CardTitle>
               <p className="text-gray-600">
@@ -974,7 +974,7 @@ export default function VenderPage() {
               <form onSubmit={handleAuth} className="space-y-4">
                 {!isLoginMode && (
                   <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-900 mb-2">
+                    <label htmlFor="name" className="block text-sm font-medium text-[#101828] mb-2">
                       Nome Completo *
                     </label>
                     <div className="relative">
@@ -993,7 +993,7 @@ export default function VenderPage() {
                 )}
 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-900 mb-2">
+                  <label htmlFor="email" className="block text-sm font-medium text-[#101828] mb-2">
                     Email *
                   </label>
                   <div className="relative">
@@ -1012,7 +1012,7 @@ export default function VenderPage() {
 
                 {!isLoginMode && (
                   <div>
-                    <label htmlFor="phone" className="block text-sm font-medium text-gray-900 mb-2">
+                    <label htmlFor="phone" className="block text-sm font-medium text-[#101828] mb-2">
                       WhatsApp *
                     </label>
                     <Input
@@ -1028,7 +1028,7 @@ export default function VenderPage() {
                 )}
 
                 <div>
-                  <label htmlFor="password" className="block text-sm font-medium text-gray-900 mb-2">
+                  <label htmlFor="password" className="block text-sm font-medium text-[#101828] mb-2">
                     Senha *
                   </label>
                   <div className="relative">
@@ -1060,7 +1060,7 @@ export default function VenderPage() {
 
                 <Button
                   type="submit"
-                  className="w-full bg-emerald-600 hover:bg-emerald-700 text-white h-12 text-lg font-semibold"
+                  className="w-full bg-emerald-600 hover:bg-[#2E7A5A] text-white h-12 text-lg font-semibold"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? 'Processando...' : (isLoginMode ? 'Entrar' : 'Criar Conta')}

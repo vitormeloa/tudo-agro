@@ -33,7 +33,7 @@ export default function AuctionDetailsModal({ auction, isOpen, onClose }: Auctio
 
   const getStatusBadge = (status: string) => {
     const config = {
-      ativo: 'bg-green-100 text-green-800',
+      ativo: 'bg-emerald-100 text-emerald-800',
       encerrado: 'bg-gray-100 text-gray-800',
       suspenso: 'bg-red-100 text-red-800'
     }
@@ -58,10 +58,10 @@ export default function AuctionDetailsModal({ auction, isOpen, onClose }: Auctio
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b">
           <div className="flex items-center gap-3">
-            <Gavel className="w-6 h-6 text-[#1E4D2B]" />
+            <Gavel className="w-6 h-6 text-emerald-800" />
             <div>
-              <h2 className="text-xl font-bold text-[#2B2E2B]">Detalhes do Leilão #{auction.id}</h2>
-              <p className="text-sm text-[#6E7D5B]">{auction.title}</p>
+              <h2 className="text-xl font-bold text-[#101828]">Detalhes do Leilão #{auction.id}</h2>
+              <p className="text-sm text-gray-600">{auction.title}</p>
             </div>
           </div>
           <Button variant="ghost" size="sm" onClick={onClose}>
@@ -75,23 +75,23 @@ export default function AuctionDetailsModal({ auction, isOpen, onClose }: Auctio
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-lg">
-                  <DollarSign className="w-5 h-5 text-[#1E4D2B]" />
+                  <DollarSign className="w-5 h-5 text-emerald-800" />
                   Informações Financeiras
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="text-center">
-                  <p className="text-3xl font-bold text-[#1E4D2B]">{auction.currentPrice}</p>
-                  <p className="text-sm text-[#6E7D5B]">Lance Atual</p>
+                  <p className="text-3xl font-bold text-emerald-800">{auction.currentPrice}</p>
+                  <p className="text-sm text-gray-600">Lance Atual</p>
                 </div>
                 <div className="grid grid-cols-2 gap-4 text-center">
                   <div>
-                    <p className="text-2xl font-bold text-[#1E4D2B]">{auction.bids}</p>
-                    <p className="text-xs text-[#6E7D5B]">Total de Lances</p>
+                    <p className="text-2xl font-bold text-emerald-800">{auction.bids}</p>
+                    <p className="text-xs text-gray-600">Total de Lances</p>
                   </div>
                   <div>
-                    <p className="text-2xl font-bold text-[#1E4D2B]">{auction.participants}</p>
-                    <p className="text-xs text-[#6E7D5B]">Participantes</p>
+                    <p className="text-2xl font-bold text-emerald-800">{auction.participants}</p>
+                    <p className="text-xs text-gray-600">Participantes</p>
                   </div>
                 </div>
               </CardContent>
@@ -100,7 +100,7 @@ export default function AuctionDetailsModal({ auction, isOpen, onClose }: Auctio
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-lg">
-                  <Clock className="w-5 h-5 text-[#1E4D2B]" />
+                  <Clock className="w-5 h-5 text-emerald-800" />
                   Status e Tempo
                 </CardTitle>
               </CardHeader>
@@ -109,8 +109,8 @@ export default function AuctionDetailsModal({ auction, isOpen, onClose }: Auctio
                   {getStatusBadge(auction.status)}
                 </div>
                 <div className="text-center">
-                  <p className="text-lg font-bold text-[#2B2E2B]">{auction.endTime}</p>
-                  <p className="text-sm text-[#6E7D5B]">Data de Encerramento</p>
+                  <p className="text-lg font-bold text-[#101828]">{auction.endTime}</p>
+                  <p className="text-sm text-gray-600">Data de Encerramento</p>
                 </div>
                 {auction.alerts > 0 && (
                   <div className="flex items-center justify-center gap-2 p-2 bg-red-50 rounded-lg">
@@ -124,7 +124,7 @@ export default function AuctionDetailsModal({ auction, isOpen, onClose }: Auctio
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-lg">
-                  <Users className="w-5 h-5 text-[#1E4D2B]" />
+                  <Users className="w-5 h-5 text-emerald-800" />
                   Vendedor
                 </CardTitle>
               </CardHeader>
@@ -133,8 +133,8 @@ export default function AuctionDetailsModal({ auction, isOpen, onClose }: Auctio
                   <div className="w-16 h-16 bg-[#1E4D2B] rounded-full flex items-center justify-center text-white font-bold text-xl mx-auto mb-2">
                     {auction.seller.charAt(0)}
                   </div>
-                  <p className="font-semibold text-[#2B2E2B]">{auction.seller}</p>
-                  <p className="text-sm text-[#6E7D5B]">Vendedor Verificado</p>
+                  <p className="font-semibold text-[#101828]">{auction.seller}</p>
+                  <p className="text-sm text-gray-600">Vendedor Verificado</p>
                 </div>
                 <Button variant="outline" size="sm" className="w-full">
                   <Eye className="w-4 h-4 mr-2" />
@@ -148,7 +148,7 @@ export default function AuctionDetailsModal({ auction, isOpen, onClose }: Auctio
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <TrendingUp className="w-5 h-5 text-[#1E4D2B]" />
+                <TrendingUp className="w-5 h-5 text-emerald-800" />
                 Histórico de Lances
               </CardTitle>
             </CardHeader>
@@ -156,23 +156,23 @@ export default function AuctionDetailsModal({ auction, isOpen, onClose }: Auctio
               <div className="space-y-3">
                 {mockBids.map((bid, index) => (
                   <div key={bid.id} className={`flex items-center justify-between p-3 rounded-lg ${
-                    bid.isHighest ? 'bg-green-50 border border-green-200' : 'bg-gray-50'
+                    bid.isHighest ? 'bg-emerald-50 border border-emerald-200' : 'bg-gray-50'
                   }`}>
                     <div className="flex items-center gap-3">
                       <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
-                        bid.isHighest ? 'bg-green-500 text-white' : 'bg-gray-300 text-gray-700'
+                        bid.isHighest ? 'bg-emerald-500 text-white' : 'bg-gray-300 text-gray-700'
                       }`}>
                         {index + 1}
                       </div>
                       <div>
-                        <p className="font-medium text-[#2B2E2B]">{bid.bidder}</p>
-                        <p className="text-sm text-[#6E7D5B]">{bid.time}</p>
+                        <p className="font-medium text-[#101828]">{bid.bidder}</p>
+                        <p className="text-sm text-gray-600">{bid.time}</p>
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="text-lg font-bold text-[#1E4D2B]">{bid.amount}</p>
+                      <p className="text-lg font-bold text-emerald-800">{bid.amount}</p>
                       {bid.isHighest && (
-                        <Badge className="bg-green-100 text-green-800 text-xs">
+                        <Badge className="bg-emerald-100 text-emerald-800 text-xs">
                           <CheckCircle className="w-3 h-3 mr-1" />
                           Maior Lance
                         </Badge>
@@ -188,7 +188,7 @@ export default function AuctionDetailsModal({ auction, isOpen, onClose }: Auctio
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Gavel className="w-5 h-5 text-[#1E4D2B]" />
+                <Gavel className="w-5 h-5 text-emerald-800" />
                 Ações de Gerenciamento
               </CardTitle>
             </CardHeader>
@@ -218,7 +218,7 @@ export default function AuctionDetailsModal({ auction, isOpen, onClose }: Auctio
                   <Button 
                     variant="outline" 
                     onClick={() => handleStatusChange('ativo')}
-                    className="text-green-600"
+                    className="text-emerald-600"
                   >
                     <Play className="w-4 h-4 mr-2" />
                     Reativar

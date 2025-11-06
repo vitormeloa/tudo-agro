@@ -45,26 +45,27 @@
 :root {
   --radius: 0.75rem;
   --background: oklch(0.99 0 0);
-  --foreground: oklch(0.15 0 0);
+  --foreground: oklch(0.10 0 0); /* Darker gray for text */
   
   /* Modern color palette */
-  --primary: oklch(0.4 0.15 145);
-  --primary-foreground: oklch(0.98 0 0);
-  --secondary: oklch(0.96 0 0);
-  --secondary-foreground: oklch(0.15 0 0);
+  --primary: oklch(45% 0.18 160); /* Vibrant Emerald Green, similar to emerald-600 */
+  --primary-dark: oklch(35% 0.18 160); /* Darker Emerald Green */
+  --primary-foreground: oklch(0.98 0 0); /* White for contrast */
+  --secondary: oklch(90% 0.05 160); /* Very light emerald */
+  --secondary-foreground: oklch(20% 0.05 160); /* Darker emerald for text */
   --muted: oklch(0.96 0 0);
-  --muted-foreground: oklch(0.45 0 0);
-  --accent: oklch(0.96 0 0);
-  --accent-foreground: oklch(0.15 0 0);
+  --muted-foreground: oklch(0.30 0 0); /* Medium-dark gray for muted text */
+  --accent: oklch(80% 0.08 160); /* Slightly more prominent light emerald */
+  --accent-foreground: oklch(20% 0.05 160); /* Darker emerald for text */
   --destructive: oklch(0.55 0.2 25);
   --destructive-foreground: oklch(0.98 0 0);
   --border: oklch(0.9 0 0);
   --input: oklch(0.9 0 0);
-  --ring: oklch(0.4 0.15 145);
+  --ring: oklch(45% 0.18 160); /* Same as primary for focus rings */
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.15 0 0);
+  --card-foreground: oklch(0.10 0 0); /* Darker gray for text */
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.15 0 0);
+  --popover-foreground: oklch(0.10 0 0); /* Darker gray for text */
   
   /* Chart colors */
   --chart-1: oklch(0.4 0.15 145);
@@ -76,12 +77,12 @@
   /* Sidebar colors */
   --sidebar: oklch(0.98 0 0);
   --sidebar-foreground: oklch(0.15 0 0);
-  --sidebar-primary: oklch(0.4 0.15 145);
-  --sidebar-primary-foreground: oklch(0.98 0 0);
+  --sidebar-primary: oklch(45% 0.18 160); /* Same as primary */
+  --sidebar-primary-foreground: oklch(0.98 0 0); /* White for contrast */
   --sidebar-accent: oklch(0.96 0 0);
   --sidebar-accent-foreground: oklch(0.15 0 0);
   --sidebar-border: oklch(0.9 0 0);
-  --sidebar-ring: oklch(0.4 0.15 145);
+  --sidebar-ring: oklch(45% 0.18 160);
   
   /* Additional font families for AI usage */
   --font-inter: "Inter", ui-sans-serif, system-ui, sans-serif;
@@ -94,24 +95,25 @@
 
 .dark {
   --background: oklch(0.08 0 0);
-  --foreground: oklch(0.98 0 0);
-  --primary: oklch(0.6 0.15 145);
-  --primary-foreground: oklch(0.08 0 0);
+  --foreground: oklch(0.98 0 0); /* White for text */
+  --primary: oklch(50% 0.15 145); /* Darker green for dark mode */
+  --primary-dark: oklch(40% 0.15 145); /* Even darker green for dark mode */
+  --primary-foreground: oklch(0.08 0 0); /* Dark for contrast */
   --secondary: oklch(0.12 0 0);
-  --secondary-foreground: oklch(0.98 0 0);
+  --secondary-foreground: oklch(0.98 0 0); /* White for text */
   --muted: oklch(0.12 0 0);
-  --muted-foreground: oklch(0.65 0 0);
+  --muted-foreground: oklch(0.75 0 0); /* Lighter gray for muted text */
   --accent: oklch(0.12 0 0);
-  --accent-foreground: oklch(0.98 0 0);
+  --accent-foreground: oklch(0.98 0 0); /* White for text */
   --destructive: #F04438;
   --destructive-foreground: #FFFFFF;
   --border: oklch(0.2 0 0);
   --input: oklch(0.2 0 0);
   --ring: oklch(0.6 0.15 145);
   --card: oklch(0.08 0 0);
-  --card-foreground: oklch(0.98 0 0);
+  --card-foreground: oklch(0.98 0 0); /* White for text */
   --popover: oklch(0.08 0 0);
-  --popover-foreground: oklch(0.98 0 0);
+  --popover-foreground: oklch(0.98 0 0); /* White for text */
   --chart-1: oklch(0.6 0.15 145);
   --chart-2: oklch(0.7 0.12 180);
   --chart-3: oklch(0.6 0.07 230);
@@ -202,7 +204,7 @@
   }
   
   .gradient-text {
-    @apply bg-gradient-to-r from-emerald-600 to-green-600 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-[--primary-dark] to-[--primary] bg-clip-text text-transparent;
   }
   
   .glass {
@@ -294,7 +296,7 @@ html {
 
 /* Focus styles */
 .focus-ring {
-  @apply focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2;
+  @apply focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2;
 }
 
 /* Custom scrollbar */
@@ -359,7 +361,7 @@ html {
 }
 
 .blog-content a {
-  @apply text-emerald-600 hover:text-emerald-700 underline;
+  @apply text-[--primary] hover:text-[--primary-dark] underline;
 }
 
 .blog-content img {
@@ -376,7 +378,7 @@ html {
 }
 
 .blog-content blockquote {
-  @apply border-l-4 border-emerald-600 bg-emerald-50 pl-4 py-2 my-4 italic;
+  @apply border-l-4 border-[--primary] bg-[--primary]/10 pl-4 py-2 my-4 italic;
 }
 
 .blog-content code {

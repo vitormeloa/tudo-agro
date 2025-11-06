@@ -29,7 +29,7 @@ export function ResponsiveCard({
     <Card 
       className={cn(
         'transition-all duration-200',
-        hoverable && 'hover:shadow-lg hover:scale-[1.02]',
+        hoverable && 'hover:shadow-lg',
         onClick && 'cursor-pointer active:scale-[0.98]',
         className
       )}
