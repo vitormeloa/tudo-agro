@@ -2082,4 +2082,313 @@ export const mockProducts: MockProduct[] = [
       image: "https://http2.mlstatic.com/D_NQ_NP_834219-MLA85623539720_062025-F.jpg"
     }
 },
+{
+  id: "550e8400-e29b-41d4-a716-446655440048",
+  title: "Pulverizador Costal Ss20b 20l Man E Elétri Bateria - Brudden Cor Amarelo",
+  category: "Equipamentos e Infraestrutura Rural",
+  price: 389.00,
+  location: "Minas Gerais",
+  city: "Contagem",
+  rating: 4.8,
+  reviews: 11,
+  image: "/fotos/produtos/pulverizador.png",
+  seller: "Parts Prime",
+  verified: true,
+  featured: false,
+  weight: "5.8kg",
+  brand: "Bruden",
+  stock: "Em estoque",
+  description: "Pulverizador Costal Ss20b 20l Man E Elétri Bateria - Brudden Cor Amarelo.",
+  images: [
+    "/fotos/produtos/pulverizador.png",
+  ],
+  specifications: {
+    vazao: "1,2 a 2,0 L/min (ajustável conforme bico)",
+    material_reservatorio: "Polietileno de alta resistência",
+    uso: "Aplicação de defensivos agrícolas, fertilizantes líquidos e sanitizantes",
+    conforto: "Alças acolchoadas e reguláveis para transporte nas costas",
+    manutencao: "Limpar após cada uso e carregar a bateria conforme instruções"
+  },
+  documents: [
+    "Ficha Técnica",
+    "Manual de Operação",
+    "Certificado de Garantia",
+    "Certificado de Qualidade",
+    "Nota Fiscal",
+    "Termo de Origem do Fabricante"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "Parts Prime",
+      location: "Contagem, Minas Gerais",
+      rating: 5,
+      totalSales: 280,
+      memberSince: "2020",
+      verified: true,
+      image: "https://http2.mlstatic.com/D_NQ_NP_852035-MLA96046660096_102025-F.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440049",
+  title: "Roçadeira Profissional Vulcan Vr620h À Gasolina 2t 3hp 62cc",
+  category: "Equipamentos e Infraestrutura Rural",
+  price: 810.92,
+  location: "Minas Gerais",
+  city: "Contagem",
+  rating: 4.8,
+  reviews: 37,
+  image: "/fotos/produtos/rocadeira.png",
+  seller: "GENIUS ECOMERCE",
+  verified: true,
+  featured: false,
+  weight: "6.95kg",
+  brand: "Vulcan",
+  stock: "Em estoque",
+  description: "Capacidade do tanque de combustível de 1.2 L para longos períodos de uso.",
+  images: [
+    "/fotos/produtos/rocadeira.png",
+  ],
+  specifications: {
+    uso: "Capina, roçada e limpeza de terrenos profissionais ou agrícolas",
+    conforto: "Alça dupla ergonômica com regulagem e redução de vibração",
+    manutencao: "Limpar após uso, verificar lubrificação e combustível, revisar lâminas/fios periodicamente"
+  },
+  documents: [
+    "Ficha Técnica",
+    "Manual de Operação e Segurança",
+    "Certificado de Garantia",
+    "Certificado de Qualidade",
+    "Nota Fiscal",
+    "Termo de Origem do Fabricante"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "GENIUS ECOMERCE",
+      location: "Contagem, Minas Gerais",
+      rating: 5,
+      totalSales: 280,
+      memberSince: "2020",
+      verified: true,
+      image: "https://http2.mlstatic.com/D_NQ_NP_955138-MLA78794694042_092024-F.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440050",
+  title: "Kit 500m Mangueira De Gotejamento 16mm Registros E Chulas",
+  category: "Equipamentos e Infraestrutura Rural",
+  price: 319.67,
+  location: "São Paulo",
+  city: "Sorocaba",
+  rating: 4.8,
+  reviews: 37,
+  image: "/fotos/produtos/mangueira.png",
+  seller: "Agro Sorocaba",
+  verified: true,
+  featured: false,
+  weight: "",
+  brand: "Drip Plan",
+  stock: "Em estoque",
+  description: "Ideal para uso em sistemas de irrigação de culturas plantadas em linha ou em canteiros, em campo aberto ou em estufas.",
+  images: [
+    "/fotos/produtos/mangueira.png",
+  ],
+  specifications: {
+    material: "Polietileno de alta resistência UV",
+    aplicacao: "Irrigação de hortas, pomares, estufas e pequenos cultivos agrícolas",
+    resistencia: "Alta durabilidade à pressão de até 2 bar e exposição solar",
+    manutencao: "Limpar filtros periodicamente e verificar obstruções nos gotejadores"
+  },
+  documents: [
+    "Ficha Técnica",
+    "Manual de Instalação e Uso",
+    "Certificado de Qualidade",
+    "Nota Fiscal",
+    "Termo de Origem do Fabricante"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "Agro Sorocaba",
+      location: "Sorocaba, São Paulo",
+      rating: 5,
+      totalSales: 280,
+      memberSince: "2020",
+      verified: true,
+      image: "https://mla-s1-p.mlstatic.com/947028-MLA47754731520_102021-O.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440051",
+  title: "Camisa Camiseta Blusa Agro Proteção Solar Uv 50",
+  category: "Vestuário e Lifestyle Agro",
+  price: 55.03,
+  location: "São Paulo",
+  city: "Barueri",
+  rating: 4.7,
+  reviews: 44,
+  image: "/fotos/produtos/camisa.png",
+  seller: "KN Artes",
+  verified: true,
+  featured: false,
+  weight: "",
+  brand: "KN Trend",
+  stock: "Em estoque",
+  description: "Camisetas com excelência em qualidade feitas com tecido DRYUV, uma modalidade de DRYFIT de alto padrão e desempenho que proporciona para você pescador",
+  images: [
+    "/fotos/produtos/camisa.png",
+  ],
+  specifications: {
+    modelo: "agro",
+    gênero: "masculino",
+    idade: "adultos"
+  },
+  documents: [
+    "Ficha Técnica",
+    "Certificado de Proteção UV",
+    "Certificado de Qualidade do Tecido",
+    "Manual de Cuidados e Lavagem",
+    "Nota Fiscal",
+    "Termo de Origem do Fabricante"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "KN Artes",
+      location: "Barueri, São Paulo",
+      rating: 5,
+      totalSales: 280,
+      memberSince: "2020",
+      verified: true,
+      image: "https://http2.mlstatic.com/D_NQ_NP_790724-MLA73805428997_012024-F.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440052",
+  title: "Calça Jeans Masculina Trabalho Reforçada Promoção Atacado",
+  category: "Vestuário e Lifestyle Agro",
+  price: 46.67,
+  location: "São Paulo",
+  city: "Urupês",
+  rating: 4.7,
+  reviews: 1085,
+  image: "/fotos/produtos/jeans.png",
+  seller: "Mzoco Jeans",
+  verified: true,
+  featured: false,
+  weight: "",
+  brand: "Mzoco Jeans",
+  stock: "Em estoque",
+  description: "Calça Jeans Masculina Tradicional Atacado Calça Promoção Jeans",
+  images: [
+    "/fotos/produtos/jeans.png",
+  ],
+  specifications: {
+    modelo: "Kit calça jeans masculina Tradicional barata de serviço pesado uniforme resistente Mecânico pluz size",
+    gênero: "masculino",
+    idade: "adultos"
+  },
+  documents: [
+    "Ficha Técnica",
+    "Certificado de Proteção UV",
+    "Certificado de Qualidade do Tecido",
+    "Manual de Cuidados e Lavagem",
+    "Nota Fiscal",
+    "Termo de Origem do Fabricante"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "Mzoco Jeans",
+      location: "Urupês, São Paulo",
+      rating: 4,
+      totalSales: 70,
+      memberSince: "2020",
+      verified: true,
+      image: "https://http2.mlstatic.com/D_NQ_NP_811481-MLA78059439537_072024-G.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440053",
+  title: "Botina Chelsea Masculina Bota Country Couro Palmilha Gel Top",
+  category: "Vestuário e Lifestyle Agro",
+  price: 116.80,
+  location: "São Paulo",
+  city: "Urupês",
+  rating: 4.8,
+  reviews: 387,
+  image: "/fotos/produtos/bota.png",
+  seller: "GISLAINEHGARCIAPASCOALINE",
+  verified: true,
+  featured: false,
+  weight: "",
+  brand: "Lerrout 24h",
+  stock: "Em estoque",
+  description: "Essa botina vai com palmilha em gel com memória para maior conforto e Durabilidade para os seus pés. desenvolvido para proteger pés, coluna e pernas. Proporciona mais elegância aos seus pés, além de passos com personalidade.",
+  images: [
+    "/fotos/produtos/bota.png",
+  ],
+  specifications: {
+    modelo: "De Elástico 100% couro original",
+    gênero: "masculino",
+    idade: "adultos"
+  },
+  documents: [
+    "Ficha Técnica",
+    "Certificado de Proteção UV",
+    "Certificado de Qualidade do Tecido",
+    "Manual de Cuidados e Lavagem",
+    "Nota Fiscal",
+    "Termo de Origem do Fabricante"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "GISLAINEHGARCIAPASCOALINE",
+      location: "Urupês, São Paulo",
+      rating: 4,
+      totalSales: 70,
+      memberSince: "2020",
+      verified: true,
+      image: "https://http2.mlstatic.com/D_NQ_NP_895292-MLA83650091573_042025-F.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440054",
+  title: "Chapéu Agro Juta Australiano Personalizado",
+  category: "Vestuário e Lifestyle Agro",
+  price: 54.99,
+  location: "Minas Gerais",
+  city: "Belo Horizonte",
+  rating: 4.8,
+  reviews: 387,
+  image: "/fotos/produtos/bota.png",
+  seller: "VICTORIASERGIODUARTEVICTORI",
+  verified: true,
+  featured: false,
+  weight: "",
+  brand: "Lv",
+  stock: "Em estoque",
+  description: "Chapéu Panamá de Juta, confeccionado em Juta Natural Encomada, matéria-prima fina, resistente e com toque suave.",
+  images: [
+    "/fotos/produtos/chapeu.png",
+  ],
+  specifications: {
+    modelo: "Juta Australiano",
+    gênero: "unissex",
+    idade: "adultos"
+  },
+  documents: [
+    "Ficha Técnica",
+    "Certificado de Proteção UV",
+    "Manual de Cuidados e Lavagem",
+    "Nota Fiscal",
+    "Termo de Origem do Fabricante"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "VICTORIASERGIODUARTEVICTORI",
+      location: "Belo Horizonte, Minas Gerais",
+      rating: 4.6,
+      totalSales: 30,
+      memberSince: "2020",
+      verified: true,
+      image: "https://mla-s1-p.mlstatic.com/620963-MLA48550602416_122021-O.jpg"
+    }
+},
 ]
