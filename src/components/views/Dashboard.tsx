@@ -4,42 +4,45 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Heart, Package, Eye, Users, Gavel, Store, BookOpen, HelpCircle, TrendingUp, Award, Shield, MessageSquare } from "lucide-react";
-import { useState } from "react";
-import PurchaseDetailsModal from "@/components/PurchaseDetailsModal";
-const Dashboard = () => {
-  const [selectedPurchase, setSelectedPurchase] = useState<number | null>(null);
-  const quickActions = [{
-    icon: Package,
-    title: "Ver Animais",
-    href: "#"
-  }, {
-    icon: Gavel,
-    title: "Ver Leilões",
-    href: "#"
-  }, {
-    icon: Store,
-    title: "Mercado Agro",
-    href: "#"
-  }, {
-    icon: Heart,
-    title: "Meus Favoritos",
-    href: "#"
-  }, {
-    icon: MessageSquare,
-    title: "Chat com Vendedores",
-    href: "#"
-  }, {
-    icon: BookOpen,
-    title: "Acessar Blog",
-    href: "#"
-  }];
-  const recentPurchases = [{
+import { useState, useMemo, lazy, Suspense } from "react";
+
+// Lazy load do modal para não carregar até ser necessário
+const PurchaseDetailsModal = lazy(() => import("@/components/PurchaseDetailsModal"));
+
+// Mover dados estáticos para fora do componente (evita recriação)
+const QUICK_ACTIONS = [{
+  icon: Package,
+  title: "Ver Animais",
+  href: "#"
+}, {
+  icon: Gavel,
+  title: "Ver Leilões",
+  href: "#"
+}, {
+  icon: Store,
+  title: "Mercado Agro",
+  href: "#"
+}, {
+  icon: Heart,
+  title: "Meus Favoritos",
+  href: "#"
+}, {
+  icon: MessageSquare,
+  title: "Chat com Vendedores",
+  href: "#"
+}, {
+  icon: BookOpen,
+  title: "Acessar Blog",
+  href: "#"
+}];
+
+const RECENT_PURCHASES = [{
     id: 1,
     name: "Touro Nelore PO Certificado",
     date: "15/01/2025",
     time: "10:42",
     status: "preparing",
-    image: "🐂",
+    image: "/fotos/animais/touro-nelore.jpeg",
     itemType: "Animal / Genética / Produto físico",
     quantity: 1,
     unitPrice: 25000.00,
@@ -80,7 +83,7 @@ const Dashboard = () => {
     date: "10/01/2025",
     time: "14:20",
     status: "transit",
-    image: "🐴",
+    image: "/fotos/animais/egua-mangalarga.jpeg",
     itemType: "Animal / Genética / Produto físico",
     quantity: 1,
     unitPrice: 18000.00,
@@ -121,7 +124,7 @@ const Dashboard = () => {
     date: "05/01/2025",
     time: "09:15",
     status: "delivered",
-    image: "🌾",
+    image: "/fotos/produtos/semente-milho.jpeg",
     itemType: "Produto físico",
     quantity: 10,
     unitPrice: 450.00,
@@ -157,7 +160,26 @@ const Dashboard = () => {
       }]
     }
   }];
-  const getStatusBadge = (status: string) => {
+
+const STATS = [{
+  icon: Users,
+  label: "50k+",
+  sublabel: "Usuários Ativos"
+}, {
+  icon: Award,
+  label: "R$ 2.8B",
+  sublabel: "Volume Negociado"
+}, {
+  icon: Heart,
+  label: "98%",
+  sublabel: "Satisfação"
+}, {
+  icon: Shield,
+  label: "100%",
+  sublabel: "Segurança"
+}];
+
+const getStatusBadge = (status: string) => {
     const statusConfig = {
       preparing: {
         label: "Preparando Envio",
@@ -178,23 +200,10 @@ const Dashboard = () => {
     };
     return statusConfig[status as keyof typeof statusConfig] || statusConfig.preparing;
   };
-  const stats = [{
-    icon: Users,
-    label: "50k+",
-    sublabel: "Usuários Ativos"
-  }, {
-    icon: Award,
-    label: "R$ 2.8B",
-    sublabel: "Volume Negociado"
-  }, {
-    icon: Heart,
-    label: "98%",
-    sublabel: "Satisfação"
-  }, {
-    icon: Shield,
-    label: "100%",
-    sublabel: "Segurança"
-  }];
+
+const Dashboard = () => {
+  const [selectedPurchase, setSelectedPurchase] = useState<number | null>(null);
+
   return <div>
           {/* Banner Principal */}
           <Card className="mb-6 overflow-hidden border-0 bg-gradient-to-r from-primary to-primary/70">
@@ -219,7 +228,7 @@ const Dashboard = () => {
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4">
-                {quickActions.map((action, i) => <Button key={i} variant="outline" className="h-auto flex-col gap-2 md:gap-3 py-4 md:py-6 hover:border-primary bg-accent/30 hover:bg-accent/50 transition-all group">
+                {QUICK_ACTIONS.map((action, i) => <Button key={i} variant="outline" className="h-auto flex-col gap-2 md:gap-3 py-4 md:py-6 hover:border-primary bg-accent/30 hover:bg-accent/50 transition-all group">
                     <action.icon className="h-6 w-6 md:h-8 md:w-8 text-primary group-hover:text-primary" />
                     <span className="text-xs md:text-sm font-medium text-center text-gray-800 group-hover:text-primary">{action.title}</span>
                   </Button>)}
@@ -237,9 +246,13 @@ const Dashboard = () => {
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
-                {recentPurchases.map(purchase => <div key={purchase.id} className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 rounded-lg border p-4 hover:border-secondary/50 transition-colors">
+                {RECENT_PURCHASES.map(purchase => <div key={purchase.id} className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 rounded-lg border p-4 hover:border-secondary/50 transition-colors">
                     <div className="flex items-start md:items-center gap-3 md:gap-4 flex-1">
-                      
+                      <img
+                        src={purchase.image}
+                        alt={purchase.name}
+                        className="w-16 h-16 md:w-20 md:h-20 rounded-lg object-cover flex-shrink-0"
+                      />
                       <div className="flex-1 min-w-0">
                         <div className="font-semibold text-sm md:text-base truncate">{purchase.name}</div>
                         <div className="text-xs md:text-sm text-muted-foreground mt-1">{purchase.date}</div>
@@ -296,20 +309,40 @@ const Dashboard = () => {
             </CardContent>
           </Card>
 
-          {/* Suporte */}
-          <div className="mt-6 flex flex-col md:flex-row gap-3 md:gap-4">
-            <Button variant="outline" className="flex-1">
-              <MessageSquare className="mr-2 h-4 w-4" />
-              <span className="text-sm md:text-base">Fale com o Suporte</span>
-            </Button>
-            <Button variant="outline" className="flex-1">
-              <HelpCircle className="mr-2 h-4 w-4" />
-              <span className="text-sm md:text-base">Central de Ajuda</span>
-            </Button>
-        </div>
+          {/* Help Card */}
+          <Card className="bg-muted/50 mt-6">
+            <div className="p-6">
+              <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <HelpCircle className="h-5 w-5 text-primary" />
+                  <div>
+                    <p className="font-medium">Dúvidas sobre o Dashboard?</p>
+                    <p className="text-sm text-muted-foreground">Nossa equipe está pronta para ajudar</p>
+                  </div>
+                </div>
+                <div className="flex gap-3">
+                  <Button variant="outline">
+                    <MessageSquare className="mr-2 h-4 w-4" />
+                    Fale com Suporte
+                  </Button>
+                  <Button variant="outline">
+                    Central de Ajuda
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </Card>
 
         {/* Purchase Details Modal */}
-        {selectedPurchase && <PurchaseDetailsModal isOpen={!!selectedPurchase} onClose={() => setSelectedPurchase(null)} purchase={recentPurchases.find(p => p.id === selectedPurchase)!} />}
+        {selectedPurchase && (
+          <Suspense fallback={<div>Carregando...</div>}>
+            <PurchaseDetailsModal
+              isOpen={!!selectedPurchase}
+              onClose={() => setSelectedPurchase(null)}
+              purchase={RECENT_PURCHASES.find(p => p.id === selectedPurchase)!}
+            />
+          </Suspense>
+        )}
     </div>;
 };
 export default Dashboard;

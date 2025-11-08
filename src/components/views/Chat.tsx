@@ -7,12 +7,12 @@ import { Card } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
-import { 
-  Search, 
-  Send, 
-  Paperclip, 
-  Settings, 
-  Smile, 
+import {
+  Search,
+  Send,
+  Paperclip,
+  Settings,
+  Smile,
   Image as ImageIcon,
   FileText,
   X,
@@ -24,7 +24,8 @@ import {
   CheckCheck,
   MoreVertical,
   Store,
-  MessageSquareOff
+  MessageSquareOff,
+  HelpCircle
 } from "lucide-react";
 import { 
   Dialog, 
@@ -784,6 +785,29 @@ const Chat = () => {
           )}
         </div>
       </div>
+
+      {/* Help Card */}
+      <Card className="bg-muted/50 mt-6">
+        <div className="p-6">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <HelpCircle className="h-5 w-5 text-primary" />
+              <div>
+                <p className="font-medium">Dúvidas sobre suas conversas?</p>
+                <p className="text-sm text-muted-foreground">Nossa equipe está pronta para ajudar</p>
+              </div>
+            </div>
+            <div className="flex gap-3">
+              <Button variant="outline">
+                Central de Ajuda
+              </Button>
+              <Button variant="outline">
+                Política de Comunicação
+              </Button>
+            </div>
+          </div>
+        </div>
+      </Card>
 
       {/* Order Summary Dialog */}
       <Dialog open={showOrderSummary} onOpenChange={setShowOrderSummary}>

@@ -30,7 +30,7 @@ const MeusAnimais = () => {
       views: 145,
       rating: 4.8,
       reviews: 12,
-      image: "🐂"
+      image: "/fotos/animais/touro-nelore.jpeg"
     },
     {
       id: 2,
@@ -41,7 +41,7 @@ const MeusAnimais = () => {
       views: 89,
       rating: 5.0,
       reviews: 8,
-      image: "🐄"
+      image: "/fotos/animais/novilha-brahman.jpg"
     },
     {
       id: 3,
@@ -52,7 +52,7 @@ const MeusAnimais = () => {
       views: 234,
       rating: 4.5,
       reviews: 15,
-      image: "🐴"
+      image: "/fotos/animais/garanhao-quarto-de-milha.jpg"
     },
     {
       id: 4,
@@ -63,7 +63,7 @@ const MeusAnimais = () => {
       views: 45,
       rating: 0,
       reviews: 0,
-      image: "🐑"
+      image: "/fotos/animais/vaca-holandesa.jpeg"
     }
   ];
 
@@ -180,13 +180,19 @@ const MeusAnimais = () => {
         {animals.map((animal) => (
           <Card key={animal.id} className="hover:shadow-lg transition-shadow">
             <CardHeader>
-              <div className="flex items-start justify-between">
-                <div className="text-6xl mb-2">{animal.image}</div>
+              <div className="flex items-start justify-between mb-2">
+                <img
+                  src={animal.image}
+                  alt={animal.name}
+                  className="w-full h-48 object-cover rounded-lg"
+                />
+              </div>
+              <div className="flex items-start justify-between mt-3">
+                <CardTitle className="text-lg">{animal.name}</CardTitle>
                 <Badge variant={getStatusBadge(animal.status).variant}>
                   {animal.status}
                 </Badge>
               </div>
-              <CardTitle className="text-lg">{animal.name}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-3">

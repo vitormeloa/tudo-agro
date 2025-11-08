@@ -307,12 +307,12 @@ const DashboardLayout = ({
           <div className="flex items-center gap-4">
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="lg:hidden relative">
+                <Button variant="ghost" size="icon" className="lg:hidden relative animate-pulse-effect">
                   <Menu className="h-6 w-6" />
                   {unreadMessages > 0 && <span className="absolute top-1 right-1 h-2 w-2 bg-status-danger rounded-full animate-pulse" />}
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left" className="w-72 p-0 animate-slide-in-right flex flex-col">
+              <SheetContent side="left" className="w-72 p-0 animate-slide-in-right flex flex-col [&>button]:hidden">
                 <div className="flex items-center justify-between p-4 border-b flex-shrink-0">
                   <span className="text-lg font-bold text-primary">Menu</span>
                   <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)} className="bg-destructive/10 text-destructive hover:bg-destructive/20 transition-all duration-200 hover:rotate-90">

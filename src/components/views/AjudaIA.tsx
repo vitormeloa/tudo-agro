@@ -23,6 +23,7 @@ import {
   ThumbsDown,
   User,
   X,
+  HelpCircle,
 } from "lucide-react";
 import { AgroIAAvatar } from "@/components/AgroIAAvatar";
 import { TypingIndicator } from "@/components/TypingIndicator";
@@ -502,6 +503,29 @@ const AjudaIA = () => {
           </Accordion>
         </div>
       </div>
+
+      {/* Help Card */}
+      <Card className="bg-muted/50 mt-6">
+        <div className="p-6">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <HelpCircle className="h-5 w-5 text-primary" />
+              <div>
+                <p className="font-medium">Dúvidas sobre o uso da AgroIA?</p>
+                <p className="text-sm text-muted-foreground">Nossa equipe está pronta para ajudar</p>
+              </div>
+            </div>
+            <div className="flex gap-3">
+              <Button variant="outline">
+                Central de Ajuda
+              </Button>
+              <Button variant="outline">
+                Guia de Uso
+              </Button>
+            </div>
+          </div>
+        </div>
+      </Card>
     </div>
   );
 };

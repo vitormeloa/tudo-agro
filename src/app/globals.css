@@ -91,6 +91,8 @@
   --font-source-code: "Source Code Pro", ui-monospace, SFMono-Regular, monospace;
   --font-fira-code: "Fira Code", ui-monospace, SFMono-Regular, monospace;
   --font-jetbrains: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --primary-rgb: 10, 153, 102;
 }
 
 .dark {
@@ -127,6 +129,8 @@
   --sidebar-accent-foreground: oklch(0.98 0 0);
   --sidebar-border: oklch(0.2 0 0);
   --sidebar-ring: oklch(58% 0.14 162);
+
+  --primary-rgb: 10, 153, 102;
 }
 
 @layer base {
@@ -229,6 +233,25 @@
 }
 
 /* Custom animations */
+@keyframes pulse-effect {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(var(--primary-rgb), 0.7);
+  }
+  70% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 10px rgba(var(--primary-rgb), 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(var(--primary-rgb), 0);
+  }
+}
+
+.animate-pulse-effect {
+  animation: pulse-effect 2s infinite;
+}
+
 @keyframes fadeInUp {
   from {
     opacity: 0;

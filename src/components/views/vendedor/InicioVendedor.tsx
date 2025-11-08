@@ -6,17 +6,15 @@ import { Badge } from "@/components/ui/badge";
 import { Package, TrendingUp, MessageSquare, Bell, Eye, ShoppingCart } from "lucide-react";
 import { useState } from "react";
 
-const InicioVendedor = () => {
-  const [selectedSale, setSelectedSale] = useState<any>(null);
+// Mover dados estáticos para fora do componente (otimização)
+const QUICK_ACTIONS = [
+  { icon: Package, title: "Publicar Animal", link: "/vendedor/meus-animais" },
+  { icon: ShoppingCart, title: "Adicionar Produto", link: "/vendedor/minha-loja" },
+  { icon: TrendingUp, title: "Ver Dashboard", link: "/vendedor/dashboard" },
+  { icon: MessageSquare, title: "Mensagens", link: "/chat" },
+];
 
-  const quickActions = [
-    { icon: Package, title: "Publicar Animal", link: "/vendedor/meus-animais" },
-    { icon: ShoppingCart, title: "Adicionar Produto", link: "/vendedor/minha-loja" },
-    { icon: TrendingUp, title: "Ver Dashboard", link: "/vendedor/dashboard" },
-    { icon: MessageSquare, title: "Mensagens", link: "/chat" },
-  ];
-
-  const recentSales = [
+const RECENT_SALES = [
     {
       id: 1,
       item: "Novilho Nelore 18 meses",
@@ -52,21 +50,21 @@ const InicioVendedor = () => {
     }
   ];
 
-  const recentActivities = [
-    { icon: MessageSquare, text: "Nova mensagem de João Silva sobre Ração Premium", time: "5 min atrás", type: "message" },
-    { icon: Bell, text: "Avaliação recebida - 5 estrelas!", time: "1 hora atrás", type: "review" },
-    { icon: Eye, text: "Seu anúncio 'Novilho Nelore' teve 45 visualizações hoje", time: "2 horas atrás", type: "view" },
-    { icon: ShoppingCart, text: "Nova venda: Bezerra Girolando", time: "5 horas atrás", type: "sale" },
-  ];
+const RECENT_ACTIVITIES = [
+  { icon: MessageSquare, text: "Nova mensagem de João Silva sobre Ração Premium", time: "5 min atrás", type: "message" },
+  { icon: Bell, text: "Avaliação recebida - 5 estrelas!", time: "1 hora atrás", type: "review" },
+  { icon: Eye, text: "Seu anúncio 'Novilho Nelore' teve 45 visualizações hoje", time: "2 horas atrás", type: "view" },
+  { icon: ShoppingCart, text: "Nova venda: Bezerra Girolando", time: "5 horas atrás", type: "sale" },
+];
 
-  const stats = [
-    { icon: Package, label: "Produtos Ativos", value: "24" },
-    { icon: ShoppingCart, label: "Vendas este mês", value: "18" },
-    { icon: Eye, label: "Visualizações", value: "1.2k" },
-    { icon: TrendingUp, label: "Avaliação Média", value: "4.8⭐" },
-  ];
+const SELLER_STATS = [
+  { icon: Package, label: "Produtos Ativos", value: "24" },
+  { icon: ShoppingCart, label: "Vendas este mês", value: "18" },
+  { icon: Eye, label: "Visualizações", value: "1.2k" },
+  { icon: TrendingUp, label: "Avaliação Média", value: "4.8⭐" },
+];
 
-  const getStatusBadge = (status: string) => {
+const getStatusBadge = (status: string) => {
     const statusMap: { [key: string]: { label: string; variant: "default" | "secondary" | "destructive" | "outline" } } = {
       "Aguardando Envio": { label: "Aguardando Envio", variant: "secondary" },
       "Em Transporte": { label: "Em Transporte", variant: "default" },
@@ -74,6 +72,9 @@ const InicioVendedor = () => {
     };
     return statusMap[status] || { label: status, variant: "outline" };
   };
+
+const InicioVendedor = () => {
+  const [selectedSale, setSelectedSale] = useState<any>(null);
 
   return (
     <div className="space-y-6">
@@ -89,7 +90,7 @@ const InicioVendedor = () => {
 
       {/* Stats */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        {stats.map((stat, index) => (
+        {SELLER_STATS.map((stat, index) => (
           <Card key={index}>
             <CardContent className="p-6">
               <div className="flex items-center gap-4">
@@ -113,7 +114,7 @@ const InicioVendedor = () => {
         </CardHeader>
         <CardContent>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            {quickActions.map((action, index) => (
+            {QUICK_ACTIONS.map((action, index) => (
               <Button
                 key={index}
                 variant="outline"
@@ -136,7 +137,7 @@ const InicioVendedor = () => {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {recentSales.map((sale) => {
+              {RECENT_SALES.map((sale) => {
                 const statusInfo = getStatusBadge(sale.status);
                 return (
                   <div key={sale.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-accent/50 transition-colors">
@@ -170,7 +171,7 @@ const InicioVendedor = () => {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {recentActivities.map((activity, index) => (
+              {RECENT_ACTIVITIES.map((activity, index) => (
                 <div key={index} className="flex gap-3 p-3 rounded-lg hover:bg-accent/50 transition-colors">
                   <div className={`h-10 w-10 rounded-full flex items-center justify-center flex-shrink-0 ${
                     activity.type === 'message' ? 'bg-status-info/10 text-status-info' :

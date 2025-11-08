@@ -1435,14 +1435,16 @@ export default function CadastroPage() {
                                     onCheckedChange={(checked) => handleInputChange('acceptTerms', checked as boolean)}
                                 />
                                 <Label htmlFor="terms" className="text-sm text-gray-600 leading-relaxed">
-                                    <span>Li e aceito os </span>
-                                    <Link href="/termos" className="text-primary hover:text-primary font-medium whitespace-nowrap">
-                                        Termos de Uso
-                                    </Link>
-                                    <span> e a </span>
-                                    <Link href="/privacidade" className="text-primary hover:text-primary font-medium whitespace-nowrap">
-                                        Política de Privacidade
-                                    </Link>
+                                    <span className="inline">
+                                        Li e aceito os{' '}
+                                        <Link href="/termos" className="inline text-primary hover:text-primary font-medium">
+                                            Termos de Uso
+                                        </Link>
+                                        {' '}e a{' '}
+                                        <Link href="/privacidade" className="inline text-primary hover:text-primary font-medium">
+                                            Política de Privacidade
+                                        </Link>
+                                    </span>
                                 </Label>
                             </div>
 

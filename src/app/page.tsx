@@ -201,7 +201,7 @@ export default function HomePage() {
         </div>
 
         {/* Overlay moderno com gradiente suave */}
-        <div className="absolute inset-0 bg-gradient-to-br from-black/75 via-primary/60 to-black/70"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-black/75 via-primary/40 to-black/70"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20"></div>
 
         {/* Elementos decorativos modernos */}

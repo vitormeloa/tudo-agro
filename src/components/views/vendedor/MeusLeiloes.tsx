@@ -24,7 +24,7 @@ const MeusLeiloes = () => {
       participants: 45,
       currentBid: 125000,
       views: 890,
-      image: "🐂"
+      image: "/fotos/leiloes/leilao-faz-sta-rita.jpg"
     },
     {
       id: 2,
@@ -36,7 +36,7 @@ const MeusLeiloes = () => {
       participants: 23,
       currentBid: 0,
       views: 234,
-      image: "🐄"
+      image: "/fotos/leiloes/leilao-fazenda.jpg"
     },
     {
       id: 3,
@@ -48,7 +48,7 @@ const MeusLeiloes = () => {
       participants: 67,
       currentBid: 185000,
       views: 1234,
-      image: "🐴"
+      image: "/fotos/leiloes/leilao-cavalo.webp"
     }
   ];
 
@@ -169,8 +169,12 @@ const MeusLeiloes = () => {
             <CardContent className="p-6">
               <div className="flex flex-col lg:flex-row gap-6">
                 {/* Auction Image */}
-                <div className="flex items-center justify-center lg:justify-start">
-                  <div className="text-8xl">{auction.image}</div>
+                <div className="flex items-center justify-center lg:justify-start flex-shrink-0">
+                  <img
+                    src={auction.image}
+                    alt={auction.title}
+                    className="w-full lg:w-64 h-48 lg:h-40 object-cover rounded-lg"
+                  />
                 </div>
 
                 {/* Auction Info */}

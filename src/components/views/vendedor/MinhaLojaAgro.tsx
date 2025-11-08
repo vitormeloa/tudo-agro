@@ -32,7 +32,7 @@ const MinhaLojaAgro = () => {
     status: "Ativo",
     rating: 4.9,
     reviews: 28,
-    image: "🌾",
+    image: "/fotos/produtos/racao-1.jpg",
     totalSales: 180
   }, {
     id: 2,
@@ -43,7 +43,7 @@ const MinhaLojaAgro = () => {
     status: "Ativo",
     rating: 5.0,
     reviews: 45,
-    image: "💉",
+    image: "/fotos/produtos/verme.png",
     totalSales: 250
   }, {
     id: 3,
@@ -54,7 +54,7 @@ const MinhaLojaAgro = () => {
     status: "Ativo",
     rating: 4.7,
     reviews: 12,
-    image: "⚡",
+    image: "/fotos/produtos/cerca.png",
     totalSales: 60
   }, {
     id: 4,
@@ -65,7 +65,7 @@ const MinhaLojaAgro = () => {
     status: "Sem Estoque",
     rating: 4.8,
     reviews: 19,
-    image: "💧",
+    image: "/fotos/produtos/bebedouro.png",
     totalSales: 45
   }, {
     id: 5,
@@ -76,7 +76,7 @@ const MinhaLojaAgro = () => {
     status: "Ativo",
     rating: 4.6,
     reviews: 34,
-    image: "🧂",
+    image: "/fotos/produtos/salcorte.png",
     totalSales: 200
   }, {
     id: 6,
@@ -87,7 +87,7 @@ const MinhaLojaAgro = () => {
     status: "Ativo",
     rating: 4.9,
     reviews: 7,
-    image: "🔧",
+    image: "/fotos/produtos/kit.png",
     totalSales: 25
   }];
   const getStatusBadge = (status: string) => {
@@ -306,13 +306,19 @@ const MinhaLojaAgro = () => {
         </Card> : <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {filteredProducts.map(product => <Card key={product.id} className="hover:shadow-lg transition-shadow">
               <CardHeader>
-                <div className="flex items-start justify-between">
-                  <div className="text-6xl mb-2">{product.image}</div>
+                <div className="flex items-start justify-between mb-2">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-48 object-cover rounded-lg"
+                  />
+                </div>
+                <div className="flex items-start justify-between mt-3">
+                  <CardTitle className="text-lg">{product.name}</CardTitle>
                   <Badge variant={getStatusBadge(product.status).variant}>
                     {product.status}
                   </Badge>
                 </div>
-                <CardTitle className="text-lg">{product.name}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">

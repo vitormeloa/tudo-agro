@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Search, SlidersHorizontal, RefreshCw, FileText } from "lucide-react";
+import { Search, SlidersHorizontal, RefreshCw, FileText, HelpCircle } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -31,7 +31,7 @@ const MinhasCompras = () => {
       date: "15/01/2025",
       time: "10:42",
       status: "Em transporte",
-      image: "https://images.unsplash.com/photo-1560493676-04071c5f467b?w=200&h=200&fit=crop",
+      image: "/fotos/animais/touro-nelore.jpeg",
       category: "animais",
       itemType: "Touro Nelore",
       quantity: 1,
@@ -63,7 +63,7 @@ const MinhasCompras = () => {
       date: "10/01/2025",
       time: "15:30",
       status: "Preparando envio",
-      image: "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=200&h=200&fit=crop",
+      image: "/fotos/animais/egua-mangalarga.jpeg",
       category: "animais",
       itemType: "Égua Mangalarga",
       quantity: 1,
@@ -95,7 +95,7 @@ const MinhasCompras = () => {
       date: "08/01/2025",
       time: "11:15",
       status: "Entregue",
-      image: "https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=200&h=200&fit=crop",
+      image: "/fotos/animais/angus-premium.jpg",
       category: "semen",
       itemType: "Sêmen Bovino",
       quantity: 10,
@@ -127,7 +127,7 @@ const MinhasCompras = () => {
       date: "05/01/2025",
       time: "09:20",
       status: "Entregue",
-      image: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=200&h=200&fit=crop",
+      image: "/fotos/produtos/semente-milho.jpeg",
       category: "produtos",
       itemType: "Sementes",
       quantity: 1,
@@ -159,7 +159,7 @@ const MinhasCompras = () => {
       date: "03/01/2025",
       time: "14:00",
       status: "Entregue",
-      image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=200&h=200&fit=crop",
+      image: "/fotos/produtos/racao-1.jpg",
       category: "produtos",
       itemType: "Ração",
       quantity: 10,
@@ -401,8 +401,7 @@ const MinhasCompras = () => {
             {filteredPurchases.map((purchase) => {
               const isDelivered = purchase.status === "Entregue";
               const shouldShowTracking = ["Pedido confirmado", "Preparando envio", "Em transporte"].includes(purchase.status);
-              const categoryConfig = getCategoryIcon(purchase);
-              
+
               return (
                 <Card 
                   key={purchase.id} 
@@ -410,13 +409,13 @@ const MinhasCompras = () => {
                 >
                   <div className="p-4 sm:p-6">
                     <div className="flex flex-col sm:flex-row gap-4">
-                      {/* Category Icon Bubble */}
+                      {/* Product Image */}
                       <div className="flex-shrink-0 mx-auto sm:mx-0">
-                        <div className={`w-20 h-20 sm:w-24 sm:h-24 rounded-2xl ${categoryConfig.bgColor} flex items-center justify-center shadow-sm`}>
-                          <span className={`text-4xl sm:text-5xl ${categoryConfig.iconColor}`}>
-                            {categoryConfig.icon}
-                          </span>
-                        </div>
+                        <img
+                          src={purchase.image}
+                          alt={purchase.name}
+                          className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-cover shadow-sm"
+                        />
                       </div>
 
                       {/* Info */}
@@ -496,6 +495,29 @@ const MinhasCompras = () => {
           </div>
         )}
       </div>
+
+      {/* Help Card */}
+      <Card className="bg-muted/50 mt-6">
+        <div className="p-6">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <HelpCircle className="h-5 w-5 text-primary" />
+              <div>
+                <p className="font-medium">Dúvidas sobre suas compras?</p>
+                <p className="text-sm text-muted-foreground">Nossa equipe está pronta para ajudar</p>
+              </div>
+            </div>
+            <div className="flex gap-3">
+              <Button variant="outline">
+                Central de Ajuda
+              </Button>
+              <Button variant="outline">
+                Política de Devolução
+              </Button>
+            </div>
+          </div>
+        </div>
+      </Card>
 
       {/* Advanced Filter Dialog */}
       <Dialog open={isAdvancedFilterOpen} onOpenChange={setIsAdvancedFilterOpen}>

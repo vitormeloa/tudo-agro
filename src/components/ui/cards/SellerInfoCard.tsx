@@ -112,13 +112,20 @@ export default function SellerInfoCard({ seller }: SellerInfoCardProps) {
                   const isActive = index <= sellerLevel.level;
                   const isCurrent = index === sellerLevel.level;
 
+                  let opacity = 1;
+                  if (isActive && !isCurrent) {
+                    opacity = 0.35;
+                  } else if (isCurrent) {
+                    opacity = 1;
+                  }
+
                   return (
                     <div
                       key={index}
                       className="flex-1 h-2 rounded-sm overflow-hidden"
                       style={{
                         backgroundColor: isActive ? levelBar.color : '#e5e7eb',
-                        opacity: isCurrent ? 1 : (isActive ? 0.9 : 1)
+                        opacity: opacity
                       }}
                     >
                       {isCurrent && sellerLevel.progress < 100 && (
