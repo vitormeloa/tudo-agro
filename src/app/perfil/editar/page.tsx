@@ -67,19 +67,19 @@ function EditarPerfilContent() {
 
       toast({
         title: 'Perfil atualizado!',
-        description: 'Suas informações foram atualizadas com sucesso.',
+        description: 'Suas informaÃ§Ãµes foram atualizadas com sucesso.',
       })
 
-      // Atualizar o cache do usuário
+      // Atualizar o cache do usuÃ¡rio
       await refreshUser()
 
-      // Redirecionar de volta para a página de perfil
+      // Redirecionar de volta para a pÃ¡gina de perfil
       router.push('/perfil')
     } catch (error: any) {
       console.error('Error updating profile:', error)
       toast({
         title: 'Erro ao atualizar perfil',
-        description: error.message || 'Ocorreu um erro ao atualizar suas informações.',
+        description: error.message || 'Ocorreu um erro ao atualizar suas informaÃ§Ãµes.',
         variant: 'destructive',
       })
     } finally {
@@ -100,7 +100,7 @@ function EditarPerfilContent() {
           Voltar
         </Button>
         <h1 className="text-3xl font-bold">Editar Perfil</h1>
-        <p className="text-muted-foreground">Atualize suas informações pessoais</p>
+        <p className="text-muted-foreground">Atualize suas informaÃ§Ãµes pessoais</p>
       </div>
 
       <form onSubmit={handleSubmit}>
@@ -114,7 +114,7 @@ function EditarPerfilContent() {
             <CardContent>
               <div className="flex items-center gap-6">
                 <Avatar className="h-24 w-24">
-                  <AvatarImage src={user.avatar_url || undefined} alt={user.name || 'Usuário'} />
+                  <AvatarImage src={user.avatar_url || undefined} alt={user.name || 'UsuÃ¡rio'} />
                   <AvatarFallback className="text-3xl bg-gradient-to-br from-primary to-primary/70 text-white">
                     {getUserInitials()}
                   </AvatarFallback>
@@ -125,9 +125,9 @@ function EditarPerfilContent() {
                     Fazer upload
                   </Button>
                   <p className="text-sm text-muted-foreground">
-                    JPG, PNG ou GIF. Máximo 2MB.
+                    JPG, PNG ou GIF. MÃ¡ximo 2MB.
                     <br />
-                    <span className="text-yellow-600">Em breve disponível</span>
+                    <span className="text-yellow-600">Em breve disponÃ­vel</span>
                   </p>
                 </div>
               </div>
@@ -137,7 +137,7 @@ function EditarPerfilContent() {
           {/* Personal Information */}
           <Card>
             <CardHeader>
-              <CardTitle>Informações Pessoais</CardTitle>
+              <CardTitle>InformaÃ§Ãµes Pessoais</CardTitle>
               <CardDescription>Atualize seus dados cadastrados</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -164,7 +164,7 @@ function EditarPerfilContent() {
                     className="bg-muted"
                   />
                   <p className="text-xs text-muted-foreground">
-                    O e-mail não pode ser alterado
+                    O e-mail nÃ£o pode ser alterado
                   </p>
                 </div>
 
@@ -220,7 +220,7 @@ function EditarPerfilContent() {
               ) : (
                 <>
                   <Save className="h-4 w-4 mr-2" />
-                  Salvar Alterações
+                  Salvar AlteraÃ§Ãµes
                 </>
               )}
             </Button>
