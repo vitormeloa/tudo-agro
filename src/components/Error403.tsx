@@ -76,7 +76,7 @@ export default function Error403({
         </div>
 
         {/* Título */}
-        <h1 className="text-3xl font-bold text-emerald-800 mb-4">
+        <h1 className="text-3xl font-bold text-primary mb-4">
           {title}
         </h1>
 
@@ -96,14 +96,14 @@ export default function Error403({
         <div className="space-y-4">
           <Link
             href="/login"
-            className="w-full bg-[#1E4D2B] text-white px-6 py-3 rounded-lg font-medium hover:bg-[#163B20] transition-colors duration-200 inline-block"
+            className="w-full bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-[#163B20] transition-colors duration-200 inline-block"
           >
             Fazer Login
           </Link>
           
           <Link
             href="/cadastro"
-            className="w-full bg-transparent border-2 border-[#1E4D2B] text-emerald-800 px-6 py-3 rounded-lg font-medium hover:bg-[#1E4D2B] hover:text-white transition-colors duration-200 inline-block"
+            className="w-full bg-transparent border-2 border-primary text-primary px-6 py-3 rounded-lg font-medium hover:bg-primary hover:text-white transition-colors duration-200 inline-block"
           >
             Criar Conta
           </Link>
@@ -111,7 +111,7 @@ export default function Error403({
           {showBackButton && (
             <Link
               href={redirectTo || "/"}
-              className="w-full text-gray-600 hover:text-emerald-800 transition-colors duration-200 inline-block"
+              className="w-full text-gray-600 hover:text-primary transition-colors duration-200 inline-block"
             >
               ← Voltar
             </Link>
@@ -123,7 +123,7 @@ export default function Error403({
           <div className="mt-8 text-sm text-gray-600">
             <p>
               Redirecionando automaticamente para o login em{' '}
-              <span className="font-bold text-emerald-800">{countdown}</span> segundos...
+              <span className="font-bold text-primary">{countdown}</span> segundos...
             </p>
           </div>
         )}

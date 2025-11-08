@@ -18,7 +18,7 @@ export const RefundPolicyModal = ({ open, onOpenChange }: RefundPolicyModalProps
         <ScrollArea className="h-[500px] pr-4">
           <div className="space-y-6">
             <section>
-              <h3 className="text-lg font-semibold mb-3 text-emerald-800">1. Métodos de Pagamento Aceitos</h3>
+              <h3 className="text-lg font-semibold mb-3 text-primary">1. Métodos de Pagamento Aceitos</h3>
               <p className="text-sm text-muted-foreground mb-2">
                 A TudoAgro aceita os seguintes métodos de pagamento:
               </p>
@@ -33,7 +33,7 @@ export const RefundPolicyModal = ({ open, onOpenChange }: RefundPolicyModalProps
             <Separator />
 
             <section>
-              <h3 className="text-lg font-semibold mb-3 text-emerald-800">2. Processamento de Pagamentos</h3>
+              <h3 className="text-lg font-semibold mb-3 text-primary">2. Processamento de Pagamentos</h3>
               <p className="text-sm text-muted-foreground mb-2">
                 • <strong>Pix:</strong> Confirmação imediata após o pagamento<br />
                 • <strong>Cartão de Crédito:</strong> Aprovação em até 1 hora<br />
@@ -45,7 +45,7 @@ export const RefundPolicyModal = ({ open, onOpenChange }: RefundPolicyModalProps
             <Separator />
 
             <section>
-              <h3 className="text-lg font-semibold mb-3 text-emerald-800">3. Política de Reembolso</h3>
+              <h3 className="text-lg font-semibold mb-3 text-primary">3. Política de Reembolso</h3>
               <p className="text-sm text-muted-foreground mb-3">
                 <strong>3.1 Prazo para Solicitação:</strong>
               </p>
@@ -78,7 +78,7 @@ export const RefundPolicyModal = ({ open, onOpenChange }: RefundPolicyModalProps
             <Separator />
 
             <section>
-              <h3 className="text-lg font-semibold mb-3 text-emerald-800">4. Casos Especiais</h3>
+              <h3 className="text-lg font-semibold mb-3 text-primary">4. Casos Especiais</h3>
               <p className="text-sm text-muted-foreground mb-2">
                 <strong>Animais de Genética:</strong> Reembolso parcial ou total mediante laudo veterinário comprovando defeitos genéticos não informados.
               </p>
@@ -90,7 +90,7 @@ export const RefundPolicyModal = ({ open, onOpenChange }: RefundPolicyModalProps
             <Separator />
 
             <section>
-              <h3 className="text-lg font-semibold mb-3 text-emerald-800">5. Como Solicitar Reembolso</h3>
+              <h3 className="text-lg font-semibold mb-3 text-primary">5. Como Solicitar Reembolso</h3>
               <ol className="list-decimal list-inside space-y-2 text-sm text-muted-foreground ml-4">
                 <li>Acesse "Minhas Compras" no painel</li>
                 <li>Selecione o pedido desejado</li>

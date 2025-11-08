@@ -178,7 +178,7 @@ export default function HomePage() {
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-emerald-50/30">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-primary/5/30">
       <Header variant="transparent" />
       
       {/* Hero Section */}
@@ -196,17 +196,17 @@ export default function HomePage() {
             <source src="/videos/agro-hero-video.mp4" type="video/mp4" />
             {/*<source src="/videos/agro-hero-video.webm" type="video/webm" />*/}
             {/* Fallback para navegadores que não suportam vídeo */}
-            <div className="w-full h-full bg-gradient-to-br from-emerald-50 via-white to-emerald-50"></div>
+            <div className="w-full h-full bg-gradient-to-br from-primary/5 via-white to-primary/5"></div>
           </video>
         </div>
 
         {/* Overlay moderno com gradiente suave */}
-        <div className="absolute inset-0 bg-gradient-to-br from-black/75 via-emerald-950/60 to-black/70"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-black/75 via-primary/60 to-black/70"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20"></div>
 
         {/* Elementos decorativos modernos */}
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 sm:w-96 sm:h-96 bg-emerald-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-64 h-64 sm:w-96 sm:h-96 bg-emerald-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute top-1/4 left-1/4 w-64 h-64 sm:w-96 sm:h-96 bg-primary/50/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-64 h-64 sm:w-96 sm:h-96 bg-primary/50/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
 
         {/* Container centralizado */}
         <div className="relative h-full w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center py-20">
@@ -217,10 +217,10 @@ export default function HomePage() {
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-bold text-white leading-[1.1] tracking-tight px-2">
                 O marketplace{' '}
                 <span className="relative inline-block">
-                  <span className="bg-gradient-to-r from-emerald-400 via-emerald-400 to-emerald-500 bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-emerald-400 via-primary to-primary/50 bg-clip-text text-transparent">
                     agro
                   </span>
-                  <div className="absolute -inset-1 bg-gradient-to-r from-emerald-400/20 to-emerald-400/20 blur-xl -z-10"></div>
+                  <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-primary/20 blur-xl -z-10"></div>
                 </span>
                 <br />
                 mais completo do Brasil
@@ -234,7 +234,7 @@ export default function HomePage() {
             {/* Search Bar modernizada */}
             <div className="animate-fade-in-up max-w-2xl mx-auto" style={{ animationDelay: '0.2s' }}>
               <div className="relative group">
-                <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-emerald-500/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute -inset-1 bg-gradient-to-r from-primary/50/20 to-primary/50/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <div className="relative flex items-center">
                   <Search className="absolute left-4 sm:left-5 md:left-6 text-gray-400 w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 transition-colors group-focus-within:text-[#3D9970]" />
                   <input
@@ -244,7 +244,7 @@ export default function HomePage() {
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="w-full pl-12 sm:pl-14 md:pl-16 pr-28 sm:pr-32 md:pr-40 py-3 sm:py-3.5 md:py-4 lg:py-5 text-sm sm:text-base md:text-lg border-2 border-white/20 rounded-full focus:outline-none focus:ring-2 focus:ring-emerald-400/50 focus:border-emerald-400/50 transition-colors duration-300 shadow-2xl bg-white/95 backdrop-blur-xl text-[#101828] placeholder-gray-500 hover:border-white/30"
                   />
-                  <Button className="absolute right-1.5 sm:right-2 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white px-4 sm:px-6 md:px-8 py-2 sm:py-2.5 md:py-3 text-xs sm:text-sm md:text-base font-semibold rounded-full shadow-lg hover:shadow-xl transition-colors duration-300">
+                  <Button className="absolute right-1.5 sm:right-2 bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-emerald-800 text-white px-4 sm:px-6 md:px-8 py-2 sm:py-2.5 md:py-3 text-xs sm:text-sm md:text-base font-semibold rounded-full shadow-lg hover:shadow-xl transition-colors duration-300">
                     Buscar
                   </Button>
                 </div>
@@ -255,19 +255,19 @@ export default function HomePage() {
             <div className="animate-fade-in-up pt-2 sm:pt-4" style={{ animationDelay: '0.3s' }}>
               <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 md:gap-4 justify-center items-center max-w-5xl mx-auto">
                 <Link href="/catalogo" className="w-full sm:w-auto">
-                  <Button size="lg" className="w-full sm:w-auto bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white px-6 sm:px-8 md:px-10 py-3 sm:py-3.5 md:py-4 lg:py-5 text-sm sm:text-base md:text-lg font-semibold rounded-full shadow-2xl hover:shadow-emerald-500/25 transition-colors duration-300 group">
+                  <Button size="lg" className="w-full sm:w-auto bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-emerald-800 text-white px-6 sm:px-8 md:px-10 py-3 sm:py-3.5 md:py-4 lg:py-5 text-sm sm:text-base md:text-lg font-semibold rounded-full shadow-2xl hover:shadow-emerald-500/25 transition-colors duration-300 group">
                     Ver Animais
                     <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                   </Button>
                 </Link>
                 <Link href="/leiloes" className="w-full sm:w-auto">
-                  <Button size="lg" variant="outline" className="w-full sm:w-auto border-2 border-white/80 text-white hover:bg-white hover:text-emerald-700 px-6 sm:px-8 md:px-10 py-3 sm:py-3.5 md:py-4 lg:py-5 text-sm sm:text-base md:text-lg font-semibold rounded-full transition-colors duration-300 bg-white/5 backdrop-blur-sm hover:shadow-xl group">
+                  <Button size="lg" variant="outline" className="w-full sm:w-auto border-2 border-white/80 text-white hover:bg-white hover:text-primary px-6 sm:px-8 md:px-10 py-3 sm:py-3.5 md:py-4 lg:py-5 text-sm sm:text-base md:text-lg font-semibold rounded-full transition-colors duration-300 bg-white/5 backdrop-blur-sm hover:shadow-xl group">
                     <Play className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
                     Ver Leilões
                   </Button>
                 </Link>
                 <Link href="/produtos" className="w-full sm:w-auto">
-                  <Button size="lg" variant="outline" className="w-full sm:w-auto border-2 border-white/80 text-white hover:bg-white hover:text-emerald-700 px-6 sm:px-8 md:px-10 py-3 sm:py-3.5 md:py-4 lg:py-5 text-sm sm:text-base md:text-lg font-semibold rounded-full transition-colors duration-300 bg-white/5 backdrop-blur-sm hover:shadow-xl group">
+                  <Button size="lg" variant="outline" className="w-full sm:w-auto border-2 border-white/80 text-white hover:bg-white hover:text-primary px-6 sm:px-8 md:px-10 py-3 sm:py-3.5 md:py-4 lg:py-5 text-sm sm:text-base md:text-lg font-semibold rounded-full transition-colors duration-300 bg-white/5 backdrop-blur-sm hover:shadow-xl group">
                     <ShoppingCart className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
                     Mercado Agro
                   </Button>
@@ -288,15 +288,15 @@ export default function HomePage() {
       {/* Stats Section */}
       <section className="py-24 bg-gradient-to-b from-white via-slate-50/50 to-white relative">
         {/* Decorative elements */}
-        <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/5 via-transparent to-emerald-500/5"></div>
-        <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-emerald-400 to-transparent rounded-full"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/50/5 via-transparent to-primary/50/5"></div>
+        <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-primary to-transparent rounded-full"></div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
               <div key={index} className="text-center animate-fade-in-up group" style={{ animationDelay: `${index * 0.1}s` }}>
-                <div className="w-20 h-20 bg-gradient-to-br from-emerald-100 to-emerald-100 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:shadow-xl transition-shadow duration-300">
-                  <stat.icon className="w-10 h-10 text-emerald-600" />
+                <div className="w-20 h-20 bg-gradient-to-br from-primary/10 to-primary/10 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:shadow-xl transition-shadow duration-300">
+                  <stat.icon className="w-10 h-10 text-primary" />
                 </div>
                 <div className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent mb-3">{stat.value}</div>
                 <div className="text-gray-600 font-medium text-sm md:text-base">{stat.label}</div>
@@ -307,10 +307,10 @@ export default function HomePage() {
       </section>
 
       {/* Featured Products */}
-      <section className="py-24 bg-gradient-to-b from-white via-emerald-50/30 to-slate-50 relative overflow-hidden">
+      <section className="py-24 bg-gradient-to-b from-white via-primary/5 to-slate-50 relative overflow-hidden">
         {/* Background decoration */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-emerald-100/20 via-transparent to-transparent"></div>
-        <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-emerald-400 to-transparent rounded-full"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/20 via-transparent to-transparent"></div>
+        <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-primary to-transparent rounded-full"></div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center mb-20">
@@ -334,7 +334,7 @@ export default function HomePage() {
 
           <div className="text-center mt-16">
             <Link href="/catalogo">
-              <Button size="lg" variant="outline" className="border-2 border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white px-8 py-4 text-lg font-semibold rounded-xl transition-colors duration-300 shadow-lg hover:shadow-xl">
+              <Button size="lg" variant="outline" className="border-2 border-primary text-primary hover:bg-primary hover:text-white px-8 py-4 text-lg font-semibold rounded-xl transition-colors duration-300 shadow-lg hover:shadow-xl">
                 Ver Todos os Animais
                 <ChevronRight className="w-5 h-5 ml-2" />
               </Button>
@@ -344,9 +344,9 @@ export default function HomePage() {
       </section>
 
       {/* Live Auctions */}
-      <section className="py-24 bg-gradient-to-b from-slate-50 via-white to-emerald-50/20 relative overflow-hidden">
+      <section className="py-24 bg-gradient-to-b from-slate-50 via-white to-primary/5/20 relative overflow-hidden">
         {/* Background decoration */}
-        <div className="absolute inset-0 bg-gradient-to-r from-red-500/5 via-transparent to-emerald-500/5"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-red-500/5 via-transparent to-primary/50/5"></div>
         <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-red-400 to-transparent rounded-full"></div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
@@ -370,7 +370,7 @@ export default function HomePage() {
                       <Play className="w-3 h-3 mr-1" />
                       AO VIVO
                     </Badge>
-                    <Badge className="bg-emerald-600 text-white shadow-lg">{auction.type}</Badge>
+                    <Badge className="bg-primary text-white shadow-lg">{auction.type}</Badge>
                   </div>
                   {isMounted && (
                     <div className="absolute top-4 right-4 bg-black/80 text-white px-3 py-1 rounded-lg text-sm font-bold backdrop-blur-sm">
@@ -380,12 +380,12 @@ export default function HomePage() {
                   )}
                 </div>
                 <CardContent className="p-6">
-                  <h3 className="font-bold text-xl text-[#101828] mb-4 group-hover:text-emerald-700 transition-colors duration-300">{auction.title}</h3>
+                  <h3 className="font-bold text-xl text-[#101828] mb-4 group-hover:text-primary transition-colors duration-300">{auction.title}</h3>
                   
                   <div className="space-y-4 mb-6">
-                    <div className="flex justify-between items-center p-3 bg-emerald-50 rounded-lg">
+                    <div className="flex justify-between items-center p-3 bg-primary/5 rounded-lg">
                       <span className="text-gray-600 font-medium">Lance atual:</span>
-                      <span className="font-bold text-emerald-600 text-xl">
+                      <span className="font-bold text-primary text-xl">
                         R$ {auction.currentBid.toLocaleString()}
                       </span>
                     </div>
@@ -393,7 +393,7 @@ export default function HomePage() {
                     <div className="flex justify-between items-center">
                       <span className="text-gray-600">Participantes:</span>
                       <span className="font-bold text-[#101828] flex items-center">
-                        <Users className="w-4 h-4 mr-1 text-emerald-600" />
+                        <Users className="w-4 h-4 mr-1 text-primary" />
                         {auction.participants} online
                       </span>
                     </div>
@@ -408,7 +408,7 @@ export default function HomePage() {
                   </div>
 
                   <Link href={`/leilao/${auction.id}`}>
-                    <Button className="w-full bg-gradient-to-r from-emerald-600 to-emerald-600 hover:from-emerald-700 hover:to-emerald-700 text-white py-3 text-lg transition-colors duration-300 shadow-lg hover:shadow-xl">
+                    <Button className="w-full bg-gradient-to-r from-primary to-primary hover:from-primary/90 hover:to-primary/90 text-white py-3 text-lg transition-colors duration-300 shadow-lg hover:shadow-xl">
                       <Zap className="w-5 h-5 mr-2" />
                       Entrar no Leilão
                     </Button>
@@ -420,7 +420,7 @@ export default function HomePage() {
 
           <div className="text-center mt-16">
             <Link href="/leiloes">
-              <Button size="lg" variant="outline" className="border-2 border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white px-8 py-4 text-lg font-semibold rounded-xl transition-colors duration-300 shadow-lg hover:shadow-xl">
+              <Button size="lg" variant="outline" className="border-2 border-primary text-primary hover:bg-primary hover:text-white px-8 py-4 text-lg font-semibold rounded-xl transition-colors duration-300 shadow-lg hover:shadow-xl">
                 Ver Todos os Leilões
                 <ChevronRight className="w-5 h-5 ml-2" />
               </Button>
@@ -430,10 +430,10 @@ export default function HomePage() {
       </section>
 
       {/* Featured Products Agro Section */}
-      <section className="py-24 bg-gradient-to-b from-emerald-50/20 via-white to-slate-50 relative overflow-hidden">
+      <section className="py-24 bg-gradient-to-b from-primary/5/20 via-white to-slate-50 relative overflow-hidden">
         {/* Background decoration */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-emerald-100/20 via-transparent to-transparent"></div>
-        <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-emerald-400 to-transparent rounded-full"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/20 via-transparent to-transparent"></div>
+        <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-primary to-transparent rounded-full"></div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center mb-20">
@@ -457,7 +457,7 @@ export default function HomePage() {
 
           <div className="text-center mt-16">
             <Link href="/produtos">
-              <Button size="lg" variant="outline" className="border-2 border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white px-8 py-4 text-lg font-semibold rounded-xl transition-colors duration-300 shadow-lg hover:shadow-xl">
+              <Button size="lg" variant="outline" className="border-2 border-primary text-primary hover:bg-primary hover:text-white px-8 py-4 text-lg font-semibold rounded-xl transition-colors duration-300 shadow-lg hover:shadow-xl">
                 Ver Todos os Produtos
                 <ChevronRight className="w-5 h-5 ml-2" />
               </Button>
@@ -467,10 +467,10 @@ export default function HomePage() {
       </section>
 
       {/* Features Section */}
-      <section className="py-24 bg-gradient-to-br from-emerald-50 via-emerald-50/50 to-slate-50 relative overflow-hidden">
+      <section className="py-24 bg-gradient-to-br from-primary/5 via-primary/5 to-slate-50 relative overflow-hidden">
         {/* Background decoration */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-emerald-200/10 via-transparent to-transparent"></div>
-        <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-emerald-400 to-transparent rounded-full"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent"></div>
+        <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-primary to-transparent rounded-full"></div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center mb-20">
@@ -486,10 +486,10 @@ export default function HomePage() {
             {features.map((feature, index) => (
               <Card key={index} className="text-center shadow-xl hover:shadow-2xl transition-shadow duration-300 border-0 bg-white/80 backdrop-blur-sm animate-fade-in-up group" style={{ animationDelay: `${index * 0.1}s` }}>
                 <CardContent className="p-8">
-                  <div className="w-20 h-20 bg-gradient-to-br from-emerald-100 to-emerald-100 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:shadow-xl transition-shadow duration-300">
-                    <feature.icon className="w-10 h-10 text-emerald-600" />
+                  <div className="w-20 h-20 bg-gradient-to-br from-primary/10 to-primary/10 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:shadow-xl transition-shadow duration-300">
+                    <feature.icon className="w-10 h-10 text-primary" />
                   </div>
-                  <h3 className="text-xl font-bold text-[#101828] mb-4 group-hover:text-emerald-700 transition-colors duration-300">{feature.title}</h3>
+                  <h3 className="text-xl font-bold text-[#101828] mb-4 group-hover:text-primary transition-colors duration-300">{feature.title}</h3>
                   <p className="text-gray-600 leading-relaxed">{feature.description}</p>
                 </CardContent>
               </Card>
@@ -499,9 +499,9 @@ export default function HomePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-gradient-to-br from-emerald-600 via-emerald-600 to-emerald-700 relative overflow-hidden">
+      <section className="py-24 bg-gradient-to-br from-primary via-primary to-primary/90 relative overflow-hidden">
         {/* Background decoration */}
-        <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/20 via-transparent to-emerald-500/20"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/50/20 via-transparent to-primary/50/20"></div>
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-white/10 via-transparent to-transparent"></div>
         <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-white/50 to-transparent rounded-full"></div>
         
@@ -509,18 +509,18 @@ export default function HomePage() {
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
             Pronto para começar?
           </h2>
-          <p className="text-xl text-emerald-100 mb-10 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-xl text-primary-foreground/80 mb-10 max-w-2xl mx-auto leading-relaxed">
             Junte-se a milhares de produtores que já transformaram seus negócios com o TudoAgro
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/cadastro">
-              <Button size="lg" className="bg-white text-emerald-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold rounded-xl shadow-xl hover:shadow-2xl transition-colors duration-300">
+              <Button size="lg" className="bg-white text-primary hover:bg-gray-100 px-8 py-4 text-lg font-semibold rounded-xl shadow-xl hover:shadow-2xl transition-colors duration-300">
                 <Users className="w-5 h-5 mr-2" />
                 Criar Conta Gratuita
               </Button>
             </Link>
             <Link href="/catalogo">
-              <Button size="lg" variant="outline" className="border-2 border-white/80 text-white hover:bg-white hover:text-emerald-600 px-8 py-4 text-lg font-semibold rounded-xl transition-colors duration-300 backdrop-blur-sm bg-white/10">
+              <Button size="lg" variant="outline" className="border-2 border-white/80 text-white hover:bg-white hover:text-primary px-8 py-4 text-lg font-semibold rounded-xl transition-colors duration-300 backdrop-blur-sm bg-white/10">
                 <Eye className="w-5 h-5 mr-2" />
                 Explorar Agora
               </Button>

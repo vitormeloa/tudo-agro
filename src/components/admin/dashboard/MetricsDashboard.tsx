@@ -29,7 +29,7 @@ function MetricCard({
   const getColorClasses = (color: string) => {
     const colors = {
       blue: 'bg-blue-500 text-white',
-      green: 'bg-emerald-500 text-white',
+      green: 'bg-primary/50 text-white',
       orange: 'bg-orange-500 text-white',
       purple: 'bg-purple-500 text-white',
       red: 'bg-red-500 text-white'
@@ -51,7 +51,7 @@ function MetricCard({
   const getTrendColor = () => {
     switch (trend) {
       case 'up':
-        return 'text-emerald-600'
+        return 'text-primary'
       case 'down':
         return 'text-red-600'
       default:
@@ -133,10 +133,10 @@ export function AlertCard({
     const configs = {
       success: {
         icon: CheckCircle,
-        bgColor: 'bg-emerald-50',
-        borderColor: 'border-emerald-200',
+        bgColor: 'bg-primary/5',
+        borderColor: 'border-primary/20',
         iconColor: 'text-[#3D9970]',
-        textColor: 'text-emerald-800'
+        textColor: 'text-primary'
       },
       warning: {
         icon: AlertTriangle,
@@ -164,7 +164,7 @@ export function AlertCard({
         bgColor: 'bg-blue-50',
         borderColor: 'border-blue-200',
         iconColor: 'text-blue-500',
-        textColor: 'text-emerald-800'
+        textColor: 'text-primary'
       }
     }
     return configs[type] || configs.info // Fallback para 'info' se tipo não for encontrado

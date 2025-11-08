@@ -48,7 +48,7 @@ export default function AuctionsSection() {
 
   const getStatusBadge = (status: string) => {
     const config = {
-      ativo: 'bg-emerald-100 text-emerald-800',
+      ativo: 'bg-primary/10 text-primary',
       encerrado: 'bg-gray-100 text-gray-800',
       suspenso: 'bg-red-100 text-red-800'
     }
@@ -67,7 +67,7 @@ export default function AuctionsSection() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
                 <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-                    <Gavel className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-800" />
+                    <Gavel className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                     <span className="text-base sm:text-lg font-semibold">Gerenciamento de Leilões</span>
                 </CardTitle>
             </div>
@@ -95,15 +95,15 @@ export default function AuctionsSection() {
                       
                       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4">
                         <div className="text-center">
-                          <p className="text-lg sm:text-2xl font-bold text-emerald-800">{auction.bids}</p>
+                          <p className="text-lg sm:text-2xl font-bold text-primary">{auction.bids}</p>
                           <p className="text-xs text-gray-600">Lances</p>
                         </div>
                         <div className="text-center">
-                          <p className="text-lg sm:text-2xl font-bold text-emerald-800">{auction.participants}</p>
+                          <p className="text-lg sm:text-2xl font-bold text-primary">{auction.participants}</p>
                           <p className="text-xs text-gray-600">Participantes</p>
                         </div>
                         <div className="text-center">
-                          <p className="text-sm sm:text-lg font-bold text-emerald-800 break-words">{auction.currentPrice}</p>
+                          <p className="text-sm sm:text-lg font-bold text-primary break-words">{auction.currentPrice}</p>
                           <p className="text-xs text-gray-600">Lance Atual</p>
                         </div>
                         <div className="text-center">

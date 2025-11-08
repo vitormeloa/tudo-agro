@@ -48,7 +48,7 @@ export default function MessagesSection() {
   const getStatusBadge = (status: string) => {
     const config = {
       novo: 'bg-red-100 text-red-800',
-      respondido: 'bg-emerald-100 text-emerald-800',
+      respondido: 'bg-primary/10 text-primary',
       arquivado: 'bg-gray-100 text-gray-800'
     }
     return <Badge className={config[status as keyof typeof config]}>{status.charAt(0).toUpperCase() + status.slice(1)}</Badge>
@@ -56,10 +56,10 @@ export default function MessagesSection() {
 
   const getTypeBadge = (type: string) => {
     const config = {
-      suporte: 'bg-emerald-100 text-emerald-800',
+      suporte: 'bg-primary/10 text-primary',
       denúncia: 'bg-red-100 text-red-800',
-      elogio: 'bg-emerald-100 text-emerald-800',
-      financeiro: 'bg-emerald-100 text-emerald-800'
+      elogio: 'bg-primary/10 text-primary',
+      financeiro: 'bg-primary/10 text-primary'
     }
     return <Badge variant="outline" className={config[type as keyof typeof config]}>{type.charAt(0).toUpperCase() + type.slice(1)}</Badge>
   }
@@ -76,7 +76,7 @@ export default function MessagesSection() {
         <CardHeader className="p-3 sm:p-6">
           <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
             <div className="flex items-center gap-2">
-              <MessageSquare className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-800" />
+              <MessageSquare className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
               <span className="text-base sm:text-lg font-semibold">Mensagens e Suporte</span>
             </div>
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-600">

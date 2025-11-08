@@ -370,13 +370,13 @@ export default function CadastroPage() {
                                     htmlFor="pf"
                                     className={`flex items-center p-4 sm:p-6 border-2 rounded-xl cursor-pointer transition-all duration-200 ${
                                         formData.accountType === 'pf'
-                                            ? 'border-emerald-500 bg-emerald-50'
+                                            ? 'border-primary bg-primary/5'
                                             : 'border-gray-200 hover:border-gray-300'
                                     }`}
                                 >
                                     <div className="flex items-center space-x-3 sm:space-x-4">
-                                        <div className="w-10 h-10 sm:w-12 sm:h-12 bg-emerald-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                                            <User className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600" />
+                                        <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                                            <User className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
                                         </div>
                                         <div className="min-w-0">
                                             <h3 className="text-base sm:text-lg font-semibold text-[#101828]">Pessoa Física</h3>
@@ -393,13 +393,13 @@ export default function CadastroPage() {
                                     htmlFor="pj"
                                     className={`flex items-center p-4 sm:p-6 border-2 rounded-xl cursor-pointer transition-all duration-200 ${
                                         formData.accountType === 'pj'
-                                            ? 'border-emerald-500 bg-emerald-50'
+                                            ? 'border-primary bg-primary/5'
                                             : 'border-gray-200 hover:border-gray-300'
                                     }`}
                                 >
                                     <div className="flex items-center space-x-3 sm:space-x-4">
-                                        <div className="w-10 h-10 sm:w-12 sm:h-12 bg-emerald-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                                            <Building className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600" />
+                                        <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                                            <Building className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
                                         </div>
                                         <div className="min-w-0">
                                             <h3 className="text-base sm:text-lg font-semibold text-[#101828]">Pessoa Jurídica</h3>
@@ -439,7 +439,7 @@ export default function CadastroPage() {
                                             placeholder="Nome da empresa ou propriedade"
                                             value={formData.companyName}
                                             onChange={(e) => handleInputChange('companyName', e.target.value)}
-                                            className="pl-10 h-12 text-lg border-2 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500/20"
+                                            className="pl-10 h-12 text-lg border-2 border-gray-200 focus:border-primary focus:ring-primary/20"
                                             required
                                         />
                                     </div>
@@ -456,7 +456,7 @@ export default function CadastroPage() {
                                         value={formData.cnpj}
                                         onChange={(e) => handleInputChange('cnpj', e.target.value)}
                                         onBlur={() => handleBlur('cnpj')}
-                                        className={`h-12 text-lg border-2 ${errors.cnpj ? 'border-red-500' : 'border-gray-200'} focus:border-emerald-500 focus:ring-emerald-500/20`}
+                                        className={`h-12 text-lg border-2 ${errors.cnpj ? 'border-red-500' : 'border-gray-200'} focus:border-primary focus:ring-primary/20`}
                                         required
                                     />
                                     {errors.cnpj && (
@@ -481,7 +481,7 @@ export default function CadastroPage() {
                                                 value={formData.legalRepresentativeName}
                                                 onChange={(e) => handleInputChange('legalRepresentativeName', e.target.value)}
                                                 onBlur={() => handleBlur('legalRepresentativeName')}
-                                                className={`pl-10 h-12 text-lg border-2 ${errors.legalRepresentativeName ? 'border-red-500' : 'border-gray-200'} focus:border-emerald-500 focus:ring-emerald-500/20`}
+                                                className={`pl-10 h-12 text-lg border-2 ${errors.legalRepresentativeName ? 'border-red-500' : 'border-gray-200'} focus:border-primary focus:ring-primary/20`}
                                                 required
                                             />
                                         </div>
@@ -501,7 +501,7 @@ export default function CadastroPage() {
                                             value={formData.legalRepresentativeCpf}
                                             onChange={(e) => handleInputChange('legalRepresentativeCpf', e.target.value)}
                                             onBlur={() => handleBlur('legalRepresentativeCpf')}
-                                            className={`h-12 text-lg border-2 ${errors.legalRepresentativeCpf ? 'border-red-500' : 'border-gray-200'} focus:border-emerald-500 focus:ring-emerald-500/20`}
+                                            className={`h-12 text-lg border-2 ${errors.legalRepresentativeCpf ? 'border-red-500' : 'border-gray-200'} focus:border-primary focus:ring-primary/20`}
                                             required
                                         />
                                         {errors.legalRepresentativeCpf && (
@@ -523,7 +523,7 @@ export default function CadastroPage() {
                                             value={formData.corporateEmail}
                                             onChange={(e) => handleInputChange('corporateEmail', e.target.value)}
                                             onBlur={() => handleBlur('corporateEmail')}
-                                            className={`pl-10 h-12 text-lg border-2 ${errors.corporateEmail ? 'border-red-500' : 'border-gray-200'} focus:border-emerald-500 focus:ring-emerald-500/20`}
+                                            className={`pl-10 h-12 text-lg border-2 ${errors.corporateEmail ? 'border-red-500' : 'border-gray-200'} focus:border-primary focus:ring-primary/20`}
                                             required
                                         />
                                     </div>
@@ -545,7 +545,7 @@ export default function CadastroPage() {
                                             value={formData.phone}
                                             onChange={(e) => handleInputChange('phone', e.target.value)}
                                             onBlur={() => handleBlur('phone')}
-                                            className={`pl-10 h-12 text-lg border-2 ${errors.phone ? 'border-red-500' : 'border-gray-200'} focus:border-emerald-500 focus:ring-emerald-500/20`}
+                                            className={`pl-10 h-12 text-lg border-2 ${errors.phone ? 'border-red-500' : 'border-gray-200'} focus:border-primary focus:ring-primary/20`}
                                             required
                                         />
                                     </div>
@@ -568,7 +568,7 @@ export default function CadastroPage() {
                                                 value={formData.password}
                                                 onChange={(e) => handleInputChange('password', e.target.value)}
                                                 onBlur={() => handleBlur('password')}
-                                                className={`pl-10 pr-10 h-12 text-lg border-2 ${errors.password ? 'border-red-500' : 'border-gray-200'} focus:border-emerald-500 focus:ring-emerald-500/20`}
+                                                className={`pl-10 pr-10 h-12 text-lg border-2 ${errors.password ? 'border-red-500' : 'border-gray-200'} focus:border-primary focus:ring-primary/20`}
                                                 required
                                             />
                                             <button
@@ -598,7 +598,7 @@ export default function CadastroPage() {
                                                 value={formData.confirmPassword}
                                                 onChange={(e) => handleInputChange('confirmPassword', e.target.value)}
                                                 onBlur={() => handleBlur('confirmPassword')}
-                                                className={`pl-10 pr-10 h-12 text-lg border-2 ${errors.confirmPassword ? 'border-red-500' : 'border-gray-200'} focus:border-emerald-500 focus:ring-emerald-500/20`}
+                                                className={`pl-10 pr-10 h-12 text-lg border-2 ${errors.confirmPassword ? 'border-red-500' : 'border-gray-200'} focus:border-primary focus:ring-primary/20`}
                                                 required
                                             />
                                             <button
@@ -645,7 +645,7 @@ export default function CadastroPage() {
                                         value={formData.fullName}
                                         onChange={(e) => handleInputChange('fullName', e.target.value)}
                                         onBlur={() => handleBlur('fullName')}
-                                        className={`pl-10 h-12 text-lg border-2 ${errors.fullName ? 'border-red-500' : 'border-gray-200'} focus:border-emerald-500 focus:ring-emerald-500/20`}
+                                        className={`pl-10 h-12 text-lg border-2 ${errors.fullName ? 'border-red-500' : 'border-gray-200'} focus:border-primary focus:ring-primary/20`}
                                         required
                                     />
                                 </div>
@@ -667,7 +667,7 @@ export default function CadastroPage() {
                                         value={formData.phone}
                                         onChange={(e) => handleInputChange('phone', e.target.value)}
                                         onBlur={() => handleBlur('phone')}
-                                        className={`pl-10 h-12 text-lg border-2 ${errors.phone ? 'border-red-500' : 'border-gray-200'} focus:border-emerald-500 focus:ring-emerald-500/20`}
+                                        className={`pl-10 h-12 text-lg border-2 ${errors.phone ? 'border-red-500' : 'border-gray-200'} focus:border-primary focus:ring-primary/20`}
                                         required
                                     />
                                 </div>
@@ -689,7 +689,7 @@ export default function CadastroPage() {
                                         value={formData.email}
                                         onChange={(e) => handleInputChange('email', e.target.value)}
                                         onBlur={() => handleBlur('email')}
-                                        className={`pl-10 h-12 text-lg border-2 ${errors.email ? 'border-red-500' : 'border-gray-200'} focus:border-emerald-500 focus:ring-emerald-500/20`}
+                                        className={`pl-10 h-12 text-lg border-2 ${errors.email ? 'border-red-500' : 'border-gray-200'} focus:border-primary focus:ring-primary/20`}
                                         required
                                     />
                                 </div>
@@ -709,7 +709,7 @@ export default function CadastroPage() {
                                     value={formData.cpf}
                                     onChange={(e) => handleInputChange('cpf', e.target.value)}
                                     onBlur={() => handleBlur('cpf')}
-                                    className={`h-12 text-lg border-2 ${errors.cpf ? 'border-red-500' : 'border-gray-200'} focus:border-emerald-500 focus:ring-emerald-500/20`}
+                                    className={`h-12 text-lg border-2 ${errors.cpf ? 'border-red-500' : 'border-gray-200'} focus:border-primary focus:ring-primary/20`}
                                     required
                                 />
                                 {errors.cpf && (
@@ -732,7 +732,7 @@ export default function CadastroPage() {
                                         value={formData.password}
                                         onChange={(e) => handleInputChange('password', e.target.value)}
                                         onBlur={() => handleBlur('password')}
-                                        className={`pl-10 pr-10 h-12 text-lg border-2 ${errors.password ? 'border-red-500' : 'border-gray-200'} focus:border-emerald-500 focus:ring-emerald-500/20`}
+                                        className={`pl-10 pr-10 h-12 text-lg border-2 ${errors.password ? 'border-red-500' : 'border-gray-200'} focus:border-primary focus:ring-primary/20`}
                                         required
                                     />
                                     <button
@@ -762,7 +762,7 @@ export default function CadastroPage() {
                                         value={formData.confirmPassword}
                                         onChange={(e) => handleInputChange('confirmPassword', e.target.value)}
                                         onBlur={() => handleBlur('confirmPassword')}
-                                        className={`pl-10 pr-10 h-12 text-lg border-2 ${errors.confirmPassword ? 'border-red-500' : 'border-gray-200'} focus:border-emerald-500 focus:ring-emerald-500/20`}
+                                        className={`pl-10 pr-10 h-12 text-lg border-2 ${errors.confirmPassword ? 'border-red-500' : 'border-gray-200'} focus:border-primary focus:ring-primary/20`}
                                         required
                                     />
                                     <button
@@ -796,7 +796,7 @@ export default function CadastroPage() {
                             </div>
 
                             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-                                <p className="text-sm text-emerald-800 text-center">
+                                <p className="text-sm text-primary text-center">
                                     <strong>Não se preocupe se ainda não tiver todas as informações!</strong> Você poderá preencher os dados faltantes mais tarde, direto no seu painel.
                                 </p>
                             </div>
@@ -814,7 +814,7 @@ export default function CadastroPage() {
                                             placeholder="Fazenda Boa Vista"
                                             value={formData.farmName}
                                             onChange={(e) => handleInputChange('farmName', e.target.value)}
-                                            className="pl-10 h-12 text-lg border-2 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500/20"
+                                            className="pl-10 h-12 text-lg border-2 border-gray-200 focus:border-primary focus:ring-primary/20"
                                             required
                                         />
                                     </div>
@@ -826,7 +826,7 @@ export default function CadastroPage() {
                                             Estado
                                         </Label>
                                         <Select value={formData.state} onValueChange={(value) => handleInputChange('state', value)}>
-                                            <SelectTrigger className="h-12 text-lg border-2 border-gray-200 focus:border-emerald-500">
+                                            <SelectTrigger className="h-12 text-lg border-2 border-gray-200 focus:border-primary">
                                                 <SelectValue placeholder="Selecione o estado" />
                                             </SelectTrigger>
                                             <SelectContent>
@@ -873,7 +873,7 @@ export default function CadastroPage() {
                                                 placeholder="Sua cidade"
                                                 value={formData.city}
                                                 onChange={(e) => handleInputChange('city', e.target.value)}
-                                                className="pl-10 h-12 text-lg border-2 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500/20"
+                                                className="pl-10 h-12 text-lg border-2 border-gray-200 focus:border-primary focus:ring-primary/20"
                                                 required
                                             />
                                         </div>
@@ -902,19 +902,19 @@ export default function CadastroPage() {
                                                 htmlFor="vendedor-gado"
                                                 className={`flex items-center p-4 sm:p-6 border-2 rounded-xl cursor-pointer transition-all duration-200 ${
                                                     formData.operationTypes?.includes('vendedor-gado')
-                                                        ? 'border-emerald-500 bg-emerald-50'
+                                                        ? 'border-primary bg-primary/5'
                                                         : 'border-gray-200 hover:border-gray-300'
                                                 }`}
                                             >
                                                 <div className="flex items-center space-x-3 sm:space-x-4">
                                                     <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center flex-shrink-0 ${
                                                         formData.operationTypes?.includes('vendedor-gado')
-                                                            ? 'bg-emerald-100'
+                                                            ? 'bg-primary/10'
                                                             : 'bg-gray-100'
                                                     }`}>
                                                         <User className={`w-5 h-5 sm:w-6 sm:h-6 ${
                                                             formData.operationTypes?.includes('vendedor-gado')
-                                                                ? 'text-emerald-600'
+                                                                ? 'text-primary'
                                                                 : 'text-gray-600'
                                                         }`} />
                                                     </div>
@@ -938,19 +938,19 @@ export default function CadastroPage() {
                                                 htmlFor="vendedor-cavalos"
                                                 className={`flex items-center p-4 sm:p-6 border-2 rounded-xl cursor-pointer transition-all duration-200 ${
                                                     formData.operationTypes?.includes('vendedor-cavalos')
-                                                        ? 'border-emerald-500 bg-emerald-50'
+                                                        ? 'border-primary bg-primary/5'
                                                         : 'border-gray-200 hover:border-gray-300'
                                                 }`}
                                             >
                                                 <div className="flex items-center space-x-3 sm:space-x-4">
                                                     <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center flex-shrink-0 ${
                                                         formData.operationTypes?.includes('vendedor-cavalos')
-                                                            ? 'bg-emerald-100'
+                                                            ? 'bg-primary/10'
                                                             : 'bg-gray-100'
                                                     }`}>
                                                         <User className={`w-5 h-5 sm:w-6 sm:h-6 ${
                                                             formData.operationTypes?.includes('vendedor-cavalos')
-                                                                ? 'text-emerald-600'
+                                                                ? 'text-primary'
                                                                 : 'text-gray-600'
                                                         }`} />
                                                     </div>
@@ -974,19 +974,19 @@ export default function CadastroPage() {
                                                 htmlFor="fornecedor-genetica"
                                                 className={`flex items-center p-4 sm:p-6 border-2 rounded-xl cursor-pointer transition-all duration-200 ${
                                                     formData.operationTypes?.includes('fornecedor-genetica')
-                                                        ? 'border-emerald-500 bg-emerald-50'
+                                                        ? 'border-primary bg-primary/5'
                                                         : 'border-gray-200 hover:border-gray-300'
                                                 }`}
                                             >
                                                 <div className="flex items-center space-x-3 sm:space-x-4">
                                                     <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center flex-shrink-0 ${
                                                         formData.operationTypes?.includes('fornecedor-genetica')
-                                                            ? 'bg-emerald-100'
+                                                            ? 'bg-primary/10'
                                                             : 'bg-gray-100'
                                                     }`}>
                                                         <Building className={`w-5 h-5 sm:w-6 sm:h-6 ${
                                                             formData.operationTypes?.includes('fornecedor-genetica')
-                                                                ? 'text-emerald-600'
+                                                                ? 'text-primary'
                                                                 : 'text-gray-600'
                                                         }`} />
                                                     </div>
@@ -1010,19 +1010,19 @@ export default function CadastroPage() {
                                                 htmlFor="fornecedor-produtos"
                                                 className={`flex items-center p-4 sm:p-6 border-2 rounded-xl cursor-pointer transition-all duration-200 ${
                                                     formData.operationTypes?.includes('fornecedor-produtos')
-                                                        ? 'border-emerald-500 bg-emerald-50'
+                                                        ? 'border-primary bg-primary/5'
                                                         : 'border-gray-200 hover:border-gray-300'
                                                 }`}
                                             >
                                                 <div className="flex items-center space-x-3 sm:space-x-4">
                                                     <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center flex-shrink-0 ${
                                                         formData.operationTypes?.includes('fornecedor-produtos')
-                                                            ? 'bg-emerald-100'
+                                                            ? 'bg-primary/10'
                                                             : 'bg-gray-100'
                                                     }`}>
                                                         <Building className={`w-5 h-5 sm:w-6 sm:h-6 ${
                                                             formData.operationTypes?.includes('fornecedor-produtos')
-                                                                ? 'text-emerald-600'
+                                                                ? 'text-primary'
                                                                 : 'text-gray-600'
                                                         }`} />
                                                     </div>
@@ -1046,19 +1046,19 @@ export default function CadastroPage() {
                                                 htmlFor="empresa-agricola"
                                                 className={`flex items-center p-4 sm:p-6 border-2 rounded-xl cursor-pointer transition-all duration-200 ${
                                                     formData.operationTypes?.includes('empresa-agricola')
-                                                        ? 'border-emerald-500 bg-emerald-50'
+                                                        ? 'border-primary bg-primary/5'
                                                         : 'border-gray-200 hover:border-gray-300'
                                                 }`}
                                             >
                                                 <div className="flex items-center space-x-3 sm:space-x-4">
                                                     <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center flex-shrink-0 ${
                                                         formData.operationTypes?.includes('empresa-agricola')
-                                                            ? 'bg-emerald-100'
+                                                            ? 'bg-primary/10'
                                                             : 'bg-gray-100'
                                                     }`}>
                                                         <Building className={`w-5 h-5 sm:w-6 sm:h-6 ${
                                                             formData.operationTypes?.includes('empresa-agricola')
-                                                                ? 'text-emerald-600'
+                                                                ? 'text-primary'
                                                                 : 'text-gray-600'
                                                         }`} />
                                                     </div>
@@ -1082,19 +1082,19 @@ export default function CadastroPage() {
                                                 htmlFor="cooperativa"
                                                 className={`flex items-center p-4 sm:p-6 border-2 rounded-xl cursor-pointer transition-all duration-200 ${
                                                     formData.operationTypes?.includes('cooperativa')
-                                                        ? 'border-emerald-500 bg-emerald-50'
+                                                        ? 'border-primary bg-primary/5'
                                                         : 'border-gray-200 hover:border-gray-300'
                                                 }`}
                                             >
                                                 <div className="flex items-center space-x-3 sm:space-x-4">
                                                     <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center flex-shrink-0 ${
                                                         formData.operationTypes?.includes('cooperativa')
-                                                            ? 'bg-emerald-100'
+                                                            ? 'bg-primary/10'
                                                             : 'bg-gray-100'
                                                     }`}>
                                                         <Building className={`w-5 h-5 sm:w-6 sm:h-6 ${
                                                             formData.operationTypes?.includes('cooperativa')
-                                                                ? 'text-emerald-600'
+                                                                ? 'text-primary'
                                                                 : 'text-gray-600'
                                                         }`} />
                                                     </div>
@@ -1118,19 +1118,19 @@ export default function CadastroPage() {
                                                 htmlFor="outros-pj"
                                                 className={`flex items-center p-4 sm:p-6 border-2 rounded-xl cursor-pointer transition-all duration-200 ${
                                                     formData.operationTypes?.includes('outros-pj')
-                                                        ? 'border-emerald-500 bg-emerald-50'
+                                                        ? 'border-primary bg-primary/5'
                                                         : 'border-gray-200 hover:border-gray-300'
                                                 }`}
                                             >
                                                 <div className="flex items-center space-x-3 sm:space-x-4">
                                                     <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center flex-shrink-0 ${
                                                         formData.operationTypes?.includes('outros-pj')
-                                                            ? 'bg-emerald-100'
+                                                            ? 'bg-primary/10'
                                                             : 'bg-gray-100'
                                                     }`}>
                                                         <Building className={`w-5 h-5 sm:w-6 sm:h-6 ${
                                                             formData.operationTypes?.includes('outros-pj')
-                                                                ? 'text-emerald-600'
+                                                                ? 'text-primary'
                                                                 : 'text-gray-600'
                                                         }`} />
                                                     </div>
@@ -1150,7 +1150,7 @@ export default function CadastroPage() {
                                         Tipo de atividade
                                     </Label>
                                     <Select value={formData.activityType} onValueChange={(value) => handleInputChange('activityType', value)}>
-                                        <SelectTrigger className="h-12 text-lg border-2 border-gray-200 focus:border-emerald-500">
+                                        <SelectTrigger className="h-12 text-lg border-2 border-gray-200 focus:border-primary">
                                             <SelectValue placeholder="Selecione o tipo de atividade" />
                                         </SelectTrigger>
                                         <SelectContent>
@@ -1173,7 +1173,7 @@ export default function CadastroPage() {
                                         placeholder="Ex: 100"
                                         value={formData.farmSize}
                                         onChange={(e) => handleInputChange('farmSize', e.target.value)}
-                                        className="h-12 text-lg border-2 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500/20"
+                                        className="h-12 text-lg border-2 border-gray-200 focus:border-primary focus:ring-primary/20"
                                     />
                                 </div>
                             </div>
@@ -1194,7 +1194,7 @@ export default function CadastroPage() {
                         </div>
 
                         <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-                            <p className="text-sm text-emerald-800 text-center">
+                            <p className="text-sm text-primary text-center">
                                 <strong>Não se preocupe se ainda não tiver todas as informações!</strong> Você poderá preencher os dados faltantes mais tarde, direto no seu painel.
                             </p>
                         </div>
@@ -1212,7 +1212,7 @@ export default function CadastroPage() {
                                         placeholder="Fazenda Boa Vista"
                                         value={formData.farmName}
                                         onChange={(e) => handleInputChange('farmName', e.target.value)}
-                                        className="pl-10 h-12 text-lg border-2 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500/20"
+                                        className="pl-10 h-12 text-lg border-2 border-gray-200 focus:border-primary focus:ring-primary/20"
                                         required
                                     />
                                 </div>
@@ -1224,7 +1224,7 @@ export default function CadastroPage() {
                                         Estado
                                     </Label>
                                     <Select value={formData.state} onValueChange={(value) => handleInputChange('state', value)}>
-                                        <SelectTrigger className="h-12 text-lg border-2 border-gray-200 focus:border-emerald-500">
+                                        <SelectTrigger className="h-12 text-lg border-2 border-gray-200 focus:border-primary">
                                             <SelectValue placeholder="Selecione o estado" />
                                         </SelectTrigger>
                                         <SelectContent>
@@ -1271,7 +1271,7 @@ export default function CadastroPage() {
                                             placeholder="Sua cidade"
                                             value={formData.city}
                                             onChange={(e) => handleInputChange('city', e.target.value)}
-                                            className="pl-10 h-12 text-lg border-2 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500/20"
+                                            className="pl-10 h-12 text-lg border-2 border-gray-200 focus:border-primary focus:ring-primary/20"
                                             required
                                         />
                                     </div>
@@ -1283,7 +1283,7 @@ export default function CadastroPage() {
                                     Tipo de atividade
                                 </Label>
                                 <Select value={formData.activityType} onValueChange={(value) => handleInputChange('activityType', value)}>
-                                    <SelectTrigger className="h-12 text-lg border-2 border-gray-200 focus:border-emerald-500">
+                                    <SelectTrigger className="h-12 text-lg border-2 border-gray-200 focus:border-primary">
                                         <SelectValue placeholder="Selecione o tipo de atividade" />
                                     </SelectTrigger>
                                     <SelectContent>
@@ -1306,7 +1306,7 @@ export default function CadastroPage() {
                                     placeholder="Ex: 100"
                                     value={formData.farmSize}
                                     onChange={(e) => handleInputChange('farmSize', e.target.value)}
-                                    className="h-12 text-lg border-2 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500/20"
+                                    className="h-12 text-lg border-2 border-gray-200 focus:border-primary focus:ring-primary/20"
                                 />
                             </div>
                         </div>
@@ -1435,12 +1435,12 @@ export default function CadastroPage() {
                                     onCheckedChange={(checked) => handleInputChange('acceptTerms', checked as boolean)}
                                 />
                                 <Label htmlFor="terms" className="text-sm text-gray-600 leading-relaxed">
-                                    Li e aceito os{' '}
-                                    <Link href="/termos" className="text-emerald-600 hover:text-emerald-700 font-medium">
+                                    <span>Li e aceito os </span>
+                                    <Link href="/termos" className="text-primary hover:text-primary font-medium whitespace-nowrap">
                                         Termos de Uso
                                     </Link>
-                                    {' '}e a{' '}
-                                    <Link href="/privacidade" className="text-emerald-600 hover:text-emerald-700 font-medium">
+                                    <span> e a </span>
+                                    <Link href="/privacidade" className="text-primary hover:text-primary font-medium whitespace-nowrap">
                                         Política de Privacidade
                                     </Link>
                                 </Label>
@@ -1462,7 +1462,7 @@ export default function CadastroPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-emerald-50">
+        <div className="min-h-screen bg-gradient-to-br from-primary/5 via-white to-primary/5">
             {/* Centralized Registration Form */}
             <div className="flex items-center justify-center min-h-screen pt-2 sm:pt-3 lg:pt-4 pb-4 sm:pb-6 px-4 sm:px-6 lg:px-8">
                 <div className="w-full max-w-4xl">
@@ -1496,7 +1496,7 @@ export default function CadastroPage() {
                                     <Button
                                         type="button"
                                         variant="ghost"
-                                        className="text-gray-600 hover:text-emerald-600 hover:bg-emerald-50 p-2 text-sm sm:text-base"
+                                        className="text-gray-600 hover:text-primary hover:bg-primary/5 p-2 text-sm sm:text-base"
                                     >
                                         <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
                                         <span className="hidden sm:inline">Voltar ao início</span>
@@ -1512,14 +1512,14 @@ export default function CadastroPage() {
                                         <div key={step.number} className="flex items-center flex-shrink-0">
                                             <div className={`w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 rounded-full flex items-center justify-center text-xs sm:text-sm font-semibold ${
                                                 currentStep >= step.number
-                                                    ? 'bg-emerald-600 text-white'
+                                                    ? 'bg-primary text-white'
                                                     : 'bg-gray-200 text-gray-600'
                                             }`}>
                                                 {step.number}
                                             </div>
                                             {index < steps.length - 1 && (
                                                 <div className={`w-8 sm:w-12 lg:w-20 h-1 mx-2 sm:mx-3 ${
-                                                    currentStep > step.number ? 'bg-emerald-600' : 'bg-gray-200'
+                                                    currentStep > step.number ? 'bg-primary' : 'bg-gray-200'
                                                 }`} />
                                             )}
                                         </div>
@@ -1546,7 +1546,7 @@ export default function CadastroPage() {
                                         <Button
                                             type="button"
                                             onClick={handleNext}
-                                            className="w-full sm:w-auto bg-emerald-600 hover:bg-[#2E7A5A] text-white px-6 sm:px-8 py-3 text-sm sm:text-base"
+                                            className="w-full sm:w-auto bg-primary hover:bg-[#2E7A5A] text-white px-6 sm:px-8 py-3 text-sm sm:text-base"
                                         >
                                             Próximo
                                             <ArrowRight className="w-4 h-4 ml-2" />
@@ -1554,7 +1554,7 @@ export default function CadastroPage() {
                                     ) : (
                                         <Button
                                             type="submit"
-                                            className="w-full sm:w-auto bg-emerald-600 hover:bg-[#2E7A5A] text-white px-6 sm:px-8 py-3 text-sm sm:text-base"
+                                            className="w-full sm:w-auto bg-primary hover:bg-[#2E7A5A] text-white px-6 sm:px-8 py-3 text-sm sm:text-base"
                                             disabled={isLoading || !formData.acceptTerms}
                                         >
                                             {isLoading ? (
@@ -1578,7 +1578,7 @@ export default function CadastroPage() {
                                     Já tem uma conta?{' '}
                                     <Link
                                         href="/login"
-                                        className="text-emerald-600 hover:text-emerald-700 font-semibold"
+                                        className="text-primary hover:text-primary font-semibold"
                                     >
                                         Faça login
                                     </Link>

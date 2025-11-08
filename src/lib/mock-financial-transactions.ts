@@ -444,11 +444,11 @@ export const getTransactionTypeIcon = (type: TransactionType): string => {
 export const getTransactionTypeColor = (type: TransactionType): string => {
   const colors: Record<TransactionType, string> = {
     compra: 'text-red-600',
-    venda: 'text-green-600',
+    venda: 'text-primary',
     reembolso: 'text-blue-600',
     cashback: 'text-purple-600',
     taxa: 'text-orange-600',
-    deposito: 'text-emerald-600',
+    deposito: 'text-primary',
     saque: 'text-gray-600',
     estorno: 'text-yellow-600'
   }

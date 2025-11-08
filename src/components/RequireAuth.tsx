@@ -58,8 +58,8 @@ export default function RequireAuth({
     <Dialog open={true}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <div className="flex items-center justify-center w-12 h-12 mx-auto mb-4 bg-emerald-100 rounded-full">
-            <LogIn className="w-6 h-6 text-emerald-600" />
+          <div className="flex items-center justify-center w-12 h-12 mx-auto mb-4 bg-primary/10 rounded-full">
+            <LogIn className="w-6 h-6 text-primary" />
           </div>
           <DialogTitle className="text-center">Login Necessário</DialogTitle>
           <DialogDescription className="text-center">
@@ -68,7 +68,7 @@ export default function RequireAuth({
         </DialogHeader>
         <DialogFooter className="flex-col sm:flex-row gap-2 sm:gap-0">
           <Link href={redirectTo ? `/login?redirect=${encodeURIComponent(redirectTo)}` : '/login'} className="w-full sm:w-auto">
-            <Button className="w-full bg-emerald-600 hover:bg-[#2E7A5A]">
+            <Button className="w-full bg-primary hover:bg-[#2E7A5A]">
               <LogIn className="w-4 h-4 mr-2" />
               Fazer Login
             </Button>

@@ -159,7 +159,7 @@ export default function GuiaCompradorPage() {
         </section>
 
         {/* Support Section */}
-        <section className="bg-gradient-to-r from-emerald-50 to-emerald-50 rounded-lg p-8 text-center">
+        <section className="bg-gradient-to-r from-primary/5 to-primary/5 rounded-lg p-8 text-center">
           <h2 className="text-2xl font-bold text-[#101828] mb-4">Precisa de Ajuda?</h2>
           <p className="text-gray-600 mb-6">
             Nossa equipe está sempre pronta para ajudar você em suas compras

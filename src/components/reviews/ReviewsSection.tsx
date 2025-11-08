@@ -179,7 +179,7 @@ export default function ReviewsSection({ reviews, itemId, itemType, onAddReview 
               <p className="text-gray-600 mb-4">Você precisa estar logado para deixar uma avaliação.</p>
               <Button
                 onClick={() => router.push(`/login?redirect=${encodeURIComponent(pathname || '/')}`)}
-                className="bg-emerald-600 hover:bg-[#2E7A5A] text-white"
+                className="bg-primary hover:bg-[#2E7A5A] text-white"
               >
                 Fazer Login
               </Button>
@@ -245,7 +245,7 @@ export default function ReviewsSection({ reviews, itemId, itemType, onAddReview 
               <Button
                 type="submit"
                 disabled={isSubmitting || rating === 0 || comment.trim().length < 10}
-                className="bg-emerald-600 hover:bg-[#2E7A5A] text-white"
+                className="bg-primary hover:bg-[#2E7A5A] text-white"
               >
                 {isSubmitting ? 'Enviando...' : 'Publicar Avaliação'}
               </Button>
@@ -275,8 +275,8 @@ export default function ReviewsSection({ reviews, itemId, itemType, onAddReview 
                 <div className="flex items-start gap-4">
                   {/* Avatar with Initials */}
                   <div className="flex-shrink-0">
-                    <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center">
-                      <span className="text-emerald-600 font-semibold text-lg">
+                    <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                      <span className="text-primary font-semibold text-lg">
                         {getInitials(review.userName)}
                       </span>
                     </div>
@@ -284,18 +284,18 @@ export default function ReviewsSection({ reviews, itemId, itemType, onAddReview 
 
                   {/* Review Content */}
                   <div className="flex-1">
-                    <div className="flex items-start justify-between mb-2">
+                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-2">
                       <div>
                         <div className="flex items-center gap-2 mb-1">
                           <h4 className="font-semibold text-[#101828]">{review.userName}</h4>
                           {review.verifiedPurchase && (
-                            <Badge className="bg-emerald-100 text-emerald-800 text-xs hidden sm:inline-flex">
+                            <Badge className="bg-primary/10 text-primary text-xs hidden sm:inline-flex">
                               <CheckCircle className="w-3 h-3 mr-1" />
                               Compra verificada
                             </Badge>
                           )}
                         </div>
-                        <div className="flex items-center gap-2">
+                        <div className="flex flex-col sm:flex-row sm:items-center sm:gap-2">
                           <div className="flex items-center">
                             {[1, 2, 3, 4, 5].map((star) => (
                               <Star
@@ -308,7 +308,7 @@ export default function ReviewsSection({ reviews, itemId, itemType, onAddReview 
                               />
                             ))}
                           </div>
-                          <span className="text-sm text-gray-500">{formatDate(review.date)}</span>
+                          <span className="text-sm text-gray-500 mt-1 sm:mt-0">{formatDate(review.date)}</span>
                         </div>
                       </div>
                     </div>

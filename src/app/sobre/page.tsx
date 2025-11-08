@@ -90,7 +90,7 @@ export default function SobrePage() {
 
       {/* Hero Section */}
       <section className="relative pt-16 pb-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald-600 via-emerald-600 to-emerald-700"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-primary/90"></div>
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="absolute inset-0 opacity-40">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.15)_1px,transparent_0)] bg-[length:20px_20px]"></div>
@@ -113,8 +113,8 @@ export default function SobrePage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
               <div key={index} className="text-center animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
-                <div className="w-16 h-16 bg-emerald-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <stat.icon className="w-8 h-8 text-emerald-600" />
+                <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                  <stat.icon className="w-8 h-8 text-primary" />
                 </div>
                 <div className="text-4xl md:text-5xl font-bold text-[#101828] mb-2">{stat.number}</div>
                 <div className="text-gray-600 font-medium">{stat.label}</div>
@@ -125,7 +125,7 @@ export default function SobrePage() {
       </section>
 
       {/* Mission Section */}
-      <section className="py-20 bg-gradient-to-br from-emerald-50 to-emerald-50">
+      <section className="py-20 bg-gradient-to-br from-primary/5 to-primary/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -140,15 +140,15 @@ export default function SobrePage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <div className="flex items-center">
-                  <Target className="w-6 h-6 text-emerald-600 mr-3" />
+                  <Target className="w-6 h-6 text-primary mr-3" />
                   <span className="text-[#101828] font-semibold">Missão</span>
                 </div>
                 <div className="flex items-center">
-                  <Eye className="w-6 h-6 text-emerald-600 mr-3" />
+                  <Eye className="w-6 h-6 text-primary mr-3" />
                   <span className="text-[#101828] font-semibold">Visão</span>
                 </div>
                 <div className="flex items-center">
-                  <Heart className="w-6 h-6 text-emerald-600 mr-3" />
+                  <Heart className="w-6 h-6 text-primary mr-3" />
                   <span className="text-[#101828] font-semibold">Valores</span>
                 </div>
               </div>
@@ -159,7 +159,7 @@ export default function SobrePage() {
                 alt="Fazenda brasileira" 
                 className="rounded-2xl shadow-2xl"
               />
-              <div className="absolute -bottom-6 -left-6 bg-emerald-600 text-white p-6 rounded-xl shadow-xl">
+              <div className="absolute -bottom-6 -left-6 bg-primary text-white p-6 rounded-xl shadow-xl">
                 <div className="text-2xl font-bold">2025</div>
                 <div className="text-sm">Fundação</div>
               </div>
@@ -184,8 +184,8 @@ export default function SobrePage() {
             {values.map((value, index) => (
               <Card key={index} className="text-center shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-0 animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
                 <CardContent className="p-8">
-                  <div className="w-16 h-16 bg-emerald-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                    <value.icon className="w-8 h-8 text-emerald-600" />
+                  <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                    <value.icon className="w-8 h-8 text-primary" />
                   </div>
                   <h3 className="text-xl font-bold text-[#101828] mb-4">{value.title}</h3>
                   <p className="text-gray-600 leading-relaxed">{value.description}</p>
@@ -197,7 +197,7 @@ export default function SobrePage() {
       </section>
 
       {/* Team Section */}
-      <section className="py-20 bg-gradient-to-br from-emerald-50 to-emerald-50">
+      <section className="py-20 bg-gradient-to-br from-primary/5 to-primary/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-[#101828] mb-4">
@@ -218,7 +218,7 @@ export default function SobrePage() {
                     className="w-24 h-24 rounded-full mx-auto mb-6 object-cover"
                   />
                   <h3 className="text-xl font-bold text-[#101828] mb-2">{member.name}</h3>
-                  <Badge className="bg-emerald-600 text-white mb-4">{member.role}</Badge>
+                  <Badge className="bg-primary text-white mb-4">{member.role}</Badge>
                   <p className="text-gray-600">{member.description}</p>
                 </CardContent>
               </Card>
@@ -273,7 +273,7 @@ export default function SobrePage() {
       </section>
 
       {/* History Section */}
-      <section className="py-20 bg-gradient-to-br from-emerald-50 to-emerald-50">
+      <section className="py-20 bg-gradient-to-br from-primary/5 to-primary/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-[#101828] mb-4">
@@ -286,13 +286,13 @@ export default function SobrePage() {
 
           <div className="space-y-8">
             <div className="flex items-center animate-fade-in-up">
-              <div className="w-4 h-4 bg-emerald-600 rounded-full mr-6"></div>
+              <div className="w-4 h-4 bg-primary rounded-full mr-6"></div>
               <div className="flex-1 bg-white rounded-lg p-6 shadow-lg">
                 <div className="flex items-center justify-between mb-2">
                   <h3 className="text-xl font-bold text-[#101828] flex items-center gap-2">
                     <span>✅</span> 2023 — Concepção
                   </h3>
-                  <Badge className="bg-emerald-600 text-white">Início</Badge>
+                  <Badge className="bg-primary text-white">Início</Badge>
                 </div>
                 <p className="text-gray-600">
                   Surgimento da ideia de criar o TudoAgro: uma plataforma completa que une tecnologia e campo, conectando produtores e compradores por meio de um ecossistema inteligente com IA especializada no agro, venda de animais e produtos, leilões online e treinamentos exclusivos para o setor.
@@ -301,7 +301,7 @@ export default function SobrePage() {
             </div>
 
             <div className="flex items-center animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
-              <div className="w-4 h-4 bg-emerald-600 rounded-full mr-6"></div>
+              <div className="w-4 h-4 bg-primary rounded-full mr-6"></div>
               <div className="flex-1 bg-white rounded-lg p-6 shadow-lg">
                 <div className="flex items-center justify-between mb-2">
                   <h3 className="text-xl font-bold text-[#101828] flex items-center gap-2">
@@ -316,7 +316,7 @@ export default function SobrePage() {
             </div>
 
             <div className="flex items-center animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-              <div className="w-4 h-4 bg-emerald-600 rounded-full mr-6"></div>
+              <div className="w-4 h-4 bg-primary rounded-full mr-6"></div>
               <div className="flex-1 bg-white rounded-lg p-6 shadow-lg">
                 <div className="flex items-center justify-between mb-2">
                   <h3 className="text-xl font-bold text-[#101828] flex items-center gap-2">
@@ -331,13 +331,13 @@ export default function SobrePage() {
             </div>
 
             <div className="flex items-center animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
-              <div className="w-4 h-4 bg-emerald-600 rounded-full mr-6"></div>
+              <div className="w-4 h-4 bg-primary rounded-full mr-6"></div>
               <div className="flex-1 bg-white rounded-lg p-6 shadow-lg">
                 <div className="flex items-center justify-between mb-2">
                   <h3 className="text-xl font-bold text-[#101828] flex items-center gap-2">
                     <span>🌱</span> 2026 — Expansão Nacional
                   </h3>
-                  <Badge className="bg-emerald-600 text-white">Crescimento</Badge>
+                  <Badge className="bg-primary text-white">Crescimento</Badge>
                 </div>
                 <p className="text-gray-600">
                   Consolidação como a maior plataforma agropecuária do Brasil, com operações em todos os estados, presença predominante em todo território nacional e novos funcionalidades a serem lançadas.
@@ -349,23 +349,23 @@ export default function SobrePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-emerald-600 to-emerald-700">
+      <section className="py-20 bg-gradient-to-br from-primary to-primary/90">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
             Faça parte da nossa história
           </h2>
-          <p className="text-xl text-emerald-100 mb-8 max-w-2xl mx-auto">
+          <p className="text-xl text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
               Conecte-se ao agro do futuro. Cadastre-se gratuitamente e comece a vender ou comprar com tecnologia, segurança e alcance nacional.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/cadastro">
-              <Button className="bg-white text-emerald-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+              <Button className="bg-white text-primary hover:bg-gray-100 px-8 py-4 text-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
                 <Users className="w-5 h-5 mr-2" />
                 Criar Conta Gratuita
               </Button>
             </Link>
             <Link href="/catalogo">
-              <Button className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-emerald-600 px-8 py-4 text-lg font-semibold transition-all duration-300 transform hover:scale-105">
+              <Button className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary px-8 py-4 text-lg font-semibold transition-all duration-300 transform hover:scale-105">
                 <Eye className="w-5 h-5 mr-2" />
                 Explorar Catálogo
               </Button>

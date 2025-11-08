@@ -116,7 +116,7 @@ export default function PostCard({ post, isSaved: initialSaved, onSaveToggle }: 
     <Link href={`/blog/${post.slug}`}>
       <article className="group bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-100">
         {/* Image */}
-        <div className="relative w-full h-48 sm:h-56 md:h-64 overflow-hidden bg-gradient-to-br from-emerald-50 to-emerald-50">
+        <div className="relative w-full h-48 sm:h-56 md:h-64 overflow-hidden bg-gradient-to-br from-primary/5 to-primary/5">
           {post.featured_image ? (
             <Image
               src={post.featured_image}
@@ -128,7 +128,7 @@ export default function PostCard({ post, isSaved: initialSaved, onSaveToggle }: 
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center">
-              <div className="text-emerald-200 text-4xl">🌾</div>
+              <div className="text-primary/30 text-4xl">🌾</div>
             </div>
           )}
           
@@ -150,14 +150,14 @@ export default function PostCard({ post, isSaved: initialSaved, onSaveToggle }: 
               "absolute top-3 right-3 p-2 rounded-full bg-white/90 backdrop-blur-sm shadow-md transition-all duration-200",
               "hover:bg-white hover:scale-110",
               "disabled:opacity-50 disabled:cursor-not-allowed",
-              isSaved && "bg-emerald-100"
+              isSaved && "bg-primary/10"
             )}
             aria-label={isSaved ? 'Remover dos salvos' : 'Salvar post'}
           >
             <Bookmark
               className={cn(
                 "w-5 h-5 transition-colors",
-                isSaved ? "fill-emerald-600 text-emerald-600" : "text-gray-600"
+                isSaved ? "fill-primary text-primary" : "text-gray-600"
               )}
             />
           </button>
@@ -166,7 +166,7 @@ export default function PostCard({ post, isSaved: initialSaved, onSaveToggle }: 
         {/* Content */}
         <div className="p-4 sm:p-5 md:p-6">
           {/* Title */}
-          <h3 className="text-lg sm:text-xl font-bold text-[#101828] mb-2 line-clamp-2 group-hover:text-emerald-600 transition-colors">
+          <h3 className="text-lg sm:text-xl font-bold text-[#101828] mb-2 line-clamp-2 group-hover:text-primary transition-colors">
             {post.title}
           </h3>
 

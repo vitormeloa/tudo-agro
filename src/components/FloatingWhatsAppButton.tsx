@@ -35,7 +35,7 @@ export default function FloatingWhatsAppButton() {
       {/* Button */}
       <div className="relative">
         {/* Main button */}
-        <div className="relative bg-emerald-500 hover:bg-emerald-600 text-white rounded-full p-4 shadow-2xl transition-all duration-300 transform active:scale-95">
+        <div className="relative bg-primary/50 hover:bg-primary text-white rounded-full p-4 shadow-2xl transition-all duration-300 transform active:scale-95">
           <FaWhatsapp className="w-7 h-7" />
         </div>
 

@@ -328,7 +328,7 @@ export default function PermissionsSection() {
       <div className="space-y-4 sm:space-y-6">
         <div className="flex items-center justify-center py-12">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1E4D2B] mx-auto mb-4"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
             <p className="text-gray-600">Carregando funções...</p>
           </div>
         </div>
@@ -343,7 +343,7 @@ export default function PermissionsSection() {
         <CardHeader className="p-3 sm:p-6">
           <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
             <div className="flex items-center gap-2">
-              <Shield className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-800" />
+              <Shield className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
               <span className="text-base sm:text-lg font-semibold">Gerenciamento de Funções</span>
             </div>
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-600">
@@ -372,7 +372,7 @@ export default function PermissionsSection() {
             {canShowButton('create-role') && (
               <Button
                 onClick={() => openRoleDialog()}
-                className="bg-[#1E4D2B] hover:bg-[#163B20] text-sm"
+                className="bg-primary hover:bg-[#163B20] text-sm"
               >
                 <Plus className="w-4 h-4 mr-2" />
                 Nova Função
@@ -391,7 +391,7 @@ export default function PermissionsSection() {
                 <div className="flex-1 w-full">
                   <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-4">
                     {/* Avatar */}
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#1E4D2B] rounded-full flex items-center justify-center text-white font-bold text-sm sm:text-base flex-shrink-0">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary rounded-full flex items-center justify-center text-white font-bold text-sm sm:text-base flex-shrink-0">
                       <Shield className="w-5 h-5 sm:w-6 sm:h-6" />
                     </div>
                     
@@ -400,7 +400,7 @@ export default function PermissionsSection() {
                       <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-2">
                         <h3 className="text-base sm:text-lg font-semibold text-[#101828] break-words">{role.name}</h3>
                         <div className="flex flex-wrap items-center gap-2">
-                          <Badge variant="secondary" className="bg-[#F0F9FF] text-emerald-800">
+                          <Badge variant="secondary" className="bg-[#F0F9FF] text-primary">
                             {role.permissions.length} permissões
                           </Badge>
                         </div>
@@ -444,11 +444,11 @@ export default function PermissionsSection() {
                   {/* Estatísticas */}
                   <div className="grid grid-cols-2 gap-2 sm:gap-4 mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-gray-100">
                     <div className="text-center">
-                      <p className="text-lg sm:text-2xl font-bold text-emerald-800">{role.permissions.length}</p>
+                      <p className="text-lg sm:text-2xl font-bold text-primary">{role.permissions.length}</p>
                       <p className="text-xs text-gray-600">Permissões</p>
                     </div>
                     <div className="text-center">
-                      <p className="text-lg sm:text-2xl font-bold text-emerald-800">
+                      <p className="text-lg sm:text-2xl font-bold text-primary">
                         {(() => {
                           const userCount = users.filter(user => {
                             const hasRole = user.roles.includes(role.name)
@@ -549,7 +549,7 @@ export default function PermissionsSection() {
                   <Card key={resource} className="border border-[#E5E7EB]">
                     <CardHeader className="pb-3">
                       <div className="flex items-center justify-between">
-                        <h4 className="font-medium text-emerald-800">
+                        <h4 className="font-medium text-primary">
                           {RESOURCE_LABELS[resource as keyof typeof RESOURCE_LABELS]}
                         </h4>
                         <Button
@@ -599,7 +599,7 @@ export default function PermissionsSection() {
               </Button>
               <Button
                 onClick={editingRole ? handleUpdateRole : handleCreateRole}
-                className="bg-[#1E4D2B] hover:bg-[#163B20]"
+                className="bg-primary hover:bg-[#163B20]"
               >
                 <Save className="h-4 w-4 mr-2" />
                 {editingRole ? 'Atualizar' : 'Criar'} Função
@@ -658,7 +658,7 @@ export default function PermissionsSection() {
               </Button>
               <Button
                 onClick={handleAssignUserRoles}
-                className="bg-[#1E4D2B] hover:bg-[#163B20]"
+                className="bg-primary hover:bg-[#163B20]"
               >
                 <Save className="h-4 w-4 mr-2" />
                 Salvar

@@ -151,7 +151,7 @@ export default function LoginPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-emerald-50 flex flex-col lg:flex-row">
+    <div className="min-h-screen bg-gradient-to-br from-primary/5 via-white to-primary/5 flex flex-col lg:flex-row">
       {/* Left Side - Login Form */}
       <div className="flex-1 flex items-center justify-center pt-2 sm:pt-3 lg:pt-4 pb-4 sm:pb-6 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-[480px]">
@@ -181,7 +181,7 @@ export default function LoginPage() {
                   <Button 
                     type="button" 
                     variant="ghost" 
-                    className="text-gray-600 hover:text-emerald-600 hover:bg-emerald-50 p-2 text-sm sm:text-base"
+                    className="text-gray-600 hover:text-primary hover:bg-primary/5 p-2 text-sm sm:text-base"
                   >
                     <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
                     <span className="hidden sm:inline">Voltar ao início</span>
@@ -205,7 +205,7 @@ export default function LoginPage() {
                       value={formData.email}
                       onChange={(e) => handleChange('email', e.target.value)}
                       onBlur={() => handleBlur('email')}
-                      className={`pl-9 sm:pl-10 h-11 sm:h-12 text-base sm:text-lg border-2 ${errors.email ? 'border-red-500' : 'border-gray-200'} focus:border-emerald-500 focus:ring-emerald-500/20`}
+                      className={`pl-9 sm:pl-10 h-11 sm:h-12 text-base sm:text-lg border-2 ${errors.email ? 'border-red-500' : 'border-gray-200'} focus:border-primary focus:ring-primary/20`}
                       required
                     />
                   </div>
@@ -226,7 +226,7 @@ export default function LoginPage() {
                       value={formData.password}
                       onChange={(e) => handleChange('password', e.target.value)}
                       onBlur={() => handleBlur('password')}
-                      className={`pl-9 sm:pl-10 pr-9 sm:pr-10 h-11 sm:h-12 text-base sm:text-lg border-2 ${errors.password ? 'border-red-500' : 'border-gray-200'} focus:border-emerald-500 focus:ring-emerald-500/20`}
+                      className={`pl-9 sm:pl-10 pr-9 sm:pr-10 h-11 sm:h-12 text-base sm:text-lg border-2 ${errors.password ? 'border-red-500' : 'border-gray-200'} focus:border-primary focus:ring-primary/20`}
                       required
                     />
                     <button
@@ -253,21 +253,21 @@ export default function LoginPage() {
                   </div>
                   <Link
                     href="/esqueci-senha"
-                    className="text-xs sm:text-sm text-emerald-600 hover:text-emerald-700 font-medium"
+                    className="text-xs sm:text-sm text-primary hover:text-primary font-medium"
                   >
                     Esqueceu a senha?
                   </Link>
                 </div>
 
                 {successMessage && (
-                  <div className="bg-emerald-50 border border-emerald-200 text-emerald-700 px-4 py-3 rounded-lg text-sm">
+                  <div className="bg-primary/5 border border-primary/20 text-primary px-4 py-3 rounded-lg text-sm">
                     {successMessage}
                   </div>
                 )}
 
                 <Button 
                   type="submit" 
-                  className="w-full bg-emerald-600 hover:bg-[#2E7A5A] text-white h-11 sm:h-12 text-base sm:text-lg font-semibold transition-all duration-300 transform hover:scale-[1.02]"
+                  className="w-full bg-primary hover:bg-[#2E7A5A] text-white h-11 sm:h-12 text-base sm:text-lg font-semibold transition-all duration-300 transform hover:scale-[1.02]"
                   disabled={isLoading}
                 >
                   {isLoading ? (
@@ -318,7 +318,7 @@ export default function LoginPage() {
                   Não tem uma conta?{' '}
                   <Link 
                     href="/cadastro" 
-                    className="text-emerald-600 hover:text-emerald-700 font-semibold"
+                    className="text-primary hover:text-primary font-semibold"
                   >
                     Cadastre-se gratuitamente
                   </Link>
@@ -330,12 +330,12 @@ export default function LoginPage() {
       </div>
 
       {/* Right Side - Features */}
-      <div className="hidden lg:flex lg:flex-1 bg-gradient-to-br from-emerald-600 to-emerald-700 p-8 xl:p-12 items-center">
+      <div className="hidden lg:flex lg:flex-1 bg-gradient-to-br from-primary to-primary/90 p-8 xl:p-12 items-center">
         <div className="max-w-md">
           <h2 className="text-3xl xl:text-4xl font-bold text-white mb-4 xl:mb-6 leading-tight">
             TudoAgro: A plataforma Nº1 do agronegócio digital
           </h2>
-          <p className="text-lg xl:text-xl text-emerald-100 mb-6 xl:mb-8 leading-relaxed">
+          <p className="text-lg xl:text-xl text-primary-foreground/80 mb-6 xl:mb-8 leading-relaxed">
             Encontre os melhores preços, negocie direto com produtores e faça parte da revolução agro online.
           </p>
           
@@ -349,7 +349,7 @@ export default function LoginPage() {
                   <h3 className="text-base xl:text-lg font-semibold text-white leading-snug">
                     {feature.title}
                     {feature.description && (
-                      <span className="block text-emerald-100 font-normal mt-1 text-sm xl:text-base">
+                      <span className="block text-primary-foreground/80 font-normal mt-1 text-sm xl:text-base">
                         {feature.description}
                       </span>
                     )}

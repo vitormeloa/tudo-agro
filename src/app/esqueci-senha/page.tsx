@@ -45,12 +45,12 @@ export default function ForgotPasswordPage() {
 
   if (emailSent) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-emerald-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-br from-primary/5 via-white to-primary/5 flex items-center justify-center p-4">
         <div className="w-full max-w-md">
           <Card className="shadow-2xl border-0">
             <CardContent className="p-8 text-center">
-              <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <CheckCircle className="w-8 h-8 text-emerald-600" />
+              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                <CheckCircle className="w-8 h-8 text-primary" />
               </div>
               
               <h1 className="text-2xl font-bold text-[#101828] mb-4">
@@ -72,7 +72,7 @@ export default function ForgotPasswordPage() {
                 </Button>
                 
                 <Link href="/login">
-                  <Button className="w-full bg-emerald-600 hover:bg-[#2E7A5A]">
+                  <Button className="w-full bg-primary hover:bg-[#2E7A5A]">
                     Voltar ao login
                   </Button>
                 </Link>
@@ -85,7 +85,7 @@ export default function ForgotPasswordPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-emerald-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-primary/5 via-white to-primary/5 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <div className="flex items-center justify-center mb-6">
@@ -118,7 +118,7 @@ export default function ForgotPasswordPage() {
                     placeholder="seu@email.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="pl-10 h-12 text-lg border-2 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500/20"
+                    className="pl-10 h-12 text-lg border-2 border-gray-200 focus:border-primary focus:ring-primary/20"
                     required
                   />
                 </div>
@@ -126,7 +126,7 @@ export default function ForgotPasswordPage() {
 
               <Button 
                 type="submit" 
-                className="w-full bg-emerald-600 hover:bg-[#2E7A5A] text-white h-12 text-lg font-semibold"
+                className="w-full bg-primary hover:bg-[#2E7A5A] text-white h-12 text-lg font-semibold"
                 disabled={isLoading || !email}
               >
                 {isLoading ? (
@@ -143,7 +143,7 @@ export default function ForgotPasswordPage() {
             <div className="mt-6 text-center">
               <Link 
                 href="/login" 
-                className="text-emerald-600 hover:text-emerald-700 font-medium inline-flex items-center"
+                className="text-primary hover:text-primary font-medium inline-flex items-center"
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Voltar ao login

@@ -197,13 +197,13 @@ const Dashboard = () => {
   }];
   return <div>
           {/* Banner Principal */}
-          <Card className="mb-6 overflow-hidden border-0 bg-gradient-to-r from-primary to-green-500">
+          <Card className="mb-6 overflow-hidden border-0 bg-gradient-to-r from-primary to-primary/70">
             <CardContent className="p-6 md:p-8 text-primary-foreground">
               <h1 className="mb-2 text-2xl md:text-3xl font-bold">Bem-vindo ao TudoAgro</h1>
               <p className="mb-4 text-base md:text-lg opacity-90">
                 O marketplace agro mais completo do Brasil
               </p>
-              <Button size="lg" variant="default" className="w-full md:w-auto bg-white text-green-700 hover:bg-gray-100">
+              <Button size="lg" variant="default" className="w-full md:w-auto bg-white text-primary hover:bg-gray-100">
                 Explorar Produtos
               </Button>
             </CardContent>
@@ -219,9 +219,9 @@ const Dashboard = () => {
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4">
-                {quickActions.map((action, i) => <Button key={i} variant="outline" className="h-auto flex-col gap-2 md:gap-3 py-4 md:py-6 hover:border-green-600 bg-accent/30 hover:bg-accent/50 transition-all group">
-                    <action.icon className="h-6 w-6 md:h-8 md:w-8 text-primary group-hover:text-green-600" />
-                    <span className="text-xs md:text-sm font-medium text-center text-gray-800 group-hover:text-green-600">{action.title}</span>
+                {quickActions.map((action, i) => <Button key={i} variant="outline" className="h-auto flex-col gap-2 md:gap-3 py-4 md:py-6 hover:border-primary bg-accent/30 hover:bg-accent/50 transition-all group">
+                    <action.icon className="h-6 w-6 md:h-8 md:w-8 text-primary group-hover:text-primary" />
+                    <span className="text-xs md:text-sm font-medium text-center text-gray-800 group-hover:text-primary">{action.title}</span>
                   </Button>)}
               </div>
             </CardContent>
@@ -249,7 +249,7 @@ const Dashboard = () => {
                       <Badge variant={getStatusBadge(purchase.status).variant} className="shrink-0 px-4 py-1">
                         {getStatusBadge(purchase.status).label}
                       </Badge>
-                      <Button variant="outline" size="sm" className="border-2 border-primary text-primary hover:border-green-600 hover:bg-green-600 hover:text-white transition-all duration-200 shrink-0 rounded-lg px-4" onClick={() => setSelectedPurchase(purchase.id)}>
+                      <Button variant="outline" size="sm" className="border-2 border-primary text-primary hover:border-primary hover:bg-primary hover:text-white transition-all duration-200 shrink-0 rounded-lg px-4" onClick={() => setSelectedPurchase(purchase.id)}>
                         <Eye className="h-4 w-4 md:mr-2" />
                         <span className="hidden md:inline">Ver detalhes</span>
                       </Button>

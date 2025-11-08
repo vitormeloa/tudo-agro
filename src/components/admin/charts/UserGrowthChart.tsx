@@ -33,7 +33,7 @@ export default function UserGrowthChart() {
             ]}
             labelFormatter={(label) => `Mês: ${label}`}
           />
-          <Bar dataKey="usuarios" fill="#1E4D2B" name="usuarios" />
+          <Bar dataKey="usuarios" fill="#0A9965" name="usuarios" />
           <Bar dataKey="vendedores" fill="#6E7D5B" name="vendedores" />
           <Bar dataKey="compradores" fill="#B8413D" name="compradores" />
         </BarChart>

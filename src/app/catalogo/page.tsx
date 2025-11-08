@@ -196,10 +196,10 @@ export default function CatalogoPage() {
   }
 
   const categories = [
-    { name: 'Gado de Corte', color: 'bg-emerald-100 text-emerald-800' },
-    { name: 'Gado de Leite', color: 'bg-emerald-100 text-emerald-800' },
+    { name: 'Gado de Corte', color: 'bg-primary/10 text-primary' },
+    { name: 'Gado de Leite', color: 'bg-primary/10 text-primary' },
     { name: 'Cavalos', color: 'bg-amber-100 text-amber-800' },
-    { name: 'Sêmen', color: 'bg-emerald-100 text-emerald-800' }
+    { name: 'Sêmen', color: 'bg-primary/10 text-primary' }
   ].map(cat => ({
     ...cat,
     count: getCategoryCount(cat.name)
@@ -211,7 +211,7 @@ export default function CatalogoPage() {
       
       {/* Hero Section */}
         <section className="relative pt-16 pb-20 overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-lime-600 via-emerald-600 to-emerald-700"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-lime-600 via-primary to-primary/90"></div>
             <div className="absolute inset-0 bg-black/20"></div>
             <div className="absolute inset-0 opacity-40">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.15)_1px,transparent_0)] bg-[length:20px_20px]"></div>
@@ -240,7 +240,7 @@ export default function CatalogoPage() {
                     placeholder="Buscar por raça, tipo, localização..."
                     value={searchQuery}
                     onChange={(e) => handleSearchChange(e.target.value)}
-                    className="pl-10 h-12 text-lg border-2 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500/20"
+                    className="pl-10 h-12 text-lg border-2 border-gray-200 focus:border-primary focus:ring-primary/20"
                   />
                 </div>
               </div>
@@ -346,7 +346,7 @@ export default function CatalogoPage() {
                 variant="ghost"
                 size="sm"
                 onClick={() => setSelectedCategory('')}
-                className="text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50"
+                className="text-primary hover:text-primary hover:bg-primary/5"
               >
                 Ver todas
               </Button>
@@ -379,7 +379,7 @@ export default function CatalogoPage() {
           <div className="text-gray-600">
             Mostrando <span className="font-semibold text-[#101828]">{startIndex + 1}</span> até <span className="font-semibold text-[#101828]">{Math.min(endIndex, sortedProducts.length)}</span> de <span className="font-semibold text-[#101828]">{sortedProducts.length}</span> resultados
             {selectedCategory && (
-              <span className="ml-2 text-emerald-600 font-semibold">
+              <span className="ml-2 text-primary font-semibold">
                 em {selectedCategory}
               </span>
             )}
@@ -405,32 +405,32 @@ export default function CatalogoPage() {
           <div className="mb-6 flex flex-wrap gap-2">
             <span className="text-sm text-gray-600 font-medium">Filtros ativos:</span>
             {searchQuery && (
-              <Badge variant="secondary" className="bg-emerald-100 text-emerald-800 hover:bg-emerald-200">
+              <Badge variant="secondary" className="bg-primary/10 text-primary hover:bg-emerald-200">
                 Busca: "{searchQuery}"
               </Badge>
             )}
             {selectedCategory && (
-              <Badge variant="secondary" className="bg-emerald-100 text-emerald-800 hover:bg-emerald-200">
+              <Badge variant="secondary" className="bg-primary/10 text-primary hover:bg-emerald-200">
                 Categoria: {selectedCategory}
               </Badge>
             )}
             {selectedBreed && (
-              <Badge variant="secondary" className="bg-emerald-100 text-emerald-800 hover:bg-emerald-200">
+              <Badge variant="secondary" className="bg-primary/10 text-primary hover:bg-emerald-200">
                 Raça: {selectedBreed}
               </Badge>
             )}
             {selectedPriceRange && (
-              <Badge variant="secondary" className="bg-emerald-100 text-emerald-800 hover:bg-emerald-200">
+              <Badge variant="secondary" className="bg-primary/10 text-primary hover:bg-emerald-200">
                 Preço: {selectedPriceRange === '0-5000' ? 'Até R$ 5.000' : selectedPriceRange === '5000-15000' ? 'R$ 5.000-15.000' : selectedPriceRange === '15000-30000' ? 'R$ 15.000-30.000' : 'Acima de R$ 30.000'}
               </Badge>
             )}
             {selectedLocation && (
-              <Badge variant="secondary" className="bg-emerald-100 text-emerald-800 hover:bg-emerald-200">
+              <Badge variant="secondary" className="bg-primary/10 text-primary hover:bg-emerald-200">
                 Local: {selectedLocation.toUpperCase()}
               </Badge>
             )}
             {selectedAge && (
-              <Badge variant="secondary" className="bg-emerald-100 text-emerald-800 hover:bg-emerald-200">
+              <Badge variant="secondary" className="bg-primary/10 text-primary hover:bg-emerald-200">
                 Idade: {selectedAge === '0-2' ? '0-2 anos' : selectedAge === '2-4' ? '2-4 anos' : selectedAge === '4-6' ? '4-6 anos' : '6+ anos'}
               </Badge>
             )}
@@ -460,7 +460,7 @@ export default function CatalogoPage() {
               <Button
                 onClick={clearAllFilters}
                 variant="outline"
-                className="border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white"
+                className="border-primary text-primary hover:bg-primary hover:text-white"
               >
                 Limpar todos os filtros
               </Button>
@@ -476,7 +476,7 @@ export default function CatalogoPage() {
                 variant="outline"
                 disabled={currentPage === 1}
                 onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
-                className="border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white disabled:border-gray-300 disabled:text-gray-400 disabled:hover:bg-transparent disabled:hover:text-gray-400"
+                className="border-primary text-primary hover:bg-primary hover:text-white disabled:border-gray-300 disabled:text-gray-400 disabled:hover:bg-transparent disabled:hover:text-gray-400"
               >
                 Anterior
               </Button>
@@ -495,8 +495,8 @@ export default function CatalogoPage() {
                       onClick={() => handlePageChange(page)}
                       className={
                         currentPage === page
-                          ? "bg-emerald-600 text-white hover:bg-[#2E7A5A]"
-                          : "border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white"
+                          ? "bg-primary text-white hover:bg-[#2E7A5A]"
+                          : "border-primary text-primary hover:bg-primary hover:text-white"
                       }
                       variant={currentPage === page ? "default" : "outline"}
                     >
@@ -514,7 +514,7 @@ export default function CatalogoPage() {
                 variant="outline"
                 disabled={currentPage === totalPages}
                 onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
-                className="border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white disabled:border-gray-300 disabled:text-gray-400 disabled:hover:bg-transparent disabled:hover:text-gray-400"
+                className="border-primary text-primary hover:bg-primary hover:text-white disabled:border-gray-300 disabled:text-gray-400 disabled:hover:bg-transparent disabled:hover:text-gray-400"
               >
                 Próximo
               </Button>

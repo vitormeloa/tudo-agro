@@ -184,8 +184,8 @@ export default function AcademySection() {
   const getQuestionStatusBadge = (status: AIQuestion['status']) => {
     const statusConfig = {
       trending: { label: 'Em Alta', variant: 'default' as const, color: 'text-red-600' },
-      popular: { label: 'Popular', variant: 'secondary' as const, color: 'text-emerald-600' },
-      new: { label: 'Novo', variant: 'outline' as const, color: 'text-emerald-600' }
+      popular: { label: 'Popular', variant: 'secondary' as const, color: 'text-primary' },
+      new: { label: 'Novo', variant: 'outline' as const, color: 'text-primary' }
     }
     
     const config = statusConfig[status]
@@ -230,7 +230,7 @@ export default function AcademySection() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
                 <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-                    <GraduationCap className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-800" />
+                    <GraduationCap className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                     <span className="text-base sm:text-lg font-semibold">Gerenciamento de Academy</span>
                 </CardTitle>
             </div>
@@ -297,7 +297,7 @@ export default function AcademySection() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
                 <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-                    <BookOpen className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-800" />
+                    <BookOpen className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                     <span className="text-base sm:text-lg font-semibold">Cursos Disponíveis</span>
                 </CardTitle>
             </div>
@@ -340,7 +340,7 @@ export default function AcademySection() {
                     </div>
                     
                     {/* Preço */}
-                    <div className="flex items-center gap-2 text-lg font-bold text-emerald-800">
+                    <div className="flex items-center gap-2 text-lg font-bold text-primary">
                       <DollarSign className="w-4 h-4" />
                       {course.price === 0 ? 'Gratuito' : `R$ ${course.price}`}
                     </div>
@@ -418,7 +418,7 @@ export default function AcademySection() {
                             variant="outline" 
                             size="sm"
                             onClick={() => handleAction('approve', course.id)}
-                            className="text-emerald-600 hover:text-emerald-700"
+                            className="text-primary hover:text-primary"
                           >
                             <CheckCircle className="w-4 h-4" />
                           </Button>
@@ -469,7 +469,7 @@ export default function AcademySection() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
                 <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-                    <Brain className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-800" />
+                    <Brain className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                     <span className="text-base sm:text-lg font-semibold">IA Agro - Perguntas Frequentes</span>
                 </CardTitle>
             </div>
@@ -517,7 +517,7 @@ export default function AcademySection() {
         <CardContent className="pt-6">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             <div className="text-center">
-              <div className="text-2xl font-bold text-emerald-800">
+              <div className="text-2xl font-bold text-primary">
                 {courses.filter(course => course.status === 'active').length}
               </div>
               <div className="text-sm text-gray-600">Cursos Ativos</div>
@@ -529,13 +529,13 @@ export default function AcademySection() {
               <div className="text-sm text-gray-600">Rascunhos</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-emerald-600">
+              <div className="text-2xl font-bold text-primary">
                 {courses.reduce((sum, course) => sum + course.students, 0).toLocaleString()}
               </div>
               <div className="text-sm text-gray-600">Total Alunos</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-emerald-800">
+              <div className="text-2xl font-bold text-primary">
                 {aiQuestions.length}
               </div>
               <div className="text-sm text-gray-600">Perguntas IA</div>

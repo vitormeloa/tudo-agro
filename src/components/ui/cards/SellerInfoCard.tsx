@@ -27,7 +27,7 @@ const getSellerLevel = (sales: number) => {
     { threshold: 50, name: 'Bronze', color: '#f97316', textColor: 'text-orange-600' }, // Laranja - Regular
     { threshold: 100, name: 'Prata', color: '#eab308', textColor: 'text-yellow-600' }, // Amarelo - Bom
     { threshold: 500, name: 'Ouro', color: '#22c55e', textColor: 'text-[#3D9970]' }, // Verde claro - Muito bom
-    { threshold: 1000, name: 'Diamante', color: '#10b981', textColor: 'text-emerald-600' }, // Verde - Excelente
+    { threshold: 1000, name: 'Diamante', color: '#10b981', textColor: 'text-primary' }, // Verde - Excelente
   ];
 
   // Find current level
@@ -71,7 +71,7 @@ export default function SellerInfoCard({ seller }: SellerInfoCardProps) {
       <CardContent className="p-6 relative">
         <div className="absolute top-6 right-6 hidden sm:block">
           <Link href={`/vendedor/${seller.id}`}>
-            <Button variant="outline" className="border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white">
+            <Button variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white">
               Ver perfil do vendedor
             </Button>
           </Link>
@@ -90,7 +90,7 @@ export default function SellerInfoCard({ seller }: SellerInfoCardProps) {
           
           <div className="flex-1">
             <Link href={`/vendedor/${seller.id}`}>
-              <h3 className="text-lg font-bold text-[#101828] hover:text-emerald-700 transition-colors">
+              <h3 className="text-lg font-bold text-[#101828] hover:text-primary transition-colors">
                 {seller.name}
               </h3>
             </Link>
@@ -159,7 +159,7 @@ export default function SellerInfoCard({ seller }: SellerInfoCardProps) {
             
             <div className="sm:hidden">
               <Link href={`/vendedor/${seller.id}`}>
-                <Button variant="outline" className="w-full border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white">
+                <Button variant="outline" className="w-full border-primary text-primary hover:bg-primary hover:text-white">
                   Ver perfil do vendedor
                 </Button>
               </Link>

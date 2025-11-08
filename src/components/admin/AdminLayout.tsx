@@ -135,7 +135,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
           <div className="flex items-center justify-between">
             {sidebarOpen && (
               <div>
-                <h1 className="text-xl sm:text-2xl font-bold text-emerald-600">TudoAgro</h1>
+                <h1 className="text-xl sm:text-2xl font-bold text-primary">TudoAgro</h1>
                 <p className="text-xs sm:text-sm text-gray-600">
                   {isAdmin ? 'Painel Administrativo' : 
                    isSeller ? 'Painel do Vendedor' : 
@@ -147,7 +147,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
               variant="ghost"
               size="sm"
               onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="text-gray-600 hover:text-emerald-600 hover:bg-gray-100 group relative overflow-hidden"
+              className="text-gray-600 hover:text-primary hover:bg-gray-100 group relative overflow-hidden"
               title={sidebarOpen ? "Fechar Menu" : "Abrir Menu"}
             >
               {sidebarOpen ? (
@@ -187,18 +187,18 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                   onClick={handleSectionChange}
                   className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg text-left transition-all duration-200 group relative overflow-hidden ${
                     isActive 
-                      ? 'bg-emerald-600 text-white shadow-lg' 
-                      : 'text-gray-600 hover:bg-gray-100 hover:text-emerald-600'
+                      ? 'bg-primary text-white shadow-lg' 
+                      : 'text-gray-600 hover:bg-gray-100 hover:text-primary'
                   }`}
                   title={!sidebarOpen ? item.label : undefined}
                 >
-                  <Icon className={`w-4 h-4 sm:w-5 sm:h-5 ${isActive ? 'text-white' : 'text-gray-600 group-hover:text-emerald-600'}`} />
+                  <Icon className={`w-4 h-4 sm:w-5 sm:h-5 ${isActive ? 'text-white' : 'text-gray-600 group-hover:text-primary'}`} />
                   {sidebarOpen && (
                     <>
                       <span className="font-medium flex-1 text-sm sm:text-base">{item.label}</span>
                       {item.alerts > 0 && (
                         <Badge className={`${
-                          isActive ? 'bg-white text-emerald-800' : 'bg-[#B8413D] text-white'
+                          isActive ? 'bg-white text-primary' : 'bg-[#B8413D] text-white'
                         } text-xs px-2 py-1`}>
                           {item.alerts}
                         </Badge>
@@ -316,7 +316,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                 variant="ghost"
                 size="sm"
                 onClick={() => setSidebarOpen(!sidebarOpen)}
-                className="lg:hidden text-gray-600 hover:text-emerald-600 hover:bg-gray-100 group"
+                className="lg:hidden text-gray-600 hover:text-primary hover:bg-gray-100 group"
                 title="Abrir Menu"
               >
                 <Menu className="w-4 h-4 sm:w-5 sm:h-5 group-hover:scale-110 transition-transform" />
@@ -360,12 +360,12 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="relative text-gray-600 hover:text-emerald-600 transition-colors"
+                    className="relative text-gray-600 hover:text-primary transition-colors"
                     title="Carrinho"
                   >
                     <ShoppingCart className="w-5 h-5" />
                     {cartItemsCount > 0 && (
-                      <span className="absolute -top-1 -right-1 bg-emerald-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                      <span className="absolute -top-1 -right-1 bg-primary text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
                         {cartItemsCount > 99 ? '99+' : cartItemsCount}
                       </span>
                     )}
@@ -379,7 +379,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                   onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
                   className="flex items-center gap-2 sm:gap-3 px-2 sm:px-4 py-2 bg-[#F7F6F2] rounded-lg hover:bg-gray-100 transition-colors"
                 >
-                  <div className="w-7 h-7 sm:w-8 sm:h-8 bg-[#1E4D2B] rounded-full flex items-center justify-center">
+                  <div className="w-7 h-7 sm:w-8 sm:h-8 bg-primary rounded-full flex items-center justify-center">
                     <span className="text-white text-xs sm:text-sm font-bold">
                       {user?.name?.charAt(0).toUpperCase() || 'U'}
                     </span>

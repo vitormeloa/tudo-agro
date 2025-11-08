@@ -121,7 +121,7 @@ export default function UsersSection() {
 
   const getStatusBadge = (status: string) => {
     const statusConfig = {
-      ativo: { color: 'bg-emerald-100 text-emerald-800', label: 'Ativo' },
+      ativo: { color: 'bg-primary/10 text-primary', label: 'Ativo' },
       inativo: { color: 'bg-gray-100 text-gray-800', label: 'Inativo' },
       pendente: { color: 'bg-orange-100 text-orange-800', label: 'Pendente' },
       bloqueado: { color: 'bg-red-100 text-red-800', label: 'Bloqueado' }
@@ -132,9 +132,9 @@ export default function UsersSection() {
 
   const getOriginBadge = (origin: string) => {
     const originConfig = {
-      orgânico: { color: 'bg-emerald-100 text-emerald-800', label: 'Orgânico' },
-      'rede social': { color: 'bg-emerald-100 text-emerald-800', label: 'Rede Social' },
-      indicação: { color: 'bg-emerald-100 text-emerald-800', label: 'Indicação' },
+      orgânico: { color: 'bg-primary/10 text-primary', label: 'Orgânico' },
+      'rede social': { color: 'bg-primary/10 text-primary', label: 'Rede Social' },
+      indicação: { color: 'bg-primary/10 text-primary', label: 'Indicação' },
       leilão: { color: 'bg-orange-100 text-orange-800', label: 'Leilão' }
     }
     const config = originConfig[origin as keyof typeof originConfig] || originConfig.orgânico
@@ -163,7 +163,7 @@ export default function UsersSection() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
                 <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-                    <User className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-800" />
+                    <User className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                     <span className="text-base sm:text-lg font-semibold">Gerenciamento de Usuários</span>
                 </CardTitle>
             </div>
@@ -233,7 +233,7 @@ export default function UsersSection() {
                 <div className="flex-1">
                   <div className="flex flex-col sm:flex-row items-start gap-4">
                     {/* Avatar */}
-                    <div className="w-12 h-12 bg-[#1E4D2B] rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">
+                    <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">
                       {user.name.charAt(0)}
                     </div>
                     
@@ -284,19 +284,19 @@ export default function UsersSection() {
                   {/* Estatísticas */}
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-4 pt-4 border-t border-gray-100">
                     <div className="text-center">
-                      <p className="text-2xl font-bold text-emerald-800">{user.adsCount}</p>
+                      <p className="text-2xl font-bold text-primary">{user.adsCount}</p>
                       <p className="text-xs text-gray-600">Anúncios</p>
                     </div>
                     <div className="text-center">
-                      <p className="text-2xl font-bold text-emerald-800">{user.auctionsCount}</p>
+                      <p className="text-2xl font-bold text-primary">{user.auctionsCount}</p>
                       <p className="text-xs text-gray-600">Leilões</p>
                     </div>
                     <div className="text-center">
-                      <p className="text-2xl font-bold text-emerald-800">{user.favoritesCount}</p>
+                      <p className="text-2xl font-bold text-primary">{user.favoritesCount}</p>
                       <p className="text-xs text-gray-600">Favoritos</p>
                     </div>
                     <div className="text-center">
-                      <p className="text-2xl font-bold text-emerald-800">{user.purchasesCount}</p>
+                      <p className="text-2xl font-bold text-primary">{user.purchasesCount}</p>
                       <p className="text-xs text-gray-600">Compras</p>
                     </div>
                   </div>
@@ -334,7 +334,7 @@ export default function UsersSection() {
                       size="sm" 
                       icon={<CheckCircle className="w-4 h-4" />}
                       text="Ativar"
-                      className="text-emerald-600 hover:text-emerald-700"
+                      className="text-primary hover:text-primary"
                       fullWidthOnMobile={true}
                     />
                   )}

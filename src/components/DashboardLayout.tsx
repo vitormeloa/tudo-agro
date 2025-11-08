@@ -34,7 +34,7 @@ interface Message {
 const DashboardLayout = ({
   children
 }: DashboardLayoutProps) => {
-  const { isAdmin, isSeller } = useAuth();
+  const { isAdmin, isSeller, user, signOut } = useAuth();
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [isHelpOpen, setIsHelpOpen] = useState(false);
@@ -358,18 +358,43 @@ const DashboardLayout = ({
             <Popover>
               <PopoverTrigger asChild>
                 <Button variant="ghost" size="icon" className="rounded-full">
-                  <div className="h-8 w-8 rounded-full bg-secondary flex items-center justify-center">
-                    <span className="text-xs font-medium">J</span>
-                  </div>
+                  {user?.avatar_url ? (
+                    <img
+                      src={user.avatar_url}
+                      alt={user.name || 'Usuário'}
+                      className="h-8 w-8 rounded-full object-cover"
+                    />
+                  ) : (
+                    <div className="h-8 w-8 rounded-full bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center">
+                      <span className="text-xs font-medium text-white">
+                        {user?.name?.charAt(0).toUpperCase() || user?.email?.charAt(0).toUpperCase() || 'U'}
+                      </span>
+                    </div>
+                  )}
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-48 z-[60]" align="end">
+              <PopoverContent className="w-56 z-[60]" align="end">
                 <div className="space-y-2">
                   <div className="px-2 py-1.5">
-                    <p className="text-sm font-medium">João</p>
-                    <p className="text-xs text-muted-foreground">joao@exemplo.com</p>
+                    <p className="text-sm font-medium truncate">{user?.name || 'Usuário'}</p>
+                    <p className="text-xs text-muted-foreground truncate">{user?.email}</p>
+                    {user?.roles && user.roles.length > 0 && (
+                      <div className="flex gap-1 mt-2 flex-wrap">
+                        {user.roles.map((role) => (
+                          <Badge key={role} variant="secondary" className="text-xs">
+                            {role === 'admin' ? 'Admin' : role === 'vendedor' ? 'Vendedor' : 'Comprador'}
+                          </Badge>
+                        ))}
+                      </div>
+                    )}
                   </div>
-                  <div className="border-t pt-2">
+                  <div className="border-t pt-2 space-y-1">
+                    <Link href="/perfil" className="block">
+                      <Button variant="ghost" className="w-full justify-start gap-2">
+                        <User className="h-4 w-4" />
+                        Meu Perfil
+                      </Button>
+                    </Link>
                     <Button variant="ghost"
                             onClick={async () => {
                                 try {
@@ -489,14 +514,14 @@ const DashboardLayout = ({
 
       {/* AI Chat Sheet */}
       <Sheet open={isAIChatOpen} onOpenChange={setIsAIChatOpen}>
-        <SheetContent side="right" className="w-full sm:max-w-md p-0 z-[60] bg-gradient-to-b from-background to-[#1E4D2B]/5 [&>button]:hidden">
+        <SheetContent side="right" className="w-full sm:max-w-md p-0 z-[60] bg-gradient-to-b from-background to-primary/5 [&>button]:hidden">
           <div className="flex flex-col h-full">
             {/* Header */}
-            <div className="relative border-b bg-gradient-to-br from-background to-[#1E4D2B]/5 overflow-hidden">
+            <div className="relative border-b bg-gradient-to-br from-background to-primary/5 overflow-hidden">
               {/* Tech pattern overlay */}
               <div className="absolute inset-0 opacity-5">
                 <div className="absolute inset-0" style={{
-                  backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 10px, #1E4D2B 10px, #1E4D2B 11px)`,
+                  backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 10px, hsl(var(--primary)) 10px, hsl(var(--primary)) 11px)`,
                 }} />
               </div>
 
@@ -505,18 +530,18 @@ const DashboardLayout = ({
                   <div className="flex items-center gap-3">
                     <div className="relative">
                       <AgroIAAvatar size="md" />
-                      <div className="absolute inset-0 rounded-full border-2 border-[#1E4D2B]/30 animate-ping" />
+                      <div className="absolute inset-0 rounded-full border-2 border-primary/30 animate-ping" />
                     </div>
-                    
+
                     <div className="flex-1">
                       <div className="flex items-center gap-2">
-                        <h2 className="text-xl font-bold bg-gradient-to-r from-[#1E4D2B] to-[#8FBC6D] bg-clip-text text-transparent">
+                        <h2 className="text-xl font-bold bg-gradient-to-r from-primary via-primary to-primary/70 bg-clip-text text-transparent">
                           AgroIA
                         </h2>
-                        <Sparkles className="h-4 w-4 text-[#8FBC6D] animate-pulse" />
+                        <Sparkles className="h-4 w-4 text-primary/70 animate-pulse" />
                       </div>
                       <div className="flex items-center gap-2 mt-1">
-                        <Badge className="bg-gradient-to-r from-[#1E4D2B] to-[#8FBC6D] text-white text-xs">
+                        <Badge className="bg-gradient-to-r from-primary to-primary/80 text-white text-xs">
                           <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse mr-1.5" />
                           Online
                         </Badge>
@@ -532,7 +557,7 @@ const DashboardLayout = ({
               </div>
 
               {/* Animated border */}
-              <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#8FBC6D] to-transparent animate-pulse" />
+              <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary/70 to-transparent animate-pulse" />
             </div>
 
             {/* Chat Messages */}
@@ -544,7 +569,7 @@ const DashboardLayout = ({
                   <div className="max-w-[85%]">
                     <div className="bg-muted/50 rounded-2xl rounded-tl-none p-4 shadow-sm">
                       <p className="text-sm">
-                        Olá 👋, eu sou a <span className="font-semibold text-emerald-800">AgroIA</span>!
+                        Olá 👋, eu sou a <span className="font-semibold text-primary">AgroIA</span>!
                       </p>
                       <p className="text-sm mt-2">Estou aqui para ajudar com suas dúvidas sobre compras, vendedores e funcionalidades da plataforma.</p>
                     </div>
@@ -565,7 +590,7 @@ const DashboardLayout = ({
                     <div
                       className={`rounded-2xl p-3 shadow-sm ${
                         msg.sender === "user"
-                          ? "bg-[#1E4D2B] text-white rounded-tr-none ml-auto"
+                          ? "bg-primary text-white rounded-tr-none ml-auto"
                           : "bg-muted/50 rounded-tl-none"
                       }`}
                     >
@@ -591,8 +616,8 @@ const DashboardLayout = ({
                   </div>
 
                   {msg.sender === "user" && (
-                    <div className="h-8 w-8 rounded-full bg-[#8FBC6D]/20 flex items-center justify-center flex-shrink-0">
-                      <User className="h-4 w-4 text-emerald-800" />
+                    <div className="h-8 w-8 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                      <User className="h-4 w-4 text-primary" />
                     </div>
                   )}
                 </div>
@@ -642,7 +667,7 @@ const DashboardLayout = ({
                 <Button
                   onClick={handleSendAIMessage}
                   size="icon"
-                  className="rounded-full bg-[#1E4D2B] hover:bg-[#1E4D2B]/90 h-10 w-10 flex-shrink-0"
+                  className="rounded-full bg-primary hover:bg-primary/90 h-10 w-10 flex-shrink-0"
                 >
                   <Send className="h-4 w-4" />
                 </Button>

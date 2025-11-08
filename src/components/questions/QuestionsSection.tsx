@@ -80,7 +80,7 @@ export default function QuestionsSection({ questions, sellerName }: QuestionsSec
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <h2 className="text-xl sm:text-2xl font-bold text-[#101828] flex items-center gap-2">
-            <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600 flex-shrink-0" />
+            <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
             Perguntas e Respostas
           </h2>
           <p className="text-sm text-gray-600 mt-1">
@@ -91,7 +91,7 @@ export default function QuestionsSection({ questions, sellerName }: QuestionsSec
         {!showQuestionForm && (
           <Button
             onClick={() => setShowQuestionForm(true)}
-            className="w-full sm:w-auto bg-emerald-600 hover:bg-[#2E7A5A] text-white text-sm sm:text-base"
+            className="w-full sm:w-auto bg-primary hover:bg-[#2E7A5A] text-white text-sm sm:text-base"
           >
             <MessageCircle className="w-4 h-4 mr-2 flex-shrink-0" />
             Fazer uma pergunta
@@ -101,7 +101,7 @@ export default function QuestionsSection({ questions, sellerName }: QuestionsSec
 
       {/* Formulário de Nova Pergunta */}
       {showQuestionForm && (
-        <Card className="border-2 border-emerald-200 bg-emerald-50/50">
+        <Card className="border-2 border-primary/20 bg-primary/5/50">
           <CardContent className="p-4 sm:p-6">
             <form onSubmit={handleSubmitQuestion} className="space-y-4">
               <div>
@@ -112,7 +112,7 @@ export default function QuestionsSection({ questions, sellerName }: QuestionsSec
                   value={newQuestion}
                   onChange={(e) => setNewQuestion(e.target.value)}
                   placeholder="Ex: O produto tem garantia? Qual o prazo de entrega?"
-                  className="min-h-[100px] border-2 border-gray-200 focus:border-emerald-500"
+                  className="min-h-[100px] border-2 border-gray-200 focus:border-primary"
                   disabled={isSubmitting}
                 />
                 <p className="text-xs text-gray-500 mt-2">
@@ -124,7 +124,7 @@ export default function QuestionsSection({ questions, sellerName }: QuestionsSec
                 <Button
                   type="submit"
                   disabled={isSubmitting || !newQuestion.trim()}
-                  className="bg-emerald-600 hover:bg-[#2E7A5A] text-white"
+                  className="bg-primary hover:bg-[#2E7A5A] text-white"
                 >
                   {isSubmitting ? (
                     <>
@@ -185,8 +185,8 @@ export default function QuestionsSection({ questions, sellerName }: QuestionsSec
                         className="w-10 h-10 rounded-full"
                       />
                     ) : (
-                      <div className="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center">
-                        <User className="w-5 h-5 text-emerald-600" />
+                      <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
+                        <User className="w-5 h-5 text-primary" />
                       </div>
                     )}
                   </div>
@@ -201,11 +201,11 @@ export default function QuestionsSection({ questions, sellerName }: QuestionsSec
 
                 {/* Resposta */}
                 {question.answer && (
-                  <div className="ml-0 sm:ml-14 pl-3 sm:pl-4 border-l-3 sm:border-l-4 border-emerald-500 bg-emerald-50/50 rounded-r-lg p-3 sm:p-4">
+                  <div className="ml-0 sm:ml-14 pl-3 sm:pl-4 border-l-3 sm:border-l-4 border-primary bg-primary/5/50 rounded-r-lg p-3 sm:p-4">
                     <div className="flex flex-wrap items-center gap-2 mb-2">
-                      <CheckCircle className="w-4 h-4 text-emerald-600 flex-shrink-0" />
-                      <span className="font-semibold text-sm sm:text-base text-emerald-900">{question.answeredBy}</span>
-                      <Badge className="bg-emerald-600 text-white text-xs">Vendedor</Badge>
+                      <CheckCircle className="w-4 h-4 text-primary flex-shrink-0" />
+                      <span className="font-semibold text-sm sm:text-base text-primary">{question.answeredBy}</span>
+                      <Badge className="bg-primary text-white text-xs">Vendedor</Badge>
                       {question.answeredAt && (
                         <span className="text-xs text-gray-600">• {formatDate(question.answeredAt)}</span>
                       )}
@@ -216,7 +216,7 @@ export default function QuestionsSection({ questions, sellerName }: QuestionsSec
 
                 {/* Footer com likes */}
                 <div className="flex flex-wrap items-center gap-2 sm:gap-4 mt-4 ml-0 sm:ml-14">
-                  <button className="flex items-center gap-1 text-xs sm:text-sm text-gray-600 hover:text-emerald-600 transition-colors">
+                  <button className="flex items-center gap-1 text-xs sm:text-sm text-gray-600 hover:text-primary transition-colors">
                     <ThumbsUp className="w-4 h-4 flex-shrink-0" />
                     <span>{question.likes}</span>
                   </button>
@@ -241,8 +241,8 @@ export default function QuestionsSection({ questions, sellerName }: QuestionsSec
                         className="w-10 h-10 rounded-full"
                       />
                     ) : (
-                      <div className="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center">
-                        <User className="w-5 h-5 text-emerald-600" />
+                      <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
+                        <User className="w-5 h-5 text-primary" />
                       </div>
                     )}
                   </div>
@@ -256,7 +256,7 @@ export default function QuestionsSection({ questions, sellerName }: QuestionsSec
 
                     {/* Footer com likes */}
                     <div className="flex flex-wrap items-center gap-2 sm:gap-4 mt-3">
-                      <button className="flex items-center gap-1 text-xs sm:text-sm text-gray-600 hover:text-emerald-600 transition-colors">
+                      <button className="flex items-center gap-1 text-xs sm:text-sm text-gray-600 hover:text-primary transition-colors">
                         <ThumbsUp className="w-4 h-4 flex-shrink-0" />
                         <span>{question.likes}</span>
                       </button>

@@ -106,7 +106,7 @@ export default function DashboardVendas() {
       trend: "-2",
       icon: RotateCcw,
       color: "text-destructive",
-      trendColor: "text-emerald-600",
+      trendColor: "text-primary",
     },
   ];
 
@@ -257,7 +257,7 @@ export default function DashboardVendas() {
               <div className="text-2xl font-bold">{kpi.value}</div>
               {kpi.trend && (
                 <p className="text-xs text-muted-foreground mt-1">
-                  <span className={kpi.trendColor || "text-emerald-600"}>{kpi.trend}</span> vs mês
+                  <span className={kpi.trendColor || "text-primary"}>{kpi.trend}</span> vs mês
                   anterior
                 </p>
               )}

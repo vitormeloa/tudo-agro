@@ -37,8 +37,8 @@ export default function RevenueChart() {
             type="monotone" 
             dataKey="receita" 
             stackId="1" 
-            stroke="#1E4D2B" 
-            fill="#1E4D2B" 
+            stroke="#0A9965" 
+            fill="#0A9965" 
             fillOpacity={0.6}
             name="receita"
           />

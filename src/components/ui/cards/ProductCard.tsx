@@ -91,7 +91,7 @@ export default function ProductCard({
                             DESTAQUE
                         </Badge>
                     )}
-                    <Badge className="bg-emerald-600 text-white">
+                    <Badge className="bg-primary text-white">
                         {product.category}
                     </Badge>
                 </div>
@@ -99,7 +99,7 @@ export default function ProductCard({
                 {/* Verified Badge */}
                 {product.verified && (
                     <div className="absolute bottom-4 left-4">
-                        <Badge variant="secondary" className="bg-emerald-100 text-emerald-800 border-emerald-200">
+                        <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20">
                             <Shield className="w-3 h-3 mr-1" />
                             VERIFICADO
                         </Badge>
@@ -164,7 +164,7 @@ export default function ProductCard({
 
                 {/* Price */}
                 <div className="flex justify-between items-center mb-4">
-          <span className="text-2xl font-bold text-emerald-600">
+          <span className="text-2xl font-bold text-primary">
             R$ {formatPrice(product.price)}
           </span>
                 </div>
@@ -178,7 +178,7 @@ export default function ProductCard({
                 {showActions && (
                     <div className="flex gap-2">
                         <Link href={linkTo || (product.type === 'animal' ? `/catalogo/${product.id}` : `/produtos/${product.id}`)} className="flex-1">
-                            <Button className="w-full bg-emerald-600 hover:bg-[#2E7A5A] text-white">
+                            <Button className="w-full bg-primary hover:bg-[#2E7A5A] text-white">
                                 <Eye className="w-4 h-4 mr-2" />
                                 Ver Detalhes
                             </Button>

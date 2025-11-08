@@ -27,14 +27,14 @@ export const HelpCenterModal = ({ open, onOpenChange }: HelpCenterModalProps) =>
             <Card className="hover:shadow-md transition-shadow cursor-pointer">
               <CardContent className="p-6">
                 <div className="flex flex-col items-center text-center gap-3">
-                  <div className="h-12 w-12 rounded-full bg-[#1E4D2B]/10 flex items-center justify-center">
-                    <MessageCircle className="h-6 w-6 text-emerald-800" />
+                  <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
+                    <MessageCircle className="h-6 w-6 text-primary" />
                   </div>
                   <h3 className="font-semibold">Chat ao Vivo</h3>
                   <p className="text-sm text-muted-foreground">
                     Fale com nosso time em tempo real
                   </p>
-                  <Button className="w-full bg-[#1E4D2B] hover:bg-[#1E4D2B]/90">
+                  <Button className="w-full bg-primary hover:bg-primary/90">
                     Iniciar Chat
                   </Button>
                 </div>
@@ -44,8 +44,8 @@ export const HelpCenterModal = ({ open, onOpenChange }: HelpCenterModalProps) =>
             <Card className="hover:shadow-md transition-shadow cursor-pointer">
               <CardContent className="p-6">
                 <div className="flex flex-col items-center text-center gap-3">
-                  <div className="h-12 w-12 rounded-full bg-[#1E4D2B]/10 flex items-center justify-center">
-                    <Mail className="h-6 w-6 text-emerald-800" />
+                  <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
+                    <Mail className="h-6 w-6 text-primary" />
                   </div>
                   <h3 className="font-semibold">E-mail</h3>
                   <p className="text-sm text-muted-foreground">
@@ -61,8 +61,8 @@ export const HelpCenterModal = ({ open, onOpenChange }: HelpCenterModalProps) =>
             <Card className="hover:shadow-md transition-shadow cursor-pointer">
               <CardContent className="p-6">
                 <div className="flex flex-col items-center text-center gap-3">
-                  <div className="h-12 w-12 rounded-full bg-[#1E4D2B]/10 flex items-center justify-center">
-                    <Phone className="h-6 w-6 text-emerald-800" />
+                  <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
+                    <Phone className="h-6 w-6 text-primary" />
                   </div>
                   <h3 className="font-semibold">Telefone</h3>
                   <p className="text-sm text-muted-foreground">
@@ -78,8 +78,8 @@ export const HelpCenterModal = ({ open, onOpenChange }: HelpCenterModalProps) =>
             <Card className="hover:shadow-md transition-shadow cursor-pointer">
               <CardContent className="p-6">
                 <div className="flex flex-col items-center text-center gap-3">
-                  <div className="h-12 w-12 rounded-full bg-[#1E4D2B]/10 flex items-center justify-center">
-                    <HelpCircle className="h-6 w-6 text-emerald-800" />
+                  <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
+                    <HelpCircle className="h-6 w-6 text-primary" />
                   </div>
                   <h3 className="font-semibold">FAQ</h3>
                   <p className="text-sm text-muted-foreground">

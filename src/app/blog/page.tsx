@@ -139,7 +139,7 @@ export default function BlogPage() {
       
       {/* Hero Section */}
       <section className="relative pt-16 pb-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald-600 via-emerald-600 to-emerald-700"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-primary/90"></div>
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="absolute inset-0 opacity-40">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.15)_1px,transparent_0)] bg-[length:20px_20px]"></div>
@@ -169,7 +169,7 @@ export default function BlogPage() {
         {/* Posts Grid */}
         {loading ? (
           <div className="flex items-center justify-center py-20">
-            <Loader2 className="w-8 h-8 animate-spin text-emerald-600" />
+            <Loader2 className="w-8 h-8 animate-spin text-primary" />
           </div>
         ) : posts.length === 0 ? (
           <div className="text-center py-20">
@@ -211,10 +211,10 @@ export default function BlogPage() {
             <Button variant="outline" disabled className="border-gray-300 text-gray-400">
               Anterior
             </Button>
-            <Button className="bg-emerald-600 text-white">1</Button>
-            <Button variant="outline" className="border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white">2</Button>
-            <Button variant="outline" className="border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white">3</Button>
-            <Button variant="outline" className="border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white">
+            <Button className="bg-primary text-white">1</Button>
+            <Button variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white">2</Button>
+            <Button variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white">3</Button>
+            <Button variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white">
               Próximo
             </Button>
           </div>

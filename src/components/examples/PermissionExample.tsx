@@ -32,7 +32,7 @@ export default function PermissionExample() {
 
   return (
     <div className="space-y-6 p-6">
-      <h1 className="text-3xl font-bold text-emerald-800">
+      <h1 className="text-3xl font-bold text-primary">
         Exemplo de Sistema de Permissões
       </h1>
 
@@ -55,7 +55,7 @@ export default function PermissionExample() {
             </div>
             
             <div className="text-center">
-              <div className={`p-3 rounded-lg ${isSeller() ? 'bg-emerald-100 text-emerald-600' : 'bg-gray-100 text-gray-600'}`}>
+              <div className={`p-3 rounded-lg ${isSeller() ? 'bg-primary/10 text-primary' : 'bg-gray-100 text-gray-600'}`}>
                 <Package className="h-6 w-6 mx-auto mb-2" />
                 <div className="font-medium">Vendedor</div>
                 <div className="text-sm">{isSeller() ? 'Sim' : 'Não'}</div>
@@ -63,7 +63,7 @@ export default function PermissionExample() {
             </div>
             
             <div className="text-center">
-              <div className={`p-3 rounded-lg ${isBuyer() ? 'bg-emerald-100 text-emerald-600' : 'bg-gray-100 text-gray-600'}`}>
+              <div className={`p-3 rounded-lg ${isBuyer() ? 'bg-primary/10 text-primary' : 'bg-gray-100 text-gray-600'}`}>
                 <CreditCard className="h-6 w-6 mx-auto mb-2" />
                 <div className="font-medium">Comprador</div>
                 <div className="text-sm">{isBuyer() ? 'Sim' : 'Não'}</div>
@@ -101,7 +101,7 @@ export default function PermissionExample() {
         >
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-emerald-600">
+              <CardTitle className="flex items-center gap-2 text-primary">
                 <Users className="h-5 w-5" />
                 Gerenciar Usuários
               </CardTitle>
@@ -110,7 +110,7 @@ export default function PermissionExample() {
               <p className="text-sm text-gray-600 mb-4">
                 Você tem acesso completo à gestão de usuários.
               </p>
-              <Button className="bg-[#1E4D2B] hover:bg-[#163B20]">
+              <Button className="bg-primary hover:bg-[#163B20]">
                 Acessar Painel
               </Button>
             </CardContent>
@@ -133,7 +133,7 @@ export default function PermissionExample() {
         >
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-emerald-600">
+              <CardTitle className="flex items-center gap-2 text-primary">
                 <Package className="h-5 w-5" />
                 Gerenciar Produtos
               </CardTitle>
@@ -158,26 +158,26 @@ export default function PermissionExample() {
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             <PermissionShow permission="user:read">
-              <div className="p-4 border rounded-lg bg-emerald-50">
-                <Users className="h-6 w-6 text-emerald-600 mb-2" />
-                <div className="font-medium text-emerald-800">Ver Usuários</div>
-                <div className="text-sm text-emerald-600">Você pode visualizar usuários</div>
+              <div className="p-4 border rounded-lg bg-primary/5">
+                <Users className="h-6 w-6 text-primary mb-2" />
+                <div className="font-medium text-primary">Ver Usuários</div>
+                <div className="text-sm text-primary">Você pode visualizar usuários</div>
               </div>
             </PermissionShow>
 
             <PermissionShow permission="product:write">
               <div className="p-4 border rounded-lg bg-blue-50">
-                <Package className="h-6 w-6 text-emerald-600 mb-2" />
-                <div className="font-medium text-emerald-800">Criar Produtos</div>
-                <div className="text-sm text-emerald-600">Você pode criar produtos</div>
+                <Package className="h-6 w-6 text-primary mb-2" />
+                <div className="font-medium text-primary">Criar Produtos</div>
+                <div className="text-sm text-primary">Você pode criar produtos</div>
               </div>
             </PermissionShow>
 
             <PermissionShow permission="auction:read">
               <div className="p-4 border rounded-lg bg-purple-50">
-                <Gavel className="h-6 w-6 text-emerald-600 mb-2" />
-                <div className="font-medium text-emerald-800">Ver Leilões</div>
-                <div className="text-sm text-emerald-600">Você pode visualizar leilões</div>
+                <Gavel className="h-6 w-6 text-primary mb-2" />
+                <div className="font-medium text-primary">Ver Leilões</div>
+                <div className="text-sm text-primary">Você pode visualizar leilões</div>
               </div>
             </PermissionShow>
 
@@ -191,17 +191,17 @@ export default function PermissionExample() {
 
             <PermissionShow permission="message:write">
               <div className="p-4 border rounded-lg bg-indigo-50">
-                <MessageSquare className="h-6 w-6 text-emerald-600 mb-2" />
-                <div className="font-medium text-emerald-800">Enviar Mensagens</div>
-                <div className="text-sm text-emerald-600">Você pode enviar mensagens</div>
+                <MessageSquare className="h-6 w-6 text-primary mb-2" />
+                <div className="font-medium text-primary">Enviar Mensagens</div>
+                <div className="text-sm text-primary">Você pode enviar mensagens</div>
               </div>
             </PermissionShow>
 
             <PermissionShow permission="review:write">
               <div className="p-4 border rounded-lg bg-pink-50">
-                <Star className="h-6 w-6 text-emerald-600 mb-2" />
-                <div className="font-medium text-emerald-800">Avaliar Produtos</div>
-                <div className="text-sm text-emerald-600">Você pode avaliar produtos</div>
+                <Star className="h-6 w-6 text-primary mb-2" />
+                <div className="font-medium text-primary">Avaliar Produtos</div>
+                <div className="text-sm text-primary">Você pode avaliar produtos</div>
               </div>
             </PermissionShow>
           </div>
@@ -272,12 +272,12 @@ export default function PermissionExample() {
           </PermissionHide>
 
           <PermissionShow role="admin">
-            <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-lg">
-              <div className="flex items-center gap-2 text-emerald-800">
+            <div className="p-4 bg-primary/5 border border-primary/20 rounded-lg">
+              <div className="flex items-center gap-2 text-primary">
                 <Shield className="h-5 w-5" />
                 <div className="font-medium">Acesso Completo</div>
               </div>
-              <p className="text-sm text-emerald-700 mt-1">
+              <p className="text-sm text-primary mt-1">
                 Você tem acesso completo a todas as funcionalidades do sistema.
               </p>
             </div>

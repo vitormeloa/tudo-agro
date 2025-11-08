@@ -229,10 +229,10 @@ export default function BlogPostPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-emerald-50">
+      <div className="min-h-screen bg-gradient-to-br from-primary/5 via-white to-primary/5">
         <Header />
         <div className="flex items-center justify-center py-40">
-          <Loader2 className="w-8 h-8 animate-spin text-emerald-600" />
+          <Loader2 className="w-8 h-8 animate-spin text-primary" />
         </div>
         <Footer />
       </div>
@@ -263,7 +263,7 @@ export default function BlogPostPage() {
         {/* Back Button */}
         <Link
           href="/blog"
-          className="inline-flex items-center gap-2 text-emerald-600 hover:text-emerald-700 mb-6 transition-colors"
+          className="inline-flex items-center gap-2 text-primary hover:text-primary mb-6 transition-colors"
         >
           <ArrowLeft className="w-5 h-5" />
           <span className="font-medium">Voltar para o blog</span>
@@ -334,13 +334,13 @@ export default function BlogPostPage() {
               size="sm"
               className={cn(
                 "gap-2",
-                isSaved && "bg-emerald-50 border-emerald-200"
+                isSaved && "bg-primary/5 border-primary/20"
               )}
             >
               <Bookmark
                 className={cn(
                   "w-4 h-4",
-                  isSaved && "fill-emerald-600 text-emerald-600"
+                  isSaved && "fill-primary text-primary"
                 )}
               />
               {isSaved ? 'Salvo' : 'Salvar'}
@@ -359,7 +359,7 @@ export default function BlogPostPage() {
 
         {/* Excerpt */}
         {post.excerpt && (
-          <div className="bg-emerald-50 border-l-4 border-emerald-600 p-4 mb-8 rounded-r-lg">
+          <div className="bg-primary/5 border-l-4 border-primary p-4 mb-8 rounded-r-lg">
             <p className="text-lg text-gray-700 italic">{post.excerpt}</p>
           </div>
         )}

@@ -195,11 +195,11 @@ const MinhasCompras = () => {
       },
       "Em transporte": { 
         variant: "default" as const, 
-        className: "bg-emerald-100 text-emerald-800 dark:bg-blue-900/30 dark:text-blue-200 border-blue-200 dark:border-blue-800" 
+        className: "bg-primary/10 text-primary dark:bg-blue-900/30 dark:text-blue-200 border-blue-200 dark:border-blue-800" 
       },
       "Entregue": { 
         variant: "success" as const, 
-        className: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-200 border-emerald-200 dark:border-emerald-800" 
+        className: "bg-primary/10 text-primary dark:bg-primary/30 dark:text-primary/30 border-primary/20 dark:border-primary" 
       },
       "Cancelado": { 
         variant: "destructive" as const, 

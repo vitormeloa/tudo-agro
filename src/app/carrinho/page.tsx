@@ -71,7 +71,7 @@ export default function CarrinhoPage() {
         <Header />
         <div className="flex items-center justify-center min-h-[60vh]">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-600 mx-auto mb-4"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
             <p className="text-gray-600">Carregando carrinho...</p>
           </div>
         </div>
@@ -87,7 +87,7 @@ export default function CarrinhoPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="mb-6">
-          <Link href="/produtos" className="inline-flex items-center text-gray-600 hover:text-emerald-600 mb-4">
+          <Link href="/produtos" className="inline-flex items-center text-gray-600 hover:text-primary mb-4">
             <ArrowLeft className="w-4 h-4 mr-2" />
             Continuar comprando
           </Link>
@@ -120,7 +120,7 @@ export default function CarrinhoPage() {
                 Adicione produtos ao carrinho para continuar comprando
               </p>
               <Link href="/produtos">
-                <Button className="bg-emerald-600 hover:bg-[#2E7A5A] text-white">
+                <Button className="bg-primary hover:bg-[#2E7A5A] text-white">
                   Ver Produtos
                 </Button>
               </Link>
@@ -153,7 +153,7 @@ export default function CarrinhoPage() {
                         <div className="flex-1">
                           <Link 
                             href={item.type === 'product' ? `/produtos/${item.id}` : `/catalogo/${item.id}`}
-                            className="hover:text-emerald-600 transition-colors"
+                            className="hover:text-primary transition-colors"
                           >
                             <h3 className="text-base sm:text-lg font-semibold text-[#101828] mb-1">
                               {item.title}
@@ -169,7 +169,7 @@ export default function CarrinhoPage() {
                             </p>
                           )}
                           <div className="mt-2">
-                            <span className="text-xl sm:text-2xl font-bold text-emerald-600">
+                            <span className="text-xl sm:text-2xl font-bold text-primary">
                               R$ {item.price.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                             </span>
                             {item.quantity > 1 && (
@@ -253,7 +253,7 @@ export default function CarrinhoPage() {
                   <div className="border-t border-gray-200 pt-4 mb-4">
                     <div className="flex justify-between items-center mb-2">
                       <span className="text-base font-semibold text-[#101828]">Total</span>
-                      <span className="text-2xl font-bold text-emerald-600">
+                      <span className="text-2xl font-bold text-primary">
                         R$ {getTotal().toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </span>
                     </div>
@@ -265,7 +265,7 @@ export default function CarrinhoPage() {
                   {/* Botão de Finalizar */}
                   <Button
                     onClick={handleCheckout}
-                    className="w-full bg-emerald-600 hover:bg-[#2E7A5A] text-white py-6 text-lg font-semibold mb-4"
+                    className="w-full bg-primary hover:bg-[#2E7A5A] text-white py-6 text-lg font-semibold mb-4"
                     disabled={items.length === 0}
                   >
                     <CreditCard className="w-5 h-5 mr-2" />
@@ -281,15 +281,15 @@ export default function CarrinhoPage() {
                   {/* Benefícios */}
                   <div className="space-y-2 pt-4 border-t border-gray-200">
                     <div className="flex items-start gap-2 text-sm text-gray-600">
-                      <Truck className="w-4 h-4 text-emerald-600 mt-0.5 flex-shrink-0" />
+                      <Truck className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
                       <span>Frete grátis acima de R$ 500</span>
                     </div>
                     <div className="flex items-start gap-2 text-sm text-gray-600">
-                      <Shield className="w-4 h-4 text-emerald-600 mt-0.5 flex-shrink-0" />
+                      <Shield className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
                       <span>Produtos verificados e garantidos</span>
                     </div>
                     <div className="flex items-start gap-2 text-sm text-gray-600">
-                      <CheckCircle className="w-4 h-4 text-emerald-600 mt-0.5 flex-shrink-0" />
+                      <CheckCircle className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
                       <span>Entrega rápida e segura</span>
                     </div>
                   </div>

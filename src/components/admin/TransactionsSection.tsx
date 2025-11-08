@@ -51,9 +51,9 @@ export default function TransactionsSection() {
 
   const getStatusBadge = (status: string) => {
     const config = {
-      aprovado: { color: 'bg-emerald-100 text-emerald-800', icon: CheckCircle },
+      aprovado: { color: 'bg-primary/10 text-primary', icon: CheckCircle },
       pendente: { color: 'bg-orange-100 text-orange-800', icon: Clock },
-      pago: { color: 'bg-emerald-100 text-emerald-800', icon: CheckCircle },
+      pago: { color: 'bg-primary/10 text-primary', icon: CheckCircle },
       recusado: { color: 'bg-red-100 text-red-800', icon: XCircle }
     }
     const { color, icon: Icon } = config[status as keyof typeof config] || config.pendente
@@ -72,7 +72,7 @@ export default function TransactionsSection() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
                 <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-                    <CreditCard className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-800" />
+                    <CreditCard className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                     <span className="text-base sm:text-lg font-semibold">Gerenciamento de Transações</span>
                 </CardTitle>
             </div>
@@ -103,7 +103,7 @@ export default function TransactionsSection() {
                         </div>
                         <div>
                           <p className="font-medium">Valor:</p>
-                          <p className="text-sm sm:text-lg font-bold text-emerald-800 break-words">{transaction.amount}</p>
+                          <p className="text-sm sm:text-lg font-bold text-primary break-words">{transaction.amount}</p>
                         </div>
                         <div>
                           <p className="font-medium">Método:</p>
@@ -123,7 +123,7 @@ export default function TransactionsSection() {
                         <span className="sm:hidden">Ver</span>
                       </Button>
                       {transaction.status === 'pendente' && (
-                        <Button size="sm" className="bg-emerald-600 hover:bg-[#2E7A5A] text-xs sm:text-sm">
+                        <Button size="sm" className="bg-primary hover:bg-[#2E7A5A] text-xs sm:text-sm">
                           <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
                           <span className="hidden sm:inline">Aprovar</span>
                           <span className="sm:hidden">Aprovar</span>

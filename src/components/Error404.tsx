@@ -58,9 +58,9 @@ export default function Error404({
       <div className="max-w-md w-full text-center">
         {/* Ícone de erro */}
         <div className="mb-8">
-          <div className="mx-auto w-24 h-24 bg-emerald-100 rounded-full flex items-center justify-center">
+          <div className="mx-auto w-24 h-24 bg-primary/10 rounded-full flex items-center justify-center">
             <svg 
-              className="w-12 h-12 text-emerald-600" 
+              className="w-12 h-12 text-primary" 
               fill="none" 
               stroke="currentColor" 
               viewBox="0 0 24 24"
@@ -76,7 +76,7 @@ export default function Error404({
         </div>
 
         {/* Título */}
-        <h1 className="text-3xl font-bold text-emerald-800 mb-4">
+        <h1 className="text-3xl font-bold text-primary mb-4">
           {title}
         </h1>
 
@@ -86,8 +86,8 @@ export default function Error404({
         </p>
 
         {/* Informações adicionais */}
-        <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-4 mb-8">
-          <p className="text-sm text-emerald-800">
+        <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 mb-8">
+          <p className="text-sm text-primary">
             <strong>Dica:</strong> Verifique se o endereço está correto ou navegue pelo menu principal.
           </p>
         </div>
@@ -96,14 +96,14 @@ export default function Error404({
         <div className="space-y-4">
           <Link
             href="/"
-            className="w-full bg-[#1E4D2B] text-white px-6 py-3 rounded-lg font-medium hover:bg-[#163B20] transition-colors duration-200 inline-block"
+            className="w-full bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-[#163B20] transition-colors duration-200 inline-block"
           >
             Voltar ao Início
           </Link>
           
           <Link
             href="/catalogo"
-            className="w-full bg-transparent border-2 border-[#1E4D2B] text-emerald-800 px-6 py-3 rounded-lg font-medium hover:bg-[#1E4D2B] hover:text-white transition-colors duration-200 inline-block"
+            className="w-full bg-transparent border-2 border-primary text-primary px-6 py-3 rounded-lg font-medium hover:bg-primary hover:text-white transition-colors duration-200 inline-block"
           >
             Explorar Catálogo
           </Link>
@@ -111,7 +111,7 @@ export default function Error404({
           {showBackButton && (
             <Link
               href="/"
-              className="w-full text-gray-600 hover:text-emerald-800 transition-colors duration-200 inline-block"
+              className="w-full text-gray-600 hover:text-primary transition-colors duration-200 inline-block"
             >
               ← Voltar para Homepage
             </Link>
@@ -123,7 +123,7 @@ export default function Error404({
           <div className="mt-8 text-sm text-gray-600">
             <p>
               Redirecionando automaticamente para a homepage em{' '}
-              <span className="font-bold text-emerald-800">{countdown}</span> segundos...
+              <span className="font-bold text-primary">{countdown}</span> segundos...
             </p>
           </div>
         )}

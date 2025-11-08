@@ -172,7 +172,7 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
                 <Button
                   size="sm"
                   variant="ghost"
-                  className="bg-white/90 hover:bg-white text-gray-700 hover:text-emerald-700 transition-colors p-1.5 sm:p-2 h-auto"
+                  className="bg-white/90 hover:bg-white text-gray-700 hover:text-primary transition-colors p-1.5 sm:p-2 h-auto"
                 >
                   <Share2 className="w-4 h-4 sm:w-5 sm:h-5" />
                 </Button>
@@ -218,7 +218,7 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
                 <span>{animal.city}, {animal.location}</span>
               </div>
 
-              <div className="text-3xl sm:text-4xl font-bold text-emerald-600 mb-4 sm:mb-6">
+              <div className="text-3xl sm:text-4xl font-bold text-primary mb-4 sm:mb-6">
                 R$ {animal.price.toLocaleString()}
               </div>
             </div>
@@ -229,28 +229,28 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
                 <h3 className="text-lg sm:text-xl font-bold text-[#101828] mb-4">Especificações</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   <div className="flex items-center gap-2 sm:gap-3">
-                    <Award className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600 flex-shrink-0" />
+                    <Award className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
                     <div>
                       <div className="text-xs sm:text-sm text-gray-500">Raça</div>
                       <div className="font-medium text-sm sm:text-base text-[#101828]">{animal.breed}</div>
                     </div>
                   </div>
                   <div className="flex items-center gap-2 sm:gap-3">
-                    <Calendar className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600 flex-shrink-0" />
+                    <Calendar className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
                     <div>
                       <div className="text-xs sm:text-sm text-gray-500">Idade</div>
                       <div className="font-medium text-sm sm:text-base text-[#101828]">{animal.age}</div>
                     </div>
                   </div>
                   <div className="flex items-center gap-2 sm:gap-3">
-                    <Weight className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600 flex-shrink-0" />
+                    <Weight className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
                     <div>
                       <div className="text-xs sm:text-sm text-gray-500">Peso</div>
                       <div className="font-medium text-sm sm:text-base text-[#101828]">{animal.weight}</div>
                     </div>
                   </div>
                   <div className="flex items-center gap-2 sm:gap-3">
-                    <Ruler className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600 flex-shrink-0" />
+                    <Ruler className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
                     <div>
                       <div className="text-xs sm:text-sm text-gray-500">Altura</div>
                       <div className="font-medium text-sm sm:text-base text-[#101828]">{animal.height}</div>
@@ -367,7 +367,7 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
                     {animal.documents.map((doc, index) => (
                       <div key={index} className="flex items-center p-3 sm:p-4 bg-gray-50 rounded-lg border border-gray-200">
-                        <Shield className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600 mr-2 sm:mr-3 flex-shrink-0" />
+                        <Shield className="w-4 h-4 sm:w-5 sm:h-5 text-primary mr-2 sm:mr-3 flex-shrink-0" />
                         <span className="text-sm sm:text-base text-[#101828] break-words">{doc}</span>
                       </div>
                     ))}

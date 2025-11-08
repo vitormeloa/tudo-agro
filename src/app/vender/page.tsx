@@ -209,7 +209,7 @@ export default function VenderPage() {
 
       {/* Hero Section */}
       <section className="relative pt-20 pb-16 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 via-white to-emerald-50"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-white to-primary/5"></div>
         <div className="absolute inset-0 opacity-40">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(5,150,105,0.15)_1px,transparent_0)] bg-[length:20px_20px]"></div>
         </div>
@@ -219,7 +219,7 @@ export default function VenderPage() {
             
             <h1 className="text-4xl md:text-6xl font-bold text-[#101828] mb-6 leading-tight">
               Venda seu{' '}
-              <span className="bg-gradient-to-r from-emerald-600 to-emerald-600 bg-clip-text text-transparent">animal</span>
+              <span className="bg-gradient-to-r from-primary to-primary bg-clip-text text-transparent">animal</span>
               <br />
               com facilidade
             </h1>
@@ -228,10 +228,10 @@ export default function VenderPage() {
               Cadastre seu animal e alcance compradores de todo o Brasil com segurança total
             </p>
             
-            <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-4 max-w-2xl mx-auto">
+            <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 max-w-2xl mx-auto">
               <div className="flex items-center justify-center">
-                <CheckCircle className="w-5 h-5 text-emerald-600 mr-2" />
-                <p className="text-emerald-800 font-medium">
+                <CheckCircle className="w-5 h-5 text-primary mr-2" />
+                <p className="text-primary font-medium">
                   Preencha todos os dados primeiro. O login será solicitado apenas no final para publicar o anúncio.
                 </p>
               </div>
@@ -249,7 +249,7 @@ export default function VenderPage() {
               <div key={step.number} className="flex items-center">
                 <div className={`flex items-center justify-center w-12 h-12 rounded-full border-2 transition-all duration-300 ${
                   currentStep >= step.number 
-                    ? 'bg-emerald-600 border-emerald-600 text-white shadow-lg' 
+                    ? 'bg-primary border-primary text-white shadow-lg' 
                     : 'border-gray-300 text-gray-500'
                 }`}>
                   {currentStep > step.number ? (
@@ -260,7 +260,7 @@ export default function VenderPage() {
                 </div>
                 <div className="ml-3 hidden sm:block">
                   <div className={`text-sm font-medium ${
-                    currentStep >= step.number ? 'text-emerald-600' : 'text-gray-500'
+                    currentStep >= step.number ? 'text-primary' : 'text-gray-500'
                   }`}>
                     {step.title}
                   </div>
@@ -268,7 +268,7 @@ export default function VenderPage() {
                 </div>
                 {index < steps.length - 1 && (
                   <div className={`hidden sm:block w-16 h-0.5 ml-4 ${
-                    currentStep > step.number ? 'bg-emerald-600' : 'bg-gray-300'
+                    currentStep > step.number ? 'bg-primary' : 'bg-gray-300'
                   }`} />
                 )}
               </div>
@@ -306,30 +306,30 @@ export default function VenderPage() {
                       onClick={() => setSaleType('direct')}
                       className={`p-6 border-2 rounded-xl transition-all duration-300 text-left hover:shadow-lg ${
                         saleType === 'direct' 
-                          ? 'border-emerald-600 bg-emerald-50 shadow-lg' 
-                          : 'border-gray-200 hover:border-emerald-400'
+                          ? 'border-primary bg-primary/5 shadow-lg' 
+                          : 'border-gray-200 hover:border-primary/40'
                       }`}
                     >
                       <div className="flex items-center mb-4">
-                        <DollarSign className="w-8 h-8 text-emerald-600 mr-3" />
+                        <DollarSign className="w-8 h-8 text-primary mr-3" />
                         <div>
                           <h4 className="font-bold text-[#101828]">Venda Direta</h4>
-                          <Badge className="bg-emerald-600 text-white text-xs">RECOMENDADO</Badge>
+                          <Badge className="bg-primary text-white text-xs">RECOMENDADO</Badge>
                         </div>
                       </div>
                       <p className="text-gray-600 mb-4">
                         Defina um preço fixo e negocie diretamente com os compradores interessados.
                       </p>
                       <div className="space-y-2 text-sm">
-                        <div className="flex items-center text-emerald-600">
+                        <div className="flex items-center text-primary">
                           <CheckCircle className="w-4 h-4 mr-2" />
                           Venda mais rápida
                         </div>
-                        <div className="flex items-center text-emerald-600">
+                        <div className="flex items-center text-primary">
                           <CheckCircle className="w-4 h-4 mr-2" />
                           Controle total do preço
                         </div>
-                        <div className="flex items-center text-emerald-600">
+                        <div className="flex items-center text-primary">
                           <CheckCircle className="w-4 h-4 mr-2" />
                           Negociação direta
                         </div>
@@ -341,8 +341,8 @@ export default function VenderPage() {
                       onClick={() => setSaleType('auction')}
                       className={`p-6 border-2 rounded-xl transition-all duration-300 text-left hover:shadow-lg ${
                         saleType === 'auction' 
-                          ? 'border-emerald-600 bg-emerald-50 shadow-lg' 
-                          : 'border-gray-200 hover:border-emerald-400'
+                          ? 'border-primary bg-primary/5 shadow-lg' 
+                          : 'border-gray-200 hover:border-primary/40'
                       }`}
                     >
                       <div className="flex items-center mb-4">
@@ -372,14 +372,14 @@ export default function VenderPage() {
                     </button>
                   </div>
 
-                  <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-4">
+                  <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
                     <div className="flex items-start">
-                      <AlertCircle className="w-5 h-5 text-emerald-600 mr-3 mt-0.5" />
+                      <AlertCircle className="w-5 h-5 text-primary mr-3 mt-0.5" />
                       <div>
-                        <h4 className="font-semibold text-emerald-800 mb-1">
+                        <h4 className="font-semibold text-primary mb-1">
                           Dica importante
                         </h4>
-                        <p className="text-sm text-emerald-700">
+                        <p className="text-sm text-primary">
                           {saleType === 'direct' 
                             ? 'Na venda direta, você pode aceitar propostas e negociar o preço final com os interessados.'
                             : 'No leilão, defina um lance mínimo realista para atrair mais participantes e garantir um bom resultado.'
@@ -405,7 +405,7 @@ export default function VenderPage() {
                         placeholder="Ex: Touro Nelore PO Certificado"
                         value={formData.title}
                         onChange={(e) => setFormData({...formData, title: e.target.value})}
-                        className="h-12 border-gray-300 focus:border-emerald-500 focus:ring-emerald-500"
+                        className="h-12 border-gray-300 focus:border-primary focus:ring-primary"
                         required
                       />
                     </div>
@@ -415,7 +415,7 @@ export default function VenderPage() {
                         Categoria *
                       </label>
                       <Select value={formData.category} onValueChange={(value) => setFormData({...formData, category: value})}>
-                        <SelectTrigger className="h-12 border-gray-300 focus:border-emerald-500 focus:ring-emerald-500">
+                        <SelectTrigger className="h-12 border-gray-300 focus:border-primary focus:ring-primary">
                           <SelectValue placeholder="Selecione a categoria" />
                         </SelectTrigger>
                         <SelectContent>
@@ -433,7 +433,7 @@ export default function VenderPage() {
                         Raça *
                       </label>
                       <Select value={formData.breed} onValueChange={(value) => setFormData({...formData, breed: value})}>
-                        <SelectTrigger className="h-12 border-gray-300 focus:border-emerald-500 focus:ring-emerald-500">
+                        <SelectTrigger className="h-12 border-gray-300 focus:border-primary focus:ring-primary">
                           <SelectValue placeholder="Selecione a raça" />
                         </SelectTrigger>
                         <SelectContent>
@@ -449,7 +449,7 @@ export default function VenderPage() {
                         Sexo *
                       </label>
                       <Select value={formData.gender} onValueChange={(value) => setFormData({...formData, gender: value})}>
-                        <SelectTrigger className="h-12 border-gray-300 focus:border-emerald-500 focus:ring-emerald-500">
+                        <SelectTrigger className="h-12 border-gray-300 focus:border-primary focus:ring-primary">
                           <SelectValue placeholder="Selecione o sexo" />
                         </SelectTrigger>
                         <SelectContent>
@@ -469,7 +469,7 @@ export default function VenderPage() {
                         placeholder="Ex: 3 anos"
                         value={formData.age}
                         onChange={(e) => setFormData({...formData, age: e.target.value})}
-                        className="h-12 border-gray-300 focus:border-emerald-500 focus:ring-emerald-500"
+                        className="h-12 border-gray-300 focus:border-primary focus:ring-primary"
                         required
                       />
                     </div>
@@ -517,7 +517,7 @@ export default function VenderPage() {
                       placeholder="Descreva as características do animal, histórico, alimentação, etc."
                       value={formData.description}
                       onChange={(e) => setFormData({...formData, description: e.target.value})}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#1E4D2B] focus:border-transparent resize-none"
+                      className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent resize-none"
                       required
                     />
                   </div>
@@ -529,7 +529,7 @@ export default function VenderPage() {
                         type="checkbox"
                         checked={formData.vaccinated}
                         onChange={(e) => setFormData({...formData, vaccinated: e.target.checked})}
-                        className="h-4 w-4 text-emerald-800 focus:ring-[#1E4D2B] border-gray-300 rounded"
+                        className="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
                       />
                       <label htmlFor="vaccinated" className="ml-3 text-sm text-[#101828]">
                         Animal vacinado
@@ -542,7 +542,7 @@ export default function VenderPage() {
                         type="checkbox"
                         checked={formData.registered}
                         onChange={(e) => setFormData({...formData, registered: e.target.checked})}
-                        className="h-4 w-4 text-emerald-800 focus:ring-[#1E4D2B] border-gray-300 rounded"
+                        className="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
                       />
                       <label htmlFor="registered" className="ml-3 text-sm text-[#101828]">
                         Animal registrado
@@ -562,7 +562,7 @@ export default function VenderPage() {
                       Fotos do Animal (máximo 10)
                     </h3>
                     
-                    <div className="border-2 border-dashed border-[#C89F45] rounded-lg p-6 text-center hover:border-[#1E4D2B] transition-colors duration-300">
+                    <div className="border-2 border-dashed border-[#C89F45] rounded-lg p-6 text-center hover:border-primary transition-colors duration-300">
                       <Camera className="w-12 h-12 text-amber-600 mx-auto mb-4" />
                       <h4 className="font-semibold text-[#101828] mb-2">
                         Adicionar Fotos
@@ -611,12 +611,12 @@ export default function VenderPage() {
                   {/* Upload de Documentos */}
                   <div>
                     <h3 className="text-lg font-semibold text-[#101828] mb-4 flex items-center">
-                      <FileText className="w-5 h-5 mr-2 text-emerald-800" />
+                      <FileText className="w-5 h-5 mr-2 text-primary" />
                       Documentos (máximo 5)
                     </h3>
                     
-                    <div className="border-2 border-dashed border-[#1E4D2B] rounded-lg p-6 text-center hover:border-[#C89F45] transition-colors duration-300">
-                      <FileText className="w-12 h-12 text-emerald-800 mx-auto mb-4" />
+                    <div className="border-2 border-dashed border-primary rounded-lg p-6 text-center hover:border-[#C89F45] transition-colors duration-300">
+                      <FileText className="w-12 h-12 text-primary mx-auto mb-4" />
                       <h4 className="font-semibold text-[#101828] mb-2">
                         Adicionar Documentos
                       </h4>
@@ -632,7 +632,7 @@ export default function VenderPage() {
                         id="document-upload"
                       />
                       <label htmlFor="document-upload">
-                        <Button type="button" variant="outline" className="border-[#1E4D2B] text-emerald-800 hover:bg-[#1E4D2B] hover:text-white">
+                        <Button type="button" variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white">
                           <Upload className="w-4 h-4 mr-2" />
                           Escolher Documentos
                         </Button>
@@ -644,7 +644,7 @@ export default function VenderPage() {
                         {documents.map((doc, index) => (
                           <div key={index} className="flex items-center justify-between bg-[#F7F6F2] p-3 rounded-lg">
                             <div className="flex items-center">
-                              <FileText className="w-5 h-5 text-emerald-800 mr-3" />
+                              <FileText className="w-5 h-5 text-primary mr-3" />
                               <span className="text-sm text-[#101828]">{doc.name}</span>
                             </div>
                             <button
@@ -666,9 +666,9 @@ export default function VenderPage() {
               {currentStep === 4 && (
                 <div className="space-y-6">
                   {/* Preço */}
-                  <div className="bg-[#1E4D2B]/5 border border-[#1E4D2B]/20 rounded-lg p-6">
+                  <div className="bg-primary/5 border border-primary/20 rounded-lg p-6">
                     <h3 className="text-lg font-semibold text-[#101828] mb-4 flex items-center">
-                      <DollarSign className="w-5 h-5 mr-2 text-emerald-800" />
+                      <DollarSign className="w-5 h-5 mr-2 text-primary" />
                       {saleType === 'direct' ? 'Preço de Venda' : 'Configuração do Leilão'}
                     </h3>
 
@@ -694,7 +694,7 @@ export default function VenderPage() {
                             type="checkbox"
                             checked={formData.negotiable}
                             onChange={(e) => setFormData({...formData, negotiable: e.target.checked})}
-                            className="h-4 w-4 text-emerald-800 focus:ring-[#1E4D2B] border-gray-300 rounded"
+                            className="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
                           />
                           <label htmlFor="negotiable" className="ml-3 text-sm text-[#101828]">
                             Aceito propostas
@@ -832,10 +832,10 @@ export default function VenderPage() {
                 <div className="space-y-6">
                   <div className="text-center mb-6">
                     <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 ${
-                      isFormValid() ? 'bg-emerald-100' : 'bg-amber-100'
+                      isFormValid() ? 'bg-primary/10' : 'bg-amber-100'
                     }`}>
                       {isFormValid() ? (
-                        <CheckCircle className="w-8 h-8 text-emerald-600" />
+                        <CheckCircle className="w-8 h-8 text-primary" />
                       ) : (
                         <AlertCircle className="w-8 h-8 text-amber-600" />
                       )}
@@ -872,7 +872,7 @@ export default function VenderPage() {
                         <span className="text-gray-600">
                           {saleType === 'direct' ? 'Preço:' : 'Lance Inicial:'}
                         </span>
-                        <div className="font-semibold text-emerald-800">
+                        <div className="font-semibold text-primary">
                           R$ {(saleType === 'direct' ? formData.price : formData.startingBid) || '0'}
                         </div>
                       </div>
@@ -889,13 +889,13 @@ export default function VenderPage() {
                     </div>
                   </div>
 
-                  <div className="bg-[#1E4D2B]/5 border border-[#1E4D2B]/20 rounded-lg p-4">
-                    <h4 className="font-semibold text-emerald-800 mb-2">
+                  <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
+                    <h4 className="font-semibold text-primary mb-2">
                       ✓ Próximos passos:
                     </h4>
                     <ul className="text-sm text-gray-600 space-y-1">
                       {!user && (
-                        <li className="text-emerald-600 font-medium">• Fazer login ou criar conta (próximo passo)</li>
+                        <li className="text-primary font-medium">• Fazer login ou criar conta (próximo passo)</li>
                       )}
                       <li>• Análise e aprovação do anúncio (até 24h)</li>
                       <li>• Publicação no catálogo</li>
@@ -922,7 +922,7 @@ export default function VenderPage() {
                   <Button
                     type="button"
                     onClick={handleNext}
-                    className="bg-[#1E4D2B] hover:bg-[#163B20] text-white transition-all duration-300 transform hover:scale-105"
+                    className="bg-primary hover:bg-[#163B20] text-white transition-all duration-300 transform hover:scale-105"
                   >
                     Próximo
                   </Button>
@@ -985,7 +985,7 @@ export default function VenderPage() {
                         placeholder="Seu nome completo"
                         value={authData.name}
                         onChange={(e) => setAuthData({...authData, name: e.target.value})}
-                        className="pl-10 h-12 border-gray-300 focus:border-emerald-500 focus:ring-emerald-500"
+                        className="pl-10 h-12 border-gray-300 focus:border-primary focus:ring-primary"
                         required={!isLoginMode}
                       />
                     </div>
@@ -1004,7 +1004,7 @@ export default function VenderPage() {
                       placeholder="seu@email.com"
                       value={authData.email}
                       onChange={(e) => setAuthData({...authData, email: e.target.value})}
-                      className="pl-10 h-12 border-gray-300 focus:border-emerald-500 focus:ring-emerald-500"
+                      className="pl-10 h-12 border-gray-300 focus:border-primary focus:ring-primary"
                       required
                     />
                   </div>
@@ -1021,7 +1021,7 @@ export default function VenderPage() {
                       placeholder="(11) 99999-9999"
                       value={authData.phone}
                       onChange={(e) => setAuthData({...authData, phone: e.target.value})}
-                      className="h-12 border-gray-300 focus:border-emerald-500 focus:ring-emerald-500"
+                      className="h-12 border-gray-300 focus:border-primary focus:ring-primary"
                       required={!isLoginMode}
                     />
                   </div>
@@ -1039,7 +1039,7 @@ export default function VenderPage() {
                       placeholder="Sua senha"
                       value={authData.password}
                       onChange={(e) => setAuthData({...authData, password: e.target.value})}
-                      className="pl-10 pr-10 h-12 border-gray-300 focus:border-emerald-500 focus:ring-emerald-500"
+                      className="pl-10 pr-10 h-12 border-gray-300 focus:border-primary focus:ring-primary"
                       required
                     />
                     <button
@@ -1060,7 +1060,7 @@ export default function VenderPage() {
 
                 <Button
                   type="submit"
-                  className="w-full bg-emerald-600 hover:bg-[#2E7A5A] text-white h-12 text-lg font-semibold"
+                  className="w-full bg-primary hover:bg-[#2E7A5A] text-white h-12 text-lg font-semibold"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? 'Processando...' : (isLoginMode ? 'Entrar' : 'Criar Conta')}
@@ -1073,7 +1073,7 @@ export default function VenderPage() {
                       setIsLoginMode(!isLoginMode)
                       setAuthError('')
                     }}
-                    className="text-emerald-600 hover:text-emerald-700 font-medium"
+                    className="text-primary hover:text-primary font-medium"
                   >
                     {isLoginMode 
                       ? 'Não tem conta? Criar conta gratuita' 

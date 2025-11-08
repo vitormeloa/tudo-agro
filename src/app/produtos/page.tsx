@@ -233,7 +233,7 @@ export default function ProdutosPage() {
       
       {/* Hero Section */}
         <section className="relative pt-16 pb-20 overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-emerald-600 via-emerald-600 to-teal-700"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-teal-700"></div>
             <div className="absolute inset-0 bg-black/20"></div>
             <div className="absolute inset-0 opacity-40">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.15)_1px,transparent_0)] bg-[length:20px_20px]"></div>
@@ -262,12 +262,12 @@ export default function ProdutosPage() {
                     placeholder="Buscar por produto, marca, categoria..."
                     value={searchQuery}
                     onChange={(e) => handleSearchChange(e.target.value)}
-                    className="pl-10 h-12 text-lg border-2 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500/20"
+                    className="pl-10 h-12 text-lg border-2 border-gray-200 focus:border-primary focus:ring-primary/20"
                   />
                 </div>
               </div>
               <Button 
-                className="bg-emerald-600 hover:bg-[#2E7A5A] text-white px-8 h-12"
+                className="bg-primary hover:bg-[#2E7A5A] text-white px-8 h-12"
                 onClick={() => setShowFilters(!showFilters)}
               >
                 <SlidersHorizontal className="w-5 h-5 mr-2" />
@@ -367,7 +367,7 @@ export default function ProdutosPage() {
                 variant="ghost"
                 size="sm"
                 onClick={() => setSelectedCategory('')}
-                className="text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50"
+                className="text-primary hover:text-primary hover:bg-primary/5"
               >
                 Ver todas
               </Button>
@@ -402,7 +402,7 @@ export default function ProdutosPage() {
             {/* Botão Ver Mais */}
             {hiddenCategories.length > 0 && (
               <Card 
-                className="hover:shadow-lg transition-all duration-300 transform hover:scale-105 cursor-pointer animate-fade-in-up border-2 border-dashed border-gray-300 hover:border-emerald-500"
+                className="hover:shadow-lg transition-all duration-300 transform hover:scale-105 cursor-pointer animate-fade-in-up border-2 border-dashed border-gray-300 hover:border-primary"
                 style={{ animationDelay: `${visibleCategories.length * 0.1}s` }}
                 onClick={() => setShowCategoriesModal(true)}
               >
@@ -420,7 +420,7 @@ export default function ProdutosPage() {
         <Dialog open={showCategoriesModal} onOpenChange={setShowCategoriesModal}>
           <DialogContent className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[calc(100%-2rem)] sm:w-[calc(100%-4rem)] max-w-[90vw] sm:max-w-2xl md:max-w-3xl lg:max-w-4xl h-[calc(100vh-4rem)] sm:h-auto max-h-[85vh] overflow-hidden flex flex-col p-0 gap-0 rounded-xl sm:rounded-2xl shadow-2xl border-0 bg-white">
             {/* Header */}
-            <DialogHeader className="px-4 sm:px-6 pt-4 sm:pt-6 pb-3 sm:pb-4 border-b border-gray-200 flex-shrink-0 bg-gradient-to-r from-emerald-50 to-emerald-50 relative rounded-t-xl sm:rounded-t-2xl">
+            <DialogHeader className="px-4 sm:px-6 pt-4 sm:pt-6 pb-3 sm:pb-4 border-b border-gray-200 flex-shrink-0 bg-gradient-to-r from-primary/5 to-primary/5 relative rounded-t-xl sm:rounded-t-2xl">
               <div className="pr-8 sm:pr-10">
                 <DialogTitle className="text-lg sm:text-xl md:text-2xl font-bold text-[#101828]">
                   Todas as Categorias
@@ -439,7 +439,7 @@ export default function ProdutosPage() {
                     key={category.name}
                     onClick={() => handleCategoryClick(category.name)}
                     className={`hover:shadow-lg transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] cursor-pointer border bg-white touch-manipulation ${
-                      selectedCategory === category.name ? 'border-emerald-500 ring-2 ring-emerald-300' : 'border-gray-200 hover:border-emerald-300'
+                      selectedCategory === category.name ? 'border-primary ring-2 ring-primary/30' : 'border-gray-200 hover:border-primary/30'
                     }`}
                     style={{
                       animation: 'fadeInUp 0.3s ease-out',
@@ -469,7 +469,7 @@ export default function ProdutosPage() {
             <div className="px-4 sm:px-6 py-3 sm:py-4 border-t border-gray-200 bg-white flex-shrink-0 rounded-b-xl sm:rounded-b-2xl">
               <Button
                 onClick={() => setShowCategoriesModal(false)}
-                className="w-full bg-emerald-600 hover:bg-[#2E7A5A] text-white h-11 sm:h-12 text-base sm:text-lg font-semibold transition-all duration-200 touch-manipulation active:scale-[0.98]"
+                className="w-full bg-primary hover:bg-[#2E7A5A] text-white h-11 sm:h-12 text-base sm:text-lg font-semibold transition-all duration-200 touch-manipulation active:scale-[0.98]"
               >
                 Fechar
               </Button>
@@ -481,14 +481,14 @@ export default function ProdutosPage() {
         <div className="mb-8">
           <div className="grid md:grid-cols-3 gap-6">
             <div className="flex items-center p-4 bg-white rounded-lg shadow-sm border">
-              <Truck className="w-8 h-8 text-emerald-600 mr-4" />
+              <Truck className="w-8 h-8 text-primary mr-4" />
               <div>
                 <h4 className="font-semibold text-[#101828]">Frete Grátis</h4>
                 <p className="text-sm text-gray-600">Acima de R$ 500</p>
               </div>
             </div>
             <div className="flex items-center p-4 bg-white rounded-lg shadow-sm border">
-              <Shield className="w-8 h-8 text-emerald-600 mr-4" />
+              <Shield className="w-8 h-8 text-primary mr-4" />
               <div>
                 <h4 className="font-semibold text-[#101828]">Garantia e Segurança</h4>
                 <p className="text-sm text-gray-600">Produtos originais com segurança garantida</p>
@@ -509,7 +509,7 @@ export default function ProdutosPage() {
           <div className="text-gray-600">
             Mostrando <span className="font-semibold text-[#101828]">{startIndex + 1}</span> até <span className="font-semibold text-[#101828]">{Math.min(endIndex, sortedProducts.length)}</span> de <span className="font-semibold text-[#101828]">{sortedProducts.length}</span> resultados
             {selectedCategory && (
-              <span className="ml-2 text-emerald-600 font-semibold">
+              <span className="ml-2 text-primary font-semibold">
                 em {selectedCategory}
               </span>
             )}
@@ -535,32 +535,32 @@ export default function ProdutosPage() {
           <div className="mb-6 flex flex-wrap gap-2">
             <span className="text-sm text-gray-600 font-medium">Filtros ativos:</span>
             {searchQuery && (
-              <Badge variant="secondary" className="bg-emerald-100 text-emerald-800 hover:bg-emerald-200">
+              <Badge variant="secondary" className="bg-primary/10 text-primary hover:bg-emerald-200">
                 Busca: "{searchQuery}"
               </Badge>
             )}
             {selectedCategory && (
-              <Badge variant="secondary" className="bg-emerald-100 text-emerald-800 hover:bg-emerald-200">
+              <Badge variant="secondary" className="bg-primary/10 text-primary hover:bg-emerald-200">
                 Categoria: {selectedCategory}
               </Badge>
             )}
             {selectedBrand && (
-              <Badge variant="secondary" className="bg-emerald-100 text-emerald-800 hover:bg-emerald-200">
+              <Badge variant="secondary" className="bg-primary/10 text-primary hover:bg-emerald-200">
                 Marca: {selectedBrand}
               </Badge>
             )}
             {selectedPriceRange && (
-              <Badge variant="secondary" className="bg-emerald-100 text-emerald-800 hover:bg-emerald-200">
+              <Badge variant="secondary" className="bg-primary/10 text-primary hover:bg-emerald-200">
                 Preço: {selectedPriceRange === '0-50' ? 'Até R$ 50' : selectedPriceRange === '50-100' ? 'R$ 50-100' : selectedPriceRange === '100-200' ? 'R$ 100-200' : 'Acima de R$ 200'}
               </Badge>
             )}
             {selectedLocation && (
-              <Badge variant="secondary" className="bg-emerald-100 text-emerald-800 hover:bg-emerald-200">
+              <Badge variant="secondary" className="bg-primary/10 text-primary hover:bg-emerald-200">
                 Local: {selectedLocation.toUpperCase()}
               </Badge>
             )}
             {selectedStock && (
-              <Badge variant="secondary" className="bg-emerald-100 text-emerald-800 hover:bg-emerald-200">
+              <Badge variant="secondary" className="bg-primary/10 text-primary hover:bg-emerald-200">
                 {selectedStock === 'estoque' ? 'Em Estoque' : selectedStock === 'encomenda' ? 'Sob Encomenda' : 'Esgotado'}
               </Badge>
             )}
@@ -590,7 +590,7 @@ export default function ProdutosPage() {
               <Button
                 onClick={clearAllFilters}
                 variant="outline"
-                className="border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white"
+                className="border-primary text-primary hover:bg-primary hover:text-white"
               >
                 Limpar todos os filtros
               </Button>
@@ -606,7 +606,7 @@ export default function ProdutosPage() {
                 variant="outline"
                 disabled={currentPage === 1}
                 onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
-                className="border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white disabled:border-gray-300 disabled:text-gray-400 disabled:hover:bg-transparent disabled:hover:text-gray-400"
+                className="border-primary text-primary hover:bg-primary hover:text-white disabled:border-gray-300 disabled:text-gray-400 disabled:hover:bg-transparent disabled:hover:text-gray-400"
               >
                 Anterior
               </Button>
@@ -625,8 +625,8 @@ export default function ProdutosPage() {
                       onClick={() => handlePageChange(page)}
                       className={
                         currentPage === page
-                          ? "bg-emerald-600 text-white hover:bg-[#2E7A5A]"
-                          : "border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white"
+                          ? "bg-primary text-white hover:bg-[#2E7A5A]"
+                          : "border-primary text-primary hover:bg-primary hover:text-white"
                       }
                       variant={currentPage === page ? "default" : "outline"}
                     >
@@ -644,7 +644,7 @@ export default function ProdutosPage() {
                 variant="outline"
                 disabled={currentPage === totalPages}
                 onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
-                className="border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white disabled:border-gray-300 disabled:text-gray-400 disabled:hover:bg-transparent disabled:hover:text-gray-400"
+                className="border-primary text-primary hover:bg-primary hover:text-white disabled:border-gray-300 disabled:text-gray-400 disabled:hover:bg-transparent disabled:hover:text-gray-400"
               >
                 Próximo
               </Button>

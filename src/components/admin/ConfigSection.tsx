@@ -57,7 +57,7 @@ export default function ConfigSection() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
                 <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-                    <Settings className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-800" />
+                    <Settings className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                     <span className="text-base sm:text-lg font-semibold">Gerenciamento de Configurações</span>
                 </CardTitle>
             </div>
@@ -92,7 +92,7 @@ export default function ConfigSection() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
                 <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-                    <Settings className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-800" />
+                    <Settings className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                     <span className="text-base sm:text-lg font-semibold">Gerenciamento de Configurações</span>
                 </CardTitle>
             </div>
@@ -111,7 +111,7 @@ export default function ConfigSection() {
                 <div className="flex items-center gap-3">
                   <span className={`text-xs px-2 py-1 rounded-full ${
                     page.status === 'Atualizado' 
-                      ? 'bg-emerald-100 text-emerald-800' 
+                      ? 'bg-primary/10 text-primary' 
                       : 'bg-orange-100 text-orange-800'
                   }`}>
                     {page.status}
@@ -132,7 +132,7 @@ export default function ConfigSection() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
                 <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-                    <Settings className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-800" />
+                    <Settings className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                     <span className="text-base sm:text-lg font-semibold">Gerenciamento de Configurações</span>
                 </CardTitle>
             </div>
@@ -151,7 +151,7 @@ export default function ConfigSection() {
                 rows={6}
               />
             </div>
-            <Button className="bg-[#1E4D2B] hover:bg-[#163B20]">
+            <Button className="bg-primary hover:bg-[#163B20]">
               <Save className="w-4 h-4 mr-2" />
               Salvar Alterações
             </Button>
@@ -165,7 +165,7 @@ export default function ConfigSection() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
                 <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-                    <Settings className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-800" />
+                    <Settings className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                     <span className="text-base sm:text-lg font-semibold">Gerenciamento de Configurações</span>
                 </CardTitle>
             </div>
@@ -182,7 +182,7 @@ export default function ConfigSection() {
                 <div className="flex items-center gap-3">
                   <span className={`text-xs px-2 py-1 rounded-full ${
                     integration.status === 'Conectado' 
-                      ? 'bg-emerald-100 text-emerald-800' 
+                      ? 'bg-primary/10 text-primary' 
                       : 'bg-red-100 text-red-800'
                   }`}>
                     {integration.status}

@@ -36,7 +36,7 @@ export default function SalesChart() {
           <Line 
             type="monotone" 
             dataKey="vendas" 
-            stroke="#1E4D2B" 
+            stroke="#0A9965" 
             strokeWidth={3}
             name="vendas"
           />

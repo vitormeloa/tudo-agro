@@ -117,7 +117,7 @@ export default function SellersSection() {
   const getStatusBadge = (status: string) => {
     const statusConfig = {
       pendente: { color: 'bg-orange-100 text-orange-800', label: 'Pendente', icon: Clock },
-      aprovado: { color: 'bg-emerald-100 text-emerald-800', label: 'Aprovado', icon: CheckCircle },
+      aprovado: { color: 'bg-primary/10 text-primary', label: 'Aprovado', icon: CheckCircle },
       recusado: { color: 'bg-red-100 text-red-800', label: 'Recusado', icon: XCircle }
     }
     const config = statusConfig[status as keyof typeof statusConfig] || statusConfig.pendente
@@ -160,7 +160,7 @@ export default function SellersSection() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
                 <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-                    <Store className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-800" />
+                    <Store className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                     <span className="text-base sm:text-lg font-semibold">Gerenciamento de Vendedores</span>
                 </CardTitle>
             </div>
@@ -212,7 +212,7 @@ export default function SellersSection() {
                 <div className="flex-1 w-full">
                   <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-4">
                     {/* Avatar */}
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#1E4D2B] rounded-full flex items-center justify-center text-white font-bold text-sm sm:text-base flex-shrink-0">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary rounded-full flex items-center justify-center text-white font-bold text-sm sm:text-base flex-shrink-0">
                       {seller.name.charAt(0)}
                     </div>
                     
@@ -263,7 +263,7 @@ export default function SellersSection() {
                           <span className="truncate">Solicitação: {new Date(seller.requestDate).toLocaleDateString('pt-BR')}</span>
                         </div>
                         {seller.approvalDate && (
-                          <div className="flex items-center gap-2 text-emerald-600">
+                          <div className="flex items-center gap-2 text-primary">
                             <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
                             <span className="truncate">Aprovado em: {new Date(seller.approvalDate).toLocaleDateString('pt-BR')}</span>
                           </div>
@@ -287,15 +287,15 @@ export default function SellersSection() {
                   {/* Estatísticas */}
                   <div className="grid grid-cols-3 gap-2 sm:gap-4 mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-gray-100">
                     <div className="text-center">
-                      <p className="text-lg sm:text-2xl font-bold text-emerald-800">{seller.activeAds}</p>
+                      <p className="text-lg sm:text-2xl font-bold text-primary">{seller.activeAds}</p>
                       <p className="text-xs text-gray-600">Anúncios Ativos</p>
                     </div>
                     <div className="text-center">
-                      <p className="text-lg sm:text-2xl font-bold text-emerald-800">{seller.completedSales}</p>
+                      <p className="text-lg sm:text-2xl font-bold text-primary">{seller.completedSales}</p>
                       <p className="text-xs text-gray-600">Vendas Finalizadas</p>
                     </div>
                     <div className="text-center">
-                      <p className="text-lg sm:text-2xl font-bold text-emerald-800">
+                      <p className="text-lg sm:text-2xl font-bold text-primary">
                         {seller.rating > 0 ? seller.rating.toFixed(1) : '-'}
                       </p>
                       <p className="text-xs text-gray-600">Avaliação</p>
@@ -309,7 +309,7 @@ export default function SellersSection() {
                     <>
                       <Button 
                         size="sm" 
-                        className="bg-emerald-600 hover:bg-[#2E7A5A] text-white text-xs sm:text-sm"
+                        className="bg-primary hover:bg-[#2E7A5A] text-white text-xs sm:text-sm"
                         onClick={() => handleAction(seller, 'approve')}
                       >
                         <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
@@ -379,7 +379,7 @@ export default function SellersSection() {
               <Button 
                 onClick={confirmAction}
                 className={actionType === 'approve' 
-                  ? 'bg-emerald-600 hover:bg-[#2E7A5A]' 
+                  ? 'bg-primary hover:bg-[#2E7A5A]' 
                   : 'bg-red-600 hover:bg-[#A03730]'
                 }
                 disabled={actionType === 'reject' && !justification.trim()}

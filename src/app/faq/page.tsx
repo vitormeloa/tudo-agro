@@ -120,11 +120,11 @@ export default function FAQPage() {
       <Header />
       
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-emerald-600 via-emerald-600 to-emerald-700 text-white py-20">
+      <section className="bg-gradient-to-r from-primary via-primary to-primary/90 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">Perguntas Frequentes (FAQ)</h1>
-            <p className="text-xl text-emerald-100 max-w-3xl mx-auto">
+            <p className="text-xl text-primary-foreground/80 max-w-3xl mx-auto">
               Encontre respostas para as dúvidas mais comuns sobre nossa plataforma
             </p>
           </div>
@@ -141,7 +141,7 @@ export default function FAQPage() {
               placeholder="Buscar perguntas..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-12 py-6 text-lg border-2 border-gray-300 focus:border-emerald-500"
+              className="pl-12 py-6 text-lg border-2 border-gray-300 focus:border-primary"
             />
           </div>
         </section>
@@ -157,15 +157,15 @@ export default function FAQPage() {
                   const isOpen = openQuestion === questionIndex
                   
                   return (
-                    <Card key={qIndex} className="border-2 border-gray-200 hover:border-emerald-500 transition-colors">
+                    <Card key={qIndex} className="border-2 border-gray-200 hover:border-primary transition-colors">
                       <CardContent className="p-0">
                         <button
                           onClick={() => setOpenQuestion(isOpen ? null : questionIndex)}
                           className="w-full p-6 flex items-start justify-between hover:bg-gray-50 transition-colors text-left"
                         >
                           <div className="flex items-start gap-4 flex-1">
-                            <div className="bg-emerald-100 p-2 rounded-lg mt-1">
-                              <HelpCircle className="w-5 h-5 text-emerald-600" />
+                            <div className="bg-primary/10 p-2 rounded-lg mt-1">
+                              <HelpCircle className="w-5 h-5 text-primary" />
                             </div>
                             <h3 className="text-lg font-semibold text-[#101828] flex-1">{qa.question}</h3>
                           </div>
@@ -191,19 +191,19 @@ export default function FAQPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="mt-12 bg-gradient-to-r from-emerald-50 to-emerald-50 rounded-lg p-8 text-center">
+        <section className="mt-12 bg-gradient-to-r from-primary/5 to-primary/5 rounded-lg p-8 text-center">
           <h2 className="text-2xl font-bold text-[#101828] mb-4">Ainda tem dúvidas?</h2>
           <p className="text-gray-600 mb-6">
             Nossa equipe está pronta para ajudar você. Entre em contato conosco!
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="/contato" className="inline-block">
-              <button className="bg-emerald-600 hover:bg-[#2E7A5A] text-white px-6 py-3 rounded-lg font-medium transition-colors">
+              <button className="bg-primary hover:bg-[#2E7A5A] text-white px-6 py-3 rounded-lg font-medium transition-colors">
                 Entrar em Contato
               </button>
             </a>
             <a href="/ajuda" className="inline-block">
-              <button className="border-2 border-emerald-600 text-emerald-600 hover:bg-emerald-50 px-6 py-3 rounded-lg font-medium transition-colors">
+              <button className="border-2 border-primary text-primary hover:bg-primary/5 px-6 py-3 rounded-lg font-medium transition-colors">
                 Central de Ajuda
               </button>
             </a>

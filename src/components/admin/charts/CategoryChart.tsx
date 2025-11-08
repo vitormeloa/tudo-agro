@@ -3,7 +3,7 @@
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts'
 
 const data = [
-  { name: 'Gado de Corte', value: 35.2, count: 1247, color: '#1E4D2B' },
+  { name: 'Gado de Corte', value: 35.2, count: 1247, color: '#0A9965' },
   { name: 'Cavalos', value: 25.1, count: 892, color: '#6E7D5B' },
   { name: 'Gado Leiteiro', value: 18.4, count: 654, color: '#B8413D' },
   { name: 'Sêmen Bovino', value: 12.2, count: 432, color: '#2B5A31' },

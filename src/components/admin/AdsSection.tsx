@@ -155,7 +155,7 @@ export default function AdsSection() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
                 <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-                    <Store className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-800" />
+                    <Store className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                     <span className="text-base sm:text-lg font-semibold">Gerenciamento de Anúncios</span>
                 </CardTitle>
             </div>
@@ -254,7 +254,7 @@ export default function AdsSection() {
                 </div>
                 
                 {/* Preço */}
-                <div className="flex items-center gap-2 text-lg font-bold text-emerald-800">
+                <div className="flex items-center gap-2 text-lg font-bold text-primary">
                   <DollarSign className="w-4 h-4" />
                   R$ {ad.price.toLocaleString('pt-BR')}
                 </div>
@@ -324,7 +324,7 @@ export default function AdsSection() {
                         variant="outline" 
                         size="sm"
                         onClick={() => handleAction('approve', ad.id)}
-                        className="text-emerald-600 hover:text-emerald-700"
+                        className="text-primary hover:text-primary"
                       >
                         <CheckCircle className="w-4 h-4" />
                       </Button>
@@ -372,7 +372,7 @@ export default function AdsSection() {
         <CardContent className="pt-6">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             <div className="text-center">
-              <div className="text-2xl font-bold text-emerald-800">
+              <div className="text-2xl font-bold text-primary">
                 {ads.filter(ad => ad.status === 'active').length}
               </div>
               <div className="text-sm text-gray-600">Ativos</div>
@@ -384,13 +384,13 @@ export default function AdsSection() {
               <div className="text-sm text-gray-600">Pendentes</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-emerald-600">
+              <div className="text-2xl font-bold text-primary">
                 {ads.filter(ad => ad.featured).length}
               </div>
               <div className="text-sm text-gray-600">Destaque</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-emerald-800">
+              <div className="text-2xl font-bold text-primary">
                 {ads.reduce((sum, ad) => sum + ad.views, 0).toLocaleString()}
               </div>
               <div className="text-sm text-gray-600">Visualizações</div>

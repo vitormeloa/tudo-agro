@@ -57,9 +57,9 @@ export default function AuthButton({ className }: AuthButtonProps) {
                     variant="ghost"
                     size="sm"
                     onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                    className="text-gray-600 hover:text-emerald-600 hover:bg-emerald-50"
+                    className="text-gray-600 hover:text-primary hover:bg-primary/5"
                 >
-                    <div className="w-8 h-8 bg-emerald-600 rounded-full flex items-center justify-center">
+                    <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
                         <User className="w-4 h-4 text-white" />
                     </div>
                     <ChevronDown className="w-4 h-4 ml-1" />
@@ -149,14 +149,14 @@ export default function AuthButton({ className }: AuthButtonProps) {
     return (
         <div className={`hidden md:flex items-center space-x-2 ${className}`}>
             <Link href="/login">
-                <Button variant="ghost" size="sm" className="text-gray-700 hover:text-emerald-600">
+                <Button variant="ghost" size="sm" className="text-gray-700 hover:text-primary">
                     Entrar
                 </Button>
             </Link>
             <Link href="/cadastro">
                 <Button
                     size="sm"
-                    className="bg-gradient-to-r from-emerald-600 to-emerald-600 hover:from-emerald-700 hover:to-emerald-700 text-white shadow-lg hover:shadow-xl transition-all duration-300"
+                    className="bg-gradient-to-r from-primary to-primary hover:from-primary/90 hover:to-primary/90 text-white shadow-lg hover:shadow-xl transition-all duration-300"
                 >
                     Cadastrar
                 </Button>

@@ -296,14 +296,14 @@ const PurchaseDetailsModal = ({ isOpen, onClose, purchase }: PurchaseDetailsModa
                       {index < tracking.steps.length - 1 && (
                         <div 
                           className={`absolute left-5 top-9 w-0.5 h-6 ${
-                            step.completed ? 'bg-emerald-500' : 'bg-muted'
+                            step.completed ? 'bg-primary/50' : 'bg-muted'
                           }`}
                         />
                       )}
                       
                       {/* Icon */}
                       <div className={`rounded-full p-2 shrink-0 z-10 ${
-                        step.completed ? 'bg-emerald-500' : 
+                        step.completed ? 'bg-primary/50' : 
                         step.current ? 'bg-yellow-500' : 
                         'bg-muted'
                       }`}>

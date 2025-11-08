@@ -71,12 +71,12 @@ export default function ResetPasswordPage() {
 
   if (isSuccess) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-emerald-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-br from-primary/5 via-white to-primary/5 flex items-center justify-center p-4">
         <div className="w-full max-w-md">
           <Card className="shadow-2xl border-0">
             <CardContent className="p-8 text-center">
-              <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <CheckCircle className="w-8 h-8 text-emerald-600" />
+              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                <CheckCircle className="w-8 h-8 text-primary" />
               </div>
               
               <h1 className="text-2xl font-bold text-[#101828] mb-4">
@@ -89,7 +89,7 @@ export default function ResetPasswordPage() {
               
               <Button 
                 onClick={() => router.push('/login')}
-                className="w-full bg-emerald-600 hover:bg-[#2E7A5A]"
+                className="w-full bg-primary hover:bg-[#2E7A5A]"
               >
                 Ir para o login
               </Button>
@@ -102,7 +102,7 @@ export default function ResetPasswordPage() {
 
   if (error && !password) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-emerald-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-br from-primary/5 via-white to-primary/5 flex items-center justify-center p-4">
         <div className="w-full max-w-md">
           <Card className="shadow-2xl border-0">
             <CardContent className="p-8 text-center">
@@ -116,7 +116,7 @@ export default function ResetPasswordPage() {
               
               <Button 
                 onClick={() => router.push('/esqueci-senha')}
-                className="w-full bg-emerald-600 hover:bg-[#2E7A5A]"
+                className="w-full bg-primary hover:bg-[#2E7A5A]"
               >
                 Solicitar novo link
               </Button>
@@ -128,7 +128,7 @@ export default function ResetPasswordPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-emerald-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-primary/5 via-white to-primary/5 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <div className="flex items-center justify-center mb-6">
@@ -167,7 +167,7 @@ export default function ResetPasswordPage() {
                     placeholder="Mínimo 6 caracteres"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="pl-10 pr-10 h-12 text-lg border-2 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500/20"
+                    className="pl-10 pr-10 h-12 text-lg border-2 border-gray-200 focus:border-primary focus:ring-primary/20"
                     required
                     minLength={6}
                   />
@@ -193,7 +193,7 @@ export default function ResetPasswordPage() {
                     placeholder="Confirme sua nova senha"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="pl-10 pr-10 h-12 text-lg border-2 border-gray-200 focus:border-emerald-500 focus:ring-emerald-500/20"
+                    className="pl-10 pr-10 h-12 text-lg border-2 border-gray-200 focus:border-primary focus:ring-primary/20"
                     required
                     minLength={6}
                   />
@@ -209,7 +209,7 @@ export default function ResetPasswordPage() {
 
               <Button 
                 type="submit" 
-                className="w-full bg-emerald-600 hover:bg-[#2E7A5A] text-white h-12 text-lg font-semibold"
+                className="w-full bg-primary hover:bg-[#2E7A5A] text-white h-12 text-lg font-semibold"
                 disabled={isLoading || !password || !confirmPassword}
               >
                 {isLoading ? (

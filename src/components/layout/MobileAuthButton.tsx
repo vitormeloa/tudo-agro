@@ -43,7 +43,7 @@ export default function MobileAuthButton({ onMenuClose, className }: MobileAuthB
                 <ShoppingCart className="w-4 h-4 mr-2" />
                 Carrinho
                 {cartItemsCount > 0 && (
-                  <span className="ml-auto bg-emerald-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                  <span className="ml-auto bg-primary text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
                     {cartItemsCount > 99 ? '99+' : cartItemsCount}
                   </span>
                 )}
@@ -121,7 +121,7 @@ export default function MobileAuthButton({ onMenuClose, className }: MobileAuthB
           </Button>
         </Link>
         <Link href="/cadastro" className="block" onClick={onMenuClose}>
-          <Button className="w-full bg-gradient-to-r from-emerald-600 to-emerald-600 hover:from-emerald-700 hover:to-emerald-700">
+          <Button className="w-full bg-gradient-to-r from-primary to-primary hover:from-primary/90 hover:to-primary/90">
             Cadastrar
           </Button>
         </Link>

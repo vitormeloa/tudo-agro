@@ -17,14 +17,14 @@ export const AgroIAAvatar = ({ size = "md", isTyping = false }: AgroIAAvatarProp
   return (
     <div className="relative">
       <div
-        className={`${sizeClasses[size]} rounded-full bg-gradient-to-br from-[#1E4D2B] to-[#8FBC6D] flex items-center justify-center shadow-lg ${
+        className={`${sizeClasses[size]} rounded-full bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center shadow-lg ${
           isTyping ? "animate-pulse" : ""
         }`}
       >
         <Sprout className={`${size === "sm" ? "h-4 w-4" : size === "md" ? "h-6 w-6" : "h-8 w-8"} text-white`} />
       </div>
       {isTyping && (
-        <div className="absolute -bottom-1 -right-1 h-3 w-3 rounded-full bg-[#1E4D2B] animate-ping" />
+        <div className="absolute -bottom-1 -right-1 h-3 w-3 rounded-full bg-primary animate-ping" />
       )}
     </div>
   );

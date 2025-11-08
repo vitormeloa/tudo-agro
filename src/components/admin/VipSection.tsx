@@ -36,7 +36,7 @@ export default function VipSection() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
                 <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-                    <Crown className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-800" />
+                    <Crown className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                     <span className="text-base sm:text-lg font-semibold">Gerenciamento de VIP</span>
                 </CardTitle>
             </div>
@@ -54,7 +54,7 @@ export default function VipSection() {
                         <h3 className="font-semibold text-[#101828] text-sm sm:text-base break-words">{user.name}</h3>
                         <div className="flex flex-wrap items-center gap-1 sm:gap-2">
                           <Badge className="bg-yellow-100 text-yellow-800 text-xs">{user.plan}</Badge>
-                          <Badge className="bg-emerald-100 text-emerald-800 text-xs">Ativo</Badge>
+                          <Badge className="bg-primary/10 text-primary text-xs">Ativo</Badge>
                         </div>
                       </div>
                       

@@ -149,15 +149,15 @@ export default function Header({
                 className={cn(
                   "relative px-3 py-2 text-sm font-medium transition-all duration-200 group",
                   item.current
-                    ? "text-emerald-600"
-                    : "text-gray-700 hover:text-emerald-600"
+                    ? "text-primary"
+                    : "text-gray-700 hover:text-primary"
                 )}
               >
                 {item.name}
                 {item.current && (
-                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-emerald-600 rounded-full" />
+                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-full" />
                 )}
-                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-emerald-600 rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-200" />
+                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-200" />
               </Link>
             ))}
           </nav>
@@ -170,11 +170,11 @@ export default function Header({
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="relative text-gray-600 hover:text-emerald-600 transition-colors"
+                  className="relative text-gray-600 hover:text-primary transition-colors"
                 >
                   <ShoppingCart className="w-5 h-5" />
                   {cartItemsCount > 0 && (
-                    <span className="absolute -top-1 -right-1 bg-emerald-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                    <span className="absolute -top-1 -right-1 bg-primary text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
                       {cartItemsCount > 99 ? '99+' : cartItemsCount}
                     </span>
                   )}
@@ -206,14 +206,14 @@ export default function Header({
                 ) : (
                   <>
                     <Link href="/login">
-                      <Button variant="ghost" size="sm" className="text-gray-700 hover:text-emerald-600 text-sm">
+                      <Button variant="ghost" size="sm" className="text-gray-700 hover:text-primary text-sm">
                         Entrar
                       </Button>
                     </Link>
                     <Link href="/cadastro">
                       <Button 
                         size="sm" 
-                        className="bg-gradient-to-r from-emerald-600 to-emerald-600 hover:from-emerald-700 hover:to-emerald-700 text-white text-sm"
+                        className="bg-gradient-to-r from-primary to-primary hover:from-primary/90 hover:to-primary/90 text-white text-sm"
                       >
                         Cadastrar
                       </Button>
@@ -227,7 +227,7 @@ export default function Header({
             <Button
               variant="ghost"
               size="sm"
-              className="lg:hidden text-gray-600 hover:text-emerald-600"
+              className="lg:hidden text-gray-600 hover:text-primary"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -243,7 +243,7 @@ export default function Header({
               <input
                 type="text"
                 placeholder="Buscar animais, raças, localização..."
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
               />
             </div>
           </div>
@@ -278,8 +278,8 @@ export default function Header({
                     className={cn(
                       "block px-4 py-3 rounded-lg text-base font-medium transition-all duration-200 mx-1",
                       item.current
-                        ? "bg-emerald-50 text-emerald-600 font-semibold"
-                        : "text-gray-700 hover:bg-emerald-50/50 hover:text-emerald-600 active:bg-emerald-100"
+                        ? "bg-primary/5 text-primary font-semibold"
+                        : "text-gray-700 hover:bg-primary/5/50 hover:text-primary active:bg-primary/10"
                     )}
                     style={{ 
                       animation: `fadeInUp 0.25s ease-out ${0.15 + index * 0.03}s both`

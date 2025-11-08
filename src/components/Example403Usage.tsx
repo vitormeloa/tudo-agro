@@ -7,7 +7,7 @@ export default function Example403Usage() {
   return (
     <div className="max-w-4xl mx-auto p-6 space-y-6">
       <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-        <h3 className="text-lg font-semibold text-emerald-800 mb-2">
+        <h3 className="text-lg font-semibold text-primary mb-2">
           Exemplos de Uso do Sistema 403
         </h3>
         <p className="text-blue-700 text-sm">
@@ -73,9 +73,9 @@ export default function Example403Usage() {
         </div>
       </div>
 
-      <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-4">
-        <h4 className="font-semibold text-emerald-800 mb-2">✅ Benefícios do Sistema 403</h4>
-        <ul className="text-emerald-700 text-sm space-y-1">
+      <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
+        <h4 className="font-semibold text-primary mb-2">✅ Benefícios do Sistema 403</h4>
+        <ul className="text-primary text-sm space-y-1">
           <li>• <strong>Experiência consistente:</strong> Todos os erros de permissão levam à mesma página</li>
           <li>• <strong>Mensagem clara e simples:</strong> "Você não tem permissão para acessar esta área"</li>
           <li>• <strong>Navegação intuitiva:</strong> Botões para voltar ou fazer login</li>

@@ -111,8 +111,8 @@ const MarkAsReceivedModal = ({ isOpen, onClose, onConfirm, productName }: MarkAs
 
             <div className="p-6 space-y-6">
               {/* Success Badge */}
-              <div className="bg-emerald-50 dark:bg-green-950/20 border border-emerald-200 dark:border-emerald-800 rounded-lg p-3 text-center">
-                <p className="text-sm font-semibold text-emerald-800 dark:text-emerald-200">
+              <div className="bg-primary/5 dark:bg-primary/20 border border-primary/20 dark:border-primary rounded-lg p-3 text-center">
+                <p className="text-sm font-semibold text-primary dark:text-primary/30">
                   ✅ Pedido finalizado com sucesso
                 </p>
               </div>

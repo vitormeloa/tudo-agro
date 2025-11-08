@@ -239,7 +239,7 @@ export default function CheckoutPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="mb-8">
-          <Link href="/carrinho" className="inline-flex items-center text-gray-600 hover:text-emerald-600 mb-4">
+          <Link href="/carrinho" className="inline-flex items-center text-gray-600 hover:text-primary mb-4">
             <ArrowLeft className="w-4 h-4 mr-2" />
             Voltar ao carrinho
           </Link>
@@ -254,7 +254,7 @@ export default function CheckoutPage() {
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center">
-                    <MapPin className="w-5 h-5 mr-2 text-emerald-600" />
+                    <MapPin className="w-5 h-5 mr-2 text-primary" />
                     Dados Pessoais
                   </CardTitle>
                 </CardHeader>
@@ -302,7 +302,7 @@ export default function CheckoutPage() {
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center">
-                    <Truck className="w-5 h-5 mr-2 text-emerald-600" />
+                    <Truck className="w-5 h-5 mr-2 text-primary" />
                     Endereço de Entrega
                   </CardTitle>
                 </CardHeader>
@@ -325,7 +325,7 @@ export default function CheckoutPage() {
                         maxLength={9}
                       />
                       {freightResult && (
-                        <p className="text-xs text-emerald-600 mt-1">{freightResult.formattedDelivery}</p>
+                        <p className="text-xs text-primary mt-1">{freightResult.formattedDelivery}</p>
                       )}
                     </div>
                     <div className="md:col-span-2">
@@ -406,7 +406,7 @@ export default function CheckoutPage() {
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center">
-                    <CreditCard className="w-5 h-5 mr-2 text-emerald-600" />
+                    <CreditCard className="w-5 h-5 mr-2 text-primary" />
                     Forma de Pagamento
                   </CardTitle>
                 </CardHeader>
@@ -486,7 +486,7 @@ export default function CheckoutPage() {
 
                   {formData.paymentMethod === 'pix' && (
                     <div className="pt-4 border-t">
-                      <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-4">
+                      <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
                         <p className="text-sm text-gray-700 mb-2">
                           <strong>QR Code PIX será gerado após confirmar o pedido.</strong>
                         </p>
@@ -560,7 +560,7 @@ export default function CheckoutPage() {
                                 <Plus className="w-3 h-3" />
                               </Button>
                             </div>
-                            <span className="text-sm font-bold text-emerald-600">
+                            <span className="text-sm font-bold text-primary">
                               R$ {(item.price * item.quantity).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                             </span>
                           </div>
@@ -590,18 +590,18 @@ export default function CheckoutPage() {
                     </div>
                     <div className="flex justify-between text-lg font-bold pt-2 border-t">
                       <span>Total</span>
-                      <span className="text-emerald-600">R$ {getTotal().toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
+                      <span className="text-primary">R$ {getTotal().toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                     </div>
                   </div>
 
                   {/* Security Badges */}
                   <div className="pt-4 space-y-2">
                     <div className="flex items-center gap-2 text-xs text-gray-600">
-                      <Lock className="w-4 h-4 text-emerald-600" />
+                      <Lock className="w-4 h-4 text-primary" />
                       <span>Compra 100% segura</span>
                     </div>
                     <div className="flex items-center gap-2 text-xs text-gray-600">
-                      <Shield className="w-4 h-4 text-emerald-600" />
+                      <Shield className="w-4 h-4 text-primary" />
                       <span>Seus dados estão protegidos</span>
                     </div>
                   </div>
@@ -609,7 +609,7 @@ export default function CheckoutPage() {
                   {/* Submit Button */}
                   <Button
                     type="submit"
-                    className="w-full bg-emerald-600 hover:bg-[#2E7A5A] text-white py-6 text-lg mt-4"
+                    className="w-full bg-primary hover:bg-[#2E7A5A] text-white py-6 text-lg mt-4"
                     disabled={isProcessing}
                   >
                     {isProcessing ? (

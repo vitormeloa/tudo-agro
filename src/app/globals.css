@@ -48,20 +48,20 @@
   --foreground: oklch(0.10 0 0); /* Darker gray for text */
   
   /* Modern color palette */
-  --primary: oklch(45% 0.18 160); /* Vibrant Emerald Green, similar to emerald-600 */
-  --primary-dark: oklch(35% 0.18 160); /* Darker Emerald Green */
+  --primary: oklch(54% 0.14 162); /* #0A9965 - TudoAgro Green */
+  --primary-dark: oklch(44% 0.14 162); /* Darker TudoAgro Green */
   --primary-foreground: oklch(0.98 0 0); /* White for contrast */
-  --secondary: oklch(90% 0.05 160); /* Very light emerald */
-  --secondary-foreground: oklch(20% 0.05 160); /* Darker emerald for text */
+  --secondary: oklch(90% 0.05 162); /* Very light TudoAgro green */
+  --secondary-foreground: oklch(20% 0.05 162); /* Darker green for text */
   --muted: oklch(0.96 0 0);
   --muted-foreground: oklch(0.30 0 0); /* Medium-dark gray for muted text */
-  --accent: oklch(80% 0.08 160); /* Slightly more prominent light emerald */
-  --accent-foreground: oklch(20% 0.05 160); /* Darker emerald for text */
+  --accent: oklch(80% 0.08 162); /* Slightly more prominent light green */
+  --accent-foreground: oklch(20% 0.05 162); /* Darker green for text */
   --destructive: oklch(0.55 0.2 25);
   --destructive-foreground: oklch(0.98 0 0);
   --border: oklch(0.9 0 0);
   --input: oklch(0.9 0 0);
-  --ring: oklch(45% 0.18 160); /* Same as primary for focus rings */
+  --ring: oklch(54% 0.14 162); /* Same as primary for focus rings */
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.10 0 0); /* Darker gray for text */
   --popover: oklch(1 0 0);
@@ -77,12 +77,12 @@
   /* Sidebar colors */
   --sidebar: oklch(0.98 0 0);
   --sidebar-foreground: oklch(0.15 0 0);
-  --sidebar-primary: oklch(45% 0.18 160); /* Same as primary */
+  --sidebar-primary: oklch(54% 0.14 162); /* Same as primary */
   --sidebar-primary-foreground: oklch(0.98 0 0); /* White for contrast */
   --sidebar-accent: oklch(0.96 0 0);
   --sidebar-accent-foreground: oklch(0.15 0 0);
   --sidebar-border: oklch(0.9 0 0);
-  --sidebar-ring: oklch(45% 0.18 160);
+  --sidebar-ring: oklch(54% 0.14 162);
   
   /* Additional font families for AI usage */
   --font-inter: "Inter", ui-sans-serif, system-ui, sans-serif;
@@ -96,8 +96,8 @@
 .dark {
   --background: oklch(0.08 0 0);
   --foreground: oklch(0.98 0 0); /* White for text */
-  --primary: oklch(50% 0.15 145); /* Darker green for dark mode */
-  --primary-dark: oklch(40% 0.15 145); /* Even darker green for dark mode */
+  --primary: oklch(58% 0.14 162); /* TudoAgro Green for dark mode */
+  --primary-dark: oklch(48% 0.14 162); /* Darker TudoAgro Green for dark mode */
   --primary-foreground: oklch(0.08 0 0); /* Dark for contrast */
   --secondary: oklch(0.12 0 0);
   --secondary-foreground: oklch(0.98 0 0); /* White for text */
@@ -109,24 +109,24 @@
   --destructive-foreground: #FFFFFF;
   --border: oklch(0.2 0 0);
   --input: oklch(0.2 0 0);
-  --ring: oklch(0.6 0.15 145);
+  --ring: oklch(58% 0.14 162);
   --card: oklch(0.08 0 0);
   --card-foreground: oklch(0.98 0 0); /* White for text */
   --popover: oklch(0.08 0 0);
   --popover-foreground: oklch(0.98 0 0); /* White for text */
-  --chart-1: oklch(0.6 0.15 145);
+  --chart-1: oklch(0.6 0.14 162);
   --chart-2: oklch(0.7 0.12 180);
   --chart-3: oklch(0.6 0.07 230);
   --chart-4: oklch(0.8 0.15 80);
   --chart-5: oklch(0.7 0.15 60);
   --sidebar: oklch(0.08 0 0);
   --sidebar-foreground: oklch(0.98 0 0);
-  --sidebar-primary: oklch(0.6 0.15 145);
+  --sidebar-primary: oklch(58% 0.14 162);
   --sidebar-primary-foreground: oklch(0.08 0 0);
   --sidebar-accent: oklch(0.12 0 0);
   --sidebar-accent-foreground: oklch(0.98 0 0);
   --sidebar-border: oklch(0.2 0 0);
-  --sidebar-ring: oklch(0.6 0.15 145);
+  --sidebar-ring: oklch(58% 0.14 162);
 }
 
 @layer base {

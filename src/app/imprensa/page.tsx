@@ -48,11 +48,11 @@ export default function ImprensaPage() {
       <Header />
       
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-emerald-600 via-emerald-600 to-emerald-700 text-white py-20">
+      <section className="bg-gradient-to-r from-primary via-primary to-primary/90 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">Imprensa</h1>
-            <p className="text-xl text-emerald-100 max-w-3xl mx-auto">
+            <p className="text-xl text-primary-foreground/80 max-w-3xl mx-auto">
               Notícias, recursos e informações para jornalistas e veículos de comunicação
             </p>
           </div>
@@ -62,28 +62,28 @@ export default function ImprensaPage() {
       <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Contact Section */}
         <section className="mb-16">
-          <Card className="border-2 border-emerald-200 bg-emerald-50">
+          <Card className="border-2 border-primary/20 bg-primary/5">
             <CardContent className="p-8">
               <h2 className="text-2xl font-bold text-[#101828] mb-6">Contato para Imprensa</h2>
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="flex items-start gap-4">
-                  <div className="bg-emerald-600 p-3 rounded-lg">
+                  <div className="bg-primary p-3 rounded-lg">
                     <Mail className="w-6 h-6 text-white" />
                   </div>
                   <div>
                     <h3 className="font-semibold text-[#101828] mb-1">E-mail</h3>
-                    <a href="mailto:imprensa@tudoagro.com" className="text-emerald-600 hover:underline">
+                    <a href="mailto:imprensa@tudoagro.com" className="text-primary hover:underline">
                       imprensa@tudoagro.com
                     </a>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
-                  <div className="bg-emerald-600 p-3 rounded-lg">
+                  <div className="bg-primary p-3 rounded-lg">
                     <Phone className="w-6 h-6 text-white" />
                   </div>
                   <div>
                     <h3 className="font-semibold text-[#101828] mb-1">Telefone</h3>
-                    <a href="tel:+5511999999999" className="text-emerald-600 hover:underline">
+                    <a href="tel:+5511999999999" className="text-primary hover:underline">
                       (11) 99999-9999
                     </a>
                   </div>
@@ -98,11 +98,11 @@ export default function ImprensaPage() {
           <h2 className="text-3xl font-bold text-[#101828] mb-8">Últimas Notícias</h2>
           <div className="space-y-6">
             {pressReleases.map((release, index) => (
-              <Card key={index} className="border-2 border-gray-200 hover:border-emerald-500 transition-colors">
+              <Card key={index} className="border-2 border-gray-200 hover:border-primary transition-colors">
                 <CardContent className="p-6">
                   <div className="flex items-start gap-4">
-                    <div className="bg-emerald-100 p-3 rounded-lg">
-                      <Calendar className="w-6 h-6 text-emerald-600" />
+                    <div className="bg-primary/10 p-3 rounded-lg">
+                      <Calendar className="w-6 h-6 text-primary" />
                     </div>
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
@@ -123,14 +123,14 @@ export default function ImprensaPage() {
           <h2 className="text-3xl font-bold text-[#101828] mb-8">Material para Download</h2>
           <div className="grid md:grid-cols-3 gap-6">
             {mediaKit.map((item, index) => (
-              <Card key={index} className="border-2 border-gray-200 hover:border-emerald-500 transition-colors">
+              <Card key={index} className="border-2 border-gray-200 hover:border-primary transition-colors">
                 <CardContent className="p-6 text-center">
-                  <div className="bg-emerald-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <item.icon className="w-8 h-8 text-emerald-600" />
+                  <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <item.icon className="w-8 h-8 text-primary" />
                   </div>
                   <h3 className="text-lg font-semibold text-[#101828] mb-2">{item.title}</h3>
                   <p className="text-gray-600 text-sm mb-4">{item.description}</p>
-                  <Button variant="outline" className="border-emerald-600 text-emerald-600 hover:bg-emerald-50">
+                  <Button variant="outline" className="border-primary text-primary hover:bg-primary/5">
                     <Download className="w-4 h-4 mr-2" />
                     Baixar
                   </Button>
@@ -141,7 +141,7 @@ export default function ImprensaPage() {
         </section>
 
         {/* About Section */}
-        <section className="bg-gradient-to-r from-emerald-50 to-emerald-50 rounded-lg p-8">
+        <section className="bg-gradient-to-r from-primary/5 to-primary/5 rounded-lg p-8">
           <h2 className="text-2xl font-bold text-[#101828] mb-4">Sobre o TudoAgro</h2>
           <p className="text-gray-600 mb-4">
             O TudoAgro é a maior plataforma de negócios do agronegócio brasileiro, conectando produtores e compradores 

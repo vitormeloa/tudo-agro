@@ -158,8 +158,8 @@ export default function AnimalsSection() {
 
   const getHealthBadge = (health: Animal['healthStatus']) => {
     const healthConfig = {
-      excellent: { label: 'Excelente', variant: 'default' as const, color: 'text-emerald-600' },
-      good: { label: 'Bom', variant: 'secondary' as const, color: 'text-emerald-600' },
+      excellent: { label: 'Excelente', variant: 'default' as const, color: 'text-primary' },
+      good: { label: 'Bom', variant: 'secondary' as const, color: 'text-primary' },
       fair: { label: 'Regular', variant: 'outline' as const, color: 'text-yellow-600' },
       poor: { label: 'Ruim', variant: 'destructive' as const, color: 'text-red-600' }
     }
@@ -215,7 +215,7 @@ export default function AnimalsSection() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
                 <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-                    <Heart className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-800" />
+                    <Heart className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                     <span className="text-base sm:text-lg font-semibold">Gerenciamento de Animais</span>
                 </CardTitle>
             </div>
@@ -312,7 +312,7 @@ export default function AnimalsSection() {
                 {getStatusBadge(animal.status)}
                 {getHealthBadge(animal.healthStatus)}
                 {animal.pedigree && (
-                  <Badge variant="outline" className="text-xs text-emerald-600">
+                  <Badge variant="outline" className="text-xs text-primary">
                     Pedigree
                   </Badge>
                 )}
@@ -349,7 +349,7 @@ export default function AnimalsSection() {
                 </div>
                 
                 {/* Preço */}
-                <div className="flex items-center gap-2 text-lg font-bold text-emerald-800">
+                <div className="flex items-center gap-2 text-lg font-bold text-primary">
                   <DollarSign className="w-4 h-4" />
                   R$ {animal.price.toLocaleString('pt-BR')}
                 </div>
@@ -408,7 +408,7 @@ export default function AnimalsSection() {
                       variant="outline" 
                       size="sm"
                       onClick={() => handleAction('offer', animal)}
-                      className="text-emerald-600 hover:text-emerald-700"
+                      className="text-primary hover:text-primary"
                     >
                       <Heart className="w-4 h-4 mr-1" />
                       Ofertar
@@ -419,7 +419,7 @@ export default function AnimalsSection() {
                     <Button 
                       size="sm"
                       onClick={() => handleAction('purchase', animal)}
-                      className="bg-[#1E4D2B] hover:bg-[#2B5A3A]"
+                      className="bg-primary hover:bg-[#2B5A3A]"
                     >
                       <ShoppingCart className="w-4 h-4 mr-1" />
                       Comprar
@@ -431,7 +431,7 @@ export default function AnimalsSection() {
                       variant="outline" 
                       size="sm"
                       onClick={() => handleAction('bid', animal)}
-                      className="text-emerald-600 hover:text-emerald-700"
+                      className="text-primary hover:text-primary"
                     >
                       <Zap className="w-4 h-4 mr-1" />
                       Lances
@@ -449,25 +449,25 @@ export default function AnimalsSection() {
         <CardContent className="pt-6">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             <div className="text-center">
-              <div className="text-2xl font-bold text-emerald-800">
+              <div className="text-2xl font-bold text-primary">
                 {animals.filter(animal => animal.status === 'available').length}
               </div>
               <div className="text-sm text-gray-600">Disponíveis</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-emerald-600">
+              <div className="text-2xl font-bold text-primary">
                 {animals.filter(animal => animal.status === 'auction').length}
               </div>
               <div className="text-sm text-gray-600">Leilões</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-emerald-600">
+              <div className="text-2xl font-bold text-primary">
                 {animals.filter(animal => animal.featured).length}
               </div>
               <div className="text-sm text-gray-600">Destaque</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-emerald-800">
+              <div className="text-2xl font-bold text-primary">
                 {animals.reduce((sum, animal) => sum + animal.offers, 0)}
               </div>
               <div className="text-sm text-gray-600">Ofertas</div>
@@ -499,7 +499,7 @@ export default function AnimalsSection() {
             <div className="p-4 bg-gray-50 rounded-lg">
               <h4 className="font-medium text-[#101828]">{selectedAnimal?.name}</h4>
               <p className="text-sm text-gray-600">{selectedAnimal?.breed} - {selectedAnimal?.category}</p>
-              <p className="text-lg font-bold text-emerald-800">
+              <p className="text-lg font-bold text-primary">
                 R$ {selectedAnimal?.price.toLocaleString('pt-BR')}
               </p>
             </div>
@@ -531,7 +531,7 @@ export default function AnimalsSection() {
                 onClick={confirmAction}
                 className={actionType === 'delete' || actionType === 'reject' ? 
                   'bg-red-600 hover:bg-[#A03730]' : 
-                  'bg-[#1E4D2B] hover:bg-[#2B5A3A]'
+                  'bg-primary hover:bg-[#2B5A3A]'
                 }
               >
                 {actionType === 'approve' && 'Aprovar'}

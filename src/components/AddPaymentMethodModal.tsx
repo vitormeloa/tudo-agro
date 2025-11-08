@@ -40,17 +40,17 @@ export const AddPaymentMethodModal = ({ open, onOpenChange }: AddPaymentMethodMo
             <div className="grid grid-cols-2 gap-4">
               <button
                 onClick={() => setPaymentType("card")}
-                className="flex flex-col items-center gap-3 p-6 border-2 rounded-lg hover:border-[#1E4D2B] hover:bg-accent transition-all"
+                className="flex flex-col items-center gap-3 p-6 border-2 rounded-lg hover:border-primary hover:bg-accent transition-all"
               >
-                <CreditCard className="h-8 w-8 text-emerald-800" />
+                <CreditCard className="h-8 w-8 text-primary" />
                 <span className="font-medium">Cartão de Crédito</span>
               </button>
 
               <button
                 onClick={() => setPaymentType("pix")}
-                className="flex flex-col items-center gap-3 p-6 border-2 rounded-lg hover:border-[#1E4D2B] hover:bg-accent transition-all"
+                className="flex flex-col items-center gap-3 p-6 border-2 rounded-lg hover:border-primary hover:bg-accent transition-all"
               >
-                <Landmark className="h-8 w-8 text-emerald-800" />
+                <Landmark className="h-8 w-8 text-primary" />
                 <span className="font-medium">Pix</span>
               </button>
             </div>
@@ -123,7 +123,7 @@ export const AddPaymentMethodModal = ({ open, onOpenChange }: AddPaymentMethodMo
               </Button>
               <Button
                 type="submit"
-                className="flex-1 bg-[#1E4D2B] hover:bg-[#1E4D2B]/90"
+                className="flex-1 bg-primary hover:bg-primary/90"
               >
                 Adicionar
               </Button>

@@ -122,7 +122,7 @@ const Financeiro = () => {
   const stats = [
     { icon: DollarSign, label: "Total Gasto", value: "R$ 31.840,00", color: "text-primary" },
     { icon: TrendingUp, label: "Média Mensal", value: "R$ 10.613,33", color: "text-primary" },
-    { icon: CheckCircle, label: "Compras Aprovadas", value: String(approvedCount), color: "text-emerald-600" },
+    { icon: CheckCircle, label: "Compras Aprovadas", value: String(approvedCount), color: "text-primary" },
     { icon: XCircle, label: "Compras Recusadas", value: String(cancelledCount), color: "text-red-600" },
   ];
 
@@ -275,7 +275,7 @@ const Financeiro = () => {
                           <Button 
                             variant="ghost" 
                             size="sm" 
-                            className="text-emerald-800 hover:text-emerald-800 hover:bg-[#1E4D2B]/10"
+                            className="text-primary hover:text-primary hover:bg-primary/10"
                             onClick={() => handleDownloadInvoice(transaction)}
                           >
                             <Download className="h-4 w-4 mr-1" />
@@ -388,14 +388,14 @@ const Financeiro = () => {
         <CardContent className="space-y-3">
           <div className="flex items-center justify-between p-4 rounded-lg border">
             <div className="flex items-center gap-3">
-              <CreditCard className="h-5 w-5 text-emerald-800" />
+              <CreditCard className="h-5 w-5 text-primary" />
               <div>
                 <p className="font-medium">Cartão de Crédito</p>
                 <p className="text-sm text-muted-foreground">**** **** **** 1234</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <Badge variant="outline" className="border-[#2A5C2E] text-emerald-800">Principal</Badge>
+              <Badge variant="outline" className="border-[#2A5C2E] text-primary">Principal</Badge>
               <Button 
                 variant="ghost" 
                 size="sm" 
@@ -417,7 +417,7 @@ const Financeiro = () => {
         <CardContent className="p-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <HelpCircle className="h-5 w-5 text-emerald-800" />
+              <HelpCircle className="h-5 w-5 text-primary" />
               <div>
                 <p className="font-medium">Dúvidas sobre seus pagamentos?</p>
                 <p className="text-sm text-muted-foreground">Nossa equipe está pronta para ajudar</p>

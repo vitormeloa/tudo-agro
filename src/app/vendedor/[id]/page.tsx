@@ -8,8 +8,8 @@ import { Badge } from '@/components/ui/badge'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import {
-  MapPin, 
-  Star, 
+  MapPin,
+  Star,
   Shield,
   Award,
   Calendar,
@@ -17,7 +17,8 @@ import {
   Phone,
   Mail,
   Users,
-  CheckCircle
+  CheckCircle,
+  ArrowLeft
 } from 'lucide-react'
 import { mockAnimals, MockAnimal } from '@/lib/mock-animals'
 import { mockProducts, MockProduct } from '@/lib/mock-products'
@@ -206,7 +207,7 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
           <div className="text-center">
             <h1 className="text-2xl font-bold text-[#101828] mb-4">Vendedor não encontrado</h1>
             <Link href="/">
-              <Button className="bg-emerald-600 hover:bg-[#2E7A5A]">
+              <Button className="bg-primary hover:bg-[#2E7A5A]">
                 Voltar para Home
               </Button>
             </Link>
@@ -292,6 +293,20 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
         <div className="relative -mt-16 sm:-mt-20 mb-6 sm:mb-8">
           <Card className="border-gray-200 shadow-xl">
             <CardContent className="p-4 sm:p-6 lg:p-8">
+              {/* Botão de Voltar */}
+              <div className="mb-4 sm:mb-6">
+                <Link href="/produtos">
+                  <Button 
+                    type="button" 
+                    variant="ghost" 
+                    className="text-gray-600 hover:text-primary hover:bg-primary/5 p-2 text-sm sm:text-base"
+                  >
+                    <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
+                    <span className="hidden sm:inline">Voltar aos Produtos</span>
+                    <span className="sm:hidden">Voltar</span>
+                  </Button>
+                </Link>
+              </div>
               <div className="flex flex-col md:flex-row items-start md:items-center space-y-4 md:space-y-0 md:space-x-6">
                 <div className="relative">
                   <img
@@ -300,7 +315,7 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
                     className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 mx-auto md:mx-0 rounded-full object-cover border-4 border-white shadow-lg"
                   />
                   {seller.verified && (
-                    <div className="absolute -bottom-2 -right-2 bg-emerald-600 text-white p-1.5 sm:p-2 rounded-full">
+                    <div className="absolute -bottom-2 -right-2 bg-primary text-white p-1.5 sm:p-2 rounded-full">
                       <Shield className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
                     </div>
                   )}
@@ -312,7 +327,7 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
                       {seller.name}
                     </h1>
                     {seller.verified && (
-                      <Badge className="bg-emerald-600 text-white w-fit">
+                      <Badge className="bg-primary text-white w-fit">
                         <Shield className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
                         VERIFICADO
                       </Badge>
@@ -348,28 +363,28 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
         {/* Stats Cards */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
           <Card className="text-center p-3 sm:p-4 border-gray-200">
-            <div className="text-xl sm:text-2xl font-bold text-emerald-600 mb-1">
+            <div className="text-xl sm:text-2xl font-bold text-primary mb-1">
               {sellerProducts.length}
             </div>
             <div className="text-xs sm:text-sm text-gray-600">Total de Produtos</div>
           </Card>
 
           <Card className="text-center p-3 sm:p-4 border-gray-200">
-            <div className="text-xl sm:text-2xl font-bold text-emerald-600 mb-1">
+            <div className="text-xl sm:text-2xl font-bold text-primary mb-1">
               {seller.stats.activeLots + 15}
             </div>
             <div className="text-xs sm:text-sm text-gray-600">Pedidos Entregues</div>
           </Card>
 
           <Card className="text-center p-3 sm:p-4 border-gray-200">
-            <div className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-emerald-600 mb-1 px-1 sm:px-2 line-clamp-2">
+            <div className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-primary mb-1 px-1 sm:px-2 line-clamp-2">
               {mostSoldProduct}
             </div>
             <div className="text-xs sm:text-sm text-gray-600">Produto mais vendido</div>
           </Card>
 
           <Card className="text-center p-3 sm:p-4 border-gray-200">
-            <div className="text-xl sm:text-2xl font-bold text-emerald-600 mb-1">
+            <div className="text-xl sm:text-2xl font-bold text-primary mb-1">
               {lastActivityDisplay}
             </div>
             <div className="text-xs sm:text-sm text-gray-600">Última Atividade</div>
@@ -384,7 +399,7 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
                 onClick={() => setActiveTab('lotes')}
                 className={`py-3 sm:py-4 px-1 border-b-2 font-medium text-xs sm:text-sm whitespace-nowrap transition-colors ${
                   activeTab === 'lotes'
-                    ? 'border-emerald-600 text-emerald-600'
+                    ? 'border-primary text-primary'
                     : 'border-transparent text-gray-600 hover:text-[#101828] hover:border-gray-300'
                 }`}
               >
@@ -394,7 +409,7 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
                 onClick={() => setActiveTab('avaliacoes')}
                 className={`py-3 sm:py-4 px-1 border-b-2 font-medium text-xs sm:text-sm whitespace-nowrap transition-colors ${
                   activeTab === 'avaliacoes'
-                    ? 'border-emerald-600 text-emerald-600'
+                    ? 'border-primary text-primary'
                     : 'border-transparent text-gray-600 hover:text-[#101828] hover:border-gray-300'
                 }`}
               >
@@ -404,7 +419,7 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
                 onClick={() => setActiveTab('sobre')}
                 className={`py-3 sm:py-4 px-1 border-b-2 font-medium text-xs sm:text-sm whitespace-nowrap transition-colors ${
                   activeTab === 'sobre'
-                    ? 'border-emerald-600 text-emerald-600'
+                    ? 'border-primary text-primary'
                     : 'border-transparent text-gray-600 hover:text-[#101828] hover:border-gray-300'
                 }`}
               >
@@ -435,7 +450,7 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
                         className="w-full h-40 sm:h-48 object-cover"
                       />
                       <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 flex gap-1.5 sm:gap-2">
-                        <Badge className="bg-emerald-600 text-xs sm:text-sm">
+                        <Badge className="bg-primary text-xs sm:text-sm">
                           {lot.category}
                         </Badge>
                         {lot.type === 'leilao' && (
@@ -453,12 +468,12 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
                     <CardContent className="p-4 sm:p-6">
                       <h3 className="text-base sm:text-lg font-bold text-[#101828] mb-3 line-clamp-2">{lot.title}</h3>
 
-                      <div className="text-xl sm:text-2xl font-bold text-emerald-600 mb-4">
+                      <div className="text-xl sm:text-2xl font-bold text-primary mb-4">
                         R$ {lot.price.toLocaleString()}
                       </div>
 
                       <Link href={detailUrl}>
-                        <Button className="w-full bg-emerald-600 hover:bg-[#2E7A5A] transition-colors text-sm sm:text-base">
+                        <Button className="w-full bg-primary hover:bg-[#2E7A5A] transition-colors text-sm sm:text-base">
                           Ver Detalhes
                         </Button>
                       </Link>
@@ -478,8 +493,8 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
                     <div className="flex gap-3 sm:gap-4">
                       {/* Avatar com Iniciais */}
                       <div className="flex-shrink-0">
-                        <div className="w-10 h-10 sm:w-12 sm:h-12 bg-emerald-100 rounded-full flex items-center justify-center">
-                          <span className="text-emerald-600 font-semibold text-base sm:text-lg">
+                        <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                          <span className="text-primary font-semibold text-base sm:text-lg">
                             {getInitials(review.buyer)}
                           </span>
                         </div>

@@ -519,7 +519,7 @@ export default function OverviewSection() {
   const getColorClasses = (color: string) => {
     const colors = {
       blue: 'bg-blue-500 text-white',
-      green: 'bg-emerald-500 text-white',
+      green: 'bg-primary/50 text-white',
       orange: 'bg-orange-500 text-white',
       purple: 'bg-purple-500 text-white',
       red: 'bg-red-500 text-white'
@@ -532,7 +532,7 @@ export default function OverviewSection() {
       urgent: 'border-red-200 bg-red-50',
       warning: 'border-orange-200 bg-orange-50',
       info: 'border-blue-200 bg-blue-50',
-      success: 'border-emerald-200 bg-emerald-50'
+      success: 'border-primary/20 bg-primary/5'
     }
     return colors[type as keyof typeof colors] || colors.info
   }
@@ -599,7 +599,7 @@ export default function OverviewSection() {
       </div>
 
       {/* Título do Setor Selecionado */}
-      <div className="bg-gradient-to-r from-emerald-600 to-emerald-700 text-white p-3 sm:p-4 rounded-lg">
+      <div className="bg-gradient-to-r from-primary to-primary/90 text-white p-3 sm:p-4 rounded-lg">
         <h2 className="text-lg sm:text-xl font-bold">{getSectorTitle(selectedSector)}</h2>
         <p className="text-xs sm:text-sm opacity-90 mt-1">
           {selectedSector === 'all' 
@@ -639,7 +639,7 @@ export default function OverviewSection() {
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                   <div>
                     <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-                      <chart.icon className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600" />
+                      <chart.icon className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                       <span className="text-base sm:text-lg font-semibold">{chart.title}</span>
                     </CardTitle>
                   </div>
@@ -688,7 +688,7 @@ export default function OverviewSection() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
                 <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-                    <Activity className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600" />
+                    <Activity className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                     <span className="text-base sm:text-lg font-semibold">Atividade Recente</span>
                 </CardTitle>
             </div>
@@ -718,7 +718,7 @@ export default function OverviewSection() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
                 <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-                    <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600" />
+                    <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                     <span className="text-base sm:text-lg font-semibold">Top Categorias</span>
                 </CardTitle>
             </div>
@@ -729,7 +729,7 @@ export default function OverviewSection() {
               {topCategories.map((category, index) => (
                 <div key={index} className="flex items-center justify-between p-4 rounded-lg bg-[#F7F6F2]">
                   <div className="flex items-center gap-4">
-                    <div className="w-8 h-8 bg-emerald-600 text-white rounded-full flex items-center justify-center font-bold text-sm">
+                    <div className="w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-bold text-sm">
                       {index + 1}
                     </div>
                     <div>
@@ -738,10 +738,10 @@ export default function OverviewSection() {
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="text-lg font-bold text-emerald-600">{category.percentage}%</p>
+                    <p className="text-lg font-bold text-primary">{category.percentage}%</p>
                     <div className="w-20 h-2 bg-gray-200 rounded-full mt-1">
                       <div 
-                        className="h-full bg-emerald-600 rounded-full"
+                        className="h-full bg-primary rounded-full"
                         style={{ width: `${category.percentage}%` }}
                       ></div>
                     </div>

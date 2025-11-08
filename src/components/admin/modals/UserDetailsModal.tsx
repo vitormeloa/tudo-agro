@@ -53,7 +53,7 @@ export default function UserDetailsModal({ user, isOpen, onClose }: UserDetailsM
 
   const getStatusBadge = (status: string) => {
     const statusConfig = {
-      ativo: { color: 'bg-emerald-100 text-emerald-800', label: 'Ativo' },
+      ativo: { color: 'bg-primary/10 text-primary', label: 'Ativo' },
       inativo: { color: 'bg-gray-100 text-gray-800', label: 'Inativo' },
       pendente: { color: 'bg-orange-100 text-orange-800', label: 'Pendente' },
       bloqueado: { color: 'bg-red-100 text-red-800', label: 'Bloqueado' }
@@ -68,7 +68,7 @@ export default function UserDetailsModal({ user, isOpen, onClose }: UserDetailsM
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b">
           <div className="flex items-center gap-3">
-            <User className="w-6 h-6 text-emerald-800" />
+            <User className="w-6 h-6 text-primary" />
             <h2 className="text-xl font-bold text-[#101828]">Detalhes do Usuário</h2>
           </div>
           <Button variant="ghost" size="sm" onClick={onClose}>
@@ -82,7 +82,7 @@ export default function UserDetailsModal({ user, isOpen, onClose }: UserDetailsM
             <CardHeader>
               <div className="flex items-center justify-between">
                 <CardTitle className="flex items-center gap-2">
-                  <User className="w-5 h-5 text-emerald-800" />
+                  <User className="w-5 h-5 text-primary" />
                   Informações Básicas
                 </CardTitle>
                 <Button 
@@ -144,7 +144,7 @@ export default function UserDetailsModal({ user, isOpen, onClose }: UserDetailsM
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Shield className="w-5 h-5 text-emerald-800" />
+                <Shield className="w-5 h-5 text-primary" />
                 Status e Verificação
               </CardTitle>
             </CardHeader>
@@ -195,30 +195,30 @@ export default function UserDetailsModal({ user, isOpen, onClose }: UserDetailsM
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Activity className="w-5 h-5 text-emerald-800" />
+                <Activity className="w-5 h-5 text-primary" />
                 Estatísticas de Atividade
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div className="text-center p-4 bg-[#F7F6F2] rounded-lg">
-                  <FileText className="w-8 h-8 text-emerald-800 mx-auto mb-2" />
-                  <p className="text-2xl font-bold text-emerald-800">{user.adsCount}</p>
+                  <FileText className="w-8 h-8 text-primary mx-auto mb-2" />
+                  <p className="text-2xl font-bold text-primary">{user.adsCount}</p>
                   <p className="text-sm text-gray-600">Anúncios</p>
                 </div>
                 <div className="text-center p-4 bg-[#F7F6F2] rounded-lg">
-                  <Gavel className="w-8 h-8 text-emerald-800 mx-auto mb-2" />
-                  <p className="text-2xl font-bold text-emerald-800">{user.auctionsCount}</p>
+                  <Gavel className="w-8 h-8 text-primary mx-auto mb-2" />
+                  <p className="text-2xl font-bold text-primary">{user.auctionsCount}</p>
                   <p className="text-sm text-gray-600">Leilões</p>
                 </div>
                 <div className="text-center p-4 bg-[#F7F6F2] rounded-lg">
-                  <Heart className="w-8 h-8 text-emerald-800 mx-auto mb-2" />
-                  <p className="text-2xl font-bold text-emerald-800">{user.favoritesCount}</p>
+                  <Heart className="w-8 h-8 text-primary mx-auto mb-2" />
+                  <p className="text-2xl font-bold text-primary">{user.favoritesCount}</p>
                   <p className="text-sm text-gray-600">Favoritos</p>
                 </div>
                 <div className="text-center p-4 bg-[#F7F6F2] rounded-lg">
-                  <DollarSign className="w-8 h-8 text-emerald-800 mx-auto mb-2" />
-                  <p className="text-2xl font-bold text-emerald-800">{user.purchasesCount}</p>
+                  <DollarSign className="w-8 h-8 text-primary mx-auto mb-2" />
+                  <p className="text-2xl font-bold text-primary">{user.purchasesCount}</p>
                   <p className="text-sm text-gray-600">Compras</p>
                 </div>
               </div>
@@ -229,7 +229,7 @@ export default function UserDetailsModal({ user, isOpen, onClose }: UserDetailsM
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Calendar className="w-5 h-5 text-emerald-800" />
+                <Calendar className="w-5 h-5 text-primary" />
                 Informações de Cadastro
               </CardTitle>
             </CardHeader>

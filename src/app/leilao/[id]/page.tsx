@@ -606,7 +606,7 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
                 <Card className="bg-white border-gray-200 shadow-lg">
                   <CardContent className="p-6">
                     <div className="text-center">
-                      <div className="text-4xl font-bold text-emerald-600 mb-2">
+                      <div className="text-4xl font-bold text-primary mb-2">
                         R$ {currentBid.toLocaleString()}
                       </div>
                       <div className="text-gray-500 mb-4">Lance atual</div>
@@ -637,7 +637,7 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
                             placeholder={`Mínimo: R$ ${(currentBid + 500).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
                             value={myBid ? `R$ ${myBid}` : ''}
                             onChange={handleBidChange}
-                            className="pl-10 bg-white border-gray-300 text-[#101828] focus:border-emerald-500 focus:ring-emerald-500"
+                            className="pl-10 bg-white border-gray-300 text-[#101828] focus:border-primary focus:ring-primary"
                           />
                         </div>
                       </div>
@@ -651,7 +651,7 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
                           placeholder="Opcional"
                           value={autoBidLimit ? `R$ ${autoBidLimit}` : ''}
                           onChange={handleAutoBidChange}
-                          className="bg-white border-gray-300 text-[#101828] focus:border-emerald-500 focus:ring-emerald-500"
+                          className="bg-white border-gray-300 text-[#101828] focus:border-primary focus:ring-primary"
                         />
                       </div>
                     </div>
@@ -659,7 +659,7 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
                     <div className="flex gap-3">
                       <Button 
                         onClick={handleBid}
-                        className="flex-1 bg-emerald-600 hover:bg-[#2E7A5A] text-white py-3 text-lg"
+                        className="flex-1 bg-primary hover:bg-[#2E7A5A] text-white py-3 text-lg"
                       >
                         <Gavel className="w-5 h-5 mr-2" />
                         Dar Lance
@@ -685,8 +685,8 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
 
                     <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
                       <div className="flex items-start">
-                        <AlertCircle className="w-5 h-5 text-emerald-600 mr-2 mt-0.5" />
-                        <div className="text-sm text-emerald-800">
+                        <AlertCircle className="w-5 h-5 text-primary mr-2 mt-0.5" />
+                        <div className="text-sm text-primary">
                           <strong>Auto-Lance:</strong> Configure um valor limite e o sistema dará lances 
                           automaticamente por você até esse valor.
                         </div>
@@ -699,7 +699,7 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
               <Card className="bg-white border-gray-200 shadow-lg">
                 <CardContent className="p-6">
                   <div className="text-center">
-                    <div className="text-4xl font-bold text-emerald-600 mb-2">
+                    <div className="text-4xl font-bold text-primary mb-2">
                       {auction.startTime?.toLocaleDateString('pt-BR', {
                         day: '2-digit',
                         month: 'long',
@@ -726,7 +726,7 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
                 <div className="space-y-2">
                   {auction.rules.map((rule, index) => (
                     <div key={index} className="flex items-center text-gray-600">
-                      <CheckCircle className="w-4 h-4 text-emerald-600 mr-2" />
+                      <CheckCircle className="w-4 h-4 text-primary mr-2" />
                       <span>{rule}</span>
                     </div>
                   ))}
@@ -749,7 +749,7 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
                           <div className="font-medium text-[#101828]">{bid.bidder}</div>
                           <div className="text-sm text-gray-500">{bid.time}</div>
                         </div>
-                        <div className="text-emerald-600 font-bold">
+                        <div className="text-primary font-bold">
                           R$ {bid.amount.toLocaleString()}
                         </div>
                       </div>
@@ -772,7 +772,7 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
                       }`}>
                         <div className="flex justify-between items-start">
                           <span className={`font-medium ${
-                            msg.isSystem ? 'text-emerald-600' : 'text-[#101828]'
+                            msg.isSystem ? 'text-primary' : 'text-[#101828]'
                           }`}>
                             {msg.user}
                           </span>
@@ -846,12 +846,12 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
                 placeholder={`Mínimo: R$ ${(currentBid + 500).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
                 value={myBid ? `R$ ${myBid}` : ''}
                 onChange={handleBidChange}
-                className="bg-white border-gray-300 text-[#101828] focus:border-emerald-500 focus:ring-emerald-500"
+                className="bg-white border-gray-300 text-[#101828] focus:border-primary focus:ring-primary"
               />
             </div>
             <Button 
               onClick={handleBid}
-              className="bg-emerald-600 hover:bg-[#2E7A5A] text-white px-6"
+              className="bg-primary hover:bg-[#2E7A5A] text-white px-6"
             >
               <Gavel className="w-4 h-4 mr-2" />
               Lance

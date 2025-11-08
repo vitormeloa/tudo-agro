@@ -36,7 +36,7 @@ export default function ThemeFilter({ themes, selectedTheme, onThemeChange }: Th
           "px-4 py-2 rounded-full text-sm font-medium transition-all duration-200",
           "hover:scale-105 active:scale-95",
           selectedTheme === null
-            ? "bg-emerald-600 text-white shadow-md"
+            ? "bg-primary text-white shadow-md"
             : "bg-gray-100 text-gray-700 hover:bg-gray-200"
         )}
       >

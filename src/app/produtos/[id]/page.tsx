@@ -292,7 +292,7 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
                 <Button
                   size="sm"
                   variant="ghost"
-                  className="bg-white/90 hover:bg-white text-gray-700 hover:text-emerald-700 transition-colors p-1.5 sm:p-2 h-auto"
+                  className="bg-white/90 hover:bg-white text-gray-700 hover:text-primary transition-colors p-1.5 sm:p-2 h-auto"
                 >
                   <Share2 className="w-4 h-4 sm:w-5 sm:h-5" />
                 </Button>
@@ -341,7 +341,7 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
               <div className="space-y-4 mb-6">
                 {/* Price Display */}
                 <div className="space-y-2">
-                  <div className="text-3xl sm:text-4xl font-bold text-emerald-600">
+                  <div className="text-3xl sm:text-4xl font-bold text-primary">
                     R$ {(product.price * quantity).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                   </div>
                   {quantity > 1 && (
@@ -357,11 +357,11 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
                     Quantidade:
                   </label>
                   <div className="flex items-center gap-2">
-                    <div className="inline-flex items-center border border-gray-300 rounded-lg bg-white shadow-sm hover:shadow transition-shadow focus-within:ring-2 focus-within:ring-emerald-500/20 focus-within:border-emerald-500">
+                    <div className="inline-flex items-center border border-gray-300 rounded-lg bg-white shadow-sm hover:shadow transition-shadow focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary">
                       <button
                         onClick={handleDecreaseQuantity}
                         disabled={quantity <= 1}
-                        className="p-2.5 sm:p-3 hover:bg-emerald-50 active:bg-emerald-100 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent transition-all duration-150 flex items-center justify-center rounded-l-lg"
+                        className="p-2.5 sm:p-3 hover:bg-primary/5 active:bg-primary/10 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent transition-all duration-150 flex items-center justify-center rounded-l-lg"
                         aria-label="Diminuir quantidade"
                       >
                         <Minus className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700" />
@@ -378,7 +378,7 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
                       <button
                         onClick={handleIncreaseQuantity}
                         disabled={quantity >= availableStock}
-                        className="p-2.5 sm:p-3 hover:bg-emerald-50 active:bg-emerald-100 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent transition-all duration-150 flex items-center justify-center rounded-r-lg"
+                        className="p-2.5 sm:p-3 hover:bg-primary/5 active:bg-primary/10 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent transition-all duration-150 flex items-center justify-center rounded-r-lg"
                         aria-label="Aumentar quantidade"
                       >
                         <Plus className="w-4 h-4 sm:w-5 sm:h-5 text-gray-700" />
@@ -398,28 +398,28 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
                 <h3 className="text-lg sm:text-xl font-bold text-[#101828] mb-4">Especificações</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   <div className="flex items-center gap-2 sm:gap-3">
-                    <Award className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600 flex-shrink-0" />
+                    <Award className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
                     <div>
                       <div className="text-xs sm:text-sm text-gray-500">Marca</div>
                       <div className="font-medium text-sm sm:text-base text-[#101828]">{product.brand}</div>
                     </div>
                   </div>
                   <div className="flex items-center gap-2 sm:gap-3">
-                    <Weight className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600 flex-shrink-0" />
+                    <Weight className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
                     <div>
                       <div className="text-xs sm:text-sm text-gray-500">Peso</div>
                       <div className="font-medium text-sm sm:text-base text-[#101828]">{product.weight}</div>
                     </div>
                   </div>
                   <div className="flex items-center gap-2 sm:gap-3">
-                    <Shield className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600 flex-shrink-0" />
+                    <Shield className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
                     <div>
                       <div className="text-xs sm:text-sm text-gray-500">Estoque</div>
                       <div className="font-medium text-sm sm:text-base text-[#101828]">{product.stock}</div>
                     </div>
                   </div>
                   <div className="flex items-center gap-2 sm:gap-3">
-                    <FileText className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600 flex-shrink-0" />
+                    <FileText className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
                     <div>
                       <div className="text-xs sm:text-sm text-gray-500">Categoria</div>
                       <div className="font-medium text-sm sm:text-base text-[#101828]">{product.category}</div>
@@ -433,7 +433,7 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
             <Card className="bg-white border-gray-200 shadow-lg">
               <CardContent className="p-4 sm:p-6">
                 <h3 className="text-lg sm:text-xl font-bold text-[#101828] mb-4 flex items-center">
-                  <Truck className="w-5 h-5 sm:w-6 sm:h-6 mr-2 text-emerald-600" />
+                  <Truck className="w-5 h-5 sm:w-6 sm:h-6 mr-2 text-primary" />
                   Calcular Frete
                 </h3>
                 <div className="space-y-4">
@@ -449,22 +449,22 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
                     <Button
                       onClick={handleCalculateFreight}
                       disabled={cep.length !== 8 || isCalculatingFreight}
-                      className="bg-emerald-600 hover:bg-[#2E7A5A] text-white h-10 sm:h-11 text-sm sm:text-base font-semibold whitespace-nowrap"
+                      className="bg-primary hover:bg-[#2E7A5A] text-white h-10 sm:h-11 text-sm sm:text-base font-semibold whitespace-nowrap"
                     >
                       {isCalculatingFreight ? 'Calculando...' : 'Calcular'}
                     </Button>
                   </div>
 
                   {freightResult && (
-                    <div className="mt-4 p-3 sm:p-4 bg-emerald-50 border border-emerald-200 rounded-lg">
+                    <div className="mt-4 p-3 sm:p-4 bg-primary/5 border border-primary/20 rounded-lg">
                       <div className="space-y-2">
                         <div className="flex justify-between items-center">
                           <span className="text-sm sm:text-base text-gray-700 font-medium">Frete:</span>
-                          <span className="text-base sm:text-lg font-bold text-emerald-600">
+                          <span className="text-base sm:text-lg font-bold text-primary">
                             R$ {freightResult.price.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                           </span>
                         </div>
-                        <div className="text-xs sm:text-sm text-gray-600 pt-2 border-t border-emerald-200">
+                        <div className="text-xs sm:text-sm text-gray-600 pt-2 border-t border-primary/20">
                           {freightResult.formattedDelivery}
                         </div>
                       </div>
@@ -477,7 +477,7 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
             {/* Action Buttons */}
             <div className="space-y-3 sm:space-y-4">
               <Button
-                className="w-full bg-emerald-600 hover:bg-[#2E7A5A] text-white py-3 sm:py-4 text-base sm:text-lg font-semibold transition-colors"
+                className="w-full bg-primary hover:bg-[#2E7A5A] text-white py-3 sm:py-4 text-base sm:text-lg font-semibold transition-colors"
                 onClick={handlePurchase}
               >
                 <ShoppingCart className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
@@ -487,7 +487,7 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
 
               <Button
                 variant="outline"
-                className="w-full border-2 border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white py-3 sm:py-4 text-base sm:text-lg font-semibold transition-colors"
+                className="w-full border-2 border-primary text-primary hover:bg-primary hover:text-white py-3 sm:py-4 text-base sm:text-lg font-semibold transition-colors"
                 onClick={handleAddToCart}
               >
                 <ShoppingBag className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />

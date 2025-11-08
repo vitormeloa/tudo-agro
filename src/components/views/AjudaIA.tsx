@@ -316,7 +316,7 @@ const AjudaIA = () => {
                 <div className="max-w-[85%] lg:max-w-[80%]">
                   <div className="bg-muted/50 rounded-2xl rounded-tl-none p-4 shadow-sm">
                     <p className="text-sm lg:text-base">
-                      Olá 👋, eu sou a <span className="font-semibold text-emerald-800">AgroIA</span>, sua assistente aqui no TudoAgro.
+                      Olá 👋, eu sou a <span className="font-semibold text-primary">AgroIA</span>, sua assistente aqui no TudoAgro.
                     </p>
                     <p className="text-sm lg:text-base mt-2">Como posso te ajudar hoje?</p>
                   </div>
@@ -356,7 +356,7 @@ const AjudaIA = () => {
                       <Button
                         variant="outline"
                         size="sm"
-                        className="mt-3 bg-white hover:bg-gray-50 border-[#2A5C2E] text-emerald-800"
+                        className="mt-3 bg-white hover:bg-gray-50 border-[#2A5C2E] text-primary"
                         onClick={() => window.location.href = msg.actionLink!}
                       >
                         {msg.actionLabel}
@@ -394,7 +394,7 @@ const AjudaIA = () => {
 
                 {msg.sender === "user" && (
                   <div className="h-8 w-8 lg:h-10 lg:w-10 rounded-full bg-[#4CAF50]/20 flex items-center justify-center flex-shrink-0">
-                    <User className="h-4 w-4 lg:h-5 lg:w-5 text-emerald-800" />
+                    <User className="h-4 w-4 lg:h-5 lg:w-5 text-primary" />
                   </div>
                 )}
               </div>
@@ -470,7 +470,7 @@ const AjudaIA = () => {
         {/* Quick Questions Sidebar */}
         <div className="space-y-4">
           <h2 className="font-semibold text-base lg:text-lg flex items-center gap-2">
-            <Sparkles className="h-5 w-5 text-emerald-800" />
+            <Sparkles className="h-5 w-5 text-primary" />
             Perguntas Rápidas
           </h2>
           
@@ -479,7 +479,7 @@ const AjudaIA = () => {
               <AccordionItem key={idx} value={`item-${idx}`} className="border rounded-lg">
                 <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-accent/50 rounded-lg transition-colors">
                   <div className="flex items-center gap-2 text-sm lg:text-base">
-                    <category.icon className="h-4 w-4 lg:h-5 lg:w-5 text-emerald-800" />
+                    <category.icon className="h-4 w-4 lg:h-5 lg:w-5 text-primary" />
                     <span className="font-medium">{category.category}</span>
                   </div>
                 </AccordionTrigger>
@@ -489,7 +489,7 @@ const AjudaIA = () => {
                       <Button
                         key={qIdx}
                         variant="ghost"
-                        className="w-full justify-start text-left h-auto py-2 px-3 hover:bg-[#1E4D2B]/10 hover:text-emerald-800 transition-colors text-xs lg:text-sm"
+                        className="w-full justify-start text-left h-auto py-2 px-3 hover:bg-primary/10 hover:text-primary transition-colors text-xs lg:text-sm"
                         onClick={() => handleQuickQuestion(question)}
                       >
                         {question}

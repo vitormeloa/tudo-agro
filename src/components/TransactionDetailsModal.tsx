@@ -49,7 +49,7 @@ export const TransactionDetailsModal = ({ open, onOpenChange, transaction }: Tra
           {/* Informações do Produto */}
           <div className="space-y-3">
             <div className="flex items-start gap-3">
-              <Package className="h-5 w-5 text-emerald-800 mt-1" />
+              <Package className="h-5 w-5 text-primary mt-1" />
               <div className="flex-1">
                 <p className="text-sm text-muted-foreground">Produto</p>
                 <p className="font-medium">{transaction.description}</p>
@@ -57,7 +57,7 @@ export const TransactionDetailsModal = ({ open, onOpenChange, transaction }: Tra
             </div>
 
             <div className="flex items-start gap-3">
-              <Calendar className="h-5 w-5 text-emerald-800 mt-1" />
+              <Calendar className="h-5 w-5 text-primary mt-1" />
               <div className="flex-1">
                 <p className="text-sm text-muted-foreground">Data da Compra</p>
                 <p className="font-medium">{transaction.date}</p>
@@ -65,7 +65,7 @@ export const TransactionDetailsModal = ({ open, onOpenChange, transaction }: Tra
             </div>
 
             <div className="flex items-start gap-3">
-              <CreditCard className="h-5 w-5 text-emerald-800 mt-1" />
+              <CreditCard className="h-5 w-5 text-primary mt-1" />
               <div className="flex-1">
                 <p className="text-sm text-muted-foreground">Método de Pagamento</p>
                 <p className="font-medium">{transaction.method}</p>
@@ -73,7 +73,7 @@ export const TransactionDetailsModal = ({ open, onOpenChange, transaction }: Tra
             </div>
 
             <div className="flex items-start gap-3">
-              <User className="h-5 w-5 text-emerald-800 mt-1" />
+              <User className="h-5 w-5 text-primary mt-1" />
               <div className="flex-1">
                 <p className="text-sm text-muted-foreground">Vendedor</p>
                 <p className="font-medium">Fazenda São João</p>
@@ -82,7 +82,7 @@ export const TransactionDetailsModal = ({ open, onOpenChange, transaction }: Tra
             </div>
 
             <div className="flex items-start gap-3">
-              <MapPin className="h-5 w-5 text-emerald-800 mt-1" />
+              <MapPin className="h-5 w-5 text-primary mt-1" />
               <div className="flex-1">
                 <p className="text-sm text-muted-foreground">Endereço de Entrega</p>
                 <p className="font-medium">Rua das Flores, 123</p>
@@ -97,7 +97,7 @@ export const TransactionDetailsModal = ({ open, onOpenChange, transaction }: Tra
           <div className="bg-muted/50 p-4 rounded-lg">
             <div className="flex items-center justify-between">
               <span className="text-lg font-semibold">Valor Total</span>
-              <span className="text-2xl font-bold text-emerald-800">{transaction.value}</span>
+              <span className="text-2xl font-bold text-primary">{transaction.value}</span>
             </div>
           </div>
 
@@ -106,18 +106,18 @@ export const TransactionDetailsModal = ({ open, onOpenChange, transaction }: Tra
             <h4 className="font-semibold">Timeline da Transação</h4>
             <div className="space-y-4 ml-4 border-l-2 border-muted pl-4">
               <div className="relative">
-                <div className="absolute -left-[1.4rem] top-1 h-3 w-3 rounded-full bg-[#1E4D2B]" />
+                <div className="absolute -left-[1.4rem] top-1 h-3 w-3 rounded-full bg-primary" />
                 <p className="text-sm font-medium">Pedido Realizado</p>
                 <p className="text-xs text-muted-foreground">{transaction.date} - 14:30</p>
               </div>
               <div className="relative">
-                <div className="absolute -left-[1.4rem] top-1 h-3 w-3 rounded-full bg-[#1E4D2B]" />
+                <div className="absolute -left-[1.4rem] top-1 h-3 w-3 rounded-full bg-primary" />
                 <p className="text-sm font-medium">Pagamento Confirmado</p>
                 <p className="text-xs text-muted-foreground">{transaction.date} - 14:35</p>
               </div>
               {transaction.status === "approved" && (
                 <div className="relative">
-                  <div className="absolute -left-[1.4rem] top-1 h-3 w-3 rounded-full bg-[#1E4D2B]" />
+                  <div className="absolute -left-[1.4rem] top-1 h-3 w-3 rounded-full bg-primary" />
                   <p className="text-sm font-medium">Pedido Aprovado</p>
                   <p className="text-xs text-muted-foreground">{transaction.date} - 15:00</p>
                 </div>

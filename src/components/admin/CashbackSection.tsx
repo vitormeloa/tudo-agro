@@ -39,8 +39,8 @@ export default function CashbackSection() {
   const getStatusBadge = (status: string) => {
     const config = {
       pendente: 'bg-orange-100 text-orange-800',
-      aprovado: 'bg-emerald-100 text-emerald-800',
-      pago: 'bg-emerald-100 text-emerald-800'
+      aprovado: 'bg-primary/10 text-primary',
+      pago: 'bg-primary/10 text-primary'
     }
     return <Badge className={config[status as keyof typeof config]}>{status.charAt(0).toUpperCase() + status.slice(1)}</Badge>
   }
@@ -51,7 +51,7 @@ export default function CashbackSection() {
         <CardHeader className="p-3 sm:p-6">
           <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
             <div className="flex items-center gap-2">
-              <Gift className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-800" />
+              <Gift className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
               <span className="text-base sm:text-lg font-semibold">Controle de Cashback</span>
             </div>
             <div className="text-xs sm:text-sm text-gray-600">
@@ -77,7 +77,7 @@ export default function CashbackSection() {
                       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 text-xs sm:text-sm text-gray-600">
                         <div>
                           <p className="font-medium">Valor:</p>
-                          <p className="text-sm sm:text-lg font-bold text-emerald-800 break-words">{cashback.amount}</p>
+                          <p className="text-sm sm:text-lg font-bold text-primary break-words">{cashback.amount}</p>
                         </div>
                         <div>
                           <p className="font-medium">Data da Solicitação:</p>
@@ -91,7 +91,7 @@ export default function CashbackSection() {
                     </div>
                     <div className="flex flex-col sm:flex-row lg:flex-col gap-2 w-full lg:w-auto">
                       {cashback.status === 'pendente' && (
-                        <Button size="sm" className="bg-emerald-600 hover:bg-[#2E7A5A] text-xs sm:text-sm">
+                        <Button size="sm" className="bg-primary hover:bg-[#2E7A5A] text-xs sm:text-sm">
                           <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
                           <span className="hidden sm:inline">Aprovar</span>
                           <span className="sm:hidden">Aprovar</span>

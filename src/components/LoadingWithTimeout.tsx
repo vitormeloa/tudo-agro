@@ -59,7 +59,7 @@ export default function LoadingWithTimeout({
   return (
     <div className="min-h-screen bg-[#F7F6F2] flex items-center justify-center">
       <div className="text-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1E4D2B] mx-auto mb-4"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
         
         {showTimeout ? (
           <>
@@ -69,7 +69,7 @@ export default function LoadingWithTimeout({
                 Se não for redirecionado automaticamente,{' '}
                 <button 
                   onClick={handleManualRedirect}
-                  className="text-emerald-800 hover:underline font-medium"
+                  className="text-primary hover:underline font-medium"
                 >
                   clique aqui
                 </button>

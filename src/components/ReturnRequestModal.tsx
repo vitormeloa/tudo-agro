@@ -170,7 +170,7 @@ const ReturnRequestModal = ({ isOpen, onClose, productName, orderId }: ReturnReq
 
           {/* Info Alert */}
           <div className="bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
-            <p className="text-sm text-emerald-800 dark:text-blue-200">
+            <p className="text-sm text-primary dark:text-blue-200">
               <strong>Como funciona:</strong> Após enviar sua solicitação, nossa equipe analisará o pedido 
               e retornará em até <strong>2 dias úteis</strong> com instruções sobre como proceder com a devolução.
             </p>

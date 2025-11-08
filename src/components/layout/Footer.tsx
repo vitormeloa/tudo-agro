@@ -144,7 +144,7 @@ export default function Footer({
                           setNewsletterError(validationMessages.email.invalid)
                         }
                       }}
-                      className={`w-full px-4 py-3 rounded-lg border ${newsletterError ? 'border-red-500' : 'border-gray-600'} bg-gray-800 text-white placeholder-gray-400 focus:ring-2 focus:ring-emerald-500 focus:border-transparent`}
+                      className={`w-full px-4 py-3 rounded-lg border ${newsletterError ? 'border-red-500' : 'border-gray-600'} bg-gray-800 text-white placeholder-gray-400 focus:ring-2 focus:ring-primary focus:border-transparent`}
                     />
                     {newsletterError && (
                       <div className="mt-2">
@@ -155,7 +155,7 @@ export default function Footer({
                   <Button
                     type="submit"
                     disabled={isSubmitting}
-                    className="bg-gradient-to-r from-emerald-600 to-emerald-600 hover:from-emerald-700 hover:to-emerald-700 text-white px-6 py-3 disabled:opacity-50"
+                    className="bg-gradient-to-r from-primary to-primary hover:from-primary/90 hover:to-primary/90 text-white px-6 py-3 disabled:opacity-50"
                   >
                     {isSubmitting ? (
                       <>
@@ -218,7 +218,7 @@ export default function Footer({
                 <li key={link.name}>
                   <Link 
                     href={link.href}
-                    className="text-gray-300 hover:text-[#8FBC6D] transition-colors duration-200 text-sm block"
+                    className="text-gray-300 hover:text-primary/70 transition-colors duration-200 text-sm block"
                   >
                     {link.name}
                   </Link>
@@ -235,7 +235,7 @@ export default function Footer({
                 <li key={link.name}>
                   <Link 
                     href={link.href}
-                    className="text-gray-300 hover:text-[#8FBC6D] transition-colors duration-200 text-sm block"
+                    className="text-gray-300 hover:text-primary/70 transition-colors duration-200 text-sm block"
                   >
                     {link.name}
                   </Link>
@@ -252,7 +252,7 @@ export default function Footer({
                 <li key={link.name}>
                   <Link 
                     href={link.href}
-                    className="text-gray-300 hover:text-[#8FBC6D] transition-colors duration-200 text-sm block"
+                    className="text-gray-300 hover:text-primary/70 transition-colors duration-200 text-sm block"
                   >
                     {link.name}
                   </Link>
@@ -269,7 +269,7 @@ export default function Footer({
                 <li key={link.name}>
                   <Link 
                     href={link.href}
-                    className="text-gray-300 hover:text-[#8FBC6D] transition-colors duration-200 text-sm block"
+                    className="text-gray-300 hover:text-primary/70 transition-colors duration-200 text-sm block"
                   >
                     {link.name}
                   </Link>

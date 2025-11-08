@@ -149,9 +149,9 @@ export default function PainelPage() {
               />
             </Link>
             <div className="flex items-center space-x-4">
-              <Bell className="w-6 h-6 text-gray-600 hover:text-emerald-800 cursor-pointer" />
+              <Bell className="w-6 h-6 text-gray-600 hover:text-primary cursor-pointer" />
               <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-[#1E4D2B] rounded-full flex items-center justify-center">
+                <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
                   <User className="w-5 h-5 text-white" />
                 </div>
                 <div className="flex flex-col">
@@ -224,8 +224,8 @@ export default function PainelPage() {
                         onClick={() => setActiveTab(tab.id)}
                         className={`w-full flex items-center px-4 py-3 text-left transition-all duration-200 ${
                           activeTab === tab.id
-                            ? 'bg-[#1E4D2B] text-white'
-                            : 'text-gray-600 hover:bg-gray-100 hover:text-emerald-800'
+                            ? 'bg-primary text-white'
+                            : 'text-gray-600 hover:bg-gray-100 hover:text-primary'
                         }`}
                       >
                         <Icon className="w-5 h-5 mr-3" />
@@ -279,7 +279,7 @@ export default function PainelPage() {
                       <div className="flex items-center justify-between">
                         <div>
                           <p className="text-gray-600 text-sm font-medium">Leilões Participados</p>
-                          <p className="text-2xl font-bold text-emerald-800">12</p>
+                          <p className="text-2xl font-bold text-primary">12</p>
                         </div>
                         <Gavel className="w-8 h-8 text-amber-600" />
                       </div>
@@ -291,7 +291,7 @@ export default function PainelPage() {
                       <div className="flex items-center justify-between">
                         <div>
                           <p className="text-gray-600 text-sm font-medium">Compras Realizadas</p>
-                          <p className="text-2xl font-bold text-emerald-800">8</p>
+                          <p className="text-2xl font-bold text-primary">8</p>
                         </div>
                         <ShoppingCart className="w-8 h-8 text-amber-600" />
                       </div>
@@ -303,7 +303,7 @@ export default function PainelPage() {
                       <div className="flex items-center justify-between">
                         <div>
                           <p className="text-gray-600 text-sm font-medium">Favoritos</p>
-                          <p className="text-2xl font-bold text-emerald-800">15</p>
+                          <p className="text-2xl font-bold text-primary">15</p>
                         </div>
                         <Heart className="w-8 h-8 text-amber-600" />
                       </div>
@@ -315,7 +315,7 @@ export default function PainelPage() {
                       <div className="flex items-center justify-between">
                         <div>
                           <p className="text-gray-600 text-sm font-medium">Mensagens</p>
-                          <p className="text-2xl font-bold text-emerald-800">3</p>
+                          <p className="text-2xl font-bold text-primary">3</p>
                         </div>
                         <MessageSquare className="w-8 h-8 text-amber-600" />
                       </div>
@@ -341,7 +341,7 @@ export default function PainelPage() {
                       )}
                       <Button
                         variant="outline"
-                        className="border-[#1E4D2B] text-emerald-800 hover:bg-[#1E4D2B] hover:text-white p-6 h-auto flex flex-col items-center space-y-2"
+                        className="border-primary text-primary hover:bg-primary hover:text-white p-6 h-auto flex flex-col items-center space-y-2"
                       >
                         <Crown className="w-8 h-8" />
                         <span>Assinar Plano VIP</span>
@@ -409,7 +409,7 @@ export default function PainelPage() {
 
                 {/* Filter Tabs */}
                 <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg">
-                  <Button className="bg-[#1E4D2B] text-white">Em Andamento</Button>
+                  <Button className="bg-primary text-white">Em Andamento</Button>
                   <Button variant="ghost" className="text-gray-600">Futuros</Button>
                   <Button variant="ghost" className="text-gray-600">Finalizados</Button>
                 </div>
@@ -433,7 +433,7 @@ export default function PainelPage() {
                         <div className="space-y-3">
                           <div className="flex justify-between">
                             <span className="text-gray-600">Lance Atual:</span>
-                            <span className="font-bold text-emerald-800">R$ 15.500</span>
+                            <span className="font-bold text-primary">R$ 15.500</span>
                           </div>
                           <div className="flex justify-between">
                             <span className="text-gray-600">Participantes:</span>
@@ -446,7 +446,7 @@ export default function PainelPage() {
                         </div>
 
                         <div className="flex space-x-2 mt-4">
-                          <Button className="flex-1 bg-[#1E4D2B] hover:bg-[#163B20] text-white">
+                          <Button className="flex-1 bg-primary hover:bg-[#163B20] text-white">
                             Entrar no Leilão
                           </Button>
                           <Button variant="outline" className="border-[#C89F45] text-amber-600">
@@ -511,10 +511,10 @@ export default function PainelPage() {
                           <h4 className="font-semibold text-[#101828] mb-1">Ração Premium Bovinos</h4>
                           <p className="text-gray-600 text-sm mb-2">Saco 25kg</p>
                           <div className="flex justify-between items-center">
-                            <span className="font-bold text-emerald-800">R$ 89,90</span>
+                            <span className="font-bold text-primary">R$ 89,90</span>
                             <Badge className="bg-[#3D9970] text-white text-xs">5% Cashback</Badge>
                           </div>
-                          <Button className="w-full mt-3 bg-[#1E4D2B] hover:bg-[#163B20] text-white">
+                          <Button className="w-full mt-3 bg-primary hover:bg-[#163B20] text-white">
                             Comprar
                           </Button>
                         </div>
@@ -535,7 +535,7 @@ export default function PainelPage() {
 
                 {/* Filter Tabs */}
                 <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg">
-                  <Button className="bg-[#1E4D2B] text-white">Todas</Button>
+                  <Button className="bg-primary text-white">Todas</Button>
                   <Button variant="ghost" className="text-gray-600">Leilões</Button>
                   <Button variant="ghost" className="text-gray-600">Mercado Agro</Button>
                 </div>
@@ -552,7 +552,7 @@ export default function PainelPage() {
                               <h3 className="font-bold text-[#101828] mb-1">Novilha Nelore PO</h3>
                               <p className="text-gray-600 text-sm mb-2">Leilão #123 • 15/03/2024</p>
                               <div className="flex items-center space-x-4">
-                                <span className="text-emerald-800 font-bold">R$ 8.500</span>
+                                <span className="text-primary font-bold">R$ 8.500</span>
                                 <Badge className="bg-[#3D9970] text-white">Pago</Badge>
                                 <span className="text-amber-600 text-sm">+R$ 42,50 cashback</span>
                               </div>
@@ -562,7 +562,7 @@ export default function PainelPage() {
                             <Button variant="outline" size="sm" className="border-[#6E7D5B] text-gray-600">
                               Ver Detalhes
                             </Button>
-                            <Button size="sm" className="bg-[#1E4D2B] hover:bg-[#163B20] text-white">
+                            <Button size="sm" className="bg-primary hover:bg-[#163B20] text-white">
                               Comprar Novamente
                             </Button>
                           </div>
@@ -599,11 +599,11 @@ export default function PainelPage() {
                         <h3 className="font-semibold text-[#101828] mb-1">Touro Angus PO</h3>
                         <p className="text-gray-600 text-sm mb-2">2 anos • 650kg</p>
                         <div className="flex justify-between items-center mb-3">
-                          <span className="font-bold text-emerald-800">R$ 12.500</span>
+                          <span className="font-bold text-primary">R$ 12.500</span>
                           <Badge className="bg-[#C89F45] text-white">Leilão</Badge>
                         </div>
                         <div className="flex space-x-2">
-                          <Button className="flex-1 bg-[#1E4D2B] hover:bg-[#163B20] text-white">
+                          <Button className="flex-1 bg-primary hover:bg-[#163B20] text-white">
                             Ver Detalhes
                           </Button>
                           <Button variant="outline" size="sm" className="border-[#B8413D] text-red-600">
@@ -639,7 +639,7 @@ export default function PainelPage() {
                         </div>
                         <h3 className="font-bold text-[#101828] mb-2">{category.level}</h3>
                         <p className="text-gray-600 text-sm mb-4">{category.courses} cursos disponíveis</p>
-                        <Button className="bg-[#1E4D2B] hover:bg-[#163B20] text-white">
+                        <Button className="bg-primary hover:bg-[#163B20] text-white">
                           Explorar
                         </Button>
                       </CardContent>
@@ -670,7 +670,7 @@ export default function PainelPage() {
                               </div>
                             </div>
                           </div>
-                          <Button className="bg-[#1E4D2B] hover:bg-[#163B20] text-white">
+                          <Button className="bg-primary hover:bg-[#163B20] text-white">
                             Assistir
                           </Button>
                         </div>
@@ -716,21 +716,21 @@ export default function PainelPage() {
                     <CardContent className="p-6 text-center">
                       <Bot className="w-12 h-12 text-amber-600 mx-auto mb-4" />
                       <p className="text-gray-600 text-sm">Consultas Restantes</p>
-                      <p className="text-2xl font-bold text-emerald-800">7/10</p>
+                      <p className="text-2xl font-bold text-primary">7/10</p>
                     </CardContent>
                   </Card>
                   <Card className="shadow-lg border-0 bg-white">
                     <CardContent className="p-6 text-center">
                       <Clock className="w-12 h-12 text-[#3D9970] mx-auto mb-4" />
                       <p className="text-gray-600 text-sm">Tempo Médio</p>
-                      <p className="text-2xl font-bold text-emerald-800">2.3s</p>
+                      <p className="text-2xl font-bold text-primary">2.3s</p>
                     </CardContent>
                   </Card>
                   <Card className="shadow-lg border-0 bg-white">
                     <CardContent className="p-6 text-center">
                       <Star className="w-12 h-12 text-amber-600 mx-auto mb-4" />
                       <p className="text-gray-600 text-sm">Precisão</p>
-                      <p className="text-2xl font-bold text-emerald-800">98%</p>
+                      <p className="text-2xl font-bold text-primary">98%</p>
                     </CardContent>
                   </Card>
                 </div>
@@ -769,7 +769,7 @@ export default function PainelPage() {
                 </Card>
 
                 {/* Upgrade Plan */}
-                <Card className="shadow-lg border-0 bg-gradient-to-r from-[#1E4D2B] to-[#2F6C3F] text-white">
+                <Card className="shadow-lg border-0 bg-gradient-to-r from-primary to-[#2F6C3F] text-white">
                   <CardContent className="p-6">
                     <div className="flex items-center justify-between">
                       <div>
@@ -893,7 +893,7 @@ export default function PainelPage() {
                         {[1, 2, 3].map((conversation) => (
                           <div key={conversation} className="p-4 hover:bg-gray-100 cursor-pointer border-b border-gray-100">
                             <div className="flex items-center space-x-3">
-                              <div className="w-10 h-10 bg-[#1E4D2B] rounded-full flex items-center justify-center">
+                              <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
                                 <User className="w-5 h-5 text-white" />
                               </div>
                               <div className="flex-1">
@@ -915,7 +915,7 @@ export default function PainelPage() {
                   <Card className="shadow-lg border-0 bg-white lg:col-span-2">
                     <CardHeader>
                       <div className="flex items-center space-x-3">
-                        <div className="w-10 h-10 bg-[#1E4D2B] rounded-full flex items-center justify-center">
+                        <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
                           <User className="w-5 h-5 text-white" />
                         </div>
                         <div>
@@ -934,7 +934,7 @@ export default function PainelPage() {
                             </div>
                           </div>
                           <div className="flex justify-end">
-                            <div className="bg-[#1E4D2B] p-3 rounded-lg max-w-xs">
+                            <div className="bg-primary p-3 rounded-lg max-w-xs">
                               <p className="text-white">Claro! É uma novilha Nelore de 18 meses, pesando 320kg. Tem todos os documentos em dia.</p>
                               <p className="text-white/70 text-xs mt-1">14:30</p>
                             </div>
@@ -946,7 +946,7 @@ export default function PainelPage() {
                           placeholder="Digite sua mensagem..."
                           className="flex-1"
                         />
-                        <Button className="bg-[#1E4D2B] hover:bg-[#163B20] text-white">
+                        <Button className="bg-primary hover:bg-[#163B20] text-white">
                           Enviar
                         </Button>
                       </div>
@@ -1009,7 +1009,7 @@ export default function PainelPage() {
                         <Input defaultValue="123.456.789-00" />
                       </div>
                     </div>
-                    <Button className="bg-[#1E4D2B] hover:bg-[#163B20] text-white">
+                    <Button className="bg-primary hover:bg-[#163B20] text-white">
                       Salvar Alterações
                     </Button>
                   </CardContent>
@@ -1093,7 +1093,7 @@ export default function PainelPage() {
                         <h1 className="text-2xl font-bold text-[#101828] mb-2">Meus Animais</h1>
                         <p className="text-gray-600">Gerencie seus animais cadastrados</p>
                       </div>
-                      <Button className="bg-[#1E4D2B] hover:bg-[#163B20] text-white">
+                      <Button className="bg-primary hover:bg-[#163B20] text-white">
                         <Plus className="w-4 h-4 mr-2" />
                         Cadastrar Animal
                       </Button>
@@ -1112,7 +1112,7 @@ export default function PainelPage() {
                               </div>
                               <Badge className="bg-[#3D9970] text-white">Ativo</Badge>
                             </div>
-                            <p className="font-bold text-emerald-800 mb-3">R$ 18.500</p>
+                            <p className="font-bold text-primary mb-3">R$ 18.500</p>
                             <div className="flex space-x-2">
                               <Button size="sm" variant="outline" className="flex-1 border-[#6E7D5B] text-gray-600">
                                 <Edit className="w-4 h-4 mr-1" />
@@ -1137,7 +1137,7 @@ export default function PainelPage() {
                         <h1 className="text-2xl font-bold text-[#101828] mb-2">Meus Leilões</h1>
                         <p className="text-gray-600">Crie e gerencie seus leilões</p>
                       </div>
-                      <Button className="bg-[#1E4D2B] hover:bg-[#163B20] text-white">
+                      <Button className="bg-primary hover:bg-[#163B20] text-white">
                         <Plus className="w-4 h-4 mr-2" />
                         Criar Leilão
                       </Button>
@@ -1148,28 +1148,28 @@ export default function PainelPage() {
                       <Card className="shadow-lg border-0 bg-white">
                         <CardContent className="p-6 text-center">
                           <Gavel className="w-8 h-8 text-amber-600 mx-auto mb-2" />
-                          <p className="text-2xl font-bold text-emerald-800">5</p>
+                          <p className="text-2xl font-bold text-primary">5</p>
                           <p className="text-gray-600 text-sm">Leilões Ativos</p>
                         </CardContent>
                       </Card>
                       <Card className="shadow-lg border-0 bg-white">
                         <CardContent className="p-6 text-center">
                           <Users className="w-8 h-8 text-[#3D9970] mx-auto mb-2" />
-                          <p className="text-2xl font-bold text-emerald-800">127</p>
+                          <p className="text-2xl font-bold text-primary">127</p>
                           <p className="text-gray-600 text-sm">Participantes</p>
                         </CardContent>
                       </Card>
                       <Card className="shadow-lg border-0 bg-white">
                         <CardContent className="p-6 text-center">
                           <DollarSign className="w-8 h-8 text-amber-600 mx-auto mb-2" />
-                          <p className="text-2xl font-bold text-emerald-800">R$ 85k</p>
+                          <p className="text-2xl font-bold text-primary">R$ 85k</p>
                           <p className="text-gray-600 text-sm">Volume Total</p>
                         </CardContent>
                       </Card>
                       <Card className="shadow-lg border-0 bg-white">
                         <CardContent className="p-6 text-center">
                           <TrendingUp className="w-8 h-8 text-[#3D9970] mx-auto mb-2" />
-                          <p className="text-2xl font-bold text-emerald-800">92%</p>
+                          <p className="text-2xl font-bold text-primary">92%</p>
                           <p className="text-gray-600 text-sm">Taxa Sucesso</p>
                         </CardContent>
                       </Card>
@@ -1189,7 +1189,7 @@ export default function PainelPage() {
                                   <h4 className="font-semibold text-[#101828] mb-1">Leilão Fazenda Silva</h4>
                                   <p className="text-gray-600 text-sm mb-2">15 lotes • Iniciado há 2 horas</p>
                                   <div className="flex items-center space-x-4">
-                                    <span className="text-emerald-800 font-bold">Lance: R$ 45.200</span>
+                                    <span className="text-primary font-bold">Lance: R$ 45.200</span>
                                     <span className="text-gray-600">23 participantes</span>
                                     <span className="text-red-600">Termina em 1h 30min</span>
                                   </div>
@@ -1199,7 +1199,7 @@ export default function PainelPage() {
                                     <BarChart3 className="w-4 h-4 mr-1" />
                                     Stats
                                   </Button>
-                                  <Button size="sm" className="bg-[#1E4D2B] hover:bg-[#163B20] text-white">
+                                  <Button size="sm" className="bg-primary hover:bg-[#163B20] text-white">
                                     Gerenciar
                                   </Button>
                                 </div>
@@ -1220,7 +1220,7 @@ export default function PainelPage() {
                         <h1 className="text-2xl font-bold text-[#101828] mb-2">Catálogo Direto</h1>
                         <p className="text-gray-600">Venda sem leilão com anúncios fixos</p>
                       </div>
-                      <Button className="bg-[#1E4D2B] hover:bg-[#163B20] text-white">
+                      <Button className="bg-primary hover:bg-[#163B20] text-white">
                         <Plus className="w-4 h-4 mr-2" />
                         Novo Anúncio
                       </Button>
@@ -1231,21 +1231,21 @@ export default function PainelPage() {
                       <Card className="shadow-lg border-0 bg-white">
                         <CardContent className="p-6 text-center">
                           <Globe className="w-8 h-8 text-amber-600 mx-auto mb-2" />
-                          <p className="text-2xl font-bold text-emerald-800">12</p>
+                          <p className="text-2xl font-bold text-primary">12</p>
                           <p className="text-gray-600 text-sm">Anúncios Ativos</p>
                         </CardContent>
                       </Card>
                       <Card className="shadow-lg border-0 bg-white">
                         <CardContent className="p-6 text-center">
                           <Eye className="w-8 h-8 text-[#3D9970] mx-auto mb-2" />
-                          <p className="text-2xl font-bold text-emerald-800">1.2k</p>
+                          <p className="text-2xl font-bold text-primary">1.2k</p>
                           <p className="text-gray-600 text-sm">Visualizações</p>
                         </CardContent>
                       </Card>
                       <Card className="shadow-lg border-0 bg-white">
                         <CardContent className="p-6 text-center">
                           <MessageSquare className="w-8 h-8 text-amber-600 mx-auto mb-2" />
-                          <p className="text-2xl font-bold text-emerald-800">8</p>
+                          <p className="text-2xl font-bold text-primary">8</p>
                           <p className="text-gray-600 text-sm">Propostas</p>
                         </CardContent>
                       </Card>
@@ -1264,7 +1264,7 @@ export default function PainelPage() {
                               </div>
                               <Badge className="bg-[#3D9970] text-white">Ativo</Badge>
                             </div>
-                            <p className="font-bold text-emerald-800 mb-2">R$ 12.800</p>
+                            <p className="font-bold text-primary mb-2">R$ 12.800</p>
                             <div className="flex justify-between text-sm text-gray-600 mb-3">
                               <span>156 visualizações</span>
                               <span>3 propostas</span>
@@ -1305,7 +1305,7 @@ export default function PainelPage() {
                         <CardContent>
                           <p className="text-gray-600 mb-4">Destaque seu leilão na página principal</p>
                           <div className="flex justify-between items-center mb-4">
-                            <span className="text-2xl font-bold text-emerald-800">R$ 29</span>
+                            <span className="text-2xl font-bold text-primary">R$ 29</span>
                             <span className="text-gray-600">por dia</span>
                           </div>
                           <Button className="w-full bg-[#C89F45] hover:bg-[#B8913D] text-white">
@@ -1317,17 +1317,17 @@ export default function PainelPage() {
                       <Card className="shadow-lg border-0 bg-white">
                         <CardHeader>
                           <CardTitle className="text-[#101828] flex items-center">
-                            <Globe className="w-5 h-5 text-emerald-800 mr-2" />
+                            <Globe className="w-5 h-5 text-primary mr-2" />
                             Anúncio Direto
                           </CardTitle>
                         </CardHeader>
                         <CardContent>
                           <p className="text-gray-600 mb-4">Destaque seu anúncio no catálogo</p>
                           <div className="flex justify-between items-center mb-4">
-                            <span className="text-2xl font-bold text-emerald-800">R$ 19</span>
+                            <span className="text-2xl font-bold text-primary">R$ 19</span>
                             <span className="text-gray-600">por dia</span>
                           </div>
-                          <Button className="w-full bg-[#1E4D2B] hover:bg-[#163B20] text-white">
+                          <Button className="w-full bg-primary hover:bg-[#163B20] text-white">
                             Impulsionar Anúncio
                           </Button>
                         </CardContent>
@@ -1348,7 +1348,7 @@ export default function PainelPage() {
                                   <h4 className="font-semibold text-[#101828] mb-1">Leilão Fazenda Silva</h4>
                                   <p className="text-gray-600 text-sm mb-2">Destaque na home • Iniciado ontem</p>
                                   <div className="flex items-center space-x-4">
-                                    <span className="text-emerald-800 font-bold">R$ 29/dia</span>
+                                    <span className="text-primary font-bold">R$ 29/dia</span>
                                     <span className="text-gray-600">+340 visualizações</span>
                                     <span className="text-[#3D9970]">Expira em 2 dias</span>
                                   </div>
@@ -1379,7 +1379,7 @@ export default function PainelPage() {
                     </div>
 
                     {/* Current Plan */}
-                    <Card className="shadow-lg border-0 bg-gradient-to-r from-[#1E4D2B] to-[#2F6C3F] text-white">
+                    <Card className="shadow-lg border-0 bg-gradient-to-r from-primary to-[#2F6C3F] text-white">
                       <CardContent className="p-6">
                         <div className="flex items-center justify-between">
                           <div>
@@ -1450,7 +1450,7 @@ export default function PainelPage() {
                       <Card className="shadow-lg border-0 bg-white">
                         <CardHeader>
                           <CardTitle className="text-[#101828] text-center">Premium</CardTitle>
-                          <p className="text-center text-emerald-800 font-bold text-2xl">R$ 197</p>
+                          <p className="text-center text-primary font-bold text-2xl">R$ 197</p>
                           <p className="text-center text-gray-600 text-sm">por mês</p>
                         </CardHeader>
                         <CardContent>
@@ -1468,7 +1468,7 @@ export default function PainelPage() {
                               <span className="text-[#101828]">Gerente dedicado</span>
                             </div>
                           </div>
-                          <Button className="w-full bg-[#1E4D2B] hover:bg-[#163B20] text-white">
+                          <Button className="w-full bg-primary hover:bg-[#163B20] text-white">
                             Fazer Upgrade
                           </Button>
                         </CardContent>
@@ -1490,28 +1490,28 @@ export default function PainelPage() {
                       <Card className="shadow-lg border-0 bg-white">
                         <CardContent className="p-6 text-center">
                           <DollarSign className="w-8 h-8 text-[#3D9970] mx-auto mb-2" />
-                          <p className="text-2xl font-bold text-emerald-800">R$ 12.450</p>
+                          <p className="text-2xl font-bold text-primary">R$ 12.450</p>
                           <p className="text-gray-600 text-sm">Comissão Recebida</p>
                         </CardContent>
                       </Card>
                       <Card className="shadow-lg border-0 bg-white">
                         <CardContent className="p-6 text-center">
                           <CreditCard className="w-8 h-8 text-amber-600 mx-auto mb-2" />
-                          <p className="text-2xl font-bold text-emerald-800">R$ 890</p>
+                          <p className="text-2xl font-bold text-primary">R$ 890</p>
                           <p className="text-gray-600 text-sm">Comissão Paga</p>
                         </CardContent>
                       </Card>
                       <Card className="shadow-lg border-0 bg-white">
                         <CardContent className="p-6 text-center">
-                          <Zap className="w-8 h-8 text-emerald-800 mx-auto mb-2" />
-                          <p className="text-2xl font-bold text-emerald-800">R$ 150</p>
+                          <Zap className="w-8 h-8 text-primary mx-auto mb-2" />
+                          <p className="text-2xl font-bold text-primary">R$ 150</p>
                           <p className="text-gray-600 text-sm">Créditos</p>
                         </CardContent>
                       </Card>
                       <Card className="shadow-lg border-0 bg-white">
                         <CardContent className="p-6 text-center">
                           <PiggyBank className="w-8 h-8 text-amber-600 mx-auto mb-2" />
-                          <p className="text-2xl font-bold text-emerald-800">R$ 247</p>
+                          <p className="text-2xl font-bold text-primary">R$ 247</p>
                           <p className="text-gray-600 text-sm">Cashback</p>
                         </CardContent>
                       </Card>
@@ -1559,8 +1559,8 @@ export default function PainelPage() {
             {!['overview', 'auctions', 'marketplace', 'purchases', 'favorites', 'academy', 'ai-assistant', 'vip-club', 'messages', 'profile', 'my-animals', 'my-auctions', 'direct-catalog', 'promotions', 'seller-subscription', 'financial'].includes(activeTab) && (
               <Card className="shadow-lg border-0 bg-white">
                 <CardContent className="p-8 text-center">
-                  <div className="w-16 h-16 bg-[#1E4D2B]/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Settings className="w-8 h-8 text-emerald-800" />
+                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Settings className="w-8 h-8 text-primary" />
                   </div>
                   <h3 className="text-lg font-semibold text-[#101828] mb-2">
                     Seção em Desenvolvimento
@@ -1598,7 +1598,7 @@ export default function PainelPage() {
 
             <div className="p-6">
               <div className="grid md:grid-cols-2 gap-6">
-                <div className="border-2 border-dashed border-[#C89F45] rounded-lg p-6 text-center hover:border-[#1E4D2B] transition-colors duration-300">
+                <div className="border-2 border-dashed border-[#C89F45] rounded-lg p-6 text-center hover:border-primary transition-colors duration-300">
                   <FileText className="w-12 h-12 text-amber-600 mx-auto mb-4" />
                   <h4 className="font-semibold text-[#101828] mb-2">
                     RG ou CNH
@@ -1625,7 +1625,7 @@ export default function PainelPage() {
                   )}
                 </div>
 
-                <div className="border-2 border-dashed border-[#C89F45] rounded-lg p-6 text-center hover:border-[#1E4D2B] transition-colors duration-300">
+                <div className="border-2 border-dashed border-[#C89F45] rounded-lg p-6 text-center hover:border-primary transition-colors duration-300">
                   <FileText className="w-12 h-12 text-amber-600 mx-auto mb-4" />
                   <h4 className="font-semibold text-[#101828] mb-2">
                     CPF
@@ -1652,7 +1652,7 @@ export default function PainelPage() {
                   )}
                 </div>
 
-                <div className="border-2 border-dashed border-[#C89F45] rounded-lg p-6 text-center hover:border-[#1E4D2B] transition-colors duration-300">
+                <div className="border-2 border-dashed border-[#C89F45] rounded-lg p-6 text-center hover:border-primary transition-colors duration-300">
                   <FileText className="w-12 h-12 text-amber-600 mx-auto mb-4" />
                   <h4 className="font-semibold text-[#101828] mb-2">
                     Comprovante de Endereço
@@ -1679,7 +1679,7 @@ export default function PainelPage() {
                   )}
                 </div>
 
-                <div className="border-2 border-dashed border-[#C89F45] rounded-lg p-6 text-center hover:border-[#1E4D2B] transition-colors duration-300">
+                <div className="border-2 border-dashed border-[#C89F45] rounded-lg p-6 text-center hover:border-primary transition-colors duration-300">
                   <FileText className="w-12 h-12 text-amber-600 mx-auto mb-4" />
                   <h4 className="font-semibold text-[#101828] mb-2">
                     CAR (Opcional)

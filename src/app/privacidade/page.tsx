@@ -10,11 +10,11 @@ export default function PrivacidadePage() {
       <Header />
       
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-emerald-600 via-emerald-600 to-emerald-700 text-white py-20">
+      <section className="bg-gradient-to-r from-primary via-primary to-primary/90 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">Política de Privacidade</h1>
-            <p className="text-xl text-emerald-100 max-w-3xl mx-auto">
+            <p className="text-xl text-primary-foreground/80 max-w-3xl mx-auto">
               Entenda como coletamos, usamos e protegemos suas informações pessoais
             </p>
           </div>
@@ -24,7 +24,7 @@ export default function PrivacidadePage() {
       <main className="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="bg-white rounded-lg shadow-lg p-8 md:p-12">
           <div className="flex items-center gap-3 mb-6 pb-4 border-b border-gray-200">
-            <Shield className="w-6 h-6 text-emerald-600" />
+            <Shield className="w-6 h-6 text-primary" />
             <div>
               <h2 className="text-xl font-semibold text-[#101828]">Última Atualização</h2>
               <div className="flex items-center gap-2 text-sm text-gray-500">
@@ -157,7 +157,7 @@ export default function PrivacidadePage() {
               <p className="text-gray-700">
                 Se você tiver dúvidas sobre esta Política de Privacidade ou sobre como tratamos suas informações, 
                 entre em contato conosco através do e-mail 
-                <a href="mailto:privacidade@tudoagro.com" className="text-emerald-600 hover:underline ml-1">
+                <a href="mailto:privacidade@tudoagro.com" className="text-primary hover:underline ml-1">
                   privacidade@tudoagro.com
                 </a> ou através de nossa página de contato.
               </p>

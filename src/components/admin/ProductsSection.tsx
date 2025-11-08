@@ -197,7 +197,7 @@ export default function ProductsSection() {
     } else if (stock <= minStock) {
       return <Badge variant="outline" className="text-xs text-yellow-600">Estoque Baixo</Badge>
     } else {
-      return <Badge variant="outline" className="text-xs text-emerald-600">Em Estoque</Badge>
+      return <Badge variant="outline" className="text-xs text-primary">Em Estoque</Badge>
     }
   }
 
@@ -242,7 +242,7 @@ export default function ProductsSection() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
                 <CardTitle className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-                    <Package className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-800" />
+                    <Package className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                     <span className="text-base sm:text-lg font-semibold">Gerenciamento de Produtos</span>
                 </CardTitle>
             </div>
@@ -342,7 +342,7 @@ export default function ProductsSection() {
                   {product.brand}
                 </Badge>
                 {product.freeShipping && (
-                  <Badge variant="outline" className="text-xs text-emerald-600">
+                  <Badge variant="outline" className="text-xs text-primary">
                     Frete Grátis
                   </Badge>
                 )}
@@ -353,7 +353,7 @@ export default function ProductsSection() {
               <div className="space-y-3">
                 {/* Preço */}
                 <div className="flex items-center gap-2">
-                  <div className="text-lg font-bold text-emerald-800">
+                  <div className="text-lg font-bold text-primary">
                     R$ {product.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
                   </div>
                   {product.originalPrice && (
@@ -455,7 +455,7 @@ export default function ProductsSection() {
                     <Button 
                       size="sm"
                       onClick={() => handleAction('purchase', product)}
-                      className="bg-[#1E4D2B] hover:bg-[#2B5A3A]"
+                      className="bg-primary hover:bg-[#2B5A3A]"
                     >
                       <ShoppingCart className="w-4 h-4 mr-1" />
                       Comprar
@@ -467,7 +467,7 @@ export default function ProductsSection() {
                       variant="outline" 
                       size="sm"
                       onClick={() => handleAction('shipping', product)}
-                      className="text-emerald-600 hover:text-emerald-700"
+                      className="text-primary hover:text-primary"
                     >
                       <Truck className="w-4 h-4 mr-1" />
                       Frete
@@ -485,25 +485,25 @@ export default function ProductsSection() {
         <CardContent className="pt-6">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             <div className="text-center">
-              <div className="text-2xl font-bold text-emerald-800">
+              <div className="text-2xl font-bold text-primary">
                 {products.filter(product => product.status === 'available').length}
               </div>
               <div className="text-sm text-gray-600">Disponíveis</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-emerald-600">
+              <div className="text-2xl font-bold text-primary">
                 {products.filter(product => product.status === 'promotion').length}
               </div>
               <div className="text-sm text-gray-600">Promoções</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-emerald-600">
+              <div className="text-2xl font-bold text-primary">
                 {products.filter(product => product.featured).length}
               </div>
               <div className="text-sm text-gray-600">Destaque</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-emerald-800">
+              <div className="text-2xl font-bold text-primary">
                 {products.reduce((sum, product) => sum + product.sales, 0)}
               </div>
               <div className="text-sm text-gray-600">Vendas</div>
@@ -534,7 +534,7 @@ export default function ProductsSection() {
             <div className="p-4 bg-gray-50 rounded-lg">
               <h4 className="font-medium text-[#101828]">{selectedProduct?.name}</h4>
               <p className="text-sm text-gray-600">{selectedProduct?.brand} - {selectedProduct?.category}</p>
-              <p className="text-lg font-bold text-emerald-800">
+              <p className="text-lg font-bold text-primary">
                 R$ {selectedProduct?.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
               </p>
             </div>
@@ -566,7 +566,7 @@ export default function ProductsSection() {
                 onClick={confirmAction}
                 className={actionType === 'delete' || actionType === 'reject' ? 
                   'bg-red-600 hover:bg-[#A03730]' : 
-                  'bg-[#1E4D2B] hover:bg-[#2B5A3A]'
+                  'bg-primary hover:bg-[#2B5A3A]'
                 }
               >
                 {actionType === 'approve' && 'Aprovar'}
