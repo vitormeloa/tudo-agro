@@ -9,7 +9,7 @@ export default function PrivacidadePage() {
     <div className="min-h-screen flex flex-col bg-gray-50">
       <Header />
       
-      {/* Hero Section */}
+      {}
       <section className="bg-gradient-to-r from-primary via-primary to-primary/90 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">

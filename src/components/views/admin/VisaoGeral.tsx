@@ -20,7 +20,6 @@ const VisaoGeral = () => {
   const [problemOrdersOpen, setProblemOrdersOpen] = useState(false);
   const [transactionDetailsOpen, setTransactionDetailsOpen] = useState(false);
 
-  // Mock data
   const ordersByType = [
     { type: "Gado", count: 100, icon: "🐂" },
     { type: "Cavalos", count: 300, icon: "🐴" },
@@ -74,7 +73,7 @@ const VisaoGeral = () => {
 
   return (
     <div className="space-y-6 animate-fade-in">
-      {/* Header with Filters */}
+      {}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <h1 className="text-3xl font-bold text-primary">Visão Geral</h1>
@@ -121,7 +120,7 @@ const VisaoGeral = () => {
         </div>
       </div>
 
-      {/* KPIs Grid */}
+      {}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <Card className="hover:shadow-lg transition-shadow">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
@@ -190,7 +189,7 @@ const VisaoGeral = () => {
         </Card>
       </div>
 
-      {/* Charts and Rankings */}
+      {}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card>
           <CardHeader>
@@ -236,7 +235,7 @@ const VisaoGeral = () => {
         </Card>
       </div>
 
-      {/* Recent Activities */}
+      {}
       <Card>
         <CardHeader>
           <CardTitle>Atividades Recentes</CardTitle>
@@ -256,7 +255,7 @@ const VisaoGeral = () => {
         </CardContent>
       </Card>
 
-      {/* Modals */}
+      {}
       <Dialog open={orderDetailsOpen} onOpenChange={setOrderDetailsOpen}>
         <DialogContent className="max-w-md">
           <DialogHeader>

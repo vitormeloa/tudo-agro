@@ -49,16 +49,13 @@ export function useFavorites() {
     }
   }, [])
 
-  // Carregar favoritos do usuário
   const loadFavorites = useCallback(async () => {
-    // Se não há usuário, limpar e retornar
     if (!user) {
       setFavorites([])
       setFavoriteIds(new Set())
       return
     }
 
-    // Evitar múltiplas chamadas simultâneas
     if (loadingRef.current) {
       return
     }
@@ -83,7 +80,6 @@ export function useFavorites() {
           
           setFavorites(favoritesList)
           
-          // Extrair IDs dos produtos
           const ids = new Set(
             favoritesList
               .map((f: Favorite) => f.product?.id || (f as any).product_id)
@@ -99,13 +95,11 @@ export function useFavorites() {
           }
         }
       } else if (response.status === 401) {
-        // Não autorizado - comportamento esperado quando não logado
         if (mountedRef.current) {
           setFavorites([])
           setFavoriteIds(new Set())
         }
       } else {
-        // Outros erros
         if (mountedRef.current && user) {
           let errorMessage = `Erro ${response.status}: ${response.statusText || 'Erro desconhecido'}`
           let shouldShowToast = false
@@ -118,8 +112,6 @@ export function useFavorites() {
                 const errorData = JSON.parse(text)
                 errorMessage = errorData.error || errorData.message || errorMessage
                 
-                // Não mostrar toast para erros relacionados a tabela não encontrada
-                // ou erros de serviço temporário (503)
                 if (
                   errorMessage.includes('tabela') ||
                   errorMessage.includes('migração') ||
@@ -133,16 +125,13 @@ export function useFavorites() {
                   shouldShowToast = true
                 }
               } catch {
-                // Usar texto como mensagem
                 shouldShowToast = response.status === 500
               }
             }
           } catch {
-            // Ignorar erros ao ler resposta
             shouldShowToast = response.status === 500
           }
 
-          // Apenas mostrar toast para erros reais (não para tabela não encontrada)
           if (shouldShowToast) {
             toast({
               title: "Erro ao carregar favoritos",
@@ -156,7 +145,6 @@ export function useFavorites() {
         }
       }
     } catch (error) {
-      // Erros de rede - apenas logar se usuário estiver logado
       if (mountedRef.current && user) {
         console.error('Network error loading favorites:', error)
         setFavorites([])
@@ -170,13 +158,11 @@ export function useFavorites() {
     }
   }, [user, toast])
 
-  // Verificar se produto está favoritado
   const checkIsFavorite = useCallback(async (productId: string): Promise<boolean> => {
     if (!user) return false
 
     const productIdStr = String(productId)
     
-    // Verificar no cache primeiro
     if (favoriteIds.has(productIdStr)) return true
 
     try {
@@ -195,14 +181,12 @@ export function useFavorites() {
         return isFav
       }
     } catch (error) {
-      // Erro silencioso - retornar false
       console.error('Error checking favorite:', error)
     }
 
     return false
   }, [user, favoriteIds])
 
-  // Adicionar favorito
   const addFavorite = useCallback(async (productId: string): Promise<boolean> => {
     if (!user) {
       toast({
@@ -265,7 +249,6 @@ export function useFavorites() {
     }
   }, [user, toast, loadFavorites])
 
-  // Remover favorito
   const removeFavorite = useCallback(async (productId: string): Promise<boolean> => {
     if (!user) {
       toast({
@@ -328,7 +311,6 @@ export function useFavorites() {
     }
   }, [user, toast, loadFavorites])
 
-  // Toggle favorito
   const toggleFavorite = useCallback(async (productId: string): Promise<boolean> => {
     const productIdStr = String(productId)
     const isFavorite = favoriteIds.has(productIdStr)
@@ -340,7 +322,6 @@ export function useFavorites() {
     }
   }, [favoriteIds, addFavorite, removeFavorite])
 
-  // Carregar favoritos quando usuário mudar
   useEffect(() => {
     loadFavorites()
   }, [loadFavorites])

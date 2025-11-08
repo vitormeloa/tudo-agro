@@ -98,7 +98,6 @@ export async function PUT(request: NextRequest) {
     const body = await request.json()
     const { name, phone, cpf, cnpj, avatar_url } = body
 
-    // Validações básicas
     if (name && name.trim().length < 2) {
       return NextResponse.json(
         { error: 'Nome deve ter pelo menos 2 caracteres' },
@@ -107,8 +106,6 @@ export async function PUT(request: NextRequest) {
     }
 
     if (phone && !/^\(\d{2}\)\s?\d{4,5}-?\d{4}$/.test(phone.replace(/\s/g, ''))) {
-      // Aceitar formatos como: (11) 99999-9999 ou (11) 9999-9999
-      // Esta validação é bem flexível, ajuste conforme necessário
     }
 
     if (cpf && !/^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(cpf) && !/^\d{11}$/.test(cpf)) {
@@ -125,7 +122,6 @@ export async function PUT(request: NextRequest) {
       )
     }
 
-    // Atualizar dados do usuário
     const updateData: any = {}
     if (name !== undefined) updateData.name = name
     if (phone !== undefined) updateData.phone = phone

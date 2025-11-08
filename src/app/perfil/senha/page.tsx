@@ -35,7 +35,6 @@ function TrocarSenhaContent() {
       ...prev,
       [name]: value
     }))
-    // Limpar erro ao digitar
     setErrors(prev => ({
       ...prev,
       [name]: ''
@@ -107,14 +106,12 @@ function TrocarSenhaContent() {
         description: 'Sua senha foi atualizada com sucesso.',
       })
 
-      // Limpar formulário
       setFormData({
         currentPassword: '',
         newPassword: '',
         confirmPassword: '',
       })
 
-      // Redirecionar de volta para a página de perfil após 1 segundo
       setTimeout(() => {
         router.push('/perfil')
       }, 1000)
@@ -179,7 +176,7 @@ function TrocarSenhaContent() {
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-2xl">
-      {/* Header with back button */}
+      {}
       <div className="mb-6">
         <Button
           variant="ghost"
@@ -205,7 +202,7 @@ function TrocarSenhaContent() {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
-            {/* Current Password */}
+            {}
             <div className="space-y-2">
               <Label htmlFor="currentPassword">Senha Atual *</Label>
               <div className="relative">
@@ -238,7 +235,7 @@ function TrocarSenhaContent() {
               )}
             </div>
 
-            {/* New Password */}
+            {}
             <div className="space-y-2">
               <Label htmlFor="newPassword">Nova Senha *</Label>
               <div className="relative">
@@ -272,7 +269,7 @@ function TrocarSenhaContent() {
               <PasswordStrengthIndicator password={formData.newPassword} />
             </div>
 
-            {/* Confirm Password */}
+            {}
             <div className="space-y-2">
               <Label htmlFor="confirmPassword">Confirmar Nova Senha *</Label>
               <div className="relative">
@@ -305,7 +302,7 @@ function TrocarSenhaContent() {
               )}
             </div>
 
-            {/* Actions */}
+            {}
             <div className="flex justify-end gap-4 pt-4">
               <Button
                 type="button"
@@ -323,7 +320,7 @@ function TrocarSenhaContent() {
         </Card>
       </form>
 
-      {/* Security Tips */}
+      {}
       <Card className="mt-6">
         <CardHeader>
           <CardTitle className="text-lg">Dicas de Segurança</CardTitle>

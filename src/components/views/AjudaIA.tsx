@@ -51,8 +51,6 @@ const AjudaIA = () => {
   const [attachedFile, setAttachedFile] = useState<{file: File, type: 'image' | 'video'} | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // Removed auto-scroll to let users control scrolling manually
-
   const quickQuestions = [
     {
       category: "📦 Compras",
@@ -179,7 +177,6 @@ const AjudaIA = () => {
     let mediaUrl: string | undefined;
     let mediaType: 'image' | 'video' | undefined;
 
-    // Handle file upload if there's an attached file
     if (attachedFile) {
       mediaUrl = URL.createObjectURL(attachedFile.file);
       mediaType = attachedFile.type;
@@ -207,8 +204,6 @@ const AjudaIA = () => {
       description: "Processando sua mensagem...",
     });
     
-    // For now, just add a message indicating audio was recorded
-    // In the future, you could transcribe this using Whisper API
     const audioMessage: Message = {
       id: Date.now(),
       sender: "user",
@@ -250,13 +245,13 @@ const AjudaIA = () => {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
+      {}
       <div className="relative">
-        {/* Animated background effect */}
+        {}
         <div className="absolute inset-0 bg-gradient-to-r from-[#2A5C2E]/5 via-[#4CAF50]/5 to-[#2A5C2E]/5 rounded-2xl blur-xl animate-pulse" />
         
         <Card className="relative border-2 border-[#2A5C2E]/20 bg-gradient-to-br from-background to-[#2A5C2E]/5 shadow-lg overflow-hidden">
-          {/* Tech pattern overlay */}
+          {}
           <div className="absolute inset-0 opacity-5">
             <div className="absolute inset-0" style={{
               backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 10px, #2A5C2E 10px, #2A5C2E 11px)`,
@@ -267,7 +262,7 @@ const AjudaIA = () => {
             <div className="flex items-center gap-4">
               <div className="relative">
                 <AgroIAAvatar size="lg" />
-                {/* Pulsing rings */}
+                {}
                 <div className="absolute inset-0 rounded-full border-2 border-[#2A5C2E]/30 animate-ping" />
                 <div className="absolute inset-0 rounded-full border-2 border-[#4CAF50]/20 animate-pulse" style={{ animationDelay: "0.5s" }} />
               </div>
@@ -292,7 +287,7 @@ const AjudaIA = () => {
             </div>
           </CardContent>
 
-          {/* Animated border effect */}
+          {}
           <div className="absolute inset-0 rounded-lg overflow-hidden pointer-events-none">
             <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#4CAF50] to-transparent animate-pulse" />
             <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#2A5C2E] to-transparent animate-pulse" style={{ animationDelay: "1s" }} />
@@ -300,17 +295,17 @@ const AjudaIA = () => {
         </Card>
       </div>
 
-      {/* Main Content */}
+      {}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Chat Area */}
+        {}
         <Card className="lg:col-span-2 flex flex-col min-h-[500px] shadow-xl border-2 border-[#2A5C2E]/20 bg-gradient-to-b from-background to-[#2A5C2E]/5 relative overflow-hidden">
-          {/* Animated corner accents */}
+          {}
           <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-[#4CAF50]/10 to-transparent rounded-bl-full" />
           <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-[#2A5C2E]/10 to-transparent rounded-tr-full" />
           
-          {/* Messages */}
+          {}
           <div className="flex-1 overflow-y-auto p-4 lg:p-6 space-y-4 relative z-10">
-            {/* Welcome Message */}
+            {}
             {messages.length === 0 && (
               <div className="flex gap-3 animate-fade-in">
                 <AgroIAAvatar size="md" />
@@ -326,7 +321,7 @@ const AjudaIA = () => {
               </div>
             )}
 
-            {/* Chat Messages */}
+            {}
             {messages.map((msg, index) => (
               <div
                 key={msg.id}
@@ -401,7 +396,7 @@ const AjudaIA = () => {
               </div>
             ))}
 
-            {/* Typing Indicator */}
+            {}
             {isTyping && (
               <div className="flex gap-3 animate-fade-in">
                 <AgroIAAvatar size="md" isTyping />
@@ -412,7 +407,7 @@ const AjudaIA = () => {
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Input Area */}
+          {}
           <div className="border-t bg-background p-3 lg:p-4 sticky bottom-0 z-10">
             {attachedFile && (
               <div className="flex items-center gap-2 mb-2 p-2 bg-muted rounded-lg">
@@ -468,7 +463,7 @@ const AjudaIA = () => {
           </div>
         </Card>
 
-        {/* Quick Questions Sidebar */}
+        {}
         <div className="space-y-4">
           <h2 className="font-semibold text-base lg:text-lg flex items-center gap-2">
             <Sparkles className="h-5 w-5 text-primary" />
@@ -504,7 +499,7 @@ const AjudaIA = () => {
         </div>
       </div>
 
-      {/* Help Card */}
+      {}
       <Card className="bg-muted/50 mt-6">
         <div className="p-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">

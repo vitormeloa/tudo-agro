@@ -40,11 +40,8 @@ export default function Header({
   const { getTotalItems } = useCart()
   const cartItemsCount = getTotalItems()
   
-  // Determinar se usuário está logado - ser mais permissivo para evitar desaparecimento de botões
-  // Se tem user, está logado. Se não inicializou ainda, não mostrar botões (evita flickering)
   const isLoggedIn = initialized ? !!user : false
 
-  // Efeito de scroll para opacidade
   useEffect(() => {
     if (!enableScrollOpacity) return;
 
@@ -56,7 +53,6 @@ export default function Header({
     return () => window.removeEventListener('scroll', handleScroll)
   }, [enableScrollOpacity])
 
-  // Prevenir scroll do body quando menu mobile está aberto
   useEffect(() => {
     if (isMenuOpen) {
       document.body.style.overflow = 'hidden'
@@ -74,13 +70,11 @@ export default function Header({
     { name: 'Leilões', href: '/leiloes', current: false },
     { name: 'Produtos', href: '/produtos', current: false },
     { name: 'Blog', href: '/blog', current: false },
-    // { name: 'Vender', href: '/vender', current: false }, // Temporariamente oculto
     { name: 'Sobre', href: '/sobre', current: false },
   ]
 
   const baseClasses = "sticky top-0 z-[60] transition-all duration-300"
   
-  // Calcular opacidade e background baseado no scroll
   const getScrollStyles = () => {
     if (isMenuOpen) {
       return {
@@ -99,7 +93,6 @@ export default function Header({
     const scrollProgress = Math.min(scrollY / maxScroll, 1)
     
     if (variant === 'transparent') {
-      // Para variant transparent, mudar de transparente para opaco com fundo branco
       const opacity = scrollProgress
       return {
         backgroundColor: `rgba(255, 255, 255, ${opacity})`,
@@ -107,7 +100,6 @@ export default function Header({
       }
     }
     
-    // Para outros variants, manter comportamento original
     const opacity = Math.max(0.85, 0.95 - (scrollProgress * 0.1))
     return {
       backgroundColor: `rgba(255, 255, 255, ${opacity})`,
@@ -129,7 +121,7 @@ export default function Header({
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 lg:h-20">
-          {/* Logo */}
+          {}
           <div className="flex items-center">
             <Link href="/" className="flex items-center space-x-3 group">
               <img 
@@ -140,7 +132,7 @@ export default function Header({
             </Link>
           </div>
 
-          {/* Desktop Navigation */}
+          {}
           <nav className="hidden lg:flex items-center space-x-8">
             {navigation.map((item) => (
               <Link
@@ -162,9 +154,9 @@ export default function Header({
             ))}
           </nav>
 
-          {/* Right side actions */}
+          {}
           <div className="flex items-center space-x-2 lg:space-x-4">
-            {/* Carrinho - apenas quando logado */}
+            {}
             {showCart && isLoggedIn && (
               <Link href="/dashboard/carrinho">
                 <Button
@@ -182,7 +174,7 @@ export default function Header({
               </Link>
             )}
             
-            {/* Favoritos - apenas quando logado */}
+            {}
             {isLoggedIn && (
               <Link href="/dashboard/favoritos">
                 <Button
@@ -195,10 +187,10 @@ export default function Header({
               </Link>
             )}
             
-            {/* Desktop Auth Button Component - sempre mostrar após inicialização */}
+            {}
             {initialized && <AuthButton />}
 
-            {/* Mobile Auth Buttons - apenas quando não inicializado ou não logado */}
+            {}
             {(!initialized || (!isLoggedIn && initialized)) && (
               <div className="lg:hidden flex items-center space-x-2">
                 {!initialized ? (
@@ -223,7 +215,7 @@ export default function Header({
               </div>
             )}
 
-            {/* Mobile menu button */}
+            {}
             <Button
               variant="ghost"
               size="sm"
@@ -235,7 +227,7 @@ export default function Header({
           </div>
         </div>
 
-        {/* Mobile Search */}
+        {}
         {isSearchOpen && (
           <div className="md:hidden py-4 border-t border-gray-200">
             <div className="relative">
@@ -249,7 +241,7 @@ export default function Header({
           </div>
         )}
 
-        {/* Mobile Navigation Overlay */}
+        {}
         {isMenuOpen && (
           <div 
             className="fixed top-16 lg:top-20 left-0 right-0 bottom-0 bg-black/40 backdrop-blur-md z-[55] lg:hidden"
@@ -258,7 +250,7 @@ export default function Header({
           />
         )}
 
-        {/* Mobile Navigation Menu - full width to avoid side blur */}
+        {}
         <div 
           className={cn(
             "lg:hidden border-t border-gray-200 bg-white relative z-[70] shadow-xl overflow-hidden w-screen transition-all duration-300 ease-in-out",
@@ -290,7 +282,7 @@ export default function Header({
                   </Link>
                 ))}
                 
-                {/* Mobile Auth - only show user menu when logged in e inicializado */}
+                {}
                 {initialized && isLoggedIn && (
                   <div 
                     className="pt-2 border-t border-gray-100 mt-2"

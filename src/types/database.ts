@@ -407,7 +407,6 @@ export interface Database {
   }
 }
 
-// Tipos auxiliares
 export type User = Database['public']['Tables']['users']['Row']
 export type UserInsert = Database['public']['Tables']['users']['Insert']
 export type UserUpdate = Database['public']['Tables']['users']['Update']
@@ -450,7 +449,6 @@ export type AddressUpdate = Database['public']['Tables']['addresses']['Update']
 export type Document = Database['public']['Tables']['documents']['Row']
 export type DocumentInsert = Database['public']['Tables']['documents']['Insert']
 
-// Tipos para permissões
 export type Permission = 
   | 'admin:read'
   | 'admin:write'
@@ -473,7 +471,6 @@ export type Permission =
 
 export type UserRole = 'admin' | 'vendedor' | 'comprador'
 
-// Interface para usuário com roles
 export interface UserWithRoles extends User {
   roles: (Role & { user_roles: UserRole })[]
 }

@@ -42,7 +42,6 @@ export default function UserDetailsModal({ user, isOpen, onClose }: UserDetailsM
   if (!isOpen) return null
 
   const handleSave = () => {
-    // Aqui você implementaria a lógica de salvamento
     console.log('Salvando usuário:', editedUser)
     setIsEditing(false)
   }
@@ -65,7 +64,7 @@ export default function UserDetailsModal({ user, isOpen, onClose }: UserDetailsM
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-        {/* Header */}
+        {}
         <div className="flex items-center justify-between p-6 border-b">
           <div className="flex items-center gap-3">
             <User className="w-6 h-6 text-primary" />
@@ -77,7 +76,7 @@ export default function UserDetailsModal({ user, isOpen, onClose }: UserDetailsM
         </div>
 
         <div className="p-6 space-y-6">
-          {/* Informações Básicas */}
+          {}
           <Card>
             <CardHeader>
               <div className="flex items-center justify-between">
@@ -140,7 +139,7 @@ export default function UserDetailsModal({ user, isOpen, onClose }: UserDetailsM
             </CardContent>
           </Card>
 
-          {/* Status e Verificação */}
+          {}
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -191,7 +190,7 @@ export default function UserDetailsModal({ user, isOpen, onClose }: UserDetailsM
             </CardContent>
           </Card>
 
-          {/* Estatísticas */}
+          {}
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -225,7 +224,7 @@ export default function UserDetailsModal({ user, isOpen, onClose }: UserDetailsM
             </CardContent>
           </Card>
 
-          {/* Informações de Cadastro */}
+          {}
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -254,7 +253,7 @@ export default function UserDetailsModal({ user, isOpen, onClose }: UserDetailsM
             </CardContent>
           </Card>
 
-          {/* Ações */}
+          {}
           {isEditing && (
             <div className="flex justify-end gap-2">
               <Button variant="outline" onClick={() => setIsEditing(false)}>

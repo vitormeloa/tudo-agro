@@ -34,15 +34,14 @@ export default function CatalogoPage() {
   const [sortBy, setSortBy] = useState<string>('relevancia')
   const itemsPerPage = 9
 
-  // Mapear animais do mock para o formato esperado pelo ProductCard
   const allProducts = mockAnimals.map(a => ({
     id: a.id,
     title: a.title,
     category: a.category,
     price: a.price,
     location: a.location,
-    rating: 4.8, // Default rating
-    reviews: 0, // Default reviews
+    rating: 4.8,
+    reviews: 0,
     image: a.images[0],
     seller: a.seller.name,
     verified: a.seller.verified,
@@ -53,14 +52,11 @@ export default function CatalogoPage() {
     type: 'animal' as const
   }))
 
-  // Calcular contagens reais por categoria
   const getCategoryCount = (categoryName: string) => {
     return allProducts.filter(p => p.category === categoryName).length
   }
 
-  // Filtrar animais baseado em todos os filtros
   const filteredProducts = allProducts.filter(product => {
-    // Filtro de busca
     if (searchQuery) {
       const query = searchQuery.toLowerCase()
       const matchesSearch = (
@@ -73,17 +69,14 @@ export default function CatalogoPage() {
       if (!matchesSearch) return false
     }
 
-    // Filtro de categoria
     if (selectedCategory && product.category !== selectedCategory) {
       return false
     }
 
-    // Filtro de raça
     if (selectedBreed && product.breed !== selectedBreed) {
       return false
     }
 
-    // Filtro de preço
     if (selectedPriceRange) {
       const price = product.price
       switch (selectedPriceRange) {
@@ -102,7 +95,6 @@ export default function CatalogoPage() {
       }
     }
 
-    // Filtro de localização
     if (selectedLocation) {
       const locationState = product.location.split(',')[1]?.trim().toLowerCase()
       if (!locationState?.includes(selectedLocation.toLowerCase())) {
@@ -110,7 +102,6 @@ export default function CatalogoPage() {
       }
     }
 
-    // Filtro de idade
     if (selectedAge) {
         const age = parseInt(product.age || '0');
         switch (selectedAge) {
@@ -132,7 +123,6 @@ export default function CatalogoPage() {
     return true
   })
 
-  // Ordenar produtos
   const sortedProducts = [...filteredProducts].sort((a, b) => {
     switch (sortBy) {
       case 'preco-menor':
@@ -143,18 +133,16 @@ export default function CatalogoPage() {
         return Number(b.rating) - Number(a.rating)
       case 'recente':
         return Number(b.id) - Number(a.id)
-      default: // relevancia
+      default:
         return (b.featured ? 1 : 0) - (a.featured ? 1 : 0) || Number(b.rating) - Number(a.rating)
     }
   })
 
-  // Calcular paginação
   const totalPages = Math.ceil(sortedProducts.length / itemsPerPage)
   const startIndex = (currentPage - 1) * itemsPerPage
   const endIndex = startIndex + itemsPerPage
   const products = sortedProducts.slice(startIndex, endIndex)
 
-  // Resetar para página 1 quando qualquer filtro mudar
   const handleSearchChange = (value: string) => {
     setSearchQuery(value)
     setCurrentPage(1)
@@ -182,14 +170,12 @@ export default function CatalogoPage() {
 
   const hasActiveFilters = !!(searchQuery || selectedCategory || selectedBreed || selectedPriceRange || selectedLocation || selectedAge)
 
-  // Garantir que currentPage não ultrapasse totalPages
   useEffect(() => {
     if (currentPage > totalPages && totalPages > 0) {
       setCurrentPage(totalPages)
     }
   }, [totalPages, currentPage])
 
-  // Scroll to top ao mudar de página
   const handlePageChange = (page: number) => {
     setCurrentPage(page)
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -209,7 +195,7 @@ export default function CatalogoPage() {
     <div className="min-h-screen bg-gray-50">
       <Header />
       
-      {/* Hero Section */}
+      {}
         <section className="relative pt-16 pb-20 overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-br from-lime-600 via-primary to-primary/90"></div>
             <div className="absolute inset-0 bg-black/20"></div>
@@ -228,7 +214,7 @@ export default function CatalogoPage() {
       </section>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Search and Filters */}
+        {}
         <Card className="shadow-lg border-0 mb-8">
           <CardContent className="p-6">
             <div className="flex flex-col lg:flex-row gap-4 mb-6">
@@ -253,7 +239,7 @@ export default function CatalogoPage() {
               </Button>
             </div>
 
-            {/* Advanced Filters */}
+            {}
             {showFilters && (
               <div className="border-t border-gray-200 pt-6 animate-fade-in-up">
                 <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
@@ -337,7 +323,7 @@ export default function CatalogoPage() {
           </CardContent>
         </Card>
 
-        {/* Categories */}
+        {}
         <div className="mb-8">
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-lg font-semibold text-[#101828]">Categorias Populares</h3>
@@ -374,7 +360,7 @@ export default function CatalogoPage() {
           </div>
         </div>
 
-        {/* Results Header */}
+        {}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
           <div className="text-gray-600">
             Mostrando <span className="font-semibold text-[#101828]">{startIndex + 1}</span> até <span className="font-semibold text-[#101828]">{Math.min(endIndex, sortedProducts.length)}</span> de <span className="font-semibold text-[#101828]">{sortedProducts.length}</span> resultados
@@ -400,7 +386,7 @@ export default function CatalogoPage() {
           </div>
         </div>
 
-        {/* Active Filters Display */}
+        {}
         {hasActiveFilters && (
           <div className="mb-6 flex flex-wrap gap-2">
             <span className="text-sm text-gray-600 font-medium">Filtros ativos:</span>
@@ -437,7 +423,7 @@ export default function CatalogoPage() {
           </div>
         )}
 
-        {/* Products Grid */}
+        {}
         {products.length > 0 ? (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {products.map((product, index) => (
@@ -468,7 +454,7 @@ export default function CatalogoPage() {
           </div>
         )}
 
-        {/* Pagination */}
+        {}
         {totalPages > 0 && (
           <div className="flex justify-center mt-12">
             <div className="flex flex-wrap items-center justify-center gap-2">
@@ -481,9 +467,8 @@ export default function CatalogoPage() {
                 Anterior
               </Button>
 
-              {/* Mostrar números de página */}
+              {}
               {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
-                // Mostrar sempre primeira e última página, página atual e páginas adjacentes
                 if (
                   page === 1 ||
                   page === totalPages ||
@@ -504,7 +489,6 @@ export default function CatalogoPage() {
                     </Button>
                   )
                 } else if (page === currentPage - 2 || page === currentPage + 2) {
-                  // Mostrar ellipsis
                   return <span key={page} className="px-2 text-gray-500">...</span>
                 }
                 return null

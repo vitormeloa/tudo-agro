@@ -12,7 +12,6 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     const validatedData = signinSchema.parse(body)
 
-    // Fazer login no Supabase Auth
     const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
       email: validatedData.email,
       password: validatedData.password
@@ -32,7 +31,6 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Buscar dados do usuário com roles
     const { data: userData, error: userError } = await supabase
       .from('users')
       .select(`
@@ -55,7 +53,6 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Extrair roles e permissões
     const roles = userData.user_roles?.map((ur: any) => ur.roles?.name).filter(Boolean) || []
     const permissions = userData.user_roles?.flatMap((ur: any) => ur.roles?.permissions || []) || []
 

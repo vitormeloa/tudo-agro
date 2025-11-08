@@ -124,7 +124,7 @@ const Vendedores = () => {
         <p className="text-muted-foreground">Acompanhe vendas e desempenho dos vendedores</p>
       </div>
 
-      {/* KPIs Cards */}
+      {}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => setSalesInProgressOpen(true)}>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
@@ -171,7 +171,7 @@ const Vendedores = () => {
         </Card>
       </div>
 
-      {/* Filters and Table */}
+      {}
       <Card>
         <CardHeader>
           <div className="flex flex-col sm:flex-row gap-4">
@@ -260,7 +260,7 @@ const Vendedores = () => {
         </CardContent>
       </Card>
 
-      {/* Modals */}
+      {}
       <Dialog open={salesInProgressOpen} onOpenChange={setSalesInProgressOpen}>
         <DialogContent className="max-w-md">
           <DialogHeader>
@@ -334,7 +334,7 @@ const Vendedores = () => {
         </DialogContent>
       </Dialog>
 
-      {/* Actions Modal */}
+      {}
       <Dialog open={actionsModalOpen} onOpenChange={setActionsModalOpen}>
         <DialogContent className="max-w-md">
           <DialogHeader>
@@ -367,7 +367,7 @@ const Vendedores = () => {
         </DialogContent>
       </Dialog>
 
-      {/* Profile Modal */}
+      {}
       <Dialog open={profileModalOpen} onOpenChange={setProfileModalOpen}>
         <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
@@ -375,7 +375,7 @@ const Vendedores = () => {
           </DialogHeader>
           {selectedVendedor && (
             <div className="space-y-6">
-              {/* Summary Cards */}
+              {}
               <div className="grid grid-cols-3 gap-4">
                 <Card>
                   <CardHeader className="pb-2">
@@ -403,7 +403,7 @@ const Vendedores = () => {
                 </Card>
               </div>
 
-              {/* Performance Chart */}
+              {}
               <Card>
                 <CardHeader>
                   <CardTitle>Desempenho nos Últimos 30 Dias</CardTitle>
@@ -422,7 +422,7 @@ const Vendedores = () => {
                 </CardContent>
               </Card>
 
-              {/* Active Products */}
+              {}
               <div>
                 <h3 className="text-lg font-semibold mb-3">Produtos Ativos</h3>
                 <div className="grid grid-cols-4 gap-4">
@@ -461,7 +461,7 @@ const Vendedores = () => {
                 </div>
               </div>
 
-              {/* Reputation */}
+              {}
               <Card>
                 <CardHeader>
                   <CardTitle>Reputação</CardTitle>
@@ -481,7 +481,7 @@ const Vendedores = () => {
                 </CardContent>
               </Card>
 
-              {/* Administrative Buttons */}
+              {}
               <div className="grid grid-cols-2 gap-2">
                 <Button variant="outline">Editar Dados</Button>
                 <Button variant="outline">Resetar Senha</Button>

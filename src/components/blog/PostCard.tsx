@@ -115,7 +115,7 @@ export default function PostCard({ post, isSaved: initialSaved, onSaveToggle }: 
   return (
     <Link href={`/blog/${post.slug}`}>
       <article className="group bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-100">
-        {/* Image */}
+        {}
         <div className="relative w-full h-48 sm:h-56 md:h-64 overflow-hidden bg-gradient-to-br from-primary/5 to-primary/5">
           {post.featured_image ? (
             <Image
@@ -132,7 +132,7 @@ export default function PostCard({ post, isSaved: initialSaved, onSaveToggle }: 
             </div>
           )}
           
-          {/* Theme Badge */}
+          {}
           {post.blog_themes && (
             <div
               className="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-semibold text-white shadow-md"
@@ -142,7 +142,7 @@ export default function PostCard({ post, isSaved: initialSaved, onSaveToggle }: 
             </div>
           )}
 
-          {/* Save Button */}
+          {}
           <button
             onClick={handleSaveClick}
             disabled={isSaving}
@@ -163,21 +163,21 @@ export default function PostCard({ post, isSaved: initialSaved, onSaveToggle }: 
           </button>
         </div>
 
-        {/* Content */}
+        {}
         <div className="p-4 sm:p-5 md:p-6">
-          {/* Title */}
+          {}
           <h3 className="text-lg sm:text-xl font-bold text-[#101828] mb-2 line-clamp-2 group-hover:text-primary transition-colors">
             {post.title}
           </h3>
 
-          {/* Excerpt */}
+          {}
           {post.excerpt && (
             <p className="text-sm sm:text-base text-gray-600 mb-4 line-clamp-2">
               {post.excerpt}
             </p>
           )}
 
-          {/* Meta Info */}
+          {}
           <div className="flex items-center justify-between flex-wrap gap-2 text-xs sm:text-sm text-gray-500">
             <div className="flex items-center gap-1">
               <Calendar className="w-4 h-4" />

@@ -7,7 +7,6 @@ const bidSchema = z.object({
   amount: z.number().positive('Valor do lance deve ser positivo')
 })
 
-// GET - Listar lances de um leilão
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
@@ -51,13 +50,11 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// POST - Fazer lance
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
     const validatedData = bidSchema.parse(body)
 
-    // Verificar se usuário está autenticado
     const { data: { user }, error: authError } = await supabase.auth.getUser()
     
     if (authError || !user) {
@@ -67,7 +64,6 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Buscar dados do leilão
     const { data: auction, error: auctionError } = await supabase
       .from('auctions')
       .select(`
@@ -86,7 +82,6 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Verificar se o leilão está ativo
     if (auction.status !== 'active') {
       return NextResponse.json(
         { error: 'Leilão não está ativo' },
@@ -94,7 +89,6 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Verificar se o usuário não é o dono do produto
     if (auction.products.user_id === user.id) {
       return NextResponse.json(
         { error: 'Você não pode dar lance no seu próprio leilão' },
@@ -102,7 +96,6 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Verificar se o lance é maior que o lance atual
     const minBid = auction.current_bid || auction.starting_bid
     if (validatedData.amount <= minBid) {
       return NextResponse.json(
@@ -111,7 +104,6 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Verificar se o usuário já deu um lance maior ou igual
     const { data: userBids } = await supabase
       .from('bids')
       .select('amount')
@@ -127,7 +119,6 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Criar lance
     const { data: bid, error: bidError } = await supabase
       .from('bids')
       .insert({
@@ -151,7 +142,6 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Atualizar lance atual do leilão
     await supabase
       .from('auctions')
       .update({ current_bid: validatedData.amount })

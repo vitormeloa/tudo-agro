@@ -8,7 +8,6 @@ export async function GET(request: NextRequest) {
 
   if (code) {
     try {
-      // Trocar o código de autorização por uma sessão
       const { data, error } = await supabase.auth.exchangeCodeForSession(code)
       
       if (error) {
@@ -17,7 +16,6 @@ export async function GET(request: NextRequest) {
       }
 
       if (data.user) {
-        // Verificar se o usuário já existe na tabela users
         const { data: existingUser, error: userError } = await supabase
           .from('users')
           .select('id')
@@ -25,7 +23,6 @@ export async function GET(request: NextRequest) {
           .single()
 
         if (userError && userError.code === 'PGRST116') {
-          // Usuário não existe, criar perfil
           const { error: insertError } = await supabase
             .from('users')
             .insert({
@@ -43,7 +40,6 @@ export async function GET(request: NextRequest) {
             return NextResponse.redirect(`${requestUrl.origin}/login?error=Erro ao criar perfil do usuário`)
           }
 
-          // Atribuir role padrão de comprador
           const { data: roles } = await supabase
             .from('roles')
             .select('id')
@@ -60,7 +56,6 @@ export async function GET(request: NextRequest) {
           }
         }
 
-        // Redirecionar para o dashboard com mensagem de sucesso
         return NextResponse.redirect(`${requestUrl.origin}/dashboard?message=Conta ativada com sucesso! Bem-vindo ao TudoAgro.`)
       }
     } catch (error) {
@@ -69,6 +64,5 @@ export async function GET(request: NextRequest) {
     }
   }
 
-  // Se não há código, redirecionar para login
   return NextResponse.redirect(`${requestUrl.origin}/login`)
 }

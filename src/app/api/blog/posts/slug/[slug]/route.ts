@@ -38,7 +38,6 @@ export async function GET(
       return NextResponse.json({ error: error.message }, { status: 500 })
     }
 
-    // Increment views
     await supabase
       .from('blog_posts')
       .update({ views: (data.views || 0) + 1 })

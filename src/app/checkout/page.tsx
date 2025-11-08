@@ -55,7 +55,6 @@ export default function CheckoutPage() {
   const [freightResult, setFreightResult] = useState<FreightResult | null>(null)
   const [isCalculatingFreight, setIsCalculatingFreight] = useState(false)
 
-  // Preencher dados do usuário se estiver logado
   useEffect(() => {
     if (user) {
       setFormData(prev => ({
@@ -66,12 +65,10 @@ export default function CheckoutPage() {
     }
   }, [user])
 
-  // Calcular frete quando CEP for preenchido
   useEffect(() => {
     if (formData.cep.length === 8 && items.length > 0) {
       setIsCalculatingFreight(true)
       
-      // Usar a localização do primeiro item para calcular frete
       const firstItem = items[0]
       setTimeout(() => {
         const result = calculateFreight(formData.cep, firstItem.location)
@@ -83,7 +80,6 @@ export default function CheckoutPage() {
     }
   }, [formData.cep, items])
 
-  // Redirecionar se carrinho vazio
   useEffect(() => {
     if (items.length === 0) {
       toast({
@@ -161,7 +157,6 @@ export default function CheckoutPage() {
       return
     }
 
-    // Validações básicas
     if (!formData.fullName || !formData.email || !formData.phone) {
       toast({
         title: "Dados incompletos",
@@ -202,7 +197,6 @@ export default function CheckoutPage() {
 
     setIsProcessing(true)
 
-    // Simular processamento
     setTimeout(() => {
       setIsProcessing(false)
       toast({
@@ -237,7 +231,7 @@ export default function CheckoutPage() {
       <Header />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Header */}
+        {}
         <div className="mb-8">
           <Link href="/carrinho" className="inline-flex items-center text-gray-600 hover:text-primary mb-4">
             <ArrowLeft className="w-4 h-4 mr-2" />
@@ -248,9 +242,9 @@ export default function CheckoutPage() {
 
         <form onSubmit={handleSubmit}>
           <div className="grid lg:grid-cols-3 gap-8">
-            {/* Left Column - Form */}
+            {}
             <div className="lg:col-span-2 space-y-6">
-              {/* Dados Pessoais */}
+              {}
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center">
@@ -298,7 +292,7 @@ export default function CheckoutPage() {
                 </CardContent>
               </Card>
 
-              {/* Endereço de Entrega */}
+              {}
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center">
@@ -402,7 +396,7 @@ export default function CheckoutPage() {
                 </CardContent>
               </Card>
 
-              {/* Forma de Pagamento */}
+              {}
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center">
@@ -513,14 +507,14 @@ export default function CheckoutPage() {
               </Card>
             </div>
 
-            {/* Right Column - Order Summary */}
+            {}
             <div className="lg:col-span-1">
               <Card className="sticky top-24">
                 <CardHeader>
                   <CardTitle>Resumo do Pedido</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  {/* Items List */}
+                  {}
                   <div className="space-y-3 max-h-96 overflow-y-auto">
                     {items.map((item) => (
                       <div key={item.id} className="flex gap-3 pb-3 border-b last:border-0">
@@ -569,7 +563,7 @@ export default function CheckoutPage() {
                     ))}
                   </div>
 
-                  {/* Totals */}
+                  {}
                   <div className="space-y-2 pt-4 border-t">
                     <div className="flex justify-between text-sm">
                       <span className="text-gray-600">Subtotal</span>
@@ -594,7 +588,7 @@ export default function CheckoutPage() {
                     </div>
                   </div>
 
-                  {/* Security Badges */}
+                  {}
                   <div className="pt-4 space-y-2">
                     <div className="flex items-center gap-2 text-xs text-gray-600">
                       <Lock className="w-4 h-4 text-primary" />
@@ -606,7 +600,7 @@ export default function CheckoutPage() {
                     </div>
                   </div>
 
-                  {/* Submit Button */}
+                  {}
                   <Button
                     type="submit"
                     className="w-full bg-primary hover:bg-[#2E7A5A] text-white py-6 text-lg mt-4"

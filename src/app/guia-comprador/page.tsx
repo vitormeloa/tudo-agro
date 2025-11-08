@@ -62,7 +62,7 @@ export default function GuiaCompradorPage() {
     <div className="min-h-screen flex flex-col bg-gray-50">
       <Header />
       
-      {/* Hero Section */}
+      {}
       <section className="bg-gradient-to-r from-[--primary] via-[--primary] to-[--primary-dark] text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
@@ -75,7 +75,7 @@ export default function GuiaCompradorPage() {
       </section>
 
       <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Introduction */}
+        {}
         <section className="mb-16 text-center">
           <h2 className="text-3xl font-bold text-[#101828] mb-4">Bem-vindo ao TudoAgro!</h2>
           <p className="text-gray-600 max-w-3xl mx-auto text-lg">
@@ -84,7 +84,7 @@ export default function GuiaCompradorPage() {
           </p>
         </section>
 
-        {/* Process Section */}
+        {}
         <section className="mb-16">
           <h2 className="text-3xl font-bold text-[#101828] mb-8 text-center">Processo de Compra</h2>
           <div className="grid md:grid-cols-3 gap-6">
@@ -118,7 +118,7 @@ export default function GuiaCompradorPage() {
           </div>
         </section>
 
-        {/* Tips Section */}
+        {}
         <section className="mb-16">
           <h2 className="text-3xl font-bold text-[#101828] mb-8 text-center">Dicas para Compras Seguras</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -138,7 +138,7 @@ export default function GuiaCompradorPage() {
           </div>
         </section>
 
-        {/* Warnings Section */}
+        {}
         <section className="mb-16">
           <h2 className="text-3xl font-bold text-[#101828] mb-8 text-center">Atenção: Cuidados Importantes</h2>
           <div className="grid md:grid-cols-3 gap-6">
@@ -158,7 +158,7 @@ export default function GuiaCompradorPage() {
           </div>
         </section>
 
-        {/* Support Section */}
+        {}
         <section className="bg-gradient-to-r from-primary/5 to-primary/5 rounded-lg p-8 text-center">
           <h2 className="text-2xl font-bold text-[#101828] mb-4">Precisa de Ajuda?</h2>
           <p className="text-gray-600 mb-6">

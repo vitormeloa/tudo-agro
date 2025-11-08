@@ -20,24 +20,24 @@ export default function Error({
   return (
     <div className="min-h-screen bg-[#F7F6F2] flex items-center justify-center px-4">
       <div className="max-w-md w-full text-center">
-        {/* Ícone de erro */}
+        {}
         <div className="mb-8">
           <div className="mx-auto w-24 h-24 bg-red-100 rounded-full flex items-center justify-center">
             <AlertTriangle className="w-12 h-12 text-red-600" />
           </div>
         </div>
 
-        {/* Título */}
+        {}
         <h1 className="text-3xl font-bold text-primary mb-4">
           {title}
         </h1>
 
-        {/* Descrição */}
+        {}
         <p className="text-gray-600 mb-6 leading-relaxed">
           {message}
         </p>
 
-        {/* Error message for development */}
+        {}
         {process.env.NODE_ENV === 'development' && error && (
           <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-8">
             <p className="text-sm text-red-800 font-mono">
@@ -46,7 +46,7 @@ export default function Error({
           </div>
         )}
 
-        {/* Botões de ação */}
+        {}
         <div className="space-y-4">
           {reset && (
             <Button
@@ -67,7 +67,7 @@ export default function Error({
           </Link>
         </div>
 
-        {/* Help Text */}
+        {}
         <div className="mt-8 text-sm text-gray-600">
           <p>Se o problema persistir, entre em contato conosco.</p>
         </div>

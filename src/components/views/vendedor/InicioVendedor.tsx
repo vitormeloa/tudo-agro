@@ -6,7 +6,6 @@ import { Badge } from "@/components/ui/badge";
 import { Package, TrendingUp, MessageSquare, Bell, Eye, ShoppingCart } from "lucide-react";
 import { useState } from "react";
 
-// Mover dados estáticos para fora do componente (otimização)
 const QUICK_ACTIONS = [
   { icon: Package, title: "Publicar Animal", link: "/vendedor/meus-animais" },
   { icon: ShoppingCart, title: "Adicionar Produto", link: "/vendedor/minha-loja" },
@@ -78,7 +77,7 @@ const InicioVendedor = () => {
 
   return (
     <div className="space-y-6">
-      {/* Welcome Banner */}
+      {}
       <Card className="bg-gradient-to-r from-primary to-primary/90 text-primary-foreground border-0">
         <CardContent className="p-6">
           <h1 className="text-2xl font-bold mb-2">Bem-vindo, Vendedor! 🌾</h1>
@@ -88,7 +87,7 @@ const InicioVendedor = () => {
         </CardContent>
       </Card>
 
-      {/* Stats */}
+      {}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {SELLER_STATS.map((stat, index) => (
           <Card key={index}>
@@ -107,7 +106,7 @@ const InicioVendedor = () => {
         ))}
       </div>
 
-      {/* Quick Actions */}
+      {}
       <Card>
         <CardHeader>
           <CardTitle>Ações Rápidas</CardTitle>
@@ -130,7 +129,7 @@ const InicioVendedor = () => {
       </Card>
 
       <div className="grid gap-6 lg:grid-cols-2">
-        {/* Recent Sales */}
+        {}
         <Card>
           <CardHeader>
             <CardTitle>Últimas Vendas</CardTitle>
@@ -164,7 +163,7 @@ const InicioVendedor = () => {
           </CardContent>
         </Card>
 
-        {/* Recent Activities */}
+        {}
         <Card>
           <CardHeader>
             <CardTitle>Atividades Recentes</CardTitle>

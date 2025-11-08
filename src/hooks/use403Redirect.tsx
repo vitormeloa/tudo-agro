@@ -18,7 +18,6 @@ export function use403Redirect(options: Use403RedirectOptions = {}) {
   } = options
 
   const redirectTo403 = useCallback((customMessage?: string) => {
-    // Adicionar parâmetros de query para personalizar a mensagem
     const params = new URLSearchParams()
     
     if (customMessage || message) {
@@ -32,7 +31,6 @@ export function use403Redirect(options: Use403RedirectOptions = {}) {
     const queryString = params.toString()
     const redirectUrl = queryString ? `/403?${queryString}` : '/403'
     
-    // Usar setTimeout para evitar setState durante render
     setTimeout(() => {
       router.push(redirectUrl)
     }, 0)

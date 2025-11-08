@@ -44,7 +44,6 @@ export default function Footer({
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    // Validar e-mail
     if (!newsletterEmail) {
       setNewsletterError(validationMessages.email.required)
       return
@@ -59,8 +58,6 @@ export default function Footer({
     setNewsletterError('')
 
     try {
-      // Aqui você pode adicionar a lógica de envio para o backend
-      // Por enquanto, vamos simular um sucesso
       await new Promise(resolve => setTimeout(resolve, 1000))
 
       toast({
@@ -119,7 +116,7 @@ export default function Footer({
 
   return (
     <footer className={`${baseClasses} ${variantClasses[variant]} ${className}`}>
-      {/* Newsletter Section */}
+      {}
       {showNewsletter && variant === 'default' && (
         <div className="border-b border-gray-700/50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -176,10 +173,10 @@ export default function Footer({
         </div>
       )}
 
-      {/* Main Footer Content */}
+      {}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10">
-          {/* Brand Section */}
+          {}
           <div className="sm:col-span-2 lg:col-span-1">
             <div className="flex items-center space-x-3 mb-4">
               <img 
@@ -193,7 +190,7 @@ export default function Footer({
               Conectamos produtores e compradores com segurança e transparência.
             </p>
             
-            {/* Contact Info */}
+            {}
             <div className="space-y-2 text-sm text-gray-400">
               <div className="flex items-center">
                 <Phone className="w-4 h-4 mr-2 flex-shrink-0" />
@@ -210,7 +207,7 @@ export default function Footer({
             </div>
           </div>
 
-          {/* Marketplace Links */}
+          {}
           <div className="sm:col-span-1">
             <h4 className="font-semibold text-white mb-4 text-base">Marketplace</h4>
             <ul className="space-y-2.5">
@@ -227,7 +224,7 @@ export default function Footer({
             </ul>
           </div>
 
-          {/* Company Links */}
+          {}
           <div className="sm:col-span-1">
             <h4 className="font-semibold text-white mb-4 text-base">Empresa</h4>
             <ul className="space-y-2.5">
@@ -244,7 +241,7 @@ export default function Footer({
             </ul>
           </div>
 
-          {/* Support Links */}
+          {}
           <div className="sm:col-span-1">
             <h4 className="font-semibold text-white mb-4 text-base">Suporte</h4>
             <ul className="space-y-2.5">
@@ -261,7 +258,7 @@ export default function Footer({
             </ul>
           </div>
 
-          {/* Resources Links */}
+          {}
           <div className="sm:col-span-1 lg:col-span-1">
             <h4 className="font-semibold text-white mb-4 text-base">Recursos</h4>
             <ul className="space-y-2.5">
@@ -279,14 +276,14 @@ export default function Footer({
           </div>
         </div>
 
-        {/* Social Media & Bottom */}
+        {}
         <div className="border-t border-gray-700/50 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="text-sm text-gray-400 mb-4 md:mb-0">
               © {currentYear} TudoAgro. Todos os direitos reservados.
             </div>
 
-            {/* Social Media */}
+            {}
             {showSocial && (
               <div className="flex items-center space-x-4">
                 <span className="text-sm text-gray-400 mr-2">Siga-nos:</span>

@@ -22,7 +22,6 @@ export const MediaUpload = ({ onFileSelect }: MediaUploadProps) => {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, type: 'image' | 'video') => {
     const file = e.target.files?.[0];
     if (file) {
-      // Check file size (max 10MB)
       if (file.size > 10 * 1024 * 1024) {
         toast({
           title: "Arquivo muito grande",
@@ -31,16 +30,15 @@ export const MediaUpload = ({ onFileSelect }: MediaUploadProps) => {
         });
         return;
       }
-      
+
       onFileSelect(file, type);
-      
+
       toast({
         title: "Arquivo anexado",
         description: `${type === 'image' ? 'Imagem' : 'Vídeo'} adicionado com sucesso`,
       });
     }
-    
-    // Reset input
+
     e.target.value = '';
   };
 

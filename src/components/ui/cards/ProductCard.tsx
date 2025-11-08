@@ -70,7 +70,6 @@ export default function ProductCard({
         detailed: "bg-gradient-to-br from-white to-gray-50"
     }
 
-    // Função para formatar preço com 2 casas decimais no padrão BR
     const formatPrice = (price: number) => {
         return price.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
     }
@@ -84,7 +83,7 @@ export default function ProductCard({
                     className="w-full h-48 object-cover"
                 />
 
-                {/* Badges */}
+                {}
                 <div className="absolute top-4 left-4 flex gap-2">
                     {product.featured && (
                         <Badge className="bg-amber-500 text-white font-semibold">
@@ -96,7 +95,7 @@ export default function ProductCard({
                     </Badge>
                 </div>
 
-                {/* Verified Badge */}
+                {}
                 {product.verified && (
                     <div className="absolute bottom-4 left-4">
                         <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20">
@@ -108,18 +107,18 @@ export default function ProductCard({
             </div>
 
             <CardContent className="p-6">
-                {/* Title */}
+                {}
                 <h3 className="font-bold text-lg text-[#101828] mb-2 line-clamp-2">
                     {product.title}
                 </h3>
 
-                {/* Location */}
+                {}
                 <div className="flex items-center mb-2 text-gray-600">
                     <MapPin className="w-4 h-4 mr-1" />
                     <span className="text-sm">{product.location}</span>
                 </div>
 
-                {/* Rating */}
+                {}
                 <div className="flex items-center mb-4">
                     <div className="flex items-center">
                         {[...Array(5)].map((_, i) => (
@@ -138,7 +137,7 @@ export default function ProductCard({
                     </div>
                 </div>
 
-                {/* Product Details */}
+                {}
                 {(variant === 'detailed' || variant === 'default') && (
                     <div className="grid grid-cols-3 gap-2 mb-4 text-sm">
                         {product.age && (
@@ -162,19 +161,19 @@ export default function ProductCard({
                     </div>
                 )}
 
-                {/* Price */}
+                {}
                 <div className="flex justify-between items-center mb-4">
           <span className="text-2xl font-bold text-primary">
             R$ {formatPrice(product.price)}
           </span>
                 </div>
 
-                {/* Seller */}
+                {}
                 <div className="text-sm text-gray-600 mb-4">
                     Vendido por: <span className="font-semibold text-[#101828]">{product.seller}</span>
                 </div>
 
-                {/* Actions */}
+                {}
                 {showActions && (
                     <div className="flex gap-2">
                         <Link href={linkTo || (product.type === 'animal' ? `/catalogo/${product.id}` : `/produtos/${product.id}`)} className="flex-1">

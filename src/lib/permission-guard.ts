@@ -6,11 +6,10 @@ import { hasPermission, hasRole } from './permission-utils'
 export interface PermissionGuardOptions {
   requiredPermissions?: Permission[]
   requiredRoles?: string[]
-  allowSelf?: boolean // Para permitir que usuários gerenciem a si mesmos
-  resourceId?: string // ID do recurso sendo acessado
+  allowSelf?: boolean
+  resourceId?: string
 }
 
-// Função para obter permissões do usuário do token
 export const getUserPermissions = async (request: NextRequest): Promise<UserPermissions | null> => {
   try {
     const authHeader = request.headers.get('authorization')
@@ -20,14 +19,12 @@ export const getUserPermissions = async (request: NextRequest): Promise<UserPerm
 
     const token = authHeader.split(' ')[1]
     
-    // Verificar token com Supabase
     const { data: { user }, error } = await supabase.auth.getUser(token)
     
     if (error || !user) {
       return null
     }
 
-    // Buscar roles e permissões do usuário
     const { data: userRoles, error: rolesError } = await supabase
       .from('user_roles')
       .select(`
@@ -56,7 +53,6 @@ export const getUserPermissions = async (request: NextRequest): Promise<UserPerm
   }
 }
 
-// Middleware para verificar permissões
 export const withPermissionGuard = (
   handler: (request: NextRequest, context: any) => Promise<NextResponse>,
   options: PermissionGuardOptions = {}
@@ -72,7 +68,6 @@ export const withPermissionGuard = (
         )
       }
 
-      // Verificar roles necessárias
       if (options.requiredRoles && options.requiredRoles.length > 0) {
         const hasRequiredRole = options.requiredRoles.some(role => 
           hasRole(userPermissions, role)
@@ -86,7 +81,6 @@ export const withPermissionGuard = (
         }
       }
 
-      // Verificar permissões necessárias
       if (options.requiredPermissions && options.requiredPermissions.length > 0) {
         const hasRequiredPermission = options.requiredPermissions.some(permission => 
           hasPermission(userPermissions, permission)
@@ -100,7 +94,6 @@ export const withPermissionGuard = (
         }
       }
 
-      // Verificar se pode gerenciar o próprio recurso
       if (options.allowSelf && options.resourceId) {
         const authHeader = request.headers.get('authorization')
         const token = authHeader?.split(' ')[1]
@@ -109,7 +102,6 @@ export const withPermissionGuard = (
           const { data: { user } } = await supabase.auth.getUser(token)
           
           if (user && user.id === options.resourceId) {
-            // Usuário pode gerenciar a si mesmo
             return handler(request, context)
           }
         }
@@ -126,7 +118,6 @@ export const withPermissionGuard = (
   }
 }
 
-// Hook para verificar permissões no frontend
 export const usePermissionGuard = () => {
   const checkPermission = async (permission: Permission): Promise<boolean> => {
     try {

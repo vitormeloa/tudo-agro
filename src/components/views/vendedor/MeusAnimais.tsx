@@ -78,7 +78,7 @@ const MeusAnimais = () => {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
+      {}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <h1 className="text-3xl font-bold">Meus Animais</h1>
@@ -96,7 +96,7 @@ const MeusAnimais = () => {
         </div>
       </div>
 
-      {/* Stats */}
+      {}
       <div className="grid gap-4 md:grid-cols-3">
         <Card>
           <CardContent className="p-6">
@@ -139,7 +139,7 @@ const MeusAnimais = () => {
         </Card>
       </div>
 
-      {/* Filters */}
+      {}
       <Card>
         <CardContent className="p-4">
           <div className="flex flex-col sm:flex-row gap-4">
@@ -175,7 +175,7 @@ const MeusAnimais = () => {
         </CardContent>
       </Card>
 
-      {/* Animals List */}
+      {}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {animals.map((animal) => (
           <Card key={animal.id} className="hover:shadow-lg transition-shadow">
@@ -246,7 +246,7 @@ const MeusAnimais = () => {
         ))}
       </div>
 
-      {/* Campaign Button */}
+      {}
       <Card className="bg-gradient-to-r from-primary/10 to-primary/5 border-primary/20">
         <CardContent className="p-6">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">

@@ -28,7 +28,6 @@ export default function ResetPasswordPage() {
   const searchParams = useSearchParams()
 
   useEffect(() => {
-    // Verificar se há token de redefinição na URL
     const accessToken = searchParams.get('access_token')
     const refreshToken = searchParams.get('refresh_token')
     

@@ -19,7 +19,6 @@ export default function ContatoPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // Aqui você adicionaria a lógica de envio do formulário
     alert('Mensagem enviada com sucesso! Entraremos em contato em breve.')
     setFormData({ name: '', email: '', subject: '', message: '' })
   }
@@ -55,7 +54,7 @@ export default function ContatoPage() {
     <div className="min-h-screen flex flex-col bg-gray-50">
       <Header />
       
-      {/* Hero Section */}
+      {}
       <section className="bg-gradient-to-r from-primary via-primary to-primary/90 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
@@ -69,7 +68,7 @@ export default function ContatoPage() {
 
       <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid lg:grid-cols-2 gap-12">
-          {/* Contact Form */}
+          {}
           <section>
             <Card className="border-2 border-gray-200">
               <CardContent className="p-8">
@@ -146,7 +145,7 @@ export default function ContatoPage() {
             </Card>
           </section>
 
-          {/* Contact Info */}
+          {}
           <section>
             <h2 className="text-2xl font-bold text-[#101828] mb-6">Informações de Contato</h2>
             <div className="space-y-4 mb-8">

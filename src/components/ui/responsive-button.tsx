@@ -26,7 +26,7 @@ export function ResponsiveButton({
     <Button
       className={cn(
         'transition-all duration-200',
-        touchOptimized && 'min-h-[44px] min-w-[44px]', // Tamanho mínimo para touch
+        touchOptimized && 'min-h-[44px] min-w-[44px]',
         fullWidthOnMobile && 'w-full sm:w-auto',
         className
       )}

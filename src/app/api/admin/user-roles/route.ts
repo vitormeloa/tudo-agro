@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
 import { withPermissionGuard } from '@/lib/permission-guard'
 
-// GET - Listar roles de um usuário
 async function getUserRoles(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
@@ -47,7 +46,6 @@ async function getUserRoles(request: NextRequest) {
   }
 }
 
-// POST - Atribuir role a usuário
 async function assignRole(request: NextRequest) {
   try {
     const { userId, roleId } = await request.json()
@@ -59,7 +57,6 @@ async function assignRole(request: NextRequest) {
       )
     }
 
-    // Verificar se o usuário existe
     const { data: user } = await supabase
       .from('users')
       .select('id')
@@ -73,7 +70,6 @@ async function assignRole(request: NextRequest) {
       )
     }
 
-    // Verificar se a role existe
     const { data: role } = await supabase
       .from('roles')
       .select('id')
@@ -87,7 +83,6 @@ async function assignRole(request: NextRequest) {
       )
     }
 
-    // Verificar se a associação já existe
     const { data: existingAssignment } = await supabase
       .from('user_roles')
       .select('id')
@@ -128,7 +123,6 @@ async function assignRole(request: NextRequest) {
   }
 }
 
-// DELETE - Remover role de usuário
 async function removeRole(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
@@ -165,7 +159,6 @@ async function removeRole(request: NextRequest) {
   }
 }
 
-// Handlers principais
 export const GET = withPermissionGuard(getUserRoles, {
   requiredPermissions: ['user:read']
 })

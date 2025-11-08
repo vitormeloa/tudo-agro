@@ -36,7 +36,7 @@ export const TransactionDetailsModal = ({ open, onOpenChange, transaction }: Tra
         </DialogHeader>
 
         <div className="space-y-6">
-          {/* Status */}
+          {}
           <div className="flex items-center justify-between">
             <h3 className="text-lg font-semibold">Status da Transação</h3>
             <Badge variant={getStatusBadge(transaction.status).variant} className="text-base px-4 py-1">
@@ -46,7 +46,7 @@ export const TransactionDetailsModal = ({ open, onOpenChange, transaction }: Tra
 
           <Separator />
 
-          {/* Informações do Produto */}
+          {}
           <div className="space-y-3">
             <div className="flex items-start gap-3">
               <Package className="h-5 w-5 text-primary mt-1" />
@@ -93,7 +93,7 @@ export const TransactionDetailsModal = ({ open, onOpenChange, transaction }: Tra
 
           <Separator />
 
-          {/* Valor Total */}
+          {}
           <div className="bg-muted/50 p-4 rounded-lg">
             <div className="flex items-center justify-between">
               <span className="text-lg font-semibold">Valor Total</span>
@@ -101,7 +101,7 @@ export const TransactionDetailsModal = ({ open, onOpenChange, transaction }: Tra
             </div>
           </div>
 
-          {/* Timeline */}
+          {}
           <div className="space-y-3">
             <h4 className="font-semibold">Timeline da Transação</h4>
             <div className="space-y-4 ml-4 border-l-2 border-muted pl-4">

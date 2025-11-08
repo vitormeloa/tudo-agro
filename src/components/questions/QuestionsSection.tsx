@@ -22,7 +22,6 @@ export default function QuestionsSection({ questions, sellerName }: QuestionsSec
   const { user } = useAuth()
   const { toast } = useToast()
 
-  // Separar perguntas respondidas e não respondidas
   const answeredQuestions = questions.filter(q => q.answer)
   const unansweredQuestions = questions.filter(q => !q.answer)
 
@@ -49,7 +48,6 @@ export default function QuestionsSection({ questions, sellerName }: QuestionsSec
 
     setIsSubmitting(true)
 
-    // Simular envio
     setTimeout(() => {
       toast({
         title: "Pergunta enviada!",
@@ -76,7 +74,7 @@ export default function QuestionsSection({ questions, sellerName }: QuestionsSec
 
   return (
     <div className="space-y-6">
-      {/* Header */}
+      {}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <h2 className="text-xl sm:text-2xl font-bold text-[#101828] flex items-center gap-2">
@@ -99,7 +97,7 @@ export default function QuestionsSection({ questions, sellerName }: QuestionsSec
         )}
       </div>
 
-      {/* Formulário de Nova Pergunta */}
+      {}
       {showQuestionForm && (
         <Card className="border-2 border-primary/20 bg-primary/5/50">
           <CardContent className="p-4 sm:p-6">
@@ -156,7 +154,7 @@ export default function QuestionsSection({ questions, sellerName }: QuestionsSec
         </Card>
       )}
 
-      {/* Lista de Perguntas */}
+      {}
       {questions.length === 0 ? (
         <Card className="border-2 border-dashed border-gray-300">
           <CardContent className="p-8 text-center">
@@ -171,11 +169,11 @@ export default function QuestionsSection({ questions, sellerName }: QuestionsSec
         </Card>
       ) : (
         <div className="space-y-4">
-          {/* Perguntas Respondidas */}
+          {}
           {answeredQuestions.map((question) => (
             <Card key={question.id} className="hover:shadow-md transition-shadow">
               <CardContent className="p-4 sm:p-6">
-                {/* Pergunta */}
+                {}
                 <div className="flex gap-3 sm:gap-4 mb-4">
                   <div className="flex-shrink-0">
                     {question.userAvatar ? (
@@ -199,7 +197,7 @@ export default function QuestionsSection({ questions, sellerName }: QuestionsSec
                   </div>
                 </div>
 
-                {/* Resposta */}
+                {}
                 {question.answer && (
                   <div className="ml-0 sm:ml-14 pl-3 sm:pl-4 border-l-3 sm:border-l-4 border-primary bg-primary/5/50 rounded-r-lg p-3 sm:p-4">
                     <div className="flex flex-wrap items-center gap-2 mb-2">
@@ -214,7 +212,7 @@ export default function QuestionsSection({ questions, sellerName }: QuestionsSec
                   </div>
                 )}
 
-                {/* Footer com likes */}
+                {}
                 <div className="flex flex-wrap items-center gap-2 sm:gap-4 mt-4 ml-0 sm:ml-14">
                   <button className="flex items-center gap-1 text-xs sm:text-sm text-gray-600 hover:text-primary transition-colors">
                     <ThumbsUp className="w-4 h-4 flex-shrink-0" />
@@ -228,7 +226,7 @@ export default function QuestionsSection({ questions, sellerName }: QuestionsSec
             </Card>
           ))}
 
-          {/* Perguntas Não Respondidas */}
+          {}
           {unansweredQuestions.map((question) => (
             <Card key={question.id} className="border-amber-200 bg-amber-50/30">
               <CardContent className="p-4 sm:p-6">
@@ -254,7 +252,7 @@ export default function QuestionsSection({ questions, sellerName }: QuestionsSec
                     </div>
                     <p className="text-sm sm:text-base text-gray-700 break-words">{question.question}</p>
 
-                    {/* Footer com likes */}
+                    {}
                     <div className="flex flex-wrap items-center gap-2 sm:gap-4 mt-3">
                       <button className="flex items-center gap-1 text-xs sm:text-sm text-gray-600 hover:text-primary transition-colors">
                         <ThumbsUp className="w-4 h-4 flex-shrink-0" />

@@ -11,7 +11,6 @@ const auctionSchema = z.object({
   product_id: z.string().uuid('ID do produto inválido')
 })
 
-// GET - Listar leilões
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
@@ -56,11 +55,9 @@ export async function GET(request: NextRequest) {
         )
       `)
 
-    // Aplicar filtros
     if (status) {
       query = query.eq('status', status)
     } else {
-      // Por padrão, mostrar apenas leilões ativos e agendados
       query = query.in('status', ['active', 'scheduled'])
     }
 
@@ -68,7 +65,6 @@ export async function GET(request: NextRequest) {
       query = query.or(`title.ilike.%${search}%,description.ilike.%${search}%`)
     }
 
-    // Aplicar paginação
     const from = (page - 1) * limit
     const to = from + limit - 1
 
@@ -102,13 +98,11 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// POST - Criar leilão
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
     const validatedData = auctionSchema.parse(body)
 
-    // Verificar se usuário está autenticado
     const { data: { user }, error: authError } = await supabase.auth.getUser()
     
     if (authError || !user) {
@@ -118,7 +112,6 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Verificar se usuário tem permissão para criar leilões
     const { data: userRoles } = await supabase
       .from('user_roles')
       .select(`
@@ -139,7 +132,6 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Verificar se o produto pertence ao usuário
     const { data: product, error: productError } = await supabase
       .from('products')
       .select('id, user_id')
@@ -160,7 +152,6 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Verificar se já existe um leilão ativo para este produto
     const { data: existingAuction } = await supabase
       .from('auctions')
       .select('id')
@@ -175,7 +166,6 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Criar leilão
     const { data: auction, error: auctionError } = await supabase
       .from('auctions')
       .insert({

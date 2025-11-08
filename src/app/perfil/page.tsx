@@ -47,7 +47,7 @@ function PerfilContent() {
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
-      {/* Header with back button */}
+      {}
       <div className="mb-6">
         <Button
           variant="ghost"
@@ -62,7 +62,7 @@ function PerfilContent() {
       </div>
 
       <div className="grid gap-6">
-        {/* Avatar and Basic Info Card */}
+        {}
         <Card>
           <CardHeader>
             <div className="flex items-start justify-between">
@@ -100,7 +100,7 @@ function PerfilContent() {
           </CardHeader>
         </Card>
 
-        {/* Personal Information Card */}
+        {}
         <Card>
           <CardHeader>
             <CardTitle>Informações Pessoais</CardTitle>
@@ -153,7 +153,7 @@ function PerfilContent() {
           </CardContent>
         </Card>
 
-        {/* Security Card */}
+        {}
         <Card>
           <CardHeader>
             <CardTitle>Segurança</CardTitle>

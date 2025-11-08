@@ -19,18 +19,15 @@ interface SellerInfoCardProps {
   seller: Seller;
 }
 
-// Helper function to determine seller level with Mercado Livre style
 const getSellerLevel = (sales: number) => {
-  // Define thresholds for each level
   const levels = [
-    { threshold: 0, name: 'Novo', color: '#ef4444', textColor: 'text-red-600' }, // Vermelho - Ruim
-    { threshold: 50, name: 'Bronze', color: '#f97316', textColor: 'text-orange-600' }, // Laranja - Regular
-    { threshold: 100, name: 'Prata', color: '#eab308', textColor: 'text-yellow-600' }, // Amarelo - Bom
-    { threshold: 500, name: 'Ouro', color: '#22c55e', textColor: 'text-[#3D9970]' }, // Verde claro - Muito bom
-    { threshold: 1000, name: 'Diamante', color: '#10b981', textColor: 'text-primary' }, // Verde - Excelente
+    { threshold: 0, name: 'Novo', color: '#ef4444', textColor: 'text-red-600' },
+    { threshold: 50, name: 'Bronze', color: '#f97316', textColor: 'text-orange-600' },
+    { threshold: 100, name: 'Prata', color: '#eab308', textColor: 'text-yellow-600' },
+    { threshold: 500, name: 'Ouro', color: '#22c55e', textColor: 'text-[#3D9970]' },
+    { threshold: 1000, name: 'Diamante', color: '#10b981', textColor: 'text-primary' },
   ];
 
-  // Find current level
   let currentLevel = 0;
   for (let i = levels.length - 1; i >= 0; i--) {
     if (sales >= levels[i].threshold) {
@@ -39,7 +36,6 @@ const getSellerLevel = (sales: number) => {
     }
   }
 
-  // Calculate progress within current level
   const current = levels[currentLevel];
   const next = levels[currentLevel + 1];
   let progress = 0;
@@ -49,7 +45,6 @@ const getSellerLevel = (sales: number) => {
     const salesInLevel = sales - current.threshold;
     progress = (salesInLevel / levelRange) * 100;
   } else {
-    // Max level reached
     progress = 100;
   }
 
@@ -106,7 +101,7 @@ export default function SellerInfoCard({ seller }: SellerInfoCardProps) {
                 </span>
               </div>
 
-              {/* Mercado Livre style segmented progress bar */}
+              {}
               <div className="flex gap-0.5">
                 {sellerLevel.levels.map((levelBar, index) => {
                   const isActive = index <= sellerLevel.level;

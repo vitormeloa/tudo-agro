@@ -26,7 +26,7 @@ const ReturnPolicyModal = ({ isOpen, onClose, productName, orderId }: ReturnPoli
       />
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-3xl max-h-[95vh] overflow-hidden p-0 gap-0 [&>button]:hidden">
-        {/* Close Button */}
+        {}
         <button
           onClick={onClose}
           className="absolute right-4 top-4 rounded-full p-2 hover:bg-destructive/10 transition-colors z-20 group"
@@ -34,7 +34,7 @@ const ReturnPolicyModal = ({ isOpen, onClose, productName, orderId }: ReturnPoli
           <X className="h-5 w-5 text-destructive group-hover:text-destructive/80" />
         </button>
 
-        {/* Header */}
+        {}
         <div className="p-6 pb-4 border-b bg-gradient-to-br from-background to-muted/20">
           <div className="pr-8">
             <h2 className="text-xl md:text-2xl font-bold mb-2 leading-tight flex items-center gap-2">
@@ -47,9 +47,9 @@ const ReturnPolicyModal = ({ isOpen, onClose, productName, orderId }: ReturnPoli
           </div>
         </div>
 
-        {/* Content */}
+        {}
         <div className="overflow-y-auto flex-1 p-6 space-y-6" style={{ maxHeight: 'calc(95vh - 250px)' }}>
-          {/* Alert */}
+          {}
           <div className="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800 rounded-lg p-4">
             <div className="flex items-start gap-3">
               <AlertCircle className="h-5 w-5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
@@ -60,7 +60,7 @@ const ReturnPolicyModal = ({ isOpen, onClose, productName, orderId }: ReturnPoli
             </div>
           </div>
 
-          {/* Policy Sections */}
+          {}
           <div className="space-y-5">
             <div>
               <h3 className="font-bold text-lg mb-2">Prazo para Devolução</h3>
@@ -137,7 +137,7 @@ const ReturnPolicyModal = ({ isOpen, onClose, productName, orderId }: ReturnPoli
           </div>
         </div>
 
-        {/* Footer */}
+        {}
         <div className="border-t bg-muted/30 p-6">
           <Button 
             onClick={() => {

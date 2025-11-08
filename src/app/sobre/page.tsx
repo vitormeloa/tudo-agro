@@ -88,7 +88,7 @@ export default function SobrePage() {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
       <Header />
 
-      {/* Hero Section */}
+      {}
       <section className="relative pt-16 pb-20 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-primary/90"></div>
         <div className="absolute inset-0 bg-black/20"></div>
@@ -107,7 +107,7 @@ export default function SobrePage() {
         </div>
       </section>
 
-      {/* Stats Section */}
+      {}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -124,7 +124,7 @@ export default function SobrePage() {
         </div>
       </section>
 
-      {/* Mission Section */}
+      {}
       <section className="py-20 bg-gradient-to-br from-primary/5 to-primary/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -168,7 +168,7 @@ export default function SobrePage() {
         </div>
       </section>
 
-      {/* Values Section */}
+      {}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -196,7 +196,7 @@ export default function SobrePage() {
         </div>
       </section>
 
-      {/* Team Section */}
+      {}
       <section className="py-20 bg-gradient-to-br from-primary/5 to-primary/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -227,7 +227,7 @@ export default function SobrePage() {
         </div>
       </section>
 
-      {/* Testimonials Section */}
+      {}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -272,7 +272,7 @@ export default function SobrePage() {
         </div>
       </section>
 
-      {/* History Section */}
+      {}
       <section className="py-20 bg-gradient-to-br from-primary/5 to-primary/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -348,7 +348,7 @@ export default function SobrePage() {
         </div>
       </section>
 
-      {/* CTA Section */}
+      {}
       <section className="py-20 bg-gradient-to-br from-primary to-primary/90">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">

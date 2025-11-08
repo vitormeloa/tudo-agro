@@ -122,10 +122,8 @@ const MinhaLojaAgro = () => {
   };
   const handleEditProduct = (product: any) => {
     console.log("Editar produto:", product);
-    // Implementar modal de edição posteriormente
   };
 
-  // Filtrar produtos
   const filteredProducts = products.filter(product => {
     const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesStatus = statusFilter === "all-status" || statusFilter === "active" && product.status === "Ativo" || statusFilter === "out" && product.status === "Sem Estoque" || statusFilter === "paused" && product.status === "Pausado";
@@ -138,14 +136,14 @@ const MinhaLojaAgro = () => {
     return 0;
   });
   return <div className="space-y-6">
-      {/* Header */}
+      {}
       <div className="flex flex-col gap-4">
         <div>
           <h1 className="text-3xl font-bold">Minha Loja Agro</h1>
           <p className="text-muted-foreground">Gerencie seus produtos e estoque</p>
         </div>
         
-        {/* Action Buttons */}
+        {}
         <div className="flex flex-wrap gap-2">
           <Button variant="outline" className="gap-2" onClick={() => router.push('/dashboard/vendedor/dashboard')}>
             <BarChart3 className="h-4 w-4" />
@@ -162,7 +160,7 @@ const MinhaLojaAgro = () => {
         </div>
       </div>
 
-      {/* KPIs */}
+      {}
       <div className="grid gap-4 md:grid-cols-5">
         <Card>
           <CardContent className="p-6">
@@ -236,7 +234,7 @@ const MinhaLojaAgro = () => {
         </Card>
       </div>
 
-      {/* Filters */}
+      {}
       <Card>
         <CardContent className="p-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -281,7 +279,7 @@ const MinhaLojaAgro = () => {
         </CardContent>
       </Card>
 
-      {/* Products Grid */}
+      {}
       {isLoading ? <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {[1, 2, 3, 4, 5, 6].map(i => <Card key={i}>
               <CardContent className="p-6">
@@ -348,7 +346,7 @@ const MinhaLojaAgro = () => {
                     </span>
                   </div>
                   
-                  {/* Action Buttons */}
+                  {}
                   <div className="pt-3 space-y-2">
                     <div className="grid grid-cols-2 gap-2">
                       <Button variant="outline" size="sm" onClick={() => handleEditProduct(product)}>
@@ -367,7 +365,7 @@ const MinhaLojaAgro = () => {
             </Card>)}
         </div>}
 
-      {/* Campaign Button */}
+      {}
       <Card className="bg-gradient-to-r from-primary/10 to-primary/5 border-primary/20">
         <CardContent className="p-6">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -385,7 +383,7 @@ const MinhaLojaAgro = () => {
         </CardContent>
       </Card>
 
-      {/* Modals */}
+      {}
       <AdicionarProdutoModal open={produtoModalOpen} onOpenChange={setProdutoModalOpen} />
       <CriarCampanhaModal open={campanhaModalOpen} onOpenChange={setCampanhaModalOpen} />
       {selectedProduct && <ProductDetailsModal isOpen={showProductDetails} onClose={() => setShowProductDetails(false)} product={{

@@ -10,7 +10,6 @@ if (!supabaseUrl || !supabaseServiceKey) {
 
 const supabase = createClient(supabaseUrl, supabaseServiceKey)
 
-// Definir as roles básicas
 const basicRoles = [
   {
     name: 'admin',
@@ -88,7 +87,6 @@ export async function POST(request: NextRequest) {
       
       for (const roleData of basicRoles) {
         try {
-          // Verificar se a role já existe
           const { data: existingRole } = await supabase
             .from('roles')
             .select('id')
@@ -100,7 +98,6 @@ export async function POST(request: NextRequest) {
             continue
           }
           
-          // Criar nova role
           const { error } = await supabase
             .from('roles')
             .insert({

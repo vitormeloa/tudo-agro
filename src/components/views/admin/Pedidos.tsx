@@ -294,7 +294,7 @@ const Pedidos = () => {
         </TabsContent>
       </Tabs>
 
-      {/* Order Details Modal */}
+      {}
       <Dialog open={orderDetailsOpen} onOpenChange={setOrderDetailsOpen}>
         <DialogContent className="max-w-2xl">
           <DialogHeader>

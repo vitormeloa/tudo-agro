@@ -111,7 +111,6 @@ export default function MetricsDashboard({
   )
 }
 
-// Componente para alertas e notificações
 interface AlertCardProps {
   type: 'success' | 'warning' | 'error' | 'info' | 'urgent'
   title: string
@@ -167,11 +166,11 @@ export function AlertCard({
         textColor: 'text-primary'
       }
     }
-    return configs[type] || configs.info // Fallback para 'info' se tipo não for encontrado
+    return configs[type] || configs.info
   }
 
   const config = getAlertConfig()
-  const Icon = config?.icon || Clock // Fallback para Clock se icon não existir
+  const Icon = config?.icon || Clock
 
   return (
     <ResponsiveCard 

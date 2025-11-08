@@ -222,7 +222,7 @@ const Usuarios = () => {
         </TabsContent>
       </Tabs>
 
-      {/* Actions Modal */}
+      {}
       <Dialog open={actionsModalOpen} onOpenChange={setActionsModalOpen}>
         <DialogContent className="max-w-md">
           <DialogHeader>
@@ -269,7 +269,7 @@ const Usuarios = () => {
         </DialogContent>
       </Dialog>
 
-      {/* User Details Modal */}
+      {}
       <Dialog open={userDetailsOpen} onOpenChange={setUserDetailsOpen}>
         <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
@@ -277,7 +277,7 @@ const Usuarios = () => {
           </DialogHeader>
           {selectedUser && (
             <div className="space-y-6">
-              {/* Personal Data */}
+              {}
               <div>
                 <h3 className="text-lg font-semibold mb-3">Dados Cadastrais</h3>
                 <div className="grid grid-cols-2 gap-4">
@@ -310,7 +310,7 @@ const Usuarios = () => {
 
               <Separator />
 
-              {/* Activities */}
+              {}
               <div>
                 <h3 className="text-lg font-semibold mb-3">Atividades</h3>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -374,7 +374,7 @@ const Usuarios = () => {
 
               <Separator />
 
-              {/* Administrative Actions */}
+              {}
               <div>
                 <h3 className="text-lg font-semibold mb-3">Ações Administrativas</h3>
                 <div className="grid grid-cols-2 gap-2">

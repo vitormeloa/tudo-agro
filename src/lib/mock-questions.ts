@@ -12,9 +12,7 @@ export interface Question {
   likes: number
 }
 
-// Perguntas para produtos
 export const mockProductQuestions: Record<string, Question[]> = {
-  // Cachaça Haras Eduardo Costa
   "550e8400-e29b-41d4-a716-446655440001": [
     {
       id: "q1",
@@ -67,7 +65,6 @@ export const mockProductQuestions: Record<string, Question[]> = {
     }
   ],
 
-  // Semente Milho
   "550e8400-e29b-41d4-a716-446655440002": [
     {
       id: "q5",
@@ -107,7 +104,6 @@ export const mockProductQuestions: Record<string, Question[]> = {
     }
   ],
 
-  // Ração Premium
   "550e8400-e29b-41d4-a716-446655440003": [
     {
       id: "q8",
@@ -138,9 +134,7 @@ export const mockProductQuestions: Record<string, Question[]> = {
   ]
 }
 
-// Perguntas para animais
 export const mockAnimalQuestions: Record<string, Question[]> = {
-  // Touro Nelore
   "1": [
     {
       id: "qa1",
@@ -193,15 +187,12 @@ export const mockAnimalQuestions: Record<string, Question[]> = {
     }
   ],
 
-  // Outros animais podem ter suas perguntas adicionadas aqui conforme necessário
 }
 
-// Função auxiliar para buscar perguntas de um produto
 export function getProductQuestions(productId: string): Question[] {
   return mockProductQuestions[productId] || []
 }
 
-// Função auxiliar para buscar perguntas de um animal
 export function getAnimalQuestions(animalId: string): Question[] {
   return mockAnimalQuestions[animalId] || []
 }

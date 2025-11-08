@@ -74,7 +74,7 @@ const FinanceiroVendedor = () => {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
+      {}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <h1 className="text-3xl font-bold">Financeiro</h1>
@@ -92,7 +92,7 @@ const FinanceiroVendedor = () => {
         </div>
       </div>
 
-      {/* Balance Cards */}
+      {}
       <div className="grid gap-4 md:grid-cols-3">
         <Card className="bg-gradient-to-br from-primary to-primary/90 text-primary-foreground border-0">
           <CardContent className="p-6">
@@ -128,7 +128,7 @@ const FinanceiroVendedor = () => {
         </Card>
       </div>
 
-      {/* Filters */}
+      {}
       <Card>
         <CardContent className="p-4">
           <div className="flex flex-col sm:flex-row gap-4">
@@ -162,7 +162,7 @@ const FinanceiroVendedor = () => {
         </CardContent>
       </Card>
 
-      {/* Transactions */}
+      {}
       <Card>
         <CardHeader>
           <CardTitle>Extrato de Transações</CardTitle>
@@ -213,7 +213,7 @@ const FinanceiroVendedor = () => {
         </CardContent>
       </Card>
 
-      {/* Payment Method */}
+      {}
       <Card>
         <CardHeader>
           <CardTitle>Método de Recebimento</CardTitle>
@@ -236,7 +236,7 @@ const FinanceiroVendedor = () => {
         </CardContent>
       </Card>
 
-      {/* Info Card */}
+      {}
       <Card className="bg-gradient-to-r from-primary/10 to-primary/5 border-primary/20">
         <CardContent className="p-6">
           <div className="flex items-start gap-3">

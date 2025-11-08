@@ -6,10 +6,8 @@ import { Badge } from "@/components/ui/badge";
 import { Heart, Package, Eye, Users, Gavel, Store, BookOpen, HelpCircle, TrendingUp, Award, Shield, MessageSquare } from "lucide-react";
 import { useState, useMemo, lazy, Suspense } from "react";
 
-// Lazy load do modal para não carregar até ser necessário
 const PurchaseDetailsModal = lazy(() => import("@/components/PurchaseDetailsModal"));
 
-// Mover dados estáticos para fora do componente (evita recriação)
 const QUICK_ACTIONS = [{
   icon: Package,
   title: "Ver Animais",
@@ -205,7 +203,7 @@ const Dashboard = () => {
   const [selectedPurchase, setSelectedPurchase] = useState<number | null>(null);
 
   return <div>
-          {/* Banner Principal */}
+          {}
           <Card className="mb-6 overflow-hidden border-0 bg-gradient-to-r from-primary to-primary/70">
             <CardContent className="p-6 md:p-8 text-primary-foreground">
               <h1 className="mb-2 text-2xl md:text-3xl font-bold">Bem-vindo ao TudoAgro</h1>
@@ -218,10 +216,9 @@ const Dashboard = () => {
             </CardContent>
           </Card>
 
-          {/* Stats */}
+          {}
           
-
-          {/* Atalhos Rápidos */}
+          {}
           <Card className="mb-6">
             <CardHeader>
               <CardTitle className="text-xl md:text-2xl">Atalhos Rápidos</CardTitle>
@@ -236,7 +233,7 @@ const Dashboard = () => {
             </CardContent>
           </Card>
 
-          {/* Últimas Compras */}
+          {}
           <Card className="mb-6">
             <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle>Últimas Compras</CardTitle>
@@ -275,7 +272,7 @@ const Dashboard = () => {
             </CardContent>
           </Card>
 
-          {/* Treinamentos */}
+          {}
           <Card>
             <CardHeader>
               <div className="flex items-center gap-2">
@@ -309,7 +306,7 @@ const Dashboard = () => {
             </CardContent>
           </Card>
 
-          {/* Help Card */}
+          {}
           <Card className="bg-muted/50 mt-6">
             <div className="p-6">
               <div className="flex flex-col md:flex-row items-center justify-between gap-4">
@@ -333,7 +330,7 @@ const Dashboard = () => {
             </div>
           </Card>
 
-        {/* Purchase Details Modal */}
+        {}
         {selectedPurchase && (
           <Suspense fallback={<div>Carregando...</div>}>
             <PurchaseDetailsModal

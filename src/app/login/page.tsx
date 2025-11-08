@@ -54,19 +54,16 @@ export default function LoginPage() {
 
   const handleChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }))
-    // Limpar erro quando usuário começar a digitar
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: '' }))
     }
   }
 
-  // Verificar se há mensagem de sucesso ou redirect na URL
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search)
     const message = urlParams.get('message')
     if (message) {
       setSuccessMessage(message)
-      // Limpar a URL mas manter o redirect se existir
       const redirect = urlParams.get('redirect')
       if (redirect) {
         window.history.replaceState({}, document.title, `${window.location.pathname}?redirect=${encodeURIComponent(redirect)}`)
@@ -79,9 +76,8 @@ export default function LoginPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    if (isLoading) return // Prevenir múltiplos submits
+    if (isLoading) return
 
-    // Validar campos antes de enviar
     const newErrors: Record<string, string> = {}
 
     if (!formData.email) {
@@ -110,19 +106,13 @@ export default function LoginPage() {
       const { error } = await signIn(formData.email, formData.password)
       
       if (!error) {
-        // Aguardar até que o estado de autenticação seja atualizado
-        // Usar um timeout maior para garantir que tudo está pronto
         await new Promise(resolve => setTimeout(resolve, 300))
         
-        // Verificar se há parâmetro redirect na URL
         const urlParams = new URLSearchParams(window.location.search)
         const redirectTo = urlParams.get('redirect')
         
-        // Redirecionar para a página desejada ou dashboard padrão
-        // Usar window.location para evitar loops de redirecionamento
         const destination = redirectTo || '/dashboard'
         
-        // Usar replace para evitar que o usuário volte para a página de login
         window.location.replace(destination)
       }
     } catch (err) {
@@ -152,7 +142,7 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/5 via-white to-primary/5 flex flex-col lg:flex-row">
-      {/* Left Side - Login Form */}
+      {}
       <div className="flex-1 flex items-center justify-center pt-2 sm:pt-3 lg:pt-4 pb-4 sm:pb-6 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-[480px]">
           <div className="flex items-center justify-center mb-3 sm:mb-4">
@@ -165,7 +155,7 @@ export default function LoginPage() {
 
           <Card className="shadow-2xl border-0">
             <CardContent className="p-6 sm:p-8">
-              {/* Título e Subtítulo */}
+              {}
               <div className="text-center mb-6 sm:mb-8">
                 <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#101828] mb-2">
                   Bem-vindo de volta
@@ -175,7 +165,7 @@ export default function LoginPage() {
                 </p>
               </div>
 
-              {/* Botão de Voltar */}
+              {}
               <div className="mb-4 sm:mb-6">
                 <Link href="/">
                   <Button 
@@ -329,7 +319,7 @@ export default function LoginPage() {
         </div>
       </div>
 
-      {/* Right Side - Features */}
+      {}
       <div className="hidden lg:flex lg:flex-1 bg-gradient-to-br from-primary to-primary/90 p-8 xl:p-12 items-center">
         <div className="max-w-md">
           <h2 className="text-3xl xl:text-4xl font-bold text-white mb-4 xl:mb-6 leading-tight">

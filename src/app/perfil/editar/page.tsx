@@ -70,10 +70,8 @@ function EditarPerfilContent() {
         description: 'Suas informações foram atualizadas com sucesso.',
       })
 
-      // Atualizar o cache do usuário
       await refreshUser()
 
-      // Redirecionar de volta para a página de perfil
       router.push('/perfil')
     } catch (error: any) {
       console.error('Error updating profile:', error)
@@ -89,7 +87,7 @@ function EditarPerfilContent() {
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
-      {/* Header with back button */}
+      {}
       <div className="mb-6">
         <Button
           variant="ghost"
@@ -105,7 +103,7 @@ function EditarPerfilContent() {
 
       <form onSubmit={handleSubmit}>
         <div className="grid gap-6">
-          {/* Avatar Section */}
+          {}
           <Card>
             <CardHeader>
               <CardTitle>Foto de Perfil</CardTitle>
@@ -134,7 +132,7 @@ function EditarPerfilContent() {
             </CardContent>
           </Card>
 
-          {/* Personal Information */}
+          {}
           <Card>
             <CardHeader>
               <CardTitle>Informações Pessoais</CardTitle>
@@ -204,7 +202,7 @@ function EditarPerfilContent() {
             </CardContent>
           </Card>
 
-          {/* Actions */}
+          {}
           <div className="flex justify-end gap-4">
             <Button
               type="button"

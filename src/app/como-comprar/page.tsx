@@ -62,7 +62,7 @@ export default function ComoComprarPage() {
     <div className="min-h-screen flex flex-col bg-gray-50">
       <Header />
       
-      {/* Hero Section */}
+      {}
       <section className="bg-gradient-to-r from-primary via-primary to-primary/90 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
@@ -75,7 +75,7 @@ export default function ComoComprarPage() {
       </section>
 
       <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Steps Section */}
+        {}
         <section className="mb-16">
           <h2 className="text-3xl font-bold text-[#101828] mb-8 text-center">Passo a Passo</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -95,7 +95,7 @@ export default function ComoComprarPage() {
           </div>
         </section>
 
-        {/* Benefits Section */}
+        {}
         <section className="mb-16">
           <h2 className="text-3xl font-bold text-[#101828] mb-8 text-center">Por que Comprar no TudoAgro?</h2>
           <div className="grid md:grid-cols-3 gap-6">
@@ -113,7 +113,7 @@ export default function ComoComprarPage() {
           </div>
         </section>
 
-        {/* CTA Section */}
+        {}
         <section className="bg-gradient-to-r from-primary/5 to-primary/5 rounded-lg p-8 text-center">
           <h2 className="text-2xl font-bold text-[#101828] mb-4">Pronto para Começar?</h2>
           <p className="text-gray-600 mb-6 max-w-2xl mx-auto">

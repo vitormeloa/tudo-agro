@@ -4,7 +4,6 @@ import { cookies } from 'next/headers'
 import { mockAnimals } from '@/lib/mock-animals'
 import { mockProducts } from '@/lib/mock-products'
 
-// GET /api/favorites - Listar favoritos do usuário logado
 export async function GET(request: NextRequest) {
   try {
     const cookieStore = await cookies()
@@ -40,9 +39,6 @@ export async function GET(request: NextRequest) {
       )
     }
     
-
-    // Buscar favoritos do usuário
-    // Primeiro buscar apenas os favoritos sem JOIN para evitar erros com produtos mockados
     try {
       const { data: favoritesData, error: favoritesError } = await supabase
         .from('favorites')
@@ -51,9 +47,6 @@ export async function GET(request: NextRequest) {
         .order('created_at', { ascending: false })
 
       if (favoritesError) {
-        // Se for erro de tabela não encontrada (vários códigos possíveis)
-        // PGRST205 = tabela não encontrada no schema cache
-        // 42P01 = tabela não existe no PostgreSQL
         if (
           favoritesError.code === 'PGRST205' || 
           favoritesError.code === '42P01' || 
@@ -61,12 +54,10 @@ export async function GET(request: NextRequest) {
           favoritesError.message?.includes('schema cache') ||
           favoritesError.message?.includes('Could not find the table')
         ) {
-          // Tabela não existe ainda - retornar array vazio sem erro
           console.warn('Favorites table not found, returning empty array:', favoritesError.message)
           return NextResponse.json({ favorites: [] })
         }
         
-        // Para outros erros, logar e retornar erro
         console.error('Error fetching favorites:', {
           code: favoritesError.code,
           message: favoritesError.message
@@ -81,14 +72,11 @@ export async function GET(request: NextRequest) {
         )
       }
 
-      // Se não houver favoritos, retornar array vazio
       if (!favoritesData || favoritesData.length === 0) {
         return NextResponse.json({ favorites: [] })
       }
 
-      // Função helper para buscar item (animal mockado, produto mockado ou produto do banco)
       const findItemById = (itemId: string) => {
-        // 1. Tentar encontrar em animais mockados
         const animal = mockAnimals.find(a => a.id === itemId)
         if (animal) {
           return {
@@ -101,7 +89,7 @@ export async function GET(request: NextRequest) {
               breed: animal.breed,
               gender: animal.sex,
               age: animal.age,
-              weight: animal.weight, // String para animais (ex: "850kg")
+              weight: animal.weight,
               price: animal.price,
               negotiable: false,
               status: 'active',
@@ -120,7 +108,6 @@ export async function GET(request: NextRequest) {
           }
         }
 
-        // 2. Tentar encontrar em produtos mockados
         const mockProduct = mockProducts.find(p => p.id === itemId)
         if (mockProduct) {
           return {
@@ -155,20 +142,16 @@ export async function GET(request: NextRequest) {
         return null
       }
 
-      // Para cada favorito, buscar o item (animal ou produto)
       const favorites = await Promise.all(
         favoritesData.map(async (fav: any) => {
           try {
-            // Primeiro tentar buscar no banco de dados (produtos reais)
             const { data: product, error: productError } = await supabase
               .from('products')
               .select('id, title, description, category, breed, gender, age, weight, price, negotiable, status, featured, user_id, created_at, updated_at')
               .eq('id', fav.product_id)
               .single()
 
-            // Se encontrou no banco, usar produto do banco
             if (!productError && product) {
-              // Buscar imagens do produto
               let productImages: any[] = []
               try {
                 const { data: images } = await supabase
@@ -181,7 +164,6 @@ export async function GET(request: NextRequest) {
                   productImages = images
                 }
               } catch (imageError) {
-                // Erro silencioso ao buscar imagens
               }
 
               return {
@@ -196,7 +178,6 @@ export async function GET(request: NextRequest) {
               }
             }
 
-            // Se não encontrou no banco, buscar em mockados (animais ou produtos)
             const mockItem = findItemById(fav.product_id)
             
             if (mockItem) {
@@ -208,7 +189,6 @@ export async function GET(request: NextRequest) {
               }
             }
 
-            // Se não encontrou em lugar nenhum, retornar item não disponível
             return {
               id: fav.id,
               created_at: fav.created_at,
@@ -236,7 +216,6 @@ export async function GET(request: NextRequest) {
           } catch (error: any) {
             console.error(`Error fetching item ${fav.product_id}:`, error?.message || error)
             
-            // Tentar buscar em mockados como fallback
             const mockItem = findItemById(fav.product_id)
             if (mockItem) {
               return {
@@ -247,7 +226,6 @@ export async function GET(request: NextRequest) {
               }
             }
 
-            // Retornar item não disponível
             return {
               id: fav.id,
               created_at: fav.created_at,
@@ -276,7 +254,6 @@ export async function GET(request: NextRequest) {
         })
       )
 
-      // Garantir que retornamos um objeto válido
       const responseData = { favorites: favorites || [] }
       return NextResponse.json(responseData, { 
         status: 200,
@@ -304,7 +281,6 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// POST /api/favorites - Adicionar favorito
 export async function POST(request: NextRequest) {
   try {
     const cookieStore = await cookies()
@@ -318,10 +294,8 @@ export async function POST(request: NextRequest) {
             return cookieStore.get(name)?.value
           },
           set(name: string, value: string, options: any) {
-            // Não fazer nada no servidor
           },
           remove(name: string, options: any) {
-            // Não fazer nada no servidor
           },
         },
       }
@@ -353,30 +327,20 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Verificar se o produto existe no banco de dados
-    // Se não existir, pode ser um produto mockado - permitir favoritar mesmo assim
     const { data: product, error: productError } = await supabase
       .from('products')
       .select('id')
       .eq('id', product_id)
       .single()
 
-    // Se o produto não existir no banco, não é um erro fatal
-    // Pode ser um produto mockado que ainda não foi cadastrado no banco
-    // Apenas logar para debug, mas continuar com o processo
     if (productError && productError.code !== 'PGRST116') {
-      // PGRST116 = nenhuma linha encontrada (produto não existe)
-      // Outros erros devem ser tratados
       console.warn('Erro ao verificar produto:', productError)
     }
     
-    // Se o produto não existir (código PGRST116), ainda permitir favoritar
-    // Isso permite favoritar produtos mockados que ainda não estão no banco
     if (productError && productError.code === 'PGRST116') {
       console.log(`Produto mockado ${product_id} sendo favoritado - não existe no banco ainda`)
     }
 
-    // Verificar se já está favoritado
     const { data: existingFavorite, error: checkError } = await supabase
       .from('favorites')
       .select('id')
@@ -384,7 +348,6 @@ export async function POST(request: NextRequest) {
       .eq('product_id', product_id)
       .maybeSingle()
 
-    // Se a tabela não existir, permitir continuar (a inserção pode criar a tabela ou falhar de forma controlada)
     if (checkError && (
       checkError.code === 'PGRST205' ||
       checkError.code === '42P01' || 
@@ -392,7 +355,6 @@ export async function POST(request: NextRequest) {
       checkError.message?.includes('schema cache') ||
       checkError.message?.includes('Could not find the table')
     )) {
-      // Tabela não existe - continuar tentando inserir
       console.warn('Favorites table not found during check, proceeding with insert:', checkError.message)
     } else if (existingFavorite) {
       return NextResponse.json(
@@ -401,13 +363,10 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Adicionar favorito
-    // Tentar usar a função RPC primeiro (se disponível), senão inserção direta
     let favorite
     let insertError
     
     try {
-      // Tentar usar função RPC que lida com produtos mockados
       const { data: rpcData, error: rpcError } = await supabase.rpc('insert_favorite', {
         p_user_id: user.id,
         p_product_id: product_id
@@ -416,7 +375,6 @@ export async function POST(request: NextRequest) {
       if (!rpcError && rpcData) {
         favorite = rpcData
       } else {
-        // Se RPC falhar, tentar inserção direta
         console.log('RPC não disponível ou falhou, tentando inserção direta...', rpcError)
         
         const result = await supabase
@@ -440,7 +398,6 @@ export async function POST(request: NextRequest) {
       console.error('Error adding favorite:', insertError)
       console.error('Error details:', JSON.stringify(insertError, null, 2))
       
-      // Se a tabela não existir, informar que é necessário executar a migração
       if (
         insertError.code === 'PGRST205' ||
         insertError.code === '42P01' || 
@@ -457,7 +414,6 @@ export async function POST(request: NextRequest) {
         )
       }
       
-      // Se o erro for de foreign key constraint, informar sobre a migration necessária
       if (insertError.code === '23503' || insertError.message?.includes('foreign key')) {
         return NextResponse.json(
           { 
@@ -487,7 +443,6 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// DELETE /api/favorites - Remover favorito
 export async function DELETE(request: NextRequest) {
   try {
     const cookieStore = await cookies()
@@ -524,7 +479,6 @@ export async function DELETE(request: NextRequest) {
       )
     }
 
-    // Remover favorito
     const { error: deleteError } = await supabase
       .from('favorites')
       .delete()
@@ -532,7 +486,6 @@ export async function DELETE(request: NextRequest) {
       .eq('product_id', product_id)
 
     if (deleteError) {
-      // Se a tabela não existir, considerar sucesso (não há nada para remover)
       if (
         deleteError.code === 'PGRST205' ||
         deleteError.code === '42P01' || 
@@ -540,7 +493,6 @@ export async function DELETE(request: NextRequest) {
         deleteError.message?.includes('schema cache') ||
         deleteError.message?.includes('Could not find the table')
       ) {
-        // Tabela não existe - considerar que já foi removido
         return NextResponse.json({ message: 'Favorito removido com sucesso' })
       }
       

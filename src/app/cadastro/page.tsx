@@ -62,18 +62,16 @@ export default function CadastroPage() {
         state: '',
         city: '',
         activityType: '',
-        // Campos específicos para Pessoa Jurídica
         companyName: '',
         legalRepresentativeName: '',
         legalRepresentativeCpf: '',
         corporateEmail: '',
-        operationTypes: [] as string[], // Tipo de atuação (múltipla escolha)
+        operationTypes: [] as string[],
         acceptTerms: false
     })
 
     const [errors, setErrors] = useState<Record<string, string>>({})
 
-    // Função para validar campo individual
     const validateField = (field: string, value: string): string => {
         switch (field) {
             case 'email':
@@ -124,7 +122,6 @@ export default function CadastroPage() {
 
     const handleInputChange = (field: string, value: string | boolean) => {
         setFormData(prev => ({ ...prev, [field]: value }))
-        // Limpar erro do campo quando usuário começar a digitar
         if (errors[field]) {
             setErrors(prev => ({ ...prev, [field]: '' }))
         }
@@ -148,7 +145,6 @@ export default function CadastroPage() {
     }
 
     const handleNext = () => {
-        // Validação para step 1
         if (currentStep === 1) {
             if (!formData.accountType) {
                 toast({
@@ -160,7 +156,6 @@ export default function CadastroPage() {
             }
         }
 
-        // Validação para step 2 (dados pessoais)
         if (currentStep === 2) {
             const fieldsToValidate: string[] = formData.accountType === 'pj'
                 ? ['companyName', 'cnpj', 'legalRepresentativeName', 'legalRepresentativeCpf', 'corporateEmail', 'phone', 'password', 'confirmPassword']
@@ -186,7 +181,6 @@ export default function CadastroPage() {
             }
         }
 
-        // Validação para step 3 quando for Pessoa Jurídica
         if (currentStep === 3 && formData.accountType === 'pj') {
             if (!formData.operationTypes || formData.operationTypes.length === 0) {
                 toast({
@@ -221,7 +215,6 @@ export default function CadastroPage() {
         e.preventDefault()
         setIsLoading(true)
 
-        // Validar senhas
         if (formData.password !== formData.confirmPassword) {
             toast({
                 title: "Erro na validação",
@@ -232,7 +225,6 @@ export default function CadastroPage() {
             return
         }
 
-        // Validar termos
         if (!formData.acceptTerms) {
             toast({
                 title: "Termos não aceitos",
@@ -244,10 +236,8 @@ export default function CadastroPage() {
         }
 
         try {
-            // Todos os usuários cadastrados via /cadastro recebem role comprador por padrão
             const roles = ['comprador']
 
-            // Usar email correto baseado no tipo de conta
             const email = formData.accountType === 'pj' ? formData.corporateEmail : formData.email
             const name = formData.accountType === 'pj' ? formData.companyName : formData.fullName
             const cpf = formData.accountType === 'pj' ? formData.legalRepresentativeCpf : formData.cpf
@@ -260,7 +250,6 @@ export default function CadastroPage() {
                 roles
             }
 
-            // Adicionar campos específicos de PJ
             if (formData.accountType === 'pj') {
                 signUpData.operationTypes = formData.operationTypes
                 signUpData.companyName = formData.companyName
@@ -268,7 +257,6 @@ export default function CadastroPage() {
                 signUpData.legalRepresentativeCpf = formData.legalRepresentativeCpf
             }
 
-            // Adicionar campos de localização se existirem
             if (formData.state) signUpData.state = formData.state
             if (formData.city) signUpData.city = formData.city
             if (formData.farmName) signUpData.farmName = formData.farmName
@@ -278,11 +266,9 @@ export default function CadastroPage() {
             const { error } = await signUp(email, formData.password, signUpData)
 
             if (!error) {
-                // Redirecionar para login
                 router.push('/login?message=Conta criada com sucesso! Faça login para continuar.')
             }
         } catch (err) {
-            // Erro já tratado no hook
         } finally {
             setIsLoading(false)
         }
@@ -413,7 +399,6 @@ export default function CadastroPage() {
                 )
 
             case 2:
-                // Renderizar formulário diferente baseado no tipo de conta
                 if (formData.accountType === 'pj') {
                     return (
                         <div className="space-y-6">
@@ -619,7 +604,6 @@ export default function CadastroPage() {
                     )
                 }
 
-                // Formulário para Pessoa Física
                 return (
                     <div className="space-y-6">
                         <div className="text-center mb-6 sm:mb-8">
@@ -782,7 +766,6 @@ export default function CadastroPage() {
                 )
 
             case 3:
-                // Renderizar formulário diferente baseado no tipo de conta
                 if (formData.accountType === 'pj') {
                     return (
                         <div className="space-y-6">
@@ -1181,7 +1164,6 @@ export default function CadastroPage() {
                     )
                 }
 
-                // Formulário para Pessoa Física - Dados da propriedade
                 return (
                     <div className="space-y-6">
                         <div className="text-center mb-6 sm:mb-8">
@@ -1465,10 +1447,10 @@ export default function CadastroPage() {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-primary/5 via-white to-primary/5">
-            {/* Centralized Registration Form */}
+            {}
             <div className="flex items-center justify-center min-h-screen pt-2 sm:pt-3 lg:pt-4 pb-4 sm:pb-6 px-4 sm:px-6 lg:px-8">
                 <div className="w-full max-w-4xl">
-                    {/* Logo */}
+                    {}
                     <div className="flex items-center justify-center mb-3 sm:mb-4">
                         <Link href="/">
                             <img
@@ -1479,10 +1461,10 @@ export default function CadastroPage() {
                         </Link>
                     </div>
 
-                    {/* Main Registration Card */}
+                    {}
                     <Card className="shadow-2xl border-0">
                         <CardContent className="p-6 sm:p-8">
-                            {/* Título e Subtítulo */}
+                            {}
                             <div className="text-center mb-6 sm:mb-8">
                                 <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#101828] mb-2">
                                     Criar Conta
@@ -1492,7 +1474,7 @@ export default function CadastroPage() {
                                 </p>
                             </div>
 
-                            {/* Botão de Voltar */}
+                            {}
                             <div className="mb-4 sm:mb-6">
                                 <Link href="/">
                                     <Button
@@ -1507,7 +1489,7 @@ export default function CadastroPage() {
                                 </Link>
                             </div>
 
-                            {/* Progress Steps */}
+                            {}
                             <div className="mb-6 sm:mb-8">
                                 <div className="flex items-center justify-center overflow-x-auto pb-2">
                                     {steps.map((step, index) => (

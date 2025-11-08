@@ -85,7 +85,7 @@ export default function CarrinhoPage() {
       <Header />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Header */}
+        {}
         <div className="mb-6">
           <Link href="/produtos" className="inline-flex items-center text-gray-600 hover:text-primary mb-4">
             <ArrowLeft className="w-4 h-4 mr-2" />
@@ -109,7 +109,6 @@ export default function CarrinhoPage() {
         </div>
 
         {items.length === 0 ? (
-          /* Carrinho vazio */
           <Card className="bg-white">
             <CardContent className="flex flex-col items-center justify-center py-16 px-4">
               <ShoppingCart className="w-24 h-24 text-gray-300 mb-4" />
@@ -128,7 +127,7 @@ export default function CarrinhoPage() {
           </Card>
         ) : (
           <div className="grid lg:grid-cols-3 gap-6">
-            {/* Lista de Itens */}
+            {}
             <div className="lg:col-span-2 space-y-4">
               {items.map((item) => (
                 <Card 
@@ -137,7 +136,7 @@ export default function CarrinhoPage() {
                 >
                   <CardContent className="p-4 sm:p-6">
                     <div className="flex flex-col sm:flex-row gap-4">
-                      {/* Imagem */}
+                      {}
                       <Link href={item.type === 'product' ? `/produtos/${item.id}` : `/catalogo/${item.id}`}>
                         <div className="relative w-full sm:w-32 h-32 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
                           <img
@@ -148,7 +147,7 @@ export default function CarrinhoPage() {
                         </div>
                       </Link>
 
-                      {/* Informações */}
+                      {}
                       <div className="flex-1 flex flex-col sm:flex-row sm:justify-between gap-4">
                         <div className="flex-1">
                           <Link 
@@ -180,9 +179,9 @@ export default function CarrinhoPage() {
                           </div>
                         </div>
 
-                        {/* Controles */}
+                        {}
                         <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-                          {/* Quantidade */}
+                          {}
                           <div className="flex items-center gap-2">
                             <div className="flex items-center border border-gray-300 rounded-lg bg-white">
                               <button
@@ -216,7 +215,7 @@ export default function CarrinhoPage() {
                             </span>
                           </div>
 
-                          {/* Remover */}
+                          {}
                           <Button
                             variant="ghost"
                             size="sm"
@@ -234,7 +233,7 @@ export default function CarrinhoPage() {
               ))}
             </div>
 
-            {/* Resumo do Pedido */}
+            {}
             <div className="lg:col-span-1">
               <Card className="bg-white sticky top-24">
                 <CardContent className="p-6">
@@ -242,7 +241,7 @@ export default function CarrinhoPage() {
                     Resumo do pedido
                   </h2>
 
-                  {/* Itens */}
+                  {}
                   <div className="space-y-2 mb-4">
                     <div className="flex justify-between text-sm text-gray-600">
                       <span>Produtos ({items.reduce((sum, item) => sum + item.quantity, 0)})</span>
@@ -262,7 +261,7 @@ export default function CarrinhoPage() {
                     </p>
                   </div>
 
-                  {/* Botão de Finalizar */}
+                  {}
                   <Button
                     onClick={handleCheckout}
                     className="w-full bg-primary hover:bg-[#2E7A5A] text-white py-6 text-lg font-semibold mb-4"
@@ -272,13 +271,13 @@ export default function CarrinhoPage() {
                     Finalizar compra
                   </Button>
 
-                  {/* Segurança */}
+                  {}
                   <div className="flex items-center justify-center gap-2 text-xs text-gray-600 mb-2">
                     <Lock className="w-4 h-4" />
                     <span>Compra 100% segura</span>
                   </div>
 
-                  {/* Benefícios */}
+                  {}
                   <div className="space-y-2 pt-4 border-t border-gray-200">
                     <div className="flex items-start gap-2 text-sm text-gray-600">
                       <Truck className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />

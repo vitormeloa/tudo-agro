@@ -17,9 +17,9 @@ import Link from 'next/link'
 
 interface RequireAuthProps {
   children: ReactNode
-  action?: string // Descrição da ação que requer login
-  redirectTo?: string // URL para redirecionar após login (opcional)
-  showDialog?: boolean // Se deve mostrar dialog ou redirecionar diretamente
+  action?: string
+  redirectTo?: string
+  showDialog?: boolean
 }
 
 export default function RequireAuth({ 
@@ -31,17 +31,14 @@ export default function RequireAuth({
   const { user, initialized } = useAuth()
   const router = useRouter()
 
-  // Se não inicializou ainda, não renderizar nada
   if (!initialized) {
     return null
   }
 
-  // Se usuário está logado, mostrar conteúdo normalmente
   if (user) {
     return <>{children}</>
   }
 
-  // Se não está logado e showDialog é false, redirecionar diretamente
   useEffect(() => {
     if (!showDialog && initialized && !user) {
       const loginUrl = redirectTo ? `/login?redirect=${encodeURIComponent(redirectTo)}` : '/login'
@@ -53,7 +50,6 @@ export default function RequireAuth({
     return null
   }
 
-  // Mostrar dialog pedindo login
   return (
     <Dialog open={true}>
       <DialogContent className="sm:max-w-md">
@@ -85,7 +81,6 @@ export default function RequireAuth({
   )
 }
 
-// Hook para usar em componentes funcionais
 export function useRequireAuth() {
   const { user, initialized } = useAuth()
   const router = useRouter()

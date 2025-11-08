@@ -108,16 +108,16 @@ const SupportChatModal = ({ isOpen, onClose, orderInfo }: SupportChatModalProps)
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-2xl h-[600px] p-0 gap-0 overflow-hidden bg-gradient-to-b from-background to-primary/5 [&>button]:hidden">
-        {/* Header */}
+        {}
         <div className="relative border-b bg-gradient-to-br from-background to-primary/5 overflow-hidden">
-          {/* Close Button */}
+          {}
           <button
             onClick={onClose}
             className="absolute right-4 top-4 rounded-full p-2 hover:bg-destructive/10 transition-colors z-20 group"
           >
             <X className="h-5 w-5 text-destructive group-hover:text-destructive/80" />
           </button>
-          {/* Tech pattern overlay */}
+          {}
           <div className="absolute inset-0 opacity-5">
             <div className="absolute inset-0" style={{
               backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 10px, #0A9965 10px, #0A9965 11px)`,
@@ -148,7 +148,7 @@ const SupportChatModal = ({ isOpen, onClose, orderInfo }: SupportChatModalProps)
               </div>
             </div>
 
-            {/* Order Info */}
+            {}
             <div className="mt-3 p-3 bg-muted/30 rounded-lg text-xs">
               <div className="grid grid-cols-2 gap-2">
                 <div>
@@ -163,13 +163,13 @@ const SupportChatModal = ({ isOpen, onClose, orderInfo }: SupportChatModalProps)
             </div>
           </div>
 
-          {/* Animated border */}
+          {}
           <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary/70 to-transparent animate-pulse" />
         </div>
 
-        {/* Chat Messages */}
+        {}
         <div className="flex-1 overflow-y-auto p-4 space-y-4">
-          {/* Welcome Message */}
+          {}
           {messages.length === 0 && (
             <div className="flex gap-3 animate-fade-in">
               <AgroIAAvatar size="md" />
@@ -185,7 +185,7 @@ const SupportChatModal = ({ isOpen, onClose, orderInfo }: SupportChatModalProps)
             </div>
           )}
 
-          {/* Messages */}
+          {}
           {messages.map((msg) => (
             <div
               key={msg.id}
@@ -217,7 +217,7 @@ const SupportChatModal = ({ isOpen, onClose, orderInfo }: SupportChatModalProps)
             </div>
           ))}
 
-          {/* Typing Indicator */}
+          {}
           {isTyping && (
             <div className="flex gap-3 animate-fade-in">
               <AgroIAAvatar size="md" isTyping />
@@ -228,7 +228,7 @@ const SupportChatModal = ({ isOpen, onClose, orderInfo }: SupportChatModalProps)
           <div ref={messagesEndRef} />
         </div>
 
-        {/* Input Area */}
+        {}
         <div className="border-t bg-background p-4">
           <div className="flex gap-2">
             <Input

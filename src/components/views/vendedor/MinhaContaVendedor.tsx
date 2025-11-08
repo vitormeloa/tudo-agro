@@ -11,13 +11,13 @@ import { Building2, MapPin, CreditCard, Bell, Upload } from "lucide-react";
 const MinhaContaVendedor = () => {
   return (
     <div className="space-y-6">
-      {/* Header */}
+      {}
       <div>
         <h1 className="text-3xl font-bold">Minha Conta</h1>
         <p className="text-muted-foreground">Gerencie suas informações e preferências</p>
       </div>
 
-      {/* Company Info */}
+      {}
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
@@ -55,7 +55,7 @@ const MinhaContaVendedor = () => {
         </CardContent>
       </Card>
 
-      {/* Store Branding */}
+      {}
       <Card>
         <CardHeader>
           <CardTitle>Identidade Visual da Loja</CardTitle>
@@ -119,7 +119,7 @@ const MinhaContaVendedor = () => {
         </CardContent>
       </Card>
 
-      {/* Address */}
+      {}
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
@@ -153,7 +153,7 @@ const MinhaContaVendedor = () => {
         </CardContent>
       </Card>
 
-      {/* Payment Method */}
+      {}
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
@@ -179,7 +179,7 @@ const MinhaContaVendedor = () => {
         </CardContent>
       </Card>
 
-      {/* Notification Preferences */}
+      {}
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
@@ -228,7 +228,7 @@ const MinhaContaVendedor = () => {
         </CardContent>
       </Card>
 
-      {/* Save Button */}
+      {}
       <div className="flex justify-end gap-3">
         <Button variant="outline">Cancelar</Button>
         <Button className="bg-primary hover:bg-primary/90">

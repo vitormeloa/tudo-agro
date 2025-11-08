@@ -7,6 +7,4 @@ if (!supabaseUrl || !supabaseAnonKey) {
   throw new Error('Missing Supabase environment variables')
 }
 
-// Usar createBrowserClient do @supabase/ssr para garantir que cookies sejam criados corretamente
-// Isso permite que a API leia os cookies de autentica??o via createServerClient
 export const supabase = createBrowserClient(supabaseUrl, supabaseAnonKey)

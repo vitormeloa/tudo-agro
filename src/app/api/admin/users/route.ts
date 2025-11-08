@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
 import { withPermissionGuard } from '@/lib/permission-guard'
 
-// GET - Listar usuários
 async function getUsers(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
@@ -29,12 +28,10 @@ async function getUsers(request: NextRequest) {
       `)
       .order('created_at', { ascending: false })
 
-    // Aplicar filtro de busca
     if (search) {
       query = query.or(`name.ilike.%${search}%,email.ilike.%${search}%`)
     }
 
-    // Aplicar paginação
     const from = (page - 1) * limit
     const to = from + limit - 1
     query = query.range(from, to)
@@ -48,7 +45,6 @@ async function getUsers(request: NextRequest) {
       )
     }
 
-    // Transformar dados para incluir roles como array simples
     const transformedUsers = users?.map(user => ({
       ...user,
       roles: user.user_roles?.map((ur: any) => ur.roles?.name).filter(Boolean) || []
@@ -71,5 +67,4 @@ async function getUsers(request: NextRequest) {
   }
 }
 
-// Handler principal - temporariamente sem guard para debug
 export const GET = getUsers

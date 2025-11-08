@@ -50,12 +50,9 @@ interface Seller {
   }
 }
 
-// Função para buscar vendedor por ID
 function getSellerById(sellerId: string | number): Seller | null {
-  // Converter ID para número se possível
   const idNum = typeof sellerId === 'string' ? parseInt(sellerId, 10) : sellerId
   
-  // Buscar em animais
   const animalWithSeller = mockAnimals.find(a => {
     const animalSellerId = typeof a.seller.id === 'string' ? parseInt(a.seller.id, 10) : a.seller.id
     return animalSellerId === idNum || a.seller.id.toString() === sellerId.toString()
@@ -80,7 +77,6 @@ function getSellerById(sellerId: string | number): Seller | null {
       ? Math.round(sellerAnimals.reduce((sum, a) => sum + a.price, 0) / sellerAnimals.length)
       : 0
     
-    // Extrair cidade e estado da location
     const locationParts = animalWithSeller.seller.location.split(',')
     const city = locationParts[0]?.trim() || animalWithSeller.city
     const location = locationParts[1]?.trim() || animalWithSeller.location
@@ -118,7 +114,6 @@ function getSellerById(sellerId: string | number): Seller | null {
     }
   }
   
-  // Buscar em produtos
   const productWithSeller = mockProducts.find(p => {
     const productSellerId = typeof p.sellerInfo.id === 'string' ? parseInt(p.sellerInfo.id.toString(), 10) : p.sellerInfo.id
     return productSellerId === idNum || p.sellerInfo.id.toString() === sellerId.toString()
@@ -175,7 +170,6 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
   const resolvedParams = use(params)
   const sellerId = resolvedParams.id
 
-  // Função para obter iniciais do nome
   const getInitials = (name: string) => {
     const names = name.trim().split(' ')
     if (names.length === 1) {
@@ -184,10 +178,8 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
     return (names[0][0] + names[names.length - 1][0]).toUpperCase()
   }
 
-  // Função para calcular última atividade (tempo relativo)
   const getLastActivity = () => {
-    // Simular última atividade (em produção, viria do backend)
-    const randomDays = Math.floor(Math.random() * 5) // 0-4 dias
+    const randomDays = Math.floor(Math.random() * 5)
 
     if (randomDays === 0) return 'Hoje'
     if (randomDays === 1) return 'Ontem'
@@ -195,10 +187,8 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
   }
 
   const lastActivityDisplay = getLastActivity()
-  // Buscar vendedor pelo ID
   const seller = getSellerById(sellerId)
   
-  // Se não encontrar vendedor, mostrar erro
   if (!seller) {
     return (
       <div className="min-h-screen bg-gray-50">
@@ -218,7 +208,6 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
     )
   }
   
-  // Buscar produtos e animais do vendedor
   const sellerAnimals = mockAnimals.filter(a => {
     const animalSellerId = typeof a.seller.id === 'string' ? parseInt(a.seller.id, 10) : a.seller.id
     const idNum = typeof sellerId === 'string' ? parseInt(sellerId, 10) : sellerId
@@ -231,7 +220,6 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
     return productSellerId === idNum || p.sellerInfo.id.toString() === sellerId.toString()
   })
 
-  // Calcular produto mais vendido (simulado - em produção viria do backend)
   const mostSoldProduct = sellerProducts.length > 0
     ? sellerProducts[0].title
     : 'N/A'
@@ -246,7 +234,6 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
     featured: p.featured
   }))]
   
-  // Avaliações mockadas
   const reviews = [
     {
       id: 1,
@@ -278,7 +265,7 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
     <div className="min-h-screen bg-gray-50">
       <Header />
       
-      {/* Cover Image */}
+      {}
       <div className="relative h-48 sm:h-56 md:h-64 lg:h-80">
         <img
           src={"/fotos/backgrounds/fundo-perfil-do-vendedor.jpeg"}
@@ -289,11 +276,11 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Profile Header */}
+        {}
         <div className="relative -mt-16 sm:-mt-20 mb-6 sm:mb-8">
           <Card className="border-gray-200 shadow-xl">
             <CardContent className="p-4 sm:p-6 lg:p-8">
-              {/* Botão de Voltar */}
+              {}
               <div className="mb-4 sm:mb-6">
                 <Link href="/produtos">
                   <Button 
@@ -360,7 +347,7 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
           </Card>
         </div>
 
-        {/* Stats Cards */}
+        {}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
           <Card className="text-center p-3 sm:p-4 border-gray-200">
             <div className="text-xl sm:text-2xl font-bold text-primary mb-1">
@@ -391,7 +378,7 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
           </Card>
         </div>
 
-        {/* Tabs */}
+        {}
         <div className="mb-6 sm:mb-8">
           <div className="border-b border-gray-200">
             <nav className="flex space-x-4 sm:space-x-6 md:space-x-8 overflow-x-auto">
@@ -429,9 +416,9 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
           </div>
         </div>
 
-        {/* Tab Content */}
+        {}
         <div className="mb-8 sm:mb-12">
-          {/* Lotes Ativos */}
+          {}
           {activeTab === 'lotes' && (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {activeLots.map((lot) => {
@@ -484,14 +471,14 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
             </div>
           )}
 
-          {/* Avaliações */}
+          {}
           {activeTab === 'avaliacoes' && (
             <div className="space-y-4 sm:space-y-6">
               {reviews.map((review) => (
                 <Card key={review.id} className="border-gray-200">
                   <CardContent className="p-4 sm:p-6">
                     <div className="flex gap-3 sm:gap-4">
-                      {/* Avatar com Iniciais */}
+                      {}
                       <div className="flex-shrink-0">
                         <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary/10 rounded-full flex items-center justify-center">
                           <span className="text-primary font-semibold text-base sm:text-lg">
@@ -500,7 +487,7 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
                         </div>
                       </div>
 
-                      {/* Conteúdo da Avaliação */}
+                      {}
                       <div className="flex-1 min-w-0">
                         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-3 sm:mb-4 gap-2 sm:gap-4">
                           <div className="flex-1">
@@ -529,7 +516,7 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
             </div>
           )}
 
-          {/* Sobre */}
+          {}
           {activeTab === 'sobre' && (
             <div className="space-y-6 sm:space-y-8">
               <Card className="border-gray-200">

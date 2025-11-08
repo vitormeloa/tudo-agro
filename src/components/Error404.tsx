@@ -41,14 +41,12 @@ export default function Error404({
     return () => clearInterval(timer)
   }, [showCountdown])
 
-  // Redirecionar quando countdown chegar a 0
   useEffect(() => {
     if (countdown === 0 && showCountdown) {
       safeRedirect(redirectTo)
     }
   }, [countdown, safeRedirect, redirectTo, showCountdown])
 
-  // Limpar timeout ao desmontar
   useEffect(() => {
     return cleanup
   }, [cleanup])
@@ -56,7 +54,7 @@ export default function Error404({
   return (
     <div className="min-h-screen bg-[#F7F6F2] flex items-center justify-center px-4">
       <div className="max-w-md w-full text-center">
-        {/* Ícone de erro */}
+        {}
         <div className="mb-8">
           <div className="mx-auto w-24 h-24 bg-primary/10 rounded-full flex items-center justify-center">
             <svg 
@@ -75,24 +73,24 @@ export default function Error404({
           </div>
         </div>
 
-        {/* Título */}
+        {}
         <h1 className="text-3xl font-bold text-primary mb-4">
           {title}
         </h1>
 
-        {/* Descrição */}
+        {}
         <p className="text-gray-600 mb-6 leading-relaxed">
           {message}
         </p>
 
-        {/* Informações adicionais */}
+        {}
         <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 mb-8">
           <p className="text-sm text-primary">
             <strong>Dica:</strong> Verifique se o endereço está correto ou navegue pelo menu principal.
           </p>
         </div>
 
-        {/* Botões de ação */}
+        {}
         <div className="space-y-4">
           <Link
             href="/"
@@ -118,7 +116,7 @@ export default function Error404({
           )}
         </div>
 
-        {/* Countdown */}
+        {}
         {showCountdown && (
           <div className="mt-8 text-sm text-gray-600">
             <p>

@@ -23,7 +23,6 @@ const MinhasCompras = () => {
   const [periodFilter, setPeriodFilter] = useState<string>("all");
   const { toast } = useToast();
 
-  // Mock data com todos os detalhes necessários
   const allPurchases = [
     {
       id: 1,
@@ -214,7 +213,6 @@ const MinhasCompras = () => {
     const matchesSearch = purchase.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          purchase.id.toString().includes(searchQuery);
     
-    // Advanced filters
     const matchesPrice = priceRange === "all" || 
       (priceRange === "low" && purchase.totalPrice < 1000) ||
       (priceRange === "medium" && purchase.totalPrice >= 1000 && purchase.totalPrice < 10000) ||
@@ -249,7 +247,6 @@ const MinhasCompras = () => {
   };
 
   const getCategoryIcon = (purchase: any) => {
-    // Determina o ícone e cor baseado na categoria e tipo
     if (purchase.category === "animais") {
       const isHorse = purchase.itemType.toLowerCase().includes("cavalo") || 
                       purchase.itemType.toLowerCase().includes("égua") ||
@@ -257,19 +254,19 @@ const MinhasCompras = () => {
       
       return {
         icon: isHorse ? "🐎" : "🐂",
-        bgColor: "bg-[hsl(30,40%,85%)]", // Marrom claro
+        bgColor: "bg-[hsl(30,40%,85%)]",
         iconColor: "text-white"
       };
     } else if (purchase.category === "semen") {
       return {
         icon: "💉",
-        bgColor: "bg-[hsl(211,70%,85%)]", // Azul claro
+        bgColor: "bg-[hsl(211,70%,85%)]",
         iconColor: "text-white"
       };
     } else if (purchase.category === "produtos") {
       return {
         icon: "📦",
-        bgColor: "bg-[hsl(142,52%,85%)]", // Verde claro
+        bgColor: "bg-[hsl(142,52%,85%)]",
         iconColor: "text-white"
       };
     }
@@ -284,7 +281,7 @@ const MinhasCompras = () => {
   return (
     <>
       <div className="space-y-4 sm:space-y-6 w-full">
-        {/* Header */}
+        {}
         <div className="flex flex-col gap-3 sm:gap-4">
           <div>
             <h1 className="text-2xl sm:text-3xl font-bold">Minhas Compras</h1>
@@ -293,7 +290,7 @@ const MinhasCompras = () => {
             </p>
           </div>
           
-          {/* Search and Filter Bar */}
+          {}
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -315,7 +312,7 @@ const MinhasCompras = () => {
           </div>
         </div>
 
-        {/* Category Filter Pills */}
+        {}
         <div className="flex gap-2 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 scrollbar-hide"
              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
           <Button
@@ -364,7 +361,7 @@ const MinhasCompras = () => {
           </Button>
         </div>
 
-        {/* Category Tabs - Hidden, keeping for compatibility */}
+        {}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6 hidden">
           <TabsList className="grid w-full grid-cols-4 h-auto p-1">
             <TabsTrigger value="todos" className="flex flex-col gap-1 py-3">
@@ -389,7 +386,7 @@ const MinhasCompras = () => {
           </TabsContent>
         </Tabs>
 
-        {/* Purchase Cards */}
+        {}
         {filteredPurchases.length === 0 ? (
           <Card className="p-12">
             <div className="text-center">
@@ -409,7 +406,7 @@ const MinhasCompras = () => {
                 >
                   <div className="p-4 sm:p-6">
                     <div className="flex flex-col sm:flex-row gap-4">
-                      {/* Product Image */}
+                      {}
                       <div className="flex-shrink-0 mx-auto sm:mx-0">
                         <img
                           src={purchase.image}
@@ -418,7 +415,7 @@ const MinhasCompras = () => {
                         />
                       </div>
 
-                      {/* Info */}
+                      {}
                       <div className="flex-1 min-w-0 space-y-3">
                         <div>
                           <h3 className="font-semibold text-base sm:text-lg leading-tight">
@@ -442,7 +439,7 @@ const MinhasCompras = () => {
                           R$ {purchase.totalPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
                         </div>
 
-                        {/* Actions - Mobile and Desktop */}
+                        {}
                         <div className="flex flex-col sm:flex-row gap-2 pt-2">
                           <Button
                             variant="default"
@@ -453,7 +450,7 @@ const MinhasCompras = () => {
                             Ver detalhes
                           </Button>
                           
-                          {/* Conditional buttons based on delivery status */}
+                          {}
                           {isDelivered ? (
                             <>
                               <Button
@@ -496,7 +493,7 @@ const MinhasCompras = () => {
         )}
       </div>
 
-      {/* Help Card */}
+      {}
       <Card className="bg-muted/50 mt-6">
         <div className="p-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
@@ -519,7 +516,7 @@ const MinhasCompras = () => {
         </div>
       </Card>
 
-      {/* Advanced Filter Dialog */}
+      {}
       <Dialog open={isAdvancedFilterOpen} onOpenChange={setIsAdvancedFilterOpen}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
@@ -530,7 +527,7 @@ const MinhasCompras = () => {
           </DialogHeader>
           
           <div className="space-y-4 py-4">
-            {/* Price Range Filter */}
+            {}
             <div className="space-y-2">
               <Label>Faixa de Preço</Label>
               <Select value={priceRange} onValueChange={setPriceRange}>
@@ -546,7 +543,7 @@ const MinhasCompras = () => {
               </Select>
             </div>
 
-            {/* Status Filter */}
+            {}
             <div className="space-y-2">
               <Label>Status</Label>
               <Select value={statusFilter} onValueChange={setStatusFilter}>
@@ -563,7 +560,7 @@ const MinhasCompras = () => {
               </Select>
             </div>
 
-            {/* Period Filter */}
+            {}
             <div className="space-y-2">
               <Label>Período da Compra</Label>
               <Select value={periodFilter} onValueChange={setPeriodFilter}>
@@ -601,7 +598,7 @@ const MinhasCompras = () => {
         </DialogContent>
       </Dialog>
 
-      {/* Purchase Details Modal */}
+      {}
       {selectedPurchase && (
         <PurchaseDetailsModal
           isOpen={!!selectedPurchase}

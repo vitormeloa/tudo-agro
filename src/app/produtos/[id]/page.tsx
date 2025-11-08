@@ -58,10 +58,8 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
   const resolvedParams = use(params)
   const productId = resolvedParams.id
   
-  // Buscar produto pelo ID
   const product = mockProducts.find(p => p.id === productId)
   
-  // Verificar se está favoritado quando componente montar
   useEffect(() => {
     if (product && user && !favoriteChecked) {
       checkIsFavorite(product.id).then(() => {
@@ -70,7 +68,6 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
     }
   }, [product, user, favoriteChecked, checkIsFavorite])
   
-  // Extrair quantidade disponível do estoque
   const getAvailableStock = (stockString: string): number => {
     const match = stockString.match(/\d+/)
     if (match) {
@@ -148,7 +145,6 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
 
   const handleToggleFavorite = async () => {
     if (!user) {
-      // Não redirecionar, apenas mostrar toast através do toggleFavorite
       if (product) {
         await toggleFavorite(product.id)
       }
@@ -161,7 +157,6 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
 
   const handlePurchase = () => {
     if (!user) {
-      // Redirecionar para login com redirect para a página de checkout (depois do login vai para checkout)
       router.push(`/login?redirect=${encodeURIComponent(`/produtos/${productId}`)}`)
       return
     }
@@ -207,7 +202,6 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
     })
   }
   
-  // Se não encontrar, mostrar erro
   if (!product) {
     return (
       <>
@@ -242,7 +236,7 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
       <Header />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
         <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12">
-          {/* Image Gallery */}
+          {}
           <div className="space-y-3 sm:space-y-4">
             <div className="relative">
               <img
@@ -251,7 +245,7 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
                 className="w-full h-64 sm:h-80 lg:h-96 object-cover rounded-lg sm:rounded-xl lg:rounded-2xl"
               />
               
-              {/* Navigation Arrows */}
+              {}
               <button 
                 onClick={prevImage}
                 className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-black/70 transition-colors"
@@ -265,7 +259,7 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
                 <ChevronRight className="w-5 h-5" />
               </button>
 
-              {/* Badges */}
+              {}
               <div className="absolute top-2 sm:top-3 lg:top-4 left-2 sm:left-3 lg:left-4 flex gap-1.5 sm:gap-2">
                 <Badge className="bg-[#1C6B3E] text-xs sm:text-sm px-2 sm:px-2.5 py-0.5 sm:py-1">
                   {product.category}
@@ -277,7 +271,7 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
                 )}
               </div>
 
-              {/* Actions */}
+              {}
               <div className="absolute top-2 sm:top-3 lg:top-4 right-2 sm:right-3 lg:right-4 flex gap-1.5 sm:gap-2">
                 <Button
                   size="sm"
@@ -298,13 +292,13 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
                 </Button>
               </div>
 
-              {/* Image Counter */}
+              {}
               <div className="absolute bottom-2 sm:bottom-3 lg:bottom-4 right-2 sm:right-3 lg:right-4 bg-black/70 text-white px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs sm:text-sm">
                 {currentImageIndex + 1} / {product.images.length}
               </div>
             </div>
 
-            {/* Thumbnail Gallery */}
+            {}
             <div className="flex gap-2 overflow-x-auto">
               {product.images.map((image, index) => (
                 <button
@@ -326,7 +320,7 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
             </div>
           </div>
 
-          {/* Product Info */}
+          {}
           <div className="space-y-4 sm:space-y-6">
             <div>
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#101828] mb-3 sm:mb-4 leading-tight">
@@ -339,7 +333,7 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
               </div>
 
               <div className="space-y-4 mb-6">
-                {/* Price Display */}
+                {}
                 <div className="space-y-2">
                   <div className="text-3xl sm:text-4xl font-bold text-primary">
                     R$ {(product.price * quantity).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
@@ -351,7 +345,7 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
                   )}
                 </div>
 
-                {/* Quantity Controls */}
+                {}
                 <div className="flex items-center gap-3">
                   <label className="text-sm sm:text-base font-medium text-gray-700 whitespace-nowrap">
                     Quantidade:
@@ -392,7 +386,7 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
               </div>
             </div>
 
-            {/* Specifications */}
+            {}
             <Card className="bg-white border-gray-200 shadow-lg">
               <CardContent className="p-4 sm:p-6">
                 <h3 className="text-lg sm:text-xl font-bold text-[#101828] mb-4">Especificações</h3>
@@ -429,7 +423,7 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
               </CardContent>
             </Card>
 
-            {/* Freight Calculator */}
+            {}
             <Card className="bg-white border-gray-200 shadow-lg">
               <CardContent className="p-4 sm:p-6">
                 <h3 className="text-lg sm:text-xl font-bold text-[#101828] mb-4 flex items-center">
@@ -474,7 +468,7 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
               </CardContent>
             </Card>
 
-            {/* Action Buttons */}
+            {}
             <div className="space-y-3 sm:space-y-4">
               <Button
                 className="w-full bg-primary hover:bg-[#2E7A5A] text-white py-3 sm:py-4 text-base sm:text-lg font-semibold transition-colors"
@@ -483,7 +477,6 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
                 <ShoppingCart className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
                 Comprar Agora
               </Button>
-
 
               <Button
                 variant="outline"
@@ -497,7 +490,7 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
           </div>
         </div>
 
-        {/* Tabs Section */}
+        {}
         <div className="mt-8 sm:mt-12">
           <Tabs defaultValue="descricao" className="w-full">
             <TabsList className="grid w-full grid-cols-3 h-auto gap-1 sm:gap-0 p-1">
@@ -568,12 +561,12 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
           </Tabs>
         </div>
 
-        {/* Seller Info */}
+        {}
         <div className="mt-6 sm:mt-8">
           <SellerInfoCard seller={product.sellerInfo} />
         </div>
 
-        {/* Questions Section */}
+        {}
         <div className="mt-6 sm:mt-8">
           <Card className="bg-white border-gray-200 shadow-lg">
             <CardContent className="p-4 sm:p-6 lg:p-8">
@@ -585,7 +578,7 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
           </Card>
         </div>
 
-        {/* Location Map Placeholder */}
+        {}
         <div className="mt-6 sm:mt-8">
           <Card className="bg-white border-gray-200 shadow-lg">
             <CardContent className="p-4 sm:p-6 lg:p-8">

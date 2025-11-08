@@ -28,7 +28,6 @@ const MarkAsReceivedModal = ({ isOpen, onClose, onConfirm, productName }: MarkAs
     if (rating === 0 || recommend === null) return;
     onConfirm(rating, comment, recommend);
     onClose();
-    // Reset state
     setStep('confirm');
     setRating(0);
     setComment("");
@@ -46,7 +45,7 @@ const MarkAsReceivedModal = ({ isOpen, onClose, onConfirm, productName }: MarkAs
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
       <DialogContent className="max-w-lg p-0 gap-0 [&>button]:hidden">
-        {/* Close Button */}
+        {}
         <button
           onClick={handleClose}
           className="absolute right-4 top-4 rounded-full p-2 hover:bg-destructive/10 transition-colors z-20 group"
@@ -56,7 +55,7 @@ const MarkAsReceivedModal = ({ isOpen, onClose, onConfirm, productName }: MarkAs
 
         {step === 'confirm' ? (
           <>
-            {/* Confirmation Step */}
+            {}
             <div className="p-6">
               <div className="flex flex-col items-center text-center space-y-6 py-4">
                 <div className="rounded-full bg-secondary/10 p-4">
@@ -98,7 +97,7 @@ const MarkAsReceivedModal = ({ isOpen, onClose, onConfirm, productName }: MarkAs
           </>
         ) : (
           <>
-            {/* Review Step */}
+            {}
             <div className="p-6 pb-4 border-b bg-gradient-to-br from-background to-muted/20">
               <h2 className="text-xl font-bold flex items-center gap-2">
                 <Star className="h-6 w-6 text-secondary" />
@@ -110,14 +109,14 @@ const MarkAsReceivedModal = ({ isOpen, onClose, onConfirm, productName }: MarkAs
             </div>
 
             <div className="p-6 space-y-6">
-              {/* Success Badge */}
+              {}
               <div className="bg-primary/5 dark:bg-primary/20 border border-primary/20 dark:border-primary rounded-lg p-3 text-center">
                 <p className="text-sm font-semibold text-primary dark:text-primary/30">
                   ✅ Pedido finalizado com sucesso
                 </p>
               </div>
 
-              {/* Rating */}
+              {}
               <div>
                 <label className="font-semibold mb-3 block">Avaliação *</label>
                 <div className="flex gap-2 justify-center">
@@ -141,7 +140,7 @@ const MarkAsReceivedModal = ({ isOpen, onClose, onConfirm, productName }: MarkAs
                 </div>
               </div>
 
-              {/* Comment */}
+              {}
               <div>
                 <label className="font-semibold mb-2 block">Comentário (opcional)</label>
                 <Textarea
@@ -152,7 +151,7 @@ const MarkAsReceivedModal = ({ isOpen, onClose, onConfirm, productName }: MarkAs
                 />
               </div>
 
-              {/* Recommend */}
+              {}
               <div>
                 <label className="font-semibold mb-3 block">Recomenda o vendedor? *</label>
                 <div className="flex gap-3">
@@ -173,7 +172,7 @@ const MarkAsReceivedModal = ({ isOpen, onClose, onConfirm, productName }: MarkAs
                 </div>
               </div>
 
-              {/* Submit */}
+              {}
               <Button
                 onClick={handleSubmitReview}
                 disabled={rating === 0 || recommend === null}

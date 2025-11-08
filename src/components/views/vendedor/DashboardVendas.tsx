@@ -42,7 +42,6 @@ export default function DashboardVendas() {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedRefund, setSelectedRefund] = useState<any>(null);
 
-  // Mock data - KPIs
   const kpis = [
     {
       title: "Receita Total",
@@ -110,7 +109,6 @@ export default function DashboardVendas() {
     },
   ];
 
-  // Mock data - Evolução mensal
   const monthlyData = [
     { month: "Jan", animais: 45000, produtos: 8000, leiloes: 12000 },
     { month: "Fev", animais: 52000, produtos: 9500, leiloes: 15000 },
@@ -120,7 +118,6 @@ export default function DashboardVendas() {
     { month: "Jun", animais: 67000, produtos: 16500, leiloes: 28000 },
   ];
 
-  // Mock data - Produtos mais vendidos
   const topProducts = [
     {
       name: "Sêmen Angus Premium",
@@ -154,7 +151,6 @@ export default function DashboardVendas() {
     },
   ];
 
-  // Mock data - Reembolsos/Devoluções
   const refunds = [
     {
       product: "Ração Premium 25kg - Lote 3",
@@ -185,7 +181,6 @@ export default function DashboardVendas() {
     },
   ];
 
-  // Mock data - Perfil do comprador
   const buyerProfile = {
     gender: [
       { name: "Masculino", value: 65, color: "hsl(var(--primary))" },
@@ -200,7 +195,6 @@ export default function DashboardVendas() {
     ],
   };
 
-  // Mock data - Vendas por região
   const salesByRegion = [
     { region: "SP", sales: 45, value: "R$ 89.000" },
     { region: "MG", sales: 32, value: "R$ 56.000" },
@@ -212,7 +206,7 @@ export default function DashboardVendas() {
 
   return (
     <div className="p-6 space-y-6">
-      {/* Header com Filtros */}
+      {}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <h1 className="text-3xl font-bold text-foreground">Dashboard de Vendas</h1>
         <div className="flex gap-3">
@@ -245,7 +239,7 @@ export default function DashboardVendas() {
         </div>
       </div>
 
-      {/* KPIs Grid */}
+      {}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
         {kpis.map((kpi) => (
           <Card key={kpi.title}>
@@ -269,7 +263,7 @@ export default function DashboardVendas() {
         ))}
       </div>
 
-      {/* Gráfico de Evolução Mensal */}
+      {}
       <Card>
         <CardHeader>
           <CardTitle>Evolução de Receita por Tipo de Produto</CardTitle>
@@ -290,7 +284,7 @@ export default function DashboardVendas() {
         </CardContent>
       </Card>
 
-      {/* Produtos Mais Vendidos e Vendas por Região */}
+      {}
       <div className="grid gap-4 md:grid-cols-2">
         <Card>
           <CardHeader>
@@ -353,7 +347,7 @@ export default function DashboardVendas() {
         </Card>
       </div>
 
-      {/* Pedidos com Reembolso ou Devolução */}
+      {}
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
@@ -415,7 +409,7 @@ export default function DashboardVendas() {
         </CardContent>
       </Card>
 
-      {/* Perfil do Comprador */}
+      {}
       <div className="grid gap-4 md:grid-cols-2">
         <Card>
           <CardHeader>
@@ -468,7 +462,7 @@ export default function DashboardVendas() {
         </Card>
       </div>
 
-      {/* Recomendações da Plataforma */}
+      {}
       <Card className="border-l-4 border-l-primary">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
@@ -509,7 +503,7 @@ export default function DashboardVendas() {
         </CardContent>
       </Card>
 
-      {/* Exportar Relatório */}
+      {}
       <Card>
         <CardContent className="pt-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
@@ -536,7 +530,7 @@ export default function DashboardVendas() {
         </CardContent>
       </Card>
 
-      {/* Modal de Detalhes do Reembolso */}
+      {}
       {selectedRefund && (
         <RefundDetailsModal
           open={!!selectedRefund}

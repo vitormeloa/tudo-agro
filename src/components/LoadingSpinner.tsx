@@ -36,7 +36,7 @@ export default function LoadingSpinner({
   return (
     <div className={cn(containerClasses, className)}>
       <div className="text-center">
-        {/* Logo - apenas em fullScreen */}
+        {}
         {fullScreen && showLogo && (
           <div className="mb-8">
             <div className="flex items-center justify-center space-x-3">
@@ -49,7 +49,7 @@ export default function LoadingSpinner({
           </div>
         )}
 
-        {/* Loading Animation - estilo unificado */}
+        {}
         <div className="flex items-center justify-center space-x-2">
           <div className="w-3 h-3 bg-[#6E7D5B] rounded-full animate-bounce"></div>
           <div className="w-3 h-3 bg-[#6E7D5B] rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>

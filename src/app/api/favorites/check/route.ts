@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 
-// GET /api/favorites/check?product_id=xxx - Verificar se produto está favoritado
 export async function GET(request: NextRequest) {
   try {
     const cookieStore = await cookies()
@@ -36,7 +35,6 @@ export async function GET(request: NextRequest) {
       )
     }
 
-    // Verificar se está favoritado
     const { data: favorite, error: favoriteError } = await supabase
       .from('favorites')
       .select('id')
@@ -44,7 +42,6 @@ export async function GET(request: NextRequest) {
       .eq('product_id', product_id)
       .maybeSingle()
 
-    // Se a tabela não existir (vários códigos possíveis), retornar false silenciosamente
     if (favoriteError && (
       favoriteError.code === 'PGRST205' ||
       favoriteError.code === '42P01' || 
@@ -52,11 +49,9 @@ export async function GET(request: NextRequest) {
       favoriteError.message?.includes('schema cache') ||
       favoriteError.message?.includes('Could not find the table')
     )) {
-      // Tabela não existe ainda - retornar false sem erro
       return NextResponse.json({ isFavorite: false })
     }
 
-    // Se houver outro erro, também retornar false silenciosamente
     if (favoriteError) {
       console.warn('Error checking favorite (non-fatal):', favoriteError.message)
       return NextResponse.json({ isFavorite: false })
@@ -64,7 +59,6 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({ isFavorite: !!favorite })
   } catch (error) {
-    // Erro silencioso - retornar false
     return NextResponse.json({ isFavorite: false })
   }
 }

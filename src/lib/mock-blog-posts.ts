@@ -1,4 +1,3 @@
-// Posts simulados para desenvolvimento
 export interface MockBlogPost {
   id: string
   title: string

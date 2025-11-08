@@ -64,7 +64,7 @@ export default function BlogPage() {
   }, [])
 
   useEffect(() => {
-    setCurrentPage(1) // Reset para primeira página quando muda o tema
+    setCurrentPage(1)
   }, [selectedTheme])
 
   useEffect(() => {
@@ -80,7 +80,6 @@ export default function BlogPage() {
         filteredPosts = filteredPosts.filter((post) => post.theme_id === selectedTheme)
       }
       
-      // Transformar para o formato esperado
       const formattedPosts: BlogPost[] = filteredPosts.map((post) => ({
         id: post.id,
         title: post.title,
@@ -121,7 +120,6 @@ export default function BlogPage() {
         }
       }
     } catch (error) {
-      // User not logged in, ignore
     }
   }
 
@@ -137,7 +135,7 @@ export default function BlogPage() {
     <div className="min-h-screen bg-gray-50">
       <Header />
       
-      {/* Hero Section */}
+      {}
       <section className="relative pt-16 pb-20 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-primary/90"></div>
         <div className="absolute inset-0 bg-black/20"></div>
@@ -157,7 +155,7 @@ export default function BlogPage() {
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
 
-        {/* Theme Filters */}
+        {}
         {themes.length > 0 && (
           <ThemeFilter
             themes={themes}
@@ -166,7 +164,7 @@ export default function BlogPage() {
           />
         )}
 
-        {/* Posts Grid */}
+        {}
         {loading ? (
           <div className="flex items-center justify-center py-20">
             <Loader2 className="w-8 h-8 animate-spin text-primary" />
@@ -205,7 +203,7 @@ export default function BlogPage() {
           </div>
         )}
 
-        {/* Pagination */}
+        {}
         <div className="flex justify-center mt-12">
           <div className="flex items-center space-x-2">
             <Button variant="outline" disabled className="border-gray-300 text-gray-400">

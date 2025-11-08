@@ -17,7 +17,6 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     const validatedData = signupSchema.parse(body)
 
-    // Criar usuário no Supabase Auth (sem verificação de email)
     const { data: authData, error: authError } = await supabase.auth.signUp({
       email: validatedData.email,
       password: validatedData.password,
@@ -28,7 +27,6 @@ export async function POST(request: NextRequest) {
           cpf: validatedData.cpf,
           cnpj: validatedData.cnpj
         }
-        // Removido emailRedirectTo para não exigir verificação de email
       }
     })
 
@@ -46,7 +44,6 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Criar perfil do usuário na tabela users
     const { error: profileError } = await supabase
       .from('users')
       .insert({
@@ -65,7 +62,6 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Atribuir roles ao usuário
     if (validatedData.roles.length > 0) {
       const { data: roles } = await supabase
         .from('roles')

@@ -37,7 +37,6 @@ export default function ForgotPasswordPage() {
         setEmailSent(true)
       }
     } catch (error) {
-      // Erro já tratado no hook
     } finally {
       setIsLoading(false)
     }

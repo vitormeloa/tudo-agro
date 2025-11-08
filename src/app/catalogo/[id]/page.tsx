@@ -52,10 +52,8 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
   const resolvedParams = use(params)
   const animalId = resolvedParams.id
   
-  // Buscar animal pelo ID (UUID)
   const animal = mockAnimals.find(a => a.id === animalId)
   
-  // Verificar se está favoritado quando componente montar
   useEffect(() => {
     if (animal && user && !favoriteChecked) {
       checkIsFavorite(animal.id).then(() => {
@@ -66,7 +64,6 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
   
   const handleToggleFavorite = async () => {
     if (!user) {
-      // Não redirecionar, apenas mostrar toast através do toggleFavorite
       if (animal) {
         await toggleFavorite(animal.id)
       }
@@ -79,15 +76,12 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
 
   const handlePurchase = () => {
     if (!user) {
-      // Redirecionar para login com redirect para a página interna do dashboard
       router.push(`/login?redirect=${encodeURIComponent(`/dashboard/catalogo/${animalId}`)}`)
       return
     }
-    // Se já está logado, ir direto para a página interna do dashboard
     router.push(`/dashboard/catalogo/${animalId}`)
   }
   
-  // Se não encontrar, mostrar erro
   if (!animal) {
     return (
       <>
@@ -122,7 +116,7 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
       <Header />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
         <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12">
-          {/* Image Gallery */}
+          {}
           <div className="space-y-3 sm:space-y-4">
             <div className="relative">
               <img
@@ -131,7 +125,7 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
                 className="w-full h-64 sm:h-80 lg:h-96 object-cover rounded-lg sm:rounded-xl lg:rounded-2xl"
               />
               
-              {/* Navigation Arrows */}
+              {}
               <button
                 onClick={prevImage}
                 className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 text-white p-2 rounded-full hover:bg-black/70 transition-colors"
@@ -145,7 +139,7 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
                 <ChevronRight className="w-5 h-5" />
               </button>
 
-              {/* Badges */}
+              {}
               <div className="absolute top-2 sm:top-3 lg:top-4 left-2 sm:left-3 lg:left-4 flex gap-1.5 sm:gap-2">
                 <Badge className="bg-[#1C6B3E] text-xs sm:text-sm px-2 sm:px-2.5 py-0.5 sm:py-1">
                   {animal.category}
@@ -157,7 +151,7 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
                 )}
               </div>
 
-              {/* Actions */}
+              {}
               <div className="absolute top-2 sm:top-3 lg:top-4 right-2 sm:right-3 lg:right-4 flex gap-1.5 sm:gap-2">
                 <Button
                   size="sm"
@@ -178,13 +172,13 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
                 </Button>
               </div>
 
-              {/* Image Counter */}
+              {}
               <div className="absolute bottom-2 sm:bottom-3 lg:bottom-4 right-2 sm:right-3 lg:right-4 bg-black/70 text-white px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs sm:text-sm">
                 {currentImageIndex + 1} / {animal.images.length}
               </div>
             </div>
 
-            {/* Thumbnail Gallery */}
+            {}
             <div className="flex gap-2 overflow-x-auto">
               {animal.images.map((image, index) => (
                 <button
@@ -206,7 +200,7 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
             </div>
           </div>
 
-          {/* Animal Info */}
+          {}
           <div className="space-y-4 sm:space-y-6">
             <div>
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#101828] mb-3 sm:mb-4 leading-tight">
@@ -223,7 +217,7 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
               </div>
             </div>
 
-            {/* Specifications */}
+            {}
             <Card className="bg-white border-gray-200 shadow-lg">
               <CardContent className="p-4 sm:p-6">
                 <h3 className="text-lg sm:text-xl font-bold text-[#101828] mb-4">Especificações</h3>
@@ -260,7 +254,7 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
               </CardContent>
             </Card>
 
-            {/* Production Details */}
+            {}
             <Card className="bg-white border-gray-200 shadow-lg">
               <CardContent className="p-4 sm:p-6">
                 <h3 className="text-lg sm:text-xl font-bold text-[#101828] mb-4">Detalhes de Produção</h3>
@@ -277,7 +271,7 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
               </CardContent>
             </Card>
 
-            {/* Action Buttons */}
+            {}
             <div className="space-y-3 sm:space-y-4">
               {animal.type === 'venda' ? (
                 <Button
@@ -298,7 +292,7 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
           </div>
         </div>
 
-        {/* Tabs Section */}
+        {}
         <div className="mt-8 sm:mt-12">
           <Tabs defaultValue="descricao" className="w-full">
             <TabsList className="grid w-full grid-cols-4 h-auto gap-1 sm:gap-0 p-1">
@@ -394,12 +388,12 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
           </Tabs>
         </div>
 
-        {/* Seller Info */}
+        {}
         <div className="mt-6 sm:mt-8">
           <SellerInfoCard seller={animal.seller} />
         </div>
 
-        {/* Questions Section */}
+        {}
         <div className="mt-6 sm:mt-8">
           <Card className="bg-white border-gray-200 shadow-lg">
             <CardContent className="p-4 sm:p-6 lg:p-8">
@@ -411,7 +405,7 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
           </Card>
         </div>
 
-        {/* Location Map Placeholder */}
+        {}
         <div className="mt-6 sm:mt-8">
           <Card className="bg-white border-gray-200 shadow-lg">
             <CardContent className="p-4 sm:p-6 lg:p-8">

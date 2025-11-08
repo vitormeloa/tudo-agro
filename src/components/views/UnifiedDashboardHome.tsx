@@ -1,10 +1,10 @@
 'use client';
 
 import { useAuth } from "@/hooks/useAuth";
-import Dashboard from "@/components/views/Dashboard"; // Buyer Dashboard
-import InicioVendedor from "@/components/views/vendedor/InicioVendedor"; // Seller Dashboard
-import VisaoGeral from "@/components/views/admin/VisaoGeral"; // Admin Dashboard
-import LoadingSpinner from "@/components/LoadingSpinner"; // Assuming a loading spinner component exists
+import Dashboard from "@/components/views/Dashboard";
+import InicioVendedor from "@/components/views/vendedor/InicioVendedor";
+import VisaoGeral from "@/components/views/admin/VisaoGeral";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 export default function UnifiedDashboardHome() {
   const { user, loading, isAdmin, isSeller, initialized } = useAuth();
@@ -14,7 +14,6 @@ export default function UnifiedDashboardHome() {
   }
 
   if (!user) {
-    // Should ideally be handled by ProtectedRoute, but good to have a fallback
     return <div>Acesso negado. Por favor, faça login.</div>;
   }
 
@@ -26,6 +25,5 @@ export default function UnifiedDashboardHome() {
     return <InicioVendedor />;
   }
 
-  // Default to buyer dashboard if not admin or seller
   return <Dashboard />;
 }

@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
 import { withPermissionGuard } from '@/lib/permission-guard'
 
-// GET - Buscar role específica
 async function getRole(request: NextRequest, { params }: { params: { id: string } }) {
   try {
     const { data: role, error } = await supabase
@@ -28,7 +27,6 @@ async function getRole(request: NextRequest, { params }: { params: { id: string 
   }
 }
 
-// PUT - Atualizar role
 async function updateRole(request: NextRequest, { params }: { params: { id: string } }) {
   try {
     const { name, description, permissions } = await request.json()
@@ -40,7 +38,6 @@ async function updateRole(request: NextRequest, { params }: { params: { id: stri
       )
     }
 
-    // Verificar se a role existe
     const { data: existingRole } = await supabase
       .from('roles')
       .select('id')
@@ -54,7 +51,6 @@ async function updateRole(request: NextRequest, { params }: { params: { id: stri
       )
     }
 
-    // Verificar se o nome não conflita com outra role
     const { data: conflictingRole } = await supabase
       .from('roles')
       .select('id')
@@ -97,10 +93,8 @@ async function updateRole(request: NextRequest, { params }: { params: { id: stri
   }
 }
 
-// DELETE - Excluir role
 async function deleteRole(request: NextRequest, { params }: { params: { id: string } }) {
   try {
-    // Verificar se a role existe
     const { data: existingRole } = await supabase
       .from('roles')
       .select('id')
@@ -114,7 +108,6 @@ async function deleteRole(request: NextRequest, { params }: { params: { id: stri
       )
     }
 
-    // Verificar se há usuários com esta role
     const { data: userRoles } = await supabase
       .from('user_roles')
       .select('id')
@@ -150,7 +143,6 @@ async function deleteRole(request: NextRequest, { params }: { params: { id: stri
   }
 }
 
-// Handlers principais
 export const GET = withPermissionGuard(getRole, {
   requiredPermissions: ['role:read']
 })

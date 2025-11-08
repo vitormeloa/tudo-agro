@@ -67,7 +67,7 @@ export default function AjudaPage() {
     <div className="min-h-screen flex flex-col bg-gray-50">
       <Header />
       
-      {/* Hero Section */}
+      {}
       <section className="bg-gradient-to-r from-primary via-primary to-primary/90 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
@@ -80,7 +80,7 @@ export default function AjudaPage() {
       </section>
 
       <main className="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Search Section */}
+        {}
         <section className="mb-12">
           <div className="relative">
             <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
@@ -94,7 +94,7 @@ export default function AjudaPage() {
           </div>
         </section>
 
-        {/* Categories Section */}
+        {}
         <section className="space-y-4">
           {filteredCategories.map((category) => (
             <Card key={category.id} className="border-2 border-gray-200">
@@ -131,7 +131,7 @@ export default function AjudaPage() {
           ))}
         </section>
 
-        {/* Contact Section */}
+        {}
         <section className="mt-12 bg-gradient-to-r from-primary/5 to-primary/5 rounded-lg p-8 text-center">
           <h2 className="text-2xl font-bold text-[#101828] mb-4">Não Encontrou o que Procurava?</h2>
           <p className="text-gray-600 mb-6">

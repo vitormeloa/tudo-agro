@@ -63,7 +63,7 @@ const MeusLeiloes = () => {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
+      {}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <h1 className="text-3xl font-bold">Meus Leilões</h1>
@@ -81,7 +81,7 @@ const MeusLeiloes = () => {
         </div>
       </div>
 
-      {/* Stats */}
+      {}
       <div className="grid gap-4 md:grid-cols-4">
         <Card>
           <CardContent className="p-6">
@@ -137,7 +137,7 @@ const MeusLeiloes = () => {
         </Card>
       </div>
 
-      {/* Filters */}
+      {}
       <Card>
         <CardContent className="p-4">
           <div className="flex flex-col sm:flex-row gap-4">
@@ -162,13 +162,13 @@ const MeusLeiloes = () => {
         </CardContent>
       </Card>
 
-      {/* Auctions List */}
+      {}
       <div className="space-y-4">
         {auctions.map((auction) => (
           <Card key={auction.id} className="hover:shadow-lg transition-shadow">
             <CardContent className="p-6">
               <div className="flex flex-col lg:flex-row gap-6">
-                {/* Auction Image */}
+                {}
                 <div className="flex items-center justify-center lg:justify-start flex-shrink-0">
                   <img
                     src={auction.image}
@@ -177,7 +177,7 @@ const MeusLeiloes = () => {
                   />
                 </div>
 
-                {/* Auction Info */}
+                {}
                 <div className="flex-1 space-y-4">
                   <div className="flex flex-col sm:flex-row justify-between items-start gap-2">
                     <div>
@@ -246,7 +246,7 @@ const MeusLeiloes = () => {
         ))}
       </div>
 
-      {/* Highlight Button */}
+      {}
       <Card className="bg-gradient-to-r from-primary/10 to-primary/5 border-primary/20">
         <CardContent className="p-6">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">

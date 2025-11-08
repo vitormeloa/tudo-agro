@@ -26,7 +26,6 @@ export default function MobileAuthButton({ onMenuClose, className }: MobileAuthB
   const { getTotalItems } = useCart()
   const cartItemsCount = getTotalItems()
 
-  // Se usuário está logado, mostrar opções do usuário
   if (user) {
     return (
       <div className={`pt-4 border-t border-gray-200 ${className}`}>
@@ -36,7 +35,7 @@ export default function MobileAuthButton({ onMenuClose, className }: MobileAuthB
             <p className="text-xs text-gray-500">{user.email}</p>
           </div>
           
-          {/* Opções do usuário mobile */}
+          {}
           <div className="space-y-1">
             <Link href="/dashboard/carrinho" className="block" onClick={onMenuClose}>
               <Button variant="outline" className="w-full justify-start relative">
@@ -87,16 +86,13 @@ export default function MobileAuthButton({ onMenuClose, className }: MobileAuthB
             onClick={async () => {
               onMenuClose()
               try {
-                // signOut já faz todo o processo de limpeza e redirecionamento
                 await signOut()
               } catch (error) {
                 console.error('Logout error:', error)
-                // Mesmo com erro, tentar limpar e redirecionar
                 try {
                   localStorage.clear()
                   sessionStorage.clear()
                 } catch (e) {
-                  // Ignorar erros de limpeza
                 }
                 window.location.href = '/login'
               }
@@ -110,7 +106,6 @@ export default function MobileAuthButton({ onMenuClose, className }: MobileAuthB
     )
   }
 
-  // Se usuário não está logado, mostrar botões de login/cadastro
   return (
     <div className={`pt-4 border-t border-gray-200 ${className}`}>
       <div className="space-y-2">

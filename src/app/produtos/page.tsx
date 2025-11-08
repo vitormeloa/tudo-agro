@@ -47,7 +47,6 @@ export default function ProdutosPage() {
   const [sortBy, setSortBy] = useState<string>('relevancia')
   const itemsPerPage = 9
 
-  // Mapear produtos do mock para o formato esperado pelo ProductCard
   const allProducts = mockProducts.map(p => ({
     id: p.id,
     title: p.title,
@@ -66,14 +65,11 @@ export default function ProdutosPage() {
     type: 'product' as const
   }))
 
-  // Calcular contagens reais por categoria
   const getCategoryCount = (categoryName: string) => {
     return allProducts.filter(p => p.category === categoryName).length
   }
 
-  // Filtrar produtos baseado em todos os filtros
   const filteredProducts = allProducts.filter(product => {
-    // Filtro de busca
     if (searchQuery) {
       const query = searchQuery.toLowerCase()
       const matchesSearch = (
@@ -85,17 +81,14 @@ export default function ProdutosPage() {
       if (!matchesSearch) return false
     }
 
-    // Filtro de categoria
     if (selectedCategory && product.category !== selectedCategory) {
       return false
     }
 
-    // Filtro de marca
     if (selectedBrand && product.brand !== selectedBrand) {
       return false
     }
 
-    // Filtro de preço
     if (selectedPriceRange) {
       const price = product.price
       switch (selectedPriceRange) {
@@ -114,7 +107,6 @@ export default function ProdutosPage() {
       }
     }
 
-    // Filtro de localização
     if (selectedLocation) {
       const locationState = product.location.split(',')[1]?.trim().toLowerCase()
       if (!locationState?.includes(selectedLocation.toLowerCase())) {
@@ -122,14 +114,12 @@ export default function ProdutosPage() {
       }
     }
 
-    // Filtro de disponibilidade
     if (selectedStock) {
       switch (selectedStock) {
         case 'estoque':
           if (product.stock <= 0) return false
           break
         case 'encomenda':
-          // Assumir que produtos com stock baixo são sob encomenda
           if (product.stock > 5) return false
           break
         case 'esgotado':
@@ -141,7 +131,6 @@ export default function ProdutosPage() {
     return true
   })
 
-  // Ordenar produtos
   const sortedProducts = [...filteredProducts].sort((a, b) => {
     switch (sortBy) {
       case 'preco-menor':
@@ -152,18 +141,16 @@ export default function ProdutosPage() {
         return Number(b.rating) - Number(a.rating)
       case 'recente':
         return Number(b.id) - Number(a.id)
-      default: // relevancia
+      default:
         return (b.featured ? 1 : 0) - (a.featured ? 1 : 0) || Number(b.rating) - Number(a.rating)
     }
   })
 
-  // Calcular paginação
   const totalPages = Math.ceil(sortedProducts.length / itemsPerPage)
   const startIndex = (currentPage - 1) * itemsPerPage
   const endIndex = startIndex + itemsPerPage
   const products = sortedProducts.slice(startIndex, endIndex)
 
-  // Resetar para página 1 quando qualquer filtro mudar
   const handleSearchChange = (value: string) => {
     setSearchQuery(value)
     setCurrentPage(1)
@@ -192,14 +179,12 @@ export default function ProdutosPage() {
 
   const hasActiveFilters = !!(searchQuery || selectedCategory || selectedBrand || selectedPriceRange || selectedLocation || selectedStock)
 
-  // Garantir que currentPage não ultrapasse totalPages
   useEffect(() => {
     if (currentPage > totalPages && totalPages > 0) {
       setCurrentPage(totalPages)
     }
   }, [totalPages, currentPage])
 
-  // Scroll to top ao mudar de página
   const handlePageChange = (page: number) => {
     setCurrentPage(page)
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -221,9 +206,8 @@ export default function ProdutosPage() {
   ].map(cat => ({
     ...cat,
     count: getCategoryCount(cat.name)
-  })).filter(cat => cat.count > 0) // Apenas categorias com produtos
+  })).filter(cat => cat.count > 0)
 
-  // Mostrar apenas as primeiras 5 categorias, resto vai no modal
   const visibleCategories = categories.slice(0, 5)
   const hiddenCategories = categories.slice(5)
 
@@ -231,7 +215,7 @@ export default function ProdutosPage() {
     <div className="min-h-screen bg-gray-50">
       <Header />
       
-      {/* Hero Section */}
+      {}
         <section className="relative pt-16 pb-20 overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-teal-700"></div>
             <div className="absolute inset-0 bg-black/20"></div>
@@ -250,7 +234,7 @@ export default function ProdutosPage() {
       </section>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Search and Filters */}
+        {}
         <Card className="shadow-lg border-0 mb-8">
           <CardContent className="p-6">
             <div className="flex flex-col lg:flex-row gap-4 mb-6">
@@ -275,7 +259,7 @@ export default function ProdutosPage() {
               </Button>
             </div>
 
-            {/* Advanced Filters */}
+            {}
             {showFilters && (
               <div className="border-t border-gray-200 pt-6 animate-fade-in-up">
                 <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
@@ -358,7 +342,7 @@ export default function ProdutosPage() {
           </CardContent>
         </Card>
 
-        {/* Categories */}
+        {}
         <div className="mb-8">
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-lg font-semibold text-[#101828]">Categorias Populares</h3>
@@ -399,7 +383,7 @@ export default function ProdutosPage() {
               </Card>
             ))}
             
-            {/* Botão Ver Mais */}
+            {}
             {hiddenCategories.length > 0 && (
               <Card 
                 className="hover:shadow-lg transition-all duration-300 transform hover:scale-105 cursor-pointer animate-fade-in-up border-2 border-dashed border-gray-300 hover:border-primary"
@@ -416,10 +400,10 @@ export default function ProdutosPage() {
           </div>
         </div>
 
-        {/* Modal de Categorias */}
+        {}
         <Dialog open={showCategoriesModal} onOpenChange={setShowCategoriesModal}>
           <DialogContent className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[calc(100%-2rem)] sm:w-[calc(100%-4rem)] max-w-[90vw] sm:max-w-2xl md:max-w-3xl lg:max-w-4xl h-[calc(100vh-4rem)] sm:h-auto max-h-[85vh] overflow-hidden flex flex-col p-0 gap-0 rounded-xl sm:rounded-2xl shadow-2xl border-0 bg-white">
-            {/* Header */}
+            {}
             <DialogHeader className="px-4 sm:px-6 pt-4 sm:pt-6 pb-3 sm:pb-4 border-b border-gray-200 flex-shrink-0 bg-gradient-to-r from-primary/5 to-primary/5 relative rounded-t-xl sm:rounded-t-2xl">
               <div className="pr-8 sm:pr-10">
                 <DialogTitle className="text-lg sm:text-xl md:text-2xl font-bold text-[#101828]">
@@ -431,7 +415,7 @@ export default function ProdutosPage() {
               </div>
             </DialogHeader>
 
-            {/* Corpo do Modal com Scroll */}
+            {}
             <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-4 sm:py-6 bg-gray-50 overscroll-contain" style={{ WebkitOverflowScrolling: 'touch' }}>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                 {hiddenCategories.map((category, index) => (
@@ -465,7 +449,7 @@ export default function ProdutosPage() {
               </div>
             </div>
 
-            {/* Rodapé com botão Fechar (mobile friendly) */}
+            {}
             <div className="px-4 sm:px-6 py-3 sm:py-4 border-t border-gray-200 bg-white flex-shrink-0 rounded-b-xl sm:rounded-b-2xl">
               <Button
                 onClick={() => setShowCategoriesModal(false)}
@@ -477,7 +461,7 @@ export default function ProdutosPage() {
           </DialogContent>
         </Dialog>
 
-        {/* Features */}
+        {}
         <div className="mb-8">
           <div className="grid md:grid-cols-3 gap-6">
             <div className="flex items-center p-4 bg-white rounded-lg shadow-sm border">
@@ -504,7 +488,7 @@ export default function ProdutosPage() {
           </div>
         </div>
 
-        {/* Results Header */}
+        {}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
           <div className="text-gray-600">
             Mostrando <span className="font-semibold text-[#101828]">{startIndex + 1}</span> até <span className="font-semibold text-[#101828]">{Math.min(endIndex, sortedProducts.length)}</span> de <span className="font-semibold text-[#101828]">{sortedProducts.length}</span> resultados
@@ -530,7 +514,7 @@ export default function ProdutosPage() {
           </div>
         </div>
 
-        {/* Active Filters Display */}
+        {}
         {hasActiveFilters && (
           <div className="mb-6 flex flex-wrap gap-2">
             <span className="text-sm text-gray-600 font-medium">Filtros ativos:</span>
@@ -567,7 +551,7 @@ export default function ProdutosPage() {
           </div>
         )}
 
-        {/* Products Grid */}
+        {}
         {products.length > 0 ? (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {products.map((product, index) => (
@@ -598,7 +582,7 @@ export default function ProdutosPage() {
           </div>
         )}
 
-        {/* Pagination */}
+        {}
         {totalPages > 1 && (
           <div className="flex justify-center mt-12">
             <div className="flex flex-wrap items-center justify-center gap-2">
@@ -611,9 +595,8 @@ export default function ProdutosPage() {
                 Anterior
               </Button>
 
-              {/* Mostrar números de página */}
+              {}
               {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
-                // Mostrar sempre primeira e última página, página atual e páginas adjacentes
                 if (
                   page === 1 ||
                   page === totalPages ||
@@ -634,7 +617,6 @@ export default function ProdutosPage() {
                     </Button>
                   )
                 } else if (page === currentPage - 2 || page === currentPage + 2) {
-                  // Mostrar ellipsis
                   return <span key={page} className="px-2 text-gray-500">...</span>
                 }
                 return null
@@ -653,9 +635,8 @@ export default function ProdutosPage() {
         )}
       </div>
 
-      {/* Floating WhatsApp Button */}
+      {}
       
-
       <Footer />
     </div>
   )

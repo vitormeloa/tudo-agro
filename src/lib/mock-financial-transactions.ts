@@ -1,4 +1,3 @@
-// Importar utilitários de data centralizados
 import { daysAgo, hoursAgo } from './date-utils'
 
 export type TransactionType = 'compra' | 'venda' | 'reembolso' | 'cashback' | 'taxa' | 'deposito' | 'saque' | 'estorno'
@@ -23,7 +22,6 @@ export interface FinancialTransaction {
 }
 
 export const mockFinancialTransactions: FinancialTransaction[] = [
-  // Compras recentes
   {
     id: 'fin-001',
     type: 'compra',
@@ -87,7 +85,6 @@ export const mockFinancialTransactions: FinancialTransaction[] = [
     invoiceUrl: '/invoices/fin-005.pdf'
   },
   
-  // Vendas (para vendedores)
   {
     id: 'fin-006',
     type: 'venda',
@@ -115,7 +112,6 @@ export const mockFinancialTransactions: FinancialTransaction[] = [
     notes: 'Aguardando confirmação do pagamento'
   },
   
-  // Cashback e Recompensas
   {
     id: 'fin-008',
     type: 'cashback',
@@ -152,7 +148,6 @@ export const mockFinancialTransactions: FinancialTransaction[] = [
     notes: 'Conversão de 5000 pontos VIP'
   },
   
-  // Taxas e Comissões
   {
     id: 'fin-011',
     type: 'taxa',
@@ -189,7 +184,6 @@ export const mockFinancialTransactions: FinancialTransaction[] = [
     receiptUrl: '/receipts/fin-013.pdf'
   },
   
-  // Reembolsos
   {
     id: 'fin-014',
     type: 'reembolso',
@@ -216,7 +210,6 @@ export const mockFinancialTransactions: FinancialTransaction[] = [
     notes: 'Reembolso parcial - Desconto aplicado a posteriori'
   },
   
-  // Depósitos
   {
     id: 'fin-016',
     type: 'deposito',
@@ -241,7 +234,6 @@ export const mockFinancialTransactions: FinancialTransaction[] = [
     notes: 'Valor líquido após taxa de plataforma'
   },
   
-  // Saques
   {
     id: 'fin-018',
     type: 'saque',
@@ -265,7 +257,6 @@ export const mockFinancialTransactions: FinancialTransaction[] = [
     notes: 'Aguardando processamento bancário'
   },
   
-  // Estornos
   {
     id: 'fin-020',
     type: 'estorno',
@@ -280,7 +271,6 @@ export const mockFinancialTransactions: FinancialTransaction[] = [
     receiptUrl: '/receipts/fin-020.pdf'
   },
   
-  // Mais compras
   {
     id: 'fin-021',
     type: 'compra',
@@ -331,7 +321,6 @@ export const mockFinancialTransactions: FinancialTransaction[] = [
     receiptUrl: '/receipts/fin-024.pdf'
   },
   
-  // Mais vendas
   {
     id: 'fin-025',
     type: 'venda',
@@ -359,7 +348,6 @@ export const mockFinancialTransactions: FinancialTransaction[] = [
     receiptUrl: '/receipts/fin-026.pdf'
   },
   
-  // Mais cashback
   {
     id: 'fin-027',
     type: 'cashback',
@@ -373,7 +361,6 @@ export const mockFinancialTransactions: FinancialTransaction[] = [
     notes: '5% de cashback aplicado'
   },
   
-  // Transações recentes
   {
     id: 'fin-028',
     type: 'compra',
@@ -412,7 +399,6 @@ export const mockFinancialTransactions: FinancialTransaction[] = [
   }
 ]
 
-// Funções auxiliares
 export const getTransactionTypeLabel = (type: TransactionType): string => {
   const labels: Record<TransactionType, string> = {
     compra: 'Compra',

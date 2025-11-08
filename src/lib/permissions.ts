@@ -1,72 +1,50 @@
 export const PERMISSIONS = {
-  // Dashboard e Visão Geral
   dashboard: ["read"],
   
-  // Gestão de Usuários
   user: ["read", "write", "delete", "approve", "suspend"],
   
-  // Gestão de Vendedores
   seller: ["read", "write", "delete", "approve", "reject"],
   
-  // Gestão de Anúncios
   ad: ["read", "write", "delete", "moderate", "feature", "approve", "reject", "pause", "request"],
   
-  // Gestão de Produtos
   product: ["read", "write", "delete", "manage"],
   
-  // Gestão de Animais
   animal: ["read", "write", "delete", "manage", "offer", "purchase"],
   
-  // Gestão de Leilões
   auction: ["read", "write", "delete", "moderate", "manage"],
   
-  // Gestão de Transações
   transaction: ["read", "write", "delete", "refund", "dispute"],
   
-  // Gestão de Documentos KYC
   document: ["read", "write", "delete", "verify", "reject"],
   
-  // Gestão de Cashback
   cashback: ["read", "write", "delete", "approve", "reject"],
   
-  // Gestão de Planos VIP
   vip: ["read", "write", "delete", "manage"],
   
-  // Academy e IA
   academy: ["read", "write", "delete", "moderate"],
   
-  // Minhas Compras
   purchase: ["read", "view_details", "download_receipt", "download_invoice", "rate_seller", "chat_seller", "reorder"],
   
-  // Financeiro
   financial: ["read", "view_details", "download_receipt", "download_invoice", "manage_payment_methods", "view_invoices"],
   
-  // Treinamentos
   training: ["read", "enroll", "complete", "view_certificate", "rate"],
   
-  // Minha Conta
   account: ["read", "edit_profile", "edit_address", "change_password", "manage_2fa", "manage_notifications", "upload_documents", "delete_account"],
   
-  // Mensagens e Suporte
   message: ["read", "write", "delete", "moderate"],
   support: ["read", "write", "delete", "assign", "resolve"],
   
-  // Gestão de Funções e Permissões
   role: ["read", "write", "delete"],
   permission: ["read", "write", "delete"],
   
-  // Configurações do Sistema
   config: ["read", "write"],
   setting: ["read", "write"],
   
-  // Relatórios e Analytics
   report: ["read", "export"],
   analytics: ["read", "export"],
   
-  // Notificações
   notification: ["read", "write", "delete", "send"],
   
-  // Auditoria e Logs
   audit: ["read", "export"],
   log: ["read", "export"]
 } as const
@@ -75,7 +53,6 @@ export type PermissionResource = keyof typeof PERMISSIONS
 export type PermissionAction = typeof PERMISSIONS[PermissionResource][number]
 export type Permission = `${PermissionResource}:${PermissionAction}`
 
-// Função para gerar todas as permissões possíveis
 export const generateAllPermissions = (): Permission[] => {
   const permissions: Permission[] = []
   
@@ -88,18 +65,15 @@ export const generateAllPermissions = (): Permission[] => {
   return permissions
 }
 
-// Função para verificar se uma permissão é válida
 export const isValidPermission = (permission: string): permission is Permission => {
   const [resource, action] = permission.split(':')
   return resource in PERMISSIONS && PERMISSIONS[resource as PermissionResource].includes(action as PermissionAction)
 }
 
-// Função para obter permissões de um recurso específico
 export const getResourcePermissions = (resource: PermissionResource): Permission[] => {
   return PERMISSIONS[resource].map(action => `${resource}:${action}` as Permission)
 }
 
-// Função para agrupar permissões por módulo
 export const groupPermissionsByModule = (permissions: Permission[]) => {
   const grouped: Record<string, Permission[]> = {}
   
@@ -114,7 +88,6 @@ export const groupPermissionsByModule = (permissions: Permission[]) => {
   return grouped
 }
 
-  // Mapeamento de recursos para nomes amigáveis
 export const RESOURCE_LABELS: Record<PermissionResource, string> = {
   dashboard: "Dashboard",
   user: "Usuários",
@@ -146,7 +119,6 @@ export const RESOURCE_LABELS: Record<PermissionResource, string> = {
   log: "Logs"
 }
 
-// Mapeamento de ações para nomes amigáveis
 export const ACTION_LABELS: Record<PermissionAction, string> = {
   read: "Visualizar",
   write: "Criar/Editar",
@@ -189,7 +161,6 @@ export const ACTION_LABELS: Record<PermissionAction, string> = {
   delete_account: "Excluir Conta"
 }
 
-// Mapeamento de permissões para funcionalidades do admin
 export const ADMIN_FEATURES = {
   'dashboard:read': ['visao-geral'],
   'user:read': ['usuarios'],

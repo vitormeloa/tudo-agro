@@ -40,7 +40,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const { toast } = useToast()
   const { user } = useAuth()
 
-  // Carregar carrinho do localStorage ao inicializar
   useEffect(() => {
     try {
       const savedCart = localStorage.getItem(STORAGE_KEY)
@@ -54,7 +53,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
   }, [])
 
-  // Limpar carrinho quando usuário deslogar
   useEffect(() => {
     if (!user && !isLoading && items.length > 0) {
       setItems([])
@@ -66,7 +64,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
   }, [user, isLoading, items.length])
 
-  // Salvar carrinho no localStorage sempre que mudar (apenas se usuário estiver logado)
   useEffect(() => {
     if (!isLoading && user) {
       try {
@@ -78,7 +75,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }, [items, isLoading, user])
 
   const addItem = (newItem: Omit<CartItem, 'quantity'> & { quantity?: number }) => {
-    // Verificar se o usuário está logado - usar setTimeout para evitar atualização durante renderização
     if (!user) {
       setTimeout(() => {
         toast({
@@ -94,10 +90,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
       const existingItem = prevItems.find((item) => item.id === newItem.id)
 
       if (existingItem) {
-        // Se o item já existe, atualiza a quantidade
         const newQuantity = (existingItem.quantity || 0) + (newItem.quantity || 1)
         
-        // Verificar estoque disponível
         if (newQuantity > existingItem.availableStock) {
           setTimeout(() => {
             toast({
@@ -122,7 +116,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
             : item
         )
       } else {
-        // Adiciona novo item
         const quantity = newItem.quantity || 1
         
         if (quantity > newItem.availableStock) {
@@ -174,7 +167,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
       
       if (!item) return prevItems
 
-      // Verificar estoque disponível
       if (quantity > item.availableStock) {
         setTimeout(() => {
           toast({
@@ -209,7 +201,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }
 
   const getTotal = () => {
-    // Por enquanto, total = subtotal (sem frete/taxas)
     return getSubtotal()
   }
 

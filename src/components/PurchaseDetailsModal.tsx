@@ -73,7 +73,6 @@ const PurchaseDetailsModal = ({ isOpen, onClose, purchase }: PurchaseDetailsModa
 
   const statusInfo = getStatusBadge(purchase.status);
 
-  // Default values
   const itemType = purchase.itemType || "Animal / Genética / Produto físico";
   const quantity = purchase.quantity || 1;
   const unitPrice = purchase.unitPrice || 25000.00;
@@ -124,7 +123,6 @@ const PurchaseDetailsModal = ({ isOpen, onClose, purchase }: PurchaseDetailsModa
     });
   };
 
-  // Mock product data
   const productDetails = {
     name: purchase.name,
     category: itemType,
@@ -153,7 +151,7 @@ const PurchaseDetailsModal = ({ isOpen, onClose, purchase }: PurchaseDetailsModa
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-3xl max-h-[95vh] md:max-h-[90vh] overflow-hidden p-0 gap-0 [&>button]:hidden">
-        {/* Close Button */}
+        {}
         <button
           onClick={onClose}
           className="absolute right-4 top-4 rounded-full p-2 hover:bg-destructive/10 transition-colors z-20 group"
@@ -161,7 +159,7 @@ const PurchaseDetailsModal = ({ isOpen, onClose, purchase }: PurchaseDetailsModa
           <X className="h-5 w-5 text-destructive group-hover:text-destructive/80" />
         </button>
 
-        {/* Header */}
+        {}
         <div className="p-6 pb-4 border-b bg-gradient-to-br from-background to-muted/20">
           <div className="flex items-start justify-between gap-8 pr-8">
             <div className="flex-1">
@@ -178,10 +176,10 @@ const PurchaseDetailsModal = ({ isOpen, onClose, purchase }: PurchaseDetailsModa
           </div>
         </div>
 
-        {/* Scrollable Content */}
+        {}
         <div className="overflow-y-auto flex-1" style={{ maxHeight: 'calc(95vh - 280px)' }}>
           <div className="p-6 space-y-8">
-            {/* 2. Resumo do Pedido */}
+            {}
             <div>
               <h3 className="font-bold text-lg mb-4 flex items-center gap-2">
                 <Package className="h-5 w-5 text-secondary" />
@@ -230,7 +228,7 @@ const PurchaseDetailsModal = ({ isOpen, onClose, purchase }: PurchaseDetailsModa
               </div>
             </div>
 
-            {/* 3. Informações do Vendedor */}
+            {}
             <div>
               <h3 className="font-bold text-lg mb-4 flex items-center gap-2">
                 <Store className="h-5 w-5 text-secondary" />
@@ -263,7 +261,7 @@ const PurchaseDetailsModal = ({ isOpen, onClose, purchase }: PurchaseDetailsModa
               </div>
             </div>
 
-            {/* 4. Rastreamento / Entrega */}
+            {}
             <div>
               <h3 className="font-bold text-lg mb-4 flex items-center gap-2">
                 <Truck className="h-5 w-5 text-secondary" />
@@ -288,11 +286,11 @@ const PurchaseDetailsModal = ({ isOpen, onClose, purchase }: PurchaseDetailsModa
                 
                 <div className="h-px bg-border my-4" />
                 
-                {/* Progress Steps */}
+                {}
                 <div className="space-y-4">
                   {tracking.steps.map((step, index) => (
                     <div key={index} className="flex items-start gap-4 relative">
-                      {/* Connector Line */}
+                      {}
                       {index < tracking.steps.length - 1 && (
                         <div 
                           className={`absolute left-5 top-9 w-0.5 h-6 ${
@@ -301,7 +299,7 @@ const PurchaseDetailsModal = ({ isOpen, onClose, purchase }: PurchaseDetailsModa
                         />
                       )}
                       
-                      {/* Icon */}
+                      {}
                       <div className={`rounded-full p-2 shrink-0 z-10 ${
                         step.completed ? 'bg-primary/50' : 
                         step.current ? 'bg-yellow-500' : 
@@ -310,7 +308,7 @@ const PurchaseDetailsModal = ({ isOpen, onClose, purchase }: PurchaseDetailsModa
                         {getStepIcon(index, step)}
                       </div>
                       
-                      {/* Label */}
+                      {}
                       <div className="flex-1 pt-1.5">
                         <span className={`text-sm ${
                           step.completed || step.current ? 'font-semibold text-foreground' : 'text-muted-foreground'
@@ -326,7 +324,7 @@ const PurchaseDetailsModal = ({ isOpen, onClose, purchase }: PurchaseDetailsModa
           </div>
         </div>
 
-        {/* 5. Botões de Ação (Footer) */}
+        {}
         <div className="border-t bg-muted/30 p-4 md:p-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             <Button 
@@ -365,7 +363,7 @@ const PurchaseDetailsModal = ({ isOpen, onClose, purchase }: PurchaseDetailsModa
         </div>
       </DialogContent>
 
-      {/* Nested Modals */}
+      {}
       <ProductDetailsModal 
         isOpen={showProductDetails}
         onClose={() => setShowProductDetails(false)}

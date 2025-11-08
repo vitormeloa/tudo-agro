@@ -3,7 +3,7 @@ export interface Review {
   userId: string
   userName: string
   userAvatar: string
-  rating: number // 1-5
+  rating: number
   comment: string
   date: string
   verifiedPurchase?: boolean

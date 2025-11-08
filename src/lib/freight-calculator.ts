@@ -24,7 +24,6 @@ function addBusinessDays(startDate: Date, days: number): Date {
   
   while (addedDays < days) {
     result.setDate(result.getDate() + 1)
-    // Pular finais de semana (sábado = 6, domingo = 0)
     if (result.getDay() !== 0 && result.getDay() !== 6) {
       addedDays++
     }
@@ -55,86 +54,73 @@ function formatDeliveryDate(date: Date): string {
  * - CEPs muito distantes: 5-7 dias úteis, frete R$ 50-80
  */
 export function calculateFreight(cep: string, productLocation?: string): FreightResult | null {
-  // Remover caracteres não numéricos
   const cleanCep = cep.replace(/\D/g, '')
   
-  // Validar CEP (deve ter 8 dígitos)
   if (cleanCep.length !== 8) {
     return null
   }
   
-  // Extrair região do CEP (primeiros 3 dígitos)
   const cepRegion = parseInt(cleanCep.substring(0, 3))
   
-  // Determinar distância baseada na região do CEP
-  // Regiões: 010-199 (SP), 200-289 (RJ), 290-299 (ES), 300-399 (MG), etc.
   let deliveryDays: { min: number; max: number }
   let freightPrice: number
   
-  // Região Sudeste (010-399)
   if (cepRegion >= 10 && cepRegion < 400) {
-    // Se o produto também está no Sudeste, frete mais rápido
     if (productLocation?.toLowerCase().includes('sp') || 
         productLocation?.toLowerCase().includes('rj') ||
         productLocation?.toLowerCase().includes('mg') ||
         productLocation?.toLowerCase().includes('es')) {
       deliveryDays = { min: 1, max: 2 }
-      freightPrice = 15 + Math.floor(Math.random() * 10) // R$ 15-25
+      freightPrice = 15 + Math.floor(Math.random() * 10)
     } else {
       deliveryDays = { min: 3, max: 5 }
-      freightPrice = 30 + Math.floor(Math.random() * 20) // R$ 30-50
+      freightPrice = 30 + Math.floor(Math.random() * 20)
     }
   }
-  // Região Sul (800-899)
   else if (cepRegion >= 800 && cepRegion < 900) {
     if (productLocation?.toLowerCase().includes('pr') || 
         productLocation?.toLowerCase().includes('sc') ||
         productLocation?.toLowerCase().includes('rs')) {
       deliveryDays = { min: 1, max: 2 }
-      freightPrice = 15 + Math.floor(Math.random() * 10) // R$ 15-25
+      freightPrice = 15 + Math.floor(Math.random() * 10)
     } else {
       deliveryDays = { min: 3, max: 5 }
-      freightPrice = 30 + Math.floor(Math.random() * 20) // R$ 30-50
+      freightPrice = 30 + Math.floor(Math.random() * 20)
     }
   }
-  // Região Centro-Oeste (700-799)
   else if (cepRegion >= 700 && cepRegion < 800) {
     if (productLocation?.toLowerCase().includes('go') || 
         productLocation?.toLowerCase().includes('mt') ||
         productLocation?.toLowerCase().includes('ms') ||
         productLocation?.toLowerCase().includes('df')) {
       deliveryDays = { min: 1, max: 2 }
-      freightPrice = 15 + Math.floor(Math.random() * 10) // R$ 15-25
+      freightPrice = 15 + Math.floor(Math.random() * 10)
     } else {
       deliveryDays = { min: 4, max: 6 }
-      freightPrice = 40 + Math.floor(Math.random() * 20) // R$ 40-60
+      freightPrice = 40 + Math.floor(Math.random() * 20)
     }
   }
-  // Região Nordeste (400-699)
   else if (cepRegion >= 400 && cepRegion < 700) {
     if (productLocation?.toLowerCase().includes('ba') || 
         productLocation?.toLowerCase().includes('pe') ||
         productLocation?.toLowerCase().includes('ce') ||
         productLocation?.toLowerCase().includes('ne')) {
       deliveryDays = { min: 2, max: 3 }
-      freightPrice = 20 + Math.floor(Math.random() * 15) // R$ 20-35
+      freightPrice = 20 + Math.floor(Math.random() * 15)
     } else {
       deliveryDays = { min: 5, max: 7 }
-      freightPrice = 50 + Math.floor(Math.random() * 30) // R$ 50-80
+      freightPrice = 50 + Math.floor(Math.random() * 30)
     }
   }
-  // Região Norte (660-699 e outras)
   else {
     deliveryDays = { min: 5, max: 7 }
-    freightPrice = 50 + Math.floor(Math.random() * 30) // R$ 50-80
+    freightPrice = 50 + Math.floor(Math.random() * 30)
   }
   
-  // Calcular datas de entrega
   const today = new Date()
   const minDelivery = addBusinessDays(today, deliveryDays.min)
   const maxDelivery = addBusinessDays(today, deliveryDays.max)
   
-  // Formatar entrega
   const formattedMin = formatDeliveryDate(minDelivery)
   const formattedMax = formatDeliveryDate(maxDelivery)
   

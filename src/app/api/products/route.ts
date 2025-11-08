@@ -24,7 +24,6 @@ const productSchema = z.object({
   })).optional()
 })
 
-// GET - Listar produtos
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
@@ -60,7 +59,6 @@ export async function GET(request: NextRequest) {
       `)
       .eq('status', 'active')
 
-    // Aplicar filtros
     if (category) {
       query = query.eq('category', category)
     }
@@ -81,7 +79,6 @@ export async function GET(request: NextRequest) {
       query = query.lte('price', maxPrice)
     }
 
-    // Aplicar paginação
     const from = (page - 1) * limit
     const to = from + limit - 1
 
@@ -115,13 +112,11 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// POST - Criar produto
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
     const validatedData = productSchema.parse(body)
 
-    // Verificar se usuário está autenticado
     const { data: { user }, error: authError } = await supabase.auth.getUser()
     
     if (authError || !user) {
@@ -131,7 +126,6 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Verificar se usuário tem permissão para criar produtos
     const { data: userRoles } = await supabase
       .from('user_roles')
       .select(`
@@ -152,7 +146,6 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Criar produto
     const { data: product, error: productError } = await supabase
       .from('products')
       .insert({
@@ -169,7 +162,6 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Adicionar imagens se fornecidas
     if (validatedData.images && validatedData.images.length > 0) {
       const imageInserts = validatedData.images.map((url, index) => ({
         url,
@@ -182,7 +174,6 @@ export async function POST(request: NextRequest) {
         .insert(imageInserts)
     }
 
-    // Adicionar endereços se fornecidos
     if (validatedData.addresses && validatedData.addresses.length > 0) {
       const addressInserts = validatedData.addresses.map(address => ({
         ...address,

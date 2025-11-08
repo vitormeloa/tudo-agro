@@ -47,7 +47,7 @@ export default function ImprensaPage() {
     <div className="min-h-screen flex flex-col bg-gray-50">
       <Header />
       
-      {/* Hero Section */}
+      {}
       <section className="bg-gradient-to-r from-primary via-primary to-primary/90 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
@@ -60,7 +60,7 @@ export default function ImprensaPage() {
       </section>
 
       <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Contact Section */}
+        {}
         <section className="mb-16">
           <Card className="border-2 border-primary/20 bg-primary/5">
             <CardContent className="p-8">
@@ -93,7 +93,7 @@ export default function ImprensaPage() {
           </Card>
         </section>
 
-        {/* Press Releases Section */}
+        {}
         <section className="mb-16">
           <h2 className="text-3xl font-bold text-[#101828] mb-8">Últimas Notícias</h2>
           <div className="space-y-6">
@@ -118,7 +118,7 @@ export default function ImprensaPage() {
           </div>
         </section>
 
-        {/* Media Kit Section */}
+        {}
         <section className="mb-16">
           <h2 className="text-3xl font-bold text-[#101828] mb-8">Material para Download</h2>
           <div className="grid md:grid-cols-3 gap-6">
@@ -140,7 +140,7 @@ export default function ImprensaPage() {
           </div>
         </section>
 
-        {/* About Section */}
+        {}
         <section className="bg-gradient-to-r from-primary/5 to-primary/5 rounded-lg p-8">
           <h2 className="text-2xl font-bold text-[#101828] mb-4">Sobre o TudoAgro</h2>
           <p className="text-gray-600 mb-4">

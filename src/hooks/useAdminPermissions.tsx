@@ -7,27 +7,21 @@ import { Permission } from '@/lib/permissions'
 export function useAdminPermissions() {
   const { user, hasPermission } = useAuth()
   
-  // Memoizar verificações de roles para evitar recálculos
   const roles = useMemo(() => user?.roles || [], [user?.roles])
   const isAdminMemo = useMemo(() => roles.includes('admin'), [roles])
   const isSellerMemo = useMemo(() => roles.includes('vendedor'), [roles])
   const isBuyerMemo = useMemo(() => roles.includes('comprador'), [roles])
 
-
-  // Verificar se pode acessar uma seção específica do admin - OTIMIZADO
-  // Agora considera roles do menu além de permissões específicas
   const canAccessSection = useCallback((section: string): boolean => {
     if (!user || !roles.length) return false
     
-    // Admin sempre pode acessar tudo - usar memoizado
     if (isAdminMemo) return true
     
-    // Mapeamento de seções para roles permitidos (baseado no menu do AdminLayout)
     const sectionRoles: Record<string, string[]> = {
       'visao-geral': ['admin', 'vendedor', 'comprador'],
       'favoritos': ['admin', 'vendedor', 'comprador'],
-      'minhas-compras': ['comprador', 'vendedor', 'admin'], // Comprador, vendedor e admin
-      'financeiro': ['comprador', 'vendedor', 'admin'], // Comprador, vendedor e admin
+      'minhas-compras': ['comprador', 'vendedor', 'admin'],
+      'financeiro': ['comprador', 'vendedor', 'admin'],
       'treinamentos': ['admin', 'vendedor', 'comprador'],
       'minha-conta': ['admin', 'vendedor', 'comprador'],
       'animais': ['admin', 'vendedor', 'comprador'],
@@ -46,16 +40,14 @@ export function useAdminPermissions() {
       'configuracoes': ['admin']
     }
     
-    // Verificar se o usuário tem algum dos roles permitidos para esta seção
     const allowedRoles = sectionRoles[section]
     if (allowedRoles) {
       const hasAllowedRole = allowedRoles.some(role => roles.includes(role))
       if (hasAllowedRole) {
-        return true // Permitir acesso baseado em role
+        return true
       }
     }
     
-    // Fallback: verificar permissões específicas para seções que não têm roles definidos
     switch (section) {
       case 'visao-geral':
         return hasPermission('dashboard:read')
@@ -122,16 +114,12 @@ export function useAdminPermissions() {
     }
   }, [user, roles, isAdminMemo, hasPermission])
 
-  // Verificar se pode executar uma ação específica - OTIMIZADO
   const canExecuteAction = useCallback((action: string, resource?: string): boolean => {
     if (!user || !roles.length) return false
     
-    // Admin sempre pode executar tudo - usar memoizado
     if (isAdminMemo) return true
     
-    // Mapear ações para permissões
     const actionPermissionMap: Record<string, Permission> = {
-      // Ações de usuários
       'view-users': 'user:read',
       'create-user': 'user:write',
       'edit-user': 'user:write',
@@ -139,7 +127,6 @@ export function useAdminPermissions() {
       'approve-user': 'user:approve',
       'suspend-user': 'user:suspend',
       
-      // Ações de vendedores
       'view-sellers': 'seller:read',
       'create-seller': 'seller:write',
       'edit-seller': 'seller:write',
@@ -147,7 +134,6 @@ export function useAdminPermissions() {
       'approve-seller': 'seller:approve',
       'reject-seller': 'seller:reject',
       
-      // Ações de anúncios
       'view-ads': 'ad:read',
       'create-ad': 'ad:write',
       'edit-ad': 'ad:write',
@@ -155,7 +141,6 @@ export function useAdminPermissions() {
       'moderate-ad': 'ad:moderate',
       'feature-ad': 'ad:feature',
       
-      // Ações de leilões
       'view-auctions': 'auction:read',
       'create-auction': 'auction:write',
       'edit-auction': 'auction:write',
@@ -163,7 +148,6 @@ export function useAdminPermissions() {
       'moderate-auction': 'auction:moderate',
       'manage-auction': 'auction:manage',
       
-      // Ações de transações
       'view-transactions': 'transaction:read',
       'create-transaction': 'transaction:write',
       'edit-transaction': 'transaction:write',
@@ -171,42 +155,34 @@ export function useAdminPermissions() {
       'refund-transaction': 'transaction:refund',
       'dispute-transaction': 'transaction:dispute',
       
-      // Ações de documentos
       'view-documents': 'document:read',
       'verify-document': 'document:verify',
       'reject-document': 'document:reject',
       
-      // Ações de cashback
       'view-cashback': 'cashback:read',
       'approve-cashback': 'cashback:approve',
       'reject-cashback': 'cashback:reject',
       
-      // Ações de VIP
       'view-vip': 'vip:read',
       'manage-vip': 'vip:manage',
       
-      // Ações de academy
       'view-academy': 'academy:read',
       'create-academy': 'academy:write',
       'moderate-academy': 'academy:moderate',
       
-      // Ações de mensagens
       'view-messages': 'message:read',
       'send-message': 'message:write',
       'moderate-message': 'message:moderate',
       
-      // Ações de suporte
       'view-support': 'support:read',
       'assign-support': 'support:assign',
       'resolve-support': 'support:resolve',
       
-      // Ações de funções
       'view-roles': 'role:read',
       'create-role': 'role:write',
       'edit-role': 'role:write',
       'delete-role': 'role:delete',
       
-      // Ações de configurações
       'view-config': 'config:read',
       'edit-config': 'config:write',
       'view-settings': 'setting:read',
@@ -219,11 +195,9 @@ export function useAdminPermissions() {
     return hasPermission(permission)
   }, [user, roles, isAdminMemo, hasPermission])
 
-  // Verificar se pode ver um botão/ação específica - OTIMIZADO
   const canShowButton = useCallback((buttonType: string, context?: any): boolean => {
     if (!user || !roles.length) return false
     
-    // Admin sempre pode ver todos os botões - usar memoizado
     if (isAdminMemo) return true
     
     switch (buttonType) {
@@ -271,14 +245,11 @@ export function useAdminPermissions() {
     }
   }, [user, roles, isAdminMemo, hasPermission])
 
-  // Verificar se pode acessar um campo específico - OTIMIZADO
   const canAccessField = useCallback((field: string, resource?: string): boolean => {
     if (!user || !roles.length) return false
     
-    // Admin sempre pode acessar todos os campos - usar memoizado
     if (isAdminMemo) return true
     
-    // Campos sensíveis que apenas admin pode ver
     const adminOnlyFields = [
       'roles', 'permissions', 'internal_notes', 'admin_notes',
       'system_settings', 'advanced_config', 'audit_logs'

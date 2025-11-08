@@ -38,12 +38,10 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   
   const cartItemsCount = getTotalItems()
 
-  // Verificar se o contexto de autenticação está disponível
   if (!authContext) {
     return <LoadingSpinner text="Carregando..." fullScreen />
   }
 
-  // Fechar menu do usuário quando clicar fora
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (isUserMenuOpen) {
@@ -58,7 +56,6 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [isUserMenuOpen])
 
-  // Ajustar sidebar baseado no tamanho da tela
   useEffect(() => {
     if (isMobile) {
       setSidebarOpen(false)
@@ -67,14 +64,12 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     }
   }, [isMobile])
 
-  // Fechar sidebar quando trocar de seção no mobile
   const handleSectionChange = () => {
     if (isMobile) {
       setSidebarOpen(false)
     }
   }
 
-  // Definir itens do menu baseado no role do usuário
   const getMenuItems = () => {
     const allMenuItems = [
       { id: 'visao-geral', label: 'Visão Geral', icon: BarChart3, alerts: 0, roles: ['admin', 'vendedor', 'comprador'], href: '/dashboard' },
@@ -101,7 +96,6 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
 
     if (!user) return []
 
-    // Filtrar itens baseado nas permissões do usuário
     return allMenuItems.filter(item => {
       return canAccessSection(item.id)
     })
@@ -110,12 +104,11 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   const menuItems = getMenuItems()
   const totalAlerts = menuItems.reduce((sum, item) => sum + item.alerts, 0)
 
-  // Obter item ativo baseado na rota atual
   const activeItem = menuItems.find(item => pathname === item.href)
 
   return (
     <>
-      {/* Mobile Overlay */}
+      {}
       {sidebarOpen && (
         <div 
           className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
@@ -124,13 +117,13 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
       )}
       
       <div className="h-screen bg-[#F7F6F2] flex overflow-hidden">
-        {/* Sidebar */}
+        {}
       <div className={`${
         sidebarOpen ? 'w-80' : 'w-20'
       } transition-all duration-300 bg-white shadow-xl border-r border-gray-200 flex flex-col fixed lg:relative z-50 h-screen min-h-screen ${
         sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
       } ${!sidebarOpen ? 'lg:shadow-2xl' : ''} overflow-hidden`}>
-        {/* Header da Sidebar */}
+        {}
         <div className="p-4 sm:p-6 border-b border-gray-200 flex-shrink-0 overflow-hidden">
           <div className="flex items-center justify-between">
             {sidebarOpen && (
@@ -156,7 +149,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                 <Menu className="w-4 h-4 sm:w-5 sm:h-5 group-hover:scale-110 transition-transform" />
               )}
               
-              {/* Tooltip para sidebar fechada */}
+              {}
               {!sidebarOpen && (
                 <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50 max-w-32">
                   Abrir Menu
@@ -167,12 +160,12 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
           </div>
         </div>
 
-        {/* Menu Items */}
+        {}
         <div className="flex-1 overflow-y-auto py-4 min-h-0 relative overflow-x-hidden">
-          {/* Indicador de scroll superior */}
+          {}
           <div className="absolute top-0 left-0 right-0 h-4 bg-gradient-to-b from-white to-transparent z-10 pointer-events-none"></div>
           
-          {/* Indicador de scroll inferior */}
+          {}
           <div className="absolute bottom-0 left-0 right-0 h-4 bg-gradient-to-t from-white to-transparent z-10 pointer-events-none"></div>
           
           <nav className="space-y-1 px-3">
@@ -209,7 +202,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                     <div className="absolute right-2 w-2 h-2 bg-[#B8413D] rounded-full"></div>
                   )}
                   
-                  {/* Tooltip para sidebar fechada */}
+                  {}
                   {!sidebarOpen && (
                     <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50 max-w-48">
                       {item.label}
@@ -225,7 +218,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
           </nav>
         </div>
 
-        {/* Footer da Sidebar */}
+        {}
         <div className="p-3 sm:p-4 border-t border-gray-200 flex-shrink-0 overflow-hidden">
           {sidebarOpen ? (
             <div className="mb-4 p-3 bg-[#F7F6F2] rounded-lg">
@@ -246,7 +239,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                   </div>
                 </div>
                 
-                {/* Tooltip para sidebar fechada */}
+                {}
                 <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50 max-w-40">
                   {totalAlerts} alerta{totalAlerts > 1 ? 's' : ''} pendente{totalAlerts > 1 ? 's' : ''}
                   <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1 w-2 h-2 bg-gray-900 rotate-45"></div>
@@ -263,23 +256,19 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
             onClick={async () => {
               try {
                 if (signOut) {
-                  // signOut já faz todo o processo de limpeza e redirecionamento
                   await signOut()
                 } else {
                   console.error('signOut function not available')
-                  // Se não há função de logout, forçar logout manualmente
                   localStorage.clear()
                   sessionStorage.clear()
                   window.location.href = '/login'
                 }
               } catch (error) {
                 console.error('Logout error:', error)
-                // Mesmo com erro, tentar limpar e redirecionar
                 try {
                   localStorage.clear()
                   sessionStorage.clear()
                 } catch (e) {
-                  // Ignorar erros de limpeza
                 }
                 window.location.href = '/login'
               }
@@ -289,12 +278,12 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
             <LogOut className={`w-4 h-4 sm:w-5 sm:h-5 ${sidebarOpen ? 'mr-3' : ''} group-hover:scale-110 transition-transform`} />
             {sidebarOpen && <span className="text-sm sm:text-base">Sair do Sistema</span>}
             
-            {/* Indicador visual para sidebar fechada */}
+            {}
             {!sidebarOpen && (
               <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
             )}
             
-            {/* Tooltip para sidebar fechada */}
+            {}
             {!sidebarOpen && (
               <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-50 max-w-32">
                 Sair do Sistema
@@ -305,13 +294,13 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
         </div>
       </div>
 
-      {/* Conteúdo Principal */}
+      {}
       <div className="flex-1 flex flex-col overflow-hidden lg:ml-0 h-screen">
-        {/* Header Principal */}
+        {}
         <header className="bg-white shadow-sm border-b border-gray-200 px-3 sm:px-4 lg:px-6 py-3 sm:py-4 flex-shrink-0">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2 sm:space-x-4">
-              {/* Mobile Menu Button */}
+              {}
               <Button
                 variant="ghost"
                 size="sm"
@@ -340,7 +329,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
             </div>
             
             <div className="flex items-center gap-2 sm:gap-4">
-              {/* Favoritos */}
+              {}
               {isBuyer && (
               <Link href="/dashboard/favoritos">
                 <Button
@@ -354,7 +343,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
               </Link>
               )}
               
-              {/* Carrinho */}
+              {}
               {isBuyer && (
                 <Link href="/dashboard/carrinho">
                   <Button
@@ -373,7 +362,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                 </Link>
               )}
               
-              {/* User Menu */}
+              {}
               <div className="relative" data-user-menu>
                 <button
                   onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
@@ -395,7 +384,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                   <ChevronDown className={`w-3 h-3 sm:w-4 sm:h-4 text-gray-600 transition-transform ${isUserMenuOpen ? 'rotate-180' : ''}`} />
                 </button>
 
-                {/* User Dropdown Menu */}
+                {}
                 {isUserMenuOpen && (
                   <div className="absolute top-full right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50 max-h-96 overflow-y-auto">
                     <div className="px-4 py-3 border-b border-gray-100">
@@ -403,7 +392,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                       <p className="text-xs text-gray-500">{user?.email}</p>
                     </div>
                     
-                    {/* Opções do usuário */}
+                    {}
                     <div className="py-1">
                       <Link 
                         href="/dashboard/minha-conta"
@@ -433,32 +422,28 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                       </Link>
                     </div>
                     
-                    {/* Separador */}
+                    {}
                     <div className="border-t border-gray-100 my-1"></div>
                     
-                    {/* Logout */}
+                    {}
                     <button
                       onClick={async () => {
                         setIsUserMenuOpen(false)
                         try {
                           if (signOut) {
-                            // signOut já faz todo o processo de limpeza e redirecionamento
                             await signOut()
                           } else {
                             console.error('signOut function not available')
-                            // Se não há função de logout, forçar logout manualmente
                             localStorage.clear()
                             sessionStorage.clear()
                             window.location.href = '/'
                           }
                         } catch (error) {
                           console.error('Logout error:', error)
-                          // Mesmo com erro, tentar limpar e redirecionar
                           try {
                             localStorage.clear()
                             sessionStorage.clear()
                           } catch (e) {
-                            // Ignorar erros de limpeza
                           }
                           window.location.href = '/'
                         }
@@ -475,13 +460,13 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
           </div>
         </header>
 
-        {/* Conteúdo da Seção */}
+        {}
         <main className="flex-1 overflow-y-auto p-3 sm:p-4 lg:p-6 min-h-0">
           {children}
         </main>
       </div>
 
-      {/* Floating WhatsApp Button */}
+      {}
       
       </div>
     </>

@@ -27,7 +27,6 @@ import { HelpCenterModal } from "@/components/HelpCenterModal";
 import { RefundPolicyModal } from "@/components/RefundPolicyModal";
 import { toast } from "@/hooks/use-toast";
 
-
 const Financeiro = () => {
   const [period, setPeriod] = useState("30");
   const [type, setType] = useState("all");
@@ -151,7 +150,7 @@ const Financeiro = () => {
         <p className="text-muted-foreground mt-1">Gerencie seus pagamentos e extrato</p>
       </div>
 
-      {/* Stats Cards */}
+      {}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {stats.map((stat, i) => (
           <Card key={i} className="hover:shadow-lg transition-shadow">
@@ -172,7 +171,7 @@ const Financeiro = () => {
         ))}
       </div>
 
-      {/* Filtros e Extrato */}
+      {}
       <Card>
         <CardHeader>
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -215,7 +214,7 @@ const Financeiro = () => {
           </div>
         </CardHeader>
         <CardContent>
-          {/* Mobile scroll hint */}
+          {}
           <div className="lg:hidden mb-3">
             {showScrollHint && (
               <div className="flex items-center gap-2 text-sm text-muted-foreground bg-muted/50 p-3 rounded-lg animate-pulse">
@@ -293,14 +292,14 @@ const Financeiro = () => {
         </CardContent>
       </Card>
 
-      {/* Resumo de Pedidos */}
+      {}
       <Card>
         <CardHeader>
           <CardTitle className="text-lg lg:text-2xl">Resumo por Categoria</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="flex flex-col lg:grid lg:grid-cols-2 gap-6 lg:gap-8">
-            {/* Gráfico de Pizza */}
+            {}
             <div className="h-[280px] lg:h-[300px] flex items-center justify-center">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
@@ -344,7 +343,7 @@ const Financeiro = () => {
               </ResponsiveContainer>
             </div>
 
-            {/* Barras horizontais */}
+            {}
             <div className="space-y-4 lg:space-y-5">
               {categoryData.map((category, i) => {
                 const total = categoryData.reduce((sum, cat) => sum + cat.value, 0);
@@ -372,7 +371,7 @@ const Financeiro = () => {
         </CardContent>
       </Card>
 
-      {/* Métodos de Pagamento */}
+      {}
       <Card>
         <CardHeader>
           <div className="flex items-center justify-between">
@@ -412,7 +411,7 @@ const Financeiro = () => {
         </CardContent>
       </Card>
 
-      {/* Rodapé */}
+      {}
       <Card className="bg-muted/50">
         <CardContent className="p-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
@@ -441,7 +440,7 @@ const Financeiro = () => {
         </CardContent>
       </Card>
 
-      {/* Modals */}
+      {}
       <TransactionDetailsModal
         open={showDetailsModal}
         onOpenChange={setShowDetailsModal}

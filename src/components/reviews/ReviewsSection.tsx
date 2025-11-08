@@ -28,7 +28,6 @@ export default function ReviewsSection({ reviews, itemId, itemType, onAddReview 
   const [comment, setComment] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  // Função para obter iniciais do nome
   const getInitials = (name: string) => {
     const names = name.trim().split(' ')
     if (names.length === 1) {
@@ -78,7 +77,6 @@ export default function ReviewsSection({ reviews, itemId, itemType, onAddReview 
     setIsSubmitting(true)
 
     try {
-      // Simular API call
       await new Promise(resolve => setTimeout(resolve, 1000))
 
       if (onAddReview) {
@@ -122,11 +120,11 @@ export default function ReviewsSection({ reviews, itemId, itemType, onAddReview 
 
   return (
     <div className="space-y-6">
-      {/* Rating Summary */}
+      {}
       <Card>
         <CardContent className="p-6">
           <div className="flex flex-col md:flex-row gap-8">
-            {/* Average Rating */}
+            {}
             <div className="flex flex-col items-center justify-center border-r border-gray-200 pr-8">
               <div className="text-5xl font-bold text-[#101828] mb-2">
                 {averageRating.toFixed(1)}
@@ -148,7 +146,7 @@ export default function ReviewsSection({ reviews, itemId, itemType, onAddReview 
               </div>
             </div>
 
-            {/* Rating Distribution */}
+            {}
             <div className="flex-1 space-y-2">
               {ratingDistribution.map(({ stars, count, percentage }) => (
                 <div key={stars} className="flex items-center gap-3">
@@ -170,7 +168,7 @@ export default function ReviewsSection({ reviews, itemId, itemType, onAddReview 
         </CardContent>
       </Card>
 
-      {/* Add Review Form */}
+      {}
       <Card>
         <CardContent className="p-6">
           <h3 className="text-xl font-bold text-[#101828] mb-4">Deixe sua avaliação</h3>
@@ -186,7 +184,7 @@ export default function ReviewsSection({ reviews, itemId, itemType, onAddReview 
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
-              {/* Rating Stars */}
+              {}
               <div>
                 <label className="text-sm font-medium text-gray-700 mb-2 block">
                   Sua avaliação *
@@ -222,7 +220,7 @@ export default function ReviewsSection({ reviews, itemId, itemType, onAddReview 
                 </div>
               </div>
 
-              {/* Comment */}
+              {}
               <div>
                 <label htmlFor="comment" className="text-sm font-medium text-gray-700 mb-2 block">
                   Seu comentário *
@@ -241,7 +239,7 @@ export default function ReviewsSection({ reviews, itemId, itemType, onAddReview 
                 </p>
               </div>
 
-              {/* Submit Button */}
+              {}
               <Button
                 type="submit"
                 disabled={isSubmitting || rating === 0 || comment.trim().length < 10}
@@ -254,7 +252,7 @@ export default function ReviewsSection({ reviews, itemId, itemType, onAddReview 
         </CardContent>
       </Card>
 
-      {/* Reviews List */}
+      {}
       <div className="space-y-4">
         <h3 className="text-xl font-bold text-[#101828]">
           Últimas avaliações ({reviews.length})
@@ -273,7 +271,7 @@ export default function ReviewsSection({ reviews, itemId, itemType, onAddReview 
             <Card key={review.id}>
               <CardContent className="p-6">
                 <div className="flex items-start gap-4">
-                  {/* Avatar with Initials */}
+                  {}
                   <div className="flex-shrink-0">
                     <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
                       <span className="text-primary font-semibold text-lg">
@@ -282,7 +280,7 @@ export default function ReviewsSection({ reviews, itemId, itemType, onAddReview 
                     </div>
                   </div>
 
-                  {/* Review Content */}
+                  {}
                   <div className="flex-1">
                     <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-2">
                       <div>
@@ -315,7 +313,7 @@ export default function ReviewsSection({ reviews, itemId, itemType, onAddReview 
 
                     <p className="text-gray-700 mb-3">{review.comment}</p>
 
-                    {/* Helpful Button */}
+                    {}
                     {review.helpful !== undefined && (
                       <button className="flex items-center gap-2 text-sm text-gray-600 hover:text-[#101828]">
                         <ThumbsUp className="w-4 h-4" />

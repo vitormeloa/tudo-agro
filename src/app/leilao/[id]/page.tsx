@@ -35,12 +35,12 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
   const [currentBid, setCurrentBid] = useState(45000)
   const [myBid, setMyBid] = useState('')
   const [autoBidLimit, setAutoBidLimit] = useState('')
-  const [timeLeft, setTimeLeft] = useState(135) // seconds
+  const [timeLeft, setTimeLeft] = useState(135)
   const [chatMessage, setChatMessage] = useState('')
   const [isLive, setIsLive] = useState(true)
   const [isMuted, setIsMuted] = useState(false)
   const [isFullscreen, setIsFullscreen] = useState(false)
-  const [volume, setVolume] = useState(50) // Volume de 0 a 100
+  const [volume, setVolume] = useState(50)
   const iframeRef = useRef<HTMLIFrameElement>(null)
   const [videoSrc, setVideoSrc] = useState<string>('')
   const [mounted, setMounted] = useState(false)
@@ -50,10 +50,8 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
   const resolvedParams = use(params)
   const auctionId = resolvedParams.id
   
-  // Buscar leilão pelo ID (UUID)
   const auction = mockAuctions.find(a => a.id === auctionId)
   
-  // Se não encontrar, mostrar erro
   if (!auction) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -67,12 +65,10 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
     )
   }
   
-  // Marcar componente como montado no cliente
   useEffect(() => {
     setMounted(true)
   }, [])
 
-  // Inicializar lance atual com o primeiro lance do histórico ou currentBid
   useEffect(() => {
     if (auction.status === 'live') {
       if (auction.currentBid) {
@@ -82,7 +78,6 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
       }
       setIsLive(true)
       
-      // Configurar URL do vídeo com autoplay
       if (auction.videoUrl) {
         const embedUrl = convertToEmbedUrl(auction.videoUrl)
         setVideoSrc(embedUrl)
@@ -92,7 +87,6 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
     }
   }, [auction])
 
-  // Função para tentar iniciar o vídeo
   const tryPlayVideo = () => {
     if (iframeRef.current && iframeRef.current.contentWindow) {
       try {
@@ -105,12 +99,10 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
           'https://www.youtube.com'
         )
       } catch (error) {
-        // Ignorar erros silenciosamente
       }
     }
   }
 
-  // Função para ajustar volume do vídeo
   const handleVolumeChange = (newVolume: number[]) => {
     const vol = newVolume[0]
     setVolume(vol)
@@ -135,7 +127,6 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
     }
   }
 
-  // Função para controlar mute/unmute do vídeo
   const handleToggleMute = () => {
     if (iframeRef.current && iframeRef.current.contentWindow) {
       try {
@@ -178,7 +169,6 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
     }
   }
 
-  // Função para colocar vídeo em fullscreen
   const handleFullscreen = () => {
     const videoContainer = iframeRef.current?.parentElement
     if (videoContainer) {
@@ -199,7 +189,6 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
     }
   }
 
-  // Listener para detectar quando sai do fullscreen
   useEffect(() => {
     const handleFullscreenChange = () => {
       if (!document.fullscreenElement && 
@@ -223,7 +212,6 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
     }
   }, [])
 
-  // Forçar autoplay do vídeo quando o componente montar
   useEffect(() => {
     if (videoSrc && iframeRef.current && auction.status === 'live') {
       const timers: NodeJS.Timeout[] = []
@@ -255,7 +243,6 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
                 }
               }, 100)
             } catch (error) {
-              // Ignorar erros silenciosamente
             }
           }
         }, delay)
@@ -275,7 +262,6 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
               'https://www.youtube.com'
             )
           } catch (error) {
-            // Ignorar erros silenciosamente
           }
         }
       }
@@ -293,7 +279,6 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
     }
   }, [videoSrc, auction.status, volume])
 
-  // Timer countdown
   useEffect(() => {
     if (timeLeft > 0 && isLive) {
       const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000)
@@ -307,7 +292,6 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
     return `${mins}:${secs.toString().padStart(2, '0')}`
   }
 
-  // Função para formatar valor monetário brasileiro
   const formatCurrency = (value: string): string => {
     const numbers = value.replace(/\D/g, '')
     
@@ -323,19 +307,16 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
     }).format(amount)
   }
 
-  // Função para remover formatação e retornar apenas números
   const unformatCurrency = (value: string): number => {
     const numbers = value.replace(/\D/g, '')
     return numbers ? parseInt(numbers) / 100 : 0
   }
 
-  // Handler para mudança no input de lance
   const handleBidChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const formatted = formatCurrency(e.target.value)
     setMyBid(formatted)
   }
 
-  // Handler para mudança no input de auto-lance
   const handleAutoBidChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const formatted = formatCurrency(e.target.value)
     setAutoBidLimit(formatted)
@@ -350,7 +331,7 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
     if (bidValue > currentBid) {
       setCurrentBid(bidValue)
       setMyBid('')
-      setTimeLeft(30) // Reset timer
+      setTimeLeft(30)
       alert(`Lance de R$ ${bidValue.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} realizado com sucesso!`)
     } else {
       alert('O lance deve ser maior que o valor atual!')
@@ -363,18 +344,17 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
       return
     }
     if (chatMessage.trim()) {
-      // Simular envio de mensagem
       setChatMessage('')
     }
   }
 
   return (
     <div className="min-h-screen bg-gray-50 text-[#101828]">
-      {/* Header exclusivo do leilão */}
+      {}
       <header className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
         <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
           <div className="flex justify-between items-center h-14 sm:h-16 gap-2">
-            {/* Left: Back Button */}
+            {}
             <div className="flex items-center flex-shrink-0">
               <Link href="/leiloes" className="flex items-center space-x-1 sm:space-x-2 hover:opacity-80 transition-opacity">
                 <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" />
@@ -385,7 +365,7 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
               </Link>
             </div>
 
-            {/* Center: Logo and Info */}
+            {}
             <div className="flex items-center space-x-2 sm:space-x-3 md:space-x-4 flex-1 justify-center min-w-0">
               <Link href="/" className="flex items-center flex-shrink-0">
                 <img 
@@ -403,7 +383,7 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
               </div>
             </div>
 
-            {/* Right: Controls */}
+            {}
             <div className="flex items-center space-x-1 sm:space-x-2 flex-shrink-0">
               <div className="hidden sm:flex items-center space-x-1 sm:space-x-2">
                 {auction.status === 'live' && auction.videoUrl && (
@@ -458,13 +438,13 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
                   </>
                 )}
               </div>
-              {/* Mobile: Show badge and participants */}
+              {}
               <Badge className="bg-red-500 animate-pulse text-white text-xs sm:hidden">
                 AO VIVO
               </Badge>
             </div>
           </div>
-          {/* Mobile: Show participants and controls row */}
+          {}
           <div className="sm:hidden flex items-center justify-between pb-2 pt-1 border-t border-gray-100">
             <div className="flex items-center text-gray-600 text-xs">
               <Users className="w-3 h-3 mr-1" />
@@ -527,9 +507,9 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="grid lg:grid-cols-3 gap-6">
-          {/* Main Content */}
+          {}
           <div className="lg:col-span-2 space-y-6">
-            {/* Video/Image Area */}
+            {}
             <Card className="bg-white border-gray-200 shadow-lg">
               <CardContent className="p-0">
                 <div className="relative">
@@ -545,7 +525,7 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
                         title={`Vídeo ao vivo - ${auction.title}`}
                         key={videoSrc}
                       />
-                      {/* Live Indicator */}
+                      {}
                       <div className="absolute top-4 left-4 z-10">
                         <Badge className="bg-red-500 animate-pulse">
                           🔴 AO VIVO
@@ -600,7 +580,7 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
               </CardContent>
             </Card>
 
-            {/* Current Bid / Scheduled Info */}
+            {}
             {auction.status === 'live' ? (
               <>
                 <Card className="bg-white border-gray-200 shadow-lg">
@@ -620,7 +600,7 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
                   </CardContent>
                 </Card>
 
-                {/* Bidding Area */}
+                {}
                 <Card className="bg-white border-gray-200 shadow-lg">
                   <CardContent className="p-6">
                     <h3 className="text-xl font-bold text-[#101828] mb-4">Fazer Lance</h3>
@@ -719,7 +699,7 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
               </Card>
             )}
 
-            {/* Auction Rules */}
+            {}
             <Card className="bg-white border-gray-200 shadow-lg">
               <CardContent className="p-6">
                 <h3 className="text-xl font-bold text-[#101828] mb-4">Regras do Leilão</h3>
@@ -735,9 +715,9 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
             </Card>
           </div>
 
-          {/* Sidebar */}
+          {}
           <div className="space-y-6">
-            {/* Bid History */}
+            {}
             {auction.status === 'live' && auction.bidHistory && auction.bidHistory.length > 0 && (
               <Card className="bg-white border-gray-200 shadow-lg">
                 <CardContent className="p-6">
@@ -759,7 +739,7 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
               </Card>
             )}
 
-            {/* Live Chat */}
+            {}
             {auction.status === 'live' && auction.chatMessages && auction.chatMessages.length > 0 && (
               <Card className="bg-white border-gray-200 shadow-lg">
                 <CardContent className="p-6">
@@ -806,7 +786,7 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
               </Card>
             )}
 
-            {/* Auction Info */}
+            {}
             <Card className="bg-white border-gray-200 shadow-lg">
               <CardContent className="p-6">
                 <h3 className="text-xl font-bold text-[#101828] mb-4">Informações</h3>
@@ -836,7 +816,7 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
         </div>
       </div>
 
-      {/* Bottom Action Bar (Mobile) */}
+      {}
       {auction.status === 'live' && (
         <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 shadow-lg">
           <div className="flex items-center gap-3">

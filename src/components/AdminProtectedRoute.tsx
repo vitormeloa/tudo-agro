@@ -19,7 +19,6 @@ export default function AdminProtectedRoute({
   const router = useRouter()
   const [isRedirecting, setIsRedirecting] = useState(false)
 
-  // Verificar se usuário é admin
   useEffect(() => {
     if (!loading && user && !isRedirecting) {
       if (!isAdmin()) {
@@ -34,21 +33,17 @@ export default function AdminProtectedRoute({
     }
   }, [loading, user, isAdmin, router, isRedirecting])
 
-  // Mostrar loading enquanto verifica autenticação
   if (loading) {
     return fallback || <LoadingSpinner text="Verificando permissões..." fullScreen />
   }
 
-  // Se não há usuário, mostrar loading (será redirecionado)
   if (!user) {
     return fallback || <LoadingSpinner text="Redirecionando..." fullScreen />
   }
 
-  // Se usuário não é admin, mostrar erro 403
   if (!isAdmin()) {
     return <Error403 />
   }
 
-  // Se tem usuário admin, mostrar conteúdo
   return <>{children}</>
 }

@@ -25,7 +25,7 @@ const ProductDetailsModal = ({ isOpen, onClose, product }: ProductDetailsModalPr
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-4xl max-h-[95vh] overflow-hidden p-0 gap-0 [&>button]:hidden">
-        {/* Close Button */}
+        {}
         <button
           onClick={onClose}
           className="absolute right-4 top-4 rounded-full p-2 hover:bg-destructive/10 transition-colors z-20 group"
@@ -33,7 +33,7 @@ const ProductDetailsModal = ({ isOpen, onClose, product }: ProductDetailsModalPr
           <X className="h-5 w-5 text-destructive group-hover:text-destructive/80" />
         </button>
 
-        {/* Header */}
+        {}
         <div className="p-6 pb-4 border-b bg-gradient-to-br from-background to-muted/20">
           <div className="flex items-start justify-between gap-8 pr-8">
             <div className="flex-1">
@@ -50,10 +50,10 @@ const ProductDetailsModal = ({ isOpen, onClose, product }: ProductDetailsModalPr
           </div>
         </div>
 
-        {/* Scrollable Content */}
+        {}
         <div className="overflow-y-auto flex-1" style={{ maxHeight: 'calc(95vh - 200px)' }}>
           <div className="p-6 space-y-6">
-            {/* Image Gallery */}
+            {}
             <div>
               <h3 className="font-bold text-lg mb-4 flex items-center gap-2">
                 <Package className="h-5 w-5 text-secondary" />
@@ -72,13 +72,13 @@ const ProductDetailsModal = ({ isOpen, onClose, product }: ProductDetailsModalPr
               </div>
             </div>
 
-            {/* Description */}
+            {}
             <div>
               <h3 className="font-bold text-lg mb-3">Descrição Técnica</h3>
               <p className="text-muted-foreground leading-relaxed">{product.description}</p>
             </div>
 
-            {/* Characteristics */}
+            {}
             <div>
               <h3 className="font-bold text-lg mb-3">Características Principais</h3>
               <ul className="space-y-2">
@@ -91,7 +91,7 @@ const ProductDetailsModal = ({ isOpen, onClose, product }: ProductDetailsModalPr
               </ul>
             </div>
 
-            {/* Certifications */}
+            {}
             {product.certifications && product.certifications.length > 0 && (
               <div>
                 <h3 className="font-bold text-lg mb-3">Certificações</h3>
@@ -103,7 +103,7 @@ const ProductDetailsModal = ({ isOpen, onClose, product }: ProductDetailsModalPr
               </div>
             )}
 
-            {/* Price */}
+            {}
             <div className="rounded-xl border bg-card shadow-sm p-5">
               <div className="flex justify-between items-center">
                 <span className="font-semibold">Preço Pago:</span>
@@ -113,7 +113,7 @@ const ProductDetailsModal = ({ isOpen, onClose, product }: ProductDetailsModalPr
               </div>
             </div>
 
-            {/* Original Listing */}
+            {}
             {product.originalListingUrl && (
               <Button 
                 variant="outline" 

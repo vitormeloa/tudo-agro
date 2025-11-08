@@ -89,7 +89,6 @@ export async function POST(request: NextRequest) {
 
     if (error) {
       if (error.code === '23505') {
-        // Already saved
         return NextResponse.json({ saved: true })
       }
       console.error('Error saving post:', error)

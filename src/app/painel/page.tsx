@@ -63,7 +63,7 @@ export default function PainelPage() {
   const [showVerificationAlert, setShowVerificationAlert] = useState(true)
   const [isVerified, setIsVerified] = useState(false)
   const [showVerificationModal, setShowVerificationModal] = useState(false)
-  const [userProfile, setUserProfile] = useState('buyer') // 'buyer' or 'seller'
+  const [userProfile, setUserProfile] = useState('buyer')
   const [userEmail, setUserEmail] = useState('')
   
   const [documents, setDocuments] = useState({
@@ -73,12 +73,10 @@ export default function PainelPage() {
     car: null as File | null
   })
 
-  // Simular verificação de perfil baseado no email
   useEffect(() => {
     if (user) {
       setUserEmail(user?.email || '')
       
-      // Verificar se é o usuário especial com acesso de vendedor
       if (user?.email === 'vendedor@gmail.com') {
         setUserProfile('seller')
       } else {
@@ -86,8 +84,6 @@ export default function PainelPage() {
       }
     }
   }, [user])
-
-  // Remover lógica de autenticação - ProtectedRoute vai cuidar disso
 
   const handleFileUpload = (field: keyof typeof documents, file: File | null) => {
     setDocuments({
@@ -104,11 +100,9 @@ export default function PainelPage() {
   }
 
   const handleBecomeSeller = () => {
-    // Simular solicitação para se tornar vendedor
     alert('Solicitação enviada! Entraremos em contato via WhatsApp em breve.')
   }
 
-  // Abas do perfil comprador (básico)
   const buyerTabs = [
     { id: 'overview', label: 'Visão Geral', icon: User },
     { id: 'auctions', label: 'Leilões', icon: Gavel },
@@ -122,7 +116,6 @@ export default function PainelPage() {
     { id: 'profile', label: 'Meu Perfil', icon: Settings }
   ]
 
-  // Abas adicionais para vendedores
   const sellerTabs = [
     { id: 'my-animals', label: 'Meus Animais', icon: Target },
     { id: 'my-auctions', label: 'Meus Leilões', icon: Gavel },
@@ -137,7 +130,7 @@ export default function PainelPage() {
   return (
     <ProtectedRoute>
       <div className="min-h-screen bg-gradient-to-br from-[#F7F6F2] to-[#FFFDF7]">
-      {/* Header */}
+      {}
       <div className="bg-white shadow-sm border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
@@ -169,7 +162,7 @@ export default function PainelPage() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Verification Alert */}
+        {}
         {showVerificationAlert && !isVerified && (
           <div className="mb-6 bg-gradient-to-r from-[#C89F45]/10 to-[#B8913D]/10 border border-[#C89F45]/30 rounded-lg p-4">
             <div className="flex items-start justify-between">
@@ -211,7 +204,7 @@ export default function PainelPage() {
         )}
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          {/* Sidebar */}
+          {}
           <div className="lg:col-span-1">
             <Card className="shadow-lg border-0 bg-white">
               <CardContent className="p-0">
@@ -238,9 +231,9 @@ export default function PainelPage() {
             </Card>
           </div>
 
-          {/* Main Content */}
+          {}
           <div className="lg:col-span-3">
-            {/* 1. Visão Geral */}
+            {}
             {activeTab === 'overview' && (
               <div className="space-y-6">
                 <div>
@@ -255,7 +248,7 @@ export default function PainelPage() {
                   </p>
                 </div>
 
-                {/* Cashback Card */}
+                {}
                 <Card className="shadow-lg border-0 bg-gradient-to-r from-[#C89F45] to-[#B8913D] text-white">
                   <CardContent className="p-6">
                     <div className="flex items-center justify-between">
@@ -272,7 +265,7 @@ export default function PainelPage() {
                   </CardContent>
                 </Card>
 
-                {/* Stats Cards */}
+                {}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                   <Card className="shadow-lg border-0 bg-white">
                     <CardContent className="p-6">
@@ -323,7 +316,7 @@ export default function PainelPage() {
                   </Card>
                 </div>
 
-                {/* Quick Actions */}
+                {}
                 <Card className="shadow-lg border-0 bg-white">
                   <CardHeader>
                     <CardTitle className="text-[#101828]">Ações Rápidas</CardTitle>
@@ -357,7 +350,7 @@ export default function PainelPage() {
                   </CardContent>
                 </Card>
 
-                {/* Recent Activity */}
+                {}
                 <Card className="shadow-lg border-0 bg-white">
                   <CardHeader>
                     <CardTitle className="text-[#101828]">Atividade Recente</CardTitle>
@@ -391,7 +384,7 @@ export default function PainelPage() {
               </div>
             )}
 
-            {/* 2. Leilões */}
+            {}
             {activeTab === 'auctions' && (
               <div className="space-y-6">
                 <div className="flex justify-between items-center">
@@ -407,14 +400,14 @@ export default function PainelPage() {
                   </div>
                 </div>
 
-                {/* Filter Tabs */}
+                {}
                 <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg">
                   <Button className="bg-primary text-white">Em Andamento</Button>
                   <Button variant="ghost" className="text-gray-600">Futuros</Button>
                   <Button variant="ghost" className="text-gray-600">Finalizados</Button>
                 </div>
 
-                {/* Auction Cards */}
+                {}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {[1, 2, 3, 4].map((auction) => (
                     <Card key={auction} className="shadow-lg border-0 bg-white">
@@ -460,7 +453,7 @@ export default function PainelPage() {
               </div>
             )}
 
-            {/* 3. Mercado Agro */}
+            {}
             {activeTab === 'marketplace' && (
               <div className="space-y-6">
                 <div className="flex justify-between items-center">
@@ -474,7 +467,7 @@ export default function PainelPage() {
                   </Button>
                 </div>
 
-                {/* Categories */}
+                {}
                 <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                   {[
                     { name: 'Nutrição Animal', icon: Package },
@@ -495,7 +488,7 @@ export default function PainelPage() {
                   })}
                 </div>
 
-                {/* Featured Products */}
+                {}
                 <Card className="shadow-lg border-0 bg-white">
                   <CardHeader>
                     <CardTitle className="text-[#101828] flex items-center">
@@ -525,7 +518,7 @@ export default function PainelPage() {
               </div>
             )}
 
-            {/* 4. Minhas Compras */}
+            {}
             {activeTab === 'purchases' && (
               <div className="space-y-6">
                 <div>
@@ -533,14 +526,14 @@ export default function PainelPage() {
                   <p className="text-gray-600">Acompanhe todas as suas compras e pedidos</p>
                 </div>
 
-                {/* Filter Tabs */}
+                {}
                 <div className="flex space-x-1 bg-gray-100 p-1 rounded-lg">
                   <Button className="bg-primary text-white">Todas</Button>
                   <Button variant="ghost" className="text-gray-600">Leilões</Button>
                   <Button variant="ghost" className="text-gray-600">Mercado Agro</Button>
                 </div>
 
-                {/* Purchase History */}
+                {}
                 <div className="space-y-4">
                   {[1, 2, 3].map((purchase) => (
                     <Card key={purchase} className="shadow-lg border-0 bg-white">
@@ -574,7 +567,7 @@ export default function PainelPage() {
               </div>
             )}
 
-            {/* 5. Favoritos */}
+            {}
             {activeTab === 'favorites' && (
               <div className="space-y-6">
                 <div>
@@ -582,7 +575,7 @@ export default function PainelPage() {
                   <p className="text-gray-600">Seus animais e produtos salvos</p>
                 </div>
 
-                {/* Favorites Grid */}
+                {}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {[1, 2, 3, 4, 5, 6].map((item) => (
                     <Card key={item} className="shadow-lg border-0 bg-white">
@@ -617,7 +610,7 @@ export default function PainelPage() {
               </div>
             )}
 
-            {/* 6. Academy */}
+            {}
             {activeTab === 'academy' && (
               <div className="space-y-6">
                 <div>
@@ -625,7 +618,7 @@ export default function PainelPage() {
                   <p className="text-gray-600">Aprenda a comprar e vender melhor</p>
                 </div>
 
-                {/* Course Categories */}
+                {}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {[
                     { level: 'Iniciante', color: 'bg-[#3D9970]', courses: 12 },
@@ -647,7 +640,7 @@ export default function PainelPage() {
                   ))}
                 </div>
 
-                {/* Featured Courses */}
+                {}
                 <Card className="shadow-lg border-0 bg-white">
                   <CardHeader>
                     <CardTitle className="text-[#101828]">Cursos em Destaque</CardTitle>
@@ -679,7 +672,7 @@ export default function PainelPage() {
                   </CardContent>
                 </Card>
 
-                {/* Certificate Section */}
+                {}
                 <Card className="shadow-lg border-0 bg-gradient-to-r from-[#C89F45] to-[#B8913D] text-white">
                   <CardContent className="p-6">
                     <div className="flex items-center justify-between">
@@ -702,7 +695,7 @@ export default function PainelPage() {
               </div>
             )}
 
-            {/* 7. IA Agro */}
+            {}
             {activeTab === 'ai-assistant' && (
               <div className="space-y-6">
                 <div>
@@ -710,7 +703,7 @@ export default function PainelPage() {
                   <p className="text-gray-600">Seu assistente digital especializado em agronegócio</p>
                 </div>
 
-                {/* Usage Stats */}
+                {}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <Card className="shadow-lg border-0 bg-white">
                     <CardContent className="p-6 text-center">
@@ -735,7 +728,7 @@ export default function PainelPage() {
                   </Card>
                 </div>
 
-                {/* Chat Interface */}
+                {}
                 <Card className="shadow-lg border-0 bg-white">
                   <CardHeader>
                     <CardTitle className="text-[#101828] flex items-center">
@@ -768,7 +761,7 @@ export default function PainelPage() {
                   </CardContent>
                 </Card>
 
-                {/* Upgrade Plan */}
+                {}
                 <Card className="shadow-lg border-0 bg-gradient-to-r from-primary to-[#2F6C3F] text-white">
                   <CardContent className="p-6">
                     <div className="flex items-center justify-between">
@@ -786,7 +779,7 @@ export default function PainelPage() {
               </div>
             )}
 
-            {/* 8. Clube VIP */}
+            {}
             {activeTab === 'vip-club' && (
               <div className="space-y-6">
                 <div>
@@ -794,7 +787,7 @@ export default function PainelPage() {
                   <p className="text-gray-600">Benefícios exclusivos para membros VIP</p>
                 </div>
 
-                {/* Current Plan */}
+                {}
                 <Card className="shadow-lg border-0 bg-gradient-to-r from-[#C89F45] to-[#B8913D] text-white">
                   <CardContent className="p-6">
                     <div className="flex items-center justify-between">
@@ -807,9 +800,9 @@ export default function PainelPage() {
                   </CardContent>
                 </Card>
 
-                {/* Benefits Comparison */}
+                {}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {/* Free Plan */}
+                  {}
                   <Card className="shadow-lg border-0 bg-white">
                     <CardHeader>
                       <CardTitle className="text-[#101828] text-center">Plano Gratuito</CardTitle>
@@ -837,7 +830,7 @@ export default function PainelPage() {
                     </CardContent>
                   </Card>
 
-                  {/* VIP Plan */}
+                  {}
                   <Card className="shadow-lg border-2 border-[#C89F45] bg-white">
                     <CardHeader>
                       <CardTitle className="text-[#101828] text-center flex items-center justify-center">
@@ -874,7 +867,7 @@ export default function PainelPage() {
               </div>
             )}
 
-            {/* 9. Mensagens */}
+            {}
             {activeTab === 'messages' && (
               <div className="space-y-6">
                 <div>
@@ -883,7 +876,7 @@ export default function PainelPage() {
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                  {/* Conversations List */}
+                  {}
                   <Card className="shadow-lg border-0 bg-white lg:col-span-1">
                     <CardHeader>
                       <CardTitle className="text-[#101828] text-lg">Conversas</CardTitle>
@@ -911,7 +904,7 @@ export default function PainelPage() {
                     </CardContent>
                   </Card>
 
-                  {/* Chat Area */}
+                  {}
                   <Card className="shadow-lg border-0 bg-white lg:col-span-2">
                     <CardHeader>
                       <div className="flex items-center space-x-3">
@@ -956,7 +949,7 @@ export default function PainelPage() {
               </div>
             )}
 
-            {/* 10. Meu Perfil */}
+            {}
             {activeTab === 'profile' && (
               <div className="space-y-6">
                 <div>
@@ -964,7 +957,7 @@ export default function PainelPage() {
                   <p className="text-gray-600">Gerencie suas informações pessoais e configurações</p>
                 </div>
 
-                {/* Profile Info */}
+                {}
                 <Card className="shadow-lg border-0 bg-white">
                   <CardHeader>
                     <CardTitle className="text-[#101828] flex items-center justify-between">
@@ -1015,7 +1008,7 @@ export default function PainelPage() {
                   </CardContent>
                 </Card>
 
-                {/* Verification Section */}
+                {}
                 {!isVerified && (
                   <Card className="shadow-lg border-0 bg-white">
                     <CardHeader>
@@ -1039,7 +1032,7 @@ export default function PainelPage() {
                   </Card>
                 )}
 
-                {/* Become Seller */}
+                {}
                 {userProfile === 'buyer' && (
                   <Card className="shadow-lg border-0 bg-gradient-to-r from-[#C89F45] to-[#B8913D] text-white">
                     <CardContent className="p-6">
@@ -1060,7 +1053,7 @@ export default function PainelPage() {
                   </Card>
                 )}
 
-                {/* Cashback History */}
+                {}
                 <Card className="shadow-lg border-0 bg-white">
                   <CardHeader>
                     <CardTitle className="text-[#101828]">Histórico de Cashback</CardTitle>
@@ -1082,10 +1075,10 @@ export default function PainelPage() {
               </div>
             )}
 
-            {/* SELLER TABS - Only visible for seller profile */}
+            {}
             {userProfile === 'seller' && (
               <>
-                {/* 11. Meus Animais */}
+                {}
                 {activeTab === 'my-animals' && (
                   <div className="space-y-6">
                     <div className="flex justify-between items-center">
@@ -1099,7 +1092,7 @@ export default function PainelPage() {
                       </Button>
                     </div>
 
-                    {/* Animals Grid */}
+                    {}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                       {[1, 2, 3, 4].map((animal) => (
                         <Card key={animal} className="shadow-lg border-0 bg-white">
@@ -1129,7 +1122,7 @@ export default function PainelPage() {
                   </div>
                 )}
 
-                {/* 12. Meus Leilões (Vendedor) */}
+                {}
                 {activeTab === 'my-auctions' && (
                   <div className="space-y-6">
                     <div className="flex justify-between items-center">
@@ -1143,7 +1136,7 @@ export default function PainelPage() {
                       </Button>
                     </div>
 
-                    {/* Auction Stats */}
+                    {}
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                       <Card className="shadow-lg border-0 bg-white">
                         <CardContent className="p-6 text-center">
@@ -1175,7 +1168,7 @@ export default function PainelPage() {
                       </Card>
                     </div>
 
-                    {/* Active Auctions */}
+                    {}
                     <Card className="shadow-lg border-0 bg-white">
                       <CardHeader>
                         <CardTitle className="text-[#101828]">Leilões em Andamento</CardTitle>
@@ -1212,7 +1205,7 @@ export default function PainelPage() {
                   </div>
                 )}
 
-                {/* 13. Catálogo Direto */}
+                {}
                 {activeTab === 'direct-catalog' && (
                   <div className="space-y-6">
                     <div className="flex justify-between items-center">
@@ -1226,7 +1219,7 @@ export default function PainelPage() {
                       </Button>
                     </div>
 
-                    {/* Direct Sales Stats */}
+                    {}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                       <Card className="shadow-lg border-0 bg-white">
                         <CardContent className="p-6 text-center">
@@ -1251,7 +1244,7 @@ export default function PainelPage() {
                       </Card>
                     </div>
 
-                    {/* Active Listings */}
+                    {}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       {[1, 2, 3, 4].map((listing) => (
                         <Card key={listing} className="shadow-lg border-0 bg-white">
@@ -1285,7 +1278,7 @@ export default function PainelPage() {
                   </div>
                 )}
 
-                {/* 14. Impulsionamentos */}
+                {}
                 {activeTab === 'promotions' && (
                   <div className="space-y-6">
                     <div>
@@ -1293,7 +1286,7 @@ export default function PainelPage() {
                       <p className="text-gray-600">Promova seus anúncios e leilões</p>
                     </div>
 
-                    {/* Promotion Options */}
+                    {}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <Card className="shadow-lg border-0 bg-white">
                         <CardHeader>
@@ -1334,7 +1327,7 @@ export default function PainelPage() {
                       </Card>
                     </div>
 
-                    {/* Active Promotions */}
+                    {}
                     <Card className="shadow-lg border-0 bg-white">
                       <CardHeader>
                         <CardTitle className="text-[#101828]">Impulsionamentos Ativos</CardTitle>
@@ -1370,7 +1363,7 @@ export default function PainelPage() {
                   </div>
                 )}
 
-                {/* 15. Assinatura de Vendedor */}
+                {}
                 {activeTab === 'seller-subscription' && (
                   <div className="space-y-6">
                     <div>
@@ -1378,7 +1371,7 @@ export default function PainelPage() {
                       <p className="text-gray-600">Gerencie seu plano e benefícios</p>
                     </div>
 
-                    {/* Current Plan */}
+                    {}
                     <Card className="shadow-lg border-0 bg-gradient-to-r from-primary to-[#2F6C3F] text-white">
                       <CardContent className="p-6">
                         <div className="flex items-center justify-between">
@@ -1391,7 +1384,7 @@ export default function PainelPage() {
                       </CardContent>
                     </Card>
 
-                    {/* Plans Comparison */}
+                    {}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                       <Card className="shadow-lg border-0 bg-white">
                         <CardHeader>
@@ -1477,7 +1470,7 @@ export default function PainelPage() {
                   </div>
                 )}
 
-                {/* 16. Financeiro */}
+                {}
                 {activeTab === 'financial' && (
                   <div className="space-y-6">
                     <div>
@@ -1485,7 +1478,7 @@ export default function PainelPage() {
                       <p className="text-gray-600">Acompanhe comissões e transações</p>
                     </div>
 
-                    {/* Financial Overview */}
+                    {}
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                       <Card className="shadow-lg border-0 bg-white">
                         <CardContent className="p-6 text-center">
@@ -1517,7 +1510,7 @@ export default function PainelPage() {
                       </Card>
                     </div>
 
-                    {/* Transaction History */}
+                    {}
                     <Card className="shadow-lg border-0 bg-white">
                       <CardHeader>
                         <div className="flex justify-between items-center">
@@ -1555,7 +1548,7 @@ export default function PainelPage() {
               </>
             )}
 
-            {/* Default content for unimplemented tabs */}
+            {}
             {!['overview', 'auctions', 'marketplace', 'purchases', 'favorites', 'academy', 'ai-assistant', 'vip-club', 'messages', 'profile', 'my-animals', 'my-auctions', 'direct-catalog', 'promotions', 'seller-subscription', 'financial'].includes(activeTab) && (
               <Card className="shadow-lg border-0 bg-white">
                 <CardContent className="p-8 text-center">
@@ -1575,7 +1568,7 @@ export default function PainelPage() {
         </div>
       </div>
 
-      {/* Verification Modal */}
+      {}
       {showVerificationModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">

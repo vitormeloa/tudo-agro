@@ -42,7 +42,6 @@ export default function AuctionDetailsModal({ auction, isOpen, onClose }: Auctio
 
   const handleStatusChange = (newStatus: string) => {
     console.log(`Alterando status do leilão ${auction.id} para: ${newStatus}`)
-    // Implementar lógica de mudança de status
   }
 
   const mockBids = [
@@ -55,7 +54,7 @@ export default function AuctionDetailsModal({ auction, isOpen, onClose }: Auctio
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-lg max-w-6xl w-full max-h-[90vh] overflow-y-auto">
-        {/* Header */}
+        {}
         <div className="flex items-center justify-between p-6 border-b">
           <div className="flex items-center gap-3">
             <Gavel className="w-6 h-6 text-primary" />
@@ -70,7 +69,7 @@ export default function AuctionDetailsModal({ auction, isOpen, onClose }: Auctio
         </div>
 
         <div className="p-6 space-y-6">
-          {/* Informações Principais */}
+          {}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <Card>
               <CardHeader>
@@ -144,7 +143,7 @@ export default function AuctionDetailsModal({ auction, isOpen, onClose }: Auctio
             </Card>
           </div>
 
-          {/* Histórico de Lances */}
+          {}
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -184,7 +183,7 @@ export default function AuctionDetailsModal({ auction, isOpen, onClose }: Auctio
             </CardContent>
           </Card>
 
-          {/* Ações de Gerenciamento */}
+          {}
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">

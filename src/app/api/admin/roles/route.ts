@@ -3,7 +3,6 @@ import { supabase } from '@/lib/supabase'
 import { withPermissionGuard } from '@/lib/permission-guard'
 import { Permission } from '@/lib/permissions'
 
-// GET - Listar todas as roles
 async function getRoles(request: NextRequest) {
   try {
     const { data: roles, error } = await supabase
@@ -28,7 +27,6 @@ async function getRoles(request: NextRequest) {
   }
 }
 
-// POST - Criar nova role
 async function createRole(request: NextRequest) {
   try {
     const { name, description, permissions } = await request.json()
@@ -40,7 +38,6 @@ async function createRole(request: NextRequest) {
       )
     }
 
-    // Verificar se a role já existe
     const { data: existingRole } = await supabase
       .from('roles')
       .select('id')
@@ -81,6 +78,5 @@ async function createRole(request: NextRequest) {
   }
 }
 
-// Handler principal - temporariamente sem guard para debug
 export const GET = getRoles
 export const POST = createRole

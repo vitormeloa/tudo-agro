@@ -61,11 +61,9 @@ export default function BlogPostPage() {
   const fetchPost = async () => {
     setLoading(true)
     try {
-      // Buscar post mockado
       const mockPost = mockBlogPosts.find((p) => p.slug === params.slug)
       
       if (mockPost) {
-        // Transformar para o formato esperado
         const formattedPost: BlogPost = {
           id: mockPost.id,
           title: mockPost.title,
@@ -109,11 +107,9 @@ export default function BlogPostPage() {
         const data = await response.json()
         if (data.savedPosts) {
           const savedIds = data.savedPosts.map((sp: any) => sp.blog_posts?.id).filter(Boolean)
-          // We'll check this after we have the post
         }
       }
     } catch (error) {
-      // Ignore
     }
   }
 
@@ -138,7 +134,6 @@ export default function BlogPostPage() {
         }
       }
     } catch (error) {
-      // Ignore
     }
   }
 
@@ -199,10 +194,8 @@ export default function BlogPostPage() {
           url: window.location.href,
         })
       } catch (error) {
-        // User cancelled or error
       }
     } else {
-      // Fallback: copy to clipboard
       navigator.clipboard.writeText(window.location.href)
       toast({
         title: 'Link copiado!',
@@ -260,7 +253,7 @@ export default function BlogPostPage() {
       <Header />
       
       <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-        {/* Back Button */}
+        {}
         <Link
           href="/blog"
           className="inline-flex items-center gap-2 text-primary hover:text-primary mb-6 transition-colors"
@@ -269,7 +262,7 @@ export default function BlogPostPage() {
           <span className="font-medium">Voltar para o blog</span>
         </Link>
 
-        {/* Featured Image */}
+        {}
         {post.featured_image && (
           <div className="relative w-full h-64 sm:h-80 md:h-96 rounded-xl overflow-hidden mb-8 shadow-lg">
             <Image
@@ -284,9 +277,9 @@ export default function BlogPostPage() {
           </div>
         )}
 
-        {/* Header */}
+        {}
         <header className="mb-8">
-          {/* Theme Badge */}
+          {}
           {post.blog_themes && (
             <Link
               href={`/blog?theme=${post.blog_themes.slug}`}
@@ -305,7 +298,7 @@ export default function BlogPostPage() {
             {post.title}
           </h1>
 
-          {/* Meta Info */}
+          {}
           <div className="flex flex-wrap items-center gap-4 sm:gap-6 text-sm text-gray-600 mb-6">
             <div className="flex items-center gap-2">
               <User className="w-4 h-4" />
@@ -325,7 +318,7 @@ export default function BlogPostPage() {
             </div>
           </div>
 
-          {/* Action Buttons */}
+          {}
           <div className="flex items-center gap-3">
             <Button
               onClick={handleSaveClick}
@@ -357,14 +350,14 @@ export default function BlogPostPage() {
           </div>
         </header>
 
-        {/* Excerpt */}
+        {}
         {post.excerpt && (
           <div className="bg-primary/5 border-l-4 border-primary p-4 mb-8 rounded-r-lg">
             <p className="text-lg text-gray-700 italic">{post.excerpt}</p>
           </div>
         )}
 
-        {/* Content */}
+        {}
         <div
           className="blog-content mb-12 text-base sm:text-lg leading-relaxed"
           dangerouslySetInnerHTML={{ __html: post.content }}

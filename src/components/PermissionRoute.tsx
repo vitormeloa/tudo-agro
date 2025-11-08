@@ -36,10 +36,8 @@ export default function PermissionRoute({
     }
   }, [user, loading, router])
 
-  // Verificar permissões após o carregamento
   useEffect(() => {
     if (!loading && user && !hasCheckedPermissions) {
-      // Verificar permissão específica
       if (requiredPermission && !canExecuteAction(requiredPermission)) {
         if (fallback) {
           setHasCheckedPermissions(true)
@@ -50,7 +48,6 @@ export default function PermissionRoute({
         return
       }
 
-      // Verificar seção específica
       if (requiredSection && !canAccessSection(requiredSection)) {
         if (fallback) {
           setHasCheckedPermissions(true)
@@ -80,7 +77,6 @@ export default function PermissionRoute({
     return null
   }
 
-  // Se ainda não verificou as permissões, mostrar loading
   if (!hasCheckedPermissions) {
     return (
       <div className="min-h-screen bg-[#F7F6F2] flex items-center justify-center">
@@ -92,7 +88,6 @@ export default function PermissionRoute({
     )
   }
 
-  // Verificar permissão específica
   if (requiredPermission && !canExecuteAction(requiredPermission)) {
     if (fallback) {
       return <>{fallback}</>
@@ -101,7 +96,6 @@ export default function PermissionRoute({
     return null
   }
 
-  // Verificar seção específica
   if (requiredSection && !canAccessSection(requiredSection)) {
     if (fallback) {
       return <>{fallback}</>

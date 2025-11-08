@@ -44,7 +44,6 @@ export default function HomePage() {
   const [isMounted, setIsMounted] = useState(false)
   const { toast } = useToast()
 
-  // Verificar se há mensagem de sucesso na URL
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search)
     const message = urlParams.get('message')
@@ -53,15 +52,13 @@ export default function HomePage() {
         title: "Sucesso!",
         description: message,
       })
-      // Limpar a URL
       window.history.replaceState({}, document.title, window.location.pathname)
     }
   }, [toast])
 
-  // Detectar se é mobile
   useEffect(() => {
     const checkIsMobile = () => {
-      setIsMobile(window.innerWidth < 640) // sm breakpoint
+      setIsMobile(window.innerWidth < 640)
     }
     
     checkIsMobile()
@@ -70,7 +67,6 @@ export default function HomePage() {
     return () => window.removeEventListener('resize', checkIsMobile)
   }, [])
 
-  // Função auxiliar para formatar tempo restante
   const formatTimeLeft = (endTime: Date) => {
     const now = new Date()
     const diff = endTime.getTime() - now.getTime()
@@ -83,7 +79,6 @@ export default function HomePage() {
     return `${hours}h ${minutes}m`
   }
 
-  // Usar animais do mock (primeiros 3)
   const featuredProducts = mockAnimals.slice(0, 3).map(a => ({
     id: a.id,
     title: a.title,
@@ -102,10 +97,8 @@ export default function HomePage() {
     type: "animal" as const
   }))
 
-  // Usar leilões ao vivo do mock (primeiros 2)
   const liveAuctionsBase = mockAuctions.filter(a => a.status === 'live').slice(0, 2)
   
-  // Calcular tempo restante apenas no cliente para evitar problemas de hidratação
   const liveAuctions = liveAuctionsBase.map(a => ({
     id: a.id,
     title: a.title,
@@ -118,7 +111,6 @@ export default function HomePage() {
     location: a.location
   }))
 
-  // Usar produtos do mock (primeiros 3)
   const featuredProductsAgro = mockProducts.slice(0, 3).map(p => ({
     id: p.id,
     title: p.title,
@@ -181,9 +173,9 @@ export default function HomePage() {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-primary/5/30">
       <Header variant="transparent" />
       
-      {/* Hero Section */}
+      {}
         <section className="relative h-screen overflow-hidden">
-        {/* Video Background */}
+        {}
         <div className="absolute inset-0 w-full h-full">
           <video
             autoPlay
@@ -194,25 +186,25 @@ export default function HomePage() {
             poster="/videos/agro-hero-poster.jpg"
           >
             <source src="/videos/agro-hero-video.mp4" type="video/mp4" />
-            {/*<source src="/videos/agro-hero-video.webm" type="video/webm" />*/}
-            {/* Fallback para navegadores que não suportam vídeo */}
+            {}
+            {}
             <div className="w-full h-full bg-gradient-to-br from-primary/5 via-white to-primary/5"></div>
           </video>
         </div>
 
-        {/* Overlay moderno com gradiente suave */}
+        {}
         <div className="absolute inset-0 bg-gradient-to-br from-black/75 via-primary/40 to-black/70"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20"></div>
 
-        {/* Elementos decorativos modernos */}
+        {}
         <div className="absolute top-1/4 left-1/4 w-64 h-64 sm:w-96 sm:h-96 bg-primary/50/10 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute bottom-1/4 right-1/4 w-64 h-64 sm:w-96 sm:h-96 bg-primary/50/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
 
-        {/* Container centralizado */}
+        {}
         <div className="relative h-full w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center py-20">
           <div className="text-center space-y-4 sm:space-y-6 md:space-y-7 lg:space-y-8">
 
-            {/* Título principal modernizado */}
+            {}
             <div className="animate-fade-in-up space-y-3 sm:space-y-4 md:space-y-5" style={{ animationDelay: '0.1s' }}>
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-bold text-white leading-[1.1] tracking-tight px-2">
                 O marketplace{' '}
@@ -231,7 +223,7 @@ export default function HomePage() {
               </p>
             </div>
 
-            {/* Search Bar modernizada */}
+            {}
             <div className="animate-fade-in-up max-w-2xl mx-auto" style={{ animationDelay: '0.2s' }}>
               <div className="relative group">
                 <div className="absolute -inset-1 bg-gradient-to-r from-primary/50/20 to-primary/50/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -251,7 +243,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* CTA Buttons modernizados */}
+            {}
             <div className="animate-fade-in-up pt-2 sm:pt-4" style={{ animationDelay: '0.3s' }}>
               <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 md:gap-4 justify-center items-center max-w-5xl mx-auto">
                 <Link href="/catalogo" className="w-full sm:w-auto">
@@ -276,7 +268,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Scroll indicator */}
+          {}
           <div className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 animate-bounce hidden sm:block">
             <div className="w-5 h-8 sm:w-6 sm:h-10 border-2 border-white/30 rounded-full p-1">
               <div className="w-1 h-2 sm:w-1.5 sm:h-3 bg-white/50 rounded-full mx-auto animate-pulse"></div>
@@ -285,9 +277,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Stats Section */}
+      {}
       <section className="py-24 bg-gradient-to-b from-white via-slate-50/50 to-white relative">
-        {/* Decorative elements */}
+        {}
         <div className="absolute inset-0 bg-gradient-to-r from-primary/50/5 via-transparent to-primary/50/5"></div>
         <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-primary to-transparent rounded-full"></div>
         
@@ -306,9 +298,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Featured Products */}
+      {}
       <section className="py-24 bg-gradient-to-b from-white via-primary/5 to-slate-50 relative overflow-hidden">
-        {/* Background decoration */}
+        {}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/20 via-transparent to-transparent"></div>
         <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-primary to-transparent rounded-full"></div>
         
@@ -343,9 +335,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Live Auctions */}
+      {}
       <section className="py-24 bg-gradient-to-b from-slate-50 via-white to-primary/5/20 relative overflow-hidden">
-        {/* Background decoration */}
+        {}
         <div className="absolute inset-0 bg-gradient-to-r from-red-500/5 via-transparent to-primary/50/5"></div>
         <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-red-400 to-transparent rounded-full"></div>
         
@@ -429,9 +421,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Featured Products Agro Section */}
+      {}
       <section className="py-24 bg-gradient-to-b from-primary/5/20 via-white to-slate-50 relative overflow-hidden">
-        {/* Background decoration */}
+        {}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/20 via-transparent to-transparent"></div>
         <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-primary to-transparent rounded-full"></div>
         
@@ -466,9 +458,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Features Section */}
+      {}
       <section className="py-24 bg-gradient-to-br from-primary/5 via-primary/5 to-slate-50 relative overflow-hidden">
-        {/* Background decoration */}
+        {}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent"></div>
         <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-primary to-transparent rounded-full"></div>
         
@@ -498,9 +490,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* CTA Section */}
+      {}
       <section className="py-24 bg-gradient-to-br from-primary via-primary to-primary/90 relative overflow-hidden">
-        {/* Background decoration */}
+        {}
         <div className="absolute inset-0 bg-gradient-to-r from-primary/50/20 via-transparent to-primary/50/20"></div>
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-white/10 via-transparent to-transparent"></div>
         <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-white/50 to-transparent rounded-full"></div>
@@ -529,9 +521,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Floating WhatsApp Button */}
+      {}
       
-
       <Footer />
     </div>
   )

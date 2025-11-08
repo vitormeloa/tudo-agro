@@ -30,7 +30,7 @@ export const RefundDetailsModal = ({ open, onOpenChange, refund }: RefundDetails
         </DialogHeader>
 
         <div className="space-y-6">
-          {/* Produto */}
+          {}
           <div>
             <h3 className="font-semibold text-sm text-muted-foreground mb-2">Produto Completo</h3>
             <p className="text-foreground">{refund.product}</p>
@@ -38,7 +38,7 @@ export const RefundDetailsModal = ({ open, onOpenChange, refund }: RefundDetails
 
           <Separator />
 
-          {/* Dados do Comprador */}
+          {}
           <div>
             <h3 className="font-semibold text-sm text-muted-foreground mb-2 flex items-center gap-2">
               <User className="h-4 w-4" />
@@ -49,7 +49,7 @@ export const RefundDetailsModal = ({ open, onOpenChange, refund }: RefundDetails
 
           <Separator />
 
-          {/* Valor da Compra */}
+          {}
           <div className="grid grid-cols-2 gap-4">
             <div>
               <h3 className="font-semibold text-sm text-muted-foreground mb-2 flex items-center gap-2">
@@ -69,7 +69,7 @@ export const RefundDetailsModal = ({ open, onOpenChange, refund }: RefundDetails
 
           <Separator />
 
-          {/* Motivo */}
+          {}
           <div>
             <h3 className="font-semibold text-sm text-muted-foreground mb-2">Motivo da Devolução</h3>
             <p className="text-foreground">{refund.reason}</p>
@@ -77,7 +77,7 @@ export const RefundDetailsModal = ({ open, onOpenChange, refund }: RefundDetails
 
           <Separator />
 
-          {/* Mensagem do Comprador */}
+          {}
           {refund.message && (
             <>
               <div>
@@ -91,7 +91,7 @@ export const RefundDetailsModal = ({ open, onOpenChange, refund }: RefundDetails
             </>
           )}
 
-          {/* Status */}
+          {}
           <div>
             <h3 className="font-semibold text-sm text-muted-foreground mb-2">Status</h3>
             <Badge variant={refund.status === "Pendente" ? "secondary" : "default"}>
@@ -101,7 +101,7 @@ export const RefundDetailsModal = ({ open, onOpenChange, refund }: RefundDetails
 
           <Separator />
 
-          {/* Ação */}
+          {}
           <div className="flex gap-3">
             <Button className="flex-1" variant="outline">
               <Mail className="h-4 w-4 mr-2" />

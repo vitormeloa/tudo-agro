@@ -37,7 +37,6 @@ export default function LeiloesPage() {
     return () => clearInterval(timer)
   }, [])
 
-  // Usar leilões ao vivo do mock
   const liveAuctions = mockAuctions.filter(a => a.status === 'live').map(a => ({
     id: a.id,
     title: a.title,
@@ -55,7 +54,6 @@ export default function LeiloesPage() {
     status: a.status
   }))
 
-  // Usar próximos leilões do mock
   const upcomingAuctions = mockAuctions.filter(a => a.status === 'scheduled').map(a => ({
     id: a.id,
     title: a.title,
@@ -98,7 +96,7 @@ export default function LeiloesPage() {
     <div className="min-h-screen bg-gray-50">
       <Header />
       
-      {/* Hero Section */}
+      {}
         <section className="relative pt-16 pb-20 overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-br from-teal-600 via-primary to-primary/90"></div>
             <div className="absolute inset-0 bg-black/20"></div>
@@ -117,7 +115,7 @@ export default function LeiloesPage() {
       </section>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Filters */}
+        {}
         <Card className="shadow-lg border-0 mb-8">
           <CardContent className="p-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -171,7 +169,7 @@ export default function LeiloesPage() {
           </CardContent>
         </Card>
 
-        {/* Live Auctions */}
+        {}
         <section className="mb-12">
           <div className="flex items-center mb-6">
             <div className="flex items-center">
@@ -260,7 +258,7 @@ export default function LeiloesPage() {
           </div>
         </section>
 
-        {/* Upcoming Auctions */}
+        {}
         <section>
           <div className="flex items-center mb-6">
             <Calendar className="w-6 h-6 text-primary mr-3" />
@@ -340,7 +338,7 @@ export default function LeiloesPage() {
           </div>
         </section>
 
-        {/* CTA Section */}
+        {}
         <section className="mt-16 bg-gradient-to-br from-teal-600 to-primary/90 rounded-2xl p-8 text-center text-white">
           <h2 className="text-2xl md:text-3xl font-bold mb-4">
             Quer organizar seu próprio leilão?

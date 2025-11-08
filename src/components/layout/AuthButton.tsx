@@ -24,8 +24,6 @@ export default function AuthButton({ className }: AuthButtonProps) {
     const { user, signOut, isAdmin, loading, initialized } = useAuth()
     const { toast } = useToast()
 
-    // Não renderizar nada enquanto não inicializou - evita flickering
-    // Mas após inicializar, sempre mostrar algo (mesmo que seja botões de login)
     if (!initialized) {
         return (
             <div className={`hidden md:flex items-center space-x-2 ${className}`}>
@@ -34,7 +32,6 @@ export default function AuthButton({ className }: AuthButtonProps) {
         )
     }
 
-    // Fechar menu do usuário quando clicar fora
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (isUserMenuOpen) {
@@ -49,7 +46,6 @@ export default function AuthButton({ className }: AuthButtonProps) {
         return () => document.removeEventListener('mousedown', handleClickOutside)
     }, [isUserMenuOpen])
 
-    // Se usuário está logado, mostrar menu do usuário
     if (user) {
         return (
             <div className={`hidden md:flex items-center space-x-2 relative ${className}`} data-user-menu>
@@ -65,7 +61,7 @@ export default function AuthButton({ className }: AuthButtonProps) {
                     <ChevronDown className="w-4 h-4 ml-1" />
                 </Button>
 
-                {/* User Dropdown Menu */}
+                {}
                 {isUserMenuOpen && (
                     <div className="absolute top-full right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
                         <div className="px-4 py-3 border-b border-gray-100">
@@ -73,7 +69,7 @@ export default function AuthButton({ className }: AuthButtonProps) {
                             <p className="text-xs text-gray-500">{user.email}</p>
                         </div>
 
-                        {/* Opções do usuário */}
+                        {}
                         <div className="py-1">
                             <Link
                                 href="/dashboard/minha-conta"
@@ -103,10 +99,10 @@ export default function AuthButton({ className }: AuthButtonProps) {
                             </Link>
                         </div>
 
-                        {/* Separador */}
+                        {}
                         <div className="border-t border-gray-100 my-1"></div>
 
-                        {/* Painel administrativo */}
+                        {}
 
                         <Link
                             href="/dashboard"
@@ -117,8 +113,7 @@ export default function AuthButton({ className }: AuthButtonProps) {
                             Painel
                         </Link>
 
-
-                        {/* Logout */}
+                        {}
                         <button
                             onClick={async () => {
                                 setIsUserMenuOpen(false)
@@ -145,7 +140,6 @@ export default function AuthButton({ className }: AuthButtonProps) {
         )
     }
 
-    // Se usuário não está logado, mostrar botões de login/cadastro
     return (
         <div className={`hidden md:flex items-center space-x-2 ${className}`}>
             <Link href="/login">

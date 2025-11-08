@@ -50,7 +50,7 @@ const DetalhesAnimalModal = ({ open, onOpenChange, animal }: DetalhesAnimalModal
         </DialogHeader>
         
         <div className="space-y-6 py-4">
-          {/* Header com imagem e status */}
+          {}
           <div className="flex flex-col md:flex-row gap-6">
             <div className="flex-shrink-0">
               <div className="text-9xl text-center">{animal.image}</div>
@@ -75,7 +75,7 @@ const DetalhesAnimalModal = ({ open, onOpenChange, animal }: DetalhesAnimalModal
 
           <Separator />
 
-          {/* Informações do Animal */}
+          {}
           <div>
             <h4 className="font-bold text-lg mb-4">Informações do Animal</h4>
             <div className="grid gap-4 md:grid-cols-2">
@@ -120,7 +120,7 @@ const DetalhesAnimalModal = ({ open, onOpenChange, animal }: DetalhesAnimalModal
 
           <Separator />
 
-          {/* Performance */}
+          {}
           <div>
             <h4 className="font-bold text-lg mb-4">Performance do Anúncio</h4>
             <div className="grid gap-4 md:grid-cols-3">
@@ -144,7 +144,7 @@ const DetalhesAnimalModal = ({ open, onOpenChange, animal }: DetalhesAnimalModal
 
           <Separator />
 
-          {/* Descrição */}
+          {}
           <div>
             <h4 className="font-bold text-lg mb-3">Descrição</h4>
             <p className="text-muted-foreground leading-relaxed">
@@ -156,7 +156,7 @@ const DetalhesAnimalModal = ({ open, onOpenChange, animal }: DetalhesAnimalModal
 
           <Separator />
 
-          {/* Histórico Sanitário */}
+          {}
           <div>
             <h4 className="font-bold text-lg mb-3">Histórico Sanitário</h4>
             <div className="space-y-2">
@@ -175,7 +175,7 @@ const DetalhesAnimalModal = ({ open, onOpenChange, animal }: DetalhesAnimalModal
             </div>
           </div>
 
-          {/* Localização */}
+          {}
           <div>
             <h4 className="font-bold text-lg mb-3">Localização</h4>
             <div className="p-4 bg-muted rounded-lg">
@@ -185,7 +185,7 @@ const DetalhesAnimalModal = ({ open, onOpenChange, animal }: DetalhesAnimalModal
             </div>
           </div>
 
-          {/* Ações */}
+          {}
           <div className="flex gap-3 pt-4">
             <Button variant="outline" className="flex-1" onClick={() => onOpenChange(false)}>
               Voltar

@@ -24,22 +24,22 @@ export default function FloatingWhatsAppButton() {
       onMouseLeave={() => setIsHovered(false)}
       aria-label="Fale conosco no WhatsApp"
     >
-      {/* Tooltip */}
+      {}
       <div
         className={`absolute right-full mr-3 top-1/2 -translate-y-1/2 bg-gray-900 text-white px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap shadow-lg transition-all duration-300 ${
           isHovered ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-2 pointer-events-none'
         }`}
       >
         Fale conosco no WhatsApp
-        {/* Arrow */}
+        {}
         <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-full">
           <div className="border-8 border-transparent border-l-gray-900"></div>
         </div>
       </div>
 
-      {/* Button */}
+      {}
       <div className="relative">
-        {/* Main button */}
+        {}
         <div
           className="relative hover:bg-primary text-white rounded-full p-4 shadow-2xl transition-all duration-300 transform active:scale-95"
           style={{ backgroundColor: isMounted ? 'var(--primary)' : 'rgba(var(--primary-rgb), 0.5)' }}
@@ -47,7 +47,7 @@ export default function FloatingWhatsAppButton() {
           <FaWhatsapp className="w-7 h-7" />
         </div>
 
-        {/* Badge/Indicator */}
+        {}
         <div className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center shadow-lg animate-pulse">
           1
         </div>

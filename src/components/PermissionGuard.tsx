@@ -16,7 +16,7 @@ interface PermissionGuardProps {
   permissions?: Permission[]
   role?: string
   roles?: string[]
-  requireAll?: boolean // Se true, requer todas as permissões/roles. Se false, requer qualquer uma
+  requireAll?: boolean
   fallback?: ReactNode
   redirectTo?: string
   showFallback?: boolean
@@ -45,14 +45,12 @@ export default function PermissionGuard({
   const { redirectTo403 } = use403Redirect({ fallbackUrl: redirectTo || '/dashboard' })
   const [hasCheckedPermissions, setHasCheckedPermissions] = useState(false)
 
-  // Admin sempre tem acesso
   if (isAdmin) {
     return <>{children}</>
   }
 
   let hasAccess = false
 
-  // Verificar permissões
   if (permission) {
     hasAccess = hasPermission(permission)
   } else if (permissions && permissions.length > 0) {
@@ -61,24 +59,20 @@ export default function PermissionGuard({
       : hasAnyPermission(permissions)
   }
 
-  // Verificar roles
   if (role) {
     hasAccess = hasRole(role)
   } else if (roles && roles.length > 0) {
     hasAccess = hasAnyRole(roles)
   }
 
-  // Verificar permissões após o carregamento
   useEffect(() => {
     if (!hasCheckedPermissions) {
       if (!hasAccess) {
-        // Mostrar fallback personalizado se especificado
         if (fallback) {
           setHasCheckedPermissions(true)
           return
         }
 
-        // Redirecionar para página 403
         redirectTo403('Você não tem permissão para acessar esta área.')
         return
       }
@@ -87,9 +81,7 @@ export default function PermissionGuard({
     }
   }, [hasAccess, fallback, redirectTo403, hasCheckedPermissions])
 
-  // Se não tem acesso
   if (!hasAccess) {
-    // Mostrar fallback personalizado se especificado
     if (fallback) {
       return <>{fallback}</>
     }
@@ -100,7 +92,6 @@ export default function PermissionGuard({
   return <>{children}</>
 }
 
-// Componente para ocultar elementos baseado em permissões
 interface PermissionHideProps {
   children: ReactNode
   permission?: Permission
@@ -127,14 +118,12 @@ export function PermissionHide({
     isAdmin 
   } = usePermissions()
 
-  // Admin sempre vê tudo
   if (isAdmin) {
     return <>{children}</>
   }
 
   let hasAccess = false
 
-  // Verificar permissões
   if (permission) {
     hasAccess = hasPermission(permission)
   } else if (permissions && permissions.length > 0) {
@@ -143,14 +132,12 @@ export function PermissionHide({
       : hasAnyPermission(permissions)
   }
 
-  // Verificar roles
   if (role) {
     hasAccess = hasRole(role)
   } else if (roles && roles.length > 0) {
     hasAccess = hasAnyRole(roles)
   }
 
-  // Se tem acesso, não renderizar (ocultar)
   if (hasAccess) {
     return null
   }
@@ -158,7 +145,6 @@ export function PermissionHide({
   return <>{children}</>
 }
 
-// Componente para mostrar elementos apenas com permissões
 interface PermissionShowProps {
   children: ReactNode
   permission?: Permission
@@ -185,14 +171,12 @@ export function PermissionShow({
     isAdmin 
   } = usePermissions()
 
-  // Admin sempre vê tudo
   if (isAdmin) {
     return <>{children}</>
   }
 
   let hasAccess = false
 
-  // Verificar permissões
   if (permission) {
     hasAccess = hasPermission(permission)
   } else if (permissions && permissions.length > 0) {
@@ -201,14 +185,12 @@ export function PermissionShow({
       : hasAnyPermission(permissions)
   }
 
-  // Verificar roles
   if (role) {
     hasAccess = hasRole(role)
   } else if (roles && roles.length > 0) {
     hasAccess = hasAnyRole(roles)
   }
 
-  // Se tem acesso, renderizar
   if (hasAccess) {
     return <>{children}</>
   }

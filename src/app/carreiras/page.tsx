@@ -9,34 +9,6 @@ import Footer from '@/components/layout/Footer'
 
 export default function CarreirasPage() {
   const openPositions = [
-    // {
-    //   title: 'Desenvolvedor Full Stack',
-    //   department: 'Tecnologia',
-    //   location: 'São Paulo, SP',
-    //   type: 'Tempo Integral',
-    //   description: 'Buscamos desenvolvedor experiente em React, Next.js e Node.js para integrar nossa equipe de tecnologia.'
-    // },
-    // {
-    //   title: 'Especialista em Agronegócio',
-    //   department: 'Negócios',
-    //   location: 'Remoto',
-    //   type: 'Tempo Integral',
-    //   description: 'Profissional com experiência em agronegócio para auxiliar no desenvolvimento de estratégias de mercado.'
-    // },
-    // {
-    //   title: 'Designer UX/UI',
-    //   department: 'Design',
-    //   location: 'São Paulo, SP',
-    //   type: 'Tempo Integral',
-    //   description: 'Designer criativo para melhorar a experiência do usuário em nossa plataforma digital.'
-    // },
-    // {
-    //   title: 'Analista de Marketing Digital',
-    //   department: 'Marketing',
-    //   location: 'Remoto',
-    //   type: 'Tempo Integral',
-    //   description: 'Profissional para gerenciar campanhas digitais e estratégias de comunicação no setor agropecuário.'
-    // }
   ]
 
   const benefits = [
@@ -66,7 +38,7 @@ export default function CarreirasPage() {
     <div className="min-h-screen flex flex-col bg-gray-50">
       <Header />
       
-      {/* Hero Section */}
+      {}
       <section className="bg-gradient-to-r from-primary via-primary to-primary/90 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
@@ -79,7 +51,7 @@ export default function CarreirasPage() {
       </section>
 
       <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* About Section */}
+        {}
         <section className="mb-16 text-center">
           <h2 className="text-3xl font-bold text-[#101828] mb-4">Por que Trabalhar no TudoAgro?</h2>
           <p className="text-gray-600 max-w-3xl mx-auto text-lg">
@@ -88,7 +60,7 @@ export default function CarreirasPage() {
           </p>
         </section>
 
-        {/* Benefits Section */}
+        {}
         <section className="mb-16">
           <h2 className="text-3xl font-bold text-[#101828] mb-8 text-center">Benefícios</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -106,7 +78,7 @@ export default function CarreirasPage() {
           </div>
         </section>
 
-        {/* Open Positions Section */}
+        {}
         <section className="mb-16">
           <h2 className="text-3xl font-bold text-[#101828] mb-8 text-center">Vagas Abertas</h2>
           <div className="space-y-4">
@@ -143,7 +115,7 @@ export default function CarreirasPage() {
           </div>
         </section>
 
-        {/* CTA Section */}
+        {}
         <section className="bg-gradient-to-r from-primary/5 to-primary/5 rounded-lg p-8 text-center">
           <h2 className="text-2xl font-bold text-[#101828] mb-4">Não Encontrou uma Vaga Adequada?</h2>
           <p className="text-gray-600 mb-6 max-w-2xl mx-auto">

@@ -8,7 +8,7 @@ import { NavLink } from "@/components/NavLink";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { LayoutDashboard, ShoppingBag, MessageSquare, Wallet, Menu, Sparkles, X, Bell, HelpCircle, LogOut, Bot, Send, User } from "lucide-react";
+import { LayoutDashboard, ShoppingBag, MessageSquare, Wallet, Menu, Sparkles, X, Bell, HelpCircle, LogOut, Bot, Send, User, CircleDot, Gavel, Package, BookOpen, GraduationCap } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { AgroIAAvatar } from "@/components/AgroIAAvatar";
 import { TypingIndicator } from "@/components/TypingIndicator";
@@ -45,8 +45,8 @@ const DashboardLayout = ({
   const [isTyping, setIsTyping] = useState(false);
   const [attachedFile, setAttachedFile] = useState<File | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const unreadMessages = 3; // Simulação de mensagens não lidas
-  const unreadNotifications = 2; // Simulação de notificações não lidas
+  const unreadMessages = 3;
+  const unreadNotifications = 2;
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -197,26 +197,46 @@ const DashboardLayout = ({
     icon: LayoutDashboard,
     path: "/dashboard"
   }, {
+    id: "animais",
+    label: "Animais",
+    icon: CircleDot,
+    path: "/dashboard/animais"
+  }, {
+    id: "leiloes",
+    label: "Leilões",
+    icon: Gavel,
+    path: "/dashboard/leiloes"
+  }, {
+    id: "mercado-agro",
+    label: "Mercado Agro",
+    icon: Package,
+    path: "/dashboard/mercado-agro"
+  }, {
     id: "compras",
     label: "Minhas Compras",
     icon: ShoppingBag,
     path: "/dashboard/minhas-compras"
-  }, {
-    id: "chat",
-    label: "Chat",
-    icon: MessageSquare,
-    path: "/dashboard/chat",
-    badge: unreadMessages
   }, {
     id: "financeiro",
     label: "Financeiro",
     icon: Wallet,
     path: "/dashboard/financeiro"
   }, {
-    id: "ajuda",
-    label: "Ajuda IA",
-    icon: Sparkles,
-    path: "/dashboard/ajuda-ia"
+    id: "chat",
+    label: "Chat com Vendedores",
+    icon: MessageSquare,
+    path: "/dashboard/chat",
+    badge: unreadMessages
+  }, {
+    id: "treinamentos",
+    label: "Treinamentos",
+    icon: GraduationCap,
+    path: "/dashboard/treinamentos"
+  }, {
+    id: "blog",
+    label: "Blog",
+    icon: BookOpen,
+    path: "/dashboard/blog"
   }];
 
   const vendedorNavigation = [{
@@ -284,11 +304,11 @@ const DashboardLayout = ({
     } else if (isSeller()) {
       currentNavigation = vendedorNavigation;
     } else {
-      currentNavigation = navigation; // Default to buyer navigation
+      currentNavigation = navigation;
     }
 
     return (
-      <nav className="flex flex-col gap-1"> {/* Reduced gap here */}
+      <nav className="flex flex-col gap-1"> {}
         {currentNavigation.map(item => (
           <NavLink key={item.id} to={item.path} className="flex items-center gap-3 px-4 py-3 rounded-lg text-foreground hover:bg-accent transition-all duration-200" activeClassName="bg-gradient-to-r from-primary to-primary/90 text-primary-foreground hover:from-primary hover:to-primary/90 shadow-md" onClick={() => setIsOpen(false)}>
             <div className="relative">
@@ -301,7 +321,7 @@ const DashboardLayout = ({
     );
   };
   return <div className="min-h-screen bg-background">
-      {/* Header */}
+      {}
       <header className="sticky top-0 z-50 border-b bg-card shadow-sm">
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
           <div className="flex items-center gap-4">
@@ -309,7 +329,7 @@ const DashboardLayout = ({
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" className="lg:hidden relative animate-pulse-effect">
                   <Menu className="h-6 w-6" />
-                  {unreadMessages > 0 && <span className="absolute top-1 right-1 h-2 w-2 bg-status-danger rounded-full animate-pulse" />}
+                  {unreadMessages > 0 && <span className="absolute top-1 right-1 h-2 w-2 bg-status-danger animate-pulse" />}
                 </Button>
               </SheetTrigger>
               <SheetContent side="left" className="w-72 p-0 animate-slide-in-right flex flex-col [&>button]:hidden">
@@ -324,7 +344,7 @@ const DashboardLayout = ({
                 </div>
               </SheetContent>
             </Sheet>
-              {/* Logo */}
+              {}
               <div className="flex items-center">
                   <Link href="/" className="flex items-center space-x-3 group">
                       <img
@@ -336,17 +356,17 @@ const DashboardLayout = ({
               </div>
           </div>
           <div className="flex items-center gap-2">
-            {/* AI Chat Button */}
+            {}
             <Button variant="ghost" size="icon" onClick={() => setIsAIChatOpen(true)} className="relative hover:bg-accent">
               <Bot className="h-5 w-5" />
             </Button>
 
-            {/* Como Funciona Button */}
+            {}
             <Button variant="ghost" size="icon" onClick={() => setIsHelpOpen(true)} className="hover:bg-accent">
               <HelpCircle className="h-5 w-5" />
             </Button>
 
-            {/* Notifications */}
+            {}
             <Button variant="ghost" size="icon" onClick={() => setIsNotificationsOpen(true)} className="relative hover:bg-accent">
               <Bell className="h-5 w-5" />
               {unreadNotifications > 0 && <Badge className="absolute -top-1 -right-1 h-5 w-5 p-0 flex items-center justify-center text-xs bg-primary text-primary-foreground border-2 border-background">
@@ -354,7 +374,7 @@ const DashboardLayout = ({
                 </Badge>}
             </Button>
 
-            {/* User Menu with Logout */}
+            {}
             <Popover>
               <PopoverTrigger asChild>
                 <Button variant="ghost" size="icon" className="rounded-full">
@@ -423,18 +443,18 @@ const DashboardLayout = ({
       </header>
 
       <div className="container mx-auto flex gap-6 p-4 lg:p-6">
-        {/* Sidebar - Desktop */}
+        {}
         <aside className="hidden w-64 lg:block">
           <div className="sticky top-20">
             <NavContent />
           </div>
         </aside>
 
-        {/* Main Content */}
+        {}
         <main className="flex-1 min-w-0">{children}</main>
       </div>
 
-      {/* Como Funciona Dialog */}
+      {}
       <Dialog open={isHelpOpen} onOpenChange={setIsHelpOpen}>
         <DialogContent className="sm:max-w-2xl [&>button]:hidden">
           <Button variant="ghost" size="icon" onClick={() => setIsHelpOpen(false)} className="absolute right-4 top-4 bg-destructive/10 text-destructive hover:bg-destructive/20 transition-all duration-200 hover:rotate-90">
@@ -468,8 +488,7 @@ const DashboardLayout = ({
         </DialogContent>
       </Dialog>
 
-
-      {/* Notifications Sheet */}
+      {}
       <Sheet open={isNotificationsOpen} onOpenChange={setIsNotificationsOpen}>
         <SheetContent side="right" className="w-full sm:max-w-md p-0 z-[60] [&>button]:hidden">
           <div className="flex flex-col h-full">
@@ -503,7 +522,7 @@ const DashboardLayout = ({
             </div>
 
             <div className="p-4 border-t space-y-2">
-              <Button variant="outline" className="w-full" onClick={() => {/* Mark all as read */}}>
+              <Button variant="outline" className="w-full" onClick={() => {}}>
                 Marcar tudo como lido
               </Button>
               
@@ -512,13 +531,13 @@ const DashboardLayout = ({
         </SheetContent>
       </Sheet>
 
-      {/* AI Chat Sheet */}
+      {}
       <Sheet open={isAIChatOpen} onOpenChange={setIsAIChatOpen}>
         <SheetContent side="right" className="w-full sm:max-w-md p-0 z-[60] bg-gradient-to-b from-background to-primary/5 [&>button]:hidden">
           <div className="flex flex-col h-full">
-            {/* Header */}
+            {}
             <div className="relative border-b bg-gradient-to-br from-background to-primary/5 overflow-hidden">
-              {/* Tech pattern overlay */}
+              {}
               <div className="absolute inset-0 opacity-5">
                 <div className="absolute inset-0" style={{
                   backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 10px, hsl(var(--primary)) 10px, hsl(var(--primary)) 11px)`,
@@ -556,13 +575,13 @@ const DashboardLayout = ({
                 </div>
               </div>
 
-              {/* Animated border */}
+              {}
               <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary/70 to-transparent animate-pulse" />
             </div>
 
-            {/* Chat Messages */}
+            {}
             <div className="flex-1 overflow-y-auto p-4 space-y-4">
-              {/* Welcome Message */}
+              {}
               {messages.length === 0 && (
                 <div className="flex gap-3 animate-fade-in">
                   <AgroIAAvatar size="md" />
@@ -578,7 +597,7 @@ const DashboardLayout = ({
                 </div>
               )}
 
-              {/* Messages */}
+              {}
               {messages.map((msg) => (
                 <div
                   key={msg.id}
@@ -623,7 +642,7 @@ const DashboardLayout = ({
                 </div>
               ))}
 
-              {/* Typing Indicator */}
+              {}
               {isTyping && (
                 <div className="flex gap-3 animate-fade-in">
                   <AgroIAAvatar size="md" isTyping />
@@ -634,7 +653,7 @@ const DashboardLayout = ({
               <div ref={messagesEndRef} />
             </div>
 
-            {/* Input Area */}
+            {}
             <div className="border-t bg-background p-4">
               {attachedFile && (
                 <div className="mb-2 p-2 bg-muted/50 rounded-lg flex items-center justify-between">
