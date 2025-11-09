@@ -24,10 +24,11 @@ model User {
   updatedAt DateTime @updatedAt
 
   // Relacionamentos
-  accounts     Account[]
-  sessions     Session[]
-  roles        UserRole[]
-  products     Product[]
+  accounts         Account[]
+  nextAuthSessions NextAuthSession[]
+  sessions         Session[]
+  roles            UserRole[]
+  products         Product[]
   auctions     Auction[]
   bids         Bid[]
   transactions Transaction[]
@@ -61,12 +62,27 @@ model Account {
 }
 
 // Modelo de Sessões (NextAuth)
-model Session {
+model NextAuthSession {
   id           String   @id @default(cuid())
   sessionToken String   @unique
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("nextauth_sessions")
+}
+
+// Modelo de Sessões (Custom)
+model Session {
+  id           String   @id @default(cuid())
+  userId       String
+  deviceType   String // 'desktop' or 'mobile'
+  sessionToken String   @unique
+  expiresAt    DateTime
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("sessions")
 }
