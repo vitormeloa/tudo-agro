@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Search, SlidersHorizontal, RefreshCw, FileText, HelpCircle } from "lucide-react";
+import { Search, SlidersHorizontal, RefreshCw, FileText, HelpCircle, ChevronRight } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -402,10 +402,12 @@ const MinhasCompras = () => {
               return (
                 <Card 
                   key={purchase.id} 
-                  className="overflow-hidden hover:shadow-lg transition-all duration-300 border-border"
+                  className="overflow-hidden hover:shadow-lg transition-all duration-300 border-border cursor-pointer"
+                  onClick={() => setSelectedPurchase(purchase)}
                 >
                   <div className="p-4 sm:p-6">
-                    <div className="flex flex-col sm:flex-row gap-4">
+                    <div className="flex flex-col sm:flex-row gap-4 relative">
+                      <ChevronRight className="absolute top-0 right-0 h-5 w-5 text-muted-foreground sm:hidden" />
                       {}
                       <div className="flex-shrink-0 mx-auto sm:mx-0">
                         <img
@@ -440,12 +442,15 @@ const MinhasCompras = () => {
                         </div>
 
                         {}
-                        <div className="flex flex-col sm:flex-row gap-2 pt-2">
+                        <div className="hidden sm:flex flex-col sm:flex-row gap-2 pt-2">
                           <Button
                             variant="default"
                             size="sm"
                             className="w-full sm:flex-1"
-                            onClick={() => setSelectedPurchase(purchase)}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setSelectedPurchase(purchase);
+                            }}
                           >
                             Ver detalhes
                           </Button>
@@ -457,7 +462,10 @@ const MinhasCompras = () => {
                                 variant="outline"
                                 size="sm"
                                 className="w-full sm:flex-1 gap-2"
-                                onClick={() => handleBuyAgain(purchase)}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleBuyAgain(purchase);
+                                }}
                               >
                                 <RefreshCw className="h-4 w-4" />
                                 Comprar Novamente
@@ -466,7 +474,10 @@ const MinhasCompras = () => {
                                 variant="outline"
                                 size="sm"
                                 className="w-full sm:flex-1 gap-2"
-                                onClick={() => handleDownloadInvoice(purchase)}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleDownloadInvoice(purchase);
+                                }}
                               >
                                 <FileText className="h-4 w-4" />
                                 Nota Fiscal
@@ -477,7 +488,10 @@ const MinhasCompras = () => {
                               variant="outline"
                               size="sm"
                               className="w-full sm:flex-1"
-                              onClick={() => window.open(`https://rastreamento.com/${purchase.tracking.code}`, '_blank')}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                window.open(`https://rastreamento.com/${purchase.tracking.code}`, '_blank');
+                              }}
                             >
                               Rastrear pedido
                             </Button>
