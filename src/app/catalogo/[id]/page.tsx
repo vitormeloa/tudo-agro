@@ -22,7 +22,8 @@ import {
   ChevronLeft,
   ChevronRight,
   Play,
-  Plus
+  Plus,
+  Users
 } from 'lucide-react'
 import { mockAnimals } from '@/lib/mock-animals'
 import { useAuth } from '@/hooks/useAuth'
@@ -39,6 +40,7 @@ import QuestionsSection from '@/components/questions/QuestionsSection'
 import { getAnimalQuestions } from '@/lib/mock-questions'
 import { calculateSellerLevel, getSellerBadges } from '@/lib/seller-levels'
 import { ShoppingBag } from 'lucide-react'
+import GenealogyTree from '@/components/genealogy/GenealogyTree'
 
 export default function AnimalPage({ params }: { params: Promise<{ id: string }> }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
@@ -222,6 +224,15 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
               <CardContent className="p-4 sm:p-6">
                 <h3 className="text-lg sm:text-xl font-bold text-[#101828] mb-4">Especificações</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                  {animal.registrationNumber && (
+                    <div className="flex items-center gap-2 sm:gap-3">
+                      <Award className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
+                      <div>
+                        <div className="text-xs sm:text-sm text-gray-500">Registro</div>
+                        <div className="font-medium text-sm sm:text-base text-[#101828]">{animal.registrationNumber}</div>
+                      </div>
+                    </div>
+                  )}
                   <div className="flex items-center gap-2 sm:gap-3">
                     <Award className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
                     <div>
@@ -250,6 +261,24 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
                       <div className="font-medium text-sm sm:text-base text-[#101828]">{animal.height}</div>
                     </div>
                   </div>
+                  {animal.father && (
+                    <div className="flex items-center gap-2 sm:gap-3">
+                      <Users className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
+                      <div>
+                        <div className="text-xs sm:text-sm text-gray-500">Pai</div>
+                        <div className="font-medium text-sm sm:text-base text-[#101828]">{animal.father}</div>
+                      </div>
+                    </div>
+                  )}
+                  {animal.mother && (
+                    <div className="flex items-center gap-2 sm:gap-3">
+                      <Users className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
+                      <div>
+                        <div className="text-xs sm:text-sm text-gray-500">Mãe</div>
+                        <div className="font-medium text-sm sm:text-base text-[#101828]">{animal.mother}</div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </CardContent>
             </Card>
@@ -309,16 +338,16 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
                 Especificações
               </TabsTrigger>
               <TabsTrigger
+                value="genealogia"
+                className="text-[10px] xs:text-xs sm:text-sm md:text-base py-2 sm:py-3 px-1 xs:px-2 sm:px-3 data-[state=active]:bg-white"
+              >
+                Genealogia
+              </TabsTrigger>
+              <TabsTrigger
                 value="documentos"
                 className="text-[10px] xs:text-xs sm:text-sm md:text-base py-2 sm:py-3 px-1 xs:px-2 sm:px-3 data-[state=active]:bg-white"
               >
                 Documentos
-              </TabsTrigger>
-              <TabsTrigger
-                value="avaliacoes"
-                className="text-[10px] xs:text-xs sm:text-sm md:text-base py-2 sm:py-3 px-1 xs:px-2 sm:px-3 data-[state=active]:bg-white"
-              >
-                Avaliações ({reviews.length})
               </TabsTrigger>
             </TabsList>
 
@@ -351,6 +380,15 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
               </Card>
             </TabsContent>
 
+            <TabsContent value="genealogia" className="mt-4 sm:mt-6">
+              <Card className="bg-white border-gray-200 shadow-lg">
+                <CardContent className="p-4 sm:p-6 lg:p-8">
+                  <h2 className="text-xl sm:text-2xl font-bold text-[#101828] mb-3 sm:mb-4">Genealogia</h2>
+                  <GenealogyTree />
+                </CardContent>
+              </Card>
+            </TabsContent>
+
             <TabsContent value="documentos" className="mt-4 sm:mt-6">
               <Card className="bg-white border-gray-200 shadow-lg">
                 <CardContent className="p-4 sm:p-6 lg:p-8">
@@ -368,22 +406,6 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
                   </div>
                 </CardContent>
               </Card>
-            </TabsContent>
-
-            <TabsContent value="avaliacoes" className="mt-4 sm:mt-6">
-              <ReviewsSection
-                reviews={reviews}
-                itemId={animalId}
-                itemType="animal"
-                onAddReview={(newReview) => {
-                  const review: Review = {
-                    ...newReview,
-                    id: Date.now().toString(),
-                    date: new Date().toISOString().split('T')[0]
-                  }
-                  setReviews([review, ...reviews])
-                }}
-              />
             </TabsContent>
           </Tabs>
         </div>

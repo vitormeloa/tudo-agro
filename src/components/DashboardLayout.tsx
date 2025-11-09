@@ -456,7 +456,7 @@ const DashboardLayout = ({
 
       {}
       <Dialog open={isHelpOpen} onOpenChange={setIsHelpOpen}>
-        <DialogContent className="sm:max-w-2xl [&>button]:hidden">
+        <DialogContent className="sm:max-w-2xl">
           <Button variant="ghost" size="icon" onClick={() => setIsHelpOpen(false)} className="absolute right-4 top-4 bg-destructive/10 text-destructive hover:bg-destructive/20 transition-all duration-200 hover:rotate-90">
             <X className="h-5 w-5" />
           </Button>
@@ -533,16 +533,10 @@ const DashboardLayout = ({
 
       {}
       <Sheet open={isAIChatOpen} onOpenChange={setIsAIChatOpen}>
-        <SheetContent side="right" className="w-full sm:max-w-md p-0 z-[60] bg-gradient-to-b from-background to-primary/5 [&>button]:hidden">
+        <SheetContent side="right" className="w-full sm:max-w-md p-0 z-[60] bg-background [&>button]:hidden">
           <div className="flex flex-col h-full">
             {}
             <div className="relative border-b bg-gradient-to-br from-background to-primary/5 overflow-hidden">
-              {}
-              <div className="absolute inset-0 opacity-5">
-                <div className="absolute inset-0" style={{
-                  backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 10px, hsl(var(--primary)) 10px, hsl(var(--primary)) 11px)`,
-                }} />
-              </div>
 
               <div className="p-4 relative">
                 <div className="flex items-center justify-between mb-3">

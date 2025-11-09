@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Search, SlidersHorizontal, RefreshCw, FileText, HelpCircle, ChevronRight } from "lucide-react";
+import { Search, SlidersHorizontal, RefreshCw, FileText, HelpCircle, ChevronRight, Grid3x3 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -313,52 +313,43 @@ const MinhasCompras = () => {
         </div>
 
         {}
-        <div className="flex gap-2 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 scrollbar-hide"
-             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-          <Button
-            variant={activeTab === "todos" ? "default" : "outline"}
-            onClick={() => setActiveTab("todos")}
-            className={`rounded-full whitespace-nowrap transition-all ${
-              activeTab === "todos" 
-                ? "bg-[hsl(142,52%,96%)] text-[hsl(145,45%,21%)] border-[hsl(142,52%,85%)] hover:bg-[hsl(142,52%,90%)] font-semibold" 
-                : "hover:bg-accent"
-            }`}
-          >
-            Todos ({getCategoryStats("todos")})
-          </Button>
-          <Button
-            variant={activeTab === "animais" ? "default" : "outline"}
-            onClick={() => setActiveTab("animais")}
-            className={`rounded-full whitespace-nowrap transition-all ${
-              activeTab === "animais" 
-                ? "bg-[hsl(142,52%,96%)] text-[hsl(145,45%,21%)] border-[hsl(142,52%,85%)] hover:bg-[hsl(142,52%,90%)] font-semibold" 
-                : "hover:bg-accent"
-            }`}
-          >
-            🐄 Animais ({getCategoryStats("animais")})
-          </Button>
-          <Button
-            variant={activeTab === "semen" ? "default" : "outline"}
-            onClick={() => setActiveTab("semen")}
-            className={`rounded-full whitespace-nowrap transition-all ${
-              activeTab === "semen" 
-                ? "bg-[hsl(142,52%,96%)] text-[hsl(145,45%,21%)] border-[hsl(142,52%,85%)] hover:bg-[hsl(142,52%,90%)] font-semibold" 
-                : "hover:bg-accent"
-            }`}
-          >
-            💉 Sêmen ({getCategoryStats("semen")})
-          </Button>
-          <Button
-            variant={activeTab === "produtos" ? "default" : "outline"}
-            onClick={() => setActiveTab("produtos")}
-            className={`rounded-full whitespace-nowrap transition-all ${
-              activeTab === "produtos" 
-                ? "bg-[hsl(142,52%,96%)] text-[hsl(145,45%,21%)] border-[hsl(142,52%,85%)] hover:bg-[hsl(142,52%,90%)] font-semibold" 
-                : "hover:bg-accent"
-            }`}
-          >
-            📦 Produtos ({getCategoryStats("produtos")})
-          </Button>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+          {visibleCategories.map((category) => (
+            <Card
+              key={category.name}
+              onClick={() => setActiveTab(category.name)}
+              className={`hover:shadow-lg transition-all duration-300 transform hover:scale-105 cursor-pointer ${
+                activeTab === category.name ? 'ring-2 ring-emerald-500 shadow-lg' : ''
+              }`}
+            >
+              <CardContent className="p-3 text-center">
+                <div
+                  className="inline-flex px-3 py-1.5 rounded-full text-xs font-medium mb-2 max-w-full break-words leading-tight"
+                  style={{
+                    backgroundColor: category.color,
+                    color: '#1F2937',
+                  }}
+                >
+                  <span className="text-center">{category.icon} {category.label}</span>
+                </div>
+                <div className="text-xl font-bold text-[#101828]">{category.count}</div>
+                <div className="text-xs text-gray-500">compras</div>
+              </CardContent>
+            </Card>
+          ))}
+
+          {hiddenCategories.length > 0 && (
+            <Card
+              className="hover:shadow-lg transition-all duration-300 transform hover:scale-105 cursor-pointer border-2 border-dashed border-gray-300 hover:border-primary"
+              onClick={() => setShowCategoriesModal(true)}
+            >
+              <CardContent className="p-3 text-center flex flex-col items-center justify-center min-h-[100px]">
+                <Grid3x3 className="w-6 h-6 text-gray-400 mb-2" />
+                <div className="text-sm font-semibold text-gray-700 mb-1">Ver Mais</div>
+                <div className="text-xs text-gray-500">{hiddenCategories.length} categorias</div>
+              </CardContent>
+            </Card>
+          )}
         </div>
 
         {}

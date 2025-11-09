@@ -39,6 +39,7 @@ import SellerInfoCard from '@/components/ui/cards/SellerInfoCard'
 import { mockProductReviews } from '@/lib/mock-reviews'
 import type { Review } from '@/lib/mock-reviews'
 import QuestionsSection from '@/components/questions/QuestionsSection'
+import GenealogyTree from '@/components/genealogy/GenealogyTree'
 import { getProductQuestions } from '@/lib/mock-questions'
 
 export default function ProdutoPage({ params }: { params: Promise<{ id: string }> }) {
@@ -507,10 +508,10 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
                 Especificações
               </TabsTrigger>
               <TabsTrigger
-                value="avaliacoes"
+                value="genealogia"
                 className="text-[10px] xs:text-xs sm:text-sm md:text-base py-2 sm:py-3 px-1 xs:px-2 sm:px-3 data-[state=active]:bg-white"
               >
-                Avaliações ({reviews.length})
+                Genealogia
               </TabsTrigger>
             </TabsList>
 
@@ -530,6 +531,22 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
                 <CardContent className="p-4 sm:p-6 lg:p-8">
                   <h2 className="text-xl sm:text-2xl font-bold text-[#101828] mb-3 sm:mb-4">Especificações</h2>
                   <div className="space-y-2 sm:space-y-3">
+                    {product.father && (
+                      <div className="flex flex-col sm:flex-row sm:justify-between py-2 sm:py-3 border-b border-gray-100 gap-1 sm:gap-2">
+                        <span className="text-xs sm:text-sm text-gray-500 capitalize font-medium">
+                          Pai:
+                        </span>
+                        <span className="text-sm sm:text-base font-medium text-[#101828] break-words">{product.father}</span>
+                      </div>
+                    )}
+                    {product.mother && (
+                      <div className="flex flex-col sm:flex-row sm:justify-between py-2 sm:py-3 border-b border-gray-100 gap-1 sm:gap-2">
+                        <span className="text-xs sm:text-sm text-gray-500 capitalize font-medium">
+                          Mãe:
+                        </span>
+                        <span className="text-sm sm:text-base font-medium text-[#101828] break-words">{product.mother}</span>
+                      </div>
+                    )}
                     {Object.entries(product.specifications).map(([key, value]) => (
                       <div key={key} className="flex flex-col sm:flex-row sm:justify-between py-2 sm:py-3 border-b border-gray-100 gap-1 sm:gap-2">
                         <span className="text-xs sm:text-sm text-gray-500 capitalize font-medium">
@@ -543,20 +560,13 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
               </Card>
             </TabsContent>
 
-            <TabsContent value="avaliacoes" className="mt-6">
-              <ReviewsSection
-                reviews={reviews}
-                itemId={productId}
-                itemType="product"
-                onAddReview={(newReview) => {
-                  const review: Review = {
-                    ...newReview,
-                    id: Date.now().toString(),
-                    date: new Date().toISOString().split('T')[0]
-                  }
-                  setReviews([review, ...reviews])
-                }}
-              />
+            <TabsContent value="genealogia" className="mt-4 sm:mt-6">
+              <Card className="bg-white border-gray-200 shadow-lg">
+                <CardContent className="p-4 sm:p-6 lg:p-8">
+                  <h2 className="text-xl sm:text-2xl font-bold text-[#101828] mb-3 sm:mb-4">Genealogia</h2>
+                  <GenealogyTree />
+                </CardContent>
+              </Card>
             </TabsContent>
           </Tabs>
         </div>

@@ -479,7 +479,7 @@ export default function ProdutosPage() {
               </div>
             </div>
             <div className="flex items-center p-4 bg-white rounded-lg shadow-sm border">
-              <Award className="w-8 h-8 text-amber-600 mr-4" />
+              <Award className="w-8 h-8 text-primary mr-4" />
               <div>
                 <h4 className="font-semibold text-[#101828]">Qualidade</h4>
                 <p className="text-sm text-gray-600">Marcas reconhecidas</p>
