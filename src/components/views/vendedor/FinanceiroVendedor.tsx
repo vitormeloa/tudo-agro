@@ -77,8 +77,8 @@ const FinanceiroVendedor = () => {
       {}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-bold">Financeiro</h1>
-          <p className="text-muted-foreground">Gerencie suas finanças e extratos</p>
+          <h1 className="text-3xl font-bold text-foreground">Financeiro</h1>
+          <p className="text-muted-foreground mt-1">Gerencie suas finanças e extratos</p>
         </div>
         <div className="flex gap-2">
           <Button variant="outline" className="gap-2" onClick={() => setNotaFiscalModalOpen(true)}>

@@ -210,8 +210,8 @@ export default function Treinamentos() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-[#101828] mb-2">Treinamentos e Cursos</h1>
-        <p className="text-gray-600">Desenvolva suas habilidades no agronegocio com nossos cursos especializados</p>
+        <h1 className="text-3xl font-bold text-foreground">Treinamentos e Cursos</h1>
+        <p className="text-muted-foreground mt-1">Desenvolva suas habilidades no agronegócio com nossos cursos especializados</p>
       </div>
 
       <div className="grid md:grid-cols-4 gap-4">
@@ -520,7 +520,7 @@ export default function Treinamentos() {
                 <div className="p-6">
                     <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                         <div className="flex items-center gap-3">
-                            <HelpCircle className="h-5 w-5 text-primary" />
+                            <HelpCircle className="h-10 w-10 text-primary" />
                             <div>
                                 <p className="font-medium">Dúvidas sobre os treinamentos?</p>
                                 <p className="text-sm text-muted-foreground">Nossa equipe está pronta para ajudar</p>
@@ -528,10 +528,10 @@ export default function Treinamentos() {
                         </div>
                         <div className="flex gap-3">
                             <Button variant="outline">
-                                Central de Ajuda
+                                Fale com Suporte
                             </Button>
-                            <Button>
-                                Falar com Suporte
+                            <Button variant="outline">
+                                Consultar AgroIA
                             </Button>
                         </div>
                     </div>

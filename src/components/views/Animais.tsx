@@ -44,6 +44,8 @@ export default function Animais() {
     age: a.age,
     weight: a.weight,
     breed: a.breed,
+    father: a.father || 'N/A',
+    mother: a.mother || 'N/A',
     type: 'animal' as const
   }))
 
@@ -181,8 +183,8 @@ export default function Animais() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-[#101828] mb-2">Catálogo de Animais</h1>
-        <p className="text-gray-600">Encontre os melhores animais para sua fazenda</p>
+        <h1 className="text-3xl font-bold text-foreground">Catálogo de Animais</h1>
+        <p className="text-muted-foreground mt-1">Encontre os melhores animais para sua fazenda</p>
       </div>
 
       <Card className="shadow-sm border">
@@ -430,20 +432,20 @@ export default function Animais() {
           <div className="p-6">
             <div className="flex flex-col md:flex-row items-center justify-between gap-4">
               <div className="flex items-center gap-3">
-                <HelpCircle className="h-5 w-5 text-primary" />
-                <div>
+                  <HelpCircle className="h-10 w-10 text-primary" />
+                  <div>
                   <p className="font-medium">Dúvidas sobre os animais?</p>
                   <p className="text-sm text-muted-foreground">Nossa equipe está pronta para ajudar</p>
                 </div>
               </div>
-              <div className="flex gap-3">
-                <Button variant="outline">
-                  Central de Ajuda
-                </Button>
-                <Button>
-                  Falar com Suporte
-                </Button>
-              </div>
+                <div className="flex gap-3">
+                    <Button variant="outline">
+                        Fale com Suporte
+                    </Button>
+                    <Button variant="outline">
+                        Consultar AgroIA
+                    </Button>
+                </div>
             </div>
           </div>
         </Card>

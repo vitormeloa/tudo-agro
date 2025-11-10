@@ -15,6 +15,13 @@ export interface MockAnimal {
   registrationNumber?: string
   father?: string
   mother?: string
+  // Campos específicos para cavalos
+  marcha?: string
+  // Campos específicos para gado
+  classificacao?: string
+  // Campos específicos para sêmen
+  central?: string
+  embalagem?: string
   seller: {
     id: number
     name: string
@@ -58,6 +65,7 @@ export const mockAnimals: MockAnimal[] = [
     registrationNumber: "ABC12345",
     father: "Imperador",
     mother: "Jóia Rara",
+    classificacao: "PO",
     seller: {
       id: 1,
       name: "Fazenda Boa Vista",
@@ -104,6 +112,7 @@ export const mockAnimals: MockAnimal[] = [
     registrationNumber: "DEF67890",
     father: "Rei do Pampa",
     mother: "Princesa da Marcha",
+    marcha: "Batida",
     seller: {
       id: 2,
       name: "Haras São João",
@@ -149,6 +158,7 @@ export const mockAnimals: MockAnimal[] = [
     registrationNumber: "GHI11223",
     father: "Touro Leiteiro",
     mother: "Vaca Premiada",
+    classificacao: "PC",
     seller: {
       id: 3,
       name: "Fazenda Três Rios",
@@ -194,6 +204,8 @@ export const mockAnimals: MockAnimal[] = [
     registrationNumber: "JKL33445",
     father: "Angus King",
     mother: "Angus Queen",
+    central: "ABS",
+    embalagem: "0,5ml",
     seller: {
       id: 4,
       name: "Genética Elite",
@@ -239,6 +251,7 @@ export const mockAnimals: MockAnimal[] = [
     registrationNumber: "MNO55667",
     father: "Brahman Lord",
     mother: "Brahman Lady",
+    classificacao: "Cruzado",
     seller: {
       id: 5,
       name: "Fazenda Santa Rita",
@@ -284,6 +297,7 @@ export const mockAnimals: MockAnimal[] = [
     registrationNumber: "PQR77889",
     father: "Campeão de Vaquejada",
     mother: "Estrela das Pistas",
+    marcha: "Trote",
     seller: {
       id: 6,
       name: "Haras Elite",

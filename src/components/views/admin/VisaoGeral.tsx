@@ -76,8 +76,8 @@ const VisaoGeral = () => {
       {}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-primary">Visão Geral</h1>
-          <p className="text-muted-foreground">Painel administrativo da plataforma</p>
+          <h1 className="text-3xl font-bold text-foreground">Visão Geral</h1>
+          <p className="text-muted-foreground mt-1">Painel administrativo da plataforma</p>
         </div>
         
         <div className="flex flex-wrap gap-2">

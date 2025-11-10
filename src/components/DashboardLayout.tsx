@@ -8,7 +8,7 @@ import { NavLink } from "@/components/NavLink";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { LayoutDashboard, ShoppingBag, MessageSquare, Wallet, Menu, Sparkles, X, Bell, HelpCircle, LogOut, Bot, Send, User, CircleDot, Gavel, Package, BookOpen, GraduationCap } from "lucide-react";
+import { LayoutDashboard, ShoppingBag, MessageSquare, Wallet, Menu, Sparkles, X, Bell, HelpCircle, LogOut, Bot, Send, User, CircleDot, Gavel, Package, BookOpen, GraduationCap, PawPrint } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { AgroIAAvatar } from "@/components/AgroIAAvatar";
 import { TypingIndicator } from "@/components/TypingIndicator";
@@ -46,7 +46,6 @@ const DashboardLayout = ({
   const [attachedFile, setAttachedFile] = useState<File | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const unreadMessages = 3;
-  const unreadNotifications = 2;
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -140,43 +139,59 @@ const DashboardLayout = ({
     const page = navigation.find(item => item.path === pathname);
     return page ? page.label : "Início";
   };
-  const notifications = [{
-    id: 1,
-    icon: "check",
-    iconColor: "text-status-success",
-    iconBg: "bg-status-success/10",
-    title: "Compra confirmada",
-    description: "Fundamentos do iGaming - R$ 29,90",
-    time: "2 min atrás",
-    unread: true
-  }, {
-    id: 2,
-    icon: "warning",
-    iconColor: "text-status-warning",
-    iconBg: "bg-status-warning/10",
-    title: "Plano limitado",
-    description: "Seu plano atual não permite acessar Contratações. Desbloqueie agora.",
-    time: "1 hora atrás",
-    unread: true
-  }, {
-    id: 3,
-    icon: "info",
-    iconColor: "text-status-info",
-    iconBg: "bg-status-info/10",
-    title: "Senha alterada",
-    description: "Senha alterada com sucesso.",
-    time: "2 horas atrás",
-    unread: false
-  }, {
-    id: 4,
-    icon: "star",
-    iconColor: "text-[hsl(250,84%,60%)]",
-    iconBg: "bg-[hsl(250,84%,60%)]/10",
-    title: "Mentoria em grupo",
-    description: "Sexta-feira, 19h - garanta sua vaga.",
-    time: "1 dia atrás",
-    unread: false
-  }];
+  const [notifications, setNotifications] = useState([
+    {
+      id: 1,
+      icon: "check",
+      iconColor: "text-status-success",
+      iconBg: "bg-status-success/10",
+      title: "Ação Confirmada",
+      description: "Pedido #023 - Pix de R$ 8.900,00 confirmado com sucesso.",
+      time: "2 min atrás",
+      unread: true
+    },
+    {
+      id: 2,
+      icon: "warning",
+      iconColor: "text-status-warning",
+      iconBg: "bg-status-warning/10",
+      title: "Alerta",
+      description: "O anúncio \"Sêmen Angus Premium\" foi reprovado por imagem fora do padrão.",
+      time: "30 min atrás",
+      unread: true
+    },
+    {
+      id: 3,
+      icon: "info",
+      iconColor: "text-status-info",
+      iconBg: "bg-status-info/10",
+      title: "Nova atualização na plataforma",
+      description: "Agora é possível favoritar produtos e acompanhar por notificações.",
+      time: "1 horas atrás",
+      unread: false
+    },
+    {
+      id: 4,
+      icon: "star",
+      iconColor: "text-status-info",
+      iconBg: "bg-status-info/10",
+      title: "Frete Grátis Liberado",
+      description: "Todas as compras acima de R$ 5.000,00 terão frete grátis até o final do mês.",
+      time: "6 horas atrás",
+      unread: false
+    },
+    {
+      id: 5,
+      icon: "info",
+      iconColor: "text-status-info",
+      iconBg: "bg-status-info/10",
+      title: "Tentativa de login detectada",
+      description: "Tentativa de acesso à sua conta a partir de um novo dispositivo. Confirme se foi você.",
+      time: "1 dia atrás",
+      unread: false
+    }
+  ]);
+  const unreadNotifications = notifications.filter(n => n.unread).length;
   const getNotificationIcon = (type: string) => {
     switch (type) {
       case "check":
@@ -199,7 +214,7 @@ const DashboardLayout = ({
   }, {
     id: "animais",
     label: "Animais",
-    icon: CircleDot,
+    icon: PawPrint,
     path: "/dashboard/animais"
   }, {
     id: "leiloes",
@@ -456,8 +471,8 @@ const DashboardLayout = ({
 
       {}
       <Dialog open={isHelpOpen} onOpenChange={setIsHelpOpen}>
-        <DialogContent className="sm:max-w-2xl">
-          <Button variant="ghost" size="icon" onClick={() => setIsHelpOpen(false)} className="absolute right-4 top-4 bg-destructive/10 text-destructive hover:bg-destructive/20 transition-all duration-200 hover:rotate-90">
+        <DialogContent className="sm:max-w-2xl [&>button]:hidden">
+          <Button variant="ghost" size="icon" onClick={() => setIsHelpOpen(false)} className="absolute right-4 top-4 bg-destructive/10 text-destructive hover:bg-destructive/20 transition-all duration-200 hover:rotate-90 z-50">
             <X className="h-5 w-5" />
           </Button>
           <DialogHeader>
@@ -469,19 +484,19 @@ const DashboardLayout = ({
           <div className="space-y-4">
             <div className="aspect-video bg-gradient-to-br from-primary/20 to-primary/5 rounded-lg border-2 border-primary/50 flex items-center justify-center relative overflow-hidden">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,hsl(var(--primary)/0.3),transparent_50%)]" />
-              <Button size="lg" className="relative z-10 rounded-full h-16 w-16 bg-primary/90 hover:bg-primary">
-                <div className="absolute inset-0 rounded-full bg-primary/20 animate-ping" />
-                <svg className="h-8 w-8 ml-1" fill="currentColor" viewBox="0 0 24 24">
+              <Button size="lg" className="relative z-10 rounded-full h-28 w-28 bg-white hover:bg-gray-50 shadow-lg border-2 border-primary/20 animate-pulse">
+                <svg className="h-16 w-16 ml-2 text-primary" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M8 5v14l11-7z" />
                 </svg>
               </Button>
             </div>
             <div className="flex flex-col items-center gap-3">
-              <Button className="gap-2">​Entendi como funciona!<Sparkles className="h-4 w-4" />
-                Começar a lucrar
+              <Button onClick={() => setIsHelpOpen(false)} className="gap-2">
+                <Sparkles className="h-4 w-4" />
+                Entendi como funciona!
               </Button>
-              <button className="text-sm text-muted-foreground hover:underline">
-                Não mostrar novamente
+              <button onClick={() => setIsHelpOpen(false)} className="text-sm text-muted-foreground hover:underline">
+                Voltar
               </button>
             </div>
           </div>
@@ -511,18 +526,27 @@ const DashboardLayout = ({
                     {getNotificationIcon(notification.icon)}
                   </div>
                   <div className="flex-1 space-y-1">
-                    <p className="text-sm font-medium">{notification.title}</p>
+                    <p className="text-sm font-medium flex items-center gap-2">
+                      {notification.title}
+                      {notification.unread && <span className="h-2 w-2 rounded-full bg-primary flex-shrink-0" />}
+                    </p>
                     <p className="text-xs text-muted-foreground leading-relaxed">
                       {notification.description}
                     </p>
                     <p className="text-xs text-muted-foreground">{notification.time}</p>
                   </div>
-                  {notification.unread && <div className="h-2 w-2 rounded-full bg-primary absolute top-4 right-4 flex-shrink-0" />}
+
                 </div>)}
             </div>
 
             <div className="p-4 border-t space-y-2">
-              <Button variant="outline" className="w-full" onClick={() => {}}>
+              <Button variant="outline" className="w-full" onClick={() => {
+                setNotifications(notifications.map(n => ({ ...n, unread: false })));
+                toast({
+                  title: "Notificações marcadas como lidas",
+                  description: "Todas as suas notificações foram marcadas como lidas.",
+                });
+              }}>
                 Marcar tudo como lido
               </Button>
               

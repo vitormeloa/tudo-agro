@@ -2,14 +2,13 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Search, SlidersHorizontal, RefreshCw, FileText, HelpCircle, ChevronRight, Grid3x3 } from "lucide-react";
+import { Search, SlidersHorizontal, RefreshCw, FileText, HelpCircle, ChevronRight, Grid3x3, Filter } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import PurchaseDetailsModal from "@/components/PurchaseDetailsModal";
 
@@ -17,11 +16,32 @@ const MinhasCompras = () => {
   const [activeTab, setActiveTab] = useState("todos");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedPurchase, setSelectedPurchase] = useState<any>(null);
-  const [isAdvancedFilterOpen, setIsAdvancedFilterOpen] = useState(false);
+  const [showFilters, setShowFilters] = useState(false);
+  const [showCategoriesModal, setShowCategoriesModal] = useState(false);
   const [priceRange, setPriceRange] = useState<string>("all");
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [periodFilter, setPeriodFilter] = useState<string>("all");
+  const [sortBy, setSortBy] = useState<string>('recente');
   const { toast } = useToast();
+
+  const categoriesConfig = [
+    { name: 'todos', label: 'Todos', icon: '🛒', color: '#E0F7FA' },
+    { name: 'animais', label: 'Animais', icon: '🐄', color: '#B8E8D1' },
+    { name: 'semen', label: 'Sêmen', icon: '💉', color: '#E2D4F9' },
+    { name: 'produtos', label: 'Produtos', icon: '📦', color: '#E6E6FA' },
+    { name: 'nutricao animal', label: 'Nutrição Animal', icon: '🍎', color: '#FFE0B2' },
+    { name: 'saude e bem-estar animal', icon: '💊', color: '#E1D5FF' },
+    { name: 'reproducao e genetica', label: 'Reprodução e Genética', icon: '🧬', color: '#FCE4EC' },
+    { name: 'selaria e utilidades', label: 'Selaria e Utilidades', icon: '🐎', color: '#DDEBFF' },
+    { name: 'equipamentos e infraestrutura rural', label: 'Equipamentos e Infraestrutura Rural', icon: '🚜', color: '#FFF8DC' },
+    { name: 'vestuario e lifestyle agro', label: 'Vestuário e Lifestyle Agro', icon: '👕', color: '#E0F7FA' },
+    { name: 'sementes e mudas', label: 'Sementes e Mudas', icon: '🌱', color: '#F6F0C4' },
+    { name: 'insumos agricolas e fertilizantes', label: 'Insumos Agrícolas e Fertilizantes', icon: '🌾', color: '#FEE6E3' },
+    { name: 'higiene, limpeza e desinfeccao', label: 'Higiene, Limpeza e Desinfecção', icon: '🧼', color: '#F5F5F5' },
+    { name: 'suplementos e aditivos', label: 'Suplementos e Aditivos', icon: '🧪', color: '#E0F7FA' },
+    { name: 'bebidas artesanais e produtos da fazenda', label: 'Bebidas Artesanais e Produtos da Fazenda', icon: '🍷', color: '#FEE6E3' },
+    { name: 'outros', label: 'Outros', icon: '❓', color: '#F5F5F5' },
+  ];
 
   const allPurchases = [
     {
@@ -188,43 +208,69 @@ const MinhasCompras = () => {
 
   const getStatusConfig = (status: string) => {
     const configs = {
-      "Preparando envio": { 
-        variant: "warning" as const, 
-        className: "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-200 border-amber-200 dark:border-amber-800" 
+      "Preparando envio": {
+        variant: "warning" as const,
+        className: "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-200 border-amber-200 dark:border-amber-800"
       },
-      "Em transporte": { 
-        variant: "default" as const, 
-        className: "bg-primary/10 text-primary dark:bg-blue-900/30 dark:text-blue-200 border-blue-200 dark:border-blue-800" 
+      "Em transporte": {
+        variant: "default" as const,
+        className: "bg-primary/10 text-primary dark:bg-blue-900/30 dark:text-blue-200 border-blue-200 dark:border-blue-800"
       },
-      "Entregue": { 
-        variant: "success" as const, 
-        className: "bg-primary/10 text-primary dark:bg-primary/30 dark:text-primary/30 border-primary/20 dark:border-primary" 
+      "Entregue": {
+        variant: "success" as const,
+        className: "bg-primary/10 text-primary dark:bg-primary/30 dark:text-primary/30 border-primary/20 dark:border-primary"
       },
-      "Cancelado": { 
-        variant: "destructive" as const, 
-        className: "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-200 border-red-200 dark:border-red-800" 
+      "Cancelado": {
+        variant: "destructive" as const,
+        className: "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-200 border-red-200 dark:border-red-800"
       },
     };
     return configs[status as keyof typeof configs] || configs["Preparando envio"];
   };
 
   const filteredPurchases = allPurchases.filter(purchase => {
-    const matchesCategory = activeTab === "todos" || purchase.category === activeTab;
-    const matchesSearch = purchase.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         purchase.id.toString().includes(searchQuery);
-    
-    const matchesPrice = priceRange === "all" || 
-      (priceRange === "low" && purchase.totalPrice < 1000) ||
-      (priceRange === "medium" && purchase.totalPrice >= 1000 && purchase.totalPrice < 10000) ||
-      (priceRange === "high" && purchase.totalPrice >= 10000);
-    
-    const matchesStatus = statusFilter === "all" || purchase.status === statusFilter;
-    
-    const matchesPeriod = periodFilter === "all" || 
-      (periodFilter === "week" && new Date(purchase.date.split('/').reverse().join('-')) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)) ||
-      (periodFilter === "month" && new Date(purchase.date.split('/').reverse().join('-')) > new Date(Date.now() - 30 * 24 * 60 * 60 * 1000));
-    
-    return matchesCategory && matchesSearch && matchesPrice && matchesStatus && matchesPeriod;
+    // Filter by category/tab
+    if (activeTab !== "todos" && purchase.category !== activeTab) return false;
+
+    // Filter by search query
+    if (searchQuery && !purchase.name.toLowerCase().includes(searchQuery.toLowerCase())) return false;
+
+    // Filter by status
+    if (statusFilter !== "all" && purchase.status !== statusFilter) return false;
+
+    // Filter by price range
+    if (priceRange !== "all") {
+      const price = purchase.totalPrice;
+      if (priceRange === "0-1000" && price > 1000) return false;
+      if (priceRange === "1000-5000" && (price < 1000 || price > 5000)) return false;
+      if (priceRange === "5000+" && price < 5000) return false;
+    }
+
+    // Filter by period
+    if (periodFilter !== "all") {
+      const purchaseDate = new Date(purchase.date.split('/').reverse().join('-'));
+      const now = new Date();
+      const diffDays = Math.floor((now.getTime() - purchaseDate.getTime()) / (1000 * 60 * 60 * 24));
+
+      if (periodFilter === "7days" && diffDays > 7) return false;
+      if (periodFilter === "30days" && diffDays > 30) return false;
+      if (periodFilter === "90days" && diffDays > 90) return false;
+    }
+
+    return true;
+  });
+
+  const sortedPurchases = [...filteredPurchases].sort((a, b) => {
+    switch (sortBy) {
+      case 'preco-menor':
+        return a.totalPrice - b.totalPrice;
+      case 'preco-maior':
+        return b.totalPrice - a.totalPrice;
+      case 'recente':
+        return new Date(b.date.split('/').reverse().join('-')).getTime() - new Date(a.date.split('/').reverse().join('-')).getTime();
+      default:
+        return new Date(b.date.split('/').reverse().join('-')).getTime() - new Date(a.date.split('/').reverse().join('-')).getTime();
+    }
   });
 
   const handleBuyAgain = (purchase: any) => {
@@ -246,74 +292,125 @@ const MinhasCompras = () => {
     return allPurchases.filter(p => p.category === category).length;
   };
 
-  const getCategoryIcon = (purchase: any) => {
-    if (purchase.category === "animais") {
-      const isHorse = purchase.itemType.toLowerCase().includes("cavalo") || 
-                      purchase.itemType.toLowerCase().includes("égua") ||
-                      purchase.itemType.toLowerCase().includes("mangalarga");
-      
-      return {
-        icon: isHorse ? "🐎" : "🐂",
-        bgColor: "bg-[hsl(30,40%,85%)]",
-        iconColor: "text-white"
-      };
-    } else if (purchase.category === "semen") {
-      return {
-        icon: "💉",
-        bgColor: "bg-[hsl(211,70%,85%)]",
-        iconColor: "text-white"
-      };
-    } else if (purchase.category === "produtos") {
-      return {
-        icon: "📦",
-        bgColor: "bg-[hsl(142,52%,85%)]",
-        iconColor: "text-white"
-      };
-    }
-    
-    return {
-      icon: "📦",
-      bgColor: "bg-muted",
-      iconColor: "text-muted-foreground"
-    };
+  const getCategoryIcon = (categoryName: string) => {
+    const config = categoriesConfig.find(cat => cat.name === categoryName);
+    return config ? config.icon : '📦';
   };
+
+  const getCategoryColor = (categoryName: string) => {
+    const config = categoriesConfig.find(cat => cat.name === categoryName);
+    return config ? config.color : '#F5F5F5';
+  };
+
+  const clearAllFilters = () => {
+    setSearchQuery('');
+    setPriceRange('all');
+    setStatusFilter('all');
+    setPeriodFilter('all');
+    setActiveTab('todos');
+  };
+
+  const hasActiveFilters = !!(searchQuery || priceRange !== 'all' || statusFilter !== 'all' || periodFilter !== 'all' || activeTab !== 'todos');
+
+  const categories = categoriesConfig.map(cat => ({
+    ...cat,
+    count: getCategoryStats(cat.name)
+  })).filter(cat => cat.count > 0);
+
+  const visibleCategories = categories.slice(0, 5);
+  const hiddenCategories = categories.slice(5);
 
   return (
     <>
       <div className="space-y-4 sm:space-y-6 w-full">
         {}
-        <div className="flex flex-col gap-3 sm:gap-4">
-          <div>
-            <h1 className="text-2xl sm:text-3xl font-bold">Minhas Compras</h1>
-            <p className="text-sm sm:text-base text-muted-foreground mt-1">
-              Acompanhe todos os seus pedidos em um só lugar
-            </p>
-          </div>
-          
-          {}
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
-            <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder="Buscar por pedido..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-9"
-              />
-            </div>
-            <Button 
-              variant="outline" 
-              onClick={() => setIsAdvancedFilterOpen(true)}
-              className="gap-2 whitespace-nowrap"
-            >
-              <SlidersHorizontal className="h-4 w-4" />
-              <span className="hidden sm:inline">Filtros</span>
-            </Button>
-          </div>
+        <div>
+          <h1 className="text-3xl font-bold text-foreground">Minhas Compras</h1>
+          <p className="text-muted-foreground mt-1">Acompanhe todos os seus pedidos em um só lugar</p>
         </div>
 
+        <Card className="shadow-sm border">
+          <CardContent className="p-6">
+            <div className="flex flex-col lg:flex-row gap-4 mb-6">
+              <div className="flex-1">
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                  <Input
+                    type="text"
+                    placeholder="Buscar por nome, ID do pedido..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="pl-10 h-12"
+                  />
+                </div>
+              </div>
+              <Button
+                className="bg-primary hover:bg-[#2E7A5A] text-white px-8 h-12"
+                onClick={() => setShowFilters(!showFilters)}
+              >
+                <SlidersHorizontal className="w-5 h-5 mr-2" />
+                Filtros
+              </Button>
+            </div>
+
+            {showFilters && (
+              <div className="border-t border-gray-200 pt-6">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <Select value={priceRange} onValueChange={setPriceRange}>
+                    <SelectTrigger className="h-10">
+                      <SelectValue placeholder="Faixa de Preço" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">Todos os preços</SelectItem>
+                      <SelectItem value="0-1000">Até R$ 1.000</SelectItem>
+                      <SelectItem value="1000-5000">R$ 1.000 - R$ 5.000</SelectItem>
+                      <SelectItem value="5000+">Acima de R$ 5.000</SelectItem>
+                    </SelectContent>
+                  </Select>
+
+                  <Select value={statusFilter} onValueChange={setStatusFilter}>
+                    <SelectTrigger className="h-10">
+                      <SelectValue placeholder="Status" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">Todos os status</SelectItem>
+                      <SelectItem value="Preparando envio">Preparando envio</SelectItem>
+                      <SelectItem value="Em transporte">Em transporte</SelectItem>
+                      <SelectItem value="Entregue">Entregue</SelectItem>
+                      <SelectItem value="Cancelado">Cancelado</SelectItem>
+                    </SelectContent>
+                  </Select>
+
+                  <Select value={periodFilter} onValueChange={setPeriodFilter}>
+                    <SelectTrigger className="h-10">
+                      <SelectValue placeholder="Período" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">Todo o período</SelectItem>
+                      <SelectItem value="7days">Últimos 7 dias</SelectItem>
+                      <SelectItem value="30days">Últimos 30 dias</SelectItem>
+                      <SelectItem value="90days">Últimos 90 dias</SelectItem>
+                    </SelectContent>
+                  </Select>
+
+                  {hasActiveFilters && (
+                    <Button
+                      variant="outline"
+                      className="h-10 border-red-600 text-red-600 hover:bg-red-600 hover:text-white"
+                      onClick={clearAllFilters}
+                    >
+                      <Filter className="w-4 h-4 mr-2" />
+                      Limpar Filtros
+                    </Button>
+                  )}
+                </div>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
         {}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
           {visibleCategories.map((category) => (
             <Card
               key={category.name}
@@ -352,6 +449,47 @@ const MinhasCompras = () => {
           )}
         </div>
 
+        <Dialog open={showCategoriesModal} onOpenChange={setShowCategoriesModal}>
+          <DialogContent className="max-w-4xl max-h-[85vh] overflow-hidden flex flex-col">
+            <DialogHeader>
+              <DialogTitle>Todas as Categorias</DialogTitle>
+              <DialogDescription>
+                Explore todas as {categories.length} categorias disponiveis
+              </DialogDescription>
+            </DialogHeader>
+            <div className="flex-1 overflow-y-auto">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {hiddenCategories.map((category) => (
+                  <Card
+                    key={category.name}
+                    onClick={() => {
+                      setActiveTab(category.name);
+                      setShowCategoriesModal(false);
+                    }}
+                    className={`hover:shadow-lg transition-all duration-200 cursor-pointer ${
+                      activeTab === category.name ? 'border-primary ring-2 ring-primary/30' : ''
+                    }`}
+                  >
+                    <CardContent className="p-4 text-center">
+                      <div
+                        className="inline-flex px-4 py-2 rounded-full text-sm font-medium mb-3"
+                        style={{
+                          backgroundColor: category.color,
+                          color: '#1F2937'
+                        }}
+                      >
+                        {category.label}
+                      </div>
+                      <div className="text-2xl font-bold text-[#101828]">{category.count}</div>
+                      <div className="text-sm text-gray-500">compras</div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+
         {}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6 hidden">
           <TabsList className="grid w-full grid-cols-4 h-auto p-1">
@@ -378,7 +516,23 @@ const MinhasCompras = () => {
         </Tabs>
 
         {}
-        {filteredPurchases.length === 0 ? (
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <div className="text-gray-600">
+            Mostrando <span className="font-semibold text-[#101828]">{sortedPurchases.length}</span> de <span className="font-semibold text-[#101828]">{allPurchases.length}</span> resultados
+          </div>
+          <Select value={sortBy} onValueChange={(value) => { setSortBy(value); }}>
+            <SelectTrigger className="w-48">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="recente">Mais Recentes</SelectItem>
+              <SelectItem value="preco-menor">Menor Preço</SelectItem>
+              <SelectItem value="preco-maior">Maior Preço</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        {sortedPurchases.length === 0 ? (
           <Card className="p-12">
             <div className="text-center">
               <p className="text-muted-foreground">Nenhuma compra encontrada</p>
@@ -386,7 +540,7 @@ const MinhasCompras = () => {
           </Card>
         ) : (
           <div className="grid gap-4">
-            {filteredPurchases.map((purchase) => {
+            {sortedPurchases.map((purchase) => {
               const isDelivered = purchase.status === "Entregue";
               const shouldShowTracking = ["Pedido confirmado", "Preparando envio", "Em transporte"].includes(purchase.status);
 
@@ -503,105 +657,23 @@ const MinhasCompras = () => {
         <div className="p-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <HelpCircle className="h-5 w-5 text-primary" />
+              <HelpCircle className="h-10 w-10 text-primary" />
               <div>
                 <p className="font-medium">Dúvidas sobre suas compras?</p>
                 <p className="text-sm text-muted-foreground">Nossa equipe está pronta para ajudar</p>
               </div>
             </div>
             <div className="flex gap-3">
-              <Button variant="outline">
-                Central de Ajuda
-              </Button>
-              <Button variant="outline">
-                Política de Devolução
-              </Button>
+                <Button variant="outline">
+                    Fale com Suporte
+                </Button>
+                <Button variant="outline">
+                    Consultar AgroIA
+                </Button>
             </div>
           </div>
         </div>
       </Card>
-
-      {}
-      <Dialog open={isAdvancedFilterOpen} onOpenChange={setIsAdvancedFilterOpen}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>Filtros Avançados</DialogTitle>
-            <DialogDescription>
-              Refine sua busca por faixa de preço, status e período
-            </DialogDescription>
-          </DialogHeader>
-          
-          <div className="space-y-4 py-4">
-            {}
-            <div className="space-y-2">
-              <Label>Faixa de Preço</Label>
-              <Select value={priceRange} onValueChange={setPriceRange}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Selecionar faixa" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">Todos os preços</SelectItem>
-                  <SelectItem value="low">Até R$ 1.000</SelectItem>
-                  <SelectItem value="medium">R$ 1.000 - R$ 10.000</SelectItem>
-                  <SelectItem value="high">Acima de R$ 10.000</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            {}
-            <div className="space-y-2">
-              <Label>Status</Label>
-              <Select value={statusFilter} onValueChange={setStatusFilter}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Selecionar status" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">Todos os status</SelectItem>
-                  <SelectItem value="Preparando envio">Preparando envio</SelectItem>
-                  <SelectItem value="Em transporte">Em transporte</SelectItem>
-                  <SelectItem value="Entregue">Entregue</SelectItem>
-                  <SelectItem value="Cancelado">Cancelado</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            {}
-            <div className="space-y-2">
-              <Label>Período da Compra</Label>
-              <Select value={periodFilter} onValueChange={setPeriodFilter}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Selecionar período" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">Todo o período</SelectItem>
-                  <SelectItem value="week">Última semana</SelectItem>
-                  <SelectItem value="month">Último mês</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-
-          <div className="flex gap-2">
-            <Button 
-              variant="outline" 
-              className="flex-1"
-              onClick={() => {
-                setPriceRange("all");
-                setStatusFilter("all");
-                setPeriodFilter("all");
-              }}
-            >
-              Limpar Filtros
-            </Button>
-            <Button 
-              className="flex-1"
-              onClick={() => setIsAdvancedFilterOpen(false)}
-            >
-              Aplicar
-            </Button>
-          </div>
-        </DialogContent>
-      </Dialog>
 
       {}
       {selectedPurchase && (

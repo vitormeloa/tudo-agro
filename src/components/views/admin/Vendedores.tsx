@@ -120,8 +120,8 @@ const Vendedores = () => {
   return (
     <div className="space-y-6 animate-fade-in">
       <div>
-        <h1 className="text-3xl font-bold text-primary">Gerenciamento de Vendedores</h1>
-        <p className="text-muted-foreground">Acompanhe vendas e desempenho dos vendedores</p>
+        <h1 className="text-3xl font-bold text-foreground">Gerenciamento de Vendedores</h1>
+        <p className="text-muted-foreground mt-1">Acompanhe vendas e desempenho dos vendedores</p>
       </div>
 
       {}

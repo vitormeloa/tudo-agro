@@ -33,6 +33,15 @@ interface ProductCardProps {
         weight?: string
         breed?: string
         type?: 'animal' | 'product'
+        father?: string
+        mother?: string
+        // Campos específicos para cavalos
+        marcha?: string
+        // Campos específicos para gado
+        classificacao?: string
+        // Campos específicos para sêmen
+        central?: string
+        embalagem?: string
     }
     variant?: 'default' | 'compact' | 'detailed'
     showActions?: boolean
@@ -47,16 +56,13 @@ export default function ProductCard({
                                         className,
                                         linkTo
                                     }: ProductCardProps) {
-    const { isFavorite, toggleFavorite, checkIsFavorite } = useFavorites()
-    const [favoriteChecked, setFavoriteChecked] = useState(false)
-
-    useEffect(() => {
-        if (product && !favoriteChecked) {
-            checkIsFavorite(String(product.id)).then(() => {
-                setFavoriteChecked(true)
-            })
-        }
-    }, [product, favoriteChecked, checkIsFavorite])
+        const { isFavorite, toggleFavorite, checkIsFavorite } = useFavorites()
+    
+        useEffect(() => {
+            if (product) {
+                checkIsFavorite(String(product.id))
+            }
+        }, [product, checkIsFavorite])
 
     const handleToggleFavorite = async () => {
         await toggleFavorite(String(product.id))
@@ -119,44 +125,125 @@ export default function ProductCard({
                 </div>
 
                 {}
-                <div className="flex items-center mb-4">
-                    <div className="flex items-center">
-                        {[...Array(5)].map((_, i) => (
-                            <Star
-                                key={i}
-                                className={`w-4 h-4 ${
-                                    i < Math.floor(product.rating)
-                                        ? 'text-amber-400 fill-current'
-                                        : 'text-gray-300'
-                                }`}
-                            />
-                        ))}
-                        <span className="ml-2 text-sm text-gray-600">
-              ({product.rating}) • {product.reviews} avaliações
-            </span>
+                {product.type === 'animal' && product.father && product.mother && (
+                  <div className="hidden md:block mb-4">
+                    <span className="text-gray-500">Filho de:</span>
+                    <div className="font-semibold text-[#101828]">{product.father} x {product.mother}</div>
+                  </div>
+                )}
+                {product.type === 'animal' && product.father && product.mother && (
+                  <div className="md:hidden mb-4">
+                    <div>
+                      <span className="text-gray-500">Pai:</span>
+                      <div className="font-semibold text-[#101828]">{product.father}</div>
                     </div>
-                </div>
+                    <div>
+                      <span className="text-gray-500">Mãe:</span>
+                      <div className="font-semibold text-[#101828]">{product.mother}</div>
+                    </div>
+                  </div>
+                )}
 
                 {}
                 {(variant === 'detailed' || variant === 'default') && (
                     <div className="grid grid-cols-3 gap-2 mb-4 text-sm">
-                        {product.age && (
-                            <div>
-                                <span className="text-gray-500">Idade:</span>
-                                <div className="font-semibold text-[#101828]">{product.age}</div>
-                            </div>
+                        {/* Cavalos */}
+                        {product.category === 'Cavalos' && (
+                            <>
+                                {product.age && (
+                                    <div>
+                                        <span className="text-gray-500">Idade:</span>
+                                        <div className="font-semibold text-[#101828]">{product.age}</div>
+                                    </div>
+                                )}
+                                {product.marcha && (
+                                    <div>
+                                        <span className="text-gray-500">Marcha:</span>
+                                        <div className="font-semibold text-[#101828]">{product.marcha}</div>
+                                    </div>
+                                )}
+                                {product.breed && (
+                                    <div>
+                                        <span className="text-gray-500">Raça:</span>
+                                        <div className="font-semibold text-[#101828]">{product.breed}</div>
+                                    </div>
+                                )}
+                            </>
                         )}
-                        {product.weight && (
-                            <div>
-                                <span className="text-gray-500">Peso:</span>
-                                <div className="font-semibold text-[#101828]">{product.weight}</div>
-                            </div>
+
+                        {/* Gado de Corte e Gado de Leite */}
+                        {(product.category === 'Gado de Corte' || product.category === 'Gado de Leite') && (
+                            <>
+                                {product.age && (
+                                    <div>
+                                        <span className="text-gray-500">Idade:</span>
+                                        <div className="font-semibold text-[#101828]">{product.age}</div>
+                                    </div>
+                                )}
+                                {product.classificacao && (
+                                    <div>
+                                        <span className="text-gray-500">Classificação:</span>
+                                        <div className="font-semibold text-[#101828]">{product.classificacao}</div>
+                                    </div>
+                                )}
+                                {product.breed && (
+                                    <div>
+                                        <span className="text-gray-500">Raça:</span>
+                                        <div className="font-semibold text-[#101828]">{product.breed}</div>
+                                    </div>
+                                )}
+                            </>
                         )}
-                        {product.breed && (
-                            <div>
-                                <span className="text-gray-500">Raça:</span>
-                                <div className="font-semibold text-[#101828]">{product.breed}</div>
-                            </div>
+
+                        {/* Sêmen */}
+                        {product.category === 'Sêmen' && (
+                            <>
+                                {product.central && (
+                                    <div>
+                                        <span className="text-gray-500">Central:</span>
+                                        <div className="font-semibold text-[#101828]">{product.central}</div>
+                                    </div>
+                                )}
+                                {product.embalagem && (
+                                    <div>
+                                        <span className="text-gray-500">Embalagem:</span>
+                                        <div className="font-semibold text-[#101828]">{product.embalagem}</div>
+                                    </div>
+                                )}
+                                {product.breed && (
+                                    <div>
+                                        <span className="text-gray-500">Raça:</span>
+                                        <div className="font-semibold text-[#101828]">{product.breed}</div>
+                                    </div>
+                                )}
+                            </>
+                        )}
+
+                        {/* Outros animais (padrão) */}
+                        {product.category !== 'Cavalos' &&
+                         product.category !== 'Gado de Corte' &&
+                         product.category !== 'Gado de Leite' &&
+                         product.category !== 'Sêmen' && (
+                            <>
+                                {product.age && (
+                                    <div>
+                                        <span className="text-gray-500">Idade:</span>
+                                        <div className="font-semibold text-[#101828]">{product.age}</div>
+                                    </div>
+                                )}
+                                {product.weight && (
+                                    <div>
+                                        <span className="text-gray-500">Peso:</span>
+                                        <div className="font-semibold text-[#101828]">{product.weight}</div>
+                                    </div>
+                                )}
+                                {product.breed && (
+                                    <div>
+                                        <span className="text-gray-500">Raça:</span>
+                                        <div className="font-semibold text-[#101828]">{product.breed}</div>
+                                    </div>
+                                )}
+                            </>
                         )}
                     </div>
                 )}

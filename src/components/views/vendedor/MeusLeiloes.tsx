@@ -66,8 +66,8 @@ const MeusLeiloes = () => {
       {}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-bold">Meus Leilões</h1>
-          <p className="text-muted-foreground">Gerencie e acompanhe seus leilões</p>
+          <h1 className="text-3xl font-bold text-foreground">Meus Leilões</h1>
+          <p className="text-muted-foreground mt-1">Gerencie e acompanhe seus leilões</p>
         </div>
         <div className="flex gap-2">
           <Button variant="outline" className="gap-2" onClick={() => window.open('/leiloes', '_blank')}>

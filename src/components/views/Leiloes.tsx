@@ -20,6 +20,36 @@ import {
 } from 'lucide-react'
 import { mockAuctions } from '@/lib/mock-auctions'
 
+const brazilianStates = [
+  { value: 'AC', label: 'Acre' },
+  { value: 'AL', label: 'Alagoas' },
+  { value: 'AP', label: 'Amapá' },
+  { value: 'AM', label: 'Amazonas' },
+  { value: 'BA', label: 'Bahia' },
+  { value: 'CE', label: 'Ceará' },
+  { value: 'DF', label: 'Distrito Federal' },
+  { value: 'ES', label: 'Espírito Santo' },
+  { value: 'GO', label: 'Goiás' },
+  { value: 'MA', label: 'Maranhão' },
+  { value: 'MT', label: 'Mato Grosso' },
+  { value: 'MS', label: 'Mato Grosso do Sul' },
+  { value: 'MG', label: 'Minas Gerais' },
+  { value: 'PA', label: 'Pará' },
+  { value: 'PB', label: 'Paraíba' },
+  { value: 'PR', label: 'Paraná' },
+  { value: 'PE', label: 'Pernambuco' },
+  { value: 'PI', label: 'Piauí' },
+  { value: 'RJ', label: 'Rio de Janeiro' },
+  { value: 'RN', label: 'Rio Grande do Norte' },
+  { value: 'RS', label: 'Rio Grande do Sul' },
+  { value: 'RO', label: 'Rondônia' },
+  { value: 'RR', label: 'Roraima' },
+  { value: 'SC', label: 'Santa Catarina' },
+  { value: 'SP', label: 'São Paulo' },
+  { value: 'SE', label: 'Sergipe' },
+  { value: 'TO', label: 'Tocantins' },
+];
+
 export default function Leiloes() {
   const [currentTime, setCurrentTime] = useState<Date | null>(null)
   const [mounted, setMounted] = useState(false)
@@ -92,8 +122,8 @@ export default function Leiloes() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-[#101828] mb-2">Leiloes Online</h1>
-        <p className="text-gray-600">Participe dos melhores leiloes do agronegocio em tempo real</p>
+        <h1 className="text-3xl font-bold text-foreground">Leilões Online</h1>
+        <p className="text-muted-foreground mt-1">Participe dos melhores leilões do agronegócio em tempo real</p>
       </div>
 
       <Card className="shadow-sm border">
@@ -127,10 +157,9 @@ export default function Leiloes() {
                 <SelectValue placeholder="Localizacao" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="go">Goias</SelectItem>
-                <SelectItem value="mg">Minas Gerais</SelectItem>
-                <SelectItem value="sp">Sao Paulo</SelectItem>
-                <SelectItem value="rs">Rio Grande do Sul</SelectItem>
+                {brazilianStates.map(state => (
+                  <SelectItem key={state.value} value={state.value.toLowerCase()}>{state.label}</SelectItem>
+                ))}
               </SelectContent>
             </Select>
 
@@ -321,7 +350,7 @@ export default function Leiloes() {
                 <div className="p-6">
                     <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                         <div className="flex items-center gap-3">
-                            <HelpCircle className="h-5 w-5 text-primary" />
+                            <HelpCircle className="h-10 w-10 text-primary" />
                             <div>
                                 <p className="font-medium">Dúvidas sobre os leilões?</p>
                                 <p className="text-sm text-muted-foreground">Nossa equipe está pronta para ajudar</p>
@@ -329,10 +358,10 @@ export default function Leiloes() {
                         </div>
                         <div className="flex gap-3">
                             <Button variant="outline">
-                                Central de Ajuda
+                                Fale com Suporte
                             </Button>
-                            <Button>
-                                Falar com Suporte
+                            <Button variant="outline">
+                                Consultar AgroIA
                             </Button>
                         </div>
                     </div>

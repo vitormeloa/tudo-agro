@@ -327,7 +327,7 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
                   </div>
 
                   <div className="flex flex-col sm:flex-row gap-2 sm:gap-0 mb-4">
-                    <div className="flex items-center sm:mr-6">
+                    <div className="flex items-center sm:mr-6 mb-2 sm:mb-0">
                       <Star className="w-5 h-5 text-yellow-500 fill-current mr-1" />
                       <span className="font-bold text-[#101828] mr-1 text-sm sm:text-base">{seller.rating}</span>
                       <span className="text-gray-600 text-xs sm:text-sm">({seller.totalSales} vendas)</span>

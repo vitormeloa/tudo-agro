@@ -139,8 +139,8 @@ const MinhaLojaAgro = () => {
       {}
       <div className="flex flex-col gap-4">
         <div>
-          <h1 className="text-3xl font-bold">Minha Loja Agro</h1>
-          <p className="text-muted-foreground">Gerencie seus produtos e estoque</p>
+          <h1 className="text-3xl font-bold text-foreground">Minha Loja Agro</h1>
+          <p className="text-muted-foreground mt-1">Gerencie seus produtos e estoque</p>
         </div>
         
         {}

@@ -36,8 +36,25 @@ model User {
   reviews      Review[]
   addresses    Address[]
   documents    Document[]
+  notifications Notification[]
 
   @@map("users")
+}
+
+// Modelo de Notificações
+model Notification {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  read        Boolean  @default(false)
+  link        String?
+  createdAt   DateTime @default(now())
+
+  // Relacionamentos
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("notifications")
 }
 
 // Modelo de Contas (NextAuth)

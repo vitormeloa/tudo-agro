@@ -177,8 +177,8 @@ const Pedidos = () => {
   return (
     <div className="space-y-6 animate-fade-in">
       <div>
-        <h1 className="text-3xl font-bold text-primary">Gerenciamento de Pedidos</h1>
-        <p className="text-muted-foreground">Visualize e gerencie todos os pedidos da plataforma</p>
+        <h1 className="text-3xl font-bold text-foreground">Gerenciamento de Pedidos</h1>
+        <p className="text-muted-foreground mt-1">Visualize e gerencie todos os pedidos da plataforma</p>
       </div>
 
       <Tabs defaultValue="animais" className="w-full">

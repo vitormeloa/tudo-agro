@@ -513,7 +513,7 @@ export default function PainelPage() {
                         </div>
                       ))}
                     </div>
-                  </CardContent>
+                  </CardContent>.
                 </Card>
               </div>
             )}

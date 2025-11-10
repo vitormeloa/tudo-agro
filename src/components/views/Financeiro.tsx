@@ -416,25 +416,19 @@ const Financeiro = () => {
         <CardContent className="p-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <HelpCircle className="h-5 w-5 text-primary" />
-              <div>
+                <HelpCircle className="h-10 w-10 text-primary" />
+                <div>
                 <p className="font-medium">Dúvidas sobre seus pagamentos?</p>
                 <p className="text-sm text-muted-foreground">Nossa equipe está pronta para ajudar</p>
               </div>
             </div>
             <div className="flex gap-3">
-              <Button 
-                variant="outline"
-                onClick={() => setShowHelpModal(true)}
-              >
-                Central de Ajuda
-              </Button>
-              <Button 
-                variant="outline"
-                onClick={() => setShowRefundPolicyModal(true)}
-              >
-                Política de Reembolso
-              </Button>
+                <Button variant="outline">
+                    Fale com Suporte
+                </Button>
+                <Button variant="outline">
+                    Consultar AgroIA
+                </Button>
             </div>
           </div>
         </CardContent>

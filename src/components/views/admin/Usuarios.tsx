@@ -55,8 +55,8 @@ const Usuarios = () => {
   return (
     <div className="space-y-6 animate-fade-in">
       <div>
-        <h1 className="text-3xl font-bold text-primary">Gerenciamento de Usuários</h1>
-        <p className="text-muted-foreground">Gerencie compradores e vendedores da plataforma</p>
+        <h1 className="text-3xl font-bold text-foreground">Gerenciamento de Usuários</h1>
+        <p className="text-muted-foreground mt-1">Gerencie compradores e vendedores da plataforma</p>
       </div>
 
       <Tabs defaultValue="compradores" className="w-full">

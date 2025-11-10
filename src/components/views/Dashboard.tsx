@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Heart, Package, Eye, Users, Gavel, Store, BookOpen, HelpCircle, TrendingUp, Award, Shield, MessageSquare } from "lucide-react";
+import { Heart, Package, Eye, Users, Gavel, Store, BookOpen, HelpCircle, TrendingUp, Award, Shield, MessageSquare, ChevronRight } from "lucide-react";
 import { useState, useMemo, lazy, Suspense } from "react";
 
 const PurchaseDetailsModal = lazy(() => import("@/components/PurchaseDetailsModal"));
@@ -243,7 +243,7 @@ const Dashboard = () => {
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
-                {RECENT_PURCHASES.map(purchase => <div key={purchase.id} className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 rounded-lg border p-4 hover:border-secondary/50 transition-colors">
+                {RECENT_PURCHASES.map(purchase => <div key={purchase.id} className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 rounded-lg border p-4 hover:border-secondary/50 transition-colors" onClick={() => setSelectedPurchase(purchase.id)}>
                     <div className="flex items-start md:items-center gap-3 md:gap-4 flex-1">
                       <img
                         src={purchase.image}
@@ -259,10 +259,11 @@ const Dashboard = () => {
                       <Badge variant={getStatusBadge(purchase.status).variant} className="shrink-0 px-4 py-1">
                         {getStatusBadge(purchase.status).label}
                       </Badge>
-                      <Button variant="outline" size="sm" className="border-2 border-primary text-primary hover:border-primary hover:bg-primary hover:text-white transition-all duration-200 shrink-0 rounded-lg px-4" onClick={() => setSelectedPurchase(purchase.id)}>
-                        <Eye className="h-4 w-4 md:mr-2" />
-                        <span className="hidden md:inline">Ver detalhes</span>
+                      <Button variant="outline" size="sm" className="hidden md:flex border-2 border-primary text-primary hover:border-primary hover:bg-primary hover:text-white transition-all duration-200 shrink-0 rounded-lg px-4" onClick={(e) => { e.stopPropagation(); setSelectedPurchase(purchase.id); }}>
+                        <Eye className="h-4 w-4 mr-2" />
+                        <span>Ver detalhes</span>
                       </Button>
+                      <ChevronRight className="h-5 w-5 text-gray-400 md:hidden" />
                     </div>
                   </div>)}
               </div>
@@ -311,20 +312,19 @@ const Dashboard = () => {
             <div className="p-6">
               <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
-                  <HelpCircle className="h-5 w-5 text-primary" />
+                  <HelpCircle className="h-10 w-10 text-primary" />
                   <div>
                     <p className="font-medium">Dúvidas sobre o Dashboard?</p>
                     <p className="text-sm text-muted-foreground">Nossa equipe está pronta para ajudar</p>
                   </div>
                 </div>
                 <div className="flex gap-3">
-                  <Button variant="outline">
-                    <MessageSquare className="mr-2 h-4 w-4" />
-                    Fale com Suporte
-                  </Button>
-                  <Button variant="outline">
-                    Central de Ajuda
-                  </Button>
+                    <Button variant="outline">
+                        Fale com Suporte
+                    </Button>
+                    <Button variant="outline">
+                        Consultar AgroIA
+                    </Button>
                 </div>
               </div>
             </div>

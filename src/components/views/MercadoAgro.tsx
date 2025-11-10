@@ -177,18 +177,18 @@ export default function MercadoAgro() {
   }
 
   const categories = [
-    { name: 'Nutricao Animal', color: '#B8E8D1' },
-    { name: 'Saude e Bem-Estar Animal', color: '#E2D4F9' },
-    { name: 'Reproducao e Genetica', color: '#E6E6FA' },
-    { name: 'Selaria e Utilidades', color: '#FFE0B2' },
-    { name: 'Equipamentos e Infraestrutura Rural', color: '#E1D5FF' },
-    { name: 'Vestuario e Lifestyle Agro', color: '#FCE4EC' },
-    { name: 'Sementes e Mudas', color: '#DDEBFF' },
-    { name: 'Insumos Agricolas e Fertilizantes', color: '#FFF8DC' },
-    { name: 'Higiene, Limpeza e Desinfeccao', color: '#E0F7FA' },
-    { name: 'Suplementos e Aditivos', color: '#F6F0C4' },
-    { name: 'Bebidas Artesanais e Produtos da Fazenda', color: '#FEE6E3' },
-    { name: 'Outros', color: '#F5F5F5' }
+    { name: 'Nutrição Animal', icon: '🍎', color: '#B8E8D1' },
+    { name: 'Saúde e Bem-Estar Animal', icon: '💊', color: '#E2D4F9' },
+    { name: 'Reprodução e Genética', icon: '🧬', color: '#E6E6FA' },
+    { name: 'Selaria e Utilidades', icon: '🐎', color: '#FFE0B2' },
+    { name: 'Equipamentos e Infraestrutura Rural', icon: '🚜', color: '#E1D5FF' },
+    { name: 'Vestuário e Lifestyle Agro', icon: '👕', color: '#FCE4EC' },
+    { name: 'Sementes e Mudas', icon: '🌱', color: '#DDEBFF' },
+    { name: 'Insumos Agrícolas e Fertilizantes', icon: '🌾', color: '#FFF8DC' },
+    { name: 'Higiene, Limpeza e Desinfecção', icon: '🧼', color: '#E0F7FA' },
+    { name: 'Suplementos e Aditivos', icon: '🧪', color: '#F6F0C4' },
+    { name: 'Bebidas Artesanais e Produtos da Fazenda', icon: '🍷', color: '#FEE6E3' },
+    { name: 'Outros', icon: '❓', color: '#F5F5F5' }
   ].map(cat => ({
     ...cat,
     count: getCategoryCount(cat.name)
@@ -200,8 +200,8 @@ export default function MercadoAgro() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-[#101828] mb-2">Mercado Agro</h1>
-        <p className="text-gray-600">Encontre racoes, sementes, fertilizantes e tudo que sua fazenda precisa</p>
+        <h1 className="text-3xl font-bold text-foreground">Mercado Agro</h1>
+        <p className="text-muted-foreground mt-1">Encontre rações, sementes, fertilizantes e tudo que sua fazenda precisa</p>
       </div>
 
       <Card className="shadow-sm border">
@@ -341,7 +341,7 @@ export default function MercadoAgro() {
                     color: '#1F2937',
                   }}
                 >
-                  <span className="text-center">{category.name}</span>
+                  <span className="text-center">{category.icon} {category.name}</span>
                 </div>
                 <div className="text-xl font-bold text-[#101828]">{category.count}</div>
                 <div className="text-xs text-gray-500">produtos</div>
@@ -369,7 +369,7 @@ export default function MercadoAgro() {
           <DialogHeader>
             <DialogTitle>Todas as Categorias</DialogTitle>
             <DialogDescription>
-              Explore todas as {hiddenCategories.length} categorias disponiveis
+              Explore todas as {categories.length} categorias disponiveis
             </DialogDescription>
           </DialogHeader>
           <div className="flex-1 overflow-y-auto">
@@ -377,7 +377,10 @@ export default function MercadoAgro() {
               {hiddenCategories.map((category) => (
                 <Card
                   key={category.name}
-                  onClick={() => handleCategoryClick(category.name)}
+                  onClick={() => {
+                    setSelectedCategory(category.name);
+                    setShowCategoriesModal(false);
+                  }}
                   className={`hover:shadow-lg transition-all duration-200 cursor-pointer ${
                     selectedCategory === category.name ? 'border-primary ring-2 ring-primary/30' : ''
                   }`}
@@ -390,7 +393,7 @@ export default function MercadoAgro() {
                         color: '#1F2937'
                       }}
                     >
-                      {category.name}
+                      {category.icon} {category.name}
                     </div>
                     <div className="text-2xl font-bold text-[#101828]">{category.count}</div>
                     <div className="text-sm text-gray-500">produtos</div>
@@ -418,7 +421,7 @@ export default function MercadoAgro() {
           </div>
         </div>
         <div className="flex items-center p-4 bg-white rounded-lg shadow-sm border">
-          <Award className="w-8 h-8 text-amber-600 mr-4" />
+          <Award className="w-8 h-8 text-primary mr-4" />
           <div>
             <h4 className="font-semibold text-[#101828]">Qualidade</h4>
             <p className="text-sm text-gray-600">Marcas reconhecidas</p>
@@ -544,7 +547,7 @@ export default function MercadoAgro() {
                 <div className="p-6">
                     <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                         <div className="flex items-center gap-3">
-                            <HelpCircle className="h-5 w-5 text-primary" />
+                            <HelpCircle className="h-10 w-10 text-primary" />
                             <div>
                                 <p className="font-medium">Dúvidas sobre os produtos?</p>
                                 <p className="text-sm text-muted-foreground">Nossa equipe está pronta para ajudar</p>
@@ -552,10 +555,10 @@ export default function MercadoAgro() {
                         </div>
                         <div className="flex gap-3">
                             <Button variant="outline">
-                                Central de Ajuda
+                                Fale com Suporte
                             </Button>
-                            <Button>
-                                Falar com Suporte
+                            <Button variant="outline">
+                                Consultar AgroIA
                             </Button>
                         </div>
                     </div>

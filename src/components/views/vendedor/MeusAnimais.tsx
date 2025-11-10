@@ -30,7 +30,9 @@ const MeusAnimais = () => {
       views: 145,
       rating: 4.8,
       reviews: 12,
-      image: "/fotos/animais/touro-nelore.jpeg"
+      image: "/fotos/animais/touro-nelore.jpeg",
+      father: "Imperador",
+      mother: "Jóia Rara"
     },
     {
       id: 2,
@@ -41,7 +43,9 @@ const MeusAnimais = () => {
       views: 89,
       rating: 5.0,
       reviews: 8,
-      image: "/fotos/animais/novilha-brahman.jpg"
+      image: "/fotos/animais/novilha-brahman.jpg",
+      father: "Touro Leiteiro",
+      mother: "Vaca Premiada"
     },
     {
       id: 3,
@@ -52,7 +56,9 @@ const MeusAnimais = () => {
       views: 234,
       rating: 4.5,
       reviews: 15,
-      image: "/fotos/animais/garanhao-quarto-de-milha.jpg"
+      image: "/fotos/animais/garanhao-quarto-de-milha.jpg",
+      father: "Campeão de Vaquejada",
+      mother: "Estrela das Pistas"
     },
     {
       id: 4,
@@ -63,7 +69,9 @@ const MeusAnimais = () => {
       views: 45,
       rating: 0,
       reviews: 0,
-      image: "/fotos/animais/vaca-holandesa.jpeg"
+      image: "/fotos/animais/vaca-holandesa.jpeg",
+      father: "Carneiro Alfa",
+      mother: "Ovelha Beta"
     }
   ];
 
@@ -81,8 +89,8 @@ const MeusAnimais = () => {
       {}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-bold">Meus Animais</h1>
-          <p className="text-muted-foreground">Gerencie seus anúncios de animais</p>
+          <h1 className="text-3xl font-bold text-foreground">Meus Animais</h1>
+          <p className="text-muted-foreground mt-1">Gerencie seus anúncios de animais</p>
         </div>
         <div className="flex gap-2">
           <Button variant="outline" className="gap-2" onClick={() => window.open('/loja/fazenda-santa-cruz', '_blank')}>
@@ -210,10 +218,24 @@ const MeusAnimais = () => {
                   <span className="text-sm text-muted-foreground">Visualizações:</span>
                   <span className="font-medium">{animal.views}</span>
                 </div>
-                {animal.reviews > 0 && (
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-muted-foreground">Avaliação:</span>
-                    <span className="font-medium">{animal.rating}⭐ ({animal.reviews})</span>
+                {animal.father && animal.mother && (
+                  <div className="hidden md:block">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-muted-foreground">Filho de:</span>
+                      <span className="font-medium">{animal.father} x {animal.mother}</span>
+                    </div>
+                  </div>
+                )}
+                {animal.father && animal.mother && (
+                  <div className="md:hidden">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-muted-foreground">Pai:</span>
+                      <span className="font-medium">{animal.father}</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-muted-foreground">Mãe:</span>
+                      <span className="font-medium">{animal.mother}</span>
+                    </div>
                   </div>
                 )}
                 <div className="pt-2 flex gap-2">

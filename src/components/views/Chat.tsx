@@ -436,8 +436,8 @@ const Chat = () => {
         <div className="mb-4 sm:mb-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold">Chat com Vendedores</h1>
-              <p className="text-sm sm:text-base text-muted-foreground mt-1">
+              <h1 className="text-3xl font-bold text-foreground">Chat com Vendedores</h1>
+              <p className="text-muted-foreground mt-1">
                 Converse diretamente com os vendedores
               </p>
             </div>
@@ -791,19 +791,19 @@ const Chat = () => {
         <div className="p-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <HelpCircle className="h-5 w-5 text-primary" />
-              <div>
+                <HelpCircle className="h-10 w-10 text-primary" />
+                <div>
                 <p className="font-medium">Dúvidas sobre suas conversas?</p>
                 <p className="text-sm text-muted-foreground">Nossa equipe está pronta para ajudar</p>
               </div>
             </div>
             <div className="flex gap-3">
-              <Button variant="outline">
-                Central de Ajuda
-              </Button>
-              <Button variant="outline">
-                Política de Comunicação
-              </Button>
+                <Button variant="outline">
+                    Fale com Suporte
+                </Button>
+                <Button variant="outline">
+                    Consultar AgroIA
+                </Button>
             </div>
           </div>
         </div>
