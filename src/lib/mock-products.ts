@@ -2391,4 +2391,310 @@ export const mockProducts: MockProduct[] = [
       image: "https://mla-s1-p.mlstatic.com/620963-MLA48550602416_122021-O.jpg"
     }
 },
+
+{
+  id: "550e8400-e29b-41d4-a716-446655440055",
+  title: "Boné Trucker Telinha Agro Linha Country Brasão Agronomia",
+  category: "Vestuário e Lifestyle Agro",
+  price: 44.99,
+  location: "Minas Gerais",
+  city: "Belo Horizonte",
+  rating: 4.8,
+  reviews: 387,
+  image: "/fotos/produtos/bone.png",
+  seller: "Unicsport",
+  verified: true,
+  featured: false,
+  weight: "",
+  brand: "Atrevidu's Country",
+  stock: "Em estoque",
+  description: "O Boné Trucker Telinha Agro Linha Country Brasão Agronomia é a escolha perfeita para quem busca estilo e conforto em qualquer ocasião.",
+  images: [
+    "/fotos/produtos/bone.png",
+  ],
+  specifications: {
+    modelo: "Trucker",
+    gênero: "unissex",
+    idade: "adultos"
+  },
+  documents: [
+    "Ficha Técnica",
+    "Certificado de Proteção UV",
+    "Manual de Cuidados e Lavagem",
+    "Nota Fiscal",
+    "Termo de Origem do Fabricante"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "Unicsport",
+      location: "Belo Horizonte, Minas Gerais",
+      rating: 4.6,
+      totalSales: 30,
+      memberSince: "2020",
+      verified: true,
+      image: "https://mla-s1-p.mlstatic.com/839548-MLA53691291956_022023-O.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440056",
+  title: "Luva De Segurança Para Alta Resistência Ao Corte E Abrasão",
+  category: "Vestuário e Lifestyle Agro",
+  price: 49.80,
+  location: "São Paulo",
+  city: "Sâo Paulo",
+  rating: 4.8,
+  reviews: 387,
+  image: "/fotos/produtos/luvaanimal.png",
+  seller: "Super EPI",
+  verified: true,
+  featured: false,
+  weight: "",
+  brand: "MCR Safety",
+  stock: "Em estoque",
+  description: "Nossa linha Excalibur® 4 oferece maior resistência ao corte, rasgamento e graças ao seu revestimento ultra leve de Nitrila espumada, oferece excelente resistência à abrasão.",
+  images: [
+    "/fotos/produtos/luvaanimal.png",
+  ],
+  specifications: {
+    modelo: "MCR Luva de Proteção Excalibur 3/4 Cut 5 BEX4",
+    gênero: "unissex",
+    idade: "adultos"
+  },
+  documents: [
+    "Ficha Técnica",
+    "Certificado de Proteção UV",
+    "Manual de Cuidados e Lavagem",
+    "Nota Fiscal",
+    "Termo de Origem do Fabricante"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "Super EPI",
+      location: "São Paulo, São Paulo",
+      rating: 4.6,
+      totalSales: 30,
+      memberSince: "2020",
+      verified: true,
+      image: "https://http2.mlstatic.com/D_NQ_NP_747454-MLA84462432878_052025-G.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440057",
+  title: "Cinto Atrevidu´s Country Americano Couro 4 Cm Adultos.",
+  category: "Vestuário e Lifestyle Agro",
+  price: 58.16,
+  location: "Minas Gerais",
+  city: "Belo Horizonte",
+  rating: 4.5,
+  reviews: 165,
+  image: "/fotos/produtos/cinto.png",
+  seller: "Unicsport",
+  verified: true,
+  featured: false,
+  weight: "",
+  brand: "Atrevidu's Country",
+  stock: "Em estoque",
+  description: "Este cinto country americano da marca Atrevidu´s é perfeito para adultos que buscam um acessório de qualidade e estilo.",
+  images: [
+    "/fotos/produtos/cinto.png",
+  ],
+  specifications: {
+    modelo: "americano",
+    gênero: "unissex",
+    idade: "adultos"
+  },
+  documents: [
+    "Ficha Técnica",
+    "Certificado de Proteção UV",
+    "Manual de Cuidados e Lavagem",
+    "Nota Fiscal",
+    "Termo de Origem do Fabricante"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "Unicsport",
+      location: "Belo Horizonte, Minas Gerais",
+      rating: 4.6,
+      totalSales: 30,
+      memberSince: "2020",
+      verified: true,
+      image: "https://mla-s1-p.mlstatic.com/839548-MLA53691291956_022023-O.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440058",
+  title: "Jaqueta Corta Vento Brk Brasil Repelente À Água Com Uv50+.",
+  category: "Vestuário e Lifestyle Agro",
+  price: 229.90,
+  location: "Minas Gerais",
+  city: "Uberlândia",
+  rating: 5,
+  reviews: 1,
+  image: "/fotos/produtos/cortavento.png",
+  seller: "Brk Fishing",
+  verified: true,
+  featured: false,
+  weight: "",
+  brand: "Brk Agro",
+  stock: "Em estoque",
+  description: " Jaqueta Corta Vento BRK é confeccionada em poliéster 100% proporcionando mais conforto e visual moderno.",
+  images: [
+    "/fotos/produtos/cortavento.png",
+  ],
+  specifications: {
+    modelo: "Treino,Para Andar Moto,Para Caminhada",
+    gênero: "masculino",
+    idade: "adultos"
+  },
+  documents: [
+    "Ficha Técnica",
+    "Certificado de Proteção UV",
+    "Manual de Cuidados e Lavagem",
+    "Nota Fiscal",
+    "Termo de Origem do Fabricante"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "Brk Fishing",
+      location: "Uberlândia, Minas Gerais",
+      rating: 4.6,
+      totalSales: 307,
+      memberSince: "2020",
+      verified: true,
+      image: "https://http2.mlstatic.com/D_NQ_NP_974413-MLA77570890127_072024-G.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440059",
+  title: "Moletom Cavalo, Horse, Mangalarga Machador, Roça, Animais",
+  category: "Vestuário e Lifestyle Agro",
+  price: 78.90,
+  location: "Minas Gerais",
+  city: "Uberlândia",
+  rating: 4,
+  reviews: 1,
+  image: "/fotos/produtos/moletom.png",
+  seller: "intrigastreetwe",
+  verified: true,
+  featured: false,
+  weight: "",
+  brand: "Percepção",
+  stock: "Em estoque",
+  description: "todas as cores e tamanhos disponíveis para pronta entrega. produto de ótima qualidade e de procedência.",
+  images: [
+    "/fotos/produtos/moletom.png",
+  ],
+  specifications: {
+    modelo: "Treino,Para Andar Moto,Para Caminhada",
+    gênero: "unissex",
+    idade: "adultos"
+  },
+  documents: [
+    "Ficha Técnica",
+    "Certificado de Proteção UV",
+    "Manual de Cuidados e Lavagem",
+    "Nota Fiscal",
+    "Termo de Origem do Fabricante"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "intrigastreetwe",
+      location: "Uberlândia, Minas Gerais",
+      rating: 4.6,
+      totalSales: 307,
+      memberSince: "2020",
+      verified: true,
+      image: "https://http2.mlstatic.com/D_NQ_NP_955496-MLA83650306913_042025-F.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440060",
+  title: "Agrol Fertilizante Npk 10-10-10 Granulado 1kg",
+  category: "Insumos Agrícolas e Fertilizantes",
+  price: 23.62,
+  location: "Minas Gerais",
+  city: "Belo Horizonte",
+  rating: 4.7,
+  reviews: 56,
+  image: "/fotos/produtos/adubo.png",
+  seller: "ALOFICIAL",
+  verified: true,
+  featured: false,
+  weight: "",
+  brand: "Agrol",
+  stock: "Em estoque",
+  description: "O Agrol Fertilizante NPK 10-10-10 Granulado 1Kg é a solução ideal para promover o crescimento saudável de plantas em jardins, hortas e áreas verdes.",
+  images: [
+    "/fotos/produtos/adubo.png",
+  ],
+  specifications: {
+    formulacao: "NPK 10-10-10",
+    nitrogenio_n: "10%",
+    fosforo_p2o5: "10%",
+    potassio_k2o: "10%",
+  },
+  documents: [
+    "Ficha Técnica",
+    "Registro no MAPA",
+    "Certificado de Garantia da Formulação",
+    "Certificado de Qualidade",
+    "Laudo de Composição NPK",
+    "Nota Fiscal"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "ALOFICIAL",
+      location: "Belo Horizonte, Minas Gerais",
+      rating: 4.7,
+      totalSales: 143,
+      memberSince: "2020",
+      verified: true,
+      image: "https://http2.mlstatic.com/D_NQ_NP_946384-MLA82942673772_032025-F.jpg"
+    }
+},
+{
+  id: "550e8400-e29b-41d4-a716-446655440061",
+  title: "Ureia Agrícola Saco 25kg - Adubo Fertilizante Solúvel 46% N",
+  category: "Insumos Agrícolas e Fertilizantes",
+  price: 217.60,
+  location: "São Paulo",
+  city: "Campinas",
+  rating: 4.9,
+  reviews: 70,
+  image: "/fotos/produtos/Ureia.png",
+  seller: " ARL Multistore",
+  verified: true,
+  featured: false,
+  weight: "25kg",
+  brand: "ARL Multistore",
+  stock: "Em estoque",
+  description: "Ureia Adubo Fertilizante - Saco com 25 Kg - 46% de Nitrogênio.",
+  images: [
+    "/fotos/produtos/Ureia.png",
+  ],
+  specifications: {
+    formulacao: "NPK 10-10-10",
+    nitrogenio_n: "10%",
+    fosforo_p2o5: "10%",
+    potassio_k2o: "10%",
+  },
+  documents: [
+    "Ficha Técnica",
+    "Registro no MAPA",
+    "Certificado de Garantia da Formulação",
+    "Certificado de Qualidade",
+    "Laudo de Composição NPK",
+    "Nota Fiscal"
+  ],
+  sellerInfo: {
+      id: 6,
+      name: "ALOFICIAL",
+      location: "Belo Horizonte, Minas Gerais",
+      rating: 4.7,
+      totalSales: 143,
+      memberSince: "2020",
+      verified: true,
+      image: "https://http2.mlstatic.com/D_NQ_NP_946384-MLA82942673772_032025-F.jpg"
+    }
+},
 ]
