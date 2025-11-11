@@ -410,7 +410,7 @@ const MinhasCompras = () => {
           {visibleCategories.map((category) => (
             <Card
               key={category.name}
-              onClick={() => setActiveTab(category.name)}
+              onClick={() => setActiveTab(activeTab === category.name ? 'todos' : category.name)}
               className={`hover:shadow-lg transition-all duration-300 transform hover:scale-105 cursor-pointer ${
                 activeTab === category.name ? 'ring-2 ring-emerald-500 shadow-lg' : ''
               }`}
@@ -459,7 +459,7 @@ const MinhasCompras = () => {
                   <Card
                     key={category.name}
                     onClick={() => {
-                      setActiveTab(category.name);
+                      setActiveTab(activeTab === category.name ? 'todos' : category.name);
                       setShowCategoriesModal(false);
                     }}
                     className={`hover:shadow-lg transition-all duration-200 cursor-pointer ${

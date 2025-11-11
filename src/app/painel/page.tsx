@@ -267,53 +267,61 @@ export default function PainelPage() {
 
                 {}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                  <Card className="shadow-lg border-0 bg-white">
-                    <CardContent className="p-6">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <p className="text-gray-600 text-sm font-medium">Leilões Participados</p>
-                          <p className="text-2xl font-bold text-primary">12</p>
+                  <button onClick={() => setActiveTab('auctions')}>
+                    <Card className="shadow-lg border-0 bg-white">
+                      <CardContent className="p-6">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="text-gray-600 text-sm font-medium">Leilões Participados</p>
+                            <p className="text-2xl font-bold text-primary">12</p>
+                          </div>
+                          <Gavel className="w-8 h-8 text-amber-600" />
                         </div>
-                        <Gavel className="w-8 h-8 text-amber-600" />
-                      </div>
-                    </CardContent>
-                  </Card>
+                      </CardContent>
+                    </Card>
+                  </button>
 
-                  <Card className="shadow-lg border-0 bg-white">
-                    <CardContent className="p-6">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <p className="text-gray-600 text-sm font-medium">Compras Realizadas</p>
-                          <p className="text-2xl font-bold text-primary">8</p>
+                  <button onClick={() => setActiveTab('purchases')}>
+                    <Card className="shadow-lg border-0 bg-white">
+                      <CardContent className="p-6">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="text-gray-600 text-sm font-medium">Compras Realizadas</p>
+                            <p className="text-2xl font-bold text-primary">8</p>
+                          </div>
+                          <ShoppingCart className="w-8 h-8 text-amber-600" />
                         </div>
-                        <ShoppingCart className="w-8 h-8 text-amber-600" />
-                      </div>
-                    </CardContent>
-                  </Card>
+                      </CardContent>
+                    </Card>
+                  </button>
 
-                  <Card className="shadow-lg border-0 bg-white">
-                    <CardContent className="p-6">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <p className="text-gray-600 text-sm font-medium">Favoritos</p>
-                          <p className="text-2xl font-bold text-primary">15</p>
+                  <button onClick={() => setActiveTab('favorites')}>
+                    <Card className="shadow-lg border-0 bg-white">
+                      <CardContent className="p-6">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="text-gray-600 text-sm font-medium">Favoritos</p>
+                            <p className="text-2xl font-bold text-primary">15</p>
+                          </div>
+                          <Heart className="w-8 h-8 text-amber-600" />
                         </div>
-                        <Heart className="w-8 h-8 text-amber-600" />
-                      </div>
-                    </CardContent>
-                  </Card>
+                      </CardContent>
+                    </Card>
+                  </button>
 
-                  <Card className="shadow-lg border-0 bg-white">
-                    <CardContent className="p-6">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <p className="text-gray-600 text-sm font-medium">Mensagens</p>
-                          <p className="text-2xl font-bold text-primary">3</p>
+                  <button onClick={() => setActiveTab('messages')}>
+                    <Card className="shadow-lg border-0 bg-white">
+                      <CardContent className="p-6">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <p className="text-gray-600 text-sm font-medium">Mensagens</p>
+                            <p className="text-2xl font-bold text-primary">3</p>
+                          </div>
+                          <MessageSquare className="w-8 h-8 text-amber-600" />
                         </div>
-                        <MessageSquare className="w-8 h-8 text-amber-600" />
-                      </div>
-                    </CardContent>
-                  </Card>
+                      </CardContent>
+                    </Card>
+                  </button>
                 </div>
 
                 {}
@@ -333,6 +341,7 @@ export default function PainelPage() {
                         </Button>
                       )}
                       <Button
+                        onClick={() => setActiveTab('vip-club')}
                         variant="outline"
                         className="border-primary text-primary hover:bg-primary hover:text-white p-6 h-auto flex flex-col items-center space-y-2"
                       >
@@ -340,6 +349,7 @@ export default function PainelPage() {
                         <span>Assinar Plano VIP</span>
                       </Button>
                       <Button
+                        onClick={() => setShowVerificationModal(true)}
                         variant="outline"
                         className="border-[#6E7D5B] text-gray-600 hover:bg-[#6E7D5B] hover:text-white p-6 h-auto flex flex-col items-center space-y-2"
                       >

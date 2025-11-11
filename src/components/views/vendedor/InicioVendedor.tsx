@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -74,6 +75,7 @@ const getStatusBadge = (status: string) => {
 
 const InicioVendedor = () => {
   const [selectedSale, setSelectedSale] = useState<any>(null);
+  const router = useRouter();
 
   return (
     <div className="space-y-6">
@@ -118,7 +120,7 @@ const InicioVendedor = () => {
                 key={index}
                 variant="outline"
                 className="h-auto py-6 flex flex-col gap-2 hover:bg-accent"
-                onClick={() => window.location.href = action.link}
+                onClick={() => router.push(action.link)}
               >
                 <action.icon className="h-8 w-8 text-primary" />
                 <span className="font-medium">{action.title}</span>

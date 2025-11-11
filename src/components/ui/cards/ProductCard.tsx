@@ -154,10 +154,9 @@ export default function ProductCard({
                 )}
 
                 {}
-                {(variant === 'detailed' || variant === 'default') && (
+                {(variant === 'detailed' || variant === 'default') && product.type === 'animal' && (
                     <div className="grid grid-cols-3 gap-2 mb-4 text-sm">
-                        {/* Cavalos */}
-                        {product.category === 'Cavalos' && (
+                        {product.category === 'Cavalos' ? (
                             <>
                                 {product.age && (
                                     <div>
@@ -178,10 +177,7 @@ export default function ProductCard({
                                     </div>
                                 )}
                             </>
-                        )}
-
-                        {/* Gado de Corte e Gado de Leite */}
-                        {(product.category === 'Gado de Corte' || product.category === 'Gado de Leite') && (
+                        ) : (product.category === 'Gado de Corte' || product.category === 'Gado de Leite') ? (
                             <>
                                 {product.age && (
                                     <div>
@@ -202,10 +198,7 @@ export default function ProductCard({
                                     </div>
                                 )}
                             </>
-                        )}
-
-                        {/* Sêmen */}
-                        {product.category === 'Sêmen' && (
+                        ) : product.category === 'Sêmen' ? (
                             <>
                                 {product.central && (
                                     <div>
@@ -226,13 +219,7 @@ export default function ProductCard({
                                     </div>
                                 )}
                             </>
-                        )}
-
-                        {/* Outros animais (padrão) */}
-                        {product.category !== 'Cavalos' &&
-                         product.category !== 'Gado de Corte' &&
-                         product.category !== 'Gado de Leite' &&
-                         product.category !== 'Sêmen' && (
+                        ) : (
                             <>
                                 {product.age && (
                                     <div>

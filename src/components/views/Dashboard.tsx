@@ -11,27 +11,27 @@ const PurchaseDetailsModal = lazy(() => import("@/components/PurchaseDetailsModa
 const QUICK_ACTIONS = [{
   icon: Package,
   title: "Ver Animais",
-  href: "#"
+  href: "/dashboard/animais"
 }, {
   icon: Gavel,
   title: "Ver Leilões",
-  href: "#"
+  href: "/dashboard/leiloes"
 }, {
   icon: Store,
   title: "Mercado Agro",
-  href: "#"
+  href: "/dashboard/mercado-agro"
 }, {
   icon: Heart,
   title: "Meus Favoritos",
-  href: "#"
+  href: "/favoritos"
 }, {
   icon: MessageSquare,
   title: "Chat com Vendedores",
-  href: "#"
+  href: "/dashboard/chat"
 }, {
   icon: BookOpen,
   title: "Acessar Blog",
-  href: "#"
+  href: "/dashboard/blog"
 }];
 
 const RECENT_PURCHASES = [{
