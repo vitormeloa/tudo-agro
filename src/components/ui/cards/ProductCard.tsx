@@ -117,6 +117,22 @@ export default function ProductCard({
                     <span className="text-sm">{product.location}</span>
                 </div>
 
+                {product.type === 'product' && (
+                    <div className="flex items-center mb-4">
+                        <div className="flex items-center">
+                            {[...Array(5)].map((_, i) => (
+                                <Star
+                                    key={i}
+                                    className={`w-4 h-4 ${
+                                        i < product.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'
+                                    }`}
+                                />
+                            ))}
+                        </div>
+                        <span className="ml-2 text-sm text-gray-500">({product.reviews} avaliações)</span>
+                    </div>
+                )}
+
                 {}
                 {product.type === 'animal' && product.father && product.mother && (
                   <div className="hidden md:block mb-4">
