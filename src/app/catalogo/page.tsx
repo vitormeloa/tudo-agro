@@ -186,7 +186,7 @@ export default function CatalogoPage() {
   const categories = [
     { name: 'Gado de Corte', color: 'bg-primary/10 text-primary' },
     { name: 'Gado de Leite', color: 'bg-primary/10 text-primary' },
-    { name: 'Cavalos', color: 'bg-amber-100 text-amber-800' },
+    { name: 'Cavalos', color: 'bg-primary/10 text-primary' },
     { name: 'Sêmen', color: 'bg-primary/10 text-primary' }
   ].map(cat => ({
     ...cat,

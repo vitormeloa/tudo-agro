@@ -192,17 +192,17 @@ export default function ProdutosPage() {
 
   const categories = [
     { name: 'Nutrição Animal', color: '#B8E8D1' },
-    { name: 'Saúde e Bem-Estar Animal', color: '#E2D4F9' },
-    { name: 'Reprodução e Genética', color: '#E6E6FA' },
-    { name: 'Selaria e Utilidades', color: '#FFE0B2' },
-    { name: 'Equipamentos e Infraestrutura Rural', color: '#E1D5FF' },
-    { name: 'Vestuário e Lifestyle Agro', color: '#FCE4EC' },
-    { name: 'Sementes e Mudas', color: '#DDEBFF' },
-    { name: 'Insumos Agrícolas e Fertilizantes', color: '#FFF8DC' },
-    { name: 'Higiene, Limpeza e Desinfecção', color: '#E0F7FA' },
-    { name: 'Suplementos e Aditivos', color: '#F6F0C4' },
-    { name: 'Bebidas Artesanais e Produtos da Fazenda', color: '#FEE6E3' },
-    { name: 'Outros', color: '#F5F5F5' }
+    { name: 'Saúde e Bem-Estar Animal', color: '#B8E8D1' },
+    { name: 'Reprodução e Genética', color: '#B8E8D1' },
+    { name: 'Selaria e Utilidades', color: '#B8E8D1' },
+    { name: 'Equipamentos e Infraestrutura Rural', color: '#B8E8D1' },
+    { name: 'Vestuário e Lifestyle Agro', color: '#B8E8D1' },
+    { name: 'Sementes e Mudas', color: '#B8E8D1' },
+    { name: 'Insumos Agrícolas e Fertilizantes', color: '#B8E8D1' },
+    { name: 'Higiene, Limpeza e Desinfecção', color: '#B8E8D1' },
+    { name: 'Suplementos e Aditivos', color: '#B8E8D1' },
+    { name: 'Bebidas Artesanais e Produtos da Fazenda', color: '#B8E8D1' },
+    { name: 'Outros', color: '#B8E8D1' }
   ].map(cat => ({
     ...cat,
     count: getCategoryCount(cat.name)
