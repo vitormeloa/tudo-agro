@@ -25,22 +25,21 @@ const MinhasCompras = () => {
   const { toast } = useToast();
 
   const categoriesConfig = [
-    { name: 'todos', label: 'Todos', icon: '🛒', color: '#E0F7FA' },
-    { name: 'animais', label: 'Animais', icon: '🐄', color: '#B8E8D1' },
-    { name: 'semen', label: 'Sêmen', icon: '💉', color: '#E2D4F9' },
-    { name: 'produtos', label: 'Produtos', icon: '📦', color: '#E6E6FA' },
-    { name: 'nutricao animal', label: 'Nutrição Animal', icon: '🍎', color: '#FFE0B2' },
-    { name: 'saude e bem-estar animal', icon: '💊', color: '#E1D5FF' },
-    { name: 'reproducao e genetica', label: 'Reprodução e Genética', icon: '🧬', color: '#FCE4EC' },
-    { name: 'selaria e utilidades', label: 'Selaria e Utilidades', icon: '🐎', color: '#DDEBFF' },
-    { name: 'equipamentos e infraestrutura rural', label: 'Equipamentos e Infraestrutura Rural', icon: '🚜', color: '#FFF8DC' },
-    { name: 'vestuario e lifestyle agro', label: 'Vestuário e Lifestyle Agro', icon: '👕', color: '#E0F7FA' },
-    { name: 'sementes e mudas', label: 'Sementes e Mudas', icon: '🌱', color: '#F6F0C4' },
-    { name: 'insumos agricolas e fertilizantes', label: 'Insumos Agrícolas e Fertilizantes', icon: '🌾', color: '#FEE6E3' },
-    { name: 'higiene, limpeza e desinfeccao', label: 'Higiene, Limpeza e Desinfecção', icon: '🧼', color: '#F5F5F5' },
-    { name: 'suplementos e aditivos', label: 'Suplementos e Aditivos', icon: '🧪', color: '#E0F7FA' },
-    { name: 'bebidas artesanais e produtos da fazenda', label: 'Bebidas Artesanais e Produtos da Fazenda', icon: '🍷', color: '#FEE6E3' },
-    { name: 'outros', label: 'Outros', icon: '❓', color: '#F5F5F5' },
+    { name: 'animais', label: 'Animais', color: '#B8E8D1' },
+    { name: 'semen', label: 'Sêmen', color: '#B8E8D1' },
+    { name: 'produtos', label: 'Produtos', color: '#B8E8D1' },
+    { name: 'nutricao animal', label: 'Nutrição Animal', color: '#B8E8D1' },
+    { name: 'saude e bem-estar animal', color: '#B8E8D1' },
+    { name: 'reproducao e genetica', label: 'Reprodução e Genética', color: '#B8E8D1' },
+    { name: 'selaria e utilidades', label: 'Selaria e Utilidades', color: '#B8E8D1' },
+    { name: 'equipamentos e infraestrutura rural', label: 'Equipamentos e Infraestrutura Rural', color: '#B8E8D1' },
+    { name: 'vestuario e lifestyle agro', label: 'Vestuário e Lifestyle Agro', color: '#B8E8D1' },
+    { name: 'sementes e mudas', label: 'Sementes e Mudas', color: '#B8E8D1' },
+    { name: 'insumos agricolas e fertilizantes', label: 'Insumos Agrícolas e Fertilizantes', color: '#B8E8D1' },
+    { name: 'higiene, limpeza e desinfeccao', label: 'Higiene, Limpeza e Desinfecção', color: '#B8E8D1' },
+    { name: 'suplementos e aditivos', label: 'Suplementos e Aditivos', color: '#B8E8D1' },
+    { name: 'bebidas artesanais e produtos da fazenda', label: 'Bebidas Artesanais e Produtos da Fazenda', color: '#B8E8D1' },
+    { name: 'outros', label: 'Outros', color: '#B8E8D1' },
   ];
 
   const allPurchases = [
@@ -292,11 +291,6 @@ const MinhasCompras = () => {
     return allPurchases.filter(p => p.category === category).length;
   };
 
-  const getCategoryIcon = (categoryName: string) => {
-    const config = categoriesConfig.find(cat => cat.name === categoryName);
-    return config ? config.icon : '📦';
-  };
-
   const getCategoryColor = (categoryName: string) => {
     const config = categoriesConfig.find(cat => cat.name === categoryName);
     return config ? config.color : '#F5F5F5';
@@ -410,7 +404,9 @@ const MinhasCompras = () => {
         </Card>
 
         {}
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+          <h3 className="text-lg font-semibold text-[#101828]">Categorias Populares</h3>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
           {visibleCategories.map((category) => (
             <Card
               key={category.name}
@@ -427,7 +423,7 @@ const MinhasCompras = () => {
                     color: '#1F2937',
                   }}
                 >
-                  <span className="text-center">{category.icon} {category.label}</span>
+                  <span className="text-center">{category.label}</span>
                 </div>
                 <div className="text-xl font-bold text-[#101828]">{category.count}</div>
                 <div className="text-xs text-gray-500">compras</div>

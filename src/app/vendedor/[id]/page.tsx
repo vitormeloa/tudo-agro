@@ -301,11 +301,7 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
                     alt={seller.name}
                     className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 mx-auto md:mx-0 rounded-full object-cover border-4 border-white shadow-lg"
                   />
-                  {seller.verified && (
-                    <div className="absolute -bottom-2 -right-2 bg-primary text-white p-1.5 sm:p-2 rounded-full">
-                      <Shield className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
-                    </div>
-                  )}
+
                 </div>
 
                 <div className="flex-1">
@@ -313,12 +309,7 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
                     <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#101828] sm:mr-4">
                       {seller.name}
                     </h1>
-                    {seller.verified && (
-                      <Badge className="bg-primary text-white w-fit">
-                        <Shield className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
-                        VERIFICADO
-                      </Badge>
-                    )}
+
                   </div>
 
                   <div className="flex items-center text-gray-600 text-sm sm:text-base mb-3">

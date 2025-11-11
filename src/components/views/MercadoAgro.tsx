@@ -177,18 +177,18 @@ export default function MercadoAgro() {
   }
 
   const categories = [
-    { name: 'Nutrição Animal', icon: '🍎', color: '#B8E8D1' },
-    { name: 'Saúde e Bem-Estar Animal', icon: '💊', color: '#E2D4F9' },
-    { name: 'Reprodução e Genética', icon: '🧬', color: '#E6E6FA' },
-    { name: 'Selaria e Utilidades', icon: '🐎', color: '#FFE0B2' },
-    { name: 'Equipamentos e Infraestrutura Rural', icon: '🚜', color: '#E1D5FF' },
-    { name: 'Vestuário e Lifestyle Agro', icon: '👕', color: '#FCE4EC' },
-    { name: 'Sementes e Mudas', icon: '🌱', color: '#DDEBFF' },
-    { name: 'Insumos Agrícolas e Fertilizantes', icon: '🌾', color: '#FFF8DC' },
-    { name: 'Higiene, Limpeza e Desinfecção', icon: '🧼', color: '#E0F7FA' },
-    { name: 'Suplementos e Aditivos', icon: '🧪', color: '#F6F0C4' },
-    { name: 'Bebidas Artesanais e Produtos da Fazenda', icon: '🍷', color: '#FEE6E3' },
-    { name: 'Outros', icon: '❓', color: '#F5F5F5' }
+    { name: 'Nutrição Animal', color: '#B8E8D1' },
+    { name: 'Saúde e Bem-Estar Animal', color: '#B8E8D1' },
+    { name: 'Reprodução e Genética', color: '#B8E8D1' },
+    { name: 'Selaria e Utilidades', color: '#B8E8D1' },
+    { name: 'Equipamentos e Infraestrutura Rural', color: '#B8E8D1' },
+    { name: 'Vestuário e Lifestyle Agro', color: '#B8E8D1' },
+    { name: 'Sementes e Mudas', color: '#B8E8D1' },
+    { name: 'Insumos Agrícolas e Fertilizantes', color: '#B8E8D1' },
+    { name: 'Higiene, Limpeza e Desinfecção', color: '#B8E8D1' },
+    { name: 'Suplementos e Aditivos', color: '#B8E8D1' },
+    { name: 'Bebidas Artesanais e Produtos da Fazenda', color: '#B8E8D1' },
+    { name: 'Outros', color: '#B8E8D1' }
   ].map(cat => ({
     ...cat,
     count: getCategoryCount(cat.name)
@@ -341,7 +341,7 @@ export default function MercadoAgro() {
                     color: '#1F2937',
                   }}
                 >
-                  <span className="text-center">{category.icon} {category.name}</span>
+                  <span className="text-center">{category.name}</span>
                 </div>
                 <div className="text-xl font-bold text-[#101828]">{category.count}</div>
                 <div className="text-xs text-gray-500">produtos</div>
@@ -393,7 +393,7 @@ export default function MercadoAgro() {
                         color: '#1F2937'
                       }}
                     >
-                      {category.icon} {category.name}
+                      {category.name}
                     </div>
                     <div className="text-2xl font-bold text-[#101828]">{category.count}</div>
                     <div className="text-sm text-gray-500">produtos</div>

@@ -173,7 +173,7 @@ export default function Animais() {
   const categories = [
     { name: 'Gado de Corte', color: 'bg-primary/10 text-primary' },
     { name: 'Gado de Leite', color: 'bg-primary/10 text-primary' },
-    { name: 'Cavalos', color: 'bg-amber-100 text-amber-800' },
+    { name: 'Cavalos', color: 'bg-primary/10 text-primary' },
     { name: 'Sêmen', color: 'bg-primary/10 text-primary' }
   ].map(cat => ({
     ...cat,
@@ -294,7 +294,9 @@ export default function Animais() {
         </CardContent>
       </Card>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <h3 className="text-lg font-semibold text-[#101828]">Categorias Populares</h3>
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {categories.map((category) => (
           <Card
             key={category.name}

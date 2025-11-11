@@ -283,10 +283,7 @@ export default function CarrinhoPage() {
                       <Truck className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
                       <span>Frete grátis acima de R$ 500</span>
                     </div>
-                    <div className="flex items-start gap-2 text-sm text-gray-600">
-                      <Shield className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                      <span>Produtos verificados e garantidos</span>
-                    </div>
+
                     <div className="flex items-start gap-2 text-sm text-gray-600">
                       <CheckCircle className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
                       <span>Entrega rápida e segura</span>

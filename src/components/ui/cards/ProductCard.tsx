@@ -102,14 +102,7 @@ export default function ProductCard({
                 </div>
 
                 {}
-                {product.verified && (
-                    <div className="absolute bottom-4 left-4">
-                        <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20">
-                            <Shield className="w-3 h-3 mr-1" />
-                            VERIFICADO
-                        </Badge>
-                    </div>
-                )}
+
             </div>
 
             <CardContent className="p-6">
