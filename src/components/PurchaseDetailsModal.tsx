@@ -150,27 +150,24 @@ const PurchaseDetailsModal = ({ isOpen, onClose, purchase }: PurchaseDetailsModa
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-3xl max-h-[95vh] md:max-h-[90vh] overflow-hidden p-0 gap-0 [&>button]:hidden">
+      <DialogContent className="w-[calc(100%-2rem)] max-w-3xl max-h-[85vh] md:max-h-[90vh] overflow-hidden p-0 gap-0 [&>button]:hidden rounded-lg">
         {}
-        <button
-          onClick={onClose}
-          className="absolute right-4 top-4 rounded-full p-2 hover:bg-destructive/10 transition-colors z-20 group"
-        >
-          <X className="h-5 w-5 text-destructive group-hover:text-destructive/80" />
-        </button>
+        <div className="absolute right-4 top-4 z-20">
+            <Button variant="ghost" size="icon" onClick={onClose} className="bg-destructive/10 text-destructive hover:bg-destructive/20">
+                <X className="h-5 w-5" />
+            </Button>
+        </div>
 
         {}
         <div className="p-6 pb-4 border-b bg-gradient-to-br from-background to-muted/20">
-          <div className="flex items-start justify-between gap-8 pr-8">
-            <div className="flex-1">
-              <h2 className="text-xl md:text-2xl font-bold mb-2 leading-tight">
-                {purchase.name}
-              </h2>
-              <p className="text-sm text-muted-foreground">
-                Comprado em {purchase.date} {purchase.time && `às ${purchase.time}`}
-              </p>
-            </div>
-            <Badge variant={statusInfo.variant} className="shrink-0 px-4 py-1.5 text-sm font-medium">
+          <div className="flex flex-col gap-2 pr-8">
+            <h2 className="text-xl md:text-2xl font-bold mb-1 leading-tight">
+              {purchase.name}
+            </h2>
+            <p className="text-sm text-muted-foreground">
+              Comprado em {purchase.date} {purchase.time && `às ${purchase.time}`}
+            </p>
+            <Badge variant={statusInfo.variant} className="w-fit shrink-0 px-4 py-1.5 text-sm font-medium mt-2">
               {statusInfo.label}
             </Badge>
           </div>

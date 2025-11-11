@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Heart, Package, Eye, Users, Gavel, Store, BookOpen, HelpCircle, TrendingUp, Award, Shield, MessageSquare, ChevronRight } from "lucide-react";
 import { useState, useMemo, lazy, Suspense } from "react";
+import { useRouter } from "next/navigation";
 
 const PurchaseDetailsModal = lazy(() => import("@/components/PurchaseDetailsModal"));
 
@@ -201,6 +202,7 @@ const getStatusBadge = (status: string) => {
 
 const Dashboard = () => {
   const [selectedPurchase, setSelectedPurchase] = useState<number | null>(null);
+  const router = useRouter();
 
   return <div>
           {}
@@ -225,10 +227,11 @@ const Dashboard = () => {
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4">
-                {QUICK_ACTIONS.map((action, i) => <Button key={i} variant="outline" className="h-auto flex-col gap-2 md:gap-3 py-4 md:py-6 hover:border-primary bg-accent/30 hover:bg-accent/50 transition-all group">
-                    <action.icon className="h-6 w-6 md:h-8 md:w-8 text-primary group-hover:text-primary" />
-                    <span className="text-xs md:text-sm font-medium text-center text-gray-800 group-hover:text-primary">{action.title}</span>
-                  </Button>)}
+                  {QUICK_ACTIONS.map((action, i) =>
+                      <Button key={i} variant="outline" className="h-auto flex-col gap-2 md:gap-3 py-4 md:py-6 hover:border-primary bg-accent/30 hover:bg-accent/50 transition-all group" onClick={() => router.push(action.href)}>
+                          <action.icon className="h-6 w-6 md:h-8 md:w-8 text-primary group-hover:text-primary" />
+                          <span className="text-xs md:text-sm font-medium text-center text-gray-800 group-hover:text-primary">{action.title}</span>
+                      </Button>)}
               </div>
             </CardContent>
           </Card>
@@ -243,29 +246,43 @@ const Dashboard = () => {
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
-                {RECENT_PURCHASES.map(purchase => <div key={purchase.id} className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 rounded-lg border p-4 hover:border-secondary/50 transition-colors" onClick={() => setSelectedPurchase(purchase.id)}>
-                    <div className="flex items-start md:items-center gap-3 md:gap-4 flex-1">
-                      <img
-                        src={purchase.image}
-                        alt={purchase.name}
-                        className="w-16 h-16 md:w-20 md:h-20 rounded-lg object-cover flex-shrink-0"
-                      />
-                      <div className="flex-1 min-w-0">
-                        <div className="font-semibold text-sm md:text-base truncate">{purchase.name}</div>
-                        <div className="text-xs md:text-sm text-muted-foreground mt-1">{purchase.date}</div>
+                {RECENT_PURCHASES.map(purchase => (
+                  <div 
+                    key={purchase.id} 
+                    className="flex cursor-pointer items-center gap-3 rounded-lg border p-3 transition-colors hover:border-secondary/50 md:p-4" 
+                    onClick={() => setSelectedPurchase(purchase.id)}
+                  >
+                    <img
+                      src={purchase.image}
+                      alt={purchase.name}
+                      className="h-16 w-16 flex-shrink-0 rounded-lg object-cover md:h-20 md:w-20"
+                    />
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate font-semibold text-sm md:text-base">{purchase.name}</p>
+                      <p className="mt-1 text-xs text-muted-foreground md:text-sm">{purchase.date}</p>
+                      <div className="mt-2 md:hidden">
+                        <Badge variant={getStatusBadge(purchase.status).variant} className="px-2 py-0.5 text-xs">
+                          {getStatusBadge(purchase.status).label}
+                        </Badge>
                       </div>
                     </div>
-                    <div className="flex items-center justify-between md:justify-end gap-2 md:gap-3">
+                    <div className="hidden items-center gap-3 md:flex">
                       <Badge variant={getStatusBadge(purchase.status).variant} className="shrink-0 px-4 py-1">
                         {getStatusBadge(purchase.status).label}
                       </Badge>
-                      <Button variant="outline" size="sm" className="hidden md:flex border-2 border-primary text-primary hover:border-primary hover:bg-primary hover:text-white transition-all duration-200 shrink-0 rounded-lg px-4" onClick={(e) => { e.stopPropagation(); setSelectedPurchase(purchase.id); }}>
-                        <Eye className="h-4 w-4 mr-2" />
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="shrink-0 rounded-lg border-2 border-primary px-4 text-primary transition-all duration-200 hover:border-primary hover:bg-primary hover:text-white" 
+                        onClick={(e) => { e.stopPropagation(); setSelectedPurchase(purchase.id); }}
+                      >
+                        <Eye className="mr-2 h-4 w-4" />
                         <span>Ver detalhes</span>
                       </Button>
-                      <ChevronRight className="h-5 w-5 text-gray-400 md:hidden" />
                     </div>
-                  </div>)}
+                    <ChevronRight className="h-5 w-5 text-gray-400 md:hidden" />
+                  </div>
+                ))}
               </div>
               <Button variant="ghost" size="sm" className="w-full mt-4 md:hidden">
                 Ver Todos
