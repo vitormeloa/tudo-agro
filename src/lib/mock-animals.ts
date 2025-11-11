@@ -324,48 +324,6 @@ export const mockAnimals: MockAnimal[] = [
     type: "venda",
     featured: true
   },
-  {
-  id: "660e8400-e29b-41d4-a716-446655440007",
-  title: "Touro Nelore PO",
-  category: "Gado de Corte",
-  breed: "Nelore PO",
-  sex: "Macho",
-  age: "2 anos e 10 meses",
-  weight: "950kg",
-  height: "1.55m",
-  price: 9000,
-  location: "Santa Catarina",
-  city: "Apiúna",
-  description: "Zebuíno Nelore PO, adaptado ao clima tropical, reconhecido pela rusticidade, tolerância ao calor e boa conformação. Animal com excelente musculatura e estrutura típica da raça, ideal para reprodução ou terminação.",
-  images: [
-      "/fotos/animais/nelorepo.png",
-  ],
-  seller: {
-    id: 6,
-    name: "Produtor Rural Apiúna",
-    location: "Apiúna, SC",
-    rating: 4.8,
-    totalSales: 12,
-    memberSince: "2020",
-    verified: true,
-    image: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=100&h=100&fit=crop"
-  },
-  specifications: {
-    production: "Reprodutor PO",
-    breeding: "Monta natural",
-    feed: "Pasto + suplemento mineral",
-    health: "Vacinação em dia",
-    genetics: "Registro Genealógico Definitivo (ABCZ)"
-  },
-  documents: [
-    "Registro Genealógico Definitivo (RGD) da ABCZ",
-    "Laudo andrológico",
-    "Exames sanitários (brucelose/tuberculose)",
-    "Comprovante de origem/pedigree"
-  ],
-  type: "venda",
-  featured: true
-},
 {
   id: "660e8400-e29b-41d4-a716-446655440008",
   title: "Touro Angus",
