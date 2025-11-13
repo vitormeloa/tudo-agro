@@ -316,12 +316,14 @@ export default function Treinamentos() {
                   <div className="flex-grow min-h-[200px]">
                     <div className="flex items-start justify-between mb-3">
                       <div className="flex-1">
-                        <Badge variant="secondary" className="mb-2 text-xs">
+                        <Badge
+                          style={getLevelBadgeStyles(course.level)}
+                          className="mb-2 text-xs"
+                        >
                           {course.level}
                         </Badge>
                         <h3 className="font-bold text-lg leading-tight">{course.title}</h3>
                       </div>
-                      <span className="text-lg font-bold text-primary flex-shrink-0 min-w-max ml-2">R$ {course.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span>
                     </div>
                     <p className="text-xs text-gray-500 mb-4 line-clamp-2">{course.description}</p>
                     <div className="space-y-3 mb-4">
@@ -347,6 +349,14 @@ export default function Treinamentos() {
                       </div>
                       <p className="text-xs text-muted-foreground">Instrutor: {course.instructor}</p>
                     </div>
+                    <div className="text-left my-4">
+                        <p className="text-xl font-bold text-gray-800">
+                            {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(course.price)} à vista
+                        </p>
+                        <p className="text-sm text-gray-600">
+                            💳 ou em até 12x de {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format((course.price * 1.2) / 12)}
+                        </p>
+                    </div>
                   </div>
                   <div className="space-y-2 mt-auto">
                     <Button variant="outline" className="w-full" onClick={() => {
@@ -356,7 +366,7 @@ export default function Treinamentos() {
                     <Button className="w-full" onClick={() => {
                       setSelectedCourse(course);
                       setShowCoursePurchaseModal(true);
-                    }}>Comprar - R$ {course.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</Button>
+                    }}>Comprar</Button>
                   </div>
                 </div>
               </div>
