@@ -43,7 +43,7 @@ interface Course {
 const mockCourses: Course[] = [
   {
     id: 1,
-    title: 'Gestao de Pastagens e Nutrição Bovina',
+    title: 'Reproduc1ão e genética animal',
     category: 'Pecuaria',
     instructor: 'Dr. Carlos Silva',
     duration: '8 horas',
@@ -51,7 +51,7 @@ const mockCourses: Course[] = [
     rating: 4.8,
     students: 1250,
     price: 299,
-    image: '/fotos/treinamentos/reproducaogenetica.png',
+    image: '/fotos/treinamentos/reproducaoegenetica.png',
     progress: 65,
     enrolled: true,
     featured: true,
@@ -59,7 +59,7 @@ const mockCourses: Course[] = [
   },
   {
     id: 2,
-    title: 'Agricultura de Precisão com Drones',
+    title: 'Como escolher e comprar sêmen de qualidade',
     category: 'Tecnologia',
     instructor: 'Eng. Maria Santos',
     duration: '12 horas',
@@ -75,7 +75,7 @@ const mockCourses: Course[] = [
   },
   {
     id: 3,
-    title: 'Manejo Integrado de Pragas',
+    title: 'Como avaliar e comprar cavalos e gado com segurança',
     category: 'Agricultura',
     instructor: 'Dr. João Oliveira',
     duration: '6 horas',
@@ -89,7 +89,7 @@ const mockCourses: Course[] = [
   },
   {
     id: 4,
-    title: 'Reproducao e Genetica Animal',
+    title: 'Avaliação de custo benefício em compras agro',
     category: 'Pecuaria',
     instructor: 'Dra. Ana Costa',
     duration: '10 horas',
@@ -102,7 +102,7 @@ const mockCourses: Course[] = [
   },
   {
     id: 5,
-    title: 'Administracao Rural e Gestao Financeira',
+    title: 'Sanidade animal',
     category: 'Gestao',
     instructor: 'Prof. Roberto Lima',
     duration: '15 horas',
@@ -115,7 +115,7 @@ const mockCourses: Course[] = [
   },
   {
     id: 6,
-    title: 'Irrigacao Eficiente e Sustentavel',
+    title: 'Planejamento de pastagem e capacidade de suporte',
     category: 'Agricultura',
     instructor: 'Eng. Pedro Alves',
     duration: '7 horas',
