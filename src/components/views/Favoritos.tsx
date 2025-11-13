@@ -1,11 +1,9 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import DashboardLayout from '@/components/DashboardLayout'
+import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { useFavorites } from '@/hooks/useFavorites'
 import { mockProducts } from '@/lib/mock-products'
 import { mockAnimals } from '@/lib/mock-animals'
@@ -15,21 +13,25 @@ import {
   Package,
   PawPrint,
   Loader2,
-  ShoppingBag,
+  Search,
+  SlidersHorizontal,
   Filter,
-  Search
+  HelpCircle,
+  Grid3x3
 } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 
-export default function FavoritosPage() {
-  const { favorites, loading, reload } = useFavorites()
+export default function Favoritos() {
+  const { favorites, loading } = useFavorites()
   const [searchQuery, setSearchQuery] = useState('')
-  const [selectedCategory, setSelectedCategory] = useState<string>('all')
+  const [activeTab, setActiveTab] = useState<'all' | 'produtos' | 'animais'>('all')
+  const [showFilters, setShowFilters] = useState(false)
+  const [priceRange, setPriceRange] = useState<string>("all");
   const [sortBy, setSortBy] = useState<string>('recent')
-  const [activeTab, setActiveTab] = useState<'all' | 'products' | 'animals'>('all')
+  const [showCategoriesModal, setShowCategoriesModal] = useState(false);
 
-  // Mapear favoritos para produtos e animais mockados
   const favoriteProducts = favorites
     .map(fav => {
       const product = mockProducts.find(p => p.id === fav.product?.id)
@@ -65,11 +67,9 @@ export default function FavoritosPage() {
 
   const allFavorites = [...favoriteProducts, ...favoriteAnimals]
 
-  // Filtrar e ordenar
   const filteredFavorites = allFavorites.filter(item => {
     if (!item) return false
 
-    // Filtro de busca
     if (searchQuery) {
       const query = searchQuery.toLowerCase()
       const matchesSearch =
@@ -79,19 +79,18 @@ export default function FavoritosPage() {
       if (!matchesSearch) return false
     }
 
-    // Filtro de categoria
-    if (selectedCategory !== 'all' && item.category !== selectedCategory) {
-      return false
-    }
+    if (activeTab !== 'all' && item.type !== activeTab) return false
 
-    // Filtro de tab
-    if (activeTab === 'products' && item.type !== 'product') return false
-    if (activeTab === 'animals' && item.type !== 'animal') return false
+    if (priceRange !== "all") {
+      const price = item.price || 0;
+      if (priceRange === "0-1000" && price > 1000) return false;
+      if (priceRange === "1000-5000" && (price < 1000 || price > 5000)) return false;
+      if (priceRange === "5000+" && price < 5000) return false;
+    }
 
     return true
   })
 
-  // Ordenar
   const sortedFavorites = [...filteredFavorites].sort((a, b) => {
     switch (sortBy) {
       case 'recent':
@@ -107,159 +106,140 @@ export default function FavoritosPage() {
     }
   })
 
-  const productsCount = favoriteProducts.length
-  const animalsCount = favoriteAnimals.length
-  const totalCount = allFavorites.length
+  const categoriesConfig = [
+    { name: 'produtos', label: 'Produtos', color: '#B8E8D1', icon: Package },
+    { name: 'animais', label: 'Animais', color: '#B8E8D1', icon: PawPrint },
+  ];
 
-  const categories = Array.from(new Set(allFavorites.map(item => item?.category).filter(Boolean)))
+  const getCategoryStats = (category: string) => {
+    if (category === "all") return allFavorites.length;
+    if (category === "produtos") return favoriteProducts.length;
+    if (category === "animais") return favoriteAnimals.length;
+    return 0;
+  };
+
+  const categories = categoriesConfig.map(cat => ({
+    ...cat,
+    count: getCategoryStats(cat.name)
+  }));
+
+  const clearAllFilters = () => {
+    setSearchQuery('');
+    setPriceRange('all');
+    setActiveTab('all');
+    setSortBy('recent');
+  };
+
+  const hasActiveFilters = !!(searchQuery || priceRange !== 'all' || activeTab !== 'all');
 
   return (
-    <DashboardLayout>
-      <div className="space-y-6">
-        {/* Header */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-          <div>
-            <h1 className="text-3xl font-bold text-foreground flex items-center gap-3">
-              <Heart className="w-8 h-8 text-red-500 fill-red-500" />
-              Meus Favoritos
-            </h1>
-            <p className="text-muted-foreground mt-1">
-              Seus produtos e animais salvos ({totalCount} {totalCount === 1 ? 'item' : 'itens'})
-            </p>
-          </div>
-          <Button
-            onClick={() => reload()}
-            variant="outline"
-            disabled={loading}
-          >
-            {loading ? (
-              <>
-                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                Atualizando...
-              </>
-            ) : (
-              'Atualizar lista'
-            )}
-          </Button>
+    <>
+      <div className="space-y-4 sm:space-y-6 w-full">
+        <div>
+          <h1 className="text-3xl font-bold text-foreground">Meus Favoritos</h1>
+          <p className="text-muted-foreground mt-1">Seus produtos e animais salvos em um só lugar</p>
         </div>
 
-        {/* Stats Cards */}
-        <div className="grid md:grid-cols-3 gap-4">
-          <Card className={`cursor-pointer transition-all ${activeTab === 'all' ? 'ring-2 ring-primary' : ''}`} onClick={() => setActiveTab('all')}>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-muted-foreground mb-1">Total de Favoritos</p>
-                  <p className="text-3xl font-bold text-foreground">{totalCount}</p>
-                </div>
-                <Heart className="w-12 h-12 text-red-500 fill-red-500 opacity-20" />
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className={`cursor-pointer transition-all ${activeTab === 'products' ? 'ring-2 ring-primary' : ''}`} onClick={() => setActiveTab('products')}>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-muted-foreground mb-1">Produtos</p>
-                  <p className="text-3xl font-bold text-foreground">{productsCount}</p>
-                </div>
-                <Package className="w-12 h-12 text-primary opacity-20" />
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className={`cursor-pointer transition-all ${activeTab === 'animals' ? 'ring-2 ring-primary' : ''}`} onClick={() => setActiveTab('animals')}>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-muted-foreground mb-1">Animais</p>
-                  <p className="text-3xl font-bold text-foreground">{animalsCount}</p>
-                </div>
-                <PawPrint className="w-12 h-12 text-primary opacity-20" />
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Filters */}
-        <Card>
+        <Card className="shadow-sm border">
           <CardContent className="p-6">
-            <div className="flex flex-col lg:flex-row gap-4">
-              {/* Search */}
+            <div className="flex flex-col lg:flex-row gap-4 mb-6">
               <div className="flex-1">
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                   <Input
                     type="text"
-                    placeholder="Buscar nos favoritos..."
+                    placeholder="Buscar por nome, categoria..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-10"
+                    className="pl-10 h-12"
                   />
                 </div>
               </div>
-
-              {/* Category Filter */}
-              <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                <SelectTrigger className="w-full lg:w-48">
-                  <SelectValue placeholder="Categoria" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">Todas Categorias</SelectItem>
-                  {categories.map(cat => (
-                    <SelectItem key={cat} value={cat}>{cat}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-
-              {/* Sort */}
-              <Select value={sortBy} onValueChange={setSortBy}>
-                <SelectTrigger className="w-full lg:w-48">
-                  <SelectValue placeholder="Ordenar" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="recent">Mais Recentes</SelectItem>
-                  <SelectItem value="price-low">Menor Preço</SelectItem>
-                  <SelectItem value="price-high">Maior Preço</SelectItem>
-                  <SelectItem value="name">Nome (A-Z)</SelectItem>
-                </SelectContent>
-              </Select>
+              <Button
+                className="bg-primary hover:bg-[#2E7A5A] text-white px-8 h-12"
+                onClick={() => setShowFilters(!showFilters)}
+              >
+                <SlidersHorizontal className="w-5 h-5 mr-2" />
+                Filtros
+              </Button>
             </div>
 
-            {/* Active Filters */}
-            {(searchQuery || selectedCategory !== 'all') && (
-              <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t">
-                <span className="text-sm text-muted-foreground">Filtros ativos:</span>
-                {searchQuery && (
-                  <Badge variant="secondary" className="gap-1">
-                    Busca: "{searchQuery}"
-                    <button onClick={() => setSearchQuery('')} className="ml-1 hover:text-destructive">×</button>
-                  </Badge>
-                )}
-                {selectedCategory !== 'all' && (
-                  <Badge variant="secondary" className="gap-1">
-                    Categoria: {selectedCategory}
-                    <button onClick={() => setSelectedCategory('all')} className="ml-1 hover:text-destructive">×</button>
-                  </Badge>
-                )}
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => {
-                    setSearchQuery('')
-                    setSelectedCategory('all')
-                  }}
-                  className="h-6 text-xs"
-                >
-                  Limpar filtros
-                </Button>
+            {showFilters && (
+              <div className="border-t border-gray-200 pt-6">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <Select value={priceRange} onValueChange={setPriceRange}>
+                    <SelectTrigger className="h-10">
+                      <SelectValue placeholder="Faixa de Preço" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">Todos os preços</SelectItem>
+                      <SelectItem value="0-1000">Até R$ 1.000</SelectItem>
+                      <SelectItem value="1000-5000">R$ 1.000 - R$ 5.000</SelectItem>
+                      <SelectItem value="5000+">Acima de R$ 5.000</SelectItem>
+                    </SelectContent>
+                  </Select>
+
+                  <Select value={sortBy} onValueChange={setSortBy}>
+                    <SelectTrigger className="h-10">
+                      <SelectValue placeholder="Ordenar por" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="recent">Mais Recentes</SelectItem>
+                      <SelectItem value="price-low">Menor Preço</SelectItem>
+                      <SelectItem value="price-high">Maior Preço</SelectItem>
+                      <SelectItem value="name">Nome (A-Z)</SelectItem>
+                    </SelectContent>
+                  </Select>
+
+                  {hasActiveFilters && (
+                    <Button
+                      variant="outline"
+                      className="h-10 border-red-600 text-red-600 hover:bg-red-600 hover:text-white"
+                      onClick={clearAllFilters}
+                    >
+                      <Filter className="w-4 h-4 mr-2" />
+                      Limpar Filtros
+                    </Button>
+                  )}
+                </div>
               </div>
             )}
           </CardContent>
         </Card>
 
-        {/* Content */}
+        <h3 className="text-lg font-semibold text-[#101828]">Categorias Populares</h3>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {categories.map((category) => (
+            <Card
+              key={category.name}
+              onClick={() => setActiveTab(activeTab === category.name ? 'all' : category.name as any)}
+              className={`shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer ${
+                activeTab === category.name ? 'ring-2 ring-emerald-500 shadow-lg' : ''
+              }`}
+            >
+              <CardContent className="p-3 text-center">
+                <div
+                  className="inline-flex px-3 py-1.5 rounded-full text-xs font-medium mb-2 max-w-full break-words leading-tight"
+                  style={{
+                    backgroundColor: category.color,
+                    color: '#1F2937',
+                  }}
+                >
+                  <span className="text-center">{category.label}</span>
+                </div>
+                <div className="text-xl font-bold text-[#101828]">{category.count}</div>
+                <div className="text-xs text-gray-500">favoritos</div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <div className="text-gray-600">
+            Mostrando <span className="font-semibold text-[#101828]">{sortedFavorites.length}</span> de <span className="font-semibold text-[#101828]">{allFavorites.length}</span> resultados
+          </div>
+        </div>
+
         {loading ? (
           <div className="flex items-center justify-center py-16">
             <div className="text-center">
@@ -272,15 +252,15 @@ export default function FavoritosPage() {
             <CardContent className="flex flex-col items-center justify-center py-16 px-4">
               <Heart className="w-24 h-24 text-gray-300 mb-4" />
               <h3 className="text-xl font-semibold text-foreground mb-2">
-                {totalCount === 0 ? 'Nenhum favorito ainda' : 'Nenhum resultado encontrado'}
+                {allFavorites.length === 0 ? 'Nenhum favorito ainda' : 'Nenhum resultado encontrado'}
               </h3>
               <p className="text-muted-foreground text-center mb-6 max-w-md">
-                {totalCount === 0
+                {allFavorites.length === 0
                   ? 'Quando você favoritar produtos ou animais, eles aparecerão aqui.'
                   : 'Tente ajustar os filtros para ver mais resultados.'
                 }
               </p>
-              {totalCount === 0 ? (
+              {allFavorites.length === 0 ? (
                 <div className="flex gap-3">
                   <Button asChild>
                     <a href="/dashboard/mercado-agro">
@@ -296,13 +276,7 @@ export default function FavoritosPage() {
                   </Button>
                 </div>
               ) : (
-                <Button
-                  onClick={() => {
-                    setSearchQuery('')
-                    setSelectedCategory('all')
-                    setActiveTab('all')
-                  }}
-                >
+                <Button onClick={clearAllFilters}>
                   Limpar todos os filtros
                 </Button>
               )}
@@ -319,14 +293,29 @@ export default function FavoritosPage() {
             ))}
           </div>
         )}
-
-        {/* Results count */}
-        {!loading && sortedFavorites.length > 0 && (
-          <div className="text-center text-sm text-muted-foreground">
-            Mostrando {sortedFavorites.length} de {totalCount} {totalCount === 1 ? 'favorito' : 'favoritos'}
-          </div>
-        )}
       </div>
-    </DashboardLayout>
+
+      <Card className="bg-muted/50 mt-6">
+        <div className="p-6">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <HelpCircle className="h-10 w-10 text-primary" />
+              <div>
+                <p className="font-medium">Dúvidas sobre seus favoritos?</p>
+                <p className="text-sm text-muted-foreground">Nossa equipe está pronta para ajudar</p>
+              </div>
+            </div>
+            <div className="flex gap-3">
+                <Button variant="outline">
+                    Fale com Suporte
+                </Button>
+                <Button variant="outline">
+                    Consultar AgroIA
+                </Button>
+            </div>
+          </div>
+        </div>
+      </Card>
+    </>
   )
 }
