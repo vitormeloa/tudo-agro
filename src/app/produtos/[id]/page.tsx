@@ -175,7 +175,7 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
       city: product.city,
       quantity: quantity
     })
-    router.push('/dashboard/checkout')
+    router.push('/carrinho')
   }
 
   const handleAddToCart = () => {

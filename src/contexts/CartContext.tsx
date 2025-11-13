@@ -38,7 +38,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const { toast } = useToast()
-  const { user } = useAuth()
+  const { user, initialized } = useAuth()
 
   useEffect(() => {
     try {
@@ -54,7 +54,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }, [])
 
   useEffect(() => {
-    if (!user && !isLoading && items.length > 0) {
+    if (!user && initialized && !isLoading && items.length > 0) {
       setItems([])
       try {
         localStorage.removeItem(STORAGE_KEY)
@@ -62,17 +62,17 @@ export function CartProvider({ children }: { children: ReactNode }) {
         console.error('Erro ao limpar carrinho:', error)
       }
     }
-  }, [user, isLoading, items.length])
+  }, [user, initialized, isLoading, items.length])
 
   useEffect(() => {
-    if (!isLoading && user) {
+    if (!isLoading && initialized && user) {
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(items))
       } catch (error) {
         console.error('Erro ao salvar carrinho:', error)
       }
     }
-  }, [items, isLoading, user])
+  }, [items, isLoading, initialized, user])
 
   const addItem = (newItem: Omit<CartItem, 'quantity'> & { quantity?: number }) => {
     if (!user) {

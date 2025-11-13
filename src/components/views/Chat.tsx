@@ -747,9 +747,9 @@ const Chat = () => {
                 Converse diretamente com os vendedores
               </p>
             </div>
-            <Button variant="ghost" size="icon" className="hidden sm:flex">
-              <Settings className="h-5 w-5" />
-            </Button>
+            {/*<Button variant="ghost" size="icon" className="hidden sm:flex">*/}
+            {/*  <Settings className="h-5 w-5" />*/}
+            {/*</Button>*/}
           </div>
         </div>
         <div className="flex-1 overflow-hidden">

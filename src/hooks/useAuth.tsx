@@ -312,7 +312,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           if (isMounted) {
             setInitialized(prev => {
               if (!prev) {
-                console.warn('Auth initialization timeout - forcing initialized to true')
                 return true
               }
               return prev
@@ -515,11 +514,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [toast])
 
   const signOut = useCallback(async () => {
-    console.log('signOut: Iniciando processo de logout...')
     try {
-      console.log('signOut: Chamando supabase.auth.signOut()...')
       const { error } = await supabase.auth.signOut()
-      console.log('signOut: supabase.auth.signOut() concluído. Erro:', error)
 
       if (error) {
         console.error('Supabase logout error:', error)
@@ -567,7 +563,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       await new Promise(resolve => setTimeout(resolve, 100))
 
-      console.log('signOut: Redirecionando para /login...')
       window.location.href = '/login'
 
     } catch (error) {

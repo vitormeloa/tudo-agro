@@ -108,7 +108,6 @@ const PurchaseDetailsModal = ({ isOpen, onClose, purchase }: PurchaseDetailsModa
   };
 
   const handleMarkAsReceived = (rating: number, comment: string, recommend: boolean) => {
-    console.log("Review submitted:", { rating, comment, recommend });
     toast({
       title: "Avaliação enviada!",
       description: "Obrigado pelo seu feedback. Sua avaliação foi registrada com sucesso.",

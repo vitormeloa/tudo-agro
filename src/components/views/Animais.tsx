@@ -171,10 +171,10 @@ export default function Animais() {
   }
 
   const categories = [
-    { name: 'Gado de Corte', color: 'bg-primary/10 text-primary' },
-    { name: 'Gado de Leite', color: 'bg-primary/10 text-primary' },
-    { name: 'Cavalos', color: 'bg-primary/10 text-primary' },
-    { name: 'Sêmen', color: 'bg-primary/10 text-primary' }
+    { name: 'Gado de Corte', color: 'bg-[#B8E8D1] text-[#1F2937]' },
+    { name: 'Gado de Leite', color: 'bg-[#B8E8D1] text-[#1F2937]' },
+    { name: 'Cavalos', color: 'bg-[#B8E8D1] text-[#1F2937]' },
+    { name: 'Sêmen', color: 'bg-[#B8E8D1] text-[#1F2937]' }
   ].map(cat => ({
     ...cat,
     count: getCategoryCount(cat.name)
@@ -296,7 +296,7 @@ export default function Animais() {
 
         <h3 className="text-lg font-semibold text-[#101828]">Categorias Populares</h3>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
         {categories.map((category) => (
           <Card
             key={category.name}
@@ -305,12 +305,12 @@ export default function Animais() {
               selectedCategory === category.name ? 'ring-2 ring-emerald-500 shadow-lg' : ''
             }`}
           >
-            <CardContent className="p-4 text-center">
-              <div className={`inline-flex px-3 py-1 rounded-full text-sm font-medium mb-2 ${category.color}`}>
+              <CardContent className="p-3 text-center">
+              <div className={`inline-flex px-3 py-1.5 rounded-full text-xs font-medium mb-2 max-w-full break-words leading-tight ${category.color}`}>
                 {category.name}
               </div>
-              <div className="text-2xl font-bold text-[#101828]">{category.count}</div>
-              <div className="text-sm text-gray-500">animais</div>
+              <div className="text-xl font-bold text-[#101828]">{category.count}</div>
+              <div className="text-xs text-gray-500">animais</div>
             </CardContent>
           </Card>
         ))}

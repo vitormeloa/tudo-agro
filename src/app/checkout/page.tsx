@@ -29,7 +29,7 @@ import { calculateFreight, formatCEP, type FreightResult } from '@/lib/freight-c
 
 export default function CheckoutPage() {
   const router = useRouter()
-  const { items, updateQuantity, removeItem, getSubtotal, getTotal, clearCart } = useCart()
+  const { items, updateQuantity, removeItem, getSubtotal, getTotal, clearCart, isLoading } = useCart()
   const { user } = useAuth()
   const { toast } = useToast()
   
@@ -81,7 +81,7 @@ export default function CheckoutPage() {
   }, [formData.cep, items])
 
   useEffect(() => {
-    if (items.length === 0) {
+    if (!isLoading && items.length === 0) {
       toast({
         title: "Carrinho vazio",
         description: "Adicione itens ao carrinho antes de finalizar a compra.",
@@ -89,7 +89,7 @@ export default function CheckoutPage() {
       })
       router.push('/produtos')
     }
-  }, [items.length, router, toast])
+  }, [items.length, isLoading, router, toast])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
@@ -204,8 +204,23 @@ export default function CheckoutPage() {
         description: "Seu pedido foi confirmado e você receberá um e-mail com os detalhes.",
       })
       clearCart()
-      router.push('/produtos')
+      router.push('/dashboard/minhas-compras')
     }, 2000)
+  }
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Header />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+            <p className="text-gray-600">Carregando checkout...</p>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    )
   }
 
   if (items.length === 0) {

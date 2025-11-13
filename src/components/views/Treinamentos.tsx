@@ -1,13 +1,10 @@
 'use client'
 
 import { useState } from 'react'
-import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Progress } from '@/components/ui/progress'
 import {
     Search,
     Filter,
@@ -15,17 +12,15 @@ import {
     BookOpen,
     Clock,
     Users,
-    Star,
-    Award,
-    TrendingUp,
-    PlayCircle,
-    CheckCircle,
-    BarChart, HelpCircle
+    Star
 } from 'lucide-react'
+import { CourseDetailsModal } from '@/components/CourseDetailsModal'
+import { CoursePurchaseModal } from '@/components/CoursePurchaseModal'
 
 interface Course {
   id: number
   title: string
+  description: string
   category: string
   instructor: string
   duration: string
@@ -38,248 +33,169 @@ interface Course {
   enrolled?: boolean
   featured?: boolean
   lessons: number
+  modules: number
+  color: string
 }
-
-const mockCourses: Course[] = [
-  {
-    id: 1,
-    title: 'Gestao de Pastagens e Nutrição Bovina',
-    category: 'Pecuaria',
-    instructor: 'Dr. Carlos Silva',
-    duration: '8 horas',
-    level: 'Intermediario',
-    rating: 4.8,
-    students: 1250,
-    price: 299,
-    image: 'https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=800&q=80',
-    progress: 65,
-    enrolled: true,
-    featured: true,
-    lessons: 24
-  },
-  {
-    id: 2,
-    title: 'Agricultura de Precisão com Drones',
-    category: 'Tecnologia',
-    instructor: 'Eng. Maria Santos',
-    duration: '12 horas',
-    level: 'Avancado',
-    rating: 4.9,
-    students: 850,
-    price: 499,
-    image: 'https://images.unsplash.com/photo-1473448912268-2022ce9509d8?w=800&q=80',
-    progress: 30,
-    enrolled: true,
-    featured: true,
-    lessons: 36
-  },
-  {
-    id: 3,
-    title: 'Manejo Integrado de Pragas',
-    category: 'Agricultura',
-    instructor: 'Dr. João Oliveira',
-    duration: '6 horas',
-    level: 'Iniciante',
-    rating: 4.7,
-    students: 2100,
-    price: 199,
-    image: 'https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=800&q=80',
-    featured: true,
-    lessons: 18
-  },
-  {
-    id: 4,
-    title: 'Reproducao e Genetica Animal',
-    category: 'Pecuaria',
-    instructor: 'Dra. Ana Costa',
-    duration: '10 horas',
-    level: 'Avancado',
-    rating: 4.9,
-    students: 680,
-    price: 399,
-    image: 'https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=800&q=80',
-    lessons: 30
-  },
-  {
-    id: 5,
-    title: 'Administracao Rural e Gestao Financeira',
-    category: 'Gestao',
-    instructor: 'Prof. Roberto Lima',
-    duration: '15 horas',
-    level: 'Intermediario',
-    rating: 4.6,
-    students: 1580,
-    price: 349,
-    image: 'https://images.unsplash.com/photo-1554224311-beee415c201f?w=800&q=80',
-    lessons: 42
-  },
-  {
-    id: 6,
-    title: 'Irrigacao Eficiente e Sustentavel',
-    category: 'Agricultura',
-    instructor: 'Eng. Pedro Alves',
-    duration: '7 horas',
-    level: 'Intermediario',
-    rating: 4.7,
-    students: 920,
-    price: 249,
-    image: 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800&q=80',
-    lessons: 21
-  }
-]
 
 export default function Treinamentos() {
   const [searchQuery, setSearchQuery] = useState('')
   const [showFilters, setShowFilters] = useState(false)
-  const [selectedCategory, setSelectedCategory] = useState<string>('')
-  const [selectedLevel, setSelectedLevel] = useState<string>('')
-  const [selectedPriceRange, setSelectedPriceRange] = useState<string>('')
-  const [sortBy, setSortBy] = useState<string>('relevancia')
-  const [viewMode, setViewMode] = useState<'all' | 'enrolled'>('all')
+  const [selectedLevel, setSelectedLevel] = useState<string>('all')
+  const [selectedCategory, setSelectedCategory] = useState<string>('all')
+  const [selectedPriceRange, setSelectedPriceRange] = useState<string>('all')
+  const [showCategoriesModal, setShowCategoriesModal] = useState(false)
+  const [showCourseDetailsModal, setShowCourseDetailsModal] = useState(false)
+  const [showCoursePurchaseModal, setShowCoursePurchaseModal] = useState(false)
+  const [selectedCourse, setSelectedCourse] = useState<Course | null>(null)
+
+  const mockCourses: Course[] = [
+    {
+      id: 1,
+      title: 'Fundamentos do Agronegócio',
+      description: 'Aprenda os conceitos essenciais do agronegócio brasileiro, desde a produção até a comercialização.',
+      category: 'Geral',
+      instructor: 'Dr. Carlos Silva',
+      duration: '40h',
+      level: 'Iniciante',
+      rating: 4.8,
+      students: 1240,
+      price: 29.90,
+      image: '/fotos/blog/blog-post-1.jpg',
+      lessons: 12,
+      modules: 12,
+      color: 'from-blue-500 to-blue-600'
+    },
+    {
+      id: 2,
+      title: 'Marketing Digital no Agro',
+      description: 'Domine estratégias de marketing digital para promover seu negócio agropecuário nas redes sociais.',
+      category: 'Marketing',
+      instructor: 'Ana Costa',
+      duration: '60h',
+      level: 'Intermediario',
+      rating: 4.9,
+      students: 856,
+      price: 29.90,
+      image: '/fotos/blog/blog-post-2.jpg',
+      lessons: 18,
+      modules: 18,
+      color: 'from-purple-500 to-purple-600'
+    },
+    {
+      id: 3,
+      title: 'Compliance e Regulamentação Rural',
+      description: 'Entenda as normas e regulamentações que regem o setor rural e mantenha sua propriedade em conformidade.',
+      category: 'Jurídico',
+      instructor: 'Roberto Lima',
+      duration: '35h',
+      level: 'Avancado',
+      rating: 4.7,
+      students: 634,
+      price: 29.90,
+      image: '/fotos/blog/blog-post-3.jpg',
+      lessons: 10,
+      modules: 10,
+      color: 'from-green-500 to-green-600'
+    },
+    {
+      id: 4,
+      title: 'Gestão de Pessoas no Campo',
+      description: 'Desenvolva habilidades de liderança e gestão para formar equipes produtivas no ambiente rural.',
+      category: 'Gestão',
+      instructor: 'Fernanda Souza',
+      duration: '25h',
+      level: 'Intermediario',
+      rating: 4.5,
+      students: 980,
+      price: 39.90,
+      image: '/fotos/blog/blog-post-4.jpg',
+      lessons: 8,
+      modules: 8,
+      color: 'from-red-500 to-red-600'
+    },
+    {
+      id: 5,
+      title: 'Finanças para Produtores Rurais',
+      description: 'Aprenda a gerenciar suas finanças, controlar custos e maximizar a rentabilidade da sua propriedade rural.',
+      category: 'Finanças',
+      instructor: 'Paulo Mendes',
+      duration: '50h',
+      level: 'Avancado',
+      rating: 4.9,
+      students: 720,
+      price: 49.90,
+      image: '/fotos/blog/blog-post-5.jpg',
+      lessons: 15,
+      modules: 15,
+      color: 'from-yellow-500 to-yellow-600'
+    },
+    {
+      id: 6,
+      title: 'Tecnologias de Irrigação',
+      description: 'Conheça as tecnologias modernas de irrigação para otimizar o uso de água e aumentar a produtividade.',
+      category: 'Tecnologia',
+      instructor: 'Mariana Dias',
+      duration: '30h',
+      level: 'Intermediario',
+      rating: 4.6,
+      students: 1100,
+      price: 34.90,
+      image: '/fotos/blog/blog-post-6.jpg',
+      lessons: 10,
+      modules: 10,
+      color: 'from-teal-500 to-teal-600'
+    },
+  ];
 
   const filteredCourses = mockCourses.filter(course => {
-    if (viewMode === 'enrolled' && !course.enrolled) return false
+    if (searchQuery && !course.title.toLowerCase().includes(searchQuery.toLowerCase())) return false;
+    if (selectedLevel !== 'all' && course.level !== selectedLevel) return false;
+    if (selectedCategory !== 'all' && course.category !== selectedCategory) return false;
 
-    if (searchQuery) {
-      const query = searchQuery.toLowerCase()
-      const matchesSearch = (
-        course.title.toLowerCase().includes(query) ||
-        course.category.toLowerCase().includes(query) ||
-        course.instructor.toLowerCase().includes(query)
-      )
-      if (!matchesSearch) return false
+    if (selectedPriceRange !== 'all') {
+      const price = course.price;
+      if (selectedPriceRange === '0-30' && price > 30) return false;
+      if (selectedPriceRange === '30-50' && (price < 30 || price > 50)) return false;
+      if (selectedPriceRange === '50+' && price < 50) return false;
     }
 
-    if (selectedCategory && course.category !== selectedCategory) return false
-    if (selectedLevel && course.level !== selectedLevel) return false
-
-    if (selectedPriceRange) {
-      const price = course.price
-      switch (selectedPriceRange) {
-        case '0-200':
-          if (price > 200) return false
-          break
-        case '200-400':
-          if (price < 200 || price > 400) return false
-          break
-        case '400+':
-          if (price < 400) return false
-          break
-      }
-    }
-
-    return true
-  })
-
-  const sortedCourses = [...filteredCourses].sort((a, b) => {
-    switch (sortBy) {
-      case 'preco-menor':
-        return a.price - b.price
-      case 'preco-maior':
-        return b.price - a.price
-      case 'avaliacao':
-        return b.rating - a.rating
-      case 'popular':
-        return b.students - a.students
-      default:
-        return (b.featured ? 1 : 0) - (a.featured ? 1 : 0) || b.rating - a.rating
-    }
-  })
+    return true;
+  });
 
   const clearAllFilters = () => {
-    setSearchQuery('')
-    setSelectedCategory('')
-    setSelectedLevel('')
-    setSelectedPriceRange('')
-    setSortBy('relevancia')
-  }
+    setSearchQuery('');
+    setSelectedLevel('all');
+    setSelectedCategory('all');
+    setSelectedPriceRange('all');
+  };
 
-  const hasActiveFilters = !!(searchQuery || selectedCategory || selectedLevel || selectedPriceRange)
+  const hasActiveFilters = !!(searchQuery || selectedLevel !== 'all' || selectedCategory !== 'all' || selectedPriceRange !== 'all');
+
+  const levels = [
+    { name: 'Iniciante', count: mockCourses.filter(c => c.level === 'Iniciante').length },
+    { name: 'Intermediario', count: mockCourses.filter(c => c.level === 'Intermediario').length },
+    { name: 'Avancado', count: mockCourses.filter(c => c.level === 'Avancado').length },
+  ];
 
   const categories = [
-    { name: 'Pecuaria', count: mockCourses.filter(c => c.category === 'Pecuaria').length },
-    { name: 'Agricultura', count: mockCourses.filter(c => c.category === 'Agricultura').length },
+    { name: 'Geral', count: mockCourses.filter(c => c.category === 'Geral').length },
+    { name: 'Marketing', count: mockCourses.filter(c => c.category === 'Marketing').length },
+    { name: 'Jurídico', count: mockCourses.filter(c => c.category === 'Jurídico').length },
+    { name: 'Gestão', count: mockCourses.filter(c => c.category === 'Gestão').length },
+    { name: 'Finanças', count: mockCourses.filter(c => c.category === 'Finanças').length },
     { name: 'Tecnologia', count: mockCourses.filter(c => c.category === 'Tecnologia').length },
-    { name: 'Gestao', count: mockCourses.filter(c => c.category === 'Gestao').length }
-  ]
+  ];
 
-  const enrolledCourses = mockCourses.filter(c => c.enrolled)
-  const completedCount = enrolledCourses.filter(c => (c.progress || 0) === 100).length
-  const inProgressCount = enrolledCourses.filter(c => (c.progress || 0) > 0 && (c.progress || 0) < 100).length
+  const visibleLevels = levels.slice(0, 5);
+  const hiddenLevels = levels.slice(5);
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold text-foreground">Treinamentos e Cursos</h1>
-        <p className="text-muted-foreground mt-1">Desenvolva suas habilidades no agronegócio com nossos cursos especializados</p>
-      </div>
-
-      <div className="grid md:grid-cols-4 gap-4">
-        <Card className="shadow-sm border">
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-600">Cursos Matriculados</p>
-                <p className="text-2xl font-bold text-primary">{enrolledCourses.length}</p>
-              </div>
-              <BookOpen className="w-8 h-8 text-primary" />
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="shadow-sm border">
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-600">Em Andamento</p>
-                <p className="text-2xl font-bold text-amber-600">{inProgressCount}</p>
-              </div>
-              <PlayCircle className="w-8 h-8 text-amber-600" />
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="shadow-sm border">
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-600">Concluidos</p>
-                <p className="text-2xl font-bold text-emerald-600">{completedCount}</p>
-              </div>
-              <CheckCircle className="w-8 h-8 text-emerald-600" />
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="shadow-sm border">
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-600">Horas de Estudo</p>
-                <p className="text-2xl font-bold text-primary">42h</p>
-              </div>
-              <BarChart className="w-8 h-8 text-primary" />
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      <div className="flex gap-2">
-        <Button
-          variant={viewMode === 'all' ? 'default' : 'outline'}
-          onClick={() => setViewMode('all')}
-          className={viewMode === 'all' ? 'bg-primary' : 'border-primary text-primary'}
-        >
-          Todos os Cursos
-        </Button>
-        <Button
-          variant={viewMode === 'enrolled' ? 'default' : 'outline'}
-          onClick={() => setViewMode('enrolled')}
-          className={viewMode === 'enrolled' ? 'bg-primary' : 'border-primary text-primary'}
-        >
-          Meus Cursos
-        </Button>
-      </div>
+    <div className="container mx-auto px-3 sm:px-4 lg:px-6 py-4 sm:py-6 max-w-full">
+      <div className="space-y-6">
+        <div>
+          <h1 className="text-3xl font-bold mb-2">Treinamentos</h1>
+          <p className="text-muted-foreground">Desenvolva suas habilidades no agronegócio com nossos cursos especializados</p>
+        </div>
 
       <Card className="shadow-sm border">
         <CardContent className="p-6">
@@ -307,13 +223,13 @@ export default function Treinamentos() {
 
           {showFilters && (
             <div className="border-t border-gray-200 pt-6">
-              <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <Select value={selectedCategory} onValueChange={setSelectedCategory}>
                   <SelectTrigger className="h-10">
                     <SelectValue placeholder="Categoria" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">Todas</SelectItem>
+                    <SelectItem value="all">Todas as Categorias</SelectItem>
                     {categories.map(cat => (
                       <SelectItem key={cat.name} value={cat.name}>{cat.name} ({cat.count})</SelectItem>
                     ))}
@@ -322,38 +238,25 @@ export default function Treinamentos() {
 
                 <Select value={selectedLevel} onValueChange={setSelectedLevel}>
                   <SelectTrigger className="h-10">
-                    <SelectValue placeholder="Nivel" />
+                    <SelectValue placeholder="Nível" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">Todos</SelectItem>
-                    <SelectItem value="Iniciante">Iniciante</SelectItem>
-                    <SelectItem value="Intermediario">Intermediario</SelectItem>
-                    <SelectItem value="Avancado">Avancado</SelectItem>
+                    <SelectItem value="all">Todos os níveis</SelectItem>
+                    {levels.map(level => (
+                      <SelectItem key={level.name} value={level.name}>{level.name} ({level.count})</SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
 
                 <Select value={selectedPriceRange} onValueChange={setSelectedPriceRange}>
                   <SelectTrigger className="h-10">
-                    <SelectValue placeholder="Preco" />
+                    <SelectValue placeholder="Preço" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">Todos</SelectItem>
-                    <SelectItem value="0-200">Ate R$ 200</SelectItem>
-                    <SelectItem value="200-400">R$ 200 - R$ 400</SelectItem>
-                    <SelectItem value="400+">Acima de R$ 400</SelectItem>
-                  </SelectContent>
-                </Select>
-
-                <Select value={sortBy} onValueChange={setSortBy}>
-                  <SelectTrigger className="h-10">
-                    <SelectValue placeholder="Ordenar" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="relevancia">Mais Relevantes</SelectItem>
-                    <SelectItem value="preco-menor">Menor Preco</SelectItem>
-                    <SelectItem value="preco-maior">Maior Preco</SelectItem>
-                    <SelectItem value="avaliacao">Melhor Avaliacao</SelectItem>
-                    <SelectItem value="popular">Mais Popular</SelectItem>
+                    <SelectItem value="all">Todos os preços</SelectItem>
+                    <SelectItem value="0-30">Até R$ 30</SelectItem>
+                    <SelectItem value="30-50">R$ 30 - R$ 50</SelectItem>
+                    <SelectItem value="50+">Acima de R$ 50</SelectItem>
                   </SelectContent>
                 </Select>
 
@@ -364,7 +267,7 @@ export default function Treinamentos() {
                     onClick={clearAllFilters}
                   >
                     <Filter className="w-4 h-4 mr-2" />
-                    Limpar
+                    Limpar Filtros
                   </Button>
                 )}
               </div>
@@ -373,171 +276,86 @@ export default function Treinamentos() {
         </CardContent>
       </Card>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {categories.map((category) => (
-          <Card
-            key={category.name}
-            onClick={() => setSelectedCategory(category.name)}
-            className={`hover:shadow-lg transition-all duration-300 cursor-pointer ${
-              selectedCategory === category.name ? 'ring-2 ring-emerald-500 shadow-lg' : ''
-            }`}
-          >
-            <CardContent className="p-4 text-center">
-              <div className="inline-flex px-3 py-1 rounded-full text-sm font-medium mb-2 bg-primary/10 text-primary">
-                {category.name}
-              </div>
-              <div className="text-2xl font-bold text-[#101828]">{category.count}</div>
-              <div className="text-sm text-gray-500">cursos</div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-
-      {hasActiveFilters && (
-        <div className="flex flex-wrap gap-2">
-          <span className="text-sm text-gray-600 font-medium">Filtros ativos:</span>
-          {searchQuery && (
-            <Badge variant="secondary" className="bg-primary/10 text-primary">
-              Busca: "{searchQuery}"
-            </Badge>
-          )}
-          {selectedCategory && (
-            <Badge variant="secondary" className="bg-primary/10 text-primary">
-              Categoria: {selectedCategory}
-            </Badge>
-          )}
-          {selectedLevel && (
-            <Badge variant="secondary" className="bg-primary/10 text-primary">
-              Nivel: {selectedLevel}
-            </Badge>
-          )}
-        </div>
-      )}
-
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {sortedCourses.map((course) => (
-          <Card key={course.id} className="overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-0">
-            <div className="relative">
-              <img src={course.image} alt={course.title} className="w-full h-48 object-cover" />
-              {course.featured && (
-                <Badge className="absolute top-4 left-4 bg-amber-500 text-white font-semibold">
-                  <Award className="w-3 h-3 mr-1" />
-                  Destaque
-                </Badge>
-              )}
-              {course.enrolled && (
-                <Badge className="absolute top-4 right-4 bg-primary text-white font-semibold">
-                  Matriculado
-                </Badge>
-              )}
-            </div>
-            <CardContent className="p-6">
-              <div className="flex items-center gap-2 mb-2">
-                <Badge variant="secondary" className="text-xs">{course.category}</Badge>
-                <Badge variant="outline" className="text-xs">{course.level}</Badge>
-              </div>
-
-              <h3 className="font-bold text-lg text-[#101828] mb-3 line-clamp-2">{course.title}</h3>
-
-              <div className="flex items-center text-sm text-gray-600 mb-2">
-                <Users className="w-4 h-4 mr-1" />
-                {course.instructor}
-              </div>
-
-              <div className="flex items-center justify-between text-sm text-gray-600 mb-4">
-                <div className="flex items-center">
-                  <Clock className="w-4 h-4 mr-1" />
-                  {course.duration}
-                </div>
-                <div className="flex items-center">
-                  <BookOpen className="w-4 h-4 mr-1" />
-                  {course.lessons} aulas
-                </div>
-              </div>
-
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center">
-                  <Star className="w-4 h-4 text-amber-500 fill-amber-500 mr-1" />
-                  <span className="font-semibold">{course.rating}</span>
-                  <span className="text-sm text-gray-500 ml-1">({course.students})</span>
-                </div>
-                <div className="font-bold text-primary text-xl">
-                  R$ {course.price}
-                </div>
-              </div>
-
-              {course.enrolled && typeof course.progress === 'number' && (
-                <div className="mb-4">
-                  <div className="flex justify-between text-sm mb-1">
-                    <span className="text-gray-600">Progresso</span>
-                    <span className="font-semibold text-primary">{course.progress}%</span>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredCourses.map((course, index) => (
+            <Card key={course.id} className="rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-lg transition-all duration-300 transform hover:scale-105 h-full min-h-[500px]">
+              <div className="p-0 h-full flex flex-col">
+                <div className={`aspect-video bg-gradient-to-br ${course.color} rounded-t-lg flex items-center justify-center relative`}>
+                  <BookOpen className="h-12 w-12 text-white" />
+                  <div className="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border-transparent hover:bg-primary/80 absolute top-3 left-3 bg-white/20 text-white border-0">
+                    {course.level}
                   </div>
-                  <Progress value={course.progress} className="h-2" />
                 </div>
-              )}
+                <div className="p-6 flex flex-col h-full">
+                  <div className="flex-grow min-h-[200px]">
+                    <div className="flex items-start justify-between mb-3">
+                      <h3 className="font-bold text-lg leading-tight">{course.title}</h3>
+                      <span className="text-lg font-bold text-primary flex-shrink-0 min-w-max">R$ {course.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span>
+                    </div>
+                    <p className="text-xs text-gray-500 mb-4 line-clamp-2">{course.description}</p>
+                    <div className="space-y-3 mb-4">
+                      <div className="flex items-center justify-between text-sm">
+                        <div className="flex items-center gap-1 text-muted-foreground">
+                          <Clock className="h-4 w-4" />
+                          {course.duration}
+                        </div>
+                        <div className="flex items-center gap-1 text-muted-foreground">
+                          <BookOpen className="h-4 w-4" />
+                          {course.modules} módulos
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-between text-sm">
+                        <div className="flex items-center gap-1 text-muted-foreground">
+                          <Users className="h-4 w-4" />
+                          {course.students} alunos
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                          <span className="font-medium">{course.rating}</span>
+                        </div>
+                      </div>
+                      <p className="text-xs text-muted-foreground">Instrutor: {course.instructor}</p>
+                    </div>
+                  </div>
+                  <div className="space-y-2 mt-auto">
+                    <Button variant="outline" className="w-full" onClick={() => {
+                      setSelectedCourse(course);
+                      setShowCourseDetailsModal(true);
+                    }}>Ver Detalhes</Button>
+                    <Button className="w-full" onClick={() => {
+                      setSelectedCourse(course);
+                      setShowCoursePurchaseModal(true);
+                    }}>Comprar - R$ {course.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</Button>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          ))}
+        </div>
 
-              <Link href={`/dashboard/treinamentos/${course.id}`}>
-                <Button className="w-full bg-primary hover:bg-[#2E7A5A] text-white">
-                  {course.enrolled ? (
-                    <>
-                      <PlayCircle className="w-4 h-4 mr-2" />
-                      Continuar Curso
-                    </>
-                  ) : (
-                    <>
-                      <TrendingUp className="w-4 h-4 mr-2" />
-                      Ver Detalhes
-                    </>
-                  )}
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
-        ))}
+        <div className="bg-gradient-to-r from-primary/5 to-secondary/5 rounded-xl p-6 text-center">
+          <h3 className="font-bold text-xl mb-2">Não encontrou o que procura?</h3>
+          <p className="text-muted-foreground mb-4">Nossa equipe está sempre criando novos conteúdos. Sugira uma trilha!</p>
+          <Button variant="outline">Sugerir Trilha</Button>
+        </div>
       </div>
 
-      {sortedCourses.length === 0 && (
-        <div className="text-center py-16">
-          <BookOpen className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-          <h3 className="text-xl font-semibold text-[#101828] mb-2">Nenhum curso encontrado</h3>
-          <p className="text-gray-600 mb-6">
-            Nao encontramos cursos que correspondam aos seus filtros.
-          </p>
-          {hasActiveFilters && (
-            <Button
-              onClick={clearAllFilters}
-              variant="outline"
-              className="border-primary text-primary hover:bg-primary hover:text-white"
-            >
-              Limpar todos os filtros
-            </Button>
-          )}
-        </div>
-      )}
+      <CourseDetailsModal
+        isOpen={showCourseDetailsModal}
+        onClose={() => setShowCourseDetailsModal(false)}
+        course={selectedCourse}
+        onPurchaseClick={(courseToPurchase) => {
+          setSelectedCourse(courseToPurchase);
+          setShowCourseDetailsModal(false); // Close details modal
+          setShowCoursePurchaseModal(true); // Open purchase modal
+        }}
+      />
 
-        <div className="border-t pt-6 mt-8">
-            <Card className="bg-muted/50">
-                <div className="p-6">
-                    <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-                        <div className="flex items-center gap-3">
-                            <HelpCircle className="h-10 w-10 text-primary" />
-                            <div>
-                                <p className="font-medium">Dúvidas sobre os treinamentos?</p>
-                                <p className="text-sm text-muted-foreground">Nossa equipe está pronta para ajudar</p>
-                            </div>
-                        </div>
-                        <div className="flex gap-3">
-                            <Button variant="outline">
-                                Fale com Suporte
-                            </Button>
-                            <Button variant="outline">
-                                Consultar AgroIA
-                            </Button>
-                        </div>
-                    </div>
-                </div>
-            </Card>
-        </div>
+      <CoursePurchaseModal
+        isOpen={showCoursePurchaseModal}
+        onClose={() => setShowCoursePurchaseModal(false)}
+        course={selectedCourse}
+      />
     </div>
-  )
+  );
 }

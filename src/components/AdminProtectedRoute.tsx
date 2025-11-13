@@ -22,12 +22,10 @@ export default function AdminProtectedRoute({
   useEffect(() => {
     if (!loading && user && !isRedirecting) {
       if (!isAdmin()) {
-        console.log('User is not admin, redirecting to 403')
         setIsRedirecting(true)
         router.push('/403')
       }
     } else if (!loading && !user && !isRedirecting) {
-      console.log('No user found, redirecting to login')
       setIsRedirecting(true)
       router.push('/login')
     }

@@ -158,7 +158,7 @@ export default function Header({
           <div className="flex items-center space-x-2 lg:space-x-4">
             {}
             {showCart && isLoggedIn && (
-              <Link href="/dashboard/carrinho">
+              <Link href="/carrinho">
                 <Button
                   variant="ghost"
                   size="sm"

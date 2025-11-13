@@ -4,7 +4,6 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Search, SlidersHorizontal, RefreshCw, FileText, HelpCircle, ChevronRight, Grid3x3, Filter } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
@@ -25,21 +24,22 @@ const MinhasCompras = () => {
   const { toast } = useToast();
 
   const categoriesConfig = [
-    { name: 'animais', label: 'Animais', color: '#B8E8D1' },
-    { name: 'semen', label: 'Sêmen', color: '#B8E8D1' },
-    { name: 'produtos', label: 'Produtos', color: '#B8E8D1' },
-    { name: 'nutricao animal', label: 'Nutrição Animal', color: '#B8E8D1' },
-    { name: 'saude e bem-estar animal', color: '#B8E8D1' },
-    { name: 'reproducao e genetica', label: 'Reprodução e Genética', color: '#B8E8D1' },
-    { name: 'selaria e utilidades', label: 'Selaria e Utilidades', color: '#B8E8D1' },
-    { name: 'equipamentos e infraestrutura rural', label: 'Equipamentos e Infraestrutura Rural', color: '#B8E8D1' },
-    { name: 'vestuario e lifestyle agro', label: 'Vestuário e Lifestyle Agro', color: '#B8E8D1' },
-    { name: 'sementes e mudas', label: 'Sementes e Mudas', color: '#B8E8D1' },
-    { name: 'insumos agricolas e fertilizantes', label: 'Insumos Agrícolas e Fertilizantes', color: '#B8E8D1' },
-    { name: 'higiene, limpeza e desinfeccao', label: 'Higiene, Limpeza e Desinfecção', color: '#B8E8D1' },
-    { name: 'suplementos e aditivos', label: 'Suplementos e Aditivos', color: '#B8E8D1' },
-    { name: 'bebidas artesanais e produtos da fazenda', label: 'Bebidas Artesanais e Produtos da Fazenda', color: '#B8E8D1' },
-    { name: 'outros', label: 'Outros', color: '#B8E8D1' },
+    { name: 'gado', label: 'Gado', color: '#B8E8D1', popular: true },
+    { name: 'cavalos', label: 'Cavalos', color: '#B8E8D1', popular: true },
+    { name: 'semen', label: 'Sêmen', color: '#B8E8D1', popular: true },
+    { name: 'produtos', label: 'Produtos', color: '#B8E8D1', popular: true },
+    { name: 'nutricao animal', label: 'Nutrição Animal', color: '#B8E8D1', popular: false },
+    { name: 'saude e bem-estar animal', label: 'Saúde e Bem-Estar Animal', color: '#B8E8D1', popular: false },
+    { name: 'reproducao e genetica', label: 'Reprodução e Genética', color: '#B8E8D1', popular: false },
+    { name: 'selaria e utilidades', label: 'Selaria e Utilidades', color: '#B8E8D1', popular: false },
+    { name: 'equipamentos e infraestrutura rural', label: 'Equipamentos e Infraestrutura Rural', color: '#B8E8D1', popular: false },
+    { name: 'vestuario e lifestyle agro', label: 'Vestuário e Lifestyle Agro', color: '#B8E8D1', popular: false },
+    { name: 'sementes e mudas', label: 'Sementes e Mudas', color: '#B8E8D1', popular: false },
+    { name: 'insumos agricolas e fertilizantes', label: 'Insumos Agrícolas e Fertilizantes', color: '#B8E8D1', popular: false },
+    { name: 'higiene, limpeza e desinfeccao', label: 'Higiene, Limpeza e Desinfecção', color: '#B8E8D1', popular: false },
+    { name: 'suplementos e aditivos', label: 'Suplementos e Aditivos', color: '#B8E8D1', popular: false },
+    { name: 'bebidas artesanais e produtos da fazenda', label: 'Bebidas Artesanais e Produtos da Fazenda', color: '#B8E8D1', popular: false },
+    { name: 'outros', label: 'Outros', color: '#B8E8D1', popular: false },
   ];
 
   const allPurchases = [
@@ -50,7 +50,7 @@ const MinhasCompras = () => {
       time: "10:42",
       status: "Em transporte",
       image: "/fotos/animais/touro-nelore.jpeg",
-      category: "animais",
+      category: "gado",
       itemType: "Touro Nelore",
       quantity: 1,
       unitPrice: 12500,
@@ -82,7 +82,7 @@ const MinhasCompras = () => {
       time: "15:30",
       status: "Preparando envio",
       image: "/fotos/animais/egua-mangalarga.jpeg",
-      category: "animais",
+      category: "cavalos",
       itemType: "Égua Mangalarga",
       quantity: 1,
       unitPrice: 18000,
@@ -311,8 +311,8 @@ const MinhasCompras = () => {
     count: getCategoryStats(cat.name)
   })).filter(cat => cat.count > 0);
 
-  const visibleCategories = categories.slice(0, 5);
-  const hiddenCategories = categories.slice(5);
+  const popularCategories = categories.filter(cat => cat.popular);
+  const otherCategories = categories.filter(cat => !cat.popular);
 
   return (
     <>
@@ -406,8 +406,8 @@ const MinhasCompras = () => {
         {}
           <h3 className="text-lg font-semibold text-[#101828]">Categorias Populares</h3>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-          {visibleCategories.map((category) => (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {popularCategories.map((category) => (
             <Card
               key={category.name}
               onClick={() => setActiveTab(activeTab === category.name ? 'todos' : category.name)}
@@ -430,32 +430,32 @@ const MinhasCompras = () => {
               </CardContent>
             </Card>
           ))}
-
-          {hiddenCategories.length > 0 && (
-            <Card
-              className="hover:shadow-lg transition-all duration-300 transform hover:scale-105 cursor-pointer border-2 border-dashed border-gray-300 hover:border-primary"
-              onClick={() => setShowCategoriesModal(true)}
-            >
-              <CardContent className="p-3 text-center flex flex-col items-center justify-center min-h-[100px]">
-                <Grid3x3 className="w-6 h-6 text-gray-400 mb-2" />
-                <div className="text-sm font-semibold text-gray-700 mb-1">Ver Mais</div>
-                <div className="text-xs text-gray-500">{hiddenCategories.length} categorias</div>
-              </CardContent>
-            </Card>
-          )}
         </div>
+
+        {otherCategories.length > 0 && (
+          <div className="flex justify-center">
+            <Button
+              variant="outline"
+              onClick={() => setShowCategoriesModal(true)}
+              className="gap-2"
+            >
+              <Grid3x3 className="w-4 h-4" />
+              Ver Todas as Categorias ({otherCategories.length} {otherCategories.length === 1 ? 'categoria' : 'categorias'})
+            </Button>
+          </div>
+        )}
 
         <Dialog open={showCategoriesModal} onOpenChange={setShowCategoriesModal}>
           <DialogContent className="max-w-4xl max-h-[85vh] overflow-hidden flex flex-col">
             <DialogHeader>
               <DialogTitle>Todas as Categorias</DialogTitle>
               <DialogDescription>
-                Explore todas as {categories.length} categorias disponiveis
+                Explore todas as {categories.length} categorias disponíveis
               </DialogDescription>
             </DialogHeader>
             <div className="flex-1 overflow-y-auto">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {hiddenCategories.map((category) => (
+                {otherCategories.map((category) => (
                   <Card
                     key={category.name}
                     onClick={() => {
@@ -486,30 +486,6 @@ const MinhasCompras = () => {
           </DialogContent>
         </Dialog>
 
-        {}
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6 hidden">
-          <TabsList className="grid w-full grid-cols-4 h-auto p-1">
-            <TabsTrigger value="todos" className="flex flex-col gap-1 py-3">
-              <span className="font-semibold">Todos</span>
-              <span className="text-xs text-muted-foreground">{getCategoryStats("todos")}</span>
-            </TabsTrigger>
-            <TabsTrigger value="animais" className="flex flex-col gap-1 py-3">
-              <span className="font-semibold">Animais</span>
-              <span className="text-xs text-muted-foreground">{getCategoryStats("animais")}</span>
-            </TabsTrigger>
-            <TabsTrigger value="semen" className="flex flex-col gap-1 py-3">
-              <span className="font-semibold">Sêmen</span>
-              <span className="text-xs text-muted-foreground">{getCategoryStats("semen")}</span>
-            </TabsTrigger>
-            <TabsTrigger value="produtos" className="flex flex-col gap-1 py-3">
-              <span className="font-semibold">Produtos</span>
-              <span className="text-xs text-muted-foreground">{getCategoryStats("produtos")}</span>
-            </TabsTrigger>
-          </TabsList>
-
-          <TabsContent value={activeTab} className="space-y-4 hidden">
-          </TabsContent>
-        </Tabs>
 
         {}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">

@@ -8,7 +8,7 @@ import { NavLink } from "@/components/NavLink";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { LayoutDashboard, ShoppingBag, MessageSquare, Wallet, Menu, Sparkles, X, Bell, HelpCircle, LogOut, Bot, Send, User, CircleDot, Gavel, Package, BookOpen, GraduationCap, PawPrint } from "lucide-react";
+import { LayoutDashboard, ShoppingBag, MessageSquare, Wallet, Menu, Sparkles, X, Bell, HelpCircle, LogOut, Bot, Send, User, CircleDot, Gavel, Package, BookOpen, GraduationCap, PawPrint, ShoppingCart, Heart } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { AgroIAAvatar } from "@/components/AgroIAAvatar";
 import { TypingIndicator } from "@/components/TypingIndicator";
@@ -18,6 +18,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { toast } from "@/hooks/use-toast";
 import { supabase } from "@/lib/supabase";
 import Link from "next/link";
+import { useCart } from "@/contexts/CartContext";
 interface DashboardLayoutProps {
   children: ReactNode;
 }
@@ -36,6 +37,7 @@ const DashboardLayout = ({
 }: DashboardLayoutProps) => {
   const { isAdmin, isSeller, user, signOut } = useAuth();
   const pathname = usePathname();
+  const { getTotalItems } = useCart();
   const [isOpen, setIsOpen] = useState(false);
   const [isHelpOpen, setIsHelpOpen] = useState(false);
   const [isAIChatOpen, setIsAIChatOpen] = useState(false);
@@ -46,6 +48,7 @@ const DashboardLayout = ({
   const [attachedFile, setAttachedFile] = useState<File | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const unreadMessages = 3;
+  const cartItemsCount = getTotalItems();
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -240,8 +243,7 @@ const DashboardLayout = ({
     id: "chat",
     label: "Chat com Vendedores",
     icon: MessageSquare,
-    path: "/dashboard/chat",
-    badge: unreadMessages
+    path: "/dashboard/chat"
   }, {
     id: "treinamentos",
     label: "Treinamentos",
@@ -328,8 +330,13 @@ const DashboardLayout = ({
           <NavLink key={item.id} to={item.path} className="flex items-center gap-3 px-4 py-3 rounded-lg text-foreground hover:bg-accent transition-all duration-200" activeClassName="bg-gradient-to-r from-primary to-primary/90 text-primary-foreground hover:from-primary hover:to-primary/90 shadow-md" onClick={() => setIsOpen(false)}>
             <div className="relative">
               <item.icon className="h-5 w-5" />
+              {item.id === "chat" && unreadMessages > 0 && (
+                <Badge className="absolute -top-1 -right-1 h-4 w-4 p-0 flex items-center justify-center text-[10px] bg-primary text-primary-foreground">
+                  {unreadMessages}
+                </Badge>
+              )}
             </div>
-            <span className="font-medium">{item.label}</span>
+            <span className="font-medium flex-1">{item.label}</span>
           </NavLink>
         ))}
       </nav>
@@ -371,6 +378,27 @@ const DashboardLayout = ({
               </div>
           </div>
           <div className="flex items-center gap-2">
+            {}
+            {!isAdmin() && !isSeller() && (
+              <>
+                <Link href="/dashboard/favoritos">
+                  <Button variant="ghost" size="icon" className="relative hover:bg-accent text-gray-600 hover:text-red-500 transition-colors">
+                    <Heart className="h-5 w-5" />
+                  </Button>
+                </Link>
+                <Link href="/carrinho">
+                  <Button variant="ghost" size="icon" className="relative hover:bg-accent">
+                    <ShoppingCart className="h-5 w-5" />
+                    {cartItemsCount > 0 && (
+                      <Badge className="absolute -top-1 -right-1 h-5 w-5 p-0 flex items-center justify-center text-xs bg-primary text-primary-foreground border-2 border-background">
+                        {cartItemsCount}
+                      </Badge>
+                    )}
+                  </Button>
+                </Link>
+              </>
+            )}
+
             {}
             <Button variant="ghost" size="icon" onClick={() => setIsAIChatOpen(true)} className="relative hover:bg-accent">
               <Bot className="h-5 w-5" />
@@ -466,7 +494,7 @@ const DashboardLayout = ({
         </aside>
 
         {}
-        <main className="flex-1 min-w-0">{children}</main>
+        <main className="flex-1 min-w-0 p-4 lg:p-6 space-y-6">{children}</main>
       </div>
 
       {}
