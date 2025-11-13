@@ -411,7 +411,7 @@ const MinhasCompras = () => {
             <Card
               key={category.name}
               onClick={() => setActiveTab(activeTab === category.name ? 'todos' : category.name)}
-              className={`hover:shadow-lg transition-all duration-300 transform hover:scale-105 cursor-pointer ${
+              className={`shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer ${
                 activeTab === category.name ? 'ring-2 ring-emerald-500 shadow-lg' : ''
               }`}
             >
@@ -462,7 +462,7 @@ const MinhasCompras = () => {
                       setActiveTab(activeTab === category.name ? 'todos' : category.name);
                       setShowCategoriesModal(false);
                     }}
-                    className={`hover:shadow-lg transition-all duration-200 cursor-pointer ${
+                    className={`shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer ${
                       activeTab === category.name ? 'border-primary ring-2 ring-primary/30' : ''
                     }`}
                   >
@@ -519,7 +519,7 @@ const MinhasCompras = () => {
               return (
                 <Card 
                   key={purchase.id} 
-                  className="overflow-hidden hover:shadow-lg transition-all duration-300 border-border cursor-pointer"
+                  className="overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 border-border cursor-pointer"
                   onClick={() => setSelectedPurchase(purchase)}
                 >
                   <div className="p-4 sm:p-6">

@@ -301,7 +301,7 @@ export default function Animais() {
           <Card
             key={category.name}
             onClick={() => handleCategoryClick(category.name)}
-            className={`hover:shadow-lg transition-all duration-300 cursor-pointer ${
+            className={`shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer ${
               selectedCategory === category.name ? 'ring-2 ring-emerald-500 shadow-lg' : ''
             }`}
           >

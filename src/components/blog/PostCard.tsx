@@ -114,7 +114,7 @@ export default function PostCard({ post, isSaved: initialSaved, onSaveToggle }: 
 
   return (
     <Link href={`/blog/${post.slug}`}>
-      <article className="group bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-100">
+      <article className="group bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden border border-gray-100">
         {}
         <div className="relative w-full h-48 sm:h-56 md:h-64 overflow-hidden bg-gradient-to-br from-primary/5 to-primary/5">
           {post.featured_image ? (

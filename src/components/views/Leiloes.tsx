@@ -340,7 +340,7 @@ export default function Leiloes() {
             <Card
               key={category.name}
               onClick={() => handleCategoryClick(category.name)}
-              className={`hover:shadow-lg transition-all duration-300 transform hover:scale-105 cursor-pointer ${
+              className={`shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer ${
                 selectedCategory === category.name ? 'ring-2 ring-emerald-500 shadow-lg' : ''
               }`}
             >
@@ -362,7 +362,7 @@ export default function Leiloes() {
 
           {hiddenCategories.length > 0 && (
             <Card
-              className="hover:shadow-lg transition-all duration-300 transform hover:scale-105 cursor-pointer border-2 border-dashed border-gray-300 hover:border-primary"
+              className="shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer border-2 border-dashed border-gray-300 hover:border-primary"
               onClick={() => setShowCategoriesModal(true)}
             >
               <CardContent className="p-3 text-center flex flex-col items-center justify-center min-h-[100px]">
@@ -474,7 +474,7 @@ export default function Leiloes() {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {auctions.filter(a => a.status === 'live').map((auction, index) => (
-                <Card key={auction.id} className="overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-0 bg-gradient-to-br from-white to-gray-50">
+                <Card key={auction.id} className="overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 border-0 bg-gradient-to-br from-white to-gray-50">
                   <div className="relative">
                     <img src={auction.image} alt={auction.title} className="w-full h-48 object-cover" />
                     <div className="absolute top-4 left-4 flex gap-2">
@@ -557,7 +557,7 @@ export default function Leiloes() {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {auctions.filter(a => a.status === 'scheduled').map((auction, index) => (
-                <Card key={auction.id} className="overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-0">
+                <Card key={auction.id} className="overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 border-0">
                   <div className="relative">
                     <img src={auction.image} alt={auction.title} className="w-full h-48 object-cover" />
                     <div className="absolute top-4 left-4 flex gap-2">

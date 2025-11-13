@@ -300,8 +300,8 @@ const Dashboard = () => {
             </CardHeader>
             <CardContent>
               <div className="grid gap-4 md:grid-cols-2">
-                <div className="rounded-lg border p-4 hover:border-secondary transition-all hover:shadow-md">
-                  
+                <div className="rounded-lg border p-4 hover:border-secondary shadow-md hover:shadow-lg transition-shadow duration-300">
+
                   <h3 className="mb-2 font-semibold text-sm md:text-base">Como avaliar um touro de corte</h3>
                   <p className="mb-4 text-xs md:text-sm text-muted-foreground">
                     Aprenda técnicas profissionais de avaliação
@@ -310,7 +310,7 @@ const Dashboard = () => {
                     Assistir Agora
                   </Button>
                 </div>
-                <div className="rounded-lg border p-4 hover:border-secondary transition-all hover:shadow-md">
+                <div className="rounded-lg border p-4 hover:border-secondary shadow-md hover:shadow-lg transition-shadow duration-300">
                   
                   <h3 className="mb-2 font-semibold text-sm md:text-base">Manejo sustentável de pastagens</h3>
                   <p className="mb-4 text-xs md:text-sm text-muted-foreground">

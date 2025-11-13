@@ -14,6 +14,7 @@ import {
     Users,
     Star
 } from 'lucide-react'
+import { Badge } from '@/components/ui/badge'
 import { CourseDetailsModal } from '@/components/CourseDetailsModal'
 import { CoursePurchaseModal } from '@/components/CoursePurchaseModal'
 
@@ -37,12 +38,11 @@ interface Course {
   color: string
 }
 
-<<<<<<< HEAD
-=======
 const mockCourses: Course[] = [
   {
     id: 1,
-    title: 'Reproduc1ão e genética animal',
+    title: 'Reprodução e genética animal',
+    description: 'Aprenda os fundamentos da reprodução e melhoramento genético animal para otimizar a produtividade do seu rebanho.',
     category: 'Pecuaria',
     instructor: 'Dr. Carlos Silva',
     duration: '8 horas',
@@ -54,11 +54,14 @@ const mockCourses: Course[] = [
     progress: 65,
     enrolled: true,
     featured: true,
-    lessons: 24
+    lessons: 24,
+    modules: 6,
+    color: 'from-emerald-400 to-emerald-600'
   },
   {
     id: 2,
     title: 'Como escolher e comprar sêmen de qualidade',
+    description: 'Descubra os critérios essenciais para selecionar sêmen de alta qualidade e garantir melhores resultados na reprodução.',
     category: 'Tecnologia',
     instructor: 'Eng. Maria Santos',
     duration: '12 horas',
@@ -70,11 +73,14 @@ const mockCourses: Course[] = [
     progress: 30,
     enrolled: true,
     featured: true,
-    lessons: 36
+    lessons: 36,
+    modules: 8,
+    color: 'from-blue-400 to-blue-600'
   },
   {
     id: 3,
     title: 'Como avaliar e comprar cavalos e gado com segurança',
+    description: 'Técnicas profissionais de avaliação de animais para fazer compras seguras e rentáveis no agronegócio.',
     category: 'Agricultura',
     instructor: 'Dr. João Oliveira',
     duration: '6 horas',
@@ -84,11 +90,14 @@ const mockCourses: Course[] = [
     price: 199,
     image: '/fotos/treinamentos/comoavaliarecomprar.png',
     featured: true,
-    lessons: 18
+    lessons: 18,
+    modules: 5,
+    color: 'from-amber-400 to-amber-600'
   },
   {
     id: 4,
     title: 'Avaliação de custo benefício em compras agro',
+    description: 'Aprenda a analisar o custo-benefício de suas aquisições e maximize o retorno dos seus investimentos no agro.',
     category: 'Pecuaria',
     instructor: 'Dra. Ana Costa',
     duration: '10 horas',
@@ -97,11 +106,14 @@ const mockCourses: Course[] = [
     students: 680,
     price: 399,
     image: '/fotos/treinamentos/avaliacaodecusto.png',
-    lessons: 30
+    lessons: 30,
+    modules: 7,
+    color: 'from-purple-400 to-purple-600'
   },
   {
     id: 5,
     title: 'Sanidade animal',
+    description: 'Conheça as principais práticas de manejo sanitário para manter seu rebanho saudável e produtivo.',
     category: 'Gestao',
     instructor: 'Prof. Roberto Lima',
     duration: '15 horas',
@@ -110,11 +122,14 @@ const mockCourses: Course[] = [
     students: 1580,
     price: 349,
     image: '/fotos/treinamentos/sanidadeanimal.png',
-    lessons: 42
+    lessons: 42,
+    modules: 10,
+    color: 'from-red-400 to-red-600'
   },
   {
     id: 6,
     title: 'Planejamento de pastagem e capacidade de suporte',
+    description: 'Estratégias avançadas para planejar e gerenciar pastagens, otimizando a capacidade de suporte do seu sistema.',
     category: 'Agricultura',
     instructor: 'Eng. Pedro Alves',
     duration: '7 horas',
@@ -123,162 +138,75 @@ const mockCourses: Course[] = [
     students: 920,
     price: 249,
     image: '/fotos/treinamentos/planejamentodepastagem.png',
-    lessons: 21
+    lessons: 21,
+    modules: 6,
+    color: 'from-green-400 to-green-600'
   }
 ]
 
->>>>>>> origin/main
 export default function Treinamentos() {
   const [searchQuery, setSearchQuery] = useState('')
   const [showFilters, setShowFilters] = useState(false)
-  const [selectedLevel, setSelectedLevel] = useState<string>('all')
   const [selectedCategory, setSelectedCategory] = useState<string>('all')
+  const [selectedLevel, setSelectedLevel] = useState<string>('all')
   const [selectedPriceRange, setSelectedPriceRange] = useState<string>('all')
-  const [showCategoriesModal, setShowCategoriesModal] = useState(false)
   const [showCourseDetailsModal, setShowCourseDetailsModal] = useState(false)
   const [showCoursePurchaseModal, setShowCoursePurchaseModal] = useState(false)
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null)
 
-  const mockCourses: Course[] = [
-    {
-      id: 1,
-      title: 'Fundamentos do Agronegócio',
-      description: 'Aprenda os conceitos essenciais do agronegócio brasileiro, desde a produção até a comercialização.',
-      category: 'Geral',
-      instructor: 'Dr. Carlos Silva',
-      duration: '40h',
-      level: 'Iniciante',
-      rating: 4.8,
-      students: 1240,
-      price: 29.90,
-      image: '/fotos/blog/blog-post-1.jpg',
-      lessons: 12,
-      modules: 12,
-      color: 'from-blue-500 to-blue-600'
-    },
-    {
-      id: 2,
-      title: 'Marketing Digital no Agro',
-      description: 'Domine estratégias de marketing digital para promover seu negócio agropecuário nas redes sociais.',
-      category: 'Marketing',
-      instructor: 'Ana Costa',
-      duration: '60h',
-      level: 'Intermediario',
-      rating: 4.9,
-      students: 856,
-      price: 29.90,
-      image: '/fotos/blog/blog-post-2.jpg',
-      lessons: 18,
-      modules: 18,
-      color: 'from-purple-500 to-purple-600'
-    },
-    {
-      id: 3,
-      title: 'Compliance e Regulamentação Rural',
-      description: 'Entenda as normas e regulamentações que regem o setor rural e mantenha sua propriedade em conformidade.',
-      category: 'Jurídico',
-      instructor: 'Roberto Lima',
-      duration: '35h',
-      level: 'Avancado',
-      rating: 4.7,
-      students: 634,
-      price: 29.90,
-      image: '/fotos/blog/blog-post-3.jpg',
-      lessons: 10,
-      modules: 10,
-      color: 'from-green-500 to-green-600'
-    },
-    {
-      id: 4,
-      title: 'Gestão de Pessoas no Campo',
-      description: 'Desenvolva habilidades de liderança e gestão para formar equipes produtivas no ambiente rural.',
-      category: 'Gestão',
-      instructor: 'Fernanda Souza',
-      duration: '25h',
-      level: 'Intermediario',
-      rating: 4.5,
-      students: 980,
-      price: 39.90,
-      image: '/fotos/blog/blog-post-4.jpg',
-      lessons: 8,
-      modules: 8,
-      color: 'from-red-500 to-red-600'
-    },
-    {
-      id: 5,
-      title: 'Finanças para Produtores Rurais',
-      description: 'Aprenda a gerenciar suas finanças, controlar custos e maximizar a rentabilidade da sua propriedade rural.',
-      category: 'Finanças',
-      instructor: 'Paulo Mendes',
-      duration: '50h',
-      level: 'Avancado',
-      rating: 4.9,
-      students: 720,
-      price: 49.90,
-      image: '/fotos/blog/blog-post-5.jpg',
-      lessons: 15,
-      modules: 15,
-      color: 'from-yellow-500 to-yellow-600'
-    },
-    {
-      id: 6,
-      title: 'Tecnologias de Irrigação',
-      description: 'Conheça as tecnologias modernas de irrigação para otimizar o uso de água e aumentar a produtividade.',
-      category: 'Tecnologia',
-      instructor: 'Mariana Dias',
-      duration: '30h',
-      level: 'Intermediario',
-      rating: 4.6,
-      students: 1100,
-      price: 34.90,
-      image: '/fotos/blog/blog-post-6.jpg',
-      lessons: 10,
-      modules: 10,
-      color: 'from-teal-500 to-teal-600'
-    },
-  ];
+  const getLevelBadgeStyles = (level: string) => {
+    switch (level) {
+      case 'Iniciante':
+        return { backgroundColor: '#FFF5D9', color: '#333333' }
+      case 'Intermediario':
+        return { backgroundColor: '#FFEBD2', color: '#333333' }
+      case 'Avancado':
+        return { backgroundColor: '#DDEAFD', color: '#004B87' }
+      default:
+        return { backgroundColor: '#F3F4F6', color: '#333333' }
+    }
+  }
 
   const filteredCourses = mockCourses.filter(course => {
-    if (searchQuery && !course.title.toLowerCase().includes(searchQuery.toLowerCase())) return false;
-    if (selectedLevel !== 'all' && course.level !== selectedLevel) return false;
-    if (selectedCategory !== 'all' && course.category !== selectedCategory) return false;
+    if (searchQuery && !course.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
+        !course.instructor.toLowerCase().includes(searchQuery.toLowerCase()) &&
+        !course.category.toLowerCase().includes(searchQuery.toLowerCase())) {
+      return false
+    }
+    if (selectedLevel !== 'all' && course.level !== selectedLevel) return false
+    if (selectedCategory !== 'all' && course.category !== selectedCategory) return false
 
     if (selectedPriceRange !== 'all') {
-      const price = course.price;
-      if (selectedPriceRange === '0-30' && price > 30) return false;
-      if (selectedPriceRange === '30-50' && (price < 30 || price > 50)) return false;
-      if (selectedPriceRange === '50+' && price < 50) return false;
+      const price = course.price
+      if (selectedPriceRange === '0-200' && price > 200) return false
+      if (selectedPriceRange === '200-400' && (price < 200 || price > 400)) return false
+      if (selectedPriceRange === '400+' && price < 400) return false
     }
 
-    return true;
-  });
+    return true
+  })
 
   const clearAllFilters = () => {
-    setSearchQuery('');
-    setSelectedLevel('all');
-    setSelectedCategory('all');
-    setSelectedPriceRange('all');
-  };
+    setSearchQuery('')
+    setSelectedLevel('all')
+    setSelectedCategory('all')
+    setSelectedPriceRange('all')
+  }
 
-  const hasActiveFilters = !!(searchQuery || selectedLevel !== 'all' || selectedCategory !== 'all' || selectedPriceRange !== 'all');
+  const hasActiveFilters = !!(searchQuery || selectedLevel !== 'all' || selectedCategory !== 'all' || selectedPriceRange !== 'all')
 
   const levels = [
     { name: 'Iniciante', count: mockCourses.filter(c => c.level === 'Iniciante').length },
     { name: 'Intermediario', count: mockCourses.filter(c => c.level === 'Intermediario').length },
     { name: 'Avancado', count: mockCourses.filter(c => c.level === 'Avancado').length },
-  ];
+  ]
 
   const categories = [
-    { name: 'Geral', count: mockCourses.filter(c => c.category === 'Geral').length },
-    { name: 'Marketing', count: mockCourses.filter(c => c.category === 'Marketing').length },
-    { name: 'Jurídico', count: mockCourses.filter(c => c.category === 'Jurídico').length },
-    { name: 'Gestão', count: mockCourses.filter(c => c.category === 'Gestão').length },
-    { name: 'Finanças', count: mockCourses.filter(c => c.category === 'Finanças').length },
+    { name: 'Pecuaria', count: mockCourses.filter(c => c.category === 'Pecuaria').length },
+    { name: 'Agricultura', count: mockCourses.filter(c => c.category === 'Agricultura').length },
     { name: 'Tecnologia', count: mockCourses.filter(c => c.category === 'Tecnologia').length },
-  ];
-
-  const visibleLevels = levels.slice(0, 5);
-  const hiddenLevels = levels.slice(5);
+    { name: 'Gestao', count: mockCourses.filter(c => c.category === 'Gestao').length },
+  ].filter(cat => cat.count > 0)
 
   return (
     <div className="container mx-auto px-3 sm:px-4 lg:px-6 py-4 sm:py-6 max-w-full">
@@ -345,9 +273,9 @@ export default function Treinamentos() {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="all">Todos os preços</SelectItem>
-                    <SelectItem value="0-30">Até R$ 30</SelectItem>
-                    <SelectItem value="30-50">R$ 30 - R$ 50</SelectItem>
-                    <SelectItem value="50+">Acima de R$ 50</SelectItem>
+                    <SelectItem value="0-200">Até R$ 200</SelectItem>
+                    <SelectItem value="200-400">R$ 200 - R$ 400</SelectItem>
+                    <SelectItem value="400+">Acima de R$ 400</SelectItem>
                   </SelectContent>
                 </Select>
 
@@ -368,20 +296,32 @@ export default function Treinamentos() {
       </Card>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredCourses.map((course, index) => (
+          {filteredCourses.map((course) => (
             <Card key={course.id} className="rounded-lg border bg-card text-card-foreground shadow-md hover:shadow-lg transition-shadow duration-300 h-full min-h-[500px]">
               <div className="p-0 h-full flex flex-col">
-                <div className={`aspect-video bg-gradient-to-br ${course.color} rounded-t-lg flex items-center justify-center relative`}>
-                  <BookOpen className="h-12 w-12 text-white" />
-                  <div className="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border-transparent hover:bg-primary/80 absolute top-3 left-3 bg-white/20 text-white border-0">
-                    {course.level}
-                  </div>
+                <div className="aspect-video rounded-t-lg overflow-hidden relative">
+                  {course.image ? (
+                    <img
+                      src={course.image}
+                      alt={course.title}
+                      className="w-full h-full object-cover object-top"
+                    />
+                  ) : (
+                    <div className={`w-full h-full bg-gradient-to-br ${course.color} flex items-center justify-center`}>
+                      <BookOpen className="h-12 w-12 text-white" />
+                    </div>
+                  )}
                 </div>
                 <div className="p-6 flex flex-col h-full">
                   <div className="flex-grow min-h-[200px]">
                     <div className="flex items-start justify-between mb-3">
-                      <h3 className="font-bold text-lg leading-tight">{course.title}</h3>
-                      <span className="text-lg font-bold text-primary flex-shrink-0 min-w-max">R$ {course.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span>
+                      <div className="flex-1">
+                        <Badge variant="secondary" className="mb-2 text-xs">
+                          {course.level}
+                        </Badge>
+                        <h3 className="font-bold text-lg leading-tight">{course.title}</h3>
+                      </div>
+                      <span className="text-lg font-bold text-primary flex-shrink-0 min-w-max ml-2">R$ {course.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span>
                     </div>
                     <p className="text-xs text-gray-500 mb-4 line-clamp-2">{course.description}</p>
                     <div className="space-y-3 mb-4">
@@ -424,6 +364,25 @@ export default function Treinamentos() {
           ))}
         </div>
 
+        {filteredCourses.length === 0 && (
+          <div className="text-center py-16">
+            <BookOpen className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+            <h3 className="text-xl font-semibold text-[#101828] mb-2">Nenhum curso encontrado</h3>
+            <p className="text-gray-600 mb-6">
+              Não encontramos cursos que correspondam aos seus filtros.
+            </p>
+            {hasActiveFilters && (
+              <Button
+                onClick={clearAllFilters}
+                variant="outline"
+                className="border-primary text-primary hover:bg-primary hover:text-white"
+              >
+                Limpar todos os filtros
+              </Button>
+            )}
+          </div>
+        )}
+
         <div className="bg-gradient-to-r from-primary/5 to-secondary/5 rounded-xl p-6 text-center">
           <h3 className="font-bold text-xl mb-2">Não encontrou o que procura?</h3>
           <p className="text-muted-foreground mb-4">Nossa equipe está sempre criando novos conteúdos. Sugira uma trilha!</p>
@@ -437,8 +396,8 @@ export default function Treinamentos() {
         course={selectedCourse}
         onPurchaseClick={(courseToPurchase) => {
           setSelectedCourse(courseToPurchase);
-          setShowCourseDetailsModal(false); // Close details modal
-          setShowCoursePurchaseModal(true); // Open purchase modal
+          setShowCourseDetailsModal(false);
+          setShowCoursePurchaseModal(true);
         }}
       />
 

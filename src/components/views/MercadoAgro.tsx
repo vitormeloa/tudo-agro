@@ -329,7 +329,7 @@ export default function MercadoAgro() {
             <Card
               key={category.name}
               onClick={() => handleCategoryClick(category.name)}
-              className={`hover:shadow-lg transition-all duration-300 transform hover:scale-105 cursor-pointer ${
+              className={`shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer ${
                 selectedCategory === category.name ? 'ring-2 ring-emerald-500 shadow-lg' : ''
               }`}
             >
@@ -351,7 +351,7 @@ export default function MercadoAgro() {
 
           {hiddenCategories.length > 0 && (
             <Card
-              className="hover:shadow-lg transition-all duration-300 transform hover:scale-105 cursor-pointer border-2 border-dashed border-gray-300 hover:border-primary"
+              className="shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer border-2 border-dashed border-gray-300 hover:border-primary"
               onClick={() => setShowCategoriesModal(true)}
             >
               <CardContent className="p-3 text-center flex flex-col items-center justify-center min-h-[100px]">
@@ -381,7 +381,7 @@ export default function MercadoAgro() {
                     setSelectedCategory(category.name);
                     setShowCategoriesModal(false);
                   }}
-                  className={`hover:shadow-lg transition-all duration-200 cursor-pointer ${
+                  className={`shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer ${
                     selectedCategory === category.name ? 'border-primary ring-2 ring-primary/30' : ''
                   }`}
                 >
