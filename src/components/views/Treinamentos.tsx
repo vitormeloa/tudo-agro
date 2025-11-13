@@ -37,6 +37,97 @@ interface Course {
   color: string
 }
 
+<<<<<<< HEAD
+=======
+const mockCourses: Course[] = [
+  {
+    id: 1,
+    title: 'Reproduc1ão e genética animal',
+    category: 'Pecuaria',
+    instructor: 'Dr. Carlos Silva',
+    duration: '8 horas',
+    level: 'Intermediario',
+    rating: 4.8,
+    students: 1250,
+    price: 299,
+    image: '/fotos/treinamentos/reproducaoegenetica.png',
+    progress: 65,
+    enrolled: true,
+    featured: true,
+    lessons: 24
+  },
+  {
+    id: 2,
+    title: 'Como escolher e comprar sêmen de qualidade',
+    category: 'Tecnologia',
+    instructor: 'Eng. Maria Santos',
+    duration: '12 horas',
+    level: 'Avancado',
+    rating: 4.9,
+    students: 850,
+    price: 499,
+    image: '/fotos/treinamentos/comoescolherecomprar.png',
+    progress: 30,
+    enrolled: true,
+    featured: true,
+    lessons: 36
+  },
+  {
+    id: 3,
+    title: 'Como avaliar e comprar cavalos e gado com segurança',
+    category: 'Agricultura',
+    instructor: 'Dr. João Oliveira',
+    duration: '6 horas',
+    level: 'Iniciante',
+    rating: 4.7,
+    students: 2100,
+    price: 199,
+    image: '/fotos/treinamentos/comoavaliarecomprar.png',
+    featured: true,
+    lessons: 18
+  },
+  {
+    id: 4,
+    title: 'Avaliação de custo benefício em compras agro',
+    category: 'Pecuaria',
+    instructor: 'Dra. Ana Costa',
+    duration: '10 horas',
+    level: 'Avancado',
+    rating: 4.9,
+    students: 680,
+    price: 399,
+    image: '/fotos/treinamentos/avaliacaodecusto.png',
+    lessons: 30
+  },
+  {
+    id: 5,
+    title: 'Sanidade animal',
+    category: 'Gestao',
+    instructor: 'Prof. Roberto Lima',
+    duration: '15 horas',
+    level: 'Intermediario',
+    rating: 4.6,
+    students: 1580,
+    price: 349,
+    image: '/fotos/treinamentos/sanidadeanimal.png',
+    lessons: 42
+  },
+  {
+    id: 6,
+    title: 'Planejamento de pastagem e capacidade de suporte',
+    category: 'Agricultura',
+    instructor: 'Eng. Pedro Alves',
+    duration: '7 horas',
+    level: 'Intermediario',
+    rating: 4.7,
+    students: 920,
+    price: 249,
+    image: '/fotos/treinamentos/planejamentodepastagem.png',
+    lessons: 21
+  }
+]
+
+>>>>>>> origin/main
 export default function Treinamentos() {
   const [searchQuery, setSearchQuery] = useState('')
   const [showFilters, setShowFilters] = useState(false)
@@ -278,7 +369,7 @@ export default function Treinamentos() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredCourses.map((course, index) => (
-            <Card key={course.id} className="rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-lg transition-all duration-300 transform hover:scale-105 h-full min-h-[500px]">
+            <Card key={course.id} className="rounded-lg border bg-card text-card-foreground shadow-md hover:shadow-lg transition-shadow duration-300 h-full min-h-[500px]">
               <div className="p-0 h-full flex flex-col">
                 <div className={`aspect-video bg-gradient-to-br ${course.color} rounded-t-lg flex items-center justify-center relative`}>
                   <BookOpen className="h-12 w-12 text-white" />
