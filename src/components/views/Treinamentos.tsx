@@ -51,7 +51,7 @@ const mockCourses: Course[] = [
     rating: 4.8,
     students: 1250,
     price: 299,
-    image: 'https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=800&q=80',
+    image: '/fotos/treinamentos/reproducaogenetica.png',
     progress: 65,
     enrolled: true,
     featured: true,
@@ -67,7 +67,7 @@ const mockCourses: Course[] = [
     rating: 4.9,
     students: 850,
     price: 499,
-    image: 'https://images.unsplash.com/photo-1473448912268-2022ce9509d8?w=800&q=80',
+    image: '/fotos/treinamentos/comoescolherecomprar.png',
     progress: 30,
     enrolled: true,
     featured: true,
@@ -83,7 +83,7 @@ const mockCourses: Course[] = [
     rating: 4.7,
     students: 2100,
     price: 199,
-    image: 'https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=800&q=80',
+    image: '/fotos/treinamentos/comoavaliarecomprar.png',
     featured: true,
     lessons: 18
   },
@@ -97,7 +97,7 @@ const mockCourses: Course[] = [
     rating: 4.9,
     students: 680,
     price: 399,
-    image: 'https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=800&q=80',
+    image: '/fotos/treinamentos/avaliacaodecusto.png',
     lessons: 30
   },
   {
@@ -110,7 +110,7 @@ const mockCourses: Course[] = [
     rating: 4.6,
     students: 1580,
     price: 349,
-    image: 'https://images.unsplash.com/photo-1554224311-beee415c201f?w=800&q=80',
+    image: '/fotos/treinamentos/sanidadeanimal.png',
     lessons: 42
   },
   {
@@ -123,7 +123,7 @@ const mockCourses: Course[] = [
     rating: 4.7,
     students: 920,
     price: 249,
-    image: 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800&q=80',
+    image: '/fotos/treinamentos/planejamentodepastagem.png',
     lessons: 21
   }
 ]
