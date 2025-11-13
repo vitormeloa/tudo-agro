@@ -53,7 +53,7 @@ const AjudaIA = () => {
 
   const quickQuestions = [
     {
-      category: "🧬 Animais / Genética",
+      category: "Animais / Genética",
       icon: Sparkles,
       questions: [
         "O que significa um animal PO (Puro de Origem)?",
@@ -68,7 +68,7 @@ const AjudaIA = () => {
       ],
     },
     {
-      category: "📌 Sêmen e Reprodução",
+      category: "Sêmen e Reprodução",
       icon: Sparkles,
       questions: [
         "Quantas palhetas de sêmen são usadas por cobertura?",
@@ -80,7 +80,7 @@ const AjudaIA = () => {
       ],
     },
     {
-      category: "🔨 Leilões e Mercado",
+      category: "Leilões e Mercado",
       icon: Gavel,
       questions: [
         "Como funciona um leilão virtual de animais?",
@@ -95,7 +95,7 @@ const AjudaIA = () => {
       ],
     },
     {
-      category: "📝 Logística e Documentação",
+      category: "Logística e Documentação",
       icon: Package,
       questions: [
         "Que documentos preciso ao comprar um gado?",
@@ -104,7 +104,7 @@ const AjudaIA = () => {
       ],
     },
     {
-      category: "🐴 Cultura e Práticas",
+      category: "Cultura e Práticas",
       icon: BookOpen,
       questions: [
         "Quais são os tipos de pelagem mais comuns em cavalos?",

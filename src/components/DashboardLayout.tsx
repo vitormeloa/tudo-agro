@@ -254,6 +254,11 @@ const DashboardLayout = ({
     label: "Blog",
     icon: BookOpen,
     path: "/dashboard/blog"
+  }, { // Added AgroIA tab
+    id: "agro-ia",
+    label: "Agro IA",
+    icon: Bot,
+    path: "/dashboard/ajuda-ia"
   }];
 
   const vendedorNavigation = [{
