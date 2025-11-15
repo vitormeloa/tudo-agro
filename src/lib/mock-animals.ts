@@ -452,7 +452,7 @@ export const mockAnimals: MockAnimal[] = [
 },
 {
   id: "660e8400-e29b-41d4-a716-446655440011",
-  title: "Tourinho Senepol Puro",
+  title: "Touro Senepol Puro",
   category: "Gado de Corte",
   breed: "Senepol",
   sex: "Macho",
