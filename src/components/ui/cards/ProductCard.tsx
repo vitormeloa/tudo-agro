@@ -23,6 +23,7 @@ interface ProductCardProps {
         category: string
         price: number
         location: string
+        city?: string
         rating: number
         reviews: number
         image: string
@@ -32,6 +33,7 @@ interface ProductCardProps {
         age?: string
         weight?: string
         breed?: string
+        sex?: string
         type?: 'animal' | 'product'
         father?: string
         mother?: string
@@ -39,9 +41,13 @@ interface ProductCardProps {
         marcha?: string
         // Campos específicos para gado
         classificacao?: string
+        tipoGenetico?: string
+        producaoLeite?: string
         // Campos específicos para sêmen
         central?: string
         embalagem?: string
+        modalidade?: string
+        stockStatus?: 'Em estoque' | 'Sob encomenda'
     }
     variant?: 'default' | 'compact' | 'detailed'
     showActions?: boolean
@@ -88,34 +94,51 @@ export default function ProductCard({
                     alt={product.title}
                     className="w-full h-48 object-cover"
                 />
-
-                {}
-                <div className="absolute top-4 left-4 flex gap-2">
-                    {product.featured && (
-                        <Badge variant="default" className="bg-amber-500 text-white font-semibold px-2 py-0.5 text-xs">
-                            DESTAQUE
-                        </Badge>
-                    )}
-                    <Badge variant="secondary" className="px-2 py-0.5 text-xs">
-                        {product.category}
-                    </Badge>
-                </div>
-
-                {}
-
             </div>
 
             <CardContent className="p-6 flex flex-col flex-grow">
                 {}
                 <div className="flex-grow">
+                    <div className="flex items-center gap-2 mb-2 flex-wrap">
+                        {product.featured && (
+                            <Badge variant="default" className="bg-amber-500 text-white font-semibold px-2 py-0.5 text-xs">
+                                DESTAQUE
+                            </Badge>
+                        )}
+                        {product.verified && (
+                            <Badge variant="default" className="bg-green-500 text-white font-semibold px-2 py-0.5 text-xs">
+                                VERIFICADO
+                            </Badge>
+                        )}
+                        {product.category === 'Gado de Corte' && (
+                            <Badge variant="default" className="bg-[#8B4513] text-white font-semibold px-2 py-0.5 text-xs">
+                                {product.category}
+                            </Badge>
+                        )}
+                        {product.category === 'Gado de Leite' && (
+                            <Badge variant="default" className="bg-[#4169E1] text-white font-semibold px-2 py-0.5 text-xs">
+                                {product.category}
+                            </Badge>
+                        )}
+                        {(product.category === 'Sêmen' || product.category.includes('Sêmen')) && (
+                            <Badge variant="secondary" className="px-2 py-0.5 text-xs">
+                                {product.category}
+                            </Badge>
+                        )}
+                        {product.category === 'Cavalos' && (
+                            <Badge variant="secondary" className="px-2 py-0.5 text-xs">
+                                {product.category}
+                            </Badge>
+                        )}
+                        {product.stockStatus && (
+                            <Badge variant="default" className="bg-[#3D9970] text-white font-semibold px-2 py-0.5 text-xs">
+                                {product.stockStatus}
+                            </Badge>
+                        )}
+                    </div>
                     <h3 className="font-bold text-lg text-[#101828] mb-2 line-clamp-2 min-h-[2.5em]"> {/* Added min-h for consistent height */}
                         {product.title}
                     </h3>
-
-                    <div className="flex items-center mb-2 text-gray-600">
-                        <MapPin className="w-4 h-4 mr-1" />
-                        <span className="text-sm">{product.location}</span>
-                    </div>
 
                     {product.type === 'product' && (
                         <div className="flex items-center mb-4">
@@ -134,122 +157,60 @@ export default function ProductCard({
                     )}
 
                     {product.type === 'animal' && product.father && product.mother && (
-                      <div className="hidden md:block mb-4">
-                        <span className="text-gray-500">Filho de:</span>
-                        <div className="font-semibold text-[#101828]">{product.father} x {product.mother}</div>
-                      </div>
-                    )}
-                    {product.type === 'animal' && product.father && product.mother && (
-                      <div className="md:hidden mb-4">
-                        <div>
-                          <span className="text-gray-500">Pai:</span>
-                          <div className="font-semibold text-[#101828]">{product.father}</div>
-                        </div>
-                        <div>
-                          <span className="text-gray-500">Mãe:</span>
-                          <div className="font-semibold text-[#101828]">{product.mother}</div>
-                        </div>
+                      <div className="mb-3">
+                        <span className="text-sm text-gray-500">Filho de:</span>
+                        <div className="font-semibold text-[#101828] text-sm">{product.father} x {product.mother}</div>
                       </div>
                     )}
 
                     {(variant === 'detailed' || variant === 'default') && product.type === 'animal' && (
-                        <div className="grid grid-cols-3 gap-2 mb-4 text-sm min-h-[4em]"> {/* Added min-h for consistent height */}
-                            {product.category === 'Cavalos' ? (
-                                <>
-                                    {product.age && (
-                                        <div>
-                                            <span className="text-gray-500">Idade:</span>
-                                            <div className="font-semibold text-[#101828]">{product.age}</div>
-                                        </div>
-                                    )}
-                                    {product.marcha && (
-                                        <div>
-                                            <span className="text-gray-500">Marcha:</span>
-                                            <div className="font-semibold text-[#101828]">{product.marcha}</div>
-                                        </div>
-                                    )}
-                                    {product.breed && (
-                                        <div>
-                                            <span className="text-gray-500">Raça:</span>
-                                            <div className="font-semibold text-[#101828]">{product.breed}</div>
-                                        </div>
-                                    )}
-                                </>
-                            ) : (product.category === 'Gado de Corte' || product.category === 'Gado de Leite') ? (
-                                <>
-                                    {product.age && (
-                                        <div>
-                                            <span className="text-gray-500">Idade:</span>
-                                            <div className="font-semibold text-[#101828]">{product.age}</div>
-                                        </div>
-                                    )}
-                                    {product.classificacao && (
-                                        <div>
-                                            <span className="text-gray-500">Classificação:</span>
-                                            <div className="font-semibold text-[#101828]">{product.classificacao}</div>
-                                        </div>
-                                    )}
-                                    {product.breed && (
-                                        <div>
-                                            <span className="text-gray-500">Raça:</span>
-                                            <div className="font-semibold text-[#101828]">{product.breed}</div>
-                                        </div>
-                                    )}
-                                </>
-                            ) : product.category === 'Sêmen' ? (
-                                <>
-                                    {product.central && (
-                                        <div>
-                                            <span className="text-gray-500">Central:</span>
-                                            <div className="font-semibold text-[#101828]">{product.central}</div>
-                                        </div>
-                                    )}
-                                    {product.embalagem && (
-                                        <div>
-                                            <span className="text-gray-500">Embalagem:</span>
-                                            <div className="font-semibold text-[#101828]">{product.embalagem}</div>
-                                        </div>
-                                    )}
-                                    {product.breed && (
-                                        <div>
-                                            <span className="text-gray-500">Raça:</span>
-                                            <div className="font-semibold text-[#101828]">{product.breed}</div>
-                                        </div>
-                                    )}
-                                </>
-                            ) : (
-                                <>
-                                    {product.age && (
-                                        <div>
-                                            <span className="text-gray-500">Idade:</span>
-                                            <div className="font-semibold text-[#101828]">{product.age}</div>
-                                        </div>
-                                    )}
-                                    {product.weight && (
-                                        <div>
-                                            <span className="text-gray-500">Peso:</span>
-                                            <div className="font-semibold text-[#101828]">{product.weight}</div>
-                                        </div>
-                                    )}
-                                    {product.breed && (
-                                        <div>
-                                            <span className="text-gray-500">Raça:</span>
-                                            <div className="font-semibold text-[#101828]">{product.breed}</div>
-                                        </div>
-                                    )}
-                                </>
+                        <div className="mb-3">
+                            {product.category === 'Cavalos' && (
+                                <div className="text-sm text-gray-600">
+                                    <span>Idade: <span className="font-semibold text-[#101828]">{product.age || 'Não informado'}</span></span>
+                                    <span className="mx-2">•</span>
+                                    <span>Sexo: <span className="font-semibold text-[#101828]">{product.sex || 'Não informado'}</span></span>
+                                    <span className="mx-2">•</span>
+                                    <span>Raça: <span className="font-semibold text-[#101828]">{product.breed || 'Não informado'}</span></span>
+                                </div>
+                            )}
+                            {(product.category === 'Gado de Corte' || product.category === 'Gado de Leite') && (
+                                <div className="text-sm text-gray-600">
+                                    <span>Idade: <span className="font-semibold text-[#101828]">{product.age || 'Não informado'}</span></span>
+                                    <span className="mx-2">•</span>
+                                    <span>Sexo: <span className="font-semibold text-[#101828]">{product.sex || 'Não informado'}</span></span>
+                                    <span className="mx-2">•</span>
+                                    <span>Raça: <span className="font-semibold text-[#101828]">{product.breed || 'Não informado'}</span></span>
+                                </div>
+                            )}
+                            {(product.category === 'Sêmen' || product.category.includes('Sêmen')) && (
+                                <div className="text-sm text-gray-600 space-y-1">
+                                    {product.marcha && <div>Marcha: <span className="font-semibold text-[#101828]">{product.marcha}</span></div>}
+                                    {product.tipoGenetico && <div>Tipo Genético: <span className="font-semibold text-[#101828]">{product.tipoGenetico}</span></div>}
+                                    {product.modalidade && <div>Modalidade: <span className="font-semibold text-[#101828]">{product.modalidade}</span></div>}
+                                    {product.breed && <div>Raça: <span className="font-semibold text-[#101828]">{product.breed}</span></div>}
+                                </div>
                             )}
                         </div>
                     )}
 
-                    <div className="flex justify-between items-center mb-4">
-              <span className="text-2xl font-bold text-primary">
-                R$ {formatPrice(product.price)}
-              </span>
+                    <div className="mb-3">
+                        <div className="text-2xl font-bold text-primary">
+                            R$ {formatPrice(product.price)}
+                            {(product.category === 'Sêmen' || product.category.includes('Sêmen')) && (
+                                <span className="text-sm font-normal text-gray-600"> por dose</span>
+                            )}
+                        </div>
                     </div>
 
                     <div className="text-sm text-gray-600 mb-4">
-                        Vendido por: <span className="font-semibold text-[#101828]">{product.seller}</span>
+                        <span className="font-semibold text-[#101828]">{product.seller}</span>
+                        {product.city && product.location && (
+                            <span> · {product.city}, {product.location}</span>
+                        )}
+                        {!product.city && product.location && (
+                            <span> · {product.location}</span>
+                        )}
                     </div>
                 </div>
 

@@ -19,9 +19,13 @@ export interface MockAnimal {
   marcha?: string
   // Campos específicos para gado
   classificacao?: string
+  tipoGenetico?: string // PO, POI, PC, LA, CEIP, Comercial, Elite
+  producaoLeite?: string // Para gado de leite (ex: "35 litros/dia")
   // Campos específicos para sêmen
   central?: string
   embalagem?: string
+  modalidade?: string // Convencional, Refrigerado, Congelado, Dose única, Sexado Macho, Sexado Fêmea, In vitro
+  stockStatus?: 'Em estoque' | 'Sob encomenda' // Para sêmen
   seller: {
     id: number
     name: string
@@ -38,6 +42,15 @@ export interface MockAnimal {
     feed?: string
     health?: string
     genetics?: string
+    // Campos adicionais para páginas de detalhes
+    temperament?: string
+    awards?: string
+    breedingLocation?: string
+    laboratory?: string
+    collectionFrequency?: string
+    conservation?: string
+    fertilityGuarantee?: string
+    deps?: string
     [key: string]: string | undefined
   }
   documents: string[]
@@ -158,11 +171,12 @@ export const mockAnimals: MockAnimal[] = [
     registrationNumber: "GHI11223",
     father: "Touro Leiteiro",
     mother: "Vaca Premiada",
-    classificacao: "PC",
+    tipoGenetico: "PC",
+    producaoLeite: "35 litros/dia",
     seller: {
       id: 3,
       name: "Fazenda Três Rios",
-      location: "São Paulo, SP",
+      location: "São Paulo",
       rating: 4.7,
       totalSales: 1031,
       memberSince: "2021",
@@ -188,7 +202,7 @@ export const mockAnimals: MockAnimal[] = [
   {
     id: "660e8400-e29b-41d4-a716-446655440004",
     title: "Sêmen Angus Premium",
-    category: "Sêmen",
+    category: "Sêmen Gado",
     breed: "Angus",
     sex: "N/A",
     age: "N/A",
@@ -204,12 +218,13 @@ export const mockAnimals: MockAnimal[] = [
     registrationNumber: "JKL33445",
     father: "Angus King",
     mother: "Angus Queen",
-    central: "ABS",
-    embalagem: "0,5ml",
+    tipoGenetico: "PO",
+    modalidade: "Congelado",
+    stockStatus: "Em estoque",
     seller: {
       id: 4,
       name: "Genética Elite",
-      location: "Rio Grande do Sul, RS",
+      location: "Rio Grande do Sul",
       rating: 5.0,
       totalSales: 1012,
       memberSince: "2023",
@@ -217,10 +232,11 @@ export const mockAnimals: MockAnimal[] = [
       image: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=100&h=100&fit=crop"
     },
     specifications: {
-      production: "Certificado",
-      breeding: "Inseminação artificial",
-      feed: "N/A",
-      health: "Testado e aprovado",
+      modalidade: "Congelado",
+      collectionFrequency: "Semanal",
+      laboratory: "Laboratório Genética Elite - Credenciado MAPA",
+      conservation: "Nível A - Nitrogênio",
+      fertilityGuarantee: "Até 6 meses com armazenamento adequado",
       genetics: "Linha premium"
     },
     documents: [
@@ -1126,7 +1142,7 @@ export const mockAnimals: MockAnimal[] = [
 {
   id: "660e8400-e29b-41d4-a716-446655440027",
   title: "Dose de Sêmen de Mangalarga Marchador para Andamento de Marcha",
-  category: "Sêmen",
+  category: "Sêmen Cavalo",
   breed: "Mangalarga Marchador",
   sex: "N/A",
   age: "N/A",
@@ -1139,10 +1155,15 @@ export const mockAnimals: MockAnimal[] = [
   images: [
       "/fotos/animais/smanga.png",
   ],
+  father: "Campeão da Marcha",
+  mother: "Princesa Batida",
+  marcha: "Batida",
+  modalidade: "Refrigerado",
+  stockStatus: "Sob encomenda",
   seller: {
     id: 10,
     name: "Sanzio Reis Barbosa",
-    location: "Belo Horizonte, MG",
+    location: "Minas Gerais",
     rating: 5.0,
     totalSales: 18,
     memberSince: "2023",
@@ -1150,17 +1171,20 @@ export const mockAnimals: MockAnimal[] = [
     image: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=100&h=100&fit=crop"
   },
   specifications: {
-    production: "Sêmen equino certificado para reprodução",
-    breeding: "Aptidão comprovada para marcha e sela",
-    feed: "N/A",
-    health: "Exames de AIE e mormo atualizados",
-    genetics: "Pedigree e laudo de marcha reconhecidos"
+    modalidade: "Refrigerado",
+    collectionFrequency: "Sob demanda",
+    laboratory: "Haras São João - Credenciado",
+    conservation: "Refrigeração controlada",
+    fertilityGuarantee: "Até 48 horas após coleta",
+    awards: "Grande Campeão Nacional 2023",
+    temperament: "Manso e de fácil manejo"
   },
   documents: [
-    "Registro do cavalo na associação da raça",
+    "Registro ABCCMM",
     "Exames de aptidão e andamento de marcha",
     "Exames sanitários (AIE e mormo)",
-    "Termo de cobertura ou contrato de inseminação"
+    "Termo de cobertura ou contrato de inseminação",
+    "Certificado de origem genética"
   ],
   type: "venda",
   featured: false,

@@ -142,10 +142,32 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
               </button>
 
               {}
-              <div className="absolute top-2 sm:top-3 lg:top-4 left-2 sm:left-3 lg:left-4 flex gap-1.5 sm:gap-2">
-                <Badge className="bg-[#1C6B3E] text-xs sm:text-sm px-2 sm:px-2.5 py-0.5 sm:py-1">
-                  {animal.category}
-                </Badge>
+              <div className="absolute top-2 sm:top-3 lg:top-4 left-2 sm:left-3 lg:left-4 flex gap-1.5 sm:gap-2 flex-wrap">
+                {animal.category === 'Gado de Corte' && (
+                  <Badge className="bg-[#8B4513] text-white text-xs sm:text-sm px-2 sm:px-2.5 py-0.5 sm:py-1">
+                    {animal.category}
+                  </Badge>
+                )}
+                {animal.category === 'Gado de Leite' && (
+                  <Badge className="bg-[#4169E1] text-white text-xs sm:text-sm px-2 sm:px-2.5 py-0.5 sm:py-1">
+                    {animal.category}
+                  </Badge>
+                )}
+                {(animal.category === 'Sêmen' || animal.category.includes('Sêmen')) && (
+                  <Badge className="bg-[#1C6B3E] text-white text-xs sm:text-sm px-2 sm:px-2.5 py-0.5 sm:py-1">
+                    {animal.category}
+                  </Badge>
+                )}
+                {animal.category === 'Cavalos' && (
+                  <Badge className="bg-[#1C6B3E] text-white text-xs sm:text-sm px-2 sm:px-2.5 py-0.5 sm:py-1">
+                    {animal.category}
+                  </Badge>
+                )}
+                {animal.stockStatus && (
+                  <Badge className="bg-[#3D9970] text-white text-xs sm:text-sm px-2 sm:px-2.5 py-0.5 sm:py-1">
+                    {animal.stockStatus}
+                  </Badge>
+                )}
                 {animal.featured && (
                   <Badge className="bg-[#D4AF37] text-black text-xs sm:text-sm px-2 sm:px-2.5 py-0.5 sm:py-1">
                     DESTAQUE
@@ -210,57 +232,24 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
               </h1>
 
               <div className="flex items-center text-sm sm:text-base text-gray-600 mb-4">
-                <MapPin className="w-4 h-4 sm:w-5 sm:h-5 mr-2 flex-shrink-0" />
+                <span className="font-semibold text-[#101828]">{animal.seller.name}</span>
+                <span className="mx-2">·</span>
                 <span>{animal.city}, {animal.location}</span>
               </div>
 
               <div className="text-3xl sm:text-4xl font-bold text-primary mb-4 sm:mb-6">
-                R$ {animal.price.toLocaleString()}
+                R$ {animal.price.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                {(animal.category === 'Sêmen' || animal.category.includes('Sêmen')) && (
+                  <span className="text-base sm:text-lg font-normal text-gray-600"> por dose</span>
+                )}
               </div>
             </div>
 
             {}
             <Card className="bg-white border-gray-200 shadow-lg">
               <CardContent className="p-4 sm:p-6">
-                <h3 className="text-lg sm:text-xl font-bold text-[#101828] mb-4">Especificações</h3>
+                <h3 className="text-lg sm:text-xl font-bold text-[#101828] mb-4">Detalhes do Animal</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                  {animal.registrationNumber && (
-                    <div className="flex items-center gap-2 sm:gap-3">
-                      <Award className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
-                      <div>
-                        <div className="text-xs sm:text-sm text-gray-500">Registro</div>
-                        <div className="font-medium text-sm sm:text-base text-[#101828]">{animal.registrationNumber}</div>
-                      </div>
-                    </div>
-                  )}
-                  <div className="flex items-center gap-2 sm:gap-3">
-                    <Award className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
-                    <div>
-                      <div className="text-xs sm:text-sm text-gray-500">Raça</div>
-                      <div className="font-medium text-sm sm:text-base text-[#101828]">{animal.breed}</div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2 sm:gap-3">
-                    <Calendar className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
-                    <div>
-                      <div className="text-xs sm:text-sm text-gray-500">Idade</div>
-                      <div className="font-medium text-sm sm:text-base text-[#101828]">{animal.age}</div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2 sm:gap-3">
-                    <Weight className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
-                    <div>
-                      <div className="text-xs sm:text-sm text-gray-500">Peso</div>
-                      <div className="font-medium text-sm sm:text-base text-[#101828]">{animal.weight}</div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2 sm:gap-3">
-                    <Ruler className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
-                    <div>
-                      <div className="text-xs sm:text-sm text-gray-500">Altura</div>
-                      <div className="font-medium text-sm sm:text-base text-[#101828]">{animal.height}</div>
-                    </div>
-                  </div>
                   {animal.father && (
                     <div className="flex items-center gap-2 sm:gap-3">
                       <Users className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
@@ -279,6 +268,155 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
                       </div>
                     </div>
                   )}
+                  <div className="flex items-center gap-2 sm:gap-3">
+                    <Calendar className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
+                    <div>
+                      <div className="text-xs sm:text-sm text-gray-500">Idade</div>
+                      <div className="font-medium text-sm sm:text-base text-[#101828]">{animal.age || 'Não informado'}</div>
+                    </div>
+                  </div>
+                  {animal.category === 'Cavalos' && (
+                    <>
+                      <div className="flex items-center gap-2 sm:gap-3">
+                        <Ruler className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
+                        <div>
+                          <div className="text-xs sm:text-sm text-gray-500">Altura</div>
+                          <div className="font-medium text-sm sm:text-base text-[#101828]">{animal.height || 'Não informado'}</div>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2 sm:gap-3">
+                        <Award className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
+                        <div>
+                          <div className="text-xs sm:text-sm text-gray-500">Sexo</div>
+                          <div className="font-medium text-sm sm:text-base text-[#101828]">{animal.sex || 'Não informado'}</div>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2 sm:gap-3">
+                        <Award className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
+                        <div>
+                          <div className="text-xs sm:text-sm text-gray-500">Raça</div>
+                          <div className="font-medium text-sm sm:text-base text-[#101828]">{animal.breed || 'Não informado'}</div>
+                        </div>
+                      </div>
+                      {animal.marcha && (
+                        <div className="flex items-center gap-2 sm:gap-3">
+                          <Award className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
+                          <div>
+                            <div className="text-xs sm:text-sm text-gray-500">Marcha</div>
+                            <div className="font-medium text-sm sm:text-base text-[#101828]">{animal.marcha}</div>
+                          </div>
+                        </div>
+                      )}
+                      {animal.registrationNumber && (
+                        <div className="flex items-center gap-2 sm:gap-3">
+                          <Award className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
+                          <div>
+                            <div className="text-xs sm:text-sm text-gray-500">Registro</div>
+                            <div className="font-medium text-sm sm:text-base text-[#101828]">{animal.registrationNumber}</div>
+                          </div>
+                        </div>
+                      )}
+                    </>
+                  )}
+                  {(animal.category === 'Gado de Corte' || animal.category === 'Gado de Leite') && (
+                    <>
+                      <div className="flex items-center gap-2 sm:gap-3">
+                        <Weight className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
+                        <div>
+                          <div className="text-xs sm:text-sm text-gray-500">Peso</div>
+                          <div className="font-medium text-sm sm:text-base text-[#101828]">{animal.weight || 'Não informado'}</div>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2 sm:gap-3">
+                        <Award className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
+                        <div>
+                          <div className="text-xs sm:text-sm text-gray-500">Sexo</div>
+                          <div className="font-medium text-sm sm:text-base text-[#101828]">{animal.sex || 'Não informado'}</div>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2 sm:gap-3">
+                        <Award className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
+                        <div>
+                          <div className="text-xs sm:text-sm text-gray-500">Raça</div>
+                          <div className="font-medium text-sm sm:text-base text-[#101828]">{animal.breed || 'Não informado'}</div>
+                        </div>
+                      </div>
+                      {animal.category === 'Gado de Leite' && animal.producaoLeite && (
+                        <div className="flex items-center gap-2 sm:gap-3">
+                          <Award className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
+                          <div>
+                            <div className="text-xs sm:text-sm text-gray-500">Produção de Leite</div>
+                            <div className="font-medium text-sm sm:text-base text-[#101828]">{animal.producaoLeite}</div>
+                          </div>
+                        </div>
+                      )}
+                      {animal.tipoGenetico && (
+                        <div className="flex items-center gap-2 sm:gap-3">
+                          <Award className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
+                          <div>
+                            <div className="text-xs sm:text-sm text-gray-500">Tipo Genético</div>
+                            <div className="font-medium text-sm sm:text-base text-[#101828]">{animal.tipoGenetico}</div>
+                          </div>
+                        </div>
+                      )}
+                      {animal.registrationNumber && (
+                        <div className="flex items-center gap-2 sm:gap-3">
+                          <Award className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
+                          <div>
+                            <div className="text-xs sm:text-sm text-gray-500">Registro</div>
+                            <div className="font-medium text-sm sm:text-base text-[#101828]">{animal.registrationNumber}</div>
+                          </div>
+                        </div>
+                      )}
+                    </>
+                  )}
+                  {(animal.category === 'Sêmen' || animal.category.includes('Sêmen')) && (
+                    <>
+                      <div className="flex items-center gap-2 sm:gap-3">
+                        <Award className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
+                        <div>
+                          <div className="text-xs sm:text-sm text-gray-500">Raça</div>
+                          <div className="font-medium text-sm sm:text-base text-[#101828]">{animal.breed || 'Não informado'}</div>
+                        </div>
+                      </div>
+                      {animal.marcha && (
+                        <div className="flex items-center gap-2 sm:gap-3">
+                          <Award className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
+                          <div>
+                            <div className="text-xs sm:text-sm text-gray-500">Marcha</div>
+                            <div className="font-medium text-sm sm:text-base text-[#101828]">{animal.marcha}</div>
+                          </div>
+                        </div>
+                      )}
+                      {animal.tipoGenetico && (
+                        <div className="flex items-center gap-2 sm:gap-3">
+                          <Award className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
+                          <div>
+                            <div className="text-xs sm:text-sm text-gray-500">Tipo Genético</div>
+                            <div className="font-medium text-sm sm:text-base text-[#101828]">{animal.tipoGenetico}</div>
+                          </div>
+                        </div>
+                      )}
+                      {animal.modalidade && (
+                        <div className="flex items-center gap-2 sm:gap-3">
+                          <Award className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
+                          <div>
+                            <div className="text-xs sm:text-sm text-gray-500">Modalidade</div>
+                            <div className="font-medium text-sm sm:text-base text-[#101828]">{animal.modalidade}</div>
+                          </div>
+                        </div>
+                      )}
+                      {animal.registrationNumber && (
+                        <div className="flex items-center gap-2 sm:gap-3">
+                          <Award className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
+                          <div>
+                            <div className="text-xs sm:text-sm text-gray-500">Registro</div>
+                            <div className="font-medium text-sm sm:text-base text-[#101828]">{animal.registrationNumber}</div>
+                          </div>
+                        </div>
+                      )}
+                    </>
+                  )}
                 </div>
               </CardContent>
             </Card>
@@ -286,14 +424,18 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
             {}
             <Card className="bg-white border-gray-200 shadow-lg">
               <CardContent className="p-4 sm:p-6">
-                <h3 className="text-lg sm:text-xl font-bold text-[#101828] mb-4">Detalhes de Produção</h3>
+                <h3 className="text-lg sm:text-xl font-bold text-[#101828] mb-4">
+                  {(animal.category === 'Sêmen' || animal.category.includes('Sêmen'))
+                    ? 'Condições de Coleta / Produção'
+                    : 'Condições de Criação'}
+                </h3>
                 <div className="space-y-2 sm:space-y-3">
                   {Object.entries(animal.specifications).map(([key, value]) => (
                     <div key={key} className="flex flex-col sm:flex-row sm:justify-between gap-1 sm:gap-2">
                       <span className="text-xs sm:text-sm text-gray-500 capitalize">
                         {key.replace(/([A-Z])/g, ' $1').toLowerCase()}:
                       </span>
-                      <span className="font-medium text-sm sm:text-base text-[#101828] break-words">{value}</span>
+                      <span className="font-medium text-sm sm:text-base text-[#101828] break-words">{value || 'Não informado'}</span>
                     </div>
                   ))}
                 </div>
@@ -335,7 +477,7 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
                 value="especificacoes"
                 className="text-[10px] xs:text-xs sm:text-sm md:text-base py-2 sm:py-3 px-1 xs:px-2 sm:px-3 data-[state=active]:bg-white"
               >
-                Especificações
+                Mais Informações
               </TabsTrigger>
               <TabsTrigger
                 value="genealogia"
@@ -365,14 +507,14 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
             <TabsContent value="especificacoes" className="mt-4 sm:mt-6">
               <Card className="bg-white border-gray-200 shadow-lg">
                 <CardContent className="p-4 sm:p-6 lg:p-8">
-                  <h2 className="text-xl sm:text-2xl font-bold text-[#101828] mb-3 sm:mb-4">Especificações de Produção</h2>
+                  <h2 className="text-xl sm:text-2xl font-bold text-[#101828] mb-3 sm:mb-4">Mais Informações</h2>
                   <div className="space-y-2 sm:space-y-3">
                     {Object.entries(animal.specifications).map(([key, value]) => (
                       <div key={key} className="flex flex-col sm:flex-row sm:justify-between py-2 sm:py-3 border-b border-gray-100 gap-1 sm:gap-2">
                         <span className="text-xs sm:text-sm text-gray-500 capitalize font-medium">
                           {key.replace(/([A-Z])/g, ' $1').toLowerCase()}:
                         </span>
-                        <span className="text-sm sm:text-base font-medium text-[#101828] break-words">{value}</span>
+                        <span className="text-sm sm:text-base font-medium text-[#101828] break-words">{value || 'Não informado'}</span>
                       </div>
                     ))}
                   </div>
