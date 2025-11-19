@@ -35,7 +35,8 @@ import {
   UserCheck,
   Building2,
   Gavel,
-  BarChart3
+  BarChart3,
+  Bot
 } from 'lucide-react'
 
 export default function HomePage() {
@@ -140,32 +141,32 @@ export default function HomePage() {
     {
       icon: UserCheck,
       title: "Use como quiser: comprador, vendedor ou ambos",
-      description: "Cadastre-se e escolha seu perfil: compre com segurança, anuncie seus produtos ou faça os dois com o mesmo login."
+      description: "Cadastre-se e atue como comprador, vendedor ou os dois, com o mesmo login e liberdade total. Você conta com um painel prático que mostra tudo o que comprou e vendeu, de forma simples, organizada e fácil de usar."
+    },
+    {
+      icon: Heart,
+      title: "Compre gado, cavalos e genética direto com o criador",
+      description: "Compre gado, cavalos e sêmen direto de criadores, com vídeos, documentos e exames em um só lugar, tudo para tomar a melhor decisão, sem intermediários."
     },
     {
       icon: ShoppingCart,
-      title: "Marketplace completo de produtos agropecuários",
-      description: "Tudo o que o produtor precisa — de suplementos e ração a ferramentas, vestuário rural e muito mais. Produtos agropecuários de A a Z, em um único lugar."
-    },
-    {
-      icon: Shield,
-      title: "Segurança com KYC Rural + Escrow",
-      description: "Todas as transações são verificadas com KYC e protegidas por sistema de garantia (escrow). Confiança para quem compra e para quem vende."
-    },
-    {
-      icon: Building2,
-      title: "Rede ativa com milhares de fazendas e empresas",
-      description: "Acesse uma comunidade real de produtores e compradores de todo o Brasil, com histórico, avaliações e contatos verificados."
+      title: "Marketplace completo para o agro",
+      description: "Produtos agropecuários de A a Z: ração, suplementos, sêmen, mudas, ferramentas, vestuário, bebidas, equipamentos e muito mais. Milhares de itens do agro com segurança, entrega e vendedores verificados."
     },
     {
       icon: Gavel,
       title: "Leilões digitais em tempo real",
-      description: "Participe de leilões de elite com lances online, estrutura profissional e gestão de lotes integrada."
+      description: "Compre gado, cavalos e genética em tempo real com transparência, histórico completo dos lotes e integração com reprodutores, tudo em um ambiente digital seguro e fácil de usar."
     },
     {
-      icon: BarChart3,
-      title: "Painel completo de controle e gestão",
-      description: "Tenha uma visão clara dos seus anúncios, favoritos, negociações e histórico — tudo em um painel simples e funcional."
+      icon: Shield,
+      title: "Segurança, controle e confiança em cada transação",
+      description: "Todas as negociações na plataforma contam com KYC e sistema escrow, seja na compra de gado, sêmen, cavalos ou insumos, garantindo confiança para quem compra e tranquilidade para quem vende."
+    },
+    {
+      icon: Bot,
+      title: "Agro IA: sua assistente inteligente no mundo agro",
+      description: "Fale por texto, áudio, foto ou vídeo. Nossa IA entende tudo sobre o agro e está disponível 24h para te orientar, sugerir soluções e facilitar seu dia a dia."
     }
   ]
 
@@ -467,10 +468,10 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent mb-6 leading-tight">
-              🌱 O TudoAgro é mais que uma plataforma de compra e venda — é o ecossistema digital do agronegócio brasileiro
+              🌱 TudoAgro é mais que uma plataforma de compra e venda — é o ecossistema digital do agronegócio brasileiro
             </h2>
             <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-              Conectamos produtores, compradores e empresas do setor agro para anunciar, vender e comprar gado, cavalos, genética, insumos, equipamentos e muito mais — tudo com segurança, tecnologia e liberdade total de uso.
+              O TudoAgro conecta quem vive, trabalha e transforma o agro, do vendedor ao comprador, da fazenda ao digital — com facilidade, segurança e controle do início ao fim.
             </p>
           </div>
 
@@ -502,7 +503,7 @@ export default function HomePage() {
             Pronto para começar?
           </h2>
           <p className="text-xl text-primary-foreground/80 mb-10 max-w-2xl mx-auto leading-relaxed">
-            Junte-se a milhares de produtores que já transformaram seus negócios com o TudoAgro
+            Confiança, facilidade e resultado: o agro de verdade já está aqui. Falta só você.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/cadastro">
@@ -511,10 +512,10 @@ export default function HomePage() {
                 Criar Conta Gratuita
               </Button>
             </Link>
-            <Link href="/catalogo">
+            <Link href="/sobre">
               <Button size="lg" variant="outline" className="border-2 border-white/80 text-white hover:bg-white hover:text-primary px-8 py-4 text-lg font-semibold rounded-xl transition-colors duration-300 backdrop-blur-sm bg-white/10">
                 <Eye className="w-5 h-5 mr-2" />
-                Explorar Agora
+                Sobre o TudoAgro
               </Button>
             </Link>
           </div>
