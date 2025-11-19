@@ -35,6 +35,7 @@ export default function Animais() {
     category: a.category,
     price: a.price,
     location: a.location,
+    city: a.city,
     rating: 4.8,
     reviews: 0,
     image: a.images[0],
@@ -44,8 +45,15 @@ export default function Animais() {
     age: a.age,
     weight: a.weight,
     breed: a.breed,
-    father: a.father || 'N/A',
-    mother: a.mother || 'N/A',
+    sex: a.sex,
+    father: a.father,
+    mother: a.mother,
+    marcha: a.marcha,
+    classificacao: a.classificacao,
+    tipoGenetico: a.tipoGenetico,
+    producaoLeite: a.producaoLeite,
+    modalidade: a.modalidade,
+    stockStatus: a.stockStatus,
     type: 'animal' as const
   }))
 

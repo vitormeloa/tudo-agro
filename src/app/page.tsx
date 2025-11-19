@@ -13,13 +13,13 @@ import { mockAuctions } from '@/lib/mock-auctions'
 import { mockProducts } from '@/lib/mock-products'
 import { mockAnimals } from '@/lib/mock-animals'
 import { useToast } from '@/hooks/use-toast'
-import { 
-  Search, 
-  Filter, 
-  Star, 
-  TrendingUp, 
-  Shield, 
-  Users, 
+import {
+  Search,
+  Filter,
+  Star,
+  TrendingUp,
+  Shield,
+  Users,
   Award,
   ArrowRight,
   Play,
@@ -36,7 +36,8 @@ import {
   Building2,
   Gavel,
   BarChart3,
-  Bot
+  Bot,
+  Timer
 } from 'lucide-react'
 
 export default function HomePage() {
@@ -71,13 +72,14 @@ export default function HomePage() {
   const formatTimeLeft = (endTime: Date) => {
     const now = new Date()
     const diff = endTime.getTime() - now.getTime()
-    
+
     if (diff <= 0) return "Encerrado"
-    
+
     const hours = Math.floor(diff / (1000 * 60 * 60))
     const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
-    
-    return `${hours}h ${minutes}m`
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000)
+
+    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
   }
 
   const featuredProducts = mockAnimals.slice(0, 3).map(a => ({
@@ -98,18 +100,20 @@ export default function HomePage() {
     type: "animal" as const
   }))
 
-  const liveAuctionsBase = mockAuctions.filter(a => a.status === 'live').slice(0, 2)
-  
+  const liveAuctionsBase = mockAuctions.filter(a => a.status === 'live').slice(0, 3)
+
   const liveAuctions = liveAuctionsBase.map(a => ({
     id: a.id,
     title: a.title,
     type: a.type,
     currentBid: a.currentBid || 0,
+    startingBid: a.startingBid || 0,
     participants: a.participants,
     timeLeft: isMounted && a.endTime ? formatTimeLeft(a.endTime) : "Carregando...",
     endTime: a.endTime,
     image: a.image,
-    location: a.location
+    location: a.location,
+    auctioneer: a.auctioneer
   }))
 
   const featuredProductsAgro = mockProducts.slice(0, 3).map(p => ({
@@ -352,37 +356,43 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {liveAuctions.map((auction, index) => (
-              <Card key={auction.id} className="overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 border-0 bg-white/80 backdrop-blur-sm animate-fade-in-up group" style={{ animationDelay: `${index * 0.1}s` }}>
+              <Card key={auction.id} className="overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-0 bg-gradient-to-br from-white to-gray-50 animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
                 <div className="relative">
-                  <img src={auction.image} alt={auction.title} className="w-full h-48 object-cover transition-transform duration-500" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                  <div className="absolute top-4 left-4 flex gap-2">
-                    <Badge className="bg-red-500 text-white font-semibold animate-pulse shadow-lg">
+                  <img src={auction.image} alt={auction.title} className="w-full h-48 object-cover" />
+                </div>
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Badge className="bg-red-500 text-white font-semibold animate-pulse">
                       <Play className="w-3 h-3 mr-1" />
                       AO VIVO
                     </Badge>
-                    <Badge className="bg-primary text-white shadow-lg">{auction.type}</Badge>
+                    <Badge className="bg-primary text-white">{auction.type}</Badge>
                   </div>
-                  {isMounted && (
-                    <div className="absolute top-4 right-4 bg-black/80 text-white px-3 py-1 rounded-lg text-sm font-bold backdrop-blur-sm">
-                      <Clock className="w-4 h-4 inline mr-1" />
-                      {auction.endTime ? formatTimeLeft(auction.endTime) : "0h 0m"}
+                  <h3 className="font-bold text-lg text-[#101828] mb-3 line-clamp-2">{auction.title}</h3>
+
+                  <div className="space-y-3 mb-6">
+                    <div className="flex justify-between items-center">
+                      <span className="text-gray-600">Lance atual:</span>
+                      <div className="text-right">
+                        <div className="font-bold text-primary text-xl">
+                          R$ {auction.currentBid.toLocaleString()}
+                        </div>
+                        <div className="text-xs text-gray-500">
+                          (inicial: R$ {auction.startingBid.toLocaleString()})
+                        </div>
+                      </div>
                     </div>
-                  )}
-                </div>
-                <CardContent className="p-6">
-                  <h3 className="font-bold text-xl text-[#101828] mb-4 group-hover:text-primary transition-colors duration-300">{auction.title}</h3>
-                  
-                  <div className="space-y-4 mb-6">
-                    <div className="flex justify-between items-center p-3 bg-primary/5 rounded-lg">
-                      <span className="text-gray-600 font-medium">Lance atual:</span>
-                      <span className="font-bold text-primary text-xl">
-                        R$ {auction.currentBid.toLocaleString()}
-                      </span>
+
+                    <div className="flex justify-between items-center">
+                      <span className="text-gray-600">Tempo restante:</span>
+                      <div className="font-bold text-red-500 flex items-center text-lg">
+                        <Timer className="w-4 h-4 mr-1" />
+                        {isMounted && auction.endTime ? formatTimeLeft(auction.endTime) : "--:--:--"}
+                      </div>
                     </div>
-                    
+
                     <div className="flex justify-between items-center">
                       <span className="text-gray-600">Participantes:</span>
                       <span className="font-bold text-[#101828] flex items-center">
@@ -400,8 +410,12 @@ export default function HomePage() {
                     </div>
                   </div>
 
+                  <div className="text-sm text-gray-600 mb-4">
+                    Leiloeiro: <span className="font-semibold text-[#101828]">{auction.auctioneer}</span>
+                  </div>
+
                   <Link href={`/leilao/${auction.id}`}>
-                    <Button className="w-full bg-gradient-to-r from-primary to-primary hover:from-primary/90 hover:to-primary/90 text-white py-3 text-lg transition-colors duration-300 shadow-lg hover:shadow-xl">
+                    <Button className="w-full bg-primary hover:bg-[#2E7A5A] text-white text-lg py-3 transition-all duration-300 transform hover:scale-105">
                       <Zap className="w-5 h-5 mr-2" />
                       Entrar no Leilão
                     </Button>

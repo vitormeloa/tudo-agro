@@ -530,32 +530,34 @@ const MinhasCompras = () => {
                         <img
                           src={purchase.image}
                           alt={purchase.name}
-                          className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-cover shadow-sm"
+                          className="w-24 h-24 sm:w-28 sm:h-28 rounded-lg object-cover"
                         />
                       </div>
 
                       {}
-                      <div className="flex-1 min-w-0 space-y-3">
+                      <div className="flex-1 min-w-0 space-y-2">
+                        <div className="flex items-center gap-2 mb-2 flex-wrap">
+                          <Badge className={getStatusConfig(purchase.status).className}>
+                            {purchase.status}
+                          </Badge>
+                        </div>
+
                         <div>
-                          <h3 className="font-semibold text-base sm:text-lg leading-tight">
+                          <h3 className="font-bold text-base sm:text-lg text-[#101828] leading-tight line-clamp-2">
                             {purchase.name}
                           </h3>
-                          <p className="text-xs sm:text-sm text-muted-foreground mt-1">
+                          <p className="text-xs sm:text-sm text-gray-500 mt-1">
                             Pedido #{purchase.id} • {purchase.date} às {purchase.time}
                           </p>
                         </div>
 
-                        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-                          <Badge className={getStatusConfig(purchase.status).className}>
-                            {purchase.status}
-                          </Badge>
-                          <span className="text-xs sm:text-sm text-muted-foreground">
-                            {purchase.seller.name} • {purchase.seller.location}
-                          </span>
+                        <div className="text-sm text-gray-600">
+                          <span className="font-semibold text-[#101828]">{purchase.seller.name}</span>
+                          <span> · {purchase.seller.location}</span>
                         </div>
 
-                        <div className="text-base sm:text-lg font-bold text-primary">
-                          R$ {purchase.totalPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                        <div className="text-xl sm:text-2xl font-bold text-primary">
+                          R$ {purchase.totalPrice.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                         </div>
 
                         {}

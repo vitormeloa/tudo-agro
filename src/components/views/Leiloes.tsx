@@ -18,9 +18,12 @@ import {
     Zap,
     Timer,
     TrendingUp,
-    Gavel, HelpCircle,
+    Gavel,
+    HelpCircle,
     Search,
-    SlidersHorizontal
+    SlidersHorizontal,
+    Filter,
+    Grid3x3
 } from 'lucide-react'
 import { mockAuctions } from '@/lib/mock-auctions'
 
@@ -214,6 +217,7 @@ export default function Leiloes() {
   }
 
   const formatDateTime = (date: Date) => {
+    if (!mounted) return "--/--/---- --:--"
     return date.toLocaleDateString('pt-BR', {
       day: '2-digit',
       month: '2-digit',
@@ -463,7 +467,7 @@ export default function Leiloes() {
             <div className="flex items-center mb-6">
               <div className="flex items-center">
                 <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse mr-3"></div>
-                <h2 className="text-xl font-bold text-[#101828]">
+                <h2 className="text-2xl md:text-3xl font-bold text-[#101828]">
                   Leilões ao Vivo
                 </h2>
               </div>
@@ -472,25 +476,20 @@ export default function Leiloes() {
               </Badge>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {auctions.filter(a => a.status === 'live').map((auction, index) => (
-                <Card key={auction.id} className="overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 border-0 bg-gradient-to-br from-white to-gray-50">
+                <Card key={auction.id} className="overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-0 bg-gradient-to-br from-white to-gray-50 animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
                   <div className="relative">
                     <img src={auction.image} alt={auction.title} className="w-full h-48 object-cover" />
-                    <div className="absolute top-4 left-4 flex gap-2">
+                  </div>
+                  <CardContent className="p-6">
+                    <div className="flex items-center gap-2 mb-2">
                       <Badge className="bg-red-500 text-white font-semibold animate-pulse">
                         <Play className="w-3 h-3 mr-1" />
                         AO VIVO
                       </Badge>
                       <Badge className="bg-primary text-white">{auction.type}</Badge>
                     </div>
-                    <div className="absolute top-4 right-4">
-                      <div className="bg-black/70 text-white px-2 py-1 rounded text-sm font-bold">
-                        Lote {auction.currentLot || 0}/{auction.totalLots}
-                      </div>
-                    </div>
-                  </div>
-                  <CardContent className="p-6">
                     <h3 className="font-bold text-lg text-[#101828] mb-3 line-clamp-2">{auction.title}</h3>
 
                     <div className="space-y-3 mb-6">
@@ -498,10 +497,10 @@ export default function Leiloes() {
                         <span className="text-gray-600">Lance atual:</span>
                         <div className="text-right">
                           <div className="font-bold text-primary text-xl">
-                            R$ {auction.currentBid.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                            R$ {auction.currentBid.toLocaleString()}
                           </div>
                           <div className="text-xs text-gray-500">
-                            (inicial: R$ {auction.startingBid.toLocaleString('pt-BR', { minimumFractionDigits: 2 })})
+                            (inicial: R$ {auction.startingBid.toLocaleString()})
                           </div>
                         </div>
                       </div>
@@ -550,25 +549,25 @@ export default function Leiloes() {
           <section className="mt-8">
             <div className="flex items-center mb-6">
               <Calendar className="w-6 h-6 text-primary mr-3" />
-              <h2 className="text-xl font-bold text-[#101828]">
+              <h2 className="text-2xl md:text-3xl font-bold text-[#101828]">
                 Próximos Leilões
               </h2>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {auctions.filter(a => a.status === 'scheduled').map((auction, index) => (
-                <Card key={auction.id} className="overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 border-0">
+                <Card key={auction.id} className="overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-0 animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
                   <div className="relative">
                     <img src={auction.image} alt={auction.title} className="w-full h-48 object-cover" />
-                    <div className="absolute top-4 left-4 flex gap-2">
+                  </div>
+                  <CardContent className="p-6">
+                    <div className="flex items-center gap-2 mb-2">
                       <Badge className="bg-amber-500 text-white font-semibold">
                         <Calendar className="w-3 h-3 mr-1" />
                         AGENDADO
                       </Badge>
                       <Badge className="bg-primary text-white">{auction.type}</Badge>
                     </div>
-                  </div>
-                  <CardContent className="p-6">
                     <h3 className="font-bold text-lg text-[#101828] mb-3 line-clamp-2">{auction.title}</h3>
 
                     <div className="space-y-3 mb-6">
@@ -583,7 +582,7 @@ export default function Leiloes() {
                         <div className="flex justify-between items-center">
                           <span className="text-gray-600">Valor estimado:</span>
                           <span className="font-bold text-primary text-lg">
-                            R$ {auction.estimatedValue.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                            R$ {auction.estimatedValue.toLocaleString()}
                           </span>
                         </div>
                       )}
