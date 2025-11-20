@@ -615,7 +615,7 @@ export const mockProducts: MockProduct[] = [
   city: "Ibitinga",
   rating: 5.0,
   reviews: 8,
-  image: "/fotos/produtos/salleite.png",
+  image: "/fotos/produtos/salleite.svg",
   seller: "Agrofértil Ibitinga",
   verified: true,
   featured: false,
