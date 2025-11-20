@@ -9,7 +9,6 @@ import { Send, Sparkles, User, X } from "lucide-react";
 import { AgroIAAvatar } from "@/components/AgroIAAvatar";
 import { TypingIndicator } from "@/components/TypingIndicator";
 import { toast } from "@/hooks/use-toast";
-import { supabase } from "@/lib/supabase";
 
 interface Message {
   id: number;
@@ -49,7 +48,7 @@ const SupportChatModal = ({ isOpen, onClose, orderInfo }: SupportChatModalProps)
 
   const sendToAI = async (userMessage: Message) => {
     setIsTyping(true);
-    
+
     try {
       const conversationHistory = messages.map(msg => ({
         role: msg.sender === "user" ? "user" : "assistant",
@@ -58,31 +57,52 @@ const SupportChatModal = ({ isOpen, onClose, orderInfo }: SupportChatModalProps)
 
       conversationHistory.push({
         role: "user",
-        content: `Pedido #${orderInfo.orderId}: ${userMessage.text}`
+        content: userMessage.text
       });
 
-      const { data, error } = await supabase.functions.invoke('agroia-chat', {
-        body: { 
+      console.log('Sending to API:', { messages: conversationHistory, includeActions: false });
+
+      const response = await fetch('/api/agroia/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
           messages: conversationHistory,
           includeActions: false
-        }
+        })
       });
 
-      if (error) throw error;
+      console.log('Response status:', response.status);
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        console.error('Error response:', errorData);
+        throw new Error(`HTTP error! status: ${response.status}, details: ${JSON.stringify(errorData)}`);
+      }
+
+      const data = await response.json();
+      console.log('Response data:', data);
 
       const aiResponse: Message = {
         id: Date.now(),
         sender: "ai",
         text: data.message || "Desculpe, não consegui processar sua mensagem.",
         time: "Agora",
+        hasAction: !!data.action,
+        actionLabel: data.action?.label,
+        actionLink: data.action?.link,
       };
 
       setMessages((prev) => [...prev, aiResponse]);
     } catch (error: any) {
       console.error("Error calling AgroIA:", error);
+      console.error("Error message:", error.message);
+      console.error("Error stack:", error.stack);
+
       toast({
         title: "Erro",
-        description: "Erro ao processar mensagem. Tente novamente.",
+        description: `Erro ao processar mensagem: ${error.message || 'Desconhecido'}`,
         variant: "destructive",
       });
     } finally {
@@ -202,6 +222,17 @@ const SupportChatModal = ({ isOpen, onClose, orderInfo }: SupportChatModalProps)
                   }`}
                 >
                   <p className="text-sm whitespace-pre-wrap">{msg.text}</p>
+
+                  {msg.hasAction && msg.actionLink && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="mt-3 bg-white hover:bg-gray-50 border-primary text-primary"
+                      onClick={() => window.location.href = msg.actionLink!}
+                    >
+                      {msg.actionLabel}
+                    </Button>
+                  )}
                 </div>
                 
                 <span className={`text-xs text-muted-foreground mt-1 block ${msg.sender === "user" ? "text-right" : "ml-2"}`}>
