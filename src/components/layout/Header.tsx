@@ -119,7 +119,7 @@ export default function Header({
       className={cn(baseClasses, variantClasses[variant], className)}
       style={scrollStyles}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 lg:h-20">
           {}
           <div className="flex items-center">
@@ -283,7 +283,7 @@ export default function Header({
                 ))}
                 {isLoggedIn && (
                   <Link
-                    href="/painel"
+                    href="/dashboard"
                     className="block px-4 py-3 rounded-lg text-base font-medium transition-all duration-200 mx-1 text-gray-700 hover:bg-primary/5 hover:text-primary active:bg-primary/10"
                     style={{ 
                       animation: `fadeInUp 0.25s ease-out ${0.15 + navigation.length * 0.03}s both`
