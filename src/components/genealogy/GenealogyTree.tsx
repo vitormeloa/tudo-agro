@@ -54,11 +54,11 @@ const maternalTree: AnimalNode = {
 const TreeNode: React.FC<{ node: AnimalNode }> = ({ node }) => {
   return (
     <div className="flex flex-col items-center">
-      <div className="bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4 py-2 shadow-sm">
-        <p className="text-sm font-medium text-gray-800 dark:text-gray-200">{node.name}</p>
+      <div className="bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2 shadow-sm whitespace-nowrap">
+        <p className="text-xs sm:text-sm font-medium text-gray-800 dark:text-gray-200">{node.name}</p>
       </div>
       {node.children && node.children.length > 0 && (
-        <div className="flex gap-8 mt-4">
+        <div className="flex gap-4 sm:gap-8 mt-4">
           {node.children.map((child, index) => (
             <div key={index} className="flex flex-col items-center relative">
               <div className="absolute top-0 left-1/2 w-0.5 h-4 bg-gray-300 dark:bg-gray-600"></div>
@@ -75,15 +75,29 @@ const GenealogyTree = () => {
   return (
     <div className="space-y-8">
       <div>
-        <h3 className="text-2xl font-bold text-center mb-6">Genealogia Paterna</h3>
-        <div className="flex justify-center">
-          <TreeNode node={paternalTree} />
+        <h3 className="text-lg sm:text-2xl font-bold text-center mb-4 sm:mb-6">Genealogia Paterna</h3>
+        <div className="relative">
+          <div className="overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+            <div className="flex justify-center min-w-max px-4">
+              <TreeNode node={paternalTree} />
+            </div>
+          </div>
+          <div className="sm:hidden text-center text-xs text-gray-500 mt-2">
+            ← Arraste para visualizar →
+          </div>
         </div>
       </div>
       <div>
-        <h3 className="text-2xl font-bold text-center mb-6">Genealogia Materna</h3>
-        <div className="flex justify-center">
-          <TreeNode node={maternalTree} />
+        <h3 className="text-lg sm:text-2xl font-bold text-center mb-4 sm:mb-6">Genealogia Materna</h3>
+        <div className="relative">
+          <div className="overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+            <div className="flex justify-center min-w-max px-4">
+              <TreeNode node={maternalTree} />
+            </div>
+          </div>
+          <div className="sm:hidden text-center text-xs text-gray-500 mt-2">
+            ← Arraste para visualizar →
+          </div>
         </div>
       </div>
     </div>

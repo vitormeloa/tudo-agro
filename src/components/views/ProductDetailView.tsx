@@ -4,6 +4,27 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+
+// Tradução das chaves de especificações
+const translateSpecKey = (key: string): string => {
+  const translations: { [key: string]: string } = {
+    'production': 'Registro',
+    'breeding': 'Reprodução',
+    'feed': 'Alimentação',
+    'health': 'Saúde',
+    'genetics': 'Genética',
+    'temperament': 'Temperamento',
+    'awards': 'Premiações',
+    'breedingLocation': 'Local de Criação',
+    'laboratory': 'Laboratório',
+    'collectionFrequency': 'Frequência de Coleta',
+    'conservation': 'Conservação',
+    'fertilityGuarantee': 'Garantia de Fertilidade',
+    'deps': 'DEPs',
+    'modalidade': 'Modalidade'
+  }
+  return translations[key] || key.replace(/([A-Z])/g, ' $1').toLowerCase()
+}
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -530,7 +551,7 @@ function ProductDetailViewContent({ productId, isDashboard }: ProductDetailViewP
                     {Object.entries(product.specifications).map(([key, value]) => (
                       <div key={key} className="flex flex-col sm:flex-row sm:justify-between py-2 sm:py-3 border-b border-gray-100 gap-1 sm:gap-2">
                         <span className="text-xs sm:text-sm text-gray-500 capitalize font-medium">
-                          {key.replace(/([A-Z])/g, ' $1').toLowerCase()}:
+                          {translateSpecKey(key)}:
                         </span>
                         <span className="text-sm sm:text-base font-medium text-[#101828] break-words">{value}</span>
                       </div>

@@ -42,6 +42,27 @@ import QuestionsSection from '@/components/questions/QuestionsSection'
 import GenealogyTree from '@/components/genealogy/GenealogyTree'
 import { getProductQuestions } from '@/lib/mock-questions'
 
+// Tradução das chaves de especificações
+const translateSpecKey = (key: string): string => {
+  const translations: { [key: string]: string } = {
+    'production': 'Registro',
+    'breeding': 'Reprodução',
+    'feed': 'Alimentação',
+    'health': 'Saúde',
+    'genetics': 'Genética',
+    'temperament': 'Temperamento',
+    'awards': 'Premiações',
+    'breedingLocation': 'Local de Criação',
+    'laboratory': 'Laboratório',
+    'collectionFrequency': 'Frequência de Coleta',
+    'conservation': 'Conservação',
+    'fertilityGuarantee': 'Garantia de Fertilidade',
+    'deps': 'DEPs',
+    'modalidade': 'Modalidade'
+  }
+  return translations[key] || key.replace(/([A-Z])/g, ' $1').toLowerCase()
+}
+
 export default function ProdutoPage({ params }: { params: Promise<{ id: string }> }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [quantity, setQuantity] = useState(1)
@@ -550,7 +571,7 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
                     {Object.entries(product.specifications).map(([key, value]) => (
                       <div key={key} className="flex flex-col sm:flex-row sm:justify-between py-2 sm:py-3 border-b border-gray-100 gap-1 sm:gap-2">
                         <span className="text-xs sm:text-sm text-gray-500 capitalize font-medium">
-                          {key.replace(/([A-Z])/g, ' $1').toLowerCase()}:
+                          {translateSpecKey(key)}:
                         </span>
                         <span className="text-sm sm:text-base font-medium text-[#101828] break-words">{value}</span>
                       </div>
@@ -561,10 +582,12 @@ export default function ProdutoPage({ params }: { params: Promise<{ id: string }
             </TabsContent>
 
             <TabsContent value="genealogia" className="mt-4 sm:mt-6">
-              <Card className="bg-white border-gray-200 shadow-lg">
+              <Card className="bg-white border-gray-200 shadow-lg overflow-hidden">
                 <CardContent className="p-4 sm:p-6 lg:p-8">
                   <h2 className="text-xl sm:text-2xl font-bold text-[#101828] mb-3 sm:mb-4">Genealogia</h2>
-                  <GenealogyTree />
+                  <div className="-mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8">
+                    <GenealogyTree />
+                  </div>
                 </CardContent>
               </Card>
             </TabsContent>

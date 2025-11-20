@@ -94,7 +94,10 @@ export const mockAnimals: MockAnimal[] = [
       breeding: "Inseminação artificial",
       feed: "Pasto + suplementação",
       health: "Vacinação completa",
-      genetics: "Linha materna elite"
+      genetics: "Linha materna elite",
+      temperament: "Manso e dócil",
+      awards: "Campeão Regional 2023",
+      breedingLocation: "Fazenda Boa Vista - Goiânia/GO"
     },
     documents: [
       "Registro genealógico",
@@ -141,7 +144,10 @@ export const mockAnimals: MockAnimal[] = [
       breeding: "Reprodução natural",
       feed: "Ração + pasto",
       health: "Vacinação em dia",
-      genetics: "Linha campeã"
+      genetics: "Linha campeã",
+      temperament: "Dócil e bem adestrada",
+      awards: "3º lugar Exposição Nacional 2022",
+      breedingLocation: "Haras São João - Belo Horizonte/MG"
     },
     documents: [
       "Registro ABCCMM",
@@ -188,7 +194,10 @@ export const mockAnimals: MockAnimal[] = [
       breeding: "Inseminação artificial",
       feed: "Ração + pasto",
       health: "Vacinação completa",
-      genetics: "Alta produção"
+      genetics: "Alta produção",
+      temperament: "Mansa e de fácil manejo",
+      awards: "Melhor produtora 2023 - Fazenda Três Rios",
+      breedingLocation: "Fazenda Três Rios - Campinas/SP"
     },
     documents: [
       "Registro genealógico",
