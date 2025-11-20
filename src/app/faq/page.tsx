@@ -121,7 +121,7 @@ export default function FAQPage() {
       
       {}
       <section className="bg-gradient-to-r from-primary via-primary to-primary/90 text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">Perguntas Frequentes (FAQ)</h1>
             <p className="text-xl text-primary-foreground/80 max-w-3xl mx-auto">

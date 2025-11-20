@@ -352,7 +352,7 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
     <div className="min-h-screen bg-gray-50 text-[#101828]">
       {}
       <header className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
-        <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
+        <div className="max-w-screen-2xl mx-auto px-3 sm:px-4 lg:px-8">
           <div className="flex justify-between items-center h-14 sm:h-16 gap-2">
             {}
             <div className="flex items-center flex-shrink-0">
@@ -505,7 +505,7 @@ export default function LeilaoPage({ params }: { params: Promise<{ id: string }>
         </div>
       </header>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="grid lg:grid-cols-3 gap-6">
           {}
           <div className="lg:col-span-2 space-y-6">

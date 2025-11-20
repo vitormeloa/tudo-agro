@@ -275,7 +275,7 @@ export default function VendedorPage({ params }: { params: Promise<{ id: string 
         <div className="absolute inset-0 bg-black/40"></div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
         {}
         <div className="relative -mt-16 sm:-mt-20 mb-6 sm:mb-8">
           <Card className="border-gray-200 shadow-xl">

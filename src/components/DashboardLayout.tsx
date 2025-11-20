@@ -230,6 +230,16 @@ const DashboardLayout = ({
     icon: Package,
     path: "/dashboard/mercado-agro"
   }, {
+    id: "favoritos",
+    label: "Favoritos",
+    icon: Heart,
+    path: "/dashboard/favoritos"
+  }, {
+    id: "carrinho",
+    label: "Carrinho",
+    icon: ShoppingCart,
+    path: "/carrinho"
+  }, {
     id: "compras",
     label: "Minhas Compras",
     icon: ShoppingBag,
@@ -385,7 +395,7 @@ const DashboardLayout = ({
           <div className="flex items-center gap-2">
             {}
             {!isAdmin() && !isSeller() && (
-              <>
+              <div className="hidden lg:flex items-center">
                 <Link href="/dashboard/favoritos">
                   <Button variant="ghost" size="icon" className="relative hover:bg-accent text-gray-600 hover:text-red-500 transition-colors">
                     <Heart className="h-5 w-5" />
@@ -401,7 +411,7 @@ const DashboardLayout = ({
                     )}
                   </Button>
                 </Link>
-              </>
+              </div>
             )}
 
             {}

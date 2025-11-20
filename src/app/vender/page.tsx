@@ -214,7 +214,7 @@ export default function VenderPage() {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(5,150,105,0.15)_1px,transparent_0)] bg-[length:20px_20px]"></div>
         </div>
         
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             
             <h1 className="text-4xl md:text-6xl font-bold text-[#101828] mb-6 leading-tight">

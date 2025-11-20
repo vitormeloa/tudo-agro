@@ -137,7 +137,7 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
+      <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
         <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12">
           {}
           <div className="space-y-3 sm:space-y-4">

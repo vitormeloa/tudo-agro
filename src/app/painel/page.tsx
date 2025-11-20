@@ -132,7 +132,7 @@ export default function PainelPage() {
       <div className="min-h-screen bg-gradient-to-br from-[#F7F6F2] to-[#FFFDF7]">
       {}
       <div className="bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <Link href="/" className="flex items-center space-x-2">
               <img 
@@ -161,7 +161,7 @@ export default function PainelPage() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {}
         {showVerificationAlert && !isVerified && (
           <div className="mb-6 bg-gradient-to-r from-[#C89F45]/10 to-[#B8913D]/10 border border-[#C89F45]/30 rounded-lg p-4">

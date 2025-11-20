@@ -119,7 +119,7 @@ export default function Footer({
       {}
       {showNewsletter && variant === 'default' && (
         <div className="border-b border-gray-700/50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div className="text-center">
               <h3 className="text-2xl font-bold mb-2">Fique por dentro das novidades</h3>
               <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
@@ -174,7 +174,7 @@ export default function Footer({
       )}
 
       {}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10">
           {}
           <div className="sm:col-span-2 lg:col-span-1">

@@ -96,7 +96,7 @@ export default function SobrePage() {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.15)_1px,transparent_0)] bg-[length:20px_20px]"></div>
         </div>
         
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-4">
+        <div className="relative max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-4">
           
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-white drop-shadow-lg">
             Sobre o TudoAgro
@@ -109,7 +109,7 @@ export default function SobrePage() {
 
       {}
       <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
               <div key={index} className="text-center animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
@@ -126,7 +126,7 @@ export default function SobrePage() {
 
       {}
       <section className="py-20 bg-gradient-to-br from-primary/5 to-primary/5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold text-[#101828] mb-6">
@@ -170,7 +170,7 @@ export default function SobrePage() {
 
       {}
       <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-[#101828] mb-4">
               Nossos Valores
@@ -198,7 +198,7 @@ export default function SobrePage() {
 
       {}
       <section className="py-20 bg-gradient-to-br from-primary/5 to-primary/5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-[#101828] mb-4">
                 Time TudoAgro
@@ -229,7 +229,7 @@ export default function SobrePage() {
 
       {}
       <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-[#101828] mb-4">
               O que nossos clientes dizem
@@ -274,7 +274,7 @@ export default function SobrePage() {
 
       {}
       <section className="py-20 bg-gradient-to-br from-primary/5 to-primary/5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-[#101828] mb-4">
               Nossa História

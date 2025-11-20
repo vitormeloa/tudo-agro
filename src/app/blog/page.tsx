@@ -143,7 +143,7 @@ export default function BlogPage() {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.15)_1px,transparent_0)] bg-[length:20px_20px]"></div>
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-4">
+        <div className="relative max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-4">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-white drop-shadow-lg">
             Blog do Agro
           </h1>
@@ -153,7 +153,7 @@ export default function BlogPage() {
         </div>
       </section>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+      <main className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
 
         {}
         {themes.length > 0 && (

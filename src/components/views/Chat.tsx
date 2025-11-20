@@ -738,7 +738,7 @@ const Chat = () => {
 
   return (
     <>
-      <div className="flex flex-col h-[calc(100vh-4rem)] max-w-7xl mx-auto w-full">
+      <div className="flex flex-col h-[calc(100vh-4rem)] max-w-screen-2xl mx-auto w-full">
         <div className="mb-4 sm:mb-6">
           <div className="flex items-center justify-between">
             <div>
