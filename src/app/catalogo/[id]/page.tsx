@@ -163,40 +163,6 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
               </button>
 
               {}
-              <div className="absolute top-2 sm:top-3 lg:top-4 left-2 sm:left-3 lg:left-4 flex gap-1.5 sm:gap-2 flex-wrap">
-                {animal.category === 'Gado de Corte' && (
-                  <Badge className="bg-[#8B4513] text-white text-xs sm:text-sm px-2 sm:px-2.5 py-0.5 sm:py-1">
-                    {animal.category}
-                  </Badge>
-                )}
-                {animal.category === 'Gado de Leite' && (
-                  <Badge className="bg-[#4169E1] text-white text-xs sm:text-sm px-2 sm:px-2.5 py-0.5 sm:py-1">
-                    {animal.category}
-                  </Badge>
-                )}
-                {(animal.category === 'Sêmen' || animal.category.includes('Sêmen')) && (
-                  <Badge className="bg-[#1C6B3E] text-white text-xs sm:text-sm px-2 sm:px-2.5 py-0.5 sm:py-1">
-                    {animal.category}
-                  </Badge>
-                )}
-                {animal.category === 'Cavalos' && (
-                  <Badge className="bg-[#1C6B3E] text-white text-xs sm:text-sm px-2 sm:px-2.5 py-0.5 sm:py-1">
-                    {animal.category}
-                  </Badge>
-                )}
-                {animal.stockStatus && (
-                  <Badge className="bg-[#3D9970] text-white text-xs sm:text-sm px-2 sm:px-2.5 py-0.5 sm:py-1">
-                    {animal.stockStatus}
-                  </Badge>
-                )}
-                {animal.featured && (
-                  <Badge className="bg-[#D4AF37] text-black text-xs sm:text-sm px-2 sm:px-2.5 py-0.5 sm:py-1">
-                    DESTAQUE
-                  </Badge>
-                )}
-              </div>
-
-              {}
               <div className="absolute top-2 sm:top-3 lg:top-4 right-2 sm:right-3 lg:right-4 flex gap-1.5 sm:gap-2">
                 <Button
                   size="sm"
@@ -251,6 +217,39 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#101828] mb-3 sm:mb-4 leading-tight">
                 {animal.title}
               </h1>
+
+              <div className="flex items-center gap-2 mb-2 flex-wrap">
+                {animal.category === 'Gado de Corte' && (
+                  <Badge className="bg-primary text-primary-foreground text-xs sm:text-sm px-2 sm:px-2.5 py-0.5 sm:py-1">
+                    {animal.category}
+                  </Badge>
+                )}
+                {animal.category === 'Gado de Leite' && (
+                  <Badge className="bg-primary text-primary-foreground text-xs sm:text-sm px-2 sm:px-2.5 py-0.5 sm:py-1">
+                    {animal.category}
+                  </Badge>
+                )}
+                {(animal.category === 'Sêmen' || animal.category.includes('Sêmen')) && (
+                  <Badge className="bg-primary text-primary-foreground text-xs sm:text-sm px-2 sm:px-2.5 py-0.5 sm:py-1">
+                    {animal.category}
+                  </Badge>
+                )}
+                {animal.category === 'Cavalos' && (
+                  <Badge className="bg-primary text-primary-foreground text-xs sm:text-sm px-2 sm:px-2.5 py-0.5 sm:py-1">
+                    {animal.category}
+                  </Badge>
+                )}
+                {animal.stockStatus && (
+                  <Badge className="bg-primary text-primary-foreground text-xs sm:text-sm px-2 sm:px-2.5 py-0.5 sm:py-1">
+                    {animal.stockStatus}
+                  </Badge>
+                )}
+                {animal.featured && (
+                  <Badge className="bg-primary text-primary-foreground text-xs sm:text-sm px-2 sm:px-2.5 py-0.5 sm:py-1">
+                    DESTAQUE
+                  </Badge>
+                )}
+              </div>
 
               <div className="flex items-center text-sm sm:text-base text-gray-600 mb-4">
                 <span className="font-semibold text-[#101828]">{animal.seller.name}</span>
@@ -604,12 +603,16 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
                 <MapPin className="w-5 h-5 sm:w-6 sm:h-6 inline mr-2" />
                 Localização
               </h2>
-              <div className="bg-gray-50 rounded-lg h-48 sm:h-56 lg:h-64 flex items-center justify-center border border-gray-200">
-                <div className="text-center text-gray-600 px-4">
-                  <MapPin className="w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-2" />
-                  <p className="text-sm sm:text-base">Mapa da localização da fazenda</p>
-                  <p className="text-xs sm:text-sm mt-1">{animal.city}, {animal.location}</p>
-                </div>
+              <div className="bg-gray-50 rounded-lg h-48 sm:h-56 lg:h-64 flex items-center justify-center border border-gray-200 overflow-hidden">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3821.463897116858!2d-49.2559709851323!3d-16.67930898848463!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935ef6bd5be4c9c3%3A0x24285d359b34b54a!2sFazenda%20Boa%20Vista!5e0!3m2!1spt-BR!2sbr!4v1678886400000"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen=""
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                ></iframe>
               </div>
             </CardContent>
           </Card>

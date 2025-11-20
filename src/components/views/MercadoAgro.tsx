@@ -177,18 +177,18 @@ export default function MercadoAgro() {
   }
 
   const categories = [
-    { name: 'Nutrição Animal', color: '#B8E8D1' },
-    { name: 'Saúde e Bem-Estar Animal', color: '#B8E8D1' },
-    { name: 'Reprodução e Genética', color: '#B8E8D1' },
-    { name: 'Selaria e Utilidades', color: '#B8E8D1' },
-    { name: 'Equipamentos e Infraestrutura Rural', color: '#B8E8D1' },
-    { name: 'Vestuário e Lifestyle Agro', color: '#B8E8D1' },
-    { name: 'Sementes e Mudas', color: '#B8E8D1' },
-    { name: 'Insumos Agrícolas e Fertilizantes', color: '#B8E8D1' },
-    { name: 'Higiene, Limpeza e Desinfecção', color: '#B8E8D1' },
-    { name: 'Suplementos e Aditivos', color: '#B8E8D1' },
-    { name: 'Bebidas Artesanais e Produtos da Fazenda', color: '#B8E8D1' },
-    { name: 'Outros', color: '#B8E8D1' }
+    { name: 'Nutrição Animal' },
+    { name: 'Saúde e Bem-Estar Animal' },
+    { name: 'Reprodução e Genética' },
+    { name: 'Selaria e Utilidades' },
+    { name: 'Equipamentos e Infraestrutura Rural' },
+    { name: 'Vestuário e Lifestyle Agro' },
+    { name: 'Sementes e Mudas' },
+    { name: 'Insumos Agrícolas e Fertilizantes' },
+    { name: 'Higiene, Limpeza e Desinfecção' },
+    { name: 'Suplementos e Aditivos' },
+    { name: 'Bebidas Artesanais e Produtos da Fazenda' },
+    { name: 'Outros' }
   ].map(cat => ({
     ...cat,
     count: getCategoryCount(cat.name)
@@ -335,11 +335,7 @@ export default function MercadoAgro() {
             >
               <CardContent className="p-3 text-center">
                 <div
-                  className="inline-flex px-3 py-1.5 rounded-full text-xs font-medium mb-2 max-w-full break-words leading-tight"
-                  style={{
-                    backgroundColor: category.color,
-                    color: '#1F2937',
-                  }}
+                  className="inline-flex px-3 py-1.5 rounded-full text-xs font-medium mb-2 max-w-full break-words leading-tight bg-primary text-primary-foreground"
                 >
                   <span className="text-center">{category.name}</span>
                 </div>
@@ -387,11 +383,7 @@ export default function MercadoAgro() {
                 >
                   <CardContent className="p-4 text-center">
                     <div
-                      className="inline-flex px-4 py-2 rounded-full text-sm font-medium mb-3"
-                      style={{
-                        backgroundColor: category.color,
-                        color: '#1F2937'
-                      }}
+                      className="inline-flex px-4 py-2 rounded-full text-sm font-medium mb-3 bg-primary text-primary-foreground"
                     >
                       {category.name}
                     </div>

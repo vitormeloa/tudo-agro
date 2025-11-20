@@ -191,18 +191,18 @@ export default function ProdutosPage() {
   }
 
   const categories = [
-    { name: 'Nutrição Animal', color: '#B8E8D1' },
-    { name: 'Saúde e Bem-Estar Animal', color: '#B8E8D1' },
-    { name: 'Reprodução e Genética', color: '#B8E8D1' },
-    { name: 'Selaria e Utilidades', color: '#B8E8D1' },
-    { name: 'Equipamentos e Infraestrutura Rural', color: '#B8E8D1' },
-    { name: 'Vestuário e Lifestyle Agro', color: '#B8E8D1' },
-    { name: 'Sementes e Mudas', color: '#B8E8D1' },
-    { name: 'Insumos Agrícolas e Fertilizantes', color: '#B8E8D1' },
-    { name: 'Higiene, Limpeza e Desinfecção', color: '#B8E8D1' },
-    { name: 'Suplementos e Aditivos', color: '#B8E8D1' },
-    { name: 'Bebidas Artesanais e Produtos da Fazenda', color: '#B8E8D1' },
-    { name: 'Outros', color: '#B8E8D1' }
+    { name: 'Nutrição Animal' },
+    { name: 'Saúde e Bem-Estar Animal' },
+    { name: 'Reprodução e Genética' },
+    { name: 'Selaria e Utilidades' },
+    { name: 'Equipamentos e Infraestrutura Rural' },
+    { name: 'Vestuário e Lifestyle Agro' },
+    { name: 'Sementes e Mudas' },
+    { name: 'Insumos Agrícolas e Fertilizantes' },
+    { name: 'Higiene, Limpeza e Desinfecção' },
+    { name: 'Suplementos e Aditivos' },
+    { name: 'Bebidas Artesanais e Produtos da Fazenda' },
+    { name: 'Outros' }
   ].map(cat => ({
     ...cat,
     count: getCategoryCount(cat.name)
@@ -369,11 +369,7 @@ export default function ProdutosPage() {
               >
                 <CardContent className="p-3 text-center">
                   <div
-                    className="inline-flex px-3 py-1.5 rounded-full text-xs font-medium mb-2 max-w-full break-words leading-tight"
-                    style={{
-                      backgroundColor: category.color,
-                      color: '#1F2937',
-                    }}
+                    className="inline-flex px-3 py-1.5 rounded-full text-xs font-medium mb-2 max-w-full break-words leading-tight bg-primary text-primary-foreground"
                   >
                     <span className="text-center">{category.name}</span>
                   </div>
@@ -433,11 +429,7 @@ export default function ProdutosPage() {
                   >
                     <CardContent className="p-3 sm:p-4 text-center flex flex-col items-center justify-center min-h-[100px] sm:min-h-[110px]">
                       <div
-                        className="inline-flex px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium mb-2 sm:mb-3 max-w-full break-words leading-tight shadow-sm"
-                        style={{
-                          backgroundColor: category.color,
-                          color: '#1F2937'
-                        }}
+                        className="inline-flex px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium mb-2 sm:mb-3 max-w-full break-words leading-tight shadow-sm bg-primary text-primary-foreground"
                       >
                         <span className="text-center">{category.name}</span>
                       </div>

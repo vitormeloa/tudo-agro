@@ -185,10 +185,10 @@ export default function CatalogoPage() {
   }
 
   const categories = [
-    { name: 'Gado de Corte', color: 'bg-primary/10 text-primary' },
-    { name: 'Gado de Leite', color: 'bg-primary/10 text-primary' },
-    { name: 'Cavalos', color: 'bg-primary/10 text-primary' },
-    { name: 'Sêmen', color: 'bg-primary/10 text-primary' }
+    { name: 'Gado de Corte', color: 'bg-primary text-primary-foreground' },
+    { name: 'Gado de Leite', color: 'bg-primary text-primary-foreground' },
+    { name: 'Cavalos', color: 'bg-primary text-primary-foreground' },
+    { name: 'Sêmen', color: 'bg-primary text-primary-foreground' }
   ].map(cat => ({
     ...cat,
     count: getCategoryCount(cat.name)
@@ -352,7 +352,7 @@ export default function CatalogoPage() {
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <CardContent className="p-4 text-center">
-                  <div className={`inline-flex px-3 py-1 rounded-full text-sm font-medium mb-2 ${category.color}`}>
+                  <div className={`inline-flex px-3 py-1.5 rounded-full text-xs font-medium mb-2 max-w-full break-words leading-tight ${category.color}`}>
                     {category.name}
                   </div>
                   <div className="text-2xl font-bold text-[#101828]">{category.count}</div>

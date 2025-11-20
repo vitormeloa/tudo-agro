@@ -24,22 +24,22 @@ const MinhasCompras = () => {
   const { toast } = useToast();
 
   const categoriesConfig = [
-    { name: 'gado', label: 'Gado', color: '#B8E8D1', popular: true },
-    { name: 'cavalos', label: 'Cavalos', color: '#B8E8D1', popular: true },
-    { name: 'semen', label: 'Sêmen', color: '#B8E8D1', popular: true },
-    { name: 'produtos', label: 'Produtos', color: '#B8E8D1', popular: true },
-    { name: 'nutricao animal', label: 'Nutrição Animal', color: '#B8E8D1', popular: false },
-    { name: 'saude e bem-estar animal', label: 'Saúde e Bem-Estar Animal', color: '#B8E8D1', popular: false },
-    { name: 'reproducao e genetica', label: 'Reprodução e Genética', color: '#B8E8D1', popular: false },
-    { name: 'selaria e utilidades', label: 'Selaria e Utilidades', color: '#B8E8D1', popular: false },
-    { name: 'equipamentos e infraestrutura rural', label: 'Equipamentos e Infraestrutura Rural', color: '#B8E8D1', popular: false },
-    { name: 'vestuario e lifestyle agro', label: 'Vestuário e Lifestyle Agro', color: '#B8E8D1', popular: false },
-    { name: 'sementes e mudas', label: 'Sementes e Mudas', color: '#B8E8D1', popular: false },
-    { name: 'insumos agricolas e fertilizantes', label: 'Insumos Agrícolas e Fertilizantes', color: '#B8E8D1', popular: false },
-    { name: 'higiene, limpeza e desinfeccao', label: 'Higiene, Limpeza e Desinfecção', color: '#B8E8D1', popular: false },
-    { name: 'suplementos e aditivos', label: 'Suplementos e Aditivos', color: '#B8E8D1', popular: false },
-    { name: 'bebidas artesanais e produtos da fazenda', label: 'Bebidas Artesanais e Produtos da Fazenda', color: '#B8E8D1', popular: false },
-    { name: 'outros', label: 'Outros', color: '#B8E8D1', popular: false },
+    { name: 'gado', label: 'Gado', popular: true },
+    { name: 'cavalos', label: 'Cavalos', popular: true },
+    { name: 'semen', label: 'Sêmen', popular: true },
+    { name: 'produtos', label: 'Produtos', popular: true },
+    { name: 'nutricao animal', label: 'Nutrição Animal', popular: false },
+    { name: 'saude e bem-estar animal', label: 'Saúde e Bem-Estar Animal', popular: false },
+    { name: 'reproducao e genetica', label: 'Reprodução e Genética', popular: false },
+    { name: 'selaria e utilidades', label: 'Selaria e Utilidades', popular: false },
+    { name: 'equipamentos e infraestrutura rural', label: 'Equipamentos e Infraestrutura Rural', popular: false },
+    { name: 'vestuario e lifestyle agro', label: 'Vestuário e Lifestyle Agro', popular: false },
+    { name: 'sementes e mudas', label: 'Sementes e Mudas', popular: false },
+    { name: 'insumos agricolas e fertilizantes', label: 'Insumos Agrícolas e Fertilizantes', popular: false },
+    { name: 'higiene, limpeza e desinfeccao', label: 'Higiene, Limpeza e Desinfecção', popular: false },
+    { name: 'suplementos e aditivos', label: 'Suplementos e Aditivos', popular: false },
+    { name: 'bebidas artesanais e produtos da fazenda', label: 'Bebidas Artesanais e Produtos da Fazenda', popular: false },
+    { name: 'outros', label: 'Outros', popular: false },
   ];
 
   const allPurchases = [
@@ -417,11 +417,7 @@ const MinhasCompras = () => {
             >
               <CardContent className="p-3 text-center">
                 <div
-                  className="inline-flex px-3 py-1.5 rounded-full text-xs font-medium mb-2 max-w-full break-words leading-tight"
-                  style={{
-                    backgroundColor: category.color,
-                    color: '#1F2937',
-                  }}
+                  className="inline-flex px-3 py-1.5 rounded-full text-xs font-medium mb-2 max-w-full break-words leading-tight bg-primary text-primary-foreground"
                 >
                   <span className="text-center">{category.label}</span>
                 </div>
@@ -468,11 +464,7 @@ const MinhasCompras = () => {
                   >
                     <CardContent className="p-4 text-center">
                       <div
-                        className="inline-flex px-4 py-2 rounded-full text-sm font-medium mb-3"
-                        style={{
-                          backgroundColor: category.color,
-                          color: '#1F2937'
-                        }}
+                        className="inline-flex px-4 py-2 rounded-full text-sm font-medium mb-3 bg-primary text-primary-foreground"
                       >
                         {category.label}
                       </div>
