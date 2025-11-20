@@ -73,32 +73,21 @@ const TreeNode: React.FC<{ node: AnimalNode }> = ({ node }) => {
 
 const GenealogyTree = () => {
   return (
-    <div className="space-y-8">
-      <div>
-        <h3 className="text-lg sm:text-2xl font-bold text-center mb-4 sm:mb-6">Genealogia Paterna</h3>
-        <div className="relative">
-          <div className="overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
-            <div className="flex justify-center min-w-max px-4">
-              <TreeNode node={paternalTree} />
-            </div>
+    <div className="relative">
+      <div className="overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+        <div className="flex justify-center min-w-max px-4">
+          <div className="flex flex-col items-center mx-4">
+            <h3 className="text-lg sm:text-2xl font-bold text-center mb-4 sm:mb-6">Genealogia Paterna</h3>
+            <TreeNode node={paternalTree} />
           </div>
-          <div className="sm:hidden text-center text-xs text-gray-500 mt-2">
-            ← Arraste para visualizar →
+          <div className="flex flex-col items-center mx-4">
+            <h3 className="text-lg sm:text-2xl font-bold text-center mb-4 sm:mb-6">Genealogia Materna</h3>
+            <TreeNode node={maternalTree} />
           </div>
         </div>
       </div>
-      <div>
-        <h3 className="text-lg sm:text-2xl font-bold text-center mb-4 sm:mb-6">Genealogia Materna</h3>
-        <div className="relative">
-          <div className="overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
-            <div className="flex justify-center min-w-max px-4">
-              <TreeNode node={maternalTree} />
-            </div>
-          </div>
-          <div className="sm:hidden text-center text-xs text-gray-500 mt-2">
-            ← Arraste para visualizar →
-          </div>
-        </div>
+      <div className="sm:hidden text-center text-xs text-gray-500 mt-2">
+        ← Arraste para visualizar →
       </div>
     </div>
   );

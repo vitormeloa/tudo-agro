@@ -164,22 +164,13 @@ export default function ProductCard({
                     )}
 
                     {(variant === 'detailed' || variant === 'default') && product.type === 'animal' && (
-                        <div className="mb-3">
-                            {product.category === 'Cavalos' && (
-                                <div className="text-sm text-gray-600">
+                        <div className="mb-3 min-h-[2.5em]">
+                            {(product.category === 'Cavalos' || product.category === 'Gado de Corte' || product.category === 'Gado de Leite') && (
+                                <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-gray-600">
                                     <span>Idade: <span className="font-semibold text-[#101828]">{product.age || 'Não informado'}</span></span>
-                                    <span className="mx-2">•</span>
+                                    <span className="hidden sm:inline">•</span>
                                     <span>Sexo: <span className="font-semibold text-[#101828]">{product.sex || 'Não informado'}</span></span>
-                                    <span className="mx-2">•</span>
-                                    <span>Raça: <span className="font-semibold text-[#101828]">{product.breed || 'Não informado'}</span></span>
-                                </div>
-                            )}
-                            {(product.category === 'Gado de Corte' || product.category === 'Gado de Leite') && (
-                                <div className="text-sm text-gray-600">
-                                    <span>Idade: <span className="font-semibold text-[#101828]">{product.age || 'Não informado'}</span></span>
-                                    <span className="mx-2">•</span>
-                                    <span>Sexo: <span className="font-semibold text-[#101828]">{product.sex || 'Não informado'}</span></span>
-                                    <span className="mx-2">•</span>
+                                    <span className="hidden sm:inline">•</span>
                                     <span>Raça: <span className="font-semibold text-[#101828]">{product.breed || 'Não informado'}</span></span>
                                 </div>
                             )}

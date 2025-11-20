@@ -49,6 +49,7 @@ export default function CatalogoPage() {
     age: a.age,
     weight: a.weight,
     breed: a.breed,
+    sex: a.sex,
     father: a.father || 'N/A',
     mother: a.mother || 'N/A',
     type: 'animal' as const

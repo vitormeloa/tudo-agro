@@ -97,6 +97,7 @@ export default function HomePage() {
     age: a.age,
     weight: a.weight,
     breed: a.breed,
+    sex: a.sex,
     type: "animal" as const
   }))
 

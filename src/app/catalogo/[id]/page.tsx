@@ -492,25 +492,25 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
             <TabsList className="grid w-full grid-cols-4 h-auto gap-1 sm:gap-0 p-1">
               <TabsTrigger
                 value="descricao"
-                className="text-[10px] xs:text-xs sm:text-sm md:text-base py-2 sm:py-3 px-1 xs:px-2 sm:px-3 data-[state=active]:bg-white"
+                className="text-[10px] xs:text-xs sm:text-sm md:text-base py-2 sm:py-3 px-1 xs:px-2 sm:px-3 text-center data-[state=active]:bg-white"
               >
                 Descrição
               </TabsTrigger>
               <TabsTrigger
                 value="especificacoes"
-                className="text-[10px] xs:text-xs sm:text-sm md:text-base py-2 sm:py-3 px-1 xs:px-2 sm:px-3 data-[state=active]:bg-white"
+                className="text-[10px] xs:text-xs sm:text-sm md:text-base py-2 sm:py-3 px-1 xs:px-2 sm:px-3 text-center data-[state=active]:bg-white"
               >
                 Mais Informações
               </TabsTrigger>
               <TabsTrigger
                 value="genealogia"
-                className="text-[10px] xs:text-xs sm:text-sm md:text-base py-2 sm:py-3 px-1 xs:px-2 sm:px-3 data-[state=active]:bg-white"
+                className="text-[10px] xs:text-xs sm:text-sm md:text-base py-2 sm:py-3 px-1 xs:px-2 sm:px-3 text-center data-[state=active]:bg-white"
               >
                 Genealogia
               </TabsTrigger>
               <TabsTrigger
                 value="documentos"
-                className="text-[10px] xs:text-xs sm:text-sm md:text-base py-2 sm:py-3 px-1 xs:px-2 sm:px-3 data-[state=active]:bg-white"
+                className="text-[10px] xs:text-xs sm:text-sm md:text-base py-2 sm:py-3 px-1 xs:px-2 sm:px-3 text-center data-[state=active]:bg-white"
               >
                 Documentos
               </TabsTrigger>
