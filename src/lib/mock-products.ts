@@ -93,7 +93,7 @@ export const mockProducts: MockProduct[] = [
     city: "Uberlândia",
     rating: 4.9,
     reviews: 89,
-    image: "/fotos/produtos/semente-milho.jpeg",
+    image: "/fotos/produtos/semente-milho.png",
     seller: "Sementes Elite",
     verified: true,
     featured: false,
@@ -136,7 +136,7 @@ export const mockProducts: MockProduct[] = [
     city: "Goiânia",
     rating: 4.7,
     reviews: 156,
-    image: "/fotos/produtos/proteinados-para-pasto.jpeg",
+    image: "/fotos/produtos/proteinados-para-pasto.png",
     seller: "FertilAgro",
     verified: true,
     featured: true,
@@ -264,7 +264,7 @@ export const mockProducts: MockProduct[] = [
     city: "Curitiba",
     rating: 4.9,
     reviews: 98,
-    image: "/fotos/produtos/promotor.webp",
+    image: "/fotos/produtos/promotor.png",
     seller: "Vermífugos Agro",
     verified: true,
     featured: false,
@@ -538,7 +538,6 @@ export const mockProducts: MockProduct[] = [
   description: "A Ração Cachorro Adulto Premium Especial da marca Multistar é a escolha ideal para cães de médio a grande porte que buscam uma alimentação nutritiva e saborosa. Com ingredientes nobres e selecionados, esta ração à base de frango e arroz proporciona uma dieta equilibrada, com 23% de proteína bruta, essencial para manter a saúde e a energia de seu pet.",
   images: [
     "/fotos/produtos/racaocachorro.png",
-    "/fotos/produtos/racaocachorro2.png"
   ],
   specifications: {
     proteina: "23%",
@@ -2356,7 +2355,7 @@ export const mockProducts: MockProduct[] = [
   city: "Belo Horizonte",
   rating: 4.8,
   reviews: 387,
-  image: "/fotos/produtos/bota.png",
+  image: "/fotos/produtos/chapeu.png",
   seller: "VICTORIASERGIODUARTEVICTORI",
   verified: true,
   featured: false,
