@@ -30,7 +30,6 @@ import { TypingIndicator } from "@/components/TypingIndicator";
 import { AudioRecorder } from "@/components/AudioRecorder";
 import { MediaUpload } from "@/components/MediaUpload";
 import { toast } from "@/hooks/use-toast";
-import { supabase } from "@/lib/supabase";
 
 interface Message {
   id: number;
@@ -117,7 +116,7 @@ const AjudaIA = () => {
 
   const sendToAI = async (userMessage: Message) => {
     setIsTyping(true);
-    
+
     try {
       const conversationHistory = messages.map(msg => ({
         role: msg.sender === "user" ? "user" : "assistant",
@@ -129,14 +128,22 @@ const AjudaIA = () => {
         content: userMessage.text
       });
 
-      const { data, error } = await supabase.functions.invoke('agroia-chat', {
-        body: { 
+      const response = await fetch('/api/agroia/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
           messages: conversationHistory,
           includeActions: true
-        }
+        })
       });
 
-      if (error) throw error;
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
 
       const aiResponse: Message = {
         id: Date.now(),
@@ -151,9 +158,9 @@ const AjudaIA = () => {
       setMessages((prev) => [...prev, aiResponse]);
     } catch (error: any) {
       console.error("Error calling AgroIA:", error);
-      
+
       let errorMessage = "Desculpe, houve um erro ao processar sua mensagem. Tente novamente.";
-      
+
       if (error.message?.includes("429")) {
         errorMessage = "Muitas solicitações. Por favor, aguarde um momento.";
       } else if (error.message?.includes("402")) {
