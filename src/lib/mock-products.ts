@@ -363,7 +363,6 @@ export const mockProducts: MockProduct[] = [
   description: "Ração peletizada com 22% de proteína indicada para vacas em lactação de alta produção, garantindo bom desempenho e suporte nutricional completo.",
   images: [
     "/fotos/produtos/racaoleite.png",
-    "/fotos/produtos/racaoleite2.png"
   ],
   specifications: {
     proteina: "22%",
