@@ -179,10 +179,10 @@ export default function Animais() {
   }
 
   const categories = [
-    { name: 'Gado de Corte', color: 'bg-[#B8E8D1] text-[#1F2937]' },
-    { name: 'Gado de Leite', color: 'bg-[#B8E8D1] text-[#1F2937]' },
-    { name: 'Cavalos', color: 'bg-[#B8E8D1] text-[#1F2937]' },
-    { name: 'Sêmen', color: 'bg-[#B8E8D1] text-[#1F2937]' }
+    { name: 'Gado de Corte', color: 'bg-primary text-primary-foreground' },
+    { name: 'Gado de Leite', color: 'bg-primary text-primary-foreground' },
+    { name: 'Cavalos', color: 'bg-primary text-primary-foreground' },
+    { name: 'Sêmen', color: 'bg-primary text-primary-foreground' }
   ].map(cat => ({
     ...cat,
     count: getCategoryCount(cat.name)

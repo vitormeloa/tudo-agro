@@ -104,10 +104,10 @@ export default function Leiloes() {
   }
 
   const categoriesConfig = [
-    { name: 'Gado de Corte', label: 'Gado de Corte', color: '#B8E8D1' },
-    { name: 'Gado de Leite', label: 'Gado de Leite', color: '#B8E8D1' },
-    { name: 'Cavalos', label: 'Cavalos', color: '#B8E8D1' },
-    { name: 'Sêmen Bovino', label: 'Sêmen', color: '#B8E8D1' },
+    { name: 'Gado de Corte', label: 'Gado de Corte' },
+    { name: 'Gado de Leite', label: 'Gado de Leite' },
+    { name: 'Cavalos', label: 'Cavalos' },
+    { name: 'Sêmen Bovino', label: 'Sêmen' },
   ].map(cat => ({
     ...cat,
     count: getCategoryCount(cat.name)
@@ -350,11 +350,7 @@ export default function Leiloes() {
             >
               <CardContent className="p-3 text-center">
                 <div
-                  className="inline-flex px-3 py-1.5 rounded-full text-xs font-medium mb-2 max-w-full break-words leading-tight"
-                  style={{
-                    backgroundColor: category.color,
-                    color: '#1F2937',
-                  }}
+                  className="inline-flex px-3 py-1.5 rounded-full text-xs font-medium mb-2 max-w-full break-words leading-tight bg-primary text-primary-foreground"
                 >
                   <span className="text-center">{category.label}</span>
                 </div>
@@ -399,11 +395,7 @@ export default function Leiloes() {
                 >
                   <CardContent className="p-4 text-center">
                     <div
-                      className="inline-flex px-4 py-2 rounded-full text-sm font-medium mb-3"
-                      style={{
-                        backgroundColor: category.color,
-                        color: '#1F2937'
-                      }}
+                      className="inline-flex px-4 py-2 rounded-full text-sm font-medium mb-3 bg-primary text-primary-foreground"
                     >
                       {category.label}
                     </div>
