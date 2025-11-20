@@ -101,37 +101,37 @@ export default function ProductCard({
                 <div className="flex-grow">
                     <div className="flex items-center gap-2 mb-2 flex-wrap">
                         {product.featured && (
-                            <Badge variant="default" className="bg-amber-500 text-white font-semibold px-2 py-0.5 text-xs">
+                            <Badge variant="default" className="bg-primary text-primary-foreground font-semibold px-2 py-0.5 text-xs">
                                 DESTAQUE
                             </Badge>
                         )}
                         {product.verified && (
-                            <Badge variant="default" className="bg-green-500 text-white font-semibold px-2 py-0.5 text-xs">
+                            <Badge variant="default" className="bg-primary text-primary-foreground font-semibold px-2 py-0.5 text-xs">
                                 VERIFICADO
                             </Badge>
                         )}
                         {product.category === 'Gado de Corte' && (
-                            <Badge variant="default" className="bg-[#8B4513] text-white font-semibold px-2 py-0.5 text-xs">
+                            <Badge variant="default" className="bg-primary text-primary-foreground font-semibold px-2 py-0.5 text-xs">
                                 {product.category}
                             </Badge>
                         )}
                         {product.category === 'Gado de Leite' && (
-                            <Badge variant="default" className="bg-[#4169E1] text-white font-semibold px-2 py-0.5 text-xs">
+                            <Badge variant="default" className="bg-primary text-primary-foreground font-semibold px-2 py-0.5 text-xs">
                                 {product.category}
                             </Badge>
                         )}
                         {(product.category === 'Sêmen' || product.category.includes('Sêmen')) && (
-                            <Badge variant="secondary" className="px-2 py-0.5 text-xs">
+                            <Badge variant="default" className="bg-primary text-primary-foreground font-semibold px-2 py-0.5 text-xs">
                                 {product.category}
                             </Badge>
                         )}
                         {product.category === 'Cavalos' && (
-                            <Badge variant="secondary" className="px-2 py-0.5 text-xs">
+                            <Badge variant="default" className="bg-primary text-primary-foreground font-semibold px-2 py-0.5 text-xs">
                                 {product.category}
                             </Badge>
                         )}
                         {product.stockStatus && (
-                            <Badge variant="default" className="bg-[#3D9970] text-white font-semibold px-2 py-0.5 text-xs">
+                            <Badge variant="default" className="bg-primary text-primary-foreground font-semibold px-2 py-0.5 text-xs">
                                 {product.stockStatus}
                             </Badge>
                         )}
