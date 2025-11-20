@@ -605,7 +605,7 @@ export default function AnimalPage({ params }: { params: Promise<{ id: string }>
               </h2>
               <div className="bg-gray-50 rounded-lg h-48 sm:h-56 lg:h-64 flex items-center justify-center border border-gray-200 overflow-hidden">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3821.463897116858!2d-49.2559709851323!3d-16.67930898848463!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935ef6bd5be4c9c3%3A0x24285d359b34b54a!2sFazenda%20Boa%20Vista!5e0!3m2!1spt-BR!2sbr!4v1678886400000"
+                  src={`https://maps.google.com/maps?q=${animal.city},${animal.location}&t=m&z=10&output=embed&iwloc=near&zoomcontrol=true`}
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
