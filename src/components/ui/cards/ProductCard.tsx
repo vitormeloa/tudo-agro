@@ -86,6 +86,11 @@ export default function ProductCard({
         return price.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
     }
 
+    const formatInstallmentPrice = (price: number, installments: number) => {
+        const installmentValue = price / installments;
+        return installmentValue.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    };
+
     return (
         <Card className={cn(baseClasses, variantClasses[variant], className)}>
             <div className="relative">
@@ -192,6 +197,11 @@ export default function ProductCard({
                                 <span className="text-sm font-normal text-gray-600"> por dose</span>
                             )}
                         </div>
+                        {product.type !== 'animal' && product.price > 0 && ( // Only show for non-animal products and if price > 0
+                          <div className="text-sm text-gray-500 mt-1">
+                            ou em 3x de <span className="font-semibold">R$ {formatInstallmentPrice(product.price, 3)}</span>
+                          </div>
+                        )}
                     </div>
 
                     <div className="text-sm text-gray-600 mb-4">
