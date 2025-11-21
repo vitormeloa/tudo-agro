@@ -302,21 +302,21 @@ const Dashboard = () => {
               <div className="grid gap-4 md:grid-cols-2">
                 <div className="rounded-lg border p-4 hover:border-secondary shadow-md hover:shadow-lg transition-shadow duration-300">
 
-                  <h3 className="mb-2 font-semibold text-sm md:text-base">Como avaliar um touro de corte</h3>
+                  <h3 className="mb-2 font-semibold text-sm md:text-base">Reprodução e genética animal</h3>
                   <p className="mb-4 text-xs md:text-sm text-muted-foreground">
-                    Aprenda técnicas profissionais de avaliação
+                    Aprenda os fundamentos da reprodução e melhoramento genético animal
                   </p>
-                  <Button variant="outline" size="sm" className="w-full md:w-auto">
+                  <Button variant="outline" size="sm" className="w-full md:w-auto" onClick={() => router.push('/dashboard/treinamentos')}>
                     Assistir Agora
                   </Button>
                 </div>
                 <div className="rounded-lg border p-4 hover:border-secondary shadow-md hover:shadow-lg transition-shadow duration-300">
-                  
-                  <h3 className="mb-2 font-semibold text-sm md:text-base">Manejo sustentável de pastagens</h3>
+
+                  <h3 className="mb-2 font-semibold text-sm md:text-base">Como avaliar e comprar cavalos e gado com segurança</h3>
                   <p className="mb-4 text-xs md:text-sm text-muted-foreground">
-                    Técnicas modernas para produtividade
+                    Técnicas profissionais de avaliação de animais para compras seguras
                   </p>
-                  <Button variant="outline" size="sm" className="w-full md:w-auto">
+                  <Button variant="outline" size="sm" className="w-full md:w-auto" onClick={() => router.push('/dashboard/treinamentos')}>
                     Assistir Agora
                   </Button>
                 </div>
