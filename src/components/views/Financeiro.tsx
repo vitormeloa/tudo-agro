@@ -423,7 +423,7 @@ const Financeiro = () => {
               </div>
             </div>
             <div className="flex gap-3">
-                <Button variant="outline">
+                <Button variant="outline" onClick={() => window.open('https://wa.me/5531971880969?text=Ol%C3%A1%2C%20sou%20usu%C3%A1rio%20e%20preciso%20de%20suporte!%20', '_blank')}>
                     Fale com Suporte
                 </Button>
                 <Button variant="outline">
