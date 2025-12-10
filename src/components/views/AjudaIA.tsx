@@ -221,14 +221,14 @@ const AjudaIA = () => {
       title: "Áudio gravado!",
       description: "Processando sua mensagem...",
     });
-    
+
     const audioMessage: Message = {
       id: Date.now(),
       sender: "user",
       text: "[Áudio gravado]",
       time: "Agora",
     };
-    
+
     setMessages((prev) => [...prev, audioMessage]);
     sendToAI(audioMessage);
   };
@@ -267,7 +267,7 @@ const AjudaIA = () => {
       <div className="relative">
         {}
         <div className="absolute inset-0 bg-gradient-to-r from-[#2A5C2E]/5 via-[#4CAF50]/5 to-[#2A5C2E]/5 rounded-2xl blur-xl animate-pulse" />
-        
+
         <Card className="relative border-2 border-[#2A5C2E]/20 bg-gradient-to-br from-background to-[#2A5C2E]/5 shadow-lg overflow-hidden">
           {}
           <div className="absolute inset-0 opacity-5">
@@ -284,7 +284,7 @@ const AjudaIA = () => {
                 <div className="absolute inset-0 rounded-full border-2 border-[#2A5C2E]/30 animate-ping" />
                 <div className="absolute inset-0 rounded-full border-2 border-[#4CAF50]/20 animate-pulse" style={{ animationDelay: "0.5s" }} />
               </div>
-              
+
               <div className="flex-1">
                 <div className="flex items-center gap-3">
                   <h1 className="text-2xl lg:text-3xl font-bold bg-gradient-to-r from-[#2A5C2E] to-[#4CAF50] bg-clip-text text-transparent">
@@ -320,7 +320,7 @@ const AjudaIA = () => {
           {}
           <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-[#4CAF50]/10 to-transparent rounded-bl-full" />
           <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-[#2A5C2E]/10 to-transparent rounded-tr-full" />
-          
+
           {}
           <div className="flex-1 overflow-y-auto p-4 lg:p-6 space-y-4 relative z-10">
             {}
@@ -346,7 +346,7 @@ const AjudaIA = () => {
                 className={`flex gap-3 ${msg.sender === "user" ? "justify-end" : "justify-start"} animate-fade-in`}
               >
                 {msg.sender === "ai" && <AgroIAAvatar size="md" />}
-                
+
                 <div className={`max-w-[85%] lg:max-w-[80%] ${msg.sender === "user" ? "order-first" : ""}`}>
                   <div
                     className={`rounded-2xl p-3 lg:p-4 shadow-sm ${
@@ -365,7 +365,7 @@ const AjudaIA = () => {
                       </div>
                     )}
                     <p className="text-sm lg:text-base whitespace-pre-wrap">{msg.text}</p>
-                    
+
                     {msg.hasAction && msg.actionLink && (
                       <Button
                         variant="outline"
@@ -377,10 +377,10 @@ const AjudaIA = () => {
                       </Button>
                     )}
                   </div>
-                  
+
                   <div className={`flex items-center gap-2 mt-1 ${msg.sender === "user" ? "justify-end" : "justify-start"}`}>
                     <span className="text-xs text-muted-foreground">{msg.time}</span>
-                    
+
                     {msg.sender === "ai" && (
                       <div className="flex gap-1">
                         <Button
@@ -441,11 +441,11 @@ const AjudaIA = () => {
                 </Button>
               </div>
             )}
-            
+
             <div className="flex gap-2">
               <MediaUpload onFileSelect={handleFileSelect} />
               <AudioRecorder onRecordingComplete={handleAudioRecording} />
-              
+
               <Input
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
@@ -466,7 +466,7 @@ const AjudaIA = () => {
                 <Send className="h-4 w-4" />
               </Button>
             </div>
-            
+
             {messages.length >= 3 && (
               <Button
                 variant="ghost"
@@ -487,10 +487,10 @@ const AjudaIA = () => {
             <Sparkles className="h-5 w-5 text-primary" />
             Perguntas Rápidas
           </h2>
-          
+
           <Accordion type="single" collapsible className="space-y-3">
             {quickQuestions.map((category, idx) => (
-              <AccordionItem key={idx} value={`item-${idx}`} className="border rounded-lg">
+              <AccordionItem key={idx} value={`item-${idx}`} className="border rounded-lg !border-b">
                 <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-accent/50 rounded-lg transition-colors">
                   <div className="flex items-center gap-2 text-sm lg:text-base">
                     <category.icon className="h-4 w-4 lg:h-5 lg:w-5 text-primary" />
