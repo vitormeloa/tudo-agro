@@ -60,7 +60,7 @@ const DashboardLayout = ({
 
   const sendToAI = async (userMessage: Message) => {
     setIsTyping(true);
-    
+
     try {
       const conversationHistory = messages.map(msg => ({
         role: msg.sender === "user" ? "user" : "assistant",
@@ -73,7 +73,7 @@ const DashboardLayout = ({
       });
 
       const { data, error } = await supabase.functions.invoke('agroia-chat', {
-        body: { 
+        body: {
           messages: conversationHistory,
           includeActions: false
         }
@@ -110,8 +110,8 @@ const DashboardLayout = ({
       text: aiMessage,
       time: "Agora",
       mediaUrl: attachedFile ? URL.createObjectURL(attachedFile) : undefined,
-      mediaType: attachedFile?.type.startsWith("image/") ? "image" : 
-                 attachedFile?.type.startsWith("video/") ? "video" : 
+      mediaType: attachedFile?.type.startsWith("image/") ? "image" :
+                 attachedFile?.type.startsWith("video/") ? "video" :
                  attachedFile?.type.startsWith("audio/") ? "audio" : undefined,
     };
 
@@ -396,11 +396,11 @@ const DashboardLayout = ({
             {}
             {!isAdmin() && !isSeller() && (
               <div className="hidden lg:flex items-center">
-                <Link href="/dashboard/favoritos">
+                {/* <Link href="/dashboard/favoritos">
                   <Button variant="ghost" size="icon" className="relative hover:bg-accent text-gray-600 hover:text-red-500 transition-colors">
                     <Heart className="h-5 w-5" />
                   </Button>
-                </Link>
+                </Link> */}
                 <Link href="/carrinho">
                   <Button variant="ghost" size="icon" className="relative hover:bg-accent">
                     <ShoppingCart className="h-5 w-5" />
@@ -414,10 +414,10 @@ const DashboardLayout = ({
               </div>
             )}
 
-            {}
+            {/* {}
             <Button variant="ghost" size="icon" onClick={() => setIsAIChatOpen(true)} className="relative hover:bg-accent">
               <Bot className="h-5 w-5" />
-            </Button>
+            </Button> */}
 
             {}
             <Button variant="ghost" size="icon" onClick={() => setIsHelpOpen(true)} className="hover:bg-accent">
@@ -592,7 +592,7 @@ const DashboardLayout = ({
               }}>
                 Marcar tudo como lido
               </Button>
-              
+
             </div>
           </div>
         </SheetContent>
@@ -665,7 +665,7 @@ const DashboardLayout = ({
                   className={`flex gap-3 ${msg.sender === "user" ? "justify-end" : "justify-start"} animate-fade-in`}
                 >
                   {msg.sender === "ai" && <AgroIAAvatar size="md" />}
-                  
+
                   <div className={`max-w-[85%] ${msg.sender === "user" ? "order-first" : ""}`}>
                     <div
                       className={`rounded-2xl p-3 shadow-sm ${
@@ -689,7 +689,7 @@ const DashboardLayout = ({
                       )}
                       <p className="text-sm whitespace-pre-wrap">{msg.text}</p>
                     </div>
-                    
+
                     <span className={`text-xs text-muted-foreground mt-1 block ${msg.sender === "user" ? "text-right" : "ml-2"}`}>
                       {msg.time}
                     </span>
