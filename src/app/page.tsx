@@ -46,6 +46,14 @@ export default function HomePage() {
   const [isMounted, setIsMounted] = useState(false)
   const { toast } = useToast()
 
+  const formatCurrency = (value: number) => {
+    return value.toLocaleString('pt-BR')
+  }
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search)
     const message = urlParams.get('message')
@@ -62,10 +70,10 @@ export default function HomePage() {
     const checkIsMobile = () => {
       setIsMobile(window.innerWidth < 640)
     }
-    
+
     checkIsMobile()
     window.addEventListener('resize', checkIsMobile)
-    
+
     return () => window.removeEventListener('resize', checkIsMobile)
   }, [])
 
@@ -178,7 +186,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-primary/5/30">
       <Header variant="transparent" />
-      
+
       {}
         <section className="relative h-screen overflow-hidden">
         {}
@@ -288,7 +296,7 @@ export default function HomePage() {
         {}
         <div className="absolute inset-0 bg-gradient-to-r from-primary/50/5 via-transparent to-primary/50/5"></div>
         <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-primary to-transparent rounded-full"></div>
-        
+
         <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
@@ -309,7 +317,7 @@ export default function HomePage() {
         {}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/20 via-transparent to-transparent"></div>
         <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-primary to-transparent rounded-full"></div>
-        
+
         <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-900 via-emerald-800 to-gray-900 bg-clip-text text-transparent mb-6">
@@ -346,7 +354,7 @@ export default function HomePage() {
         {}
         <div className="absolute inset-0 bg-gradient-to-r from-red-500/5 via-transparent to-primary/50/5"></div>
         <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-red-400 to-transparent rounded-full"></div>
-        
+
         <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-900 via-red-600 to-gray-900 bg-clip-text text-transparent mb-6">
@@ -378,10 +386,10 @@ export default function HomePage() {
                       <span className="text-gray-600">Lance atual:</span>
                       <div className="text-right">
                         <div className="font-bold text-primary text-xl">
-                          R$ {auction.currentBid.toLocaleString()}
+                          R$ {isMounted ? formatCurrency(auction.currentBid) : '--'}
                         </div>
                         <div className="text-xs text-gray-500">
-                          (inicial: R$ {auction.startingBid.toLocaleString()})
+                          (inicial: R$ {isMounted ? formatCurrency(auction.startingBid) : '--'})
                         </div>
                       </div>
                     </div>
@@ -442,7 +450,7 @@ export default function HomePage() {
         {}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/20 via-transparent to-transparent"></div>
         <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-primary to-transparent rounded-full"></div>
-        
+
         <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent mb-6">
@@ -479,7 +487,7 @@ export default function HomePage() {
         {}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent"></div>
         <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-primary to-transparent rounded-full"></div>
-        
+
         <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-900 via-emerald-700 to-gray-900 bg-clip-text text-transparent mb-6 leading-tight">
@@ -512,7 +520,7 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-r from-primary/50/20 via-transparent to-primary/50/20"></div>
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-white/10 via-transparent to-transparent"></div>
         <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-white/50 to-transparent rounded-full"></div>
-        
+
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
             Pronto para começar?
@@ -538,7 +546,7 @@ export default function HomePage() {
       </section>
 
       {}
-      
+
       <Footer />
     </div>
   )
