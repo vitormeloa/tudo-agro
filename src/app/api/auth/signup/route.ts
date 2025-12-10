@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { supabase } from '@/lib/supabase'
+import { supabaseAdmin } from '@/lib/supabase-admin'
 import { z } from 'zod'
 
 const signupSchema = z.object({
@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     const validatedData = signupSchema.parse(body)
 
-    const { data: authData, error: authError } = await supabase.auth.signUp({
+    const { data: authData, error: authError } = await supabaseAdmin.auth.signUp({
       email: validatedData.email,
       password: validatedData.password,
       options: {
@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const { error: profileError } = await supabase
+    const { error: profileError } = await supabaseAdmin
       .from('users')
       .insert({
         id: authData.user.id,
@@ -63,7 +63,7 @@ export async function POST(request: NextRequest) {
     }
 
     if (validatedData.roles.length > 0) {
-      const { data: roles } = await supabase
+      const { data: roles } = await supabaseAdmin
         .from('roles')
         .select('id')
         .in('name', validatedData.roles)
@@ -74,7 +74,7 @@ export async function POST(request: NextRequest) {
           role_id: role.id
         }))
 
-        await supabase
+        await supabaseAdmin
           .from('user_roles')
           .insert(userRoles)
       }

@@ -79,7 +79,14 @@ export default function Favoritos() {
       if (!matchesSearch) return false
     }
 
-    if (activeTab !== 'all' && item.type !== activeTab) return false
+    if (activeTab !== 'all') {
+      const tabTypeMap: Record<string, string> = {
+        'produtos': 'product',
+        'animais': 'animal'
+      }
+      const expectedType = tabTypeMap[activeTab]
+      if (item.type !== expectedType) return false
+    }
 
     if (priceRange !== "all") {
       const price = item.price || 0;
